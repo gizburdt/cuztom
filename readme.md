@@ -2,9 +2,9 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies and Meta Boxes within your Wordpress projects. Inspired by <a href="https://github.com/JeffreyWay/Easy-WordPress-Custom-Post-Types">Jeffrey Way</a> and <a href="https://github.com/jaredatch/Custom-Metaboxes-and-Fields-for-WordPress">Jaredatch</a>.
 
-* **Version:** 0.2
-* **Requires:** 3.0+
-* **Tested up to:** 3.3
+**Version:** 0.2  
+**Requires:** 3.0+  
+**Tested up to:** 3.3  
 
 ## Requirements
 
