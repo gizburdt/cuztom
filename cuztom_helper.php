@@ -1,0 +1,622 @@
+<?php
+
+// Init
+ob_start();
+$cuztom = new Cuztom();
+
+/**
+ * General class with main methods and helper methods
+ *
+ * @author Gijs Jorissen
+ * @since 0.2
+ *
+ */
+class Cuztom
+{
+	/**
+	 * Beautifies a string. Capitalize words and remove underscores
+	 *
+	 * @param string $string
+	 * @return string
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.1
+	 *
+	 */
+	public static function beautify( $string )
+	{
+		return ucwords( str_replace( '_', ' ', $string ) );
+	}
+	
+	
+	/**
+	 * Uglifies a string. Remove underscores and lower strings
+	 *
+	 * @param string $string
+	 * @return string
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.1
+	 *
+	 */
+	public static function uglify( $string )
+	{
+		return strtolower( str_replace( ' ', '_', $string ) );
+	}
+	
+	
+	/**
+	 * Makes a word plural
+	 *
+	 * @param string $string
+	 * @return string
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.1
+	 *
+	 */
+	public static function pluralize( $string )
+	{
+		$last = $string[strlen( $string ) - 1];
+		
+		if( $last == 'y' )
+		{
+			$cut = substr( $string, 0, -1 );
+			//convert y to ies
+			$plural = $cut . 'ies';
+		}
+		else
+		{
+			// just attach a s
+			$plural = $string . 's';
+		}
+		
+		return $plural;
+	}	
+}
+
+
+/**
+ * Post Type class used to register post types
+ * Can call add_taxonomy and add_meta_box to call the associated classes
+ * Method chaining is possible
+ *
+ * @author Gijs jorissen
+ * @since 0.1
+ *
+ */
+class Cuztom_Post_Type
+{
+	public $post_type_name;
+	public $post_type_args;
+	public $post_type_labels;
+	
+	
+	/**
+	 * Construct a new Custom Post Type
+	 *
+	 * @param string $name
+	 * @param array $args
+	 * @param array $labels
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.1
+	 *
+	 */
+	public function __construct( $name, $args = array(), $labels = array() )
+	{
+		if( ! empty( $name ) )
+		{
+			// Set some important variables
+			$this->post_type_name		= Cuztom::uglify( $name );
+			$this->post_type_args 		= $args;
+			$this->post_type_labels 	= $labels;
+
+			// Add action to register the post type, if the post type doesnt exist
+			if( ! post_type_exists( $this->post_type_name ) )
+			{
+				add_action( 'init', array( &$this, 'register_post_type' ) );
+			}
+		}
+	}
+	
+	
+	/**
+	 * Register the Post Type
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.1
+	 *
+	 */
+	public function register_post_type()
+	{		
+		// Capitilize the words and make it plural
+		$name 		= Cuztom::beautify( $this->post_type_name );
+		$plural 	= Cuztom::pluralize( $name );
+
+		// We set the default labels based on the post type name and plural. 
+		// We overwrite them with the given labels.
+		$labels = array_merge(
+
+			// Default
+			array(
+				'name' 					=> _x( $plural, 'post type general name' ),
+				'singular_name' 		=> _x( $name, 'post type singular name' ),
+				'add_new' 				=> _x( 'Add New', strtolower( $name ) ),
+				'add_new_item' 			=> __( 'Add New ' . $name ),
+				'edit_item' 			=> __( 'Edit ' . $name ),
+				'new_item' 				=> __( 'New ' . $name ),
+				'all_items' 			=> __( 'All ' . $plural ),
+				'view_item' 			=> __( 'View ' . $name ),
+				'search_items' 			=> __( 'Search ' . $plural ),
+				'not_found' 			=> __( 'No ' . strtolower( $plural ) . ' found'),
+				'not_found_in_trash' 	=> __( 'No ' . strtolower( $plural ) . ' found in Trash'), 
+				'parent_item_colon' 	=> '',
+				'menu_name' 			=> $plural
+			),
+
+			// Given labels
+			$this->post_type_labels
+
+		);
+
+		// Same principle as the labels. We set some default and overwite them with the given arguments.
+		$args = array_merge(
+
+			// Default
+			array(
+				'label' 				=> $plural,
+				'labels' 				=> $labels,
+				'public' 				=> true,
+				'show_ui' 				=> true,
+				'supports' 				=> array( 'title', 'editor' ),
+				'show_in_nav_menus' 	=> true,
+				'_builtin' 				=> false,
+			),
+
+			// Given args
+			$this->post_type_args
+
+		);
+
+		// Register the post type
+		register_post_type( $this->post_type_name, $args );
+	}
+	
+	
+	/**
+	 * Add a taxonomy to the Post Type
+	 *
+	 * @param string $name
+	 * @param array $args
+	 * @param array $labels
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.1
+	 *
+	 */
+	public function add_taxonomy( $name, $args = array(), $labels = array() )
+	{
+		// Call Cuztom_Taxonomy with this post type name as second parameter
+		$taxonomy = new Cuztom_Taxonomy( $name, $this->post_type_name, $args, $labels );
+		
+		// For method chaining
+		return $this;
+	}
+	
+	
+	/**
+	 * Add post meta box to the Post Type
+	 *
+	 * @param string $title
+	 * @param array $fields
+	 * @param string $context
+	 * @param string $priority
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.1
+	 *
+	 */
+	public function add_meta_box( $title, $fields = array(), $context = 'normal', $priority = 'default' )
+	{
+		$meta_box = new Cuztom_Meta_Box( $title, $fields, $this->post_type_name, $context, $priority );
+		
+		// For method chaining
+		return $this;
+	}	
+}
+
+
+/**
+ * Creates custom taxonomies
+ *
+ *
+ * @author Gijs Jorissen
+ * @since 0.2
+ *
+ */
+class Cuztom_Taxonomy
+{
+	var $taxonomy_name;
+	var $taxonomy_labels;
+	var $taxonomy_args;
+	var $post_type_name;
+	
+	
+	/**
+	 * Constructs the class with important vars and method calls
+	 * If the taxonomy exists, it will be attached to the post type
+	 *
+	 * @param string $name
+	 * @param string $post_type_name
+	 * @param array $args
+	 * @param array $labels
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.2
+	 *
+	 */
+	public function __construct( $name, $post_type_name = null, $args = array(), $labels = array() )
+	{
+		if( ! empty( $name ) )
+		{
+			$this->post_type_name = $post_type_name;
+			
+			// Taxonomy properties
+			$this->taxonomy_name		= Cuztom::uglify( $name );
+			$this->taxonomy_labels		= $labels;
+			$this->taxonomy_args		= $args;
+
+			if( ! taxonomy_exists( $this->taxonomy_name ) )
+			{
+				add_action( 'init', array( &$this, 'register_taxonomy' ) );
+			}
+			else
+			{
+				add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
+			}
+		}
+	}
+	
+	
+	/**
+	 * Registers the custom taxonomy with the given arguments
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.2
+	 *
+	 */
+	public function register_taxonomy()
+	{
+		$name 		= Cuztom::beautify( $this->taxonomy_name );
+		$plural 	= Cuztom::pluralize( $name );
+
+		// Default labels, overwrite them with the given labels.
+		$labels = array_merge(
+
+			// Default
+			array(
+				'name' 					=> _x( $plural, 'taxonomy general name' ),
+				'singular_name' 		=> _x( $name, 'taxonomy singular name' ),
+			    'search_items' 			=> __( 'Search ' . $plural ),
+			    'all_items' 			=> __( 'All ' . $plural ),
+			    'parent_item' 			=> __( 'Parent ' . $name ),
+			    'parent_item_colon' 	=> __( 'Parent ' . $name . ':' ),
+			    'edit_item' 			=> __( 'Edit ' . $name ), 
+			    'update_item' 			=> __( 'Update ' . $name ),
+			    'add_new_item' 			=> __( 'Add New ' . $name ),
+			    'new_item_name' 		=> __( 'New ' . $name . ' Name' ),
+			    'menu_name' 			=> __( $name ),
+			),
+
+			// Given labels
+			$this->taxonomy_labels
+
+		);
+
+		// Default arguments, overwitten with the given arguments
+		$args = array_merge(
+
+			// Default
+			array(
+				'label'					=> $plural,
+				'labels'				=> $labels,
+				"hierarchical" 			=> true,
+				'public' 				=> true,
+				'show_ui' 				=> true,
+				'show_in_nav_menus' 	=> true,
+				'_builtin' 				=> false,
+			),
+
+			// Given
+			$this->taxonomy_args
+
+		);
+		
+		register_taxonomy( $this->taxonomy_name, $this->post_type_name, $args );
+	}
+	
+	
+	/**
+	 * Used to attach the existing taxonomy to the post type
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.2
+	 *
+	 */
+	public function register_taxonomy_for_object_type()
+	{
+		register_taxonomy_for_object_type( $tihs->taxonomy_name, $this->post_type_name );
+	}	
+}
+
+
+/**
+ * Registers the meta boxes
+ *
+ * @author Gijs Jorissen
+ * @since 0.2
+ *
+ */
+class Cuztom_Meta_Box
+{
+	var $box_id;
+	var $box_title;
+	var $box_context;
+	var $box_priority;
+	var $post_type_name;
+	var $meta_fields;
+	
+	
+	/**
+	 * Constructs the meta box
+	 *
+	 * @param string $title
+	 * @param array $fields
+	 * @param string $post_type_name
+	 * @param string $context
+	 * @param string $priority
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.2
+	 *
+	 */
+	function __construct( $title, $fields = array(), $post_type_name = null, $context = 'normal', $priority = 'default' )
+	{
+		if( ! empty( $title ) )
+		{
+			$this->post_type_name 	= $post_type_name;
+
+			// Meta variables	
+			$this->box_id 			= Cuztom::uglify( $title );
+			$this->box_title 		= Cuztom::beautify( $title );
+			$this->box_context		= $context;
+			$this->box_priority		= $priority;
+
+			$this->meta_fields 	= $fields;
+
+			add_action( 'admin_init', array( $this, 'add_meta_box' ) );
+		}
+		
+		// Add multipart for files
+		add_action( 'post_edit_form_tag', array( $this, 'post_edit_form_tag' ) );
+		
+		// Listen for the save post hook
+		add_action( 'save_post', array( $this, 'save_post' ) );		
+	}
+	
+	
+	/**
+	 * Method that calls the add_meta_box function
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.2
+	 *
+	 */
+	public function add_meta_box()
+	{
+		//global $meta_fields;
+						
+		add_meta_box(
+			$this->box_id,
+			$this->box_title,
+			array( $this, 'callback' ),
+			$this->post_type_name,
+			$this->box_context,
+			$this->box_priority
+			//array( $meta_fields )
+		);
+	}
+	
+	
+	/**
+	 * Main callback function of add_meta_box
+	 *
+	 * @param object $post
+	 * @param object $data
+	 * @return mixed
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.2
+	 *
+	 */
+	public function callback( $post, $data )
+	{
+		// Nonce field for validation
+		wp_nonce_field( plugin_basename( __FILE__ ), 'cuztom_nonce' );
+
+		// Get all inputs from $data
+		$meta_fields = $this->meta_fields;		
+
+		// Check the array and loop through it
+		if( ! empty( $meta_fields ) )
+		{
+			
+			echo '<table border="0" cellading="0" cellspacing="0">';
+						
+				/* Loop through $meta_fields */
+				foreach( $meta_fields as $field )
+				{
+					$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );
+					$meta = get_post_meta( $post->ID, $field_id_name );
+					
+					echo '<tr>';
+						echo '<td>';
+							echo '<label for="' . $field_id_name . '">' . $field['label'] . '</label>';
+							echo '<p><em><small>' . $field['description'] . '</small></em><p>';
+						echo '</td>';
+						echo '<td>';
+						
+							$this->output_field( $field_id_name, $field, $meta );
+							
+						echo '</td>';
+					echo '</tr>';
+				}
+				
+			echo '</table>';
+		}
+	}
+	
+	
+	/**
+	 * Outputs a field based on its type
+	 *
+	 * @param string $field_id_name
+	 * @param array $type
+	 * @param array $meta
+	 * @return mixed
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.2
+	 *
+	 */
+	function output_field( $field_id_name, $field, $meta )
+	{
+		switch( $field['type'] ) :
+			
+			case 'text' :
+				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" value="' . $meta[0] . '" />';
+			break;
+			
+			case 'textarea' :
+				echo '<textarea name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">' . $meta[0] . '</textarea>';
+			break;
+			
+			case 'checkbox' :
+				echo '<input type="checkbox" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" ' . checked( $meta[0], 'on', false ) . ' />';
+			break;
+			
+			case 'yesno' :
+				echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_yes" value="yes" ' . checked( $meta[0], 'yes', false ) . ' />';
+				echo '<label for="' . $field_id_name . '_yes">' . __('Yes') . '</label>';
+				
+				echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_no" value="no" ' . checked( $meta[0], 'no', false ) . ' />';
+				echo '<label for="' . $field_id_name . '_no">' . __('No') . '</label>';
+			break;
+			
+			case 'select' :
+				echo '<select name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">';
+					foreach( $field['options'] as $slug => $name )
+					{
+						echo '<option value="' . Cuztom::uglify( $slug ) . '" ' . selected( Cuztom::uglify( $slug ), $meta[0], false ) . '>' . Cuztom::beautify( $name ) . '</option>';
+					}
+				echo '</select>';
+			break;
+			
+			case 'checkboxes' :
+				foreach( $field['options'] as $slug => $name )
+				{
+					echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( in_array( Cuztom::uglify( $slug ), maybe_unserialize( $meta[0] ) ) ? 'checked="checked"' : '' ) . ' /><label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
+				}
+			break;
+			
+			case 'radio' :
+				foreach( $field['options'] as $slug => $name )
+				{
+					echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . checked( Cuztom::uglify( $slug ), $meta[0], false ) . ' /><label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
+				}
+			break;
+			
+			case 'wysiwyg' :
+				echo '<textarea name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">' . $meta[0] . '</textarea>';
+			break;
+			
+			case 'image' :
+				echo '<input type="file" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '"  />';
+				
+				if( ! empty( $meta[0] ) ) echo '<img src="' . $meta[0] . '" />';
+			break;
+			
+		endswitch;
+	}
+	
+	
+	/**
+	 * Hooks into the save hook for the newly registered Post Type
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.1
+	 *
+	 */
+	public function save_post()
+	{		
+		// Deny the wordpress autosave function
+		if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
+
+		if( $_POST && ! wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) return;
+		if( ! isset( $_POST ) ) return;
+		
+		global $post;
+		if( ! isset( $post->ID ) && get_post_type( $post->ID ) !== $this->post_type_name ) return;
+		
+		// Loop through each meta box
+		if( ! empty( $this->meta_fields ) )
+		{
+			foreach( $this->meta_fields as $field )
+			{
+				$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );
+							
+				if( $field['type'] == 'image' )
+				{					
+					if( isset( $_FILES ) && ! empty( $_FILES['cuztom']['tmp_name'][$field_id_name] ) )
+					{
+						$upload = wp_upload_bits( 
+							$_FILES['cuztom']['name'][$field_id_name], 
+							null, 
+							file_get_contents( $_FILES['cuztom']['tmp_name'][$field_id_name] ) 
+						);
+						
+						if( isset( $upload['error'] ) && $upload['error'] != 0 ) 
+						{  
+			                wp_die('There was an error uploading your file: ' . $upload['error']);  
+			            } else {  
+			                update_post_meta( $post->ID, $field_id_name, $upload['url']);
+			            }
+					}
+				}
+				else
+				{
+					$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );				
+					update_post_meta( $post->ID, $field_id_name, $_POST['cuztom'][$field_id_name] );
+				}
+			}			
+		}		
+	}
+	
+	
+	/**
+	 * Adds multipart support to the post form
+	 *
+	 * @return mixed
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.2
+	 *
+	 */
+	function post_edit_form_tag()
+	{
+		echo ' enctype="multipart/form-data"';
+	}
+}
+
+?>
