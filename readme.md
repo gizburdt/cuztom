@@ -76,11 +76,11 @@ Meta Boxes can be added with their own class too.
 ## Changelog
 
 ### 0.2.2
-* Cuztom::uglify now converts all strang characters to underscores
+* Cuztom::uglify now converts all strange characters to underscores
 
 ### 0.2.1
 * WYSIWYG editor is now enabled
-* Todo: Cuztom::uglify needs to convert all strang characters to underscores
+* Todo: Cuztom::uglify needs to convert all strange characters to underscores
 
 ### 0.2
 * Seperated classes for Post Type, Taxonomy and Meta Box
