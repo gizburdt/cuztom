@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies and Meta Boxes within your Wordpress projects. Inspired by <a href="https://github.com/JeffreyWay/Easy-WordPress-Custom-Post-Types">Jeffrey Way</a> and <a href="https://github.com/jaredatch/Custom-Metaboxes-and-Fields-for-WordPress">Jaredatch</a>.
 
-**Version:** 0.2  
+**Version:** 0.2.1  
 **Requires:** 3.0+  
 **Tested up to:** 3.3  
 
@@ -97,9 +97,12 @@ Meta Boxes can be added with their own class too.
 	
 ## Todo
 * Todo: Cuztom::uglify needs to convert all strang characters to underscores
-* Todo: WYSIWYG is still a normal textarea, but needs to be converted to a WYSIWYG editor
 
 ## Changelog
+
+### 0.2.1
+* WYSIWYG editor is now enabled
+* Todo: Cuztom::uglify needs to convert all strang characters to underscores
 
 ### 0.2
 * Seperated classes for Post Type, Taxonomy and Meta Box

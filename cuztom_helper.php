@@ -4,6 +4,7 @@
 ob_start();
 $cuztom = new Cuztom();
 
+
 /**
  * General class with main methods and helper methods
  *
@@ -414,9 +415,7 @@ class Cuztom_Meta_Box
 	 *
 	 */
 	public function add_meta_box()
-	{
-		//global $meta_fields;
-						
+	{						
 		add_meta_box(
 			$this->box_id,
 			$this->box_title,
@@ -424,7 +423,6 @@ class Cuztom_Meta_Box
 			$this->post_type_name,
 			$this->box_context,
 			$this->box_priority
-			//array( $meta_fields )
 		);
 	}
 	
@@ -452,7 +450,7 @@ class Cuztom_Meta_Box
 		if( ! empty( $meta_fields ) )
 		{
 			
-			echo '<table border="0" cellading="0" cellspacing="0">';
+			echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_helper cuztom_table cuztom_helper_table">';
 						
 				/* Loop through $meta_fields */
 				foreach( $meta_fields as $field )
@@ -461,11 +459,11 @@ class Cuztom_Meta_Box
 					$meta = get_post_meta( $post->ID, $field_id_name );
 					
 					echo '<tr>';
-						echo '<td>';
-							echo '<label for="' . $field_id_name . '">' . $field['label'] . '</label>';
-							echo '<p><em><small>' . $field['description'] . '</small></em><p>';
+						echo '<td class="cuztom_th">';
+							echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
+							echo '<div class="cuztom_description">' . $field['description'] . '</div>';
 						echo '</td>';
-						echo '<td>';
+						echo '<td class="cuztom_td">';
 						
 							$this->output_field( $field_id_name, $field, $meta );
 							
@@ -538,7 +536,18 @@ class Cuztom_Meta_Box
 			break;
 			
 			case 'wysiwyg' :
-				echo '<textarea name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">' . $meta[0] . '</textarea>';
+				wp_editor( $meta[0], $field_id_name, array_merge( 
+					
+					// Default
+					array(
+						'textarea_name' => 'cuztom[' . $field_id_name . ']',
+						'media_buttons' => false
+					),
+					
+					// Given
+					isset( $field['options'] ) ? $field['options'] : array()
+				
+				) );
 			break;
 			
 			case 'image' :
