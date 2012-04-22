@@ -42,7 +42,7 @@ class Cuztom
 	 */
 	public static function uglify( $string )
 	{
-		return strtolower( str_replace( ' ', '_', $string ) );
+		return strtolower( preg_replace( '/[^A-z0-9]/', '_', $string ) );
 	}
 	
 	
@@ -387,7 +387,7 @@ class Cuztom_Meta_Box
 		if( ! empty( $title ) )
 		{
 			$this->post_type_name 	= $post_type_name;
-
+			
 			// Meta variables	
 			$this->box_id 			= Cuztom::uglify( $title );
 			$this->box_title 		= Cuztom::beautify( $title );
@@ -415,7 +415,7 @@ class Cuztom_Meta_Box
 	 *
 	 */
 	public function add_meta_box()
-	{						
+	{			
 		add_meta_box(
 			$this->box_id,
 			$this->box_title,
@@ -444,12 +444,11 @@ class Cuztom_Meta_Box
 		wp_nonce_field( plugin_basename( __FILE__ ), 'cuztom_nonce' );
 
 		// Get all inputs from $data
-		$meta_fields = $this->meta_fields;		
-
+		$meta_fields = $this->meta_fields;
+		
 		// Check the array and loop through it
 		if( ! empty( $meta_fields ) )
 		{
-			
 			echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_helper cuztom_table cuztom_helper_table">';
 						
 				/* Loop through $meta_fields */
