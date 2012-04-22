@@ -1,16 +1,12 @@
 ## Cuztom Helper
 
-This class can be used to quickly register Custom Post Types, Taxonomies and Meta Boxes within your Wordpress projects. Inspired by <a href="https://github.com/JeffreyWay/Easy-WordPress-Custom-Post-Types">Jeffrey Way</a> and <a href="https://github.com/jaredatch/Custom-Metaboxes-and-Fields-for-WordPress">Jaredatch</a>.
+This class can be used to quickly register Custom Post Types, Taxonomies and Meta Boxes within your Wordpress projects.
 
 **Version:** 0.2.1  
 **Requires:** 3.0+  
 **Tested up to:** 3.3  
 
-## Requirements
-
-This class is compatible with Wordpress 3.0+.
-
-## Usage
+## Basic usage
 
 Include the class.
 	
@@ -32,13 +28,6 @@ We can pass some arguments and labels as second and third parameter to overwrite
 To add Custom Taxonomies, simply call this method.
 
 	$book->add_taxonomy( 'Author' );
-	
-Like before, we can pass two parameters to overwrite the defaults.
-
-	$book->	add_taxonomy( 'Author', 
-	 			array( 'public' => false ),
-				array( 'plural' => 'Little Authors' )
-			)
 			
 You can also call this as a seperate class like this.
 
@@ -65,35 +54,6 @@ Add Meta Boxes.
 			)
 		)
 	);
-	
-You can pass context and priority as third and fourth parameter.
-
-	$book->add_meta_box( 
-		'Book Info', 
-		array(
-			'name' 			=> 'author',
-			'label' 		=> 'Author',
-			'description'	=> 'Just a little description',
-			'type'			=> 'text'
-		),
-		'side',
-		'high'
-	);
-	
-Meta Boxes can be added with their own class too.
-
-	$box = new Cuztom_Meta_Box(  
-		'Book Info', 
-		'post',
-		array(
-			'name' 			=> 'author',
-			'label' 		=> 'Author',
-			'description'	=> 'Just a little description',
-			'type'			=> 'text'
-		),
-		'side',
-		'high'
-	)
 	
 ## Todo
 * Todo: Cuztom::uglify needs to convert all strang characters to underscores
