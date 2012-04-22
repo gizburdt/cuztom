@@ -31,7 +31,7 @@ To add Custom Taxonomies, simply call this method.
 			
 You can also call this as a seperate class like this.
 
-	$taxonomy = new Cuztom_Taxonomy( 'Author', 'post' ) )
+	$taxonomy = new Cuztom_Taxonomy( 'Author', 'book' ) )
 
 ### Add Meta Boxes
 	
@@ -54,6 +54,21 @@ Add Meta Boxes.
 			)
 		)
 	);
+	
+Meta Boxes can be added with their own class too.
+
+	$box = new Cuztom_Meta_Box(  
+		'Book Info', 
+		'book',
+		array(
+			'name' 			=> 'author',
+			'label' 		=> 'Author',
+			'description'	=> 'Just a little description',
+			'type'			=> 'text'
+		),
+		'side',
+		'high'
+	)
 	
 ## Todo
 * Todo: Cuztom::uglify needs to convert all strang characters to underscores
