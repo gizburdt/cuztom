@@ -71,9 +71,15 @@ Meta Boxes can be added with their own class too.
 	)
 	
 ## Todo
-* More input types like datepicker and slider.
+* More input types like slider and maybe gallery.
 
 ## Changelog
+
+### 0.3
+* Added: Datepicker input type
+* Added: Cuztom::register_styles, Cuztom::enqueue_styles, Cuztom::register_scripts, Cuztom::enqueue_scripts
+* Added: Cuztom stylesheet
+* Added: Cuztom javascripts
 
 ### 0.2.2
 * Cuztom::uglify now converts all strange characters to underscores

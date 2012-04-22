@@ -1,7 +1,12 @@
 <?php
 
-// Init
 ob_start();
+
+// Define
+define( 'CUZTOM_VERSION', '0.2.2' );
+define( 'JQUERY_UI_STYLE', 'cupertino' );
+
+// Init
 $cuztom = new Cuztom();
 
 
@@ -14,6 +19,95 @@ $cuztom = new Cuztom();
  */
 class Cuztom
 {
+	
+	/**
+	 * Contructs the Cuztom class
+	 * Adds actions
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.3
+	 *
+	 */
+	function __construct()
+	{
+		add_action( 'admin_init', array( $this, 'register_styles' ) );
+		add_action( 'admin_print_styles', array( $this, 'enqueue_styles' ) );
+		
+		add_action( 'admin_init', array( $this, 'register_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+	}
+	
+	
+	/**
+	 * Registers styles
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.3
+	 *
+	 */
+	function register_styles()
+	{
+		wp_register_style( 'cuztom_css', 
+			get_template_directory_uri() . '/' . basename( dirname( __FILE__ ) ) . '/css/style.css', 
+			false, 
+			CUZTOM_VERSION, 
+			'screen'
+		);
+		
+		wp_register_style( 'jquery_ui_css', 
+			'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/' . JQUERY_UI_STYLE . '/jquery-ui.css', 
+			false, 
+			CUZTOM_VERSION, 
+			'screen'
+		);
+	}
+	
+	
+	/**
+	 * Enqueues styles
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.3
+	 *
+	 */
+	function enqueue_styles()
+	{
+		wp_enqueue_style( 'cuztom_css' );
+		wp_enqueue_style( 'jquery_ui_css' );
+	}
+	
+	
+	/**
+	 * Registers scripts
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.3
+	 *
+	 */
+	function register_scripts()
+	{
+		wp_register_script( 'cuztom_js', 
+			get_template_directory_uri() . '/' . basename( dirname( __FILE__ ) ) . '/js/functions.js', 
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' ), 
+			CUZTOM_VERSION, 
+			true 
+		);
+	}
+	
+	
+	/**
+	 * Enqueues scripts
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.3
+	 *
+	 */
+	function enqueue_scripts()
+	{
+		wp_enqueue_script( 'cuztom_js' );
+	}
+	
+	
 	/**
 	 * Beautifies a string. Capitalize words and remove underscores
 	 *
@@ -449,28 +543,30 @@ class Cuztom_Meta_Box
 		// Check the array and loop through it
 		if( ! empty( $meta_fields ) )
 		{
-			echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_helper cuztom_table cuztom_helper_table">';
+			echo '<div class="cuztom_helper">';
+				echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 						
-				/* Loop through $meta_fields */
-				foreach( $meta_fields as $field )
-				{
-					$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );
-					$meta = get_post_meta( $post->ID, $field_id_name );
+					/* Loop through $meta_fields */
+					foreach( $meta_fields as $field )
+					{
+						$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );
+						$meta = get_post_meta( $post->ID, $field_id_name );
 					
-					echo '<tr>';
-						echo '<td class="cuztom_th">';
-							echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
-							echo '<div class="cuztom_description">' . $field['description'] . '</div>';
-						echo '</td>';
-						echo '<td class="cuztom_td">';
+						echo '<tr>';
+							echo '<th class="cuztom_th th">';
+								echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
+								echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
+							echo '</th>';
+							echo '<td class="cuztom_td td">';
 						
-							$this->output_field( $field_id_name, $field, $meta );
+								$this->output_field( $field_id_name, $field, $meta );
 							
-						echo '</td>';
-					echo '</tr>';
-				}
+							echo '</td>';
+						echo '</tr>';
+					}
 				
-			echo '</table>';
+				echo '</table>';
+			echo '</div>';
 		}
 	}
 	
@@ -553,6 +649,14 @@ class Cuztom_Meta_Box
 				echo '<input type="file" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '"  />';
 				
 				if( ! empty( $meta[0] ) ) echo '<img src="' . $meta[0] . '" />';
+			break;
+			
+			case 'date' :
+				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_datepicker datepicker"  />';
+			break;
+			
+			default:
+				echo __( 'Input type not available' );
 			break;
 			
 		endswitch;
