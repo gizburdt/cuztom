@@ -70,7 +70,7 @@ Meta Boxes can be added with their own class too.
 		'high'
 	)
 	
-## Todo
+## Roadmap
 * More input types like slider and maybe gallery.
 
 ## Changelog
