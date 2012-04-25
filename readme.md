@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies and Meta Boxes within your Wordpress projects.
 
-**Version:** 0.2.2  
+**Version:** 0.3  
 **Requires:** 3.0+  
 **Tested up to:** 3.3  
 
