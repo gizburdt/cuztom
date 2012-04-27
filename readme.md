@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies and Meta Boxes within your Wordpress projects.
 
-**Version:** 0.3  
+**Version:** 0.3.1  
 **Requires:** 3.0+  
 **Tested up to:** 3.3  
 
@@ -74,6 +74,11 @@ Meta Boxes can be added with their own class too.
 * More input types like slider and maybe gallery.
 
 ## Changelog
+
+### 0.3.1
+* Fixed: Issue #2: It is possible to pass options to the WYSIWYG editor type. They will be merged with the defaults
+* Fixed: Issue #4: jQuery UI style can be defined in functions.php before including Cuztom
+* Fixed: Issue #5: Cuztom Helper Table is now full width of the meta box
 
 ### 0.3
 * Added: Datepicker input type
