@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies and Meta Boxes within your Wordpress projects.
 
-**Version:** 0.3.1  
+**Version:** 0.3.2  
 **Requires:** 3.0+  
 **Tested up to:** 3.3  
 
@@ -74,6 +74,9 @@ Meta Boxes can be added with their own class too.
 * More input types like slider and maybe gallery.
 
 ## Changelog
+
+### 0.3.2
+* Fixed: Issue #6: Date value will be loaded
 
 ### 0.3.1
 * Fixed: Issue #2: It is possible to pass options to the WYSIWYG editor type. They will be merged with the defaults

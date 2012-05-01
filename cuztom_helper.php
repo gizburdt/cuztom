@@ -3,7 +3,7 @@
 ob_start();
 
 // Define
-define( 'CUZTOM_VERSION', '0.3.1' );
+define( 'CUZTOM_VERSION', '0.3.2' );
 if( ! defined( 'JQUERY_UI_STYLE' ) ) define( 'JQUERY_UI_STYLE', 'cupertino' );
 
 // Init
@@ -652,7 +652,7 @@ class Cuztom_Meta_Box
 			break;
 			
 			case 'date' :
-				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_datepicker datepicker"  />';
+				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_datepicker datepicker" value="' . $meta[0] . '" />';
 			break;
 			
 			default:
