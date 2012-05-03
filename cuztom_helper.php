@@ -54,7 +54,7 @@ class Cuztom
 			'screen'
 		);
 		
-		wp_register_style( 'jquery_ui_css', 
+		wp_register_style( 'cuztom_jquery_ui_css', 
 			'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/' . CUZTOM_JQUERY_UI_STYLE . '/jquery-ui.css', 
 			false, 
 			CUZTOM_VERSION, 
@@ -73,7 +73,7 @@ class Cuztom
 	function enqueue_styles()
 	{
 		wp_enqueue_style( 'cuztom_css' );
-		wp_enqueue_style( 'jquery_ui_css' );
+		wp_enqueue_style( 'cuztom_jquery_ui_css' );
 	}
 	
 	
