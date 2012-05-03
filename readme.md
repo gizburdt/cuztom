@@ -71,7 +71,9 @@ Meta Boxes can be added with their own class too.
 	)
 	
 ## Roadmap
-* More input types like slider and maybe gallery.
+* Widgets
+* Theme Options
+* More input types like slider and gallery for Meta Boxes.
 
 ## Changelog
 
