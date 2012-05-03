@@ -3,8 +3,8 @@
 ob_start();
 
 // Define
-define( 'CUZTOM_VERSION', '0.3.2' );
-if( ! defined( 'JQUERY_UI_STYLE' ) ) define( 'JQUERY_UI_STYLE', 'cupertino' );
+define( 'CUZTOM_VERSION', '0.3.3' );
+if( ! defined( 'CUZTOM_JQUERY_UI_STYLE' ) ) define( 'CUZTOM_JQUERY_UI_STYLE', 'cupertino' );
 
 // Init
 $cuztom = new Cuztom();
@@ -55,7 +55,7 @@ class Cuztom
 		);
 		
 		wp_register_style( 'jquery_ui_css', 
-			'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/' . JQUERY_UI_STYLE . '/jquery-ui.css', 
+			'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/' . CUZTOM_JQUERY_UI_STYLE . '/jquery-ui.css', 
 			false, 
 			CUZTOM_VERSION, 
 			'screen'
@@ -168,6 +168,109 @@ class Cuztom
 		
 		return $plural;
 	}	
+}
+
+
+/**
+ * Cuztom Field Class
+ *
+ * @author Gijs Jorissen
+ * @since 0.3.3
+ *
+ */
+class Cuztom_Field
+{
+	
+	/**
+	 * Outputs a field based on its type
+	 *
+	 * @param string $field_id_name
+	 * @param array $type
+	 * @param array $meta
+	 * @return mixed
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.2
+	 *
+	 */
+	static function output( $field_id_name, $field, $value = '' )
+	{		
+		switch( $field['type'] ) :
+			
+			case 'text' :
+				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" value="' . $value . '" />';
+			break;
+			
+			case 'textarea' :
+				echo '<textarea name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">' . $value . '</textarea>';
+			break;
+			
+			case 'checkbox' :
+				echo '<input type="checkbox" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" ' . checked( $value, 'on', false ) . ' />';
+			break;
+			
+			case 'yesno' :
+				echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_yes" value="yes" ' . checked( $value, 'yes', false ) . ' />';
+				echo '<label for="' . $field_id_name . '_yes">' . __('Yes') . '</label>';
+				
+				echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_no" value="no" ' . checked( $value, 'no', false ) . ' />';
+				echo '<label for="' . $field_id_name . '_no">' . __('No') . '</label>';
+			break;
+			
+			case 'select' :
+				echo '<select name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">';
+					foreach( $field['options'] as $slug => $name )
+					{
+						echo '<option value="' . Cuztom::uglify( $slug ) . '" ' . selected( Cuztom::uglify( $slug ), $value, false ) . '>' . Cuztom::beautify( $name ) . '</option>';
+					}
+				echo '</select>';
+			break;
+			
+			case 'checkboxes' :
+				foreach( $field['options'] as $slug => $name )
+				{
+					echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( in_array( Cuztom::uglify( $slug ), maybe_unserialize( $value ) ) ? 'checked="checked"' : '' ) . ' /><label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
+				}
+			break;
+			
+			case 'radio' :
+				foreach( $field['options'] as $slug => $name )
+				{
+					echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . checked( Cuztom::uglify( $slug ), $value, false ) . ' /><label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
+				}
+			break;
+			
+			case 'wysiwyg' :
+				wp_editor( $value, $field_id_name, array_merge( 
+					
+					// Default
+					array(
+						'textarea_name' => 'cuztom[' . $field_id_name . ']',
+						'media_buttons' => false
+					),
+					
+					// Given
+					isset( $field['options'] ) ? $field['options'] : array()
+				
+				) );
+			break;
+			
+			case 'image' :
+				echo '<input type="file" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '"  />';
+				
+				if( ! empty( $value ) ) echo '<img src="' . $value . '" />';
+			break;
+			
+			case 'date' :
+				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_datepicker datepicker" value="' . $value . '" />';
+			break;
+			
+			default:
+				echo __( 'Input type not available' );
+			break;
+			
+		endswitch;
+	}
 }
 
 
@@ -559,7 +662,7 @@ class Cuztom_Meta_Box
 							echo '</th>';
 							echo '<td class="cuztom_td td">';
 						
-								$this->output_field( $field_id_name, $field, $meta );
+								Cuztom_Field::output( $field_id_name, $field, $meta[0] );
 							
 							echo '</td>';
 						echo '</tr>';
@@ -568,98 +671,6 @@ class Cuztom_Meta_Box
 				echo '</table>';
 			echo '</div>';
 		}
-	}
-	
-	
-	/**
-	 * Outputs a field based on its type
-	 *
-	 * @param string $field_id_name
-	 * @param array $type
-	 * @param array $meta
-	 * @return mixed
-	 *
-	 * @author Gijs Jorissen
-	 * @since 0.2
-	 *
-	 */
-	function output_field( $field_id_name, $field, $meta )
-	{
-		switch( $field['type'] ) :
-			
-			case 'text' :
-				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" value="' . $meta[0] . '" />';
-			break;
-			
-			case 'textarea' :
-				echo '<textarea name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">' . $meta[0] . '</textarea>';
-			break;
-			
-			case 'checkbox' :
-				echo '<input type="checkbox" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" ' . checked( $meta[0], 'on', false ) . ' />';
-			break;
-			
-			case 'yesno' :
-				echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_yes" value="yes" ' . checked( $meta[0], 'yes', false ) . ' />';
-				echo '<label for="' . $field_id_name . '_yes">' . __('Yes') . '</label>';
-				
-				echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_no" value="no" ' . checked( $meta[0], 'no', false ) . ' />';
-				echo '<label for="' . $field_id_name . '_no">' . __('No') . '</label>';
-			break;
-			
-			case 'select' :
-				echo '<select name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">';
-					foreach( $field['options'] as $slug => $name )
-					{
-						echo '<option value="' . Cuztom::uglify( $slug ) . '" ' . selected( Cuztom::uglify( $slug ), $meta[0], false ) . '>' . Cuztom::beautify( $name ) . '</option>';
-					}
-				echo '</select>';
-			break;
-			
-			case 'checkboxes' :
-				foreach( $field['options'] as $slug => $name )
-				{
-					echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( in_array( Cuztom::uglify( $slug ), maybe_unserialize( $meta[0] ) ) ? 'checked="checked"' : '' ) . ' /><label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
-				}
-			break;
-			
-			case 'radio' :
-				foreach( $field['options'] as $slug => $name )
-				{
-					echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . checked( Cuztom::uglify( $slug ), $meta[0], false ) . ' /><label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
-				}
-			break;
-			
-			case 'wysiwyg' :
-				wp_editor( $meta[0], $field_id_name, array_merge( 
-					
-					// Default
-					array(
-						'textarea_name' => 'cuztom[' . $field_id_name . ']',
-						'media_buttons' => false
-					),
-					
-					// Given
-					isset( $field['options'] ) ? $field['options'] : array()
-				
-				) );
-			break;
-			
-			case 'image' :
-				echo '<input type="file" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '"  />';
-				
-				if( ! empty( $meta[0] ) ) echo '<img src="' . $meta[0] . '" />';
-			break;
-			
-			case 'date' :
-				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_datepicker datepicker" value="' . $meta[0] . '" />';
-			break;
-			
-			default:
-				echo __( 'Input type not available' );
-			break;
-			
-		endswitch;
 	}
 	
 	
