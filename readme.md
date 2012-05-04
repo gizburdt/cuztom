@@ -1,6 +1,6 @@
 ## Cuztom Helper
 
-This class can be used to quickly register Custom Post Types, Taxonomies and Meta Boxes within your Wordpress projects.
+This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes and Menu Pages within your Wordpress projects.
 
 **Version:** 0.4  
 **Requires:** 3.0+  
@@ -16,20 +16,13 @@ Register the Post Type.
 	
 	$book = new Custom_Post_Type( 'Book' );
 	
-We can pass some arguments and labels as second and third parameter to overwrite the defaults.
-
-	$book = new Custom_Post_Type( 'Book', 
-				array( 'supports' => array( 'title', 'editor', 'excerpt' ) ),
-				array( 'plural' => 'Little Books' )
-			)
-	
 ### Add Custom Taxonomies
 	
 To add Custom Taxonomies, simply call this method.
 
 	$book->add_taxonomy( 'Author' );
 			
-You can also call this as a seperate class like this.
+You can also call this as a seperate class like this. The second parameter is the Post Type name.
 
 	$taxonomy = new Cuztom_Taxonomy( 'Author', 'book' ) )
 
@@ -45,17 +38,11 @@ Add Meta Boxes.
 				'label' 		=> 'Author',
 				'description'	=> 'Just a little description',
 				'type'			=> 'text'
-			),
-			array(
-				'name' 			=> 'year_written',
-				'label' 		=> 'Year written',
-				'description'	=> 'Just a little description',
-				'type'			=> 'text'
 			)
 		)
 	);
 	
-Meta Boxes can be added with their own class too.
+Meta Boxes can be added with their own class too. The second parameter is the Post Type name.
 
 	$box = new Cuztom_Meta_Box(  
 		'Book Info', 
@@ -65,12 +52,10 @@ Meta Boxes can be added with their own class too.
 			'label' 		=> 'Author',
 			'description'	=> 'Just a little description',
 			'type'			=> 'text'
-		),
-		'side',
-		'high'
+		)
 	)
 	
-## Roadmap
+## Todo
 * Widgets
 * Theme Options
 * More input types like slider and gallery for Meta Boxes.
