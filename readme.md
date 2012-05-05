@@ -56,12 +56,12 @@ Meta Boxes can be added with their own class too. The second parameter is the Po
 	)
 	
 ## Todo
+Full roadmap <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Roadmap">here</a>
+
 * Widgets
 * Theme Options
 * More input types like slider and gallery for Meta Boxes.
 * Better documentation / Wiki
-
-Full roadmap <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Roadmap">here</a>
 
 ## Changelog
 
@@ -70,7 +70,7 @@ Full roadmap <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/R
 * Added: Cuztom_Submenu_Page class to easily register submenus
 
 ### 0.3.3
+You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>
+
 * Added: CUZTOM_ to the defined jQuery UI style constant
 * Added: Cuztom_Field class based on Cuztom_Meta_Box::output_field for future use
-
-You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>
