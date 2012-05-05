@@ -4,7 +4,7 @@ This class can be used to quickly register Custom Post Types, Taxonomies, Meta B
 
 **Version:** 0.4  
 **Requires:** 3.0+  
-**Tested up to:** 3.3  
+**Tested up to:** 3.3.1  
 
 ## Basic usage
 
@@ -61,6 +61,8 @@ Meta Boxes can be added with their own class too. The second parameter is the Po
 * More input types like slider and gallery for Meta Boxes.
 * Better documentation / Wiki
 
+Full roadmap <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Roadmap">here</a>
+
 ## Changelog
 
 ### 0.4
@@ -71,33 +73,4 @@ Meta Boxes can be added with their own class too. The second parameter is the Po
 * Added: CUZTOM_ to the defined jQuery UI style constant
 * Added: Cuztom_Field class based on Cuztom_Meta_Box::output_field for future use
 
-### 0.3.2
-* Fixed: Issue #6: Date value will be loaded
-
-### 0.3.1
-* Fixed: Issue #2: It is possible to pass options to the WYSIWYG editor type. They will be merged with the defaults
-* Fixed: Issue #4: jQuery UI style can be defined in functions.php before including Cuztom
-* Fixed: Issue #5: Cuztom Helper Table is now full width of the meta box
-
-### 0.3
-* Added: Datepicker input type
-* Added: Cuztom::register_styles, Cuztom::enqueue_styles, Cuztom::register_scripts, Cuztom::enqueue_scripts
-* Added: Cuztom stylesheet
-* Added: Cuztom javascripts
-
-### 0.2.2
-* Cuztom::uglify now converts all strange characters to underscores
-
-### 0.2.1
-* WYSIWYG editor is now enabled
-* Todo: Cuztom::uglify needs to convert all strange characters to underscores
-
-### 0.2
-* Seperated classes for Post Type, Taxonomy and Meta Box
-* Support for PHP versions below 5.3
-* Multiple field types added: [ text, textarea, checkbox, yes/no, select, checkboxes, radio, image ]
-* Todo: Cuztom::uglify needs to convert all strang characters to underscores
-* Todo: WYSIWYG is still a normal textarea, but needs to be converted to a WYSIWYG editor
-
-### 0.1
-* First release, based on my tutorial on wp.tutsplus.com
+You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>
