@@ -56,7 +56,7 @@ Meta Boxes can be added with their own class too. The second parameter is the Po
 	)
 	
 ## Todo
-Full roadmap <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Roadmap">here</a>
+Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Roadmap">here</a>.
 
 * Widgets
 * Theme Options
@@ -64,7 +64,7 @@ Full roadmap <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/R
 * Better documentation / Wiki
 
 ## Changelog
-You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>
+You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
 ### 0.4
 * Added: Cuztom_Menu_Page class to easily register menu pages and submenus
