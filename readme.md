@@ -64,13 +64,12 @@ Full roadmap <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/R
 * Better documentation / Wiki
 
 ## Changelog
+You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>
 
 ### 0.4
 * Added: Cuztom_Menu_Page class to easily register menu pages and submenus
 * Added: Cuztom_Submenu_Page class to easily register submenus
 
 ### 0.3.3
-You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>
-
 * Added: CUZTOM_ to the defined jQuery UI style constant
 * Added: Cuztom_Field class based on Cuztom_Meta_Box::output_field for future use
