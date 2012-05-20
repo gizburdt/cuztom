@@ -12,7 +12,7 @@ Include the class.
 	
 	include( 'cuztom_helper.php' );
    
-Register the Post Type.
+### Custom Post Types
 	
 	$book = new Custom_Post_Type( 'Book' );
 	

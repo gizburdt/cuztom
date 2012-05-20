@@ -544,7 +544,7 @@ class Cuztom_Taxonomy
 	 */
 	public function register_taxonomy_for_object_type()
 	{
-		register_taxonomy_for_object_type( $tihs->taxonomy_name, $this->post_type_name );
+		register_taxonomy_for_object_type( $this->taxonomy_name, $this->post_type_name );
 	}	
 }
 
