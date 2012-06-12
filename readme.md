@@ -3,14 +3,13 @@
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes and Menu Pages within your Wordpress projects.
 
 **Version:** 0.4  
-**Requires:** 3.0+  
-**Tested up to:** 3.3.1  
+**Requires:** 3.0+ 
 
 ## Basic usage
 
 Include the class.
 	
-	include( 'cuztom_helper.php' );
+	include( 'cuztom_helper/cuztom_helper.php' );
    
 ### Custom Post Types
 	
@@ -18,7 +17,7 @@ Include the class.
 	
 ### Add Custom Taxonomies
 	
-To add Custom Taxonomies, simply call this method.
+To add Custom Taxonomies to the newly created Post Type, simply call this method.
 
 	$book->add_taxonomy( 'Author' );
 			
