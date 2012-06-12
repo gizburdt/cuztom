@@ -3,7 +3,7 @@
 ob_start();
 
 // Define
-define( 'CUZTOM_VERSION', '0.4' );
+define( 'CUZTOM_VERSION', '0.4.1' );
 define( 'CUZTOM_TEXTDOMAIN', 'cuztom' );
 if( ! defined( 'CUZTOM_JQUERY_UI_STYLE' ) ) define( 'CUZTOM_JQUERY_UI_STYLE', 'cupertino' );
 
@@ -20,6 +20,10 @@ $cuztom = new Cuztom();
  */
 class Cuztom
 {
+	var $dir = array();
+	var $version = CUZTOM_VERSION;
+	var $textdomain = CUZTOM_TEXTDOMAIN;
+	var $jquery_ui_style = CUZTOM_JQUERY_UI_STYLE;
 	
 	/**
 	 * Contructs the Cuztom class
@@ -47,18 +51,18 @@ class Cuztom
 	 *
 	 */
 	function register_styles()
-	{
+	{	
 		wp_register_style( 'cuztom_css', 
-			get_template_directory_uri() . '/' . basename( dirname( __FILE__ ) ) . '/css/style.css', 
+			$this->get_cuztom_dir( __FILE__ ) . '/css/style.css', 
 			false, 
-			CUZTOM_VERSION, 
+			$this->version, 
 			'screen'
 		);
 		
 		wp_register_style( 'cuztom_jquery_ui_css', 
-			'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/' . CUZTOM_JQUERY_UI_STYLE . '/jquery-ui.css', 
+			'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/' . $this->jquery_ui_style . '/jquery-ui.css', 
 			false, 
-			CUZTOM_VERSION, 
+			$this->version, 
 			'screen'
 		);
 	}
@@ -88,9 +92,9 @@ class Cuztom
 	function register_scripts()
 	{
 		wp_register_script( 'cuztom_js', 
-			get_template_directory_uri() . '/' . basename( dirname( __FILE__ ) ) . '/js/functions.js', 
+			$this->get_cuztom_dir( __FILE__ ) . '/js/functions.js', 
 			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' ), 
-			CUZTOM_VERSION, 
+			$this->version, 
 			true 
 		);
 	}
@@ -168,6 +172,58 @@ class Cuztom
 		}
 		
 		return $plural;
+	}
+	
+	
+	/**
+	 * Recursive method to determine all parents of this file
+	 *
+	 * @param string $path
+	 * @return string
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.4.1
+	 *
+	 */
+	function get_cuztom_dir( $path = __FILE__ )
+	{
+		$path = dirname( $path );
+		$explode_path = explode( '/', $path );
+		$current_dir = $explode_path[count( $explode_path ) - 1];
+		
+		array_push( $this->dir, $current_dir );
+		
+		if( $current_dir == 'wp-content' )
+		{
+			echo $this->_build_dir();
+		}
+		else
+		{
+			$this->get_cuztom_dir( $path );
+		}
+	}
+	
+	
+	/**
+	 * Creates the complete path to the parent folder of this file
+	 *
+	 * @return string
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.4.1
+	 *
+	 */
+	private function _build_dir()
+	{
+		$data = site_url();
+		$directories = array_reverse( $this->dir );
+
+		foreach( $directories as $dir )
+		{
+			$data = $data . '/' . $dir;
+		}
+		
+		return $data;
 	}	
 }
 
@@ -302,7 +358,7 @@ class Cuztom_Post_Type
 	 * @since 0.1
 	 *
 	 */
-	public function __construct( $name, $args = array(), $labels = array() )
+	function __construct( $name, $args = array(), $labels = array() )
 	{
 		if( ! empty( $name ) )
 		{
@@ -327,7 +383,7 @@ class Cuztom_Post_Type
 	 * @since 0.1
 	 *
 	 */
-	public function register_post_type()
+	function register_post_type()
 	{		
 		// Capitilize the words and make it plural
 		$name 		= Cuztom::beautify( $this->post_type_name );
@@ -394,7 +450,7 @@ class Cuztom_Post_Type
 	 * @since 0.1
 	 *
 	 */
-	public function add_taxonomy( $name, $args = array(), $labels = array() )
+	function add_taxonomy( $name, $args = array(), $labels = array() )
 	{
 		// Call Cuztom_Taxonomy with this post type name as second parameter
 		$taxonomy = new Cuztom_Taxonomy( $name, $this->post_type_name, $args, $labels );
@@ -416,7 +472,7 @@ class Cuztom_Post_Type
 	 * @since 0.1
 	 *
 	 */
-	public function add_meta_box( $title, $fields = array(), $context = 'normal', $priority = 'default' )
+	function add_meta_box( $title, $fields = array(), $context = 'normal', $priority = 'default' )
 	{
 		$meta_box = new Cuztom_Meta_Box( $title, $fields, $this->post_type_name, $context, $priority );
 		
@@ -455,7 +511,7 @@ class Cuztom_Taxonomy
 	 * @since 0.2
 	 *
 	 */
-	public function __construct( $name, $post_type_name = null, $args = array(), $labels = array() )
+	function __construct( $name, $post_type_name = null, $args = array(), $labels = array() )
 	{
 		if( ! empty( $name ) )
 		{
@@ -485,7 +541,7 @@ class Cuztom_Taxonomy
 	 * @since 0.2
 	 *
 	 */
-	public function register_taxonomy()
+	function register_taxonomy()
 	{
 		$name 		= Cuztom::beautify( $this->taxonomy_name );
 		$plural 	= Cuztom::pluralize( $name );
@@ -543,7 +599,7 @@ class Cuztom_Taxonomy
 	 * @since 0.2
 	 *
 	 */
-	public function register_taxonomy_for_object_type()
+	function register_taxonomy_for_object_type()
 	{
 		register_taxonomy_for_object_type( $this->taxonomy_name, $this->post_type_name );
 	}	
@@ -612,7 +668,7 @@ class Cuztom_Meta_Box
 	 * @since 0.2
 	 *
 	 */
-	public function add_meta_box()
+	function add_meta_box()
 	{			
 		add_meta_box(
 			$this->box_id,
@@ -636,7 +692,7 @@ class Cuztom_Meta_Box
 	 * @since 0.2
 	 *
 	 */
-	public function callback( $post, $data )
+	function callback( $post, $data )
 	{
 		// Nonce field for validation
 		wp_nonce_field( plugin_basename( __FILE__ ), 'cuztom_nonce' );
@@ -682,7 +738,7 @@ class Cuztom_Meta_Box
 	 * @since 0.1
 	 *
 	 */
-	public function save_post()
+	function save_post()
 	{		
 		// Deny the wordpress autosave function
 		if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
