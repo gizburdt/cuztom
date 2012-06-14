@@ -35,11 +35,15 @@ class Cuztom
 	 */
 	function __construct()
 	{
+		// Add actions
 		add_action( 'admin_init', array( $this, 'register_styles' ) );
 		add_action( 'admin_print_styles', array( $this, 'enqueue_styles' ) );
 		
 		add_action( 'admin_init', array( $this, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		
+		// Determine the full path to the this folder
+		$this->_get_dir();
 	}
 	
 	
@@ -51,9 +55,9 @@ class Cuztom
 	 *
 	 */
 	function register_styles()
-	{	
+	{
 		wp_register_style( 'cuztom_css', 
-			$this->get_cuztom_dir( __FILE__ ) . '/css/style.css', 
+			$this->dir . '/css/style.css', 
 			false, 
 			$this->version, 
 			'screen'
@@ -92,7 +96,7 @@ class Cuztom
 	function register_scripts()
 	{
 		wp_register_script( 'cuztom_js', 
-			$this->get_cuztom_dir( __FILE__ ) . '/js/functions.js', 
+			$this->dir . '/js/functions.js',
 			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' ), 
 			$this->version, 
 			true 
@@ -176,7 +180,7 @@ class Cuztom
 	
 	
 	/**
-	 * Recursive method to determine all parents of this file
+	 * Recursive method to determine all parents of a file
 	 *
 	 * @param string $path
 	 * @return string
@@ -185,46 +189,32 @@ class Cuztom
 	 * @since 0.4.1
 	 *
 	 */
-	function get_cuztom_dir( $path = __FILE__ )
+	function _get_dir( $path = __FILE__ )
 	{
 		$path = dirname( $path );
 		$explode_path = explode( '/', $path );
-		$current_dir = $explode_path[count( $explode_path ) - 1];
 		
+		$current_dir = $explode_path[count( $explode_path ) - 1];
 		array_push( $this->dir, $current_dir );
 		
 		if( $current_dir == 'wp-content' )
 		{
-			echo $this->_build_dir();
+			// Build new paths
+			$path = '';
+			$directories = array_reverse( $this->dir );
+			
+			foreach( $directories as $dir )
+			{
+				$path = $path . '/' . $dir;
+			}
+
+			$this->dir = $path;
 		}
 		else
 		{
-			$this->get_cuztom_dir( $path );
+			return $this->_get_dir( $path );
 		}
-	}
-	
-	
-	/**
-	 * Creates the complete path to the parent folder of this file
-	 *
-	 * @return string
-	 *
-	 * @author Gijs Jorissen
-	 * @since 0.4.1
-	 *
-	 */
-	private function _build_dir()
-	{
-		$data = site_url();
-		$directories = array_reverse( $this->dir );
-
-		foreach( $directories as $dir )
-		{
-			$data = $data . '/' . $dir;
-		}
-		
-		return $data;
-	}	
+	}		
 }
 
 
