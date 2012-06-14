@@ -43,7 +43,7 @@ class Cuztom
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		
 		// Determine the full path to the this folder
-		$this->_get_dir();
+		$this->_determine_cuztom_dir();
 	}
 	
 	
@@ -180,7 +180,7 @@ class Cuztom
 	
 	
 	/**
-	 * Recursive method to determine all parents of a file
+	 * Recursive method to determine the path to this folder
 	 *
 	 * @param string $path
 	 * @return string
@@ -189,7 +189,7 @@ class Cuztom
 	 * @since 0.4.1
 	 *
 	 */
-	function _get_dir( $path = __FILE__ )
+	function _determine_cuztom_dir( $path = __FILE__ )
 	{
 		$path = dirname( $path );
 		$explode_path = explode( '/', $path );
