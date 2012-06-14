@@ -3,8 +3,8 @@
 ob_start();
 
 // Define
-define( 'CUZTOM_VERSION', '0.4.1' );
-define( 'CUZTOM_TEXTDOMAIN', 'cuztom' );
+define( 'CUZTOM_VERSION', '0.5' );
+if( ! defined( 'CUZTOM_TEXTDOMAIN', 'cuztom' ) ) define( 'CUZTOM_TEXTDOMAIN', 'cuztom' );
 if( ! defined( 'CUZTOM_JQUERY_UI_STYLE' ) ) define( 'CUZTOM_JQUERY_UI_STYLE', 'cupertino' );
 
 // Init
