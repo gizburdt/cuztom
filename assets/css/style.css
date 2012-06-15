@@ -1,0 +1,7 @@
+/* Meta Box Table */
+.cuztom_helper{ width: 100%; }
+.cuztom_helper .cuztom_table{ border: none; padding: 0; width: 100%; }
+.cuztom_helper .cuztom_table th{ font-weight: normal; text-align: left; width: 30%; min-width: 100px; padding: 5px 0; vertical-align: top; }
+.cuztom_helper .cuztom_table th label{ font-weight: bold; }
+.cuztom_helper .cuztom_table th .description{ font-size: 10px; font-style: italic; }
+.cuztom_helper .cuztom_table td{ width: 70%; }

@@ -1,19 +1,19 @@
 ## Cuztom Helper
 
-This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes and Menu Pages within your Wordpress projects.
+This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects.
 
-**Version:** 0.5  
+**Version:** 0.6  
 **Requires:** 3.0+ 
 
 ## Basic usage
 
-Include the class.
+Include the main file.
 	
 	include( 'cuztom_helper/cuztom_helper.php' );
    
 ### Custom Post Types
 	
-	$book = new Custom_Post_Type( 'Book' );
+	$book = new Cuztom_Post_Type( 'Book' );
 	
 ### Add Custom Taxonomies
 	
@@ -54,6 +54,9 @@ Meta Boxes can be added with their own class too. The second parameter is the Po
 		)
 	)
 	
+## Advanced usage
+See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for the full and advanced guides.
+	
 ## Todo
 Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Roadmap">here</a>.
 
@@ -65,12 +68,13 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+### 0.6
+* Improvement: Each class has its own file, so the readability is improved
+* Improvement: Textdomain added to all translations, the textdomain can be set by a define
+* Fixed: Some fatal PHP errors from 0.5 (sorry about that)
+
 ### 0.5
 * Added: It is now possible to easily register sidebars with Cuztom
 
 ### 0.4.1
 * Fixed: Issue #3: Full path to the Cuztom Helper folder is now working
-
-### 0.4
-* Added: Cuztom_Menu_Page class to easily register menu pages and submenus
-* Added: Cuztom_Submenu_Page class to easily register submenus
