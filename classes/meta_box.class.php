@@ -181,11 +181,10 @@ class Cuztom_Meta_Box
 	 *
 	 */
 	function save_post()
-	{		
+	{			
 		// Deny the wordpress autosave function
 		if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
 		
-		if( ! isset( $_POST ) || ! isset( $post ) ) return;
 		if( $_POST && ! wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) return;
 		
 		global $post;
