@@ -104,7 +104,7 @@ class Cuztom_Meta_Box
 					foreach( $meta_fields as $field )
 					{
 						$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );
-						$meta = get_post_meta( $post->ID, $field_id_name );
+						$meta = get_post_meta( $post->ID, $field_id_name, true );
 					
 						echo '<tr>';
 							echo '<th class="cuztom_th th">';
@@ -113,7 +113,7 @@ class Cuztom_Meta_Box
 							echo '</th>';
 							echo '<td class="cuztom_td td">';
 						
-								Cuztom_Field::output( $field_id_name, $field, $meta[0] );
+								Cuztom_Field::output( $field_id_name, $field, $meta );
 							
 							echo '</td>';
 						echo '</tr>';
