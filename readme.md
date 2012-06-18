@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects.
 
-**Version:** 0.6  
+**Version:** 0.7  
 **Requires:** 3.0+ 
 
 ## Basic usage
