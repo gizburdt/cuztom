@@ -1,14 +1,14 @@
 <?php
 
 // Errors
-//error_reporting( E_ALL );
-//ini_set( 'display_errors', 1 );
+error_reporting( E_ALL );
+ini_set( 'display_errors', 1 );
 
 // Start
 ob_start();
 
 // Define
-define( 'CUZTOM_VERSION', '0.6' );
+define( 'CUZTOM_VERSION', '0.7' );
 if( ! defined( 'CUZTOM_TEXTDOMAIN' ) ) define( 'CUZTOM_TEXTDOMAIN', 'cuztom' );
 if( ! defined( 'CUZTOM_JQUERY_UI_STYLE' ) ) define( 'CUZTOM_JQUERY_UI_STYLE', 'cupertino' );
 

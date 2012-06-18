@@ -83,7 +83,7 @@ class Cuztom
 	{
 		wp_register_script( 'cuztom_js', 
 			$this->dir . '/assets/js/functions.js',
-			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker' ), 
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs' ), 
 			CUZTOM_VERSION, 
 			true 
 		);

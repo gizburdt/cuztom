@@ -68,6 +68,10 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+### 0.7
+* Added: Meta Box tabs. See the Wiki for usage
+* Improvements: Just some minor improvements
+
 ### 0.6
 * Improvement: Each class has its own file, so the readability is improved
 * Improvement: Textdomain added to all translations, the textdomain can be set by a define
@@ -75,6 +79,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 
 ### 0.5
 * Added: It is now possible to easily register sidebars with Cuztom
-
-### 0.4.1
-* Fixed: Issue #3: Full path to the Cuztom Helper folder is now working
