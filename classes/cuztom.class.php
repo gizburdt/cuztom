@@ -49,12 +49,27 @@ class Cuztom
 			'screen'
 		);
 		
-		wp_register_style( 'cuztom_jquery_ui_css', 
-			'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/' . CUZTOM_JQUERY_UI_STYLE . '/jquery-ui.css', 
-			false, 
-			CUZTOM_VERSION, 
-			'screen'
-		);
+		if( CUZTOM_JQUERY_UI_STYLE != 'none' )
+		{
+			if( CUZTOM_JQUERY_UI_STYLE == 'cuztom' )
+			{
+				wp_register_style( 'cuztom_jquery_ui_css', 
+					$this->dir . '/assets/css/jquery_ui.css', 
+					false, 
+					CUZTOM_VERSION, 
+					'screen'
+				);
+			}
+			else
+			{
+				wp_register_style( 'cuztom_jquery_ui_css', 
+					'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/' . CUZTOM_JQUERY_UI_STYLE . '/jquery-ui.css', 
+					false, 
+					CUZTOM_VERSION, 
+					'screen'
+				);
+			}
+		}
 	}
 	
 	
@@ -83,7 +98,7 @@ class Cuztom
 	{
 		wp_register_script( 'cuztom_js', 
 			$this->dir . '/assets/js/functions.js',
-			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs' ), 
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion' ), 
 			CUZTOM_VERSION, 
 			true 
 		);

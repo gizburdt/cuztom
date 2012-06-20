@@ -97,24 +97,32 @@ class Cuztom_Meta_Box
 		// Check the array and loop through it
 		if( ! empty( $meta_fields ) )
 		{			
-			if( ! is_array( $meta_fields[0] ) && $meta_fields[0] == 'tabs' )
+			if( ! is_array( $meta_fields[0] ) && ( $meta_fields[0] == 'tabs' || $meta_fields[0] == 'accordion' ) )
 			{
 				echo '<div class="cuztom_helper">';	
-					echo '<div class="cuztom_tabs">';
+					echo '<div class="' . ( $meta_fields[0] == 'tabs' ? 'cuztom_tabs' : 'cuztom_accordion' ) . '">';
 						
-						echo '<ul>';
-							foreach( $meta_fields[1] as $tab )
-							{
-								$tab_id = Cuztom::uglify( $tab[0] );
-								
-								echo '<li><a href="#' . $tab_id . '">' . $tab[0] . '</a></li>';
-							}
-						echo '</ul>';
+						if( $meta_fields[0] == 'tabs' )
+						{
+							echo '<ul>';
+								foreach( $meta_fields[1] as $tab )
+								{
+									$tab_id = Cuztom::uglify( $tab[0] );
+
+									echo '<li><a href="#' . $tab_id . '">' . Cuztom::beautify( $tab[0] ) . '</a></li>';
+								}
+							echo '</ul>';
+						}
 					
 						/* Loop through $meta_fields, tabs in this case */
 						foreach( $meta_fields[1] as $tab )
 						{
 							$tab_id = Cuztom::uglify( $tab[0] );
+							
+							if( $meta_fields[0] == 'accordion' )
+							{
+								echo '<h3>' . Cuztom::beautify( $tab[0] ) . '</h3>';
+							}
 							
 							echo '<div id="' . $tab_id . '">';
 								echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
@@ -193,14 +201,13 @@ class Cuztom_Meta_Box
 		// Loop through each meta box
 		if( ! empty( $this->meta_fields ) )
 		{
-			if( ! is_array( $this->meta_fields[0] ) && $this->meta_fields[0] == 'tabs' )
+			if( ! is_array( $this->meta_fields[0] ) && ( $this->meta_fields[0] == 'tabs' || $this->meta_fields[0] == 'accordion' ) )
 			{
 				foreach( $this->meta_fields[1] as $tab )
 				{								
 					foreach( $tab[1] as $field )
 					{									
 						$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );
-					
 						$this->_save_meta( $post, $field, $field_id_name );
 					}
 				}
@@ -209,8 +216,7 @@ class Cuztom_Meta_Box
 			{
 				foreach( $this->meta_fields as $field )
 				{
-					$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );
-							
+					$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );		
 					$this->_save_meta( $post, $field, $field_id_name );
 				}
 			}		

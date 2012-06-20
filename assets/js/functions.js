@@ -5,4 +5,6 @@ jQuery(function($) {
 	
 	$('.cuztom_tabs').tabs();
 	
+	$('.cuztom_accordion').accordion();
+	
 });

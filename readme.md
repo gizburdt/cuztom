@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects.
 
-**Version:** 0.7  
+**Version:** 0.7.1  
 **Requires:** 3.0+ 
 
 ## Basic usage
@@ -68,6 +68,10 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+### 0.7.1
+* Added: Meta Box accordion. See the Wiki for usage
+* Added: Cuztom now has its own style for jQuery UI. It can be overwritten by defining another style.
+
 ### 0.7
 * Added: Meta Box tabs. See the Wiki for usage
 * Improvements: Just some minor improvements
@@ -76,6 +80,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Improvement: Each class has its own file, so the readability is improved
 * Improvement: Textdomain added to all translations, the textdomain can be set by a define
 * Fixed: Some fatal PHP errors from 0.5 (sorry about that)
-
-### 0.5
-* Added: It is now possible to easily register sidebars with Cuztom
