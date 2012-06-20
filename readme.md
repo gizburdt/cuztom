@@ -105,10 +105,10 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 ## Todo
 Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Roadmap">here</a>.
 
+* Better documentation / Wiki
+* More input types like slider and gallery for Meta Boxes.
 * Widgets
 * Theme Options
-* More input types like slider and gallery for Meta Boxes.
-* Better documentation / Wiki
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
