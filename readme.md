@@ -1,6 +1,6 @@
 ## Cuztom Helper
 
-This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects.
+This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
 **Version:** 0.7.1  
 **Requires:** 3.0+ 
@@ -11,7 +11,7 @@ Include the main file.
 	
 	include( 'cuztom_helper/cuztom_helper.php' );
    
-### Custom Post Types
+### Add Custom Post Types
 	
 	$book = new Cuztom_Post_Type( 'Book' );
 	
@@ -53,6 +53,51 @@ Meta Boxes can be added with their own class too. The second parameter is the Po
 			'type'			=> 'text'
 		)
 	)
+	
+### Add Sidebars
+
+To register a sidebar, just call this.
+
+	$sidebar = new Cuztom_Sidebar( 
+		'Sidebar',
+		'sidebar' ,
+		'Just a little description',
+	);
+
+### Add Menu Page
+
+Add a menu page.
+
+	$menu_page = new Cuztom_Menu_Page(
+		'Page Title', 
+		'Menu Title', 
+		'read', 
+		'menu_page_slug', 
+		'callback_function'
+	);
+	
+### Add Submenu Page
+
+To add a submenu page to the newly added page, call this.
+
+	$menu_page->add_submenu_page(
+		'Sub Page Title',
+		'Sub Menu Title',
+		'read', 
+		'submenu_page_slug', 
+		'sub_callback_function'
+	);
+
+To add a submenu page to another page.
+
+	$submenu_page = new Cuztom_Submenu_Page(
+		'parent_slug',
+		'Sub Page Title',
+		'Sub Menu Title',
+		'read', 
+		'submenu_page_slug', 
+		'sub_callback_function'
+	);
 	
 ## Advanced usage
 See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for the full and advanced guides.
