@@ -118,7 +118,7 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Added: Cuztom now has its own style for jQuery UI. It can be overwritten by defining another style.
 
 ### 0.7
-* Added: Meta Box tabs. See the <<a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for usage
+* Added: Meta Box tabs. See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for usage
 * Improvements: Just some minor improvements
 
 ### 0.6
