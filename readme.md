@@ -114,11 +114,11 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
 ### 0.7.1
-* Added: Meta Box accordion. See the Wiki for usage
+* Added: Meta Box accordion. See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for usage
 * Added: Cuztom now has its own style for jQuery UI. It can be overwritten by defining another style.
 
 ### 0.7
-* Added: Meta Box tabs. See the Wiki for usage
+* Added: Meta Box tabs. See the <<a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for usage
 * Improvements: Just some minor improvements
 
 ### 0.6
