@@ -5,6 +5,11 @@
 .cuztom_helper .cuztom_table th label{ font-size: 12px; font-weight: bold; }
 .cuztom_helper .cuztom_table th .description{ font-size: 10px; font-style: italic; }
 .cuztom_helper .cuztom_table td{ width: 70%; }
+.cuztom_helper .cuztom_table .cuztom_button_wrap{ padding: 8px 0; }
 
 /* Meta Box tabs */
 .cuztom_helper .cuztom_tabs{ padding-top: 10px; }
+
+/* Meta Box images */
+.cuztom_helper .cuztom_preview{ width: 100%; display: block; }
+.cuztom_helper .cuztom_preview img{ max-width: 100%; }

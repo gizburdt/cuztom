@@ -92,10 +92,7 @@ class Cuztom_Post_Type
 				'label' 				=> $plural,
 				'labels' 				=> $labels,
 				'public' 				=> true,
-				'show_ui' 				=> true,
 				'supports' 				=> array( 'title', 'editor' ),
-				'show_in_nav_menus' 	=> true,
-				'_builtin' 				=> false,
 			),
 
 			// Given args

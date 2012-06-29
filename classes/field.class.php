@@ -58,7 +58,7 @@ class Cuztom_Field
 			case 'checkboxes' :
 				foreach( $field['options'] as $slug => $name )
 				{
-					echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( in_array( Cuztom::uglify( $slug ), maybe_unserialize( $value ) ) ? 'checked="checked"' : '' ) . ' /><label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
+					echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( in_array( Cuztom::uglify( $slug ), ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) . ' /><label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
 				}
 			break;
 			
@@ -85,9 +85,18 @@ class Cuztom_Field
 			break;
 			
 			case 'image' :
-				echo '<input type="file" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '"  />';
+				$image = '';
 				
-				if( ! empty( $value ) ) echo '<img src="' . $value . '" />';
+				if( ! empty( $value ) )
+				{
+					$image = '<img src="' . $value . '" />';
+				}
+			
+				echo '<div class="cuztom_button_wrap">';
+					echo '<input type="hidden" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_hidden" value="' . ( ! empty( $value ) ? $value : '' ) . '"  />';
+					echo '<input id="upload_image_button" type="button" value="' . __( 'Select image', CUZTOM_TEXTDOMAIN ) . '" class="cuztom_upload" />';
+				echo '</div>';
+				echo '<span class="cuztom_preview">' . $image . '</span>';
 			break;
 			
 			case 'date' :

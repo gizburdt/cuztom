@@ -199,8 +199,8 @@ class Cuztom_Meta_Box
 		if( ! isset( $post->ID ) && get_post_type( $post->ID ) !== $this->post_type_name ) return;
 		
 		// Loop through each meta box
-		if( ! empty( $this->meta_fields ) )
-		{
+		if( ! empty( $this->meta_fields ) && isset( $_POST['cuztom'] ) )
+		{			
 			if( ! is_array( $this->meta_fields[0] ) && ( $this->meta_fields[0] == 'tabs' || $this->meta_fields[0] == 'accordion' ) )
 			{
 				foreach( $this->meta_fields[1] as $tab )
@@ -237,29 +237,8 @@ class Cuztom_Meta_Box
 	 */
 	function _save_meta( $post, $field, $field_id_name )
 	{
-		if( $field['type'] == 'image' )
-		{					
-			if( isset( $_FILES ) && ! empty( $_FILES['cuztom']['tmp_name'][$field_id_name] ) )
-			{
-				$upload = wp_upload_bits( 
-					$_FILES['cuztom']['name'][$field_id_name], 
-					null, 
-					file_get_contents( $_FILES['cuztom']['tmp_name'][$field_id_name] ) 
-				);
-
-				if( isset( $upload['error'] ) && $upload['error'] != 0 ) 
-				{  
-	                wp_die('There was an error uploading your file: ' . $upload['error']);  
-	            } else {  
-	                update_post_meta( $post->ID, $field_id_name, $upload['url']);
-	            }
-			}
-		}
-		else
-		{
-			$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );				
-			update_post_meta( $post->ID, $field_id_name, $_POST['cuztom'][$field_id_name] );
-		}
+		$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );				
+		update_post_meta( $post->ID, $field_id_name, $_POST['cuztom'][$field_id_name] );
 	}
 	
 	
