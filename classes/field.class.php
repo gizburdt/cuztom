@@ -38,12 +38,18 @@ class Cuztom_Field
 				echo '<input type="checkbox" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" ' . checked( $value, 'on', false ) . ' />';
 			break;
 			
+			case 'radio' :
+				echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" ' . checked( $value, 'on', false ) . ' />';
+			break;
+			
 			case 'yesno' :
-				echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_yes" value="yes" ' . checked( $value, 'yes', false ) . ' />';
-				echo '<label for="' . $field_id_name . '_yes">' . __( 'Yes', CUZTOM_TEXTDOMAIN ) . '</label>';
-				
-				echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_no" value="no" ' . checked( $value, 'no', false ) . ' />';
-				echo '<label for="' . $field_id_name . '_no">' . __( 'No', CUZTOM_TEXTDOMAIN ) . '</label>';
+				echo '<div class="cuztom_checked_wrap">';
+					echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_yes" value="yes" ' . checked( $value, 'yes', false ) . ' /> ';
+					echo '<label for="' . $field_id_name . '_yes">' . __( 'Yes', CUZTOM_TEXTDOMAIN ) . '</label>';
+					echo '<br />';
+					echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_no" value="no" ' . checked( $value, 'no', false ) . ' /> ';
+					echo '<label for="' . $field_id_name . '_no">' . __( 'No', CUZTOM_TEXTDOMAIN ) . '</label>';
+				echo '</div>';
 			break;
 			
 			case 'select' :
@@ -56,17 +62,25 @@ class Cuztom_Field
 			break;
 			
 			case 'checkboxes' :
-				foreach( $field['options'] as $slug => $name )
-				{
-					echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( in_array( Cuztom::uglify( $slug ), ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) . ' /><label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
-				}
+				echo '<div class="cuztom_checked_wrap">';
+					foreach( $field['options'] as $slug => $name )
+					{
+						echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( in_array( Cuztom::uglify( $slug ), ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) . ' /> ';
+						echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
+						echo '<br />';
+					}
+				echo '</div>';
 			break;
 			
-			case 'radio' :
-				foreach( $field['options'] as $slug => $name )
-				{
-					echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . checked( Cuztom::uglify( $slug ), $value, false ) . ' /><label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
-				}
+			case 'radios' :
+				echo '<div class="cuztom_checked_wrap">';
+					foreach( $field['options'] as $slug => $name )
+					{
+						echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . checked( Cuztom::uglify( $slug ), $value, false ) . ' /> ';
+						echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
+						echo '<br />';
+					}
+				echo '</div>';
 			break;
 			
 			case 'wysiwyg' :

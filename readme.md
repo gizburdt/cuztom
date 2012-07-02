@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 0.7.2  
+**Version:** 0.7.3  
 **Requires:** 3.0+ 
 
 ## Basic usage
@@ -113,6 +113,10 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###0.7.3
+* Improvement: Some styling improvements and outlines
+* Added: Radio now outputs one radio button, and radios outputs multiple radio button. Just like it does with checkboxes.
+
 ### 0.7.2
 * Improvement: The image meta field now uses the Wordpress Media popup selector instead of the standard browser selector. So now al the uploaded media can be found in the Media library.
 * Fixed: Issue #7: Before the meta boxes are being saved, Cuztom will check if $_POST['cuztom'] is set.
@@ -122,7 +126,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 ### 0.7.1
 * Added: Meta Box accordion. See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for usage
 * Added: Cuztom now has its own style for jQuery UI. It can be overwritten by defining another style.
-
-### 0.7
-* Added: Meta Box tabs. See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for usage
-* Improvements: Just some minor improvements

@@ -13,3 +13,6 @@
 /* Meta Box images */
 .cuztom_helper .cuztom_preview{ width: 100%; display: block; }
 .cuztom_helper .cuztom_preview img{ max-width: 100%; }
+
+/* Meta Box check inputs */
+.cuztom_helper .cuztom_checked_wrap{ padding: 8px 0; }
