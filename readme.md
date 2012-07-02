@@ -114,7 +114,7 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
 ###0.7.3
-* Improvement: Some styling improvements and outlines
+* Improvement: Some styling improvements
 * Added: Radio now outputs one radio button, and radios outputs multiple radio button. Just like it does with checkboxes.
 
 ### 0.7.2
