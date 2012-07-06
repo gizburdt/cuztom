@@ -164,19 +164,24 @@ class Cuztom
 	{
 		$last = $string[strlen( $string ) - 1];
 		
-		if( $last == 'y' )
+		if( $last != 's' )
 		{
-			$cut = substr( $string, 0, -1 );
-			//convert y to ies
-			$plural = $cut . 'ies';
-		}
-		else
-		{
-			// just attach a s
-			$plural = $string . 's';
+			if( $last == 'y' )
+			{
+				$cut = substr( $string, 0, -1 );
+				//convert y to ies
+				$plural = $cut . 'ies';
+			}
+			else
+			{
+				// just attach a s
+				$plural = $string . 's';
+			}
+
+			return $plural;
 		}
 		
-		return $plural;
+		return $string;
 	}
 	
 	
