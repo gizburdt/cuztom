@@ -30,7 +30,7 @@ class Cuztom_Meta_Box
 	 * @since 0.2
 	 *
 	 */
-	function __construct( $title, $fields = array(), $post_type_name = null, $context = 'normal', $priority = 'default' )
+	function __construct( $title, $post_type_name = null, $fields = array(), $context = 'normal', $priority = 'default' )
 	{
 		if( ! empty( $title ) )
 		{
@@ -138,7 +138,7 @@ class Cuztom_Meta_Box
 											echo '</th>';
 											echo '<td class="cuztom_td td">';
 
-												Cuztom_Field::output( $field_id_name, $field, $meta );
+												cuztom_field( $field_id_name, $field, $meta );
 
 											echo '</td>';
 										echo '</tr>';
@@ -168,7 +168,7 @@ class Cuztom_Meta_Box
 								echo '</th>';
 								echo '<td class="cuztom_td td">';
 
-									Cuztom_Field::output( $field_id_name, $field, $meta );
+									cuztom_field( $field_id_name, $field, $meta );
 
 								echo '</td>';
 							echo '</tr>';

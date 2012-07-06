@@ -18,6 +18,14 @@ include( 'classes/menu_page.class.php' );
 include( 'classes/submenu_page.class.php' );
 include( 'classes/sidebar.class.php' );
 
+include( 'functions/post_type.php' );
+include( 'functions/taxonomy.php' );
+include( 'functions/meta_box.php' );
+include( 'functions/sidebar.php' );
+include( 'functions/menu_page.php' );
+include( 'functions/submenu_page.php' );
+include( 'functions/field.php' );
+
 // Init
 $cuztom = new Cuztom();
 

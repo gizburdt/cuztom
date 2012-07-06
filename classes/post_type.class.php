@@ -140,7 +140,7 @@ class Cuztom_Post_Type
 	 */
 	function add_meta_box( $title, $fields = array(), $context = 'normal', $priority = 'default' )
 	{
-		$meta_box = new Cuztom_Meta_Box( $title, $fields, $this->post_type_name, $context, $priority );
+		$meta_box = new Cuztom_Meta_Box( $title, $this->post_type_name, $fields, $context, $priority );
 		
 		// For method chaining
 		return $this;
