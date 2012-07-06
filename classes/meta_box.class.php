@@ -30,7 +30,7 @@ class Cuztom_Meta_Box
 	 * @since 0.2
 	 *
 	 */
-	function __construct( $title, $post_type_name = null, $fields = array(), $context = 'normal', $priority = 'default' )
+	function __construct( $title, $post_type_name, $fields = array(), $context = 'normal', $priority = 'default' )
 	{
 		if( ! empty( $title ) )
 		{

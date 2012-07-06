@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 0.7.4  
+**Version:** 0.8  
 **Requires:** 3.0+ 
 
 ## Basic usage
@@ -13,7 +13,7 @@ Include the main file.
    
 ### Add Custom Post Types
 	
-	$book = new Cuztom_Post_Type( 'Book' );
+	$book = register_cuztom_post_type( 'Book' );
 	
 ### Add Custom Taxonomies
 	
@@ -23,7 +23,7 @@ To add Custom Taxonomies to the newly created Post Type, simply call this method
 			
 You can also call this as a seperate class like this. The second parameter is the Post Type name.
 
-	$taxonomy = new Cuztom_Taxonomy( 'Author', 'book' ) )
+	$taxonomy = register_cuztom_taxonomy( 'Author', 'book' ) )
 
 ### Add Meta Boxes
 	
@@ -43,7 +43,7 @@ Add Meta Boxes.
 	
 Meta Boxes can be added with their own class too. The second parameter is the Post Type name.
 
-	$box = new Cuztom_Meta_Box(  
+	$box = add_cuztom_meta_box(  
 		'Book Info', 
 		'book',
 		array(
@@ -58,7 +58,7 @@ Meta Boxes can be added with their own class too. The second parameter is the Po
 
 To register a sidebar, just call this.
 
-	$sidebar = new Cuztom_Sidebar( 
+	$sidebar = register_cuztom_sidebar( 
 		'Sidebar',
 		'sidebar' ,
 		'Just a little description',
@@ -68,7 +68,7 @@ To register a sidebar, just call this.
 
 Add a menu page.
 
-	$menu_page = new Cuztom_Menu_Page(
+	$menu_page = add_cuztom_menu_page(
 		'Page Title', 
 		'Menu Title', 
 		'read', 
@@ -90,7 +90,7 @@ To add a submenu page to the newly added page, call this.
 
 To add a submenu page to another page.
 
-	$submenu_page = new Cuztom_Submenu_Page(
+	$submenu_page = add_cuztom_submenu_page(
 		'parent_slug',
 		'Sub Page Title',
 		'Sub Menu Title',
@@ -113,15 +113,13 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###0.8
+* Added: Function: You can now use functions to execute some commands ( e.g. register_cuztom_post_type('book') )
+* Changed: The second parameter of add Cuztom_Meta_Box is now $post_type_name instead of $fields. $fields is now the third parameter
+
 ###0.7.4
 * Fixed: Cuztom::pluralize doesn't attach an 's', when the string ends with an 's'
 
 ###0.7.3
 * Improvement: Some styling improvements
 * Added: Radio now outputs one radio button, and radios outputs multiple radio button. Just like it does with checkboxes.
-
-### 0.7.2
-* Improvement: The image meta field now uses the Wordpress Media popup selector instead of the standard browser selector. So now al the uploaded media can be found in the Media library.
-* Fixed: Issue #7: Before the meta boxes are being saved, Cuztom will check if $_POST['cuztom'] is set.
-* Fixed: Issue #8: Cuztom will check if the meta is an array before it checks if the value is in the array (thanks to iamfriendly)
-* Fixed: Issue #9: Preview image is now set to max-width: 100%
