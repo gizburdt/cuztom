@@ -150,10 +150,6 @@ class Cuztom_Meta_Box
 					echo '</div>';
 				echo '</div>';
 			}
-			elseif( ! is_array( $meta_data[0] ) && $meta_data[0] == 'entities' )
-			{
-				echo '';
-			}
 			else
 			{
 				echo '<div class="cuztom_helper">';
@@ -215,11 +211,6 @@ class Cuztom_Meta_Box
 						$this->_save_meta( $post, $field, $field_id_name );
 					}
 				}
-			}
-			elseif( ! is_array( $meta_data[0] ) && $meta_data[0] == 'entities' )
-			{
-				echo 'entities';
-				die();
 			}
 			else
 			{
