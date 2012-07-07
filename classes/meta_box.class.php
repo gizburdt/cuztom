@@ -14,7 +14,7 @@ class Cuztom_Meta_Box
 	var $box_context;
 	var $box_priority;
 	var $post_type_name;
-	var $meta_fields;
+	var $meta_data;
 	
 	
 	/**
@@ -30,7 +30,7 @@ class Cuztom_Meta_Box
 	 * @since 0.2
 	 *
 	 */
-	function __construct( $title, $post_type_name, $fields = array(), $context = 'normal', $priority = 'default' )
+	function __construct( $title, $post_type_name, $data = array(), $context = 'normal', $priority = 'default' )
 	{
 		if( ! empty( $title ) )
 		{
@@ -42,7 +42,7 @@ class Cuztom_Meta_Box
 			$this->box_context		= $context;
 			$this->box_priority		= $priority;
 
-			$this->meta_fields 	= $fields;
+			$this->meta_data 	= $data;
 
 			add_action( 'admin_init', array( $this, 'add_meta_box' ) );
 		}
@@ -51,7 +51,7 @@ class Cuztom_Meta_Box
 		add_action( 'post_edit_form_tag', array( $this, 'post_edit_form_tag' ) );
 		
 		// Listen for the save post hook
-		add_action( 'save_post', array( $this, 'save_post' ) );		
+		add_action( 'save_post', array( $this, 'save_post' ) );	
 	}
 	
 	
@@ -92,20 +92,20 @@ class Cuztom_Meta_Box
 		wp_nonce_field( plugin_basename( __FILE__ ), 'cuztom_nonce' );
 
 		// Get all inputs from $data
-		$meta_fields = $this->meta_fields;
+		$meta_data = $this->meta_data;
 		
 		// Check the array and loop through it
-		if( ! empty( $meta_fields ) )
+		if( ! empty( $meta_data ) )
 		{			
-			if( ! is_array( $meta_fields[0] ) && ( $meta_fields[0] == 'tabs' || $meta_fields[0] == 'accordion' ) )
+			if( ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'tabs' || $meta_data[0] == 'accordion' ) )
 			{
 				echo '<div class="cuztom_helper">';	
-					echo '<div class="' . ( $meta_fields[0] == 'tabs' ? 'cuztom_tabs' : 'cuztom_accordion' ) . '">';
+					echo '<div class="' . ( $meta_data[0] == 'tabs' ? 'cuztom_tabs' : 'cuztom_accordion' ) . '">';
 						
-						if( $meta_fields[0] == 'tabs' )
+						if( $meta_data[0] == 'tabs' )
 						{
 							echo '<ul>';
-								foreach( $meta_fields[1] as $tab )
+								foreach( $meta_data[1] as $tab )
 								{
 									$tab_id = Cuztom::uglify( $tab[0] );
 
@@ -114,12 +114,12 @@ class Cuztom_Meta_Box
 							echo '</ul>';
 						}
 					
-						/* Loop through $meta_fields, tabs in this case */
-						foreach( $meta_fields[1] as $tab )
+						/* Loop through $meta_data, tabs in this case */
+						foreach( $meta_data[1] as $tab )
 						{
 							$tab_id = Cuztom::uglify( $tab[0] );
 							
-							if( $meta_fields[0] == 'accordion' )
+							if( $meta_data[0] == 'accordion' )
 							{
 								echo '<h3>' . Cuztom::beautify( $tab[0] ) . '</h3>';
 							}
@@ -150,13 +150,17 @@ class Cuztom_Meta_Box
 					echo '</div>';
 				echo '</div>';
 			}
+			elseif( ! is_array( $meta_data[0] ) && $meta_data[0] == 'entities' )
+			{
+				echo '';
+			}
 			else
 			{
 				echo '<div class="cuztom_helper">';
 					echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 
-						/* Loop through $meta_fields */
-						foreach( $meta_fields as $field )
+						/* Loop through $meta_data */
+						foreach( $meta_data as $field )
 						{
 							$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );
 							$meta = get_post_meta( $post->ID, $field_id_name, true );
@@ -199,11 +203,11 @@ class Cuztom_Meta_Box
 		if( ! isset( $post->ID ) && get_post_type( $post->ID ) !== $this->post_type_name ) return;
 		
 		// Loop through each meta box
-		if( ! empty( $this->meta_fields ) && isset( $_POST['cuztom'] ) )
+		if( ! empty( $this->meta_data ) && isset( $_POST['cuztom'] ) )
 		{			
-			if( ! is_array( $this->meta_fields[0] ) && ( $this->meta_fields[0] == 'tabs' || $this->meta_fields[0] == 'accordion' ) )
+			if( ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' ) )
 			{
-				foreach( $this->meta_fields[1] as $tab )
+				foreach( $this->meta_data[1] as $tab )
 				{								
 					foreach( $tab[1] as $field )
 					{									
@@ -212,9 +216,14 @@ class Cuztom_Meta_Box
 					}
 				}
 			}
+			elseif( ! is_array( $meta_data[0] ) && $meta_data[0] == 'entities' )
+			{
+				echo 'entities';
+				die();
+			}
 			else
 			{
-				foreach( $this->meta_fields as $field )
+				foreach( $this->meta_data as $field )
 				{
 					$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );		
 					$this->_save_meta( $post, $field, $field_id_name );
