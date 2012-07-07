@@ -16,3 +16,6 @@
 
 /* Meta Box check inputs */
 .cuztom_helper .cuztom_checked_wrap{ padding: 8px 0; }
+
+/* Meta Box taxonomy type */
+.cuztom_helper .cuztom_taxonomy_wrap{ margin: 8px 0; max-height: 100px; overflow: scroll; }

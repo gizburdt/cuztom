@@ -23,7 +23,7 @@ class Cuztom_Field
 	 *
 	 */
 	static function output( $field_id_name, $field, $value = '' )
-	{		
+	{
 		switch( $field['type'] ) :
 			
 			case 'text' :
@@ -54,31 +54,40 @@ class Cuztom_Field
 			
 			case 'select' :
 				echo '<select name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">';
-					foreach( $field['options'] as $slug => $name )
+					if( is_array( $field['options'] ) )
 					{
-						echo '<option value="' . Cuztom::uglify( $slug ) . '" ' . selected( Cuztom::uglify( $slug ), $value, false ) . '>' . Cuztom::beautify( $name ) . '</option>';
+						foreach( $field['options'] as $slug => $name )
+						{
+							echo '<option value="' . Cuztom::uglify( $slug ) . '" ' . selected( Cuztom::uglify( $slug ), $value, false ) . '>' . Cuztom::beautify( $name ) . '</option>';
+						}
 					}
 				echo '</select>';
 			break;
 			
 			case 'checkboxes' :
 				echo '<div class="cuztom_checked_wrap">';
-					foreach( $field['options'] as $slug => $name )
+					if( is_array( $field['options'] ) )
 					{
-						echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( in_array( Cuztom::uglify( $slug ), ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) . ' /> ';
-						echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
-						echo '<br />';
+						foreach( $field['options'] as $slug => $name )
+						{
+							echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( in_array( Cuztom::uglify( $slug ), ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) . ' /> ';
+							echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
+							echo '<br />';
+						}
 					}
 				echo '</div>';
 			break;
 			
 			case 'radios' :
 				echo '<div class="cuztom_checked_wrap">';
-					foreach( $field['options'] as $slug => $name )
+					if( is_array( $field['options'] ) )
 					{
-						echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . checked( Cuztom::uglify( $slug ), $value, false ) . ' /> ';
-						echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
-						echo '<br />';
+						foreach( $field['options'] as $slug => $name )
+						{
+							echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . checked( Cuztom::uglify( $slug ), $value, false ) . ' /> ';
+							echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
+							echo '<br />';
+						}
 					}
 				echo '</div>';
 			break;
@@ -131,11 +140,20 @@ class Cuztom_Field
 					
 				);
 				
-				$taxonomy = $optios['taxonomy'];
-				
-				echo '<select>';
-					
-				echo '<select>';
+				$taxonomy = $options['taxonomy'];
+				$terms = get_terms( $taxonomy, array( 'hide_empty' => false ) );
+
+				echo '<div class="cuztom_taxonomy_wrap">';
+					if( is_array( $terms ) )
+					{
+						foreach( $terms as $term )
+						{
+							echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $taxonomy ) . '" value="' . $term->term_id . '" ' . ( in_array( $term->term_id, ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) . ' /> ';
+							echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $taxonomy ) . '">' . $term->name . '</label>';
+							echo '<br />';
+						}
+					}
+				echo '</div>';
 			break;
 			
 			default:

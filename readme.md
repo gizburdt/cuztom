@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 0.8  
+**Version:** 0.8.1  
 **Requires:** 3.0+ 
 
 ## Basic usage
@@ -113,13 +113,13 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+##0.8.1
+* Added: Meta box taxonomies. Taxonomies as checkboxes in Meta Boxes.
+* Improvement: Before Cuztom_Field will check if $field['options'] is an array before it loops through it. 
+
 ###0.8
 * Added: Function: You can now use functions to execute some commands ( e.g. register_cuztom_post_type('book') )
 * Changed: The second parameter of add Cuztom_Meta_Box is now $post_type_name instead of $fields. $fields is now the third parameter
 
 ###0.7.4
 * Fixed: Cuztom::pluralize doesn't attach an 's', when the string ends with an 's'
-
-###0.7.3
-* Improvement: Some styling improvements
-* Added: Radio now outputs one radio button, and radios outputs multiple radio button. Just like it does with checkboxes.
