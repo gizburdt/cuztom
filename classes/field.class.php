@@ -117,6 +117,27 @@ class Cuztom_Field
 				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_datepicker datepicker" value="' . $value . '" />';
 			break;
 			
+			case 'taxonomy' :
+				$options = array_merge(
+					
+					// Default
+					array(
+						'taxonomy'		=> 'category',
+						'type'			=> 'checkboxes'
+					),
+					
+					// Given
+					isset( $field['options'] ) ? $field['options'] : array()
+					
+				);
+				
+				$taxonomy = $optios['taxonomy'];
+				
+				echo '<select>';
+					
+				echo '<select>';
+			break;
+			
 			default:
 				echo __( 'Unknown input type', CUZTOM_TEXTDOMAIN );
 			break;
