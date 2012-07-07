@@ -113,7 +113,7 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
-##0.8.1
+###0.8.1
 * Added: Meta box taxonomies. Taxonomies as checkboxes in Meta Boxes.
 * Improvement: Before Cuztom_Field will check if $field['options'] is an array before it loops through it. 
 
