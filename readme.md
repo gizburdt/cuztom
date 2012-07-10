@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 0.8.1  
+**Version:** 0.8.2  
 **Requires:** 3.0+ 
 
 ## Basic usage
@@ -112,6 +112,11 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###0.8.2
+* Fixed: Some small bugs
+* Improvements: Some small improvements
+* Added: New Meta Box field type
 
 ###0.8.1
 * Added: Meta box taxonomies. Taxonomies as checkboxes in Meta Boxes.
