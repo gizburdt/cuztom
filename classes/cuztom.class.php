@@ -198,6 +198,7 @@ class Cuztom
 	function _determine_cuztom_dir( $path = __FILE__ )
 	{
 		$path = dirname( $path );
+		$path = str_replace( '\\', '/', $path );
 		$explode_path = explode( '/', $path );
 		
 		$current_dir = $explode_path[count( $explode_path ) - 1];

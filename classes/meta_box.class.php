@@ -96,7 +96,10 @@ class Cuztom_Meta_Box
 		
 		// Check the array and loop through it
 		if( ! empty( $meta_data ) )
-		{			
+		{
+			// Hidden field, so cuztom is always set
+			echo '<input type="hidden" name="cuztom[__activate]" />';
+			
 			if( ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'tabs' || $meta_data[0] == 'accordion' ) )
 			{
 				echo '<div class="cuztom_helper">';	
