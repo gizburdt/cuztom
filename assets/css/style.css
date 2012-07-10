@@ -1,4 +1,4 @@
-/* Meta Box table */
+/* Meta Boxes */
 .cuztom_helper{ width: 100%; }
 .cuztom_helper .cuztom_table{ border: none; padding: 0; width: 100%; }
 .cuztom_helper .cuztom_table th{ font-weight: normal; text-align: left; width: 30%; min-width: 100px; padding: 5px 0; vertical-align: top; }
@@ -7,15 +7,11 @@
 .cuztom_helper .cuztom_table td{ width: 70%; }
 .cuztom_helper .cuztom_table .cuztom_button_wrap{ padding: 8px 0; }
 
-/* Meta Box tabs */
 .cuztom_helper .cuztom_tabs{ padding-top: 10px; }
 
-/* Meta Box images */
 .cuztom_helper .cuztom_preview{ width: 100%; display: block; }
 .cuztom_helper .cuztom_preview img{ max-width: 100%; }
 
-/* Meta Box check inputs */
 .cuztom_helper .cuztom_checked_wrap{ padding: 8px 0; }
-
-/* Meta Box taxonomy type */
-.cuztom_helper .cuztom_taxonomy_wrap{ margin: 8px 0; max-height: 100px; overflow: scroll; }
+.cuztom_helper .cuztom_taxonomy_wrap,
+.cuztom_helper .cuztom_posts_wrap{ max-height: 100px; overflow-y: scroll; overflow-x: hidden; }

@@ -126,7 +126,59 @@ class Cuztom_Field
 				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_datepicker datepicker" value="' . $value . '" />';
 			break;
 			
-			case 'taxonomy' :
+			case 'posts' :
+				$options = array_merge(
+					
+					// Default
+					array(
+						'post_type'		=> 'post',
+						'type'			=> 'checkboxes'
+					),
+					
+					// Given
+					isset( $field['options'] ) ? $field['options'] : array()
+				
+				);
+				
+				$post_type = $options['post_type'];
+				$posts = get_posts( array( 'post_type' => $post_type ) );
+				
+				switch( $options['type'] ) :
+				
+					case 'checkboxes' :
+						echo '<div class="cuztom_posts_wrap cuztom_checked_wrap">';
+							if( is_array( $posts ) )
+							{
+								foreach( $posts as $post )
+								{
+									echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $post->post_title ) . '" value="' . $post->ID . '" ' . ( in_array( $post->ID, ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) . ' /> ';
+									echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $post->post_title ) . '">' . $post->post_title . '</label>';
+									echo '<br />';
+								}
+							}
+						echo '</div>';
+					break;
+					
+					case 'select' :
+						echo '<select name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">';
+							if( is_array( $posts ) )
+							{
+								foreach( $posts as $post )
+								{
+									echo '<option value="' . $post->ID . '" ' . selected( $post->ID, $value, false ) . '>' . $post->post_title . '</option>';
+								}
+							}
+						echo '</select>';
+					break;
+					
+					default :
+						_e( 'Unknown input type', CUZTOM_TEXTDOMAIN );
+					break;
+				
+				endswitch;
+			break;
+			
+			case 'terms' :
 				$options = array_merge(
 					
 					// Default
@@ -142,22 +194,44 @@ class Cuztom_Field
 				
 				$taxonomy = $options['taxonomy'];
 				$terms = get_terms( $taxonomy, array( 'hide_empty' => false ) );
-
-				echo '<div class="cuztom_taxonomy_wrap">';
-					if( is_array( $terms ) )
-					{
-						foreach( $terms as $term )
-						{
-							echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $taxonomy ) . '" value="' . $term->term_id . '" ' . ( in_array( $term->term_id, ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) . ' /> ';
-							echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $taxonomy ) . '">' . $term->name . '</label>';
-							echo '<br />';
-						}
-					}
-				echo '</div>';
+				
+				switch( $options['type'] ) :
+				
+					case 'checkboxes' :
+						echo '<div class="cuztom_taxonomy_wrap cuztom_checked_wrap">';
+							if( is_array( $terms ) )
+							{
+								foreach( $terms as $term )
+								{									
+									echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $taxonomy ) . '" value="' . $term->term_id . '" ' . ( in_array( $term->term_id, ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) . ' /> ';
+									echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $taxonomy ) . '">' . $term->name . '</label>';
+									echo '<br />';
+								}
+							}
+						echo '</div>';
+					break;
+					
+					case 'select' :
+						echo '<select name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">';
+							if( is_array( $terms ) )
+							{
+								foreach( $terms as $term )
+								{
+									echo '<option value="' . $term->term_id . '" ' . selected( $term->term_id, $value, false ) . '>' . $term->name . '</option>';
+								}
+							}
+						echo '</select>';
+					break;
+					
+					default :
+						_e( 'Unknown input type', CUZTOM_TEXTDOMAIN );
+					break;
+				
+				endswitch;
 			break;
 			
-			default:
-				echo __( 'Unknown input type', CUZTOM_TEXTDOMAIN );
+			default :
+				_e( 'Unknown input type', CUZTOM_TEXTDOMAIN );
 			break;
 			
 		endswitch;
