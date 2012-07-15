@@ -1,11 +1,14 @@
-/* Meta Boxes */
 .cuztom_helper{ width: 100%; }
 .cuztom_helper .cuztom_table{ border: none; padding: 0; width: 100%; }
 .cuztom_helper .cuztom_table th{ font-weight: normal; text-align: left; width: 30%; min-width: 100px; padding: 5px 0; vertical-align: top; }
 .cuztom_helper .cuztom_table th label{ font-size: 12px; font-weight: bold; }
 .cuztom_helper .cuztom_table th .description{ font-size: 10px; font-style: italic; }
 .cuztom_helper .cuztom_table td{ width: 70%; }
-.cuztom_helper .cuztom_table .cuztom_button_wrap{ padding: 8px 0; }
+
+.cuztom_helper textarea{ width: 100%; height: 100px; }
+
+.cuztom_helper .cuztom_button_wrap{ padding: 8px 0; }
+.cuztom_helper .cuztom_button_wrap .cuztom_button{ margin-right: 8px; }
 
 .cuztom_helper .cuztom_tabs{ padding-top: 10px; }
 

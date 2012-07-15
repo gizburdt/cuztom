@@ -41,14 +41,7 @@ class Cuztom
 	 *
 	 */
 	function register_styles()
-	{
-		wp_register_style( 'cuztom_css', 
-			$this->dir . '/assets/css/style.css', 
-			false, 
-			CUZTOM_VERSION, 
-			'screen'
-		);
-		
+	{		
 		if( CUZTOM_JQUERY_UI_STYLE != 'none' )
 		{
 			if( CUZTOM_JQUERY_UI_STYLE == 'cuztom' )
@@ -70,6 +63,20 @@ class Cuztom
 				);
 			}
 		}
+		
+		wp_register_style( 'cuztom_colorpicker_css', 
+			$this->dir . '/assets/css/colorpicker.css', 
+			false, 
+			CUZTOM_VERSION, 
+			'screen'
+		);
+		
+		wp_register_style( 'cuztom_css', 
+			$this->dir . '/assets/css/style.css', 
+			false, 
+			CUZTOM_VERSION, 
+			'screen'
+		);
 	}
 	
 	
@@ -82,8 +89,9 @@ class Cuztom
 	 */
 	function enqueue_styles()
 	{
-		wp_enqueue_style( 'cuztom_css' );
 		wp_enqueue_style( 'cuztom_jquery_ui_css' );
+		wp_enqueue_style( 'cuztom_colorpicker_css' );
+		wp_enqueue_style( 'cuztom_css' );
 	}
 	
 	
@@ -96,9 +104,16 @@ class Cuztom
 	 */
 	function register_scripts()
 	{
+		wp_register_script( 'cuztom_colorpicker_js', 
+			$this->dir . '/assets/js/jquery.colorpicker.js',
+			array( 'jquery' ), 
+			CUZTOM_VERSION, 
+			true 
+		);
+		
 		wp_register_script( 'cuztom_js', 
 			$this->dir . '/assets/js/functions.js',
-			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion' ), 
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom_colorpicker_js' ), 
 			CUZTOM_VERSION, 
 			true 
 		);
@@ -114,6 +129,7 @@ class Cuztom
 	 */
 	function enqueue_scripts()
 	{
+		wp_enqueue_script( 'cuztom_colorpicker_js' );
 		wp_enqueue_script( 'cuztom_js' );
 	}
 	

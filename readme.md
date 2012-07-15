@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 0.8.2  
+**Version:** 0.9  
 **Requires:** 3.0+ 
 
 ## Basic usage
@@ -113,6 +113,12 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###0.9
+* Added: Default value for input fields
+* Added: Cuztom now checks if the current user is capable to edit the post
+* Improvement: Remove current image for image unput field
+* Improvement: Some minor improvements
+
 ###0.8.2
 * Fixed: Some small bugs
 * Improvements: Some small improvements
@@ -125,6 +131,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 ###0.8
 * Added: Function: You can now use functions to execute some commands ( e.g. register_cuztom_post_type('book') )
 * Changed: The second parameter of add Cuztom_Meta_Box is now $post_type_name instead of $fields. $fields is now the third parameter
-
-###0.7.4
-* Fixed: Cuztom::pluralize doesn't attach an 's', when the string ends with an 's'

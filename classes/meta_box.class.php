@@ -42,9 +42,9 @@ class Cuztom_Meta_Box
 			$this->box_context		= $context;
 			$this->box_priority		= $priority;
 
-			$this->meta_data 	= $data;
+			$this->meta_data 		= $data;
 
-			add_action( 'admin_init', array( $this, 'add_meta_box' ) );
+			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 		}
 		
 		// Add multipart for files
@@ -102,9 +102,11 @@ class Cuztom_Meta_Box
 			
 			if( ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'tabs' || $meta_data[0] == 'accordion' ) )
 			{
+				// If it's about tabs or accordion
 				echo '<div class="cuztom_helper">';	
 					echo '<div class="' . ( $meta_data[0] == 'tabs' ? 'cuztom_tabs' : 'cuztom_accordion' ) . '">';
 						
+						// Show tabs
 						if( $meta_data[0] == 'tabs' )
 						{
 							echo '<ul>';
@@ -131,20 +133,24 @@ class Cuztom_Meta_Box
 								echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 									foreach( $tab[1] as $field )
 									{
-										$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );
+										$field = Cuztom_Field::_build_array( $field );
+										$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
 										$meta = get_post_meta( $post->ID, $field_id_name, true );
-									
-										echo '<tr>';
-											echo '<th class="cuztom_th th">';
-												echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
-												echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
-											echo '</th>';
-											echo '<td class="cuztom_td td">';
+										
+										foreach( $meta_data as $field )
+										{
+											echo '<tr>';
+												echo '<th class="cuztom_th th">';
+													echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
+													echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
+												echo '</th>';
+												echo '<td class="cuztom_td td">';
 
-												cuztom_field( $field_id_name, $field, $meta );
+													cuztom_field( $field_id_name, $field, $meta );
 
-											echo '</td>';
-										echo '</tr>';
+												echo '</td>';
+											echo '</tr>';
+										}
 									}
 								echo '</table>';
 							echo '</div>';
@@ -161,20 +167,24 @@ class Cuztom_Meta_Box
 						/* Loop through $meta_data */
 						foreach( $meta_data as $field )
 						{
-							$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );
+							$field = Cuztom_Field::_build_array( $field );
+							$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
 							$meta = get_post_meta( $post->ID, $field_id_name, true );
+							
+							if( $field['type'] != 'hidden' )
+							{
+								echo '<tr>';
+									echo '<th class="cuztom_th th">';
+										echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
+										echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
+									echo '</th>';
+									echo '<td class="cuztom_td td">';
 
-							echo '<tr>';
-								echo '<th class="cuztom_th th">';
-									echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
-									echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
-								echo '</th>';
-								echo '<td class="cuztom_td td">';
+										cuztom_field( $field_id_name, $field, $meta );
 
-									cuztom_field( $field_id_name, $field, $meta );
-
-								echo '</td>';
-							echo '</tr>';
+									echo '</td>';
+								echo '</tr>';
+							}
 						}
 
 					echo '</table>';
@@ -191,15 +201,19 @@ class Cuztom_Meta_Box
 	 * @since 0.1
 	 *
 	 */
-	function save_post()
+	function save_post( $post_id )
 	{			
 		// Deny the wordpress autosave function
 		if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
 		
+		// Verify nonce
 		if( $_POST && ! wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) return;
 		
-		global $post;
-		if( ! isset( $post->ID ) && get_post_type( $post->ID ) !== $this->post_type_name ) return;
+		// Is the post from the given post type?
+		if( ! isset( $post_id ) && get_post_type( $post_id ) !== $this->post_type_name ) return;
+		
+		// Is the current user capable to edit this post
+		if( ! current_user_can( get_post_type_object($this->post_type_name)->cap->edit_post, $post_id ) ) return;
 		
 		// Loop through each meta box
 		if( ! empty( $this->meta_data ) && isset( $_POST['cuztom'] ) )
@@ -210,7 +224,8 @@ class Cuztom_Meta_Box
 				{								
 					foreach( $tab[1] as $field )
 					{									
-						$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );
+						$field = Cuztom_Field::_build_array( $field );
+						$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
 						$this->_save_meta( $post, $field, $field_id_name );
 					}
 				}
@@ -219,8 +234,9 @@ class Cuztom_Meta_Box
 			{
 				foreach( $this->meta_data as $field )
 				{
-					$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );		
-					$this->_save_meta( $post, $field, $field_id_name );
+					$field = Cuztom_Field::_build_array( $field );
+					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );	
+					$this->_save_meta( $post_id, $field_id_name );
 				}
 			}		
 		}		
@@ -230,7 +246,7 @@ class Cuztom_Meta_Box
 	/**
 	 * Actual method that saves the post meta
 	 *
-	 * @param object $post
+	 * @param integer $post_id
 	 * @param string $field  
 	 * @param string $field_id_name
 	 *
@@ -238,10 +254,9 @@ class Cuztom_Meta_Box
 	 * @since 0.7
 	 *
 	 */
-	function _save_meta( $post, $field, $field_id_name )
-	{
-		$field_id_name = '_' . Cuztom::uglify( $this->box_title ) . "_" . Cuztom::uglify( $field['name'] );				
-		update_post_meta( $post->ID, $field_id_name, $_POST['cuztom'][$field_id_name] );
+	function _save_meta( $post_id, $field_id_name )
+	{			
+		update_post_meta( $post_id, $field_id_name, $_POST['cuztom'][$field_id_name] );
 	}
 	
 	

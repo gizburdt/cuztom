@@ -3,11 +3,21 @@ jQuery(function($) {
 	
 	$('.cuztom_datepicker').datepicker();
 	
+	$('.cuztom_colorpicker').miniColors();
+	
 	$('.cuztom_tabs').tabs();
 	
 	$('.cuztom_accordion').accordion();
 	
-	$('.cuztom_upload').on('click', function(){
+	$('.cuztom_remove_image').on( 'click', function(){
+		$('.cuztom_preview').html('');
+		$('.cuztom_hidden').val('');
+		$(this).hide();
+		
+		return false;
+	});
+	
+	$('.cuztom_upload').on( 'click', function(){
 		parent		= $(this).closest('.cuztom_td');
 		
 	    uploadID 	= parent.find('.cuztom_hidden');		
@@ -19,7 +29,7 @@ jQuery(function($) {
 		return false;
 	});
 
-	window.send_to_editor = function(html) {		
+	window.send_to_editor = function( html ) {		
 		// Add image source to the hidden field
 	    img = $(html).find('img');
 	    uploadID.val( img.attr('src') );
