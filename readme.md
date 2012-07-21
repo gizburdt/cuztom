@@ -113,6 +113,9 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+### 0.9.1
+* Small improvements
+
 ###0.9
 * Added: Default value for input fields
 * Added: Cuztom now checks if the current user is capable to edit the post
@@ -123,11 +126,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Fixed: Some small bugs
 * Improvements: Some small improvements
 * Added: New Meta Box field type
-
-###0.8.1
-* Added: Meta box taxonomies. Taxonomies as checkboxes in Meta Boxes.
-* Improvement: Before Cuztom_Field will check if $field['options'] is an array before it loops through it. 
-
-###0.8
-* Added: Function: You can now use functions to execute some commands ( e.g. register_cuztom_post_type('book') )
-* Changed: The second parameter of add Cuztom_Meta_Box is now $post_type_name instead of $fields. $fields is now the third parameter

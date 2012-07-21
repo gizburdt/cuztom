@@ -207,10 +207,10 @@ class Cuztom_Meta_Box
 		if( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
 		
 		// Verify nonce
-		if( $_POST && ! wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) return;
+		if( isset( $_POST ) && ! wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) return;
 		
 		// Is the post from the given post type?
-		if( ! isset( $post_id ) && get_post_type( $post_id ) !== $this->post_type_name ) return;
+		if( get_post_type( $post_id ) != $this->post_type_name ) return;
 		
 		// Is the current user capable to edit this post
 		if( ! current_user_can( get_post_type_object($this->post_type_name)->cap->edit_post, $post_id ) ) return;
@@ -236,7 +236,7 @@ class Cuztom_Meta_Box
 				{
 					$field = Cuztom_Field::_build_array( $field );
 					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );	
-					$this->_save_meta( $post_id, $field_id_name );
+					$this->_save_meta( $post_id, $field, $field_id_name );
 				}
 			}		
 		}		
@@ -254,9 +254,13 @@ class Cuztom_Meta_Box
 	 * @since 0.7
 	 *
 	 */
-	function _save_meta( $post_id, $field_id_name )
-	{			
-		update_post_meta( $post_id, $field_id_name, $_POST['cuztom'][$field_id_name] );
+	function _save_meta( $post, $field, $field_id_name )
+	{
+		$value = $_POST['cuztom'][$field_id_name];
+		
+		if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
+		
+		update_post_meta( $post->ID, $field_id_name, $value );
 	}
 	
 	
