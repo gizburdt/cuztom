@@ -137,7 +137,7 @@ class Cuztom_Meta_Box
 										$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
 										$meta = get_post_meta( $post->ID, $field_id_name, true );
 										
-										foreach( $meta_data as $field )
+										if( $field['type'] != 'hidden' )
 										{
 											echo '<tr>';
 												echo '<th class="cuztom_th th">';

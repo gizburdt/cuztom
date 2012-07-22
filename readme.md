@@ -113,6 +113,9 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###0.9.2
+* Fixed: Issue #10: Fields in tabs now work again (props DarbCal)
+
 ### 0.9.1
 * Small improvements
 
