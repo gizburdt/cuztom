@@ -217,15 +217,19 @@ class Cuztom_Field
 					break;
 					
 					case 'select' :
-						echo '<select name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '">';
-							if( is_array( $terms ) )
-							{
-								foreach( $terms as $term )
-								{
-									echo '<option value="' . $term->term_id . '" ' . ( ! empty( $value ) ? selected( $term->term_id, $value, false ) : selected( $field['default_value'], $term->term_id, false ) ) . '>' . $term->name . '</option>';
-								}
-							}
-						echo '</select>';
+						
+						$args = array(
+							'echo' 			=> 1,
+							'selected'		=> ( ! empty( $value ) ? $value : $field['default_value'] ),
+							'orderby'		=> 'name',
+							'order'			=> 'ASC',
+							'taxonomy'		=> $taxonomy,
+							'name'			=> 'cuztom[' . $field_id_name . ']',
+							'hide_empty'	=> 0,
+							'hierarchical'	=> 1
+						);
+						
+						wp_dropdown_categories( $args );
 					break;
 					
 					default :
@@ -285,7 +289,7 @@ class Cuztom_Field
 	            'type'          => 'text',
 				'hide'			=> true,
 				'default_value'	=> '',
-				'option'		=> array()
+				'options'		=> array()
 			),
 			
 			// Given

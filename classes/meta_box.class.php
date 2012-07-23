@@ -151,6 +151,10 @@ class Cuztom_Meta_Box
 												echo '</td>';
 											echo '</tr>';
 										}
+										else
+										{
+											cuztom_field( $field_id_name, $field, $meta );
+										}
 									}
 								echo '</table>';
 							echo '</div>';
@@ -169,7 +173,7 @@ class Cuztom_Meta_Box
 						{
 							$field = Cuztom_Field::_build_array( $field );
 							$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
-							$meta = get_post_meta( $post->ID, $field_id_name, true );
+							$meta = get_post_meta( $post->ID, $field_id_name, true ) ? get_post_meta( $post->ID, $field_id_name, true ) : false;
 							
 							if( $field['type'] != 'hidden' )
 							{
@@ -185,7 +189,12 @@ class Cuztom_Meta_Box
 									echo '</td>';
 								echo '</tr>';
 							}
+							else
+							{
+								cuztom_field( $field_id_name, $field, $meta );
+							}
 						}
+						die();
 
 					echo '</table>';
 				echo '</div>';
@@ -226,7 +235,7 @@ class Cuztom_Meta_Box
 					{									
 						$field = Cuztom_Field::_build_array( $field );
 						$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
-						$this->_save_meta( $post, $field, $field_id_name );
+						$this->_save_meta( $post_id, $field, $field_id_name );
 					}
 				}
 			}
@@ -254,13 +263,20 @@ class Cuztom_Meta_Box
 	 * @since 0.7
 	 *
 	 */
-	function _save_meta( $post, $field, $field_id_name )
-	{
-		$value = $_POST['cuztom'][$field_id_name];
+	function _save_meta( $post_id, $field, $field_id_name )
+	{						
+		$value = isset( $_POST['cuztom'][$field_id_name] ) ? $_POST['cuztom'][$field_id_name] : '';
 		
-		if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
+		//if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
 		
-		update_post_meta( $post->ID, $field_id_name, $value );
+		if( ! empty( $value ) )
+		{
+			update_post_meta( $post_id, $field_id_name, $value );
+		}
+		else
+		{
+			delete_post_meta( $post_id, $field_id_name );
+		}
 	}
 	
 	
