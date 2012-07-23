@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 0.9  
+**Version:** 0.9.3  
 **Requires:** 3.0+ 
 
 ## Basic usage
@@ -113,6 +113,9 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###0.9.3
+* Fixed and improved: After some mistakes I made, this is a stable release.
+
 ###0.9.2
 * Fixed: Issue #10: Fields in tabs now work again (props DarbCal)
 
@@ -124,8 +127,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Added: Cuztom now checks if the current user is capable to edit the post
 * Improvement: Remove current image for image unput field
 * Improvement: Some minor improvements
-
-###0.8.2
-* Fixed: Some small bugs
-* Improvements: Some small improvements
-* Added: New Meta Box field type

@@ -23,7 +23,7 @@ class Cuztom_Field
 	 *
 	 */
 	static function output( $field_id_name, $field, $value = '' )
-	{		
+	{
 		switch( $field['type'] ) :
 			
 			case 'text' :

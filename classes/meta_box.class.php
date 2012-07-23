@@ -194,7 +194,6 @@ class Cuztom_Meta_Box
 								cuztom_field( $field_id_name, $field, $meta );
 							}
 						}
-						die();
 
 					echo '</table>';
 				echo '</div>';
@@ -222,7 +221,7 @@ class Cuztom_Meta_Box
 		if( get_post_type( $post_id ) != $this->post_type_name ) return;
 		
 		// Is the current user capable to edit this post
-		if( ! current_user_can( get_post_type_object($this->post_type_name)->cap->edit_post, $post_id ) ) return;
+		if( ! current_user_can( get_post_type_object( $this->post_type_name )->cap->edit_post, $post_id ) ) return;
 		
 		// Loop through each meta box
 		if( ! empty( $this->meta_data ) && isset( $_POST['cuztom'] ) )
@@ -269,14 +268,7 @@ class Cuztom_Meta_Box
 		
 		//if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
 		
-		if( ! empty( $value ) )
-		{
-			update_post_meta( $post_id, $field_id_name, $value );
-		}
-		else
-		{
-			delete_post_meta( $post_id, $field_id_name );
-		}
+		update_post_meta( $post_id, $field_id_name, $value );
 	}
 	
 	
