@@ -42,7 +42,7 @@ class Cuztom_Sidebar
 		$this->before_title = $before_title;
 		$this->after_title = $after_title;
 		
-		add_action( 'init', array( $this, 'register_sidebar' ) );
+		add_action( 'widgets_init', array( $this, 'register_sidebar' ) );
 	}
 	
 	
