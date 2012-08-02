@@ -289,7 +289,8 @@ class Cuztom_Field
 	            'type'          => 'text',
 				'hide'			=> true,
 				'default_value'	=> '',
-				'options'		=> array()
+				'options'		=> array(),
+				'repeatable'	=> false
 			),
 			
 			// Given
