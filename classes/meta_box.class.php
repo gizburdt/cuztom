@@ -144,7 +144,7 @@ class Cuztom_Meta_Box
 													echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
 													echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
 												echo '</th>';
-												echo '<td class="cuztom_td td ' . ( $field['repeatable'] ? 'cuztom_repeatable' : '' ) . '">';
+												echo '<td class="cuztom_td td">';
 
 													cuztom_field( $field_id_name, $field, $meta );
 
@@ -182,15 +182,9 @@ class Cuztom_Meta_Box
 										echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
 										echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
 									echo '</th>';
-									echo '<td class="cuztom_td td ' . ( $field['repeatable'] ? 'cuztom_repeatable_td' : '' ) . '">';
-									
-										if( $field['repeatable'] ) echo '<div class="button cuztom_add">++</div>';
-										
-										if( $field['repeatable'] ) echo '<div class="cuztom_field_wrap"><div class="cuztom_field">';
-											
-											cuztom_field( $field_id_name, $field, $meta );
-										
-										if( $field['repeatable'] ) echo '</div></div>';
+									echo '<td class="cuztom_td td">';
+
+										cuztom_field( $field_id_name, $field, $meta );
 
 									echo '</td>';
 								echo '</tr>';
@@ -272,7 +266,7 @@ class Cuztom_Meta_Box
 	{						
 		$value = isset( $_POST['cuztom'][$field_id_name] ) ? $_POST['cuztom'][$field_id_name] : '';
 		
-		if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
+		//if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
 		
 		update_post_meta( $post_id, $field_id_name, $value );
 	}

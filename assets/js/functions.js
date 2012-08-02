@@ -25,36 +25,21 @@ jQuery(function($) {
 	    formfield 	= parent.find('.cuztom_hidden').attr('name');
 	    
 		tb_show( '', 'media-upload.php?type=image&TB_iframe=true' );
-		
-		window.send_to_editor = function( html ) {		
-			// Add image source to the hidden field
-		    img = $(html).find('img');
-		    uploadID.val( img.attr('src') );
-
-			// Add the image to the preview
-			html = $(html).find('img');
-		    spanID.html( html );
-
-			// Close Wordpress media popup
-			tb_remove();
-		}
-		 
+	    
 		return false;
 	});
-	
-	$('.cuztom_add').on( 'click', function(){
-		field = $(this).closest('.cuztom_repeatable_td').find('.cuztom_field:last').clone(true);		
-		fieldLocation = $(this).closest('.cuztom_repeatable_td').find('.cuztom_field_wrap');
+
+	window.send_to_editor = function( html ) {		
+		// Add image source to the hidden field
+	    img = $(html).find('img');
+	    uploadID.val( img.attr('src') );
 		
-		
-		//$('input', field).val('').attr('name', function(index, name) {
-		//	return name.replace(/(\d+)/, function(fullMatch, n) {
-		//		return Number(n) + 1;
-		//	});
-		//})
-		
-		field.insertAfter(fieldLocation, $(this).closest('td'));
-		return false;
-	});
+		// Add the image to the preview
+		html = $(html).find('img');
+	    spanID.html( html );
+	    
+		// Close Wordpress media popup
+		tb_remove();
+	}
 	
 });
