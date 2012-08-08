@@ -10,6 +10,9 @@
 .cuztom_helper .cuztom_button_wrap{ padding: 8px 0; }
 .cuztom_helper .cuztom_button_wrap .cuztom_button{ margin-right: 8px; }
 
+.cuztom_helper .cuztom_repeatable_wrap{}
+.cuztom_helper .cuztom_repeatable_wrap .button{ margin: 5px 0; }
+
 .cuztom_helper .cuztom_tabs{ padding-top: 10px; }
 
 .cuztom_helper .cuztom_preview{ width: 100%; display: block; }
