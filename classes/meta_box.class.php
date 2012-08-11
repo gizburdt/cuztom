@@ -187,6 +187,7 @@ class Cuztom_Meta_Box
 									
 										if( $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) )
 										{
+											echo '<div class="cuztom_padding_wrap">';
 											echo '<a class="button-secondary cuztom_add" href="#">++</a>';
 											echo '<ul class="cuztom_repeatable_wrap"><li class="cuztom_field">';
 										}
@@ -195,7 +196,7 @@ class Cuztom_Meta_Box
 										
 										if( $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) )
 										{
-											echo '</li></ul>';
+											echo '</li></ul></div>';
 										}
 
 									echo '</td>';

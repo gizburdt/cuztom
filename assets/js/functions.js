@@ -9,7 +9,7 @@ jQuery(function($) {
 	
 	$('.cuztom_accordion').accordion();
 	
-	$('.cuztom_remove_image').on( 'click', function(){
+	$('.cuztom_td').on( 'click', '.cuztom_remove_image', function(){
 		$('.cuztom_preview').html('');
 		$('.cuztom_hidden').val('');
 		$(this).hide();
@@ -17,10 +17,10 @@ jQuery(function($) {
 		return false;
 	});
 	
-	$('.cuztom_upload').on( 'click', function(){
+	$('.cuztom_td').on( 'click', '.cuztom_upload', function(){
 		parent		= $(this).closest('.cuztom_td');
 		
-	    uploadID 	= parent.find('.cuztom_hidden');		
+	    uploadID 	= parent.find('.cuztom_hidden');
 	    spanID 		= parent.find('.cuztom_preview');		
 	    formfield 	= parent.find('.cuztom_hidden').attr('name');
 	    
@@ -44,15 +44,16 @@ jQuery(function($) {
 	
 	$('.cuztom_repeatable_wrap').sortable();
 	
-	$('.cuztom_add').on( 'click', function(){
+	$('.cuztom_td').on( 'click', '.cuztom_add', function(){
 		// Set some variables
 		parent = $(this).closest('.cuztom_td');
 		wrap = $('.cuztom_repeatable_wrap', parent);
 		field = $('.cuztom_field:last', wrap);
 		
 		// Add the new field
-		new_field = field.clone(true).appendTo(wrap);
+		new_field = field.clone(true);
 		new_field.find('input').val('');
+		new_field.appendTo(wrap);
 		
 		return false;
 	});
