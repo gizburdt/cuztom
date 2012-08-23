@@ -9,7 +9,7 @@ jQuery(function($) {
 	
 	$('.cuztom_accordion').accordion();
 	
-	$('.cuztom_remove_image').on( 'click', function(){
+	$('.cuztom_remove_image').on( 'click', function() {
 		$('.cuztom_preview').html('');
 		$('.cuztom_hidden').val('');
 		$(this).hide();
@@ -17,29 +17,28 @@ jQuery(function($) {
 		return false;
 	});
 	
-	$('.cuztom_upload').on( 'click', function(){
+	$('.cuztom_upload').on( 'click', function() {
 		parent		= $(this).closest('.cuztom_td');
 		
-	    uploadID 	= parent.find('.cuztom_hidden');		
-	    spanID 		= parent.find('.cuztom_preview');		
-	    formfield 	= parent.find('.cuztom_hidden').attr('name');
+	    hidden 		= parent.find('.cuztom_hidden');		
+	    preview		= parent.find('.cuztom_preview');
 	    
 		tb_show( '', 'media-upload.php?type=image&TB_iframe=true' );
-	    
+		
+		window.send_to_editor = function( html ) {		
+			// Add image source to the hidden field
+		    img = $(html).find('img');
+		    hidden.val( img.attr('src') );
+
+			// Add the image to the preview
+			html = $(html).find('img');
+		    preview.html( html );
+
+			// Close Wordpress media popup
+			tb_remove();
+		}
+		
 		return false;
 	});
-
-	window.send_to_editor = function( html ) {		
-		// Add image source to the hidden field
-	    img = $(html).find('img');
-	    uploadID.val( img.attr('src') );
-		
-		// Add the image to the preview
-		html = $(html).find('img');
-	    spanID.html( html );
-	    
-		// Close Wordpress media popup
-		tb_remove();
-	}
 	
 });

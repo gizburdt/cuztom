@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 0.9.4  
+**Version:** 0.9.5  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -112,6 +112,9 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###0.9.5
+* Fixed: Issue #20: Functions.js is preventing Media Uploader from inserting image
 
 ###0.9.4
 * Fixed: Issue #16: Undefined index notice
