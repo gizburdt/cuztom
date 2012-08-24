@@ -17,7 +17,7 @@ jQuery(function($) {
 		return false;
 	});
 	
-	$('.cuztom_td').on( 'click', '.cuztom_upload', function(){
+	$('.cuztom_td').on( 'click', '.cuztom_upload', function() {
 		parent		= $(this).closest('.cuztom_td');
 		
 	    uploadID 	= parent.find('.cuztom_hidden');
@@ -26,7 +26,7 @@ jQuery(function($) {
 	    
 		tb_show( '', 'media-upload.php?type=image&TB_iframe=true&post_id=0' );
 		
-		window.send_to_editor = function( html ) {		
+		window.send_to_editor = function( html ) {
 			// Add image source to the hidden field
 		    img = $(html).find('img');
 		    uploadID.val( img.attr('src') );
@@ -43,17 +43,28 @@ jQuery(function($) {
 	});
 	
 	$('.cuztom_repeatable_wrap').sortable();
+	$('.cuztom_repeatable_wrap').on( 'click', '.remove', function(){
+		$(this).closest('.cuztom_field').remove();
+	});
 	
-	$('.cuztom_td').on( 'click', '.cuztom_add', function(){
+	$('.cuztom_td').on( 'click', '.cuztom_add', function() {
 		// Set some variables
-		parent = $(this).closest('.cuztom_td');
-		wrap = $('.cuztom_repeatable_wrap', parent);
-		field = $('.cuztom_field:last', wrap);
+		var parent = $(this).closest('.cuztom_td'),
+			wrap = $('.cuztom_repeatable_wrap', parent),
+			field = $('.cuztom_field:last', wrap),
+			first = $('.cuztom_field:first', parent),
+			handle = '<div class="handle"></div>',
+			remover = '<div class="remove"></div>',
+			new_field = field.clone(true);
 		
 		// Add the new field
-		new_field = field.clone(true);
-		new_field.find('input').val('');
+		new_field.find('input, textarea, select').val('').removeAttr('selected');
 		new_field.appendTo(wrap);
+		
+		$('.cuztom_field', parent).each(function( index, item ) {
+			if( $('.handle', item ).length == 0 ) { $(item).prepend( handle ); }
+			if( $('.remove', item ).length == 0 ) { $(item).append( remover ); }
+		});
 		
 		return false;
 	});

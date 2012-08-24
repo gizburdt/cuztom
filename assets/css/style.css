@@ -17,7 +17,14 @@
 .cuztom_helper .cuztom_posts_wrap{ max-height: 100px; overflow-y: scroll; overflow-x: hidden; }
 
 /* input_fields */
-.cuztom_helper .cuztom_button_wrap .cuztom_button{ margin-right: 8px; }
-.cuztom_helper textarea{ width: 100%; height: 100px; }
-.cuztom_helper .cuztom_preview{ width: 100%; display: block; }
+.cuztom_helper .cuztom_button{ margin: 8px 8px 0 0; }
+.cuztom_helper textarea{ width: 90%; height: 100px; display: inline-block; vertical-align: middle; }
+.cuztom_helper .cuztom_preview{ width: 100%; display: block; margin-top: 8px; }
 .cuztom_helper .cuztom_preview img{ max-width: 100%; }
+.cuztom_helper .mceContentBody, .cuztom_helper .mceIframeContainer{ background: #fff !important; }
+.cuztom_helper .mceStatusbar{ width: 100% !important; padding-left: 0 !important; text-indent: 10px; }
+
+.cuztom_helper .handle,
+.cuztom_helper .remove{ display: inline-block; vertical-align: middle; height: 16px; width: 16px; }
+.cuztom_helper .handle{ background: url('../images/jquery_ui/ui-icons_454545_256x240.png') -132px -48px no-repeat; cursor: move; }
+.cuztom_helper .remove{ background: url('../images/jquery_ui/ui-icons_454545_256x240.png') -77px -128px no-repeat; cursor: pointer; }

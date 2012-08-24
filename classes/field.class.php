@@ -28,11 +28,12 @@ class Cuztom_Field
 			
 			case 'text' :
 				if( $field['repeatable'] && is_array( $value ) )
-				{
+				{					
 					foreach( $value as $item )
 					{
-						echo '<li class="cuztom_field"><input type="text" name="cuztom[' . $field_id_name . '][]" 
-							id="' . $field_id_name . '" value="' . ( ! empty( $item ) ? $item : $field['default_value'] ) . '" /></li>';
+						echo '<li class="cuztom_field"><div class="handle"></div><input type="text" name="cuztom[' . $field_id_name . '][]" 
+							id="' . $field_id_name . '" value="' . ( ! empty( $item ) ? $item : $field['default_value'] ) . '" />
+							<div class="remove"></div></li>';
 					}
 				}
 				else
@@ -47,8 +48,9 @@ class Cuztom_Field
 				{
 					foreach( $value as $item )
 					{
-						echo '<li class="cuztom_field"><textarea name="cuztom[' . $field_id_name . '][]" 
-							id="' . $field_id_name . '">' . ( ! empty( $item ) ? $item : $field['default_value'] ) . '</textarea></li>';
+						echo '<li class="cuztom_field"><div class="handle"></div><textarea name="cuztom[' . $field_id_name . '][]" 
+							id="' . $field_id_name . '">' . ( ! empty( $item ) ? $item : $field['default_value'] ) . '</textarea>
+							<div class="remove"></div></li>';
 					}
 				}
 				else
@@ -81,7 +83,7 @@ class Cuztom_Field
 				{
 					foreach( $value as $item )
 					{
-						echo '<li class="cuztom_field"><select name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '">';
+						echo '<li class="cuztom_field"><div class="handle"></div><select name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '">';
 							if( is_array( $field['options'] ) )
 							{
 								foreach( $field['options'] as $slug => $name )
@@ -89,7 +91,7 @@ class Cuztom_Field
 									echo '<option value="' . Cuztom::uglify( $slug ) . '" ' . ( ! empty( $item ) ? selected( Cuztom::uglify( $slug ), $item, false ) : selected( $field['default_value'], Cuztom::uglify( $slug ), false ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
 								}
 							}
-						echo '</select></li>';
+						echo '</select><div class="remove"></div></li>';
 					}
 				}
 				else
@@ -193,7 +195,7 @@ class Cuztom_Field
 				{
 					foreach( $value as $item )
 					{
-						echo '<li class="cuztom_field"><select name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '">';
+						echo '<li class="cuztom_field"><div class="handle"></div><select name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '">';
 							if( is_array( $posts ) )
 							{
 								foreach( $posts as $post )
@@ -201,7 +203,7 @@ class Cuztom_Field
 									echo '<option value="' . $post->ID . '" ' . ( ! empty( $item ) ? selected( $post->ID, $item, false ) : selected( $field['default_value'], $post->ID, false ) ) . '>' . $post->post_title . '</option>';
 								}
 							}
-						echo '</select></li>';
+						echo '</select><div class="remove"></div></li>';
 					}
 				}
 				else
@@ -261,7 +263,7 @@ class Cuztom_Field
 				);
 				
 				$args = array(
-					'echo' 			=> 1,
+					'echo' 			=> 0,
 					'orderby'		=> 'name',
 					'order'			=> 'ASC',
 					'taxonomy'		=> $options['taxonomy'],
@@ -275,8 +277,9 @@ class Cuztom_Field
 					{
 						$args['selected'] = ( ! empty( $item ) ? $item : $field['default_value'] );
 						$args['name'] = 'cuztom[' . $field_id_name . '][]';
-
-						wp_dropdown_categories( $args );
+						
+						echo '<li class="cuztom_field"><div class="handle"></div>' . wp_dropdown_categories( $args ) . '
+							<div class="remove"></div></li>';
 					}
 				}
 				else
@@ -284,7 +287,8 @@ class Cuztom_Field
 					$args['selected'] = ( ! empty( $value ) ? $value : $field['default_value'] );
 					$args['name'] = 'cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' );
 					
-					wp_dropdown_categories( $args );
+					echo '<li class="cuztom_field"><div class="handle"></div>' . wp_dropdown_categories( $args ) . '
+						<div class="remove"></div></li>';
 				}
 			break;
 			
@@ -358,7 +362,7 @@ class Cuztom_Field
 	static function _supports_repeatable( $field )
 	{
 		$field_type = is_array( $field ) ? $field['type'] : $field;
-		$supports = apply_filters( 'supports_repeatable', array( 'text', 'textarea', 'select', 'post_select', 'taxonomy_select' ) );
+		$supports = apply_filters( 'supports_repeatable', array( 'text', 'textarea', 'select', 'post_select', 'term_select' ) );
 		
 		return in_array( $field_type, $supports );
 	}
