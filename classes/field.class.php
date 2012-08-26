@@ -31,15 +31,12 @@ class Cuztom_Field
 				{					
 					foreach( $value as $item )
 					{
-						echo '<li class="cuztom_field"><div class="handle"></div><input type="text" name="cuztom[' . $field_id_name . '][]" 
-							id="' . $field_id_name . '" value="' . ( ! empty( $item ) ? $item : $field['default_value'] ) . '" />
-							<div class="remove"></div></li>';
+						echo '<li class="cuztom_field"><div class="handle"></div><input type="text" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '" value="' . ( ! empty( $item ) ? $item : $field['default_value'] ) . '" />' . ( count( $value ) > 1 ? '<div class="remove"></div>' : '' ) . '</li>';
 					}
 				}
 				else
 				{
-					echo '<input type="text" name="cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" 
-						id="' . $field_id_name . '" value="' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '" />';
+					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle"></div>' : '' ) . '<input type="text" name="cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" id="' . $field_id_name . '" value="' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '" />' . ( $field['repeatable'] ? '</li>' : '' );
 				}
 			break;
 			
@@ -48,15 +45,12 @@ class Cuztom_Field
 				{
 					foreach( $value as $item )
 					{
-						echo '<li class="cuztom_field"><div class="handle"></div><textarea name="cuztom[' . $field_id_name . '][]" 
-							id="' . $field_id_name . '">' . ( ! empty( $item ) ? $item : $field['default_value'] ) . '</textarea>
-							<div class="remove"></div></li>';
+						echo '<li class="cuztom_field"><div class="handle"></div><textarea name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '">' . ( ! empty( $item ) ? $item : $field['default_value'] ) . '</textarea>' . ( count( $value ) > 1 ? '<div class="remove"></div>' : '' ) . '</li>';
 					}
 				}
 				else
 				{
-					echo '<textarea name="cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" 
-						id="' . $field_id_name . '">' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '</textarea></li>';
+					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle"></div>' : '' ) . '<textarea name="cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" id="' . $field_id_name . '">' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '</textarea>' . ( $field['repeatable'] ? '</li>' : '' );
 				}
 			break;
 			
@@ -91,12 +85,12 @@ class Cuztom_Field
 									echo '<option value="' . Cuztom::uglify( $slug ) . '" ' . ( ! empty( $item ) ? selected( Cuztom::uglify( $slug ), $item, false ) : selected( $field['default_value'], Cuztom::uglify( $slug ), false ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
 								}
 							}
-						echo '</select><div class="remove"></div></li>';
+						echo '</select>' . ( count( $value ) > 1 ? '<div class="remove"></div>' : '' ) . '</li>';
 					}
 				}
 				else
 				{
-					echo '<select name="cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" id="' . $field_id_name . '">';
+					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle"></div>' : '' ) . '<select name="cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" id="' . $field_id_name . '">';
 						if( is_array( $field['options'] ) )
 						{
 							foreach( $field['options'] as $slug => $name )
@@ -104,11 +98,11 @@ class Cuztom_Field
 								echo '<option value="' . Cuztom::uglify( $slug ) . '" ' . ( ! empty( $value ) ? selected( Cuztom::uglify( $slug ), $value, false ) : selected( $field['default_value'], Cuztom::uglify( $slug ), false ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
 							}
 						}
-					echo '</select></ul>';
+					echo '</select>' . ( $field['repeatable'] ? '</li>' : '' );
 				}
 			break;
 			
-			case 'checkboxes' :				
+			case 'checkboxes' :		
 				echo '<div class="cuztom_checked_wrap cuztom_padding_wrap">';
 					if( is_array( $field['options'] ) )
 					{
@@ -203,12 +197,12 @@ class Cuztom_Field
 									echo '<option value="' . $post->ID . '" ' . ( ! empty( $item ) ? selected( $post->ID, $item, false ) : selected( $field['default_value'], $post->ID, false ) ) . '>' . $post->post_title . '</option>';
 								}
 							}
-						echo '</select><div class="remove"></div></li>';
+						echo '</select>' . ( count( $value ) > 1 ? '<div class="remove"></div>' : '' ) . '</li>';;
 					}
 				}
 				else
 				{
-					echo '<select name="cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" id="' . $field_id_name . '">';
+					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle"></div>' : '' ) . '<select name="cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" id="' . $field_id_name . '">';
 						if( is_array( $posts ) )
 						{
 							foreach( $posts as $post )
@@ -216,7 +210,7 @@ class Cuztom_Field
 								echo '<option value="' . $post->ID . '" ' . ( ! empty( $value ) ? selected( $post->ID, $value, false ) : selected( $field['default_value'], $post->ID, false ) ) . '>' . $post->post_title . '</option>';
 							}
 						}
-					echo '</select>';
+					echo '</select>' . ( $field['repeatable'] ? '</li>' : '' );
 				}
 			break;
 			
@@ -278,8 +272,7 @@ class Cuztom_Field
 						$args['selected'] = ( ! empty( $item ) ? $item : $field['default_value'] );
 						$args['name'] = 'cuztom[' . $field_id_name . '][]';
 						
-						echo '<li class="cuztom_field"><div class="handle"></div>' . wp_dropdown_categories( $args ) . '
-							<div class="remove"></div></li>';
+						echo '<li class="cuztom_field"><div class="handle"></div>' . wp_dropdown_categories( $args ) . ( count( $value ) > 1 ? '<div class="remove"></div>' : '' ) . '</li>';
 					}
 				}
 				else
@@ -287,8 +280,7 @@ class Cuztom_Field
 					$args['selected'] = ( ! empty( $value ) ? $value : $field['default_value'] );
 					$args['name'] = 'cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' );
 					
-					echo '<li class="cuztom_field"><div class="handle"></div>' . wp_dropdown_categories( $args ) . '
-						<div class="remove"></div></li>';
+					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle"></div>' : '' ) . wp_dropdown_categories( $args ) . ( $field['repeatable'] ? '</li>' : '' );
 				}
 			break;
 			
