@@ -113,7 +113,7 @@ class Cuztom
 		
 		wp_register_script( 'cuztom_js', 
 			$this->dir . '/assets/js/functions.js',
-			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom_colorpicker_js' ), 
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom_colorpicker_js', 'jquery-ui-sortable' ), 
 			CUZTOM_VERSION, 
 			true 
 		);

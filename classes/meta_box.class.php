@@ -93,7 +93,7 @@ class Cuztom_Meta_Box
 
 		// Get all inputs from $data
 		$meta_data = $this->meta_data;
-		
+
 		// Check the array and loop through it
 		if( ! empty( $meta_data ) )
 		{
@@ -124,6 +124,7 @@ class Cuztom_Meta_Box
 						{
 							$tab_id = Cuztom::uglify( $tab[0] );
 							
+							// Show header if accordion
 							if( $meta_data[0] == 'accordion' )
 							{
 								echo '<h3>' . Cuztom::beautify( $tab[0] ) . '</h3>';
@@ -145,9 +146,13 @@ class Cuztom_Meta_Box
 													echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
 												echo '</th>';
 												echo '<td class="cuztom_td td">';
+												
 
+												
 													cuztom_field( $field_id_name, $field, $meta );
+													
 
+													
 												echo '</td>';
 											echo '</tr>';
 										}
@@ -183,8 +188,21 @@ class Cuztom_Meta_Box
 										echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
 									echo '</th>';
 									echo '<td class="cuztom_td td">';
+									
+										if( $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) )
+										{
+											echo '<div class="cuztom_padding_wrap">';
+											echo '<a class="button-secondary cuztom_add cuztom_button" href="#">';
+											echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
+											echo '<ul class="cuztom_repeatable_wrap">';
+										}
 
 										cuztom_field( $field_id_name, $field, $meta );
+										
+										if( $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) )
+										{
+											echo '</ul></div>';
+										}
 
 									echo '</td>';
 								echo '</tr>';
@@ -266,7 +284,7 @@ class Cuztom_Meta_Box
 	{						
 		$value = isset( $_POST['cuztom'][$field_id_name] ) ? $_POST['cuztom'][$field_id_name] : '';
 		
-		//if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
+		if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
 		
 		update_post_meta( $post_id, $field_id_name, $value );
 	}
