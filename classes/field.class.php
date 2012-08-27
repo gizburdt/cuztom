@@ -183,7 +183,7 @@ class Cuztom_Field
 				);
 				
 				$post_type = $options['post_type'];
-				$posts = get_posts( array( 'post_type' => $post_type ) );
+				$posts = get_posts( $options );
 				
 				if( $field['repeatable'] && is_array( $value ) )
 				{

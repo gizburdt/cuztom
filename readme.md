@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.0  
+**Version:** 1.0.1  
 **Requires:** 3.0+  
 
 ### Contributors
@@ -116,6 +116,9 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###1.0.1
+* Added: Issue #14: post_select field now accepts the same parameters as wordpress' get_posts
 
 ###1.0
 * Fixed: Some small bug fixes
