@@ -383,7 +383,8 @@ class Cuztom_Field
 				'hide'			=> true,
 				'default_value'	=> '',
 				'options'		=> array(),
-				'repeatable'	=> false
+				'repeatable'	=> false,
+				'show_column'	=> false
 			),
 			
 			// Given

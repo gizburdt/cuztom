@@ -43,7 +43,10 @@ class Cuztom_Meta_Box
 			$this->box_priority		= $priority;
 
 			$this->meta_data 		= $data;
-
+			
+			add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
+			add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
+			
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 		}
 		
@@ -52,6 +55,41 @@ class Cuztom_Meta_Box
 		
 		// Listen for the save post hook
 		add_action( 'save_post', array( $this, 'save_post' ) );	
+	}
+	
+	
+	function add_column_head( $default )
+	{
+		$data = $this->meta_data;
+		
+		if( is_array( $data ) )
+		{
+			foreach( $data as $field )
+			{
+				$field = Cuztom_Field::_build_array( $field );				
+				if( $field['show_column'] ) $default[$field['name']] = $field['label'];
+			}
+		}
+		
+		return $default;
+	}
+	
+	
+	function add_column_content( $column, $post_id )
+	{
+		$data = $this->meta_data;
+		
+		if( is_array( $data ) )
+		{
+			foreach( $data as $field )
+			{
+				$field = Cuztom_Field::_build_array( $field );
+				$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
+				$meta = get_post_meta( $post_id, $field_id_name, true );
+				
+				echo $meta;
+			}
+		}
 	}
 	
 	
