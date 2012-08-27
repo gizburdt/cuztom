@@ -117,6 +117,9 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###1.0.2
+* Fixed / Added: Repeatable now also works within tabs/accordion
+
 ###1.0.1
 * Added: Issue #14: post_select field now accepts the same parameters as wordpress' get_posts
 
