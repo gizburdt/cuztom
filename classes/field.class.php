@@ -249,6 +249,12 @@ class Cuztom_Field
 					// Default
 					array(
 						'taxonomy'		=> 'category',
+						'echo' 			=> 0,
+						'orderby'		=> 'name',
+						'order'			=> 'ASC',
+						'taxonomy'		=> 'category',
+						'hide_empty'	=> 0,
+						'hierarchical'	=> 1
 					),
 					
 					// Given
@@ -256,14 +262,7 @@ class Cuztom_Field
 					
 				);
 				
-				$args = array(
-					'echo' 			=> 0,
-					'orderby'		=> 'name',
-					'order'			=> 'ASC',
-					'taxonomy'		=> $options['taxonomy'],
-					'hide_empty'	=> 0,
-					'hierarchical'	=> 1
-				);
+				$options['echo'] = 0;
 				
 				if( $field['repeatable'] && is_array( $value ) )
 				{
@@ -272,7 +271,7 @@ class Cuztom_Field
 						$args['selected'] = ( ! empty( $item ) ? $item : $field['default_value'] );
 						$args['name'] = 'cuztom[' . $field_id_name . '][]';
 						
-						echo '<li class="cuztom_field"><div class="handle_repeatable"></div>' . wp_dropdown_categories( $args ) . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
+						echo '<li class="cuztom_field"><div class="handle_repeatable"></div>' . wp_dropdown_categories( $options ) . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
 					}
 				}
 				else
@@ -280,7 +279,7 @@ class Cuztom_Field
 					$args['selected'] = ( ! empty( $value ) ? $value : $field['default_value'] );
 					$args['name'] = 'cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' );
 					
-					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . wp_dropdown_categories( $args ) . ( $field['repeatable'] ? '</li>' : '' );
+					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . wp_dropdown_categories( $options ) . ( $field['repeatable'] ? '</li>' : '' );
 				}
 			break;
 			

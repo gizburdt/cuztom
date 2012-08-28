@@ -228,11 +228,20 @@ class Cuztom_Meta_Box
 												echo '</th>';
 												echo '<td class="cuztom_td td">';
 												
-
+													if( $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) )
+													{
+														echo '<div class="cuztom_padding_wrap">';
+														echo '<a class="button-secondary cuztom_add cuztom_button" href="#">';
+														echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
+														echo '<ul class="cuztom_repeatable_wrap">';
+													}
 												
 													cuztom_field( $field_id_name, $field, $meta );
 													
-
+													if( $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) )
+													{
+														echo '</ul></div>';
+													}
 													
 												echo '</td>';
 											echo '</tr>';
