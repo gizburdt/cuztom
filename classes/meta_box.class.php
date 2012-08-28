@@ -42,7 +42,7 @@ class Cuztom_Meta_Box
 			$this->box_context		= $context;
 			$this->box_priority		= $priority;
 
-			$this->meta_data 		= $data;
+			$this->meta_data 		= Cuztom_Meta_Box::_build_arrays( $data );
 			
 			add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
 			add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
@@ -58,37 +58,80 @@ class Cuztom_Meta_Box
 	}
 	
 	
+	/**
+	 * Used to add a column head to the Post Type's List Table
+	 *
+	 * @param array $default
+	 * @return array
+	 *
+	 * @author Gijs Jorissen
+	 * @since 1.1
+	 *
+	 */
 	function add_column_head( $default )
 	{
 		$data = $this->meta_data;
 		
-		if( is_array( $data ) )
+		if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' ) )
 		{
-			foreach( $data as $field )
+			$tabs = array_slice( $data, 1 );
+			
+			foreach( $tabs as $tab => $fields )
 			{
-				$field = Cuztom_Field::_build_array( $field );				
-				if( $field['show_column'] ) $default[$field['name']] = $field['label'];
+				foreach( $fields as $field_id_name => $field )
+				{
+					if( $field['show_column'] ) $default[$field_id_name] = $field['label'];
+				}
 			}
 		}
-		
+		else
+		{
+			foreach( $data as $field_id_name => $field )
+			{	
+				if( $field['show_column'] ) $default[$field_id_name] = $field['label'];
+			}
+		}
+
 		return $default;
 	}
 	
 	
+	/**
+	 * Used to add the column content to the column head
+	 *
+	 * @param string $column
+	 * @param int $post_id
+	 * @return mixed
+	 *
+	 * @author Gijs Jorissen
+	 * @since 1.1
+	 *
+	 */
 	function add_column_content( $column, $post_id )
 	{
-		$data = $this->meta_data;
+		$meta = get_post_meta( $post_id, $column, true );
 		
-		if( is_array( $data ) )
+		if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' ) )
 		{
-			foreach( $data as $field )
+			$tabs = array_slice( $this->meta_data, 1 );
+			
+			foreach( $tabs as $tab => $fields )
 			{
-				$field = Cuztom_Field::_build_array( $field );
-				$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
-				$meta = get_post_meta( $post_id, $field_id_name, true );
-				
-				echo $meta;
+				foreach( $fields as $field_id_name => $field )
+				{
+					if( $column == $field_id_name )
+					{
+						echo $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) ? 
+							implode( $meta, ', ' ) : get_post_meta( $post_id, $column, true );
+						break;
+					}
+				}
 			}
+		}
+		else
+		{
+			$field = $this->meta_data[$column];
+			echo $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) ? implode( $meta, ', ' ) : get_post_meta( $post_id, $column, true );
 		}
 	}
 	
@@ -138,8 +181,10 @@ class Cuztom_Meta_Box
 			// Hidden field, so cuztom is always set
 			echo '<input type="hidden" name="cuztom[__activate]" />';
 			
-			if( ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'tabs' || $meta_data[0] == 'accordion' ) )
-			{
+			if( isset( $meta_data[0] ) && ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'tabs' || $meta_data[0] == 'accordion' ) )
+			{			
+				$tabs = array_slice( $meta_data, 1 );
+				
 				// If it's about tabs or accordion
 				echo '<div class="cuztom_helper">';	
 					echo '<div class="' . ( $meta_data[0] == 'tabs' ? 'cuztom_tabs' : 'cuztom_accordion' ) . '">';
@@ -148,32 +193,30 @@ class Cuztom_Meta_Box
 						if( $meta_data[0] == 'tabs' )
 						{
 							echo '<ul>';
-								foreach( $meta_data[1] as $tab )
+								foreach( $tabs as $tab => $fields )
 								{
-									$tab_id = Cuztom::uglify( $tab[0] );
+									$tab_id = Cuztom::uglify( $tab );
 
-									echo '<li><a href="#' . $tab_id . '">' . Cuztom::beautify( $tab[0] ) . '</a></li>';
+									echo '<li><a href="#' . $tab_id . '">' . Cuztom::beautify( $tab ) . '</a></li>';
 								}
 							echo '</ul>';
 						}
-					
+						
 						/* Loop through $meta_data, tabs in this case */
-						foreach( $meta_data[1] as $tab )
-						{
-							$tab_id = Cuztom::uglify( $tab[0] );
+						foreach( $tabs as $tab => $fields )
+						{							
+							$tab_id = Cuztom::uglify( $tab );
 							
 							// Show header if accordion
 							if( $meta_data[0] == 'accordion' )
 							{
-								echo '<h3>' . Cuztom::beautify( $tab[0] ) . '</h3>';
+								echo '<h3>' . Cuztom::beautify( $title ) . '</h3>';
 							}
 							
 							echo '<div id="' . $tab_id . '">';
 								echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
-									foreach( $tab[1] as $field )
+									foreach( $fields as $field_id_name => $field )
 									{
-										$field = Cuztom_Field::_build_array( $field );
-										$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
 										$meta = get_post_meta( $post->ID, $field_id_name, true );
 										
 										if( $field['type'] != 'hidden' )
@@ -212,10 +255,8 @@ class Cuztom_Meta_Box
 					echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 
 						/* Loop through $meta_data */
-						foreach( $meta_data as $field )
+						foreach( $meta_data as $field_id_name => $field )
 						{
-							$field = Cuztom_Field::_build_array( $field );
-							$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
 							$meta = get_post_meta( $post->ID, $field_id_name, true ) ? get_post_meta( $post->ID, $field_id_name, true ) : false;
 							
 							if( $field['type'] != 'hidden' )
@@ -281,28 +322,26 @@ class Cuztom_Meta_Box
 		
 		// Loop through each meta box
 		if( ! empty( $this->meta_data ) && isset( $_POST['cuztom'] ) )
-		{			
-			if( ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' ) )
+		{				
+			if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' ) )
 			{
-				foreach( $this->meta_data[1] as $tab )
-				{								
-					foreach( $tab[1] as $field )
+				$tabs = array_slice( $this->meta_data, 1 );
+				
+				foreach( $tabs as $tab => $fields )
+				{							
+					foreach( $fields as $field_id_name => $field )
 					{									
-						$field = Cuztom_Field::_build_array( $field );
-						$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
 						$this->_save_meta( $post_id, $field, $field_id_name );
 					}
 				}
 			}
 			else
 			{
-				foreach( $this->meta_data as $field )
+				foreach( $this->meta_data as $field_id_name => $field )
 				{
-					$field = Cuztom_Field::_build_array( $field );
-					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );	
 					$this->_save_meta( $post_id, $field, $field_id_name );
 				}
-			}		
+			}
 		}		
 	}
 	
@@ -340,6 +379,56 @@ class Cuztom_Meta_Box
 	function post_edit_form_tag()
 	{
 		echo ' enctype="multipart/form-data"';
+	}
+	
+	
+	/**
+	 * This array builds the complete array with the right key => value pairs
+	 *
+	 * @param array $data
+	 * @return array
+	 *
+	 * @author Gijs Jorissen
+	 * @since 1.1
+	 *
+	 */
+	function _build_arrays( $data )
+	{
+		$return = array();
+		
+		if( ! is_array( $data[0] ) && ( $data[0] == 'tabs' || $data[0] == 'accordion' ) )
+		{
+			$return[0] = $data[0];
+			
+			foreach( $data[1] as $tab )
+			{
+				$title = $tab[0];			
+				$return[$title] = array();
+
+				foreach( $tab[1] as $field )
+				{					
+					$field = Cuztom_Field::_build_array( $field );
+					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
+					
+					$return[$title][$field_id_name] = $field;
+				}
+			}
+		}
+		else
+		{
+			if( is_array( $data ) )
+			{
+				foreach( $data as $field )
+				{
+					$field = Cuztom_Field::_build_array( $field );
+					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
+
+					$return[$field_id_name] = $field;
+				}
+			}
+		}
+		
+		return $return;
 	}
 }
 
