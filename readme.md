@@ -121,6 +121,9 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Added: Fields can be added as column in the list table of the Post Type
 * Fixed/ Improvement: Some small bugs and improvements
 
+###1.0.2
+* Fixed / Added: Repeatable now also works within tabs/accordion
+
 ###1.0.1
 * Added: Issue #14: post_select field now accepts the same parameters as wordpress' get_posts
 
