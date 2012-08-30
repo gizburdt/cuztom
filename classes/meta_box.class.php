@@ -42,7 +42,7 @@ class Cuztom_Meta_Box
 			$this->box_context		= $context;
 			$this->box_priority		= $priority;
 
-			$this->meta_data 		= Cuztom_Meta_Box::_build_arrays( $data );
+			$this->meta_data 		= self::_build_arrays( $data );
 			
 			add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
 			add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
