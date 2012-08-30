@@ -92,6 +92,8 @@ class Cuztom
 		wp_enqueue_style( 'cuztom_jquery_ui_css' );
 		wp_enqueue_style( 'cuztom_colorpicker_css' );
 		wp_enqueue_style( 'cuztom_css' );
+		
+		self::localize_scripts();
 	}
 	
 	
@@ -131,6 +133,23 @@ class Cuztom
 	{
 		wp_enqueue_script( 'cuztom_colorpicker_js' );
 		wp_enqueue_script( 'cuztom_js' );
+		
+		self::localize_scripts();
+	}
+	
+	
+	/**
+	 * Localizes scripts
+	 * 
+	 * @author Gijs Jorissen
+	 * @since 1.1.1
+	 *
+	 */
+	function localize_scripts()
+	{
+		wp_localize_script( 'cuztom_js', 'Cuztom', array(
+			'home_url'		=> get_home_url()
+		) );
 	}
 	
 	
