@@ -117,6 +117,11 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###1.1.1
+* Added: Localize scripts
+* Improvement: wp_dropdown_categories had some improvements
+* Changed: Class names in the class changed to self
+
 ###1.1
 * Added: Fields can be added as column in the list table of the Post Type
 * Fixed/ Improvement: Some small bugs and improvements

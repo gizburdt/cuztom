@@ -249,12 +249,6 @@ class Cuztom_Field
 					// Default
 					array(
 						'taxonomy'		=> 'category',
-						'echo' 			=> 0,
-						'orderby'		=> 'name',
-						'order'			=> 'ASC',
-						'taxonomy'		=> 'category',
-						'hide_empty'	=> 0,
-						'hierarchical'	=> 1
 					),
 					
 					// Given
@@ -263,6 +257,7 @@ class Cuztom_Field
 				);
 				
 				$options['echo'] = 0;
+				$options['name'] = $field_id_name;
 				
 				if( $field['repeatable'] && is_array( $value ) )
 				{
