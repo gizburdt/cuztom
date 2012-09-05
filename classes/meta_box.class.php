@@ -184,12 +184,35 @@ class Cuztom_Meta_Box
 				$fields = array_slice( $meta_data, 1 );
 				$fields = $fields['bundle'];
 				
-				foreach( $fields as $field )
-				{
-					echo '<pre>';
-					var_dump( $field );
-					echo '</pre>';
-				}
+				echo '<fieldset name="bundler">';
+				echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
+				
+					foreach( $fields as $field_id_name => $field )
+					{
+						$meta = get_post_meta( $post->ID, $field_id_name, true ) ? get_post_meta( $post->ID, $field_id_name, true ) : false;
+					
+						if( $field['type'] != 'hidden' )
+						{
+							echo '<tr>';
+								echo '<th class="cuztom_th th">';
+									echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
+									echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
+								echo '</th>';
+								echo '<td class="cuztom_td td">';
+							
+									cuztom_field( $field_id_name, $field, $meta );	
+									
+								echo '</td>';
+							echo '</tr>';
+						}
+						else
+						{
+							cuztom_field( $field_id_name, $field, $meta );
+						}
+					}
+				
+				echo '</table>';
+				echo '</fieldset>';
 			}
 			else
 			{
@@ -277,6 +300,10 @@ class Cuztom_Meta_Box
 					}
 				}
 			}
+			elseif( isset( $meta_data[0] ) && ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'bundle' ) )
+			{
+				
+			}
 			else
 			{
 				foreach( $this->meta_data as $field_id_name => $field )
@@ -323,46 +350,49 @@ class Cuztom_Meta_Box
 	{
 		$return = array();
 		
-		if( ! is_array( $data[0] ) && ( $data[0] == 'tabs' || $data[0] == 'accordion' ) )
+		if( is_array( $data ) )
 		{
-			$return[0] = $data[0];
-			
-			foreach( $data[1] as $title => $fields )
-			{			
-				$return[$title] = array();
+			if( ! is_array( $data[0] ) && ( $data[0] == 'tabs' || $data[0] == 'accordion' ) )
+			{
+				$return[0] = $data[0];
 
-				foreach( $fields as $field )
-				{
-					$field = Cuztom_Field::_build_array( $field );
-					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
-					
-					$return[$title][$field_id_name] = $field;
+				foreach( $data[1] as $title => $fields )
+				{			
+					$return[$title] = array();
+
+					foreach( $fields as $field )
+					{
+						$field = Cuztom_Field::_build_array( $field );
+						$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
+
+						$return[$title][$field_id_name] = $field;
+					}
 				}
 			}
-		}
-		elseif( ! is_array( $data[0] ) && ( $data[0] == 'bundle' ) )
-		{
-			$return[0] = $data[0];
-			$return['bundle'] = array();
-			
-			foreach( $data[1] as $field )
+			elseif( ! is_array( $data[0] ) && ( $data[0] == 'bundle' ) )
 			{
-				$field = Cuztom_Field::_build_array( $field );
-				$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
-				
-				$return['bundle'][$field_id_name] = $field;
-			}
-		}
-		else
-		{
-			if( is_array( $data ) )
-			{
-				foreach( $data as $field )
+				$return[0] = $data[0];
+				$return['bundle'] = array();
+
+				foreach( $data[1] as $field )
 				{
 					$field = Cuztom_Field::_build_array( $field );
 					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
 
-					$return[$field_id_name] = $field;
+					$return['bundle'][$field_id_name] = $field;
+				}
+			}
+			else
+			{
+
+				{
+					foreach( $data as $field )
+					{
+						$field = Cuztom_Field::_build_array( $field );
+						$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
+
+						$return[$field_id_name] = $field;
+					}
 				}
 			}
 		}
