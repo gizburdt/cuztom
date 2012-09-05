@@ -26,6 +26,7 @@ class Cuztom_Field
 	{		
 		switch( $field['type'] ) :
 			
+			// Text
 			case 'text' :
 				if( $field['repeatable'] && is_array( $value ) )
 				{					
@@ -40,6 +41,7 @@ class Cuztom_Field
 				}
 			break;
 			
+			// Textarea
 			case 'textarea' :
 				if( $field['repeatable'] && is_array( $value ) )
 				{
@@ -54,14 +56,17 @@ class Cuztom_Field
 				}
 			break;
 			
+			// Checkbox
 			case 'checkbox' :
 				echo '<input type="checkbox" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" ' . ( ! empty( $value ) ? checked( $value, 'on', false ) : checked( $field['default_value'], 'on', false ) ) . ' />';
 			break;
 			
+			// Radio
 			case 'radio' :
 				echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" ' . ( ! empty( $value ) ? checked( $value, 'on', false ) : checked( $field['default_value'], 'on', false ) ) . ' />';
 			break;
 			
+			// Yes - No
 			case 'yesno' :
 				echo '<div class="cuztom_checked_wrap cuztom_padding_wrap">';
 					echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_yes" value="yes" ' . ( ! empty( $value ) ? checked( $value, 'yes', false ) : checked( $field['default_value'], 'yes', false ) ) . ' /> ';
@@ -72,6 +77,7 @@ class Cuztom_Field
 				echo '</div>';
 			break;
 			
+			// Select
 			case 'select' :
 				if( $field['repeatable'] && is_array( $value ) )
 				{
@@ -102,6 +108,7 @@ class Cuztom_Field
 				}
 			break;
 			
+			// Checkboxes
 			case 'checkboxes' :		
 				echo '<div class="cuztom_checked_wrap cuztom_padding_wrap">';
 					if( is_array( $field['options'] ) )
@@ -116,6 +123,7 @@ class Cuztom_Field
 				echo '</div>';
 			break;
 			
+			// Radios
 			case 'radios' :
 				echo '<div class="cuztom_checked_wrap cuztom_padding_wrap">';
 					if( is_array( $field['options'] ) )
@@ -130,6 +138,7 @@ class Cuztom_Field
 				echo '</div>';
 			break;
 			
+			// WYSIWYG
 			case 'wysiwyg' :
 				wp_editor( ( ! empty( $value ) ? $value : $field['default_value'] ), $field_id_name, array_merge( 
 					
@@ -145,6 +154,7 @@ class Cuztom_Field
 				) );
 			break;
 			
+			// Image
 			case 'image' :
 				$image = '';
 				
@@ -161,14 +171,17 @@ class Cuztom_Field
 				echo '<span class="cuztom_preview">' . $image . '</span>';
 			break;
 			
+			// Datepicker
 			case 'date' :
 				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_datepicker datepicker" value="' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '" />';
 			break;
 			
+			// Colorpicker
 			case 'color' :
 				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_colorpicker colorpicker" value="' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '" />';
 			break;
 			
+			// Post select
 			case 'post_select' :
 				$options = array_merge(
 					
@@ -214,6 +227,7 @@ class Cuztom_Field
 				}
 			break;
 			
+			// Post checkboxes
 			case 'post_checkboxes' :
 				$options = array_merge(
 					
@@ -243,6 +257,7 @@ class Cuztom_Field
 				echo '</div>';
 			break;
 			
+			// Term select
 			case 'term_select' :
 				$options = array_merge(
 					
@@ -278,6 +293,7 @@ class Cuztom_Field
 				}
 			break;
 			
+			// Term checkboxes
 			case 'term_checkboxes' :
 				$options = array_merge(
 					
@@ -306,11 +322,12 @@ class Cuztom_Field
 				echo '</div>';
 			break;
 
-			
+			// Hidden field
 			case 'hidden':
 				echo '<input type="hidden" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" value="' . $field['default_value'] . '" />';
 			break;
 			
+			// The input type can't be found
 			default :
 				_e( 'Unknown input type', CUZTOM_TEXTDOMAIN );
 			break;
