@@ -49,7 +49,7 @@ jQuery(function($) {
 	});
 	
 	// Repeatable
-	$('.cuztom_repeatable_wrap').sortable();
+	$('.cuztom_repeatable_wrap, .cuztom_bundle_wrap').sortable();
 	
 	$('.cuztom_helper').on( 'click', '.remove_repeatable', function() {
 		var that = $(this),
@@ -61,7 +61,7 @@ jQuery(function($) {
 		if( fields == 2 ){ wrap.find('.cuztom_field').find('.remove_repeatable').remove(); }
 	});
 	
-	$('.cuztom_td').on( 'click', '.cuztom_add', function() {
+	$('.cuztom_td').on( 'click', '.cuztom_add_field', function() {
 		// Set some variables
 		var parent = $(this).closest('.cuztom_td'),
 			wrap = $('.cuztom_repeatable_wrap', parent),
@@ -78,6 +78,41 @@ jQuery(function($) {
 		$('.cuztom_field', parent).each(function( index, item ) {
 			if( $('.handle_repeatable', item ).length == 0 ) { $(item).prepend( handle ); }
 			if( $('.remove_repeatable', item ).length == 0 ) { $(item).append( remover ); }
+		});
+		
+		return false;
+	});
+	
+	// Bundles
+	$('.cuztom_helper').on( 'click', '.remove_bundle', function() {
+		var that = $(this),
+			bundle = that.closest('.cuztom_bundle'),
+			wrap = that.closest('.cuztom_bundle_wrap'),
+			bundles = wrap.find('.cuztom_bundle').length;
+		
+		if( bundles > 1 ) { bundle.remove(); }
+		if( bundles == 2 ){ wrap.find('.cuztom_bundle').find('.remove_bundle').remove(); }
+	});
+	
+	$('.cuztom_helper').on( 'click', '.cuztom_add_bundle', function() {
+		// Set some variables
+		var parent = $(this).closest('.cuztom_helper'),
+			wrap = $('.cuztom_bundle_wrap', parent),
+			bundle = $('.cuztom_bundle:last', wrap),
+			first = $('.cuztom_bundle:first', parent),
+			field = $('.cuztom_input:first', bundle),
+			handle = '<div class="handle_repeatable"></div>',
+			remover = '<div class="remove_repeatable"></div>',
+			name = field.attr('name'),
+			new_bundle = bundle.clone(true);
+		
+		// Add the new bundle
+		new_bundle.find('input, textarea, select').val('').removeAttr('selected');
+		new_bundle.appendTo(wrap);
+		
+		$('.cuztom_bundle', parent).each(function( index, item ) {
+			if( $('.handle_bundle', item ).length == 0 ) { $(item).prepend( handle ); }
+			if( $('.remove_bundle', item ).length == 0 ) { $(item).append( remover ); }
 		});
 		
 		return false;
