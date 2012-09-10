@@ -99,14 +99,17 @@ jQuery(function($) {
 		var parent = $(this).closest('.cuztom_helper'),
 			wrap = $('.cuztom_bundle_wrap', parent),
 			bundle = $('.cuztom_bundle:last', wrap),
-			first = $('.cuztom_bundle:first', parent),
-			field = $('.cuztom_input:first', bundle),
 			handle = '<div class="handle_repeatable"></div>',
 			remover = '<div class="remove_repeatable"></div>',
-			name = field.attr('name'),
 			new_bundle = bundle.clone(true);
 		
 		// Add the new bundle
+		new_bundle.find('.cuztom_input').each(function(){
+			$(this).attr('name', function( i, val ){ return val.replace( /(\d+)/, function( n ){ return Number(n) + 1 } ) } );
+		});
+		
+		//
+		
 		new_bundle.find('input, textarea, select').val('').removeAttr('selected');
 		new_bundle.appendTo(wrap);
 		

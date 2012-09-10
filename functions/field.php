@@ -10,4 +10,9 @@ function _cuztom_field_supports_repeatable( $field )
 	return Cuztom_Field::_supports_repeatable( $field );
 }
 
+function _cuztom_field_supports_bundle( $field )
+{
+	return Cuztom_Field::_supports_bundle( $field );
+}
+
 ?>

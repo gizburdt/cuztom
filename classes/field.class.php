@@ -52,7 +52,7 @@ class Cuztom_Field
 				}
 				else
 				{
-					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . '<textarea name="cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" id="' . $field_id_name . '" class="cuztom_input">' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '</textarea>' . ( $field['repeatable'] ? '</li>' : '' );
+					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . '<textarea name="cuztom' . $pre . '[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" id="' . $field_id_name . '" class="cuztom_input">' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '</textarea>' . ( $field['repeatable'] ? '</li>' : '' );
 				}
 			break;
 			
@@ -334,7 +334,7 @@ class Cuztom_Field
 
 			// Hidden field
 			case 'hidden':
-				echo '<input type="hidden" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" value="' . $field['default_value'] . '" class="cuztom_input" />';
+				echo '<input type="hidden" name="cuztom' . $pre . '[' . $field_id_name . ']" id="' . $field_id_name . '" value="' . $field['default_value'] . '" class="cuztom_input" />';
 			break;
 			
 			// The input type can't be found
@@ -376,6 +376,25 @@ class Cuztom_Field
 	{
 		$field_type = is_array( $field ) ? $field['type'] : $field;
 		$supports = apply_filters( 'supports_repeatable', array( 'text', 'textarea', 'select', 'post_select', 'term_select' ) );
+		
+		return in_array( $field_type, $supports );
+	}
+	
+	
+	/**
+	 * Checks if the field supports bundle functionality
+	 *
+	 * @param $field or $field_type
+	 * @return boolean
+	 *
+	 * @author Gijs Jorissen
+	 * @since 1.2
+	 *
+	 */
+	static function _supports_bundle( $field )
+	{
+		$field_type = is_array( $field ) ? $field['type'] : $field;
+		$supports = apply_filters( 'supports_bundle', array( 'text', 'textarea' ) );
 		
 		return in_array( $field_type, $supports );
 	}

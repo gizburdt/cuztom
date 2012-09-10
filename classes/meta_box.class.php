@@ -181,46 +181,104 @@ class Cuztom_Meta_Box
 			}
 			elseif( isset( $meta_data[0] ) && ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'bundle' ) )
 			{
-				$fields = array_slice( $meta_data, 1 );
-				$fields = $fields['bundle'];
+				$meta = get_post_meta( $post->ID, $this->box_id, false ) ? get_post_meta( $post->ID, $this->box_id, false ) : false;
 				
-				echo '<a class="button-secondary cuztom_add cuztom_add_bundle cuztom_button" href="#">';
-				echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
-				echo '<ul class="cuztom_bundle_wrap">';
-					echo '<li class="cuztom_bundle">';
-						echo '<div class="handle_bundle"></div>';
-						echo '<fieldset name="bundle">';
-						echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
-				
-							foreach( $fields as $field_id_name => $field )
+				echo '<div class="cuztom_padding_wrap">';
+					echo '<a class="button-secondary cuztom_add cuztom_add_bundle cuztom_button" href="#">';
+					echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
+					echo '<ul class="cuztom_bundle_wrap">';
+						
+						if( ! empty( $meta ) && isset( $meta[0] ) )
+						{
+							$i = 0;
+							foreach( $meta as $bundle )
 							{
-								$meta = get_post_meta( $post->ID, $field_id_name, true ) ? get_post_meta( $post->ID, $field_id_name, true ) : false;
-					
-								if( $field['type'] != 'hidden' )
-								{
-									echo '<tr>';
-										echo '<th class="cuztom_th th">';
-											echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
-											echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
-										echo '</th>';
-										echo '<td class="cuztom_td td">';
+								echo '<li class="cuztom_bundle">';
+									echo '<div class="handle_bundle"></div>';
+									echo '<fieldset>';
+									echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 										
-											cuztom_field( $field_id_name, $field, $meta, '[0]' );
+										$bundle = $meta_data[$this->box_id];
 										
-										echo '</td>';
-									echo '</tr>';
-								}
-								else
-								{
-									cuztom_field( $field_id_name, $field, $meta, '[0]' );
-								}
+										foreach( $bundle as $field_id_name => $field )
+										{
+											$value = isset( $meta[$i][$field_id_name] ) ? $meta[$i][$field_id_name] : '';
+											
+											if( $field['type'] != 'hidden' )
+											{
+												echo '<tr>';
+													echo '<th class="cuztom_th th">';
+														echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
+														echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
+													echo '</th>';
+													echo '<td class="cuztom_td td">';
+
+														if( _cuztom_field_supports_bundle( $field ) )
+															cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][' . $i . ']' );
+														else
+															_e( '<em>This input type doesn\'t support the bundle functionality (yet).</em>' );
+
+													echo '</td>';
+												echo '</tr>';
+											}
+											else
+											{
+												cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][' . $i . ']' );
+											}
+										}
+
+									echo '</table>';
+									echo '</fieldset>';
+									echo count( $meta ) > 1 ? '<div class="remove_bundle"></div>' : '';
+								echo '</li>';
+								
+								$i++;
 							}
-				
-						echo '</table>';
-						echo '</fieldset>';
-						echo '<div class="remove_bundle"></div>';
-					echo '</li>';
-				echo '</ul>';
+							
+						}
+						else
+						{
+							echo '<li class="cuztom_bundle">';
+								echo '<div class="handle_bundle"></div>';
+								echo '<fieldset>';
+								echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
+									
+									$fields = array_slice( $meta_data, 1 );
+									$fields = $fields[$this->box_id];
+									
+									foreach( $fields as $field_id_name => $field )
+									{
+										$value = $field['default_value'];
+
+										if( $field['type'] != 'hidden' )
+										{
+											echo '<tr>';
+												echo '<th class="cuztom_th th">';
+													echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
+													echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
+												echo '</th>';
+												echo '<td class="cuztom_td td">';
+
+													if( _cuztom_field_supports_bundle( $field ) )
+														cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][0]' );
+													else
+														_e( '<em>This input type doesn\'t support the bundle functionality (yet).</em>' );
+
+												echo '</td>';
+											echo '</tr>';
+										}
+										else
+										{
+											cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][0]' );
+										}
+									}
+
+								echo '</table>';
+								echo '</fieldset>';
+							echo '</li>';
+						}
+					echo '</ul>';
+				echo '</div>';
 			}
 			else
 			{
@@ -310,10 +368,12 @@ class Cuztom_Meta_Box
 			}
 			elseif( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'bundle' ) )
 			{
-				echo '<pre>';
-				var_dump( $_POST['cuztom'] );
-				echo '</pre>';
-				die();
+				delete_post_meta( $post_id, $this->box_id );
+				
+				foreach( $_POST['cuztom'][$this->box_id] as $bundle_id => $bundle )
+				{
+					$this->_save_meta( $post_id, $this->box_id, $bundle_id );
+				}
 			}
 			else
 			{
@@ -337,13 +397,21 @@ class Cuztom_Meta_Box
 	 * @since 0.7
 	 *
 	 */
-	function _save_meta( $post_id, $field, $field_id_name )
-	{						
-		$value = isset( $_POST['cuztom'][$field_id_name] ) ? $_POST['cuztom'][$field_id_name] : '';
-		
-		if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
-		
-		update_post_meta( $post_id, $field_id_name, $value );
+	function _save_meta( $post_id, $field, $id_name )
+	{
+		if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'bundle' ) )
+		{
+			$value = isset( $_POST['cuztom'][$field][$id_name] ) ? $_POST['cuztom'][$field][$id_name] : '';
+			add_post_meta( $post_id, $field, $value );
+		}
+		else
+		{
+			$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
+
+			if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
+
+			update_post_meta( $post_id, $id_name, $value );
+		}
 	}
 	
 	
@@ -383,7 +451,7 @@ class Cuztom_Meta_Box
 			elseif( ! is_array( $data[0] ) && ( $data[0] == 'bundle' ) )
 			{
 				$return[0] = $data[0];
-				$return['bundle'] = array();
+				$return[$this->box_id] = array();
 
 				foreach( $data[1] as $field )
 				{
@@ -391,7 +459,7 @@ class Cuztom_Meta_Box
 					$field['repeatable'] = false;
 					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
 
-					$return['bundle'][$field_id_name] = $field;
+					$return[$this->box_id][$field_id_name] = $field;
 				}
 			}
 			else
