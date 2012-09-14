@@ -409,6 +409,7 @@ class Cuztom_Meta_Box
 			$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
 
 			if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
+			if( ( $field['type'] == 'checkbox' || $field['type'] == 'checkboxes' || $field['type'] == 'post_checkboxes' || $field['type'] == 'term_checkboxes' ) && empty( $value ) ) $value = '-1';
 
 			update_post_meta( $post_id, $id_name, $value );
 		}
@@ -464,15 +465,12 @@ class Cuztom_Meta_Box
 			}
 			else
 			{
-
+				foreach( $data as $field )
 				{
-					foreach( $data as $field )
-					{
-						$field = Cuztom_Field::_build_array( $field );
-						$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
+					$field = Cuztom_Field::_build_array( $field );
+					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
 
-						$return[$field_id_name] = $field;
-					}
+					$return[$field_id_name] = $field;
 				}
 			}
 		}
