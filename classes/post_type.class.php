@@ -146,5 +146,3 @@ class Cuztom_Post_Type
 		return $this;
 	}	
 }
-
-?>

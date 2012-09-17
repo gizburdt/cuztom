@@ -571,5 +571,3 @@ class Cuztom_Meta_Box
 		}
 	}
 }
-
-?>

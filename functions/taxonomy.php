@@ -19,5 +19,3 @@ function register_cuztom_taxonomy( $name, $post_type_name = null, $args = array(
 	
 	return $taxonomy;
 }
-
-?>

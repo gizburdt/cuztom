@@ -90,5 +90,3 @@ class Cuztom_Menu_Page
 		return $this;
 	}
 }
-
-?>

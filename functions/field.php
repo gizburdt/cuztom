@@ -14,5 +14,3 @@ function _cuztom_field_supports_bundle( $field )
 {
 	return Cuztom_Field::_supports_bundle( $field );
 }
-
-?>

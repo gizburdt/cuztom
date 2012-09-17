@@ -122,5 +122,3 @@ class Cuztom_Taxonomy
 		register_taxonomy_for_object_type( $this->taxonomy_name, $this->post_type_name );
 	}	
 }
-
-?>

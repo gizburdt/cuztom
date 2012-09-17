@@ -451,5 +451,3 @@ class Cuztom_Field
 		return ( self::_is_hidden( $field ) ? '_' : '' ) . Cuztom::uglify( $box_title ) . "_" . Cuztom::uglify( $field['name'] );
 	}
 }
-
-?>

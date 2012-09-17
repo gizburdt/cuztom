@@ -63,5 +63,3 @@ class Cuztom_Submenu_Page
 		);
 	}
 }
-
-?>

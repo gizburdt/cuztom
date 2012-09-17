@@ -258,5 +258,3 @@ class Cuztom
 		}
 	}		
 }
-
-?>

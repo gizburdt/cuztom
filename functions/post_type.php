@@ -18,5 +18,3 @@ function register_cuztom_post_type( $name, $args = array(), $labels = array() )
 	
 	return $post_type;
 }
-
-?>

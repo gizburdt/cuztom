@@ -21,5 +21,3 @@ function add_cuztom_submenu_page( $parent_slug, $page_title, $menu_title, $capab
 	
 	return $submenu_page;
 }
-
-?>

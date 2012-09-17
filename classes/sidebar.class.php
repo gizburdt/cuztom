@@ -66,5 +66,3 @@ class Cuztom_Sidebar
 		) );
 	}
 }
-
-?>

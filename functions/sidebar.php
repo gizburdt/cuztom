@@ -22,5 +22,3 @@ function register_cuztom_sidebar( $name, $id, $description = '', $before_widget 
 	
 	return $sidebar;
 }
-
-?>

@@ -28,5 +28,3 @@ include( 'functions/field.php' );
 
 // Init
 $cuztom = new Cuztom();
-
-?>

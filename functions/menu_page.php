@@ -22,5 +22,3 @@ function add_cuztom_menu_page( $page_title, $menu_title, $capability, $menu_slug
 	
 	return $menu_page;
 }
-
-?>

@@ -20,5 +20,3 @@ function add_cuztom_meta_box( $title, $post_type_name, $fields = array(), $conte
 	
 	return $meta_box;
 }
-
-?>
