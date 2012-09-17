@@ -47,6 +47,8 @@ class Cuztom_Meta_Box
 			add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
 			add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
 			
+			add_filter( "get_post_metadata", array( $this, 'filter_empty_arrays' ), 10, 4 );
+			
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 		}
 		
@@ -88,7 +90,7 @@ class Cuztom_Meta_Box
 	 * @author Gijs Jorissen
 	 * @since 0.2
 	 *
-	 */
+	 */	
 	function callback( $post, $data )
 	{
 		// Nonce field for validation
@@ -103,6 +105,11 @@ class Cuztom_Meta_Box
 			// Hidden field, so cuztom is always set
 			echo '<input type="hidden" name="cuztom[__activate]" />';
 			echo '<div class="cuztom_helper">';
+			
+			echo '<pre>';
+			var_dump( $this->meta_data );
+			echo '</pre>';
+			die();
 			
 			if( isset( $meta_data[0] ) && ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'tabs' || $meta_data[0] == 'accordion' ) )
 			{			
@@ -569,5 +576,23 @@ class Cuztom_Meta_Box
 			echo $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) ? 
 				implode( $meta, ', ' ) : get_post_meta( $post_id, $column, true );
 		}
+	}
+	
+	
+	/**
+	 * Used to filter the -1 of empty arrays
+	 *
+	 * @param string $value
+	 * @param int $value
+	 * @param string $value
+	 * @return bool $single
+	 *
+	 * @author Gijs Jorissen
+	 * @since 1.2.1
+	 *
+	 */
+	function filter_empty_arrays( $value, $object_id, $meta_key, $single )
+	{		
+		return $value;
 	}
 }
