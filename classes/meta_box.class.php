@@ -106,11 +106,6 @@ class Cuztom_Meta_Box
 			echo '<input type="hidden" name="cuztom[__activate]" />';
 			echo '<div class="cuztom_helper">';
 			
-			echo '<pre>';
-			var_dump( $this->meta_data );
-			echo '</pre>';
-			die();
-			
 			if( isset( $meta_data[0] ) && ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'tabs' || $meta_data[0] == 'accordion' ) )
 			{			
 				$tabs = array_slice( $meta_data, 1 );
