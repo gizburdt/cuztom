@@ -205,12 +205,12 @@ class Cuztom
 			{
 				$cut = substr( $string, 0, -1 );
 				//convert y to ies
-				$plural = $cut . 'ies';
+				$string = $cut . 'ies';
 			}
 			else
 			{
 				// just attach a s
-				$plural = $string . 's';
+				$string = $string . 's';
 			}
 		}
 		
