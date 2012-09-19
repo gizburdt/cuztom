@@ -15,6 +15,7 @@ class Cuztom_Meta_Box
 	var $box_priority;
 	var $post_type_name;
 	var $meta_data;
+	var $meta_fields;
 	
 	
 	/**
@@ -446,7 +447,8 @@ class Cuztom_Meta_Box
 					{
 						$field = Cuztom_Field::_build_array( $field );
 						$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
-
+						
+						$this->meta_fields[$field_id_name] = $field;
 						$return[$title][$field_id_name] = $field;
 					}
 				}
@@ -461,7 +463,8 @@ class Cuztom_Meta_Box
 					$field = Cuztom_Field::_build_array( $field );
 					$field['repeatable'] = false;
 					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
-
+					
+					$this->meta_fields[$field_id_name] = $field;
 					$return[$this->box_id][$field_id_name] = $field;
 				}
 			}
@@ -471,7 +474,8 @@ class Cuztom_Meta_Box
 				{
 					$field = Cuztom_Field::_build_array( $field );
 					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
-
+					
+					$this->meta_fields[$field_id_name] = $field;
 					$return[$field_id_name] = $field;
 				}
 			}
@@ -548,7 +552,7 @@ class Cuztom_Meta_Box
 	{
 		$meta = get_post_meta( $post_id, $column, true );
 		
-		if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' || $this->meta_data[0] == 'bundle' ) )
+		if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' ) )
 		{
 			$tabs = array_slice( $this->meta_data, 1 );
 			
@@ -586,8 +590,15 @@ class Cuztom_Meta_Box
 	 * @since 1.2.1
 	 *
 	 */
-	function filter_empty_arrays( $value, $object_id, $meta_key, $single )
-	{		
-		return $value;
+	function filter_empty_arrays( $null, $object_id, $meta_key, $single )
+	{
+		if( ! is_admin() )
+		{
+			if( ! isset( $this->meta_fields[$meta_key] ) ) return $null;
+			
+			//if( ( $field['type'] == 'checkbox' || $field['type'] == 'checkboxes' || $field['type'] == 'post_checkboxes' || $field['type'] == 'term_checkboxes' ) && $value == '-1' ) return 'hoi';
+		}
+		
+		return $null;
 	}
 }

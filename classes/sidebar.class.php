@@ -9,6 +9,7 @@
  */
 class Cuztom_Sidebar
 {
+	var $sidebar;
 	var $sidebar_name;
 	var $sidebar_id;
 	var $sidebar_description;
@@ -32,15 +33,30 @@ class Cuztom_Sidebar
 	 * @since 0.5
 	 *
 	 */
-	function __construct( $name, $id, $description = '', $before_widget = '', $after_widget = '', $before_title = '', $after_title = '' )
+	function __construct( $name, $id = '', $description = '', $before_widget = '', $after_widget = '', $before_title = '', $after_title = '' )
 	{
-		$this->sidebar_name = Cuztom::beautify( $name );
-		$this->sidebar_id = Cuztom::uglify( $id );
-		$this->sidebar_description = $description;
-		$this->before_widget = $before_widget;
-		$this->after_widget = $after_widget;
-		$this->before_title = $before_title;
-		$this->after_title = $after_title;
+		if( is_array( $name ) )
+		{
+			$this->sidebar = array(
+				'name'				=> $name['name'],
+				'id'				=> isset( $name['id'] ) ? $name['id'] : '',
+				'description'		=> isset( $name['description'] ) ? $name['description'] : '',
+				'before_widget'		=> isset( $name['before_widget'] ) ? $name['before_widget'] : '',
+				'after_widget'		=> isset( $name['after_widget'] ) ? $name['after_widget'] : '',
+				'before_title'		=> isset( $name['before_title'] ) ? $name['before_title'] : '',
+				'after_title'		=> isset( $name['after_title'] ) ? $name['after_title'] : '',
+			);
+		}
+		else
+		{
+			$this->sidebar_name = Cuztom::beautify( $name );
+			$this->sidebar_id = $id ? Cuztom::uglify( $id ) : $this->sidebar_name;
+			$this->sidebar_description = $description;
+			$this->before_widget = $before_widget;
+			$this->after_widget = $after_widget;
+			$this->before_title = $before_title;
+			$this->after_title = $after_title;
+		}
 		
 		add_action( 'widgets_init', array( $this, 'register_sidebar' ) );
 	}
@@ -55,14 +71,18 @@ class Cuztom_Sidebar
 	 */
 	function register_sidebar()
 	{
-		register_sidebar( array(
-			'name' => $this->sidebar_name,
-			'id' => $this->sidebar_id,
-			'description' => $this->sidebar_description,
-			'before_widget' => $this->before_widget,
-			'after_widget' => $this->after_widget,
-			'before_title' => $this->before_title,
-			'after_title' => $this->after_title,
-		) );
+		$args = ( $this->sidebar )
+			? $this->sidebar 
+			: array(
+				'name' => $this->sidebar_name,
+				'id' => $this->sidebar_id,
+				'description' => $this->sidebar_description,
+				'before_widget' => $this->before_widget,
+				'after_widget' => $this->after_widget,
+				'before_title' => $this->before_title,
+				'after_title' => $this->after_title,
+			);
+		
+		register_sidebar( $args );
 	}
 }

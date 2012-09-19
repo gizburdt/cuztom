@@ -358,7 +358,7 @@ class Cuztom_Field
 	 */
 	static function _is_hidden( $field )
 	{
-		return isset( $field['hide'] ) ? $field['hide'] : false;
+		return apply_filters( 'cuztom_is_hidden', isset( $field['hide'] ) ? $field['hide'] : false );
 	}
 	
 	
@@ -375,7 +375,7 @@ class Cuztom_Field
 	static function _supports_repeatable( $field )
 	{
 		$field_type = is_array( $field ) ? $field['type'] : $field;
-		$supports = apply_filters( 'supports_repeatable', array( 'text', 'textarea', 'select', 'post_select', 'term_select' ) );
+		$supports = apply_filters( 'cuztom_supports_repeatable', array( 'text', 'textarea', 'select', 'post_select', 'term_select' ) );
 		
 		return in_array( $field_type, $supports );
 	}
@@ -394,7 +394,7 @@ class Cuztom_Field
 	static function _supports_bundle( $field )
 	{
 		$field_type = is_array( $field ) ? $field['type'] : $field;
-		$supports = apply_filters( 'supports_bundle', array( 'text', 'textarea' ) );
+		$supports = apply_filters( 'cuztom_supports_bundle', array( 'text', 'textarea' ) );
 		
 		return in_array( $field_type, $supports );
 	}
@@ -448,6 +448,6 @@ class Cuztom_Field
 	 */
 	static function _build_id_name( $field, $box_title )
 	{
-		return ( self::_is_hidden( $field ) ? '_' : '' ) . Cuztom::uglify( $box_title ) . "_" . Cuztom::uglify( $field['name'] );
+		return apply_filters( 'cuztom_buidl_id_name', ( self::_is_hidden( $field ) ? '_' : '' ) . Cuztom::uglify( $box_title ) . "_" . Cuztom::uglify( $field['name'] ) );
 	}
 }

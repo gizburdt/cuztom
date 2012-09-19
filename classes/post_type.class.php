@@ -84,7 +84,7 @@ class Cuztom_Post_Type
 
 		);
 
-		// Same principle as the labels. We set some default and overwite them with the given arguments.
+		// Post type argument
 		$args = array_merge(
 
 			// Default

@@ -16,7 +16,7 @@
  * @since 0.8
  *
  */
-function register_cuztom_sidebar( $name, $id, $description = '', $before_widget = '', $after_widget = '', $before_title = '', $after_title = '' )
+function register_cuztom_sidebar( $name, $id = '', $description = '', $before_widget = '', $after_widget = '', $before_title = '', $after_title = '' )
 {
 	$sidebar = new Cuztom_Sidebar( $name, $id, $description, $before_widget, $after_widget, $before_title, $after_title );
 	

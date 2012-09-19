@@ -147,9 +147,9 @@ class Cuztom
 	 */
 	function localize_scripts()
 	{
-		wp_localize_script( 'cuztom_js', 'Cuztom', array(
+		wp_localize_script( 'cuztom_js', 'Cuztom', apply_filters( 'cuztom_localize_script', array(
 			'home_url'		=> get_home_url()
-		) );
+		) ) );
 	}
 	
 	
@@ -165,7 +165,7 @@ class Cuztom
 	 */
 	static function beautify( $string )
 	{
-		return ucwords( str_replace( '_', ' ', $string ) );
+		return apply_filters( 'cuztom_beautify', ucwords( str_replace( '_', ' ', $string ) ) );
 	}
 	
 	
@@ -181,7 +181,7 @@ class Cuztom
 	 */
 	static function uglify( $string )
 	{
-		return strtolower( preg_replace( '/[^A-z0-9]/', '_', $string ) );
+		return apply_filters( 'cuztom_uglify', strtolower( preg_replace( '/[^A-z0-9]/', '_', $string ) ) );
 	}
 	
 	
@@ -212,11 +212,9 @@ class Cuztom
 				// just attach a s
 				$plural = $string . 's';
 			}
-
-			return $plural;
 		}
 		
-		return $string;
+		return apply_filters( 'cuztom_pluralize', $string );
 	}
 	
 	
@@ -254,7 +252,7 @@ class Cuztom
 		}
 		else
 		{
-			return $this->_determine_cuztom_dir( $path );
+			return apply_filters( 'cuztom_dir', $this->_determine_cuztom_dir( $path ) );
 		}
 	}		
 }
