@@ -147,9 +147,9 @@ class Cuztom
 	 */
 	function localize_scripts()
 	{
-		wp_localize_script( 'cuztom_js', 'Cuztom', apply_filters( 'cuztom_localize_script', array(
+		wp_localize_script( 'cuztom_js', 'Cuztom', array(
 			'home_url'		=> get_home_url()
-		) ) );
+		) );
 	}
 	
 	
