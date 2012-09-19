@@ -122,6 +122,10 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Fixed: Issue #19: Checkboxes default now works as intended
 * Other improvements and minor fixes
 
+###1.2.1
+* Improvements: Sidebar can now be created with seperate strings or with an array, like register_sidebar
+* Added: Filters on multiple locations
+
 ###1.1.1
 * Added: Localize scripts
 * Improvement: wp_dropdown_categories had some improvements
