@@ -117,14 +117,18 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###1.2.2
+* Minor fixes
+* Added: Datepicker date format
+
+###1.2.1
+* Improvements: Sidebar can now be created with seperate strings or with an array, like register_sidebar
+* Added: Filters on multiple location
+
 ###1.2
 * Added: Bundles: You can build bundles of fields as object, like a news item with title and content
 * Fixed: Issue #19: Checkboxes default now works as intended
 * Other improvements and minor fixes
-
-###1.2.1
-* Improvements: Sidebar can now be created with seperate strings or with an array, like register_sidebar
-* Added: Filters on multiple locations
 
 ###1.1.1
 * Added: Localize scripts
