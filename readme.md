@@ -70,11 +70,11 @@ To register a sidebar, just call this.
 	
 Or with an array
 
-	$sidebar = register_cuztom_sidebar( 
+	$sidebar = register_cuztom_sidebar( array(
 		'name'				=> 'Sidebar Twee',
 		'id'				=> 'sidebar_twee',
 		'description'		=> 'Build with an array',
-	);
+	) );
 
 ### Add Menu Page
 
