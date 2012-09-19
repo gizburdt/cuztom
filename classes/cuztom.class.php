@@ -148,7 +148,8 @@ class Cuztom
 	function localize_scripts()
 	{
 		wp_localize_script( 'cuztom_js', 'Cuztom', array(
-			'home_url'		=> get_home_url()
+			'home_url'		=> get_home_url(),
+			'date_format'	=> get_option('date_format')
 		) );
 	}
 	

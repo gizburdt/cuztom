@@ -2,7 +2,9 @@ jQuery.noConflict();
 jQuery(function($) {
 	
 	// Datepicker
-	$('.cuztom_datepicker').datepicker();
+	$('.cuztom_datepicker').each(function(){
+		$(this).datepicker({ dateFormat: $(this).data('date-format') });
+	});
 	
 	// Colorpicker
 	$('.cuztom_colorpicker').miniColors();

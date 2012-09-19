@@ -178,7 +178,7 @@ class Cuztom_Field
 			
 			// Datepicker
 			case 'date' :
-				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_datepicker datepicker cuztom_input" value="' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '" />';
+				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_datepicker datepicker cuztom_input" value="' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '" ' . ( isset( $field['options']['date_format'] ) ? 'data-date-format="' . $field['options']['date_format'] . '"' : '' ) . ' />';
 			break;
 			
 			// Colorpicker
