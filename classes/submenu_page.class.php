@@ -31,7 +31,7 @@ class Cuztom_Submenu_Page
 	 * @since 0.4
 	 *
 	 */
-	function __construct( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function )
+	function __construct( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' )
 	{
 		$this->parent_slug = $parent_slug;
 		$this->page_title = Cuztom::beautify( $page_title );

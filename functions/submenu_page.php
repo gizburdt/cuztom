@@ -15,7 +15,7 @@
  * @since 0.8
  *
  */
-function add_cuztom_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function )
+function add_cuztom_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' )
 {
 	$submenu_page = new Cuztom_Submenu_Page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
 	

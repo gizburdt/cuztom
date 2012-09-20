@@ -13,7 +13,7 @@
  * @since 0.8
  *
  */
-function register_cuztom_taxonomy( $name, $post_type_name = null, $args = array(), $labels = array() )
+function register_cuztom_taxonomy( $name, $post_type_name, $args = array(), $labels = array() )
 {
 	$taxonomy = new Cuztom_Taxonomy( $name, $post_type_name, $args, $labels );
 	

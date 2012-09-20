@@ -16,7 +16,7 @@
  * @since 0.8
  *
  */
-function add_cuztom_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url = '', $position = 100 )
+function add_cuztom_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function = '', $icon_url = '', $position = 100 )
 {
 	$menu_page = new Cuztom_Menu_Page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
 	

@@ -48,7 +48,7 @@ class Cuztom_Meta_Box
 			add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
 			add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
 			
-			add_filter( "get_post_metadata", array( $this, 'filter_empty_arrays' ), 10, 4 );
+			add_filter( 'get_post_metadata', array( $this, 'filter_empty_arrays' ), 10, 4 );
 			
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 		}

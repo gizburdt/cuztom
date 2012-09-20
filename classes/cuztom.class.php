@@ -92,8 +92,6 @@ class Cuztom
 		wp_enqueue_style( 'cuztom_jquery_ui_css' );
 		wp_enqueue_style( 'cuztom_colorpicker_css' );
 		wp_enqueue_style( 'cuztom_css' );
-		
-		self::localize_scripts();
 	}
 	
 	
