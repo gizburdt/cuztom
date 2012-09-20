@@ -7,13 +7,8 @@
  * @since 0.4
  *
  */
-class Cuztom_Menu_Page
+class Cuztom_Menu_Page extends Cuztom_Page
 {
-	var $page_title;
-	var $menu_title;
-	var $capability;
-	var $menu_slug;
-	var $function;
 	var $icon_url;
 	var $position;
 	

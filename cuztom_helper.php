@@ -14,6 +14,7 @@ include( 'classes/field.class.php' );
 include( 'classes/post_type.class.php' );
 include( 'classes/meta_box.class.php' );
 include( 'classes/taxonomy.class.php' );
+include( 'classes/page.class.php' );
 include( 'classes/menu_page.class.php' );
 include( 'classes/submenu_page.class.php' );
 include( 'classes/sidebar.class.php' );

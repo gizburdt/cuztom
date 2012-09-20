@@ -7,14 +7,9 @@
  * @since 0.4
  *
  */
-class Cuztom_Submenu_Page
+class Cuztom_Submenu_Page extends Cuztom_Page
 {
 	var $parent_slug;
-	var $page_title;
-	var $menu_title;
-	var $capability;
-	var $menu_slug;
-	var $function;
 	
 	
 	/**
