@@ -10,9 +10,9 @@
  */
 class Cuztom_Taxonomy
 {
-	var $taxonomy_name;
-	var $taxonomy_labels;
-	var $taxonomy_args;
+	var $name;
+	var $labels;
+	var $args;
 	var $post_type_name;
 	
 	
@@ -36,11 +36,11 @@ class Cuztom_Taxonomy
 			$this->post_type_name = $post_type_name;
 			
 			// Taxonomy properties
-			$this->taxonomy_name		= Cuztom::uglify( $name );
-			$this->taxonomy_labels		= $labels;
-			$this->taxonomy_args		= $args;
+			$this->name		= Cuztom::uglify( $name );
+			$this->labels	= $labels;
+			$this->args		= $args;
 
-			if( ! taxonomy_exists( $this->taxonomy_name ) )
+			if( ! taxonomy_exists( $this->name ) )
 			{
 				add_action( 'init', array( &$this, 'register_taxonomy' ) );
 			}
@@ -61,7 +61,7 @@ class Cuztom_Taxonomy
 	 */
 	function register_taxonomy()
 	{
-		$name 		= Cuztom::beautify( $this->taxonomy_name );
+		$name 		= Cuztom::beautify( $this->name );
 		$plural 	= Cuztom::pluralize( $name );
 
 		// Default labels, overwrite them with the given labels.
@@ -79,11 +79,11 @@ class Cuztom_Taxonomy
 			    'update_item' 			=> __( 'Update ' . $name, CUZTOM_TEXTDOMAIN ),
 			    'add_new_item' 			=> __( 'Add New ' . $name, CUZTOM_TEXTDOMAIN ),
 			    'new_item_name' 		=> __( 'New ' . $name . ' Name', CUZTOM_TEXTDOMAIN ),
-			    'menu_name' 			=> __( $name, CUZTOM_TEXTDOMAIN ),
+			    'menu_name' 			=> __( $plural, CUZTOM_TEXTDOMAIN ),
 			),
 
 			// Given labels
-			$this->taxonomy_labels
+			$this->labels
 
 		);
 
@@ -102,11 +102,11 @@ class Cuztom_Taxonomy
 			),
 
 			// Given
-			$this->taxonomy_args
+			$this->args
 
 		);
 		
-		register_taxonomy( $this->taxonomy_name, $this->post_type_name, $args );
+		register_taxonomy( $this->name, $this->post_type_name, $args );
 	}
 	
 	
@@ -119,6 +119,6 @@ class Cuztom_Taxonomy
 	 */
 	function register_taxonomy_for_object_type()
 	{
-		register_taxonomy_for_object_type( $this->taxonomy_name, $this->post_type_name );
+		register_taxonomy_for_object_type( $this->name, $this->post_type_name );
 	}	
 }

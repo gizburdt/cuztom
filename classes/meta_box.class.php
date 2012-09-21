@@ -9,13 +9,13 @@
  */
 class Cuztom_Meta_Box
 {
-	var $box_id;
-	var $box_title;
-	var $box_context;
-	var $box_priority;
+	var $id;
+	var $title;
+	var $context;
+	var $priority;
 	var $post_type_name;
-	var $meta_data;
-	var $meta_fields;
+	var $data;
+	var $fields;
 	
 	
 	/**
@@ -38,22 +38,22 @@ class Cuztom_Meta_Box
 			$this->post_type_name 	= $post_type_name;
 			
 			// Meta variables	
-			$this->box_id 			= Cuztom::uglify( $title );
-			$this->box_title 		= Cuztom::beautify( $title );
-			$this->box_context		= $context;
-			$this->box_priority		= $priority;
+			$this->id 			= Cuztom::uglify( $title );
+			$this->title 		= Cuztom::beautify( $title );
+			$this->context		= $context;
+			$this->priority		= $priority;
 
-			$this->meta_data 		= self::_build_arrays( $data );
+			// Build a usable arrays
+			self::_build_arrays( $data );
 			
+			// Actions and filters
 			add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
 			add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
-			
-			add_filter( 'get_post_metadata', array( $this, 'filter_empty_arrays' ), 10, 4 );
 			
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 		}
 		
-		// Add multipart for files
+		// Add multipart for files/images
 		add_action( 'post_edit_form_tag', array( $this, 'post_edit_form_tag' ) );
 		
 		// Listen for the save post hook
@@ -71,12 +71,12 @@ class Cuztom_Meta_Box
 	function add_meta_box()
 	{			
 		add_meta_box(
-			$this->box_id,
-			$this->box_title,
+			$this->id,
+			$this->title,
 			array( $this, 'callback' ),
 			$this->post_type_name,
-			$this->box_context,
-			$this->box_priority
+			$this->context,
+			$this->priority
 		);
 	}
 	
@@ -98,24 +98,24 @@ class Cuztom_Meta_Box
 		wp_nonce_field( plugin_basename( __FILE__ ), 'cuztom_nonce' );
 
 		// Get all inputs from $data
-		$meta_data = $this->meta_data;
+		$data = $this->data;
 
-		// Check the array and loop through it
-		if( ! empty( $meta_data ) )
+		// Check if we have some data
+		if( ! empty( $data ) )
 		{
 			// Hidden field, so cuztom is always set
 			echo '<input type="hidden" name="cuztom[__activate]" />';
 			echo '<div class="cuztom_helper">';
 			
-			if( isset( $meta_data[0] ) && ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'tabs' || $meta_data[0] == 'accordion' ) )
+			if( isset( $data[0] ) && ! is_array( $data[0] ) && ( $data[0] == 'tabs' || $data[0] == 'accordion' ) )
 			{			
-				$tabs = array_slice( $meta_data, 1 );
+				$tabs = array_slice( $data, 1 );
 				
 				// If it's about tabs or accordion
-				echo '<div class="' . ( $meta_data[0] == 'tabs' ? 'cuztom_tabs' : 'cuztom_accordion' ) . '">';
+				echo '<div class="' . ( $data[0] == 'tabs' ? 'cuztom_tabs' : 'cuztom_accordion' ) . '">';
 					
 					// Show tabs
-					if( $meta_data[0] == 'tabs' )
+					if( $data[0] == 'tabs' )
 					{
 						echo '<ul>';
 							foreach( $tabs as $tab => $fields )
@@ -127,13 +127,13 @@ class Cuztom_Meta_Box
 						echo '</ul>';
 					}
 					
-					/* Loop through $meta_data, tabs in this case */
+					/* Loop through $data, tabs in this case */
 					foreach( $tabs as $tab => $fields )
 					{							
 						$tab_id = Cuztom::uglify( $tab );
 						
 						// Show header if accordion
-						if( $meta_data[0] == 'accordion' )
+						if( $data[0] == 'accordion' )
 						{
 							echo '<h3>' . Cuztom::beautify( $title ) . '</h3>';
 						}
@@ -182,9 +182,9 @@ class Cuztom_Meta_Box
 				
 				echo '</div>';
 			}
-			elseif( isset( $meta_data[0] ) && ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'bundle' ) )
+			elseif( isset( $data[0] ) && ! is_array( $data[0] ) && ( $data[0] == 'bundle' ) )
 			{
-				$meta = get_post_meta( $post->ID, $this->box_id, false ) ? get_post_meta( $post->ID, $this->box_id, false ) : false;
+				$meta = get_post_meta( $post->ID, $this->id, false ) ? get_post_meta( $post->ID, $this->id, false ) : false;
 				
 				echo '<div class="cuztom_padding_wrap">';
 					echo '<a class="button-secondary cuztom_add cuztom_add_bundle cuztom_button" href="#">';
@@ -201,7 +201,7 @@ class Cuztom_Meta_Box
 									echo '<fieldset>';
 									echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 										
-										$bundle = $meta_data[$this->box_id];
+										$bundle = $data[$this->id];
 										
 										foreach( $bundle as $field_id_name => $field )
 										{
@@ -217,7 +217,7 @@ class Cuztom_Meta_Box
 													echo '<td class="cuztom_td td">';
 
 														if( _cuztom_field_supports_bundle( $field ) )
-															cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][' . $i . ']' );
+															cuztom_field( $field_id_name, $field, $value, '[' . $this->id . '][' . $i . ']' );
 														else
 															_e( '<em>This input type doesn\'t support the bundle functionality (yet).</em>' );
 
@@ -226,7 +226,7 @@ class Cuztom_Meta_Box
 											}
 											else
 											{
-												cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][' . $i . ']' );
+												cuztom_field( $field_id_name, $field, $value, '[' . $this->id . '][' . $i . ']' );
 											}
 										}
 
@@ -246,8 +246,8 @@ class Cuztom_Meta_Box
 								echo '<fieldset>';
 								echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 									
-									$fields = array_slice( $meta_data, 1 );
-									$fields = $fields[$this->box_id];
+									$fields = array_slice( $data, 1 );
+									$fields = $fields[$this->id];
 									
 									foreach( $fields as $field_id_name => $field )
 									{
@@ -263,7 +263,7 @@ class Cuztom_Meta_Box
 												echo '<td class="cuztom_td td">';
 
 													if( _cuztom_field_supports_bundle( $field ) )
-														cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][0]' );
+														cuztom_field( $field_id_name, $field, $value, '[' . $this->id . '][0]' );
 													else
 														_e( '<em>This input type doesn\'t support the bundle functionality (yet).</em>' );
 
@@ -272,7 +272,7 @@ class Cuztom_Meta_Box
 										}
 										else
 										{
-											cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][0]' );
+											cuztom_field( $field_id_name, $field, $value, '[' . $this->id . '][0]' );
 										}
 									}
 
@@ -287,8 +287,8 @@ class Cuztom_Meta_Box
 			{
 				echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 
-					/* Loop through $meta_data */
-					foreach( $meta_data as $field_id_name => $field )
+					/* Loop through $data */
+					foreach( $data as $field_id_name => $field )
 					{
 						$meta = get_post_meta( $post->ID, $field_id_name, true ) ? get_post_meta( $post->ID, $field_id_name, true ) : false;
 						
@@ -355,11 +355,11 @@ class Cuztom_Meta_Box
 		if( ! current_user_can( get_post_type_object( $this->post_type_name )->cap->edit_post, $post_id ) ) return;
 		
 		// Loop through each meta box
-		if( ! empty( $this->meta_data ) && isset( $_POST['cuztom'] ) )
+		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{			
-			if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' ) )
+			if( isset( $this->data[0] ) && ! is_array( $this->data[0] ) && ( $this->data[0] == 'tabs' || $this->data[0] == 'accordion' ) )
 			{
-				$tabs = array_slice( $this->meta_data, 1 );
+				$tabs = array_slice( $this->data, 1 );
 				
 				foreach( $tabs as $tab => $fields )
 				{							
@@ -369,18 +369,18 @@ class Cuztom_Meta_Box
 					}
 				}
 			}
-			elseif( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'bundle' ) )
+			elseif( isset( $this->data[0] ) && ! is_array( $this->data[0] ) && ( $this->data[0] == 'bundle' ) )
 			{
-				delete_post_meta( $post_id, $this->box_id );
+				delete_post_meta( $post_id, $this->id );
 				
-				foreach( $_POST['cuztom'][$this->box_id] as $bundle_id => $bundle )
+				foreach( $_POST['cuztom'][$this->id] as $bundle_id => $bundle )
 				{
-					$this->_save_meta( $post_id, $this->box_id, $bundle_id );
+					$this->_save_meta( $post_id, $this->id, $bundle_id );
 				}
 			}
 			else
 			{
-				foreach( $this->meta_data as $field_id_name => $field )
+				foreach( $this->data as $field_id_name => $field )
 				{
 					$this->_save_meta( $post_id, $field, $field_id_name );
 				}
@@ -402,7 +402,7 @@ class Cuztom_Meta_Box
 	 */
 	function _save_meta( $post_id, $field, $id_name )
 	{
-		if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'bundle' ) )
+		if( isset( $this->data[0] ) && ! is_array( $this->data[0] ) && ( $this->data[0] == 'bundle' ) )
 		{
 			$value = isset( $_POST['cuztom'][$field][$id_name] ) ? $_POST['cuztom'][$field][$id_name] : '';
 			add_post_meta( $post_id, $field, $value );
@@ -446,9 +446,9 @@ class Cuztom_Meta_Box
 					foreach( $fields as $field )
 					{
 						$field = Cuztom_Field::_build_array( $field );
-						$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
+						$field_id_name = Cuztom_Field::_build_id_name( $field, $this->title );
 						
-						$this->meta_fields[$field_id_name] = $field;
+						$this->fields[$field_id_name] = $field;
 						$return[$title][$field_id_name] = $field;
 					}
 				}
@@ -456,16 +456,16 @@ class Cuztom_Meta_Box
 			elseif( ! is_array( $data[0] ) && ( $data[0] == 'bundle' ) )
 			{
 				$return[0] = $data[0];
-				$return[$this->box_id] = array();
+				$return[$this->id] = array();
 
 				foreach( $data[1] as $field )
 				{
 					$field = Cuztom_Field::_build_array( $field );
 					$field['repeatable'] = false;
-					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
+					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->title );
 					
-					$this->meta_fields[$field_id_name] = $field;
-					$return[$this->box_id][$field_id_name] = $field;
+					$this->fields[$field_id_name] = $field;
+					$return[$this->id][$field_id_name] = $field;
 				}
 			}
 			else
@@ -473,15 +473,15 @@ class Cuztom_Meta_Box
 				foreach( $data as $field )
 				{
 					$field = Cuztom_Field::_build_array( $field );
-					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
+					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->title );
 					
-					$this->meta_fields[$field_id_name] = $field;
+					$this->fields[$field_id_name] = $field;
 					$return[$field_id_name] = $field;
 				}
 			}
 		}
 		
-		return $return;
+		$this->data = $return;
 	}
 	
 	/**
@@ -511,9 +511,9 @@ class Cuztom_Meta_Box
 	 */
 	function add_column_head( $default )
 	{
-		$data = $this->meta_data;
+		$data = $this->data;
 		
-		if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' || $this->meta_data[0] == 'bundle' ) )
+		if( isset( $this->data[0] ) && ! is_array( $this->data[0] ) && ( $this->data[0] == 'tabs' || $this->data[0] == 'accordion' || $this->data[0] == 'bundle' ) )
 		{
 			$tabs = array_slice( $data, 1 );
 			
@@ -552,9 +552,9 @@ class Cuztom_Meta_Box
 	{
 		$meta = get_post_meta( $post_id, $column, true );
 		
-		if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' ) )
+		if( isset( $this->data[0] ) && ! is_array( $this->data[0] ) && ( $this->data[0] == 'tabs' || $this->data[0] == 'accordion' ) )
 		{
-			$tabs = array_slice( $this->meta_data, 1 );
+			$tabs = array_slice( $this->data, 1 );
 			
 			foreach( $tabs as $tab => $fields )
 			{
@@ -571,34 +571,9 @@ class Cuztom_Meta_Box
 		}
 		else
 		{
-			$field = isset( $this->meta_data[$column] ) ? $this->meta_data[$column] : null;			
+			$field = isset( $this->data[$column] ) ? $this->data[$column] : null;			
 			echo $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) ? 
 				implode( $meta, ', ' ) : get_post_meta( $post_id, $column, true );
 		}
-	}
-	
-	
-	/**
-	 * Used to filter the -1 of empty arrays
-	 *
-	 * @param string $value
-	 * @param int $value
-	 * @param string $value
-	 * @return bool $single
-	 *
-	 * @author Gijs Jorissen
-	 * @since 1.2.1
-	 *
-	 */
-	function filter_empty_arrays( $null, $object_id, $meta_key, $single )
-	{
-		if( ! is_admin() )
-		{
-			if( ! isset( $this->meta_fields[$meta_key] ) ) return $null;
-			
-			//if( ( $field['type'] == 'checkbox' || $field['type'] == 'checkboxes' || $field['type'] == 'post_checkboxes' || $field['type'] == 'term_checkboxes' ) && $value == '-1' ) return 'hoi';
-		}
-		
-		return $null;
 	}
 }
