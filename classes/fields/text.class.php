@@ -1,17 +1,7 @@
 <?php
 
 class Cuztom_Field_Text extends Cuztom_Field
-{
-	var $this->name;
-    var $this->label;
-    var $this->description;
-	var $this->hide;
-	var $this->default_value;
-	var $this->options;
-	var $this->repeatable;
-	var $this->show_column;
-	var $this->output;
-	
+{	
 	function __construct(  )
 	{
 		if( $field['repeatable'] && is_array( $value ) )
