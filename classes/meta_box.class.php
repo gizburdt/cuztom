@@ -445,11 +445,10 @@ class Cuztom_Meta_Box
 
 					foreach( $fields as $field )
 					{
-						$field = Cuztom_Field::_build_array( $field );
-						$field_id_name = Cuztom_Field::_build_id_name( $field, $this->title );
+						$field = Cuztom_Field::_build_object( $field );
 						
-						$this->fields[$field_id_name] = $field;
-						$return[$title][$field_id_name] = $field;
+						$this->fields[$field->id_name] = $field;
+						$return[$title][$field->id_name] = $field;
 					}
 				}
 			}
@@ -460,29 +459,46 @@ class Cuztom_Meta_Box
 
 				foreach( $data[1] as $field )
 				{
-					$field = Cuztom_Field::_build_array( $field );
-					$field['repeatable'] = false;
-					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->title );
+					$field = Cuztom_Field::_build_object( $field );
+					$field->repeatable = false;
 					
-					$this->fields[$field_id_name] = $field;
-					$return[$this->id][$field_id_name] = $field;
+					$this->fields[$field->id_name] = $field;
+					$return[$this->id][$field->id_name] = $field;
 				}
 			}
 			else
 			{
 				foreach( $data as $field )
 				{
-					$field = Cuztom_Field::_build_array( $field );
-					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->title );
+					$field = Cuztom_Field::_build_object( $field );
 					
-					$this->fields[$field_id_name] = $field;
-					$return[$field_id_name] = $field;
+					$this->fields[$field->id_name] = $field;
+					$return[$field->id_name] = $field;
 				}
 			}
 		}
 		
 		$this->data = $return;
 	}
+	
+	
+	function _is_tabs( $data )
+	{
+		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'tabs' );
+	}
+	
+	
+	function _is_accordion( $data )
+	{
+		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'accordion' );
+	}
+	
+	
+	function _is_bundle( $data )
+	{
+		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'bundle' );
+	}
+	
 	
 	/**
 	 * Adds multipart support to the post form

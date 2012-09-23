@@ -9,6 +9,7 @@
  */
 class Cuztom_Field
 {
+	var $id_name		= '';
 	var $name 			= '';
     var $label 			= '';
     var $description 	= '';
@@ -48,7 +49,7 @@ class Cuztom_Field
 	 * @since 0.9
 	 *
 	 */
-	static function _is_hidden( $field )
+	static function _is_hidden()
 	{
 		return apply_filters( 'cuztom_is_hidden', $this->hide );
 	}
@@ -87,6 +88,61 @@ class Cuztom_Field
 	
 	
 	/**
+	 * Builds an array of a field with all the arguments needed
+	 *
+	 * @param array $field
+	 * @return array
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.9
+	 *
+	 */
+	static function _build_array( $field )
+	{
+		$field = array_merge(
+		
+			// Default
+			array(
+				'name'          => '',
+	            'label'         => '',
+	            'description'   => '',
+	            'type'          => 'text',
+				'hide'			=> true,
+				'default_value'	=> '',
+				'options'		=> array(),
+				'repeatable'	=> false,
+				'show_column'	=> false
+			),
+			
+			// Given
+			$field
+		
+		);
+		
+		return $field;
+	}
+	
+	
+	/**
+	 * Builds an array of a field with all the arguments needed
+	 *
+	 * @param array $field
+	 * @return array
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.9
+	 *
+	 */
+	static function _build_object( $field )
+	{
+		$array = self::_build_array( $field );
+		$field = Cuztom::_array_to_object( $field );
+		
+		return $field;
+	}
+	
+	
+	/**
 	 * Builds an string used as field id and name
 	 *
 	 * @param array $field
@@ -98,6 +154,6 @@ class Cuztom_Field
 	 */
 	function _build_id_name( $field, $box_title )
 	{
-		return apply_filters( 'cuztom_buidl_id_name', ( self::_is_hidden() ? '_' : '' ) . Cuztom::uglify( $box_title ) . "_" . Cuztom::uglify( $field['name'] ) );
+		return apply_filters( 'cuztom_buidl_id_name', ( $this::_is_hidden() ? '_' : '' ) . Cuztom::uglify( $box_title ) . "_" . Cuztom::uglify( $field['name'] ) );
 	}
 }
