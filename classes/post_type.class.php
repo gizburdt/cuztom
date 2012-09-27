@@ -73,8 +73,8 @@ class Cuztom_Post_Type
 				'all_items' 			=> __( 'All ' . $plural, CUZTOM_TEXTDOMAIN ),
 				'view_item' 			=> __( 'View ' . $name, CUZTOM_TEXTDOMAIN ),
 				'search_items' 			=> __( 'Search ' . $plural, CUZTOM_TEXTDOMAIN ),
-				'not_found' 			=> __( 'No ' . strtolower( $plural ) . ' found', CUZTOM_TEXTDOMAIN ),
-				'not_found_in_trash' 	=> __( 'No ' . strtolower( $plural ) . ' found in Trash', CUZTOM_TEXTDOMAIN ), 
+				'not_found' 			=> sprintf( __( 'No %s found', CUZTOM_TEXTDOMAIN ), strtolower( $plural ) ),
+				'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', CUZTOM_TEXTDOMAIN ), strtolower( $plural ) ),
 				'parent_item_colon' 	=> '',
 				'menu_name' 			=> $plural
 			),
