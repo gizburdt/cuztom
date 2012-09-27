@@ -107,13 +107,57 @@ class Cuztom_Meta_Box
 			echo '<input type="hidden" name="cuztom[__activate]" />';
 			echo '<div class="cuztom_helper">';
 			
-				if( is_object( $data ) )
+				if( ( $data instanceof Cuztom_Tabs ) || ( $data instanceof Cuztom_Accordion ) )
 				{
 					
 				}
-				else
+				elseif( $data instanceof Cuztom_Bundle )
 				{
 					
+				}
+				elseif( is_array( $data ) )
+				{					
+					echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
+
+						/* Loop through $data */
+						foreach( $data as $field_id_name => $field )
+						{
+							$meta = get_post_meta( $post->ID, $field_id_name, true ) ? get_post_meta( $post->ID, $field_id_name, true ) : false;
+
+							if( $field->type != 'hidden' )
+							{
+								echo '<tr>';
+									echo '<th class="cuztom_th th">';
+										echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field->label . '</label>';
+										echo '<div class="cuztom_description description">' . $field->description . '</div>';
+									echo '</th>';
+									echo '<td class="cuztom_td td">';
+
+										if( $field->repeatable && $field->_supports_repeatable() )
+										{
+											echo '<div class="cuztom_padding_wrap">';
+											echo '<a class="button-secondary cuztom_add cuztom_add_field cuztom_button" href="#">';
+											echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
+											echo '<ul class="cuztom_repeatable_wrap">';
+										}
+										
+											echo $field->output( $meta );
+
+										if( $field->repeatable && $field->_supports_repeatable() )
+										{
+											echo '</ul></div>';
+										}
+
+									echo '</td>';
+								echo '</tr>';
+							}
+							else
+							{
+								echo $field->output( $meta );
+							}
+						}
+
+					echo '</table>';
 				}
 			
 			echo '</div>';

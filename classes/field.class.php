@@ -12,6 +12,7 @@ class Cuztom_Field
 	var $id_name		= '';
 	var $name 			= '';
     var $label 			= '';
+	var $type			= '';
     var $description 	= '';
 	var $hide 			= true;
 	var $default_value 	= '';
@@ -21,7 +22,6 @@ class Cuztom_Field
 	var $pre			= '';
 	var $after			= '';
 	var $meta_box		= '';
-	var $output 		= '';
 	
 	
 	function __construct( $field, $meta_box )
@@ -33,6 +33,7 @@ class Cuztom_Field
 		$this->name 			= $field['name'];
 		$this->label			= $field['label'];
 		$this->description		= $field['description'];
+		$this->type				= $field['type'];
 		$this->hide				= $field['hide'];
 		$this->default_value	= $field['default_value'];
 		$this->options			= $field['options'];
@@ -43,8 +44,6 @@ class Cuztom_Field
 		$this->meta_box			= $meta_box;
 		
 		$this->id_name 			= $this->_build_id_name( $this->name, $meta_box );
-		
-		$this->repeatable ? $this->generate_repeatable_output() : $this->generate_output();
 	}
 	
 	
@@ -60,9 +59,9 @@ class Cuztom_Field
 	 * @since 0.2
 	 *
 	 */
-	function output()
+	function output( $value )
 	{
-		echo $output;
+		return $this->repeatable && $this->_supports_repeatable() && is_array( $value ) ? $this->_repeatable_output( $value ) : $this->_output( $value );
 	}
 	
 	

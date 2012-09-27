@@ -2,16 +2,8 @@
 
 class Cuztom_Field_Radio extends Cuztom_Field
 {
-	function __construct( $field, $meta_box )
+	function _output( $value )
 	{
-		parent::__construct( $field, $meta_box );
-	}
-	
-	function generate_output()
-	{
-	}
-	
-	function generate_repeatable_output()
-	{
+		echo '<input type="radio" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" ' . ( ! empty( $value ) ? checked( $value, 'on', false ) : checked( $this->default_value, 'on', false ) ) . ' class="cuztom_input" />';
 	}
 }
