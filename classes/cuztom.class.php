@@ -217,24 +217,6 @@ class Cuztom
 	}
 	
 	
-	
-	static function _array_to_object( $array = array() ) 
-	{
-	    if( ! empty( $array ) ) 
-		{
-	        $data = false;
-			foreach ( $array as $key => $value ) 
-			{
-	            $data -> {$key} = $value;
-	        }
-	
-	        return $data;
-	    }
-		
-	    return false;
-	}
-	
-	
 	/**
 	 * Recursive method to determine the path to the Cuztom folder
 	 *

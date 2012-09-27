@@ -18,7 +18,34 @@ class Cuztom_Field
 	var $options 		= array();
 	var $repeatable 	= false;
 	var $show_column 	= false;
+	var $pre			= '';
+	var $after			= '';
+	var $meta_box		= '';
 	var $output 		= '';
+	
+	
+	function __construct( $field, $meta_box )
+	{
+		// Build array with defaults
+		$field = self::_build_array( $field );
+		
+		// Set variables
+		$this->name 			= $field['name'];
+		$this->label			= $field['label'];
+		$this->description		= $field['description'];
+		$this->hide				= $field['hide'];
+		$this->default_value	= $field['default_value'];
+		$this->options			= $field['options'];
+		$this->repeatable		= $field['repeatable'];
+		$this->show_column		= $field['show_column'];
+		$this->pre				= '';
+		$this->after			= '';
+		$this->meta_box			= $meta_box;
+		
+		$this->id_name 			= $this->_build_id_name( $this->name, $meta_box );
+		
+		$this->repeatable ? $this->generate_repeatable_output() : $this->generate_output();
+	}
 	
 	
 	/**
@@ -36,22 +63,6 @@ class Cuztom_Field
 	function output()
 	{
 		echo $output;
-	}
-	
-	
-	/**
-	 * Checks if the field is hidden for the custom fields box
-	 *
-	 * @param array $field
-	 * @return string
-	 *
-	 * @author Gijs Jorissen
-	 * @since 0.9
-	 *
-	 */
-	static function _is_hidden()
-	{
-		return apply_filters( 'cuztom_is_hidden', $this->hide );
 	}
 	
 	
@@ -83,7 +94,23 @@ class Cuztom_Field
 	 */
 	function _supports_bundle()
 	{		
-		return in_array( $field->type, apply_filters( 'cuztom_supports_bundle', array( 'text', 'textarea' ) ) );
+		return in_array( $this->type, apply_filters( 'cuztom_supports_bundle', array( 'text', 'textarea' ) ) );
+	}
+	
+	
+	/**
+	 * Builds an string used as field id and name
+	 *
+	 * @param array $field
+	 * @return string
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.9
+	 *
+	 */
+	function _build_id_name( $name, $meta_box )
+	{		
+		return apply_filters( 'cuztom_build_id_name', ( $this->hide ? '_' : '' ) . Cuztom::uglify( $meta_box ) . "_" . Cuztom::uglify( $name ) );
 	}
 	
 	
@@ -120,40 +147,5 @@ class Cuztom_Field
 		);
 		
 		return $field;
-	}
-	
-	
-	/**
-	 * Builds an array of a field with all the arguments needed
-	 *
-	 * @param array $field
-	 * @return array
-	 *
-	 * @author Gijs Jorissen
-	 * @since 0.9
-	 *
-	 */
-	static function _build_object( $field )
-	{
-		$array = self::_build_array( $field );
-		$field = Cuztom::_array_to_object( $field );
-		
-		return $field;
-	}
-	
-	
-	/**
-	 * Builds an string used as field id and name
-	 *
-	 * @param array $field
-	 * @return string
-	 *
-	 * @author Gijs Jorissen
-	 * @since 0.9
-	 *
-	 */
-	function _build_id_name( $field, $box_title )
-	{
-		return apply_filters( 'cuztom_buidl_id_name', ( $this::_is_hidden() ? '_' : '' ) . Cuztom::uglify( $box_title ) . "_" . Cuztom::uglify( $field['name'] ) );
 	}
 }

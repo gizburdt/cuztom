@@ -1,10 +1,10 @@
 <?php
 
-class Cuztom_Field_Text extends Cuztom_Field
+class Cuztom_Field_Select extends Cuztom_Field
 {	
-	function __construct( $field, $meta_box )
+	function __construct(  )
 	{
-		parent::__construct( $field, $meta_box );
+		$this->repeatable ? $this->generate_repeatable_output() : $this->generate_output();
 	}
 	
 	function generate_output()
@@ -14,11 +14,9 @@ class Cuztom_Field_Text extends Cuztom_Field
 	
 	function generate_repeatable_output()
 	{
-		/*
 		foreach( $value as $item )
 		{
-			$this->output = '<li class="cuztom_field"><div class="handle_repeatable"></div><input type="text" name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '" value="' . ( ! empty( $item ) ? $item : $this->default_value ) . '" class="cuztom_input" />' . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
+			$this->output .= '<li class="cuztom_field"><div class="handle_repeatable"></div><input type="text" name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '" value="' . ( ! empty( $item ) ? $item : $this->default_value ) . '" class="cuztom_input" />' . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
 		}
-		*/
 	}	
 }
