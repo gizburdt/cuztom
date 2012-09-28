@@ -118,25 +118,25 @@ class Cuztom_Meta_Box
 						if( $data instanceof Cuztom_Tabs )
 						{
 							echo '<ul>';
-								foreach( $tabs as $tab_title => $tab )
+								foreach( $tabs as $title => $tab )
 								{
-									$tab_id = Cuztom::uglify( $tab_title );
+									$tab_id = Cuztom::uglify( $title );
 
-									echo '<li><a href="#' . $tab_id . '">' . Cuztom::beautify( $tab_title ) . '</a></li>';
+									echo '<li><a href="#' . $tab_id . '">' . Cuztom::beautify( $title ) . '</a></li>';
 								}
 							echo '</ul>';
 						}
 						
 						/* Loop through $data, tabs in this case */
-						foreach( $tabs as $tab_title => $tab )
+						foreach( $tabs as $title => $tab )
 						{							
-							$tab_id = Cuztom::uglify( $tab_title );
+							$tab_id = Cuztom::uglify( $title );
 							$fields = $tab->fields;
 							
 							// Show header if accordion
 							if( $data instanceof Cuztom_Accordion )
 							{
-								echo '<h3>' . Cuztom::beautify( $tab_title ) . '</h3>';
+								echo '<h3>' . Cuztom::beautify( $title ) . '</h3>';
 							}
 							
 							echo '<div id="' . $tab_id . '">';
