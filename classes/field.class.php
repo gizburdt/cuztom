@@ -9,6 +9,43 @@
  */
 class Cuztom_Field
 {
+	var $id_name		= '';
+	var $name 			= '';
+    var $label 			= '';
+	var $type			= '';
+    var $description 	= '';
+	var $hide 			= true;
+	var $default_value 	= '';
+	var $options 		= array();
+	var $repeatable 	= false;
+	var $show_column 	= false;
+	var $pre			= '';
+	var $after			= '';
+	var $meta_box		= '';
+	
+	
+	function __construct( $field, $meta_box )
+	{
+		// Build array with defaults
+		$field = self::_build_array( $field );
+		
+		// Set variables
+		$this->name 			= $field['name'];
+		$this->label			= $field['label'];
+		$this->description		= $field['description'];
+		$this->type				= $field['type'];
+		$this->hide				= $field['hide'];
+		$this->default_value	= $field['default_value'];
+		$this->options			= $field['options'];
+		$this->repeatable		= $field['repeatable'];
+		$this->show_column		= $field['show_column'];
+		$this->pre				= '';
+		$this->after			= '';
+		$this->meta_box			= $meta_box;
+		
+		$this->id_name 			= $this->_build_id_name( $this->name, $meta_box );
+	}
+	
 	
 	/**
 	 * Outputs a field based on its type
@@ -22,343 +59,9 @@ class Cuztom_Field
 	 * @since 0.2
 	 *
 	 */
-	static function output( $field_id_name, $field, $value = '', $pre = '', $after = '' )
-	{		
-		switch( $field['type'] ) :
-			
-			// Text
-			case 'text' :
-				if( $field['repeatable'] && is_array( $value ) )
-				{					
-					foreach( $value as $item )
-					{
-						echo '<li class="cuztom_field"><div class="handle_repeatable"></div><input type="text" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '" value="' . ( ! empty( $item ) ? $item : $field['default_value'] ) . '" class="cuztom_input" />' . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
-					}
-				}
-				else
-				{
-					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . '<input type="text" name="cuztom' . $pre . '[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . $after . '" id="' . $field_id_name . '" value="' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '" class="cuztom_input" />' . ( $field['repeatable'] ? '</li>' : '' );
-				}
-			break;
-			
-			// Textarea
-			case 'textarea' :
-				if( $field['repeatable'] && is_array( $value ) )
-				{
-					foreach( $value as $item )
-					{
-						echo '<li class="cuztom_field"><div class="handle_repeatable"></div><textarea name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '" class="cuztom_input">' . ( ! empty( $item ) ? $item : $field['default_value'] ) . '</textarea>' . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
-					}
-				}
-				else
-				{
-					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . '<textarea name="cuztom' . $pre . '[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" id="' . $field_id_name . '" class="cuztom_input">' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '</textarea>' . ( $field['repeatable'] ? '</li>' : '' );
-				}
-			break;
-			
-			// Checkbox
-			case 'checkbox' :
-				echo '<input type="checkbox" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" ' . ( ! empty( $value ) ? checked( $value, 'on', false ) : checked( $field['default_value'], 'on', false ) ) . ' class="cuztom_input" />';
-			break;
-			
-			// Radio
-			case 'radio' :
-				echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" ' . ( ! empty( $value ) ? checked( $value, 'on', false ) : checked( $field['default_value'], 'on', false ) ) . ' class="cuztom_input" />';
-			break;
-			
-			// Yes - No
-			case 'yesno' :
-				echo '<div class="cuztom_checked_wrap cuztom_padding_wrap">';
-					echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_yes" value="yes" ' . ( ! empty( $value ) ? checked( $value, 'yes', false ) : checked( $field['default_value'], 'yes', false ) ) . ' class="cuztom_input" /> ';
-					echo '<label for="' . $field_id_name . '_yes">' . __( 'Yes', CUZTOM_TEXTDOMAIN ) . '</label>';
-					echo '<br />';
-					echo '<input type="radio" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '_no" value="no" ' . ( ! empty( $value ) ? checked( $value, 'no', false ) : checked( $field['default_value'], 'no', false ) ) . ' class="cuztom_input" /> ';
-					echo '<label for="' . $field_id_name . '_no">' . __( 'No', CUZTOM_TEXTDOMAIN ) . '</label>';
-				echo '</div>';
-			break;
-			
-			// Select
-			case 'select' :
-				if( $field['repeatable'] && is_array( $value ) )
-				{
-					foreach( $value as $item )
-					{
-						echo '<li class="cuztom_field"><div class="handle_repeatable"></div><select name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '" class="cuztom_input">';
-							if( is_array( $field['options'] ) )
-							{
-								foreach( $field['options'] as $slug => $name )
-								{
-									echo '<option value="' . Cuztom::uglify( $slug ) . '" ' . ( ! empty( $item ) ? selected( Cuztom::uglify( $slug ), $item, false ) : selected( $field['default_value'], Cuztom::uglify( $slug ), false ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
-								}
-							}
-						echo '</select>' . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
-					}
-				}
-				else
-				{
-					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . '<select name="cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" id="' . $field_id_name . '" class="cuztom_input">';
-						if( is_array( $field['options'] ) )
-						{
-							foreach( $field['options'] as $slug => $name )
-							{
-								echo '<option value="' . Cuztom::uglify( $slug ) . '" ' . ( ! empty( $value ) ? selected( Cuztom::uglify( $slug ), $value, false ) : selected( $field['default_value'], Cuztom::uglify( $slug ), false ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
-							}
-						}
-					echo '</select>' . ( $field['repeatable'] ? '</li>' : '' );
-				}
-			break;
-			
-			// Checkboxes
-			case 'checkboxes' :		
-				echo '<div class="cuztom_checked_wrap cuztom_padding_wrap">';
-					if( is_array( $field['options'] ) )
-					{
-						foreach( $field['options'] as $slug => $name )
-						{							
-							echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( ! empty( $value ) ? ( in_array( Cuztom::uglify( $slug ), ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) : ( is_array( $field['default_value'] ) && in_array( $slug, $field['default_value'] ) ) ? 'checked="checked"' : checked( $field['default_value'], Cuztom::uglify( $slug ), false ) ) . ' class="cuztom_input" /> ';								
-							echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
-							echo '<br />';
-						}
-					}
-				echo '</div>';
-			break;
-			
-			// Radios
-			case 'radios' :
-				echo '<div class="cuztom_checked_wrap cuztom_padding_wrap">';
-					if( is_array( $field['options'] ) )
-					{
-						foreach( $field['options'] as $slug => $name )
-						{
-							echo '<input type="radio" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( ! empty( $value ) ? ( in_array( Cuztom::uglify( $slug ), ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) : checked( $field['default_value'], Cuztom::uglify( $slug ), false ) ) . ' class="cuztom_input" /> ';
-							echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
-							echo '<br />';
-						}
-					}
-				echo '</div>';
-			break;
-			
-			// WYSIWYG
-			case 'wysiwyg' :
-				$args = array_merge( 
-					
-					// Default
-					array(
-						'textarea_name' => 'cuztom[' . $field_id_name . ']',
-						'media_buttons' => false,
-						'editor_class'	=> ''
-					),
-					
-					// Given
-					isset( $field['options'] ) ? $field['options'] : array()
-				
-				);
-				
-				$args['editor_class'] .= ' cuztom_input';
-			
-				wp_editor( ( ! empty( $value ) ? $value : $field['default_value'] ), $field_id_name, $args );
-			break;
-			
-			// Image
-			case 'image' :
-				$image = '';
-				
-				if( ! empty( $value ) )
-				{
-					$image = '<img src="' . $value . '" />';
-				}
-			
-				echo '<div class="cuztom_button_wrap">';
-					echo '<input type="hidden" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_hidden" value="' . ( ! empty( $value ) ? $value : '' ) . '" class="cuztom_input" />';
-					echo '<input id="upload_image_button" type="button" class="button cuztom_button cuztom_upload" value="' . __( 'Select image', CUZTOM_TEXTDOMAIN ) . '" class="cuztom_upload" />';
-					echo ( ! empty( $value ) ? '<a href="#" class="cuztom_remove_image">' . __( 'Remove current image', CUZTOM_TEXTDOMAIN ) . '</a>' : '' );
-				echo '</div>';
-				echo '<span class="cuztom_preview">' . $image . '</span>';
-			break;
-			
-			// Datepicker
-			case 'date' :
-				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_datepicker datepicker cuztom_input" value="' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '" ' . ( isset( $field['options']['date_format'] ) ? 'data-date-format="' . $field['options']['date_format'] . '"' : '' ) . ' />';
-			break;
-			
-			// Colorpicker
-			case 'color' :
-				echo '<input type="text" name="cuztom[' . $field_id_name . ']" id="' . $field_id_name . '" class="cuztom_colorpicker colorpicker cuztom_input" value="' . ( ! empty( $value ) ? $value : $field['default_value'] ) . '" />';
-			break;
-			
-			// Post select
-			case 'post_select' :
-				$options = array_merge(
-					
-					// Default
-					array(
-						'post_type'		=> 'post',
-					),
-					
-					// Given
-					isset( $field['options'] ) ? $field['options'] : array()
-				
-				);
-				
-				$post_type = $options['post_type'];
-				$posts = get_posts( $options );
-				
-				if( $field['repeatable'] && is_array( $value ) )
-				{
-					foreach( $value as $item )
-					{
-						echo '<li class="cuztom_field"><div class="handle_repeatable"></div><select name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '" class="cuztom_input">';
-							if( is_array( $posts ) )
-							{
-								foreach( $posts as $post )
-								{
-									echo '<option value="' . $post->ID . '" ' . ( ! empty( $item ) ? selected( $post->ID, $item, false ) : selected( $field['default_value'], $post->ID, false ) ) . '>' . $post->post_title . '</option>';
-								}
-							}
-						echo '</select>' . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';;
-					}
-				}
-				else
-				{
-					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . '<select name="cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' ) . '" id="' . $field_id_name . '">';
-						if( is_array( $posts ) )
-						{
-							foreach( $posts as $post )
-							{
-								echo '<option value="' . $post->ID . '" ' . ( ! empty( $value ) ? selected( $post->ID, $value, false ) : selected( $field['default_value'], $post->ID, false ) ) . '>' . $post->post_title . '</option>';
-							}
-						}
-					echo '</select>' . ( $field['repeatable'] ? '</li>' : '' );
-				}
-			break;
-			
-			// Post checkboxes
-			case 'post_checkboxes' :
-				$options = array_merge(
-					
-					// Default
-					array(
-						'post_type'		=> 'post',
-					),
-					
-					// Given
-					isset( $field['options'] ) ? $field['options'] : array()
-				
-				);
-				
-				$post_type = $options['post_type'];
-				$posts = get_posts( array( 'post_type' => $post_type ) );
-				
-				echo '<div class="cuztom_post_wrap cuztom_checked_wrap cuztom_padding_wrap">';
-					if( is_array( $posts ) )
-					{
-						foreach( $posts as $post )
-						{
-							echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $post->post_title ) . '" value="' . $post->ID . '" ' . ( ! empty( $value ) ? ( in_array( $post->ID, ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) : ( is_array( $field['default_value'] ) && in_array( $post->ID, $field['default_value'] ) ) ? 'checked="checked"' : checked( $field['default_value'], $post->ID, false ) ) . ' class="cuztom_input" /> ';
-							echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $post->post_title ) . '">' . $post->post_title . '</label>';
-							echo '<br />';
-						}
-					}
-				echo '</div>';
-			break;
-			
-			// Term select
-			case 'term_select' :
-				$options = array_merge(
-					
-					// Default
-					array(
-						'taxonomy'		=> 'category',
-						'class'			=> ''
-					),
-					
-					// Given
-					isset( $field['options'] ) ? $field['options'] : array()
-					
-				);
-				
-				$options['name'] = $field_id_name;
-				$options['class'] .=  ' cuztom_input';
-				
-				if( $field['repeatable'] && is_array( $value ) )
-				{
-					foreach( $value as $item )
-					{
-						$options['selected'] = ( ! empty( $item ) ? $item : $field['default_value'] );
-						$options['name'] = 'cuztom[' . $field_id_name . '][]';
-						
-						echo '<li class="cuztom_field"><div class="handle_repeatable"></div>';
-							wp_dropdown_categories( $options );
-						echo ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
-					}
-				}
-				else
-				{
-					$options['selected'] = ( ! empty( $value ) ? $value : $field['default_value'] );
-					$options['name'] = 'cuztom[' . $field_id_name . ']' . ( $field['repeatable'] ? '[]' : '' );
-					
-					echo ( $field['repeatable'] ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' );
-						wp_dropdown_categories( $options );
-					echo ( $field['repeatable'] ? '</li>' : '' );
-				}
-			break;
-			
-			// Term checkboxes
-			case 'term_checkboxes' :
-				$options = array_merge(
-					
-					// Default
-					array(
-						'taxonomy'		=> 'category',
-					),
-					
-					// Given
-					isset( $field['options'] ) ? $field['options'] : array()
-					
-				);
-				
-				$terms = get_terms( $options['taxonomy'], array( 'hide_empty' => false ) );
-				
-				echo '<div class="cuztom_taxonomy_wrap cuztom_checked_wrap cuztom_padding_wrap">';
-					if( is_array( $terms ) )
-					{
-						foreach( $terms as $term )
-						{
-							echo '<input type="checkbox" name="cuztom[' . $field_id_name . '][]" id="' . $field_id_name . '_' . Cuztom::uglify( $term->name ) . '" value="' . $term->term_id . '" ' . ( ! empty( $value ) ? ( in_array( $term->term_id, ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) : ( is_array( $field['default_value'] ) && in_array( $term->term_id, $field['default_value'] ) ) ? 'checked="checked"' : checked( $field['default_value'], $term->term_id, false ) ) . ' class="cuztom_input" /> ';
-							echo '<label for="' . $field_id_name . '_' . Cuztom::uglify( $term->name ) . '">' . $term->name . '</label>';
-							echo '<br />';
-						}
-					}
-				echo '</div>';
-			break;
-
-			// Hidden field
-			case 'hidden':
-				echo '<input type="hidden" name="cuztom' . $pre . '[' . $field_id_name . ']" id="' . $field_id_name . '" value="' . $field['default_value'] . '" class="cuztom_input" />';
-			break;
-			
-			// The input type can't be found
-			default :
-				_e( 'Unknown input type', CUZTOM_TEXTDOMAIN );
-			break;
-			
-		endswitch;
-	}
-	
-	
-	/**
-	 * Checks if the field is hidden for the custom fields box
-	 *
-	 * @param array $field
-	 * @return string
-	 *
-	 * @author Gijs Jorissen
-	 * @since 0.9
-	 *
-	 */
-	static function _is_hidden( $field )
+	function output( $value )
 	{
-		return apply_filters( 'cuztom_is_hidden', isset( $field['hide'] ) ? $field['hide'] : false );
+		return $this->repeatable && $this->_supports_repeatable() && is_array( $value ) ? $this->_repeatable_output( $value ) : $this->_output( $value );
 	}
 	
 	
@@ -372,12 +75,9 @@ class Cuztom_Field
 	 * @since 1.0
 	 *
 	 */
-	static function _supports_repeatable( $field )
+	function _supports_repeatable()
 	{
-		$field_type = is_array( $field ) ? $field['type'] : $field;
-		$supports = apply_filters( 'cuztom_supports_repeatable', array( 'text', 'textarea', 'select', 'post_select', 'term_select' ) );
-		
-		return in_array( $field_type, $supports );
+		return in_array( $this->type, apply_filters( 'cuztom_supports_repeatable', array( 'text', 'textarea', 'select', 'post_select', 'term_select' ) ) );
 	}
 	
 	
@@ -391,12 +91,25 @@ class Cuztom_Field
 	 * @since 1.2
 	 *
 	 */
-	static function _supports_bundle( $field )
-	{
-		$field_type = is_array( $field ) ? $field['type'] : $field;
-		$supports = apply_filters( 'cuztom_supports_bundle', array( 'text', 'textarea' ) );
-		
-		return in_array( $field_type, $supports );
+	function _supports_bundle()
+	{		
+		return in_array( $this->type, apply_filters( 'cuztom_supports_bundle', array( 'text', 'textarea' ) ) );
+	}
+	
+	
+	/**
+	 * Builds an string used as field id and name
+	 *
+	 * @param array $field
+	 * @return string
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.9
+	 *
+	 */
+	function _build_id_name( $name, $meta_box )
+	{		
+		return apply_filters( 'cuztom_build_id_name', ( $this->hide ? '_' : '' ) . Cuztom::uglify( $meta_box ) . "_" . Cuztom::uglify( $name ) );
 	}
 	
 	
@@ -433,21 +146,5 @@ class Cuztom_Field
 		);
 		
 		return $field;
-	}
-	
-	
-	/**
-	 * Builds an string used as field id and name
-	 *
-	 * @param array $field
-	 * @return string
-	 *
-	 * @author Gijs Jorissen
-	 * @since 0.9
-	 *
-	 */
-	static function _build_id_name( $field, $box_title )
-	{
-		return apply_filters( 'cuztom_buidl_id_name', ( self::_is_hidden( $field ) ? '_' : '' ) . Cuztom::uglify( $box_title ) . "_" . Cuztom::uglify( $field['name'] ) );
 	}
 }

@@ -9,13 +9,13 @@
  */
 class Cuztom_Meta_Box
 {
-	var $box_id;
-	var $box_title;
-	var $box_context;
-	var $box_priority;
+	var $id;
+	var $title;
+	var $context;
+	var $priority;
 	var $post_type_name;
-	var $meta_data;
-	var $meta_fields;
+	var $data;
+	var $fields;
 	
 	
 	/**
@@ -38,26 +38,27 @@ class Cuztom_Meta_Box
 			$this->post_type_name 	= $post_type_name;
 			
 			// Meta variables	
-			$this->box_id 			= Cuztom::uglify( $title );
-			$this->box_title 		= Cuztom::beautify( $title );
-			$this->box_context		= $context;
-			$this->box_priority		= $priority;
+			$this->id 			= Cuztom::uglify( $title );
+			$this->title 		= Cuztom::beautify( $title );
+			$this->context		= $context;
+			$this->priority		= $priority;
 
-			$this->meta_data 		= self::_build_arrays( $data );
+			// Build the meta box and fields
+			$this->_build( $data );
 			
+			// Actions and filters
 			add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
 			add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
 			
-			add_filter( 'get_post_metadata', array( $this, 'filter_empty_arrays' ), 10, 4 );
+			// Add multipart for files/images
+			add_action( 'post_edit_form_tag', array( $this, 'post_edit_form_tag' ) );
+
+			// Listen for the save post hook
+			add_action( 'save_post', array( $this, 'save_post' ) );
 			
+			// Add the meta box
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
-		}
-		
-		// Add multipart for files
-		add_action( 'post_edit_form_tag', array( $this, 'post_edit_form_tag' ) );
-		
-		// Listen for the save post hook
-		add_action( 'save_post', array( $this, 'save_post' ) );	
+		}	
 	}
 	
 	
@@ -71,12 +72,12 @@ class Cuztom_Meta_Box
 	function add_meta_box()
 	{			
 		add_meta_box(
-			$this->box_id,
-			$this->box_title,
+			$this->id,
+			$this->title,
 			array( $this, 'callback' ),
 			$this->post_type_name,
-			$this->box_context,
-			$this->box_priority
+			$this->context,
+			$this->priority
 		);
 	}
 	
@@ -98,126 +99,173 @@ class Cuztom_Meta_Box
 		wp_nonce_field( plugin_basename( __FILE__ ), 'cuztom_nonce' );
 
 		// Get all inputs from $data
-		$meta_data = $this->meta_data;
-
-		// Check the array and loop through it
-		if( ! empty( $meta_data ) )
+		$data = $this->data;
+		
+		if( ! empty( $data ) )
 		{
 			// Hidden field, so cuztom is always set
 			echo '<input type="hidden" name="cuztom[__activate]" />';
 			echo '<div class="cuztom_helper">';
 			
-			if( isset( $meta_data[0] ) && ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'tabs' || $meta_data[0] == 'accordion' ) )
-			{			
-				$tabs = array_slice( $meta_data, 1 );
+				if( ( $data instanceof Cuztom_Tabs ) || ( $data instanceof Cuztom_Accordion ) )
+				{
+					$tabs = $data->tabs;
 				
-				// If it's about tabs or accordion
-				echo '<div class="' . ( $meta_data[0] == 'tabs' ? 'cuztom_tabs' : 'cuztom_accordion' ) . '">';
-					
-					// Show tabs
-					if( $meta_data[0] == 'tabs' )
-					{
-						echo '<ul>';
-							foreach( $tabs as $tab => $fields )
-							{
-								$tab_id = Cuztom::uglify( $tab );
-
-								echo '<li><a href="#' . $tab_id . '">' . Cuztom::beautify( $tab ) . '</a></li>';
-							}
-						echo '</ul>';
-					}
-					
-					/* Loop through $meta_data, tabs in this case */
-					foreach( $tabs as $tab => $fields )
-					{							
-						$tab_id = Cuztom::uglify( $tab );
+					// If it's about tabs or accordion
+					echo '<div class="' . ( $data instanceof Cuztom_Tabs ? 'cuztom_tabs' : 'cuztom_accordion' ) . '">';
 						
-						// Show header if accordion
-						if( $meta_data[0] == 'accordion' )
+						// Show tabs
+						if( $data instanceof Cuztom_Tabs )
 						{
-							echo '<h3>' . Cuztom::beautify( $title ) . '</h3>';
+							echo '<ul>';
+								foreach( $tabs as $title => $tab )
+								{
+									$tab_id = Cuztom::uglify( $title );
+
+									echo '<li><a href="#' . $tab_id . '">' . Cuztom::beautify( $title ) . '</a></li>';
+								}
+							echo '</ul>';
 						}
 						
-						echo '<div id="' . $tab_id . '">';
-							echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
-								foreach( $fields as $field_id_name => $field )
+						/* Loop through $data, tabs in this case */
+						foreach( $tabs as $title => $tab )
+						{							
+							$tab_id = Cuztom::uglify( $title );
+							$fields = $tab->fields;
+							
+							// Show header if accordion
+							if( $data instanceof Cuztom_Accordion )
+							{
+								echo '<h3>' . Cuztom::beautify( $title ) . '</h3>';
+							}
+							
+							echo '<div id="' . $tab_id . '">';
+								echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
+									foreach( $fields as $field_id_name => $field )
+									{
+										$value = get_post_meta( $post->ID, $field_id_name, true );
+										
+										if( ! $field instanceof Cuztom_Field_Hidden )
+										{
+											echo '<tr>';
+												echo '<th class="cuztom_th th">';
+													echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field->label . '</label>';
+													echo '<div class="cuztom_description description">' . $field->description . '</div>';
+												echo '</th>';
+												echo '<td class="cuztom_td td">';
+												
+													if( $field->repeatable && $field->_supports_repeatable() )
+													{
+														echo '<div class="cuztom_padding_wrap">';
+														echo '<a class="button-secondary cuztom_add cuztom_add_field cuztom_button" href="#">';
+														echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
+														echo '<ul class="cuztom_repeatable_wrap">';
+													}
+												
+													echo $field->output( $value );
+													
+													if( $field->repeatable && $field->_supports_repeatable() )
+													{
+														echo '</ul></div>';
+													}
+													
+												echo '</td>';
+											echo '</tr>';
+										}
+										else
+										{
+											echo $field->output( $value );
+										}
+									}
+								echo '</table>';
+							echo '</div>';
+						}
+					
+					echo '</div>';
+				}
+				elseif( $data instanceof Cuztom_Bundle )
+				{
+					$meta = get_post_meta( $post->ID, $this->id, false ) ? get_post_meta( $post->ID, $this->id, false ) : false;
+				
+					echo '<div class="cuztom_padding_wrap">';
+						echo '<a class="button-secondary cuztom_add cuztom_add_bundle cuztom_button" href="#">';
+						echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
+						echo '<ul class="cuztom_bundle_wrap">';
+							
+							if( ! empty( $meta ) && isset( $meta[0] ) )
+							{
+								$i = 0;
+								foreach( $meta as $bundle )
 								{
-									$meta = get_post_meta( $post->ID, $field_id_name, true );
+									echo '<li class="cuztom_bundle">';
+										echo '<div class="handle_bundle"></div>';
+										echo '<fieldset>';
+										echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
+											
+											$bundle = $data;
+											
+											foreach( $bundle->fields as $field_id_name => $field )
+											{
+												$field->pre = '[' . $this->id . '][' . $i . ']';
+												$value = isset( $meta[$i][$field_id_name] ) ? $meta[$i][$field_id_name] : '';
+												
+												if( ! $field instanceof Cuztom_Field_Hidden )
+												{
+													echo '<tr>';
+														echo '<th class="cuztom_th th">';
+															echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field->label . '</label>';
+															echo '<div class="cuztom_description description">' . $field->description . '</div>';
+														echo '</th>';
+														echo '<td class="cuztom_td td">';
+
+															if( $field->_supports_bundle() )
+																echo $field->output( $value );
+															else
+																_e( '<em>This input type doesn\'t support the bundle functionality (yet).</em>' );
+
+														echo '</td>';
+													echo '</tr>';
+												}
+												else
+												{
+													echo $field->output( $value );
+												}
+											}
+
+										echo '</table>';
+										echo '</fieldset>';
+										echo count( $meta ) > 1 ? '<div class="remove_bundle"></div>' : '';
+									echo '</li>';
 									
-									if( $field['type'] != 'hidden' )
-									{
-										echo '<tr>';
-											echo '<th class="cuztom_th th">';
-												echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
-												echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
-											echo '</th>';
-											echo '<td class="cuztom_td td">';
-											
-												if( $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) )
-												{
-													echo '<div class="cuztom_padding_wrap">';
-													echo '<a class="button-secondary cuztom_add cuztom_add_field cuztom_button" href="#">';
-													echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
-													echo '<ul class="cuztom_repeatable_wrap">';
-												}
-											
-												cuztom_field( $field_id_name, $field, $meta );
-												
-												if( $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) )
-												{
-													echo '</ul></div>';
-												}
-												
-											echo '</td>';
-										echo '</tr>';
-									}
-									else
-									{
-										cuztom_field( $field_id_name, $field, $meta );
-									}
+									$i++;
 								}
-							echo '</table>';
-						echo '</div>';
-					}
-				
-				echo '</div>';
-			}
-			elseif( isset( $meta_data[0] ) && ! is_array( $meta_data[0] ) && ( $meta_data[0] == 'bundle' ) )
-			{
-				$meta = get_post_meta( $post->ID, $this->box_id, false ) ? get_post_meta( $post->ID, $this->box_id, false ) : false;
-				
-				echo '<div class="cuztom_padding_wrap">';
-					echo '<a class="button-secondary cuztom_add cuztom_add_bundle cuztom_button" href="#">';
-					echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
-					echo '<ul class="cuztom_bundle_wrap">';
-						
-						if( ! empty( $meta ) && isset( $meta[0] ) )
-						{
-							$i = 0;
-							foreach( $meta as $bundle )
+								
+							}
+							else
 							{
 								echo '<li class="cuztom_bundle">';
 									echo '<div class="handle_bundle"></div>';
 									echo '<fieldset>';
 									echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 										
-										$bundle = $meta_data[$this->box_id];
+										$fields = $data->fields;
 										
-										foreach( $bundle as $field_id_name => $field )
+										foreach( $fields as $field_id_name => $field )
 										{
-											$value = isset( $meta[$i][$field_id_name] ) ? $meta[$i][$field_id_name] : '';
-											
-											if( $field['type'] != 'hidden' )
+											$field->pre = '[' . $this->id . '][0]';
+											$value = '';
+
+											if( ! $field instanceof Cuztom_Field_Hidden )
 											{
 												echo '<tr>';
 													echo '<th class="cuztom_th th">';
-														echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
-														echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
+														echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field->label . '</label>';
+														echo '<div class="cuztom_description description">' . $field->description . '</div>';
 													echo '</th>';
 													echo '<td class="cuztom_td td">';
 
-														if( _cuztom_field_supports_bundle( $field ) )
-															cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][' . $i . ']' );
+														if( $field->_supports_bundle() )
+															echo $field->output( $value );
 														else
 															_e( '<em>This input type doesn\'t support the bundle functionality (yet).</em>' );
 
@@ -226,107 +274,61 @@ class Cuztom_Meta_Box
 											}
 											else
 											{
-												cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][' . $i . ']' );
+												echo $field->output( $value );
 											}
 										}
 
 									echo '</table>';
 									echo '</fieldset>';
-									echo count( $meta ) > 1 ? '<div class="remove_bundle"></div>' : '';
 								echo '</li>';
-								
-								$i++;
 							}
-							
-						}
-						else
-						{
-							echo '<li class="cuztom_bundle">';
-								echo '<div class="handle_bundle"></div>';
-								echo '<fieldset>';
-								echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
-									
-									$fields = array_slice( $meta_data, 1 );
-									$fields = $fields[$this->box_id];
-									
-									foreach( $fields as $field_id_name => $field )
-									{
-										$value = $field['default_value'];
+						echo '</ul>';
+					echo '</div>';
+				}
+				else
+				{					
+					echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 
-										if( $field['type'] != 'hidden' )
+						/* Loop through $data */
+						foreach( $data as $field_id_name => $field )
+						{
+							$meta = get_post_meta( $post->ID, $field_id_name, true ) ? get_post_meta( $post->ID, $field_id_name, true ) : false;
+
+							if( ! $field instanceof Cuztom_Field_Hidden )
+							{
+								echo '<tr>';
+									echo '<th class="cuztom_th th">';
+										echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field->label . '</label>';
+										echo '<div class="cuztom_description description">' . $field->description . '</div>';
+									echo '</th>';
+									echo '<td class="cuztom_td td">';
+
+										if( $field->repeatable && $field->_supports_repeatable() )
 										{
-											echo '<tr>';
-												echo '<th class="cuztom_th th">';
-													echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
-													echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
-												echo '</th>';
-												echo '<td class="cuztom_td td">';
-
-													if( _cuztom_field_supports_bundle( $field ) )
-														cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][0]' );
-													else
-														_e( '<em>This input type doesn\'t support the bundle functionality (yet).</em>' );
-
-												echo '</td>';
-											echo '</tr>';
+											echo '<div class="cuztom_padding_wrap">';
+											echo '<a class="button-secondary cuztom_add cuztom_add_field cuztom_button" href="#">';
+											echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
+											echo '<ul class="cuztom_repeatable_wrap">';
 										}
-										else
+										
+											echo $field->output( $meta );
+
+										if( $field->repeatable && $field->_supports_repeatable() )
 										{
-											cuztom_field( $field_id_name, $field, $value, '[' . $this->box_id . '][0]' );
+											echo '</ul></div>';
 										}
-									}
 
-								echo '</table>';
-								echo '</fieldset>';
-							echo '</li>';
+									echo '</td>';
+								echo '</tr>';
+							}
+							else
+							{
+								echo $field->output( $meta );
+							}
 						}
-					echo '</ul>';
-				echo '</div>';
-			}
-			else
-			{
-				echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 
-					/* Loop through $meta_data */
-					foreach( $meta_data as $field_id_name => $field )
-					{
-						$meta = get_post_meta( $post->ID, $field_id_name, true ) ? get_post_meta( $post->ID, $field_id_name, true ) : false;
-						
-						if( $field['type'] != 'hidden' )
-						{
-							echo '<tr>';
-								echo '<th class="cuztom_th th">';
-									echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field['label'] . '</label>';
-									echo '<div class="cuztom_description description">' . $field['description'] . '</div>';
-								echo '</th>';
-								echo '<td class="cuztom_td td">';
-								
-									if( $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) )
-									{
-										echo '<div class="cuztom_padding_wrap">';
-										echo '<a class="button-secondary cuztom_add cuztom_add_field cuztom_button" href="#">';
-										echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
-										echo '<ul class="cuztom_repeatable_wrap">';
-									}
-
-									cuztom_field( $field_id_name, $field, $meta );
-									
-									if( $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) )
-									{
-										echo '</ul></div>';
-									}
-
-								echo '</td>';
-							echo '</tr>';
-						}
-						else
-						{
-							cuztom_field( $field_id_name, $field, $meta );
-						}
-					}
-
-				echo '</table>';
-			}
+					echo '</table>';
+				}
 			
 			echo '</div>';
 		}
@@ -341,7 +343,7 @@ class Cuztom_Meta_Box
 	 *
 	 */
 	function save_post( $post_id )
-	{			
+	{
 		// Deny the wordpress autosave function
 		if( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) return;
 		
@@ -355,32 +357,20 @@ class Cuztom_Meta_Box
 		if( ! current_user_can( get_post_type_object( $this->post_type_name )->cap->edit_post, $post_id ) ) return;
 		
 		// Loop through each meta box
-		if( ! empty( $this->meta_data ) && isset( $_POST['cuztom'] ) )
-		{			
-			if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' ) )
+		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
+		{
+			if( is_object( $this->data ) && $this->data instanceof Cuztom_Bundle )
 			{
-				$tabs = array_slice( $this->meta_data, 1 );
+				delete_post_meta( $post_id, $this->id );
 				
-				foreach( $tabs as $tab => $fields )
-				{							
-					foreach( $fields as $field_id_name => $field )
-					{									
-						$this->_save_meta( $post_id, $field, $field_id_name );
-					}
-				}
-			}
-			elseif( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'bundle' ) )
-			{
-				delete_post_meta( $post_id, $this->box_id );
-				
-				foreach( $_POST['cuztom'][$this->box_id] as $bundle_id => $bundle )
+				foreach( $_POST['cuztom'][$this->id] as $bundle_id => $bundle )
 				{
-					$this->_save_meta( $post_id, $this->box_id, $bundle_id );
+					$this->_save_meta( $post_id, $this->id, $bundle_id );
 				}
 			}
 			else
 			{
-				foreach( $this->meta_data as $field_id_name => $field )
+				foreach( $this->fields as $field_id_name => $field )
 				{
 					$this->_save_meta( $post_id, $field, $field_id_name );
 				}
@@ -402,7 +392,7 @@ class Cuztom_Meta_Box
 	 */
 	function _save_meta( $post_id, $field, $id_name )
 	{
-		if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'bundle' ) )
+		if( is_object( $this->data ) && $this->data instanceof Cuztom_Bundle )
 		{
 			$value = isset( $_POST['cuztom'][$field][$id_name] ) ? $_POST['cuztom'][$field][$id_name] : '';
 			add_post_meta( $post_id, $field, $value );
@@ -411,91 +401,11 @@ class Cuztom_Meta_Box
 		{
 			$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
 
-			if( $field['type'] == 'wysiwyg' ) $value = wpautop( $value );
-			if( ( $field['type'] == 'checkbox' || $field['type'] == 'checkboxes' || $field['type'] == 'post_checkboxes' || $field['type'] == 'term_checkboxes' ) && empty( $value ) ) $value = '-1';
+			if( $field instanceof Cuztom_Field_Wysiwyg ) $value = wpautop( $value );
+			if( ( $field instanceof Cuztom_Field_Checkbox || $field instanceof Cuztom_Field_Checkboxes || $field instanceof Cuztom_Field_Post_Checkboxes || $field instanceof Cuztom_Field_Term_Checkboxes ) && empty( $value ) ) $value = '-1';
 
 			update_post_meta( $post_id, $id_name, $value );
 		}
-	}
-	
-	
-	/**
-	 * This array builds the complete array with the right key => value pairs
-	 *
-	 * @param array $data
-	 * @return array
-	 *
-	 * @author Gijs Jorissen
-	 * @since 1.1
-	 *
-	 */
-	function _build_arrays( $data )
-	{
-		$return = array();
-		
-		if( is_array( $data ) )
-		{
-			if( ! is_array( $data[0] ) && ( $data[0] == 'tabs' || $data[0] == 'accordion' ) )
-			{
-				$return[0] = $data[0];
-
-				foreach( $data[1] as $title => $fields )
-				{			
-					$return[$title] = array();
-
-					foreach( $fields as $field )
-					{
-						$field = Cuztom_Field::_build_array( $field );
-						$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
-						
-						$this->meta_fields[$field_id_name] = $field;
-						$return[$title][$field_id_name] = $field;
-					}
-				}
-			}
-			elseif( ! is_array( $data[0] ) && ( $data[0] == 'bundle' ) )
-			{
-				$return[0] = $data[0];
-				$return[$this->box_id] = array();
-
-				foreach( $data[1] as $field )
-				{
-					$field = Cuztom_Field::_build_array( $field );
-					$field['repeatable'] = false;
-					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
-					
-					$this->meta_fields[$field_id_name] = $field;
-					$return[$this->box_id][$field_id_name] = $field;
-				}
-			}
-			else
-			{
-				foreach( $data as $field )
-				{
-					$field = Cuztom_Field::_build_array( $field );
-					$field_id_name = Cuztom_Field::_build_id_name( $field, $this->box_title );
-					
-					$this->meta_fields[$field_id_name] = $field;
-					$return[$field_id_name] = $field;
-				}
-			}
-		}
-		
-		return $return;
-	}
-	
-	/**
-	 * Adds multipart support to the post form
-	 *
-	 * @return mixed
-	 *
-	 * @author Gijs Jorissen
-	 * @since 0.2
-	 *
-	 */
-	function post_edit_form_tag()
-	{
-		echo ' enctype="multipart/form-data"';
 	}
 	
 	
@@ -511,26 +421,11 @@ class Cuztom_Meta_Box
 	 */
 	function add_column_head( $default )
 	{
-		$data = $this->meta_data;
+		$data = $this->data;
 		
-		if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' || $this->meta_data[0] == 'bundle' ) )
+		foreach( $this->fields as $field_id_name => $field )
 		{
-			$tabs = array_slice( $data, 1 );
-			
-			foreach( $tabs as $tab => $fields )
-			{
-				foreach( $fields as $field_id_name => $field )
-				{
-					if( $field['show_column'] ) $default[$field_id_name] = $field['label'];
-				}
-			}
-		}
-		else
-		{			
-			foreach( $data as $field_id_name => $field )
-			{	
-				if( $field['show_column'] ) $default[$field_id_name] = $field['label'];
-			}
+			if( $field->show_column ) $default[$field_id_name] = $field->label;
 		}
 
 		return $default;
@@ -552,53 +447,158 @@ class Cuztom_Meta_Box
 	{
 		$meta = get_post_meta( $post_id, $column, true );
 		
-		if( isset( $this->meta_data[0] ) && ! is_array( $this->meta_data[0] ) && ( $this->meta_data[0] == 'tabs' || $this->meta_data[0] == 'accordion' ) )
+		foreach( $this->fields as $field_id_name => $field )
 		{
-			$tabs = array_slice( $this->meta_data, 1 );
-			
-			foreach( $tabs as $tab => $fields )
+			if( $column == $field_id_name )
 			{
-				foreach( $fields as $field_id_name => $field )
-				{
-					if( $column == $field_id_name )
-					{						
-						echo $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) ? 
-							implode( $meta, ', ' ) : get_post_meta( $post_id, $column, true );		
-						break;
-					}
-				}
+				echo $field->repeatable && $field->_supports_repeatable() ? implode( $meta, ', ' ) : $meta;
+				break;
 			}
-		}
-		else
-		{
-			$field = isset( $this->meta_data[$column] ) ? $this->meta_data[$column] : null;			
-			echo $field['repeatable'] && Cuztom_Field::_supports_repeatable( $field ) ? 
-				implode( $meta, ', ' ) : get_post_meta( $post_id, $column, true );
 		}
 	}
 	
 	
 	/**
-	 * Used to filter the -1 of empty arrays
+	 * This array builds the complete array with the right key => value pairs
 	 *
-	 * @param string $value
-	 * @param int $value
-	 * @param string $value
-	 * @return bool $single
+	 * @param array $data
+	 * @return array
 	 *
 	 * @author Gijs Jorissen
-	 * @since 1.2.1
+	 * @since 1.1
 	 *
 	 */
-	function filter_empty_arrays( $null, $object_id, $meta_key, $single )
+	function _build( $data )
 	{
-		if( ! is_admin() )
-		{
-			if( ! isset( $this->meta_fields[$meta_key] ) ) return $null;
-			
-			//if( ( $field['type'] == 'checkbox' || $field['type'] == 'checkboxes' || $field['type'] == 'post_checkboxes' || $field['type'] == 'term_checkboxes' ) && $value == '-1' ) return 'hoi';
-		}
+		$array = array();
 		
-		return $null;
+		if( is_array( $data ) )
+		{
+			if( self::_is_tabs( $data ) || self::_is_accordion( $data ) )
+			{
+				$tabs = self::_is_tabs( $data ) ? new Cuztom_Tabs() : new Cuztom_Accordion();
+				$tabs->id = $this->id;
+
+				foreach( $data[1] as $title => $fields )
+				{			
+					$tab = new Cuztom_Tab();
+
+					foreach( $fields as $field )
+					{
+						$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
+						if( class_exists( $class ) )
+						{
+							$field = new $class( $field, $this->id );
+
+							$this->fields[$field->id_name] = $field;
+							$tab->fields[$field->id_name] = $field;
+						}
+					}
+
+					$tabs->tabs[$title] = $tab;
+				}
+
+				$this->data = $tabs;
+			}
+			elseif( self::_is_bundle( $data ) )
+			{
+				$bundle = new Cuztom_Bundle();
+				$bundle->id = $this->id;
+
+				foreach( $data[1] as $field )
+				{
+					$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
+					if( class_exists( $class ) )
+					{
+						$field = new $class( $field, $this->id );
+						$field->repeatable = false;
+
+						$this->fields[$field->id_name] = $field;
+						$bundle->fields[$field->id_name] = $field;
+					}
+				}
+
+				$this->data = $bundle;
+			}
+			else
+			{
+				foreach( $data as $field )
+				{
+					$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
+					if( class_exists( $class ) )
+					{
+						$field = new $class( $field, $this->id );
+
+						$this->fields[$field->id_name] = $field;
+						$array[$field->id_name] = $field;
+					}
+				}
+
+				$this->data = $array;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Adds multipart support to the post form
+	 *
+	 * @return mixed
+	 *
+	 * @author Gijs Jorissen
+	 * @since 0.2
+	 *
+	 */
+	static function post_edit_form_tag()
+	{
+		echo ' enctype="multipart/form-data"';
+	}
+	
+	
+	/**
+	 * Checks if the given array are tabs
+	 *
+	 * @param array $data
+	 * @return bool
+	 *
+	 * @author Gijs Jorissen
+	 * @since 1.3
+	 *
+	 */
+	static function _is_tabs( $data )
+	{
+		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'tabs' );
+	}
+	
+	
+	/**
+	 * Checks if the given array is an accordion
+	 *
+	 * @param array $data
+	 * @return bool
+	 *
+	 * @author Gijs Jorissen
+	 * @since 1.3
+	 *
+	 */
+	static function _is_accordion( $data )
+	{
+		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'accordion' );
+	}
+	
+	
+	/**
+	 * Checks if the given array is a bundle
+	 *
+	 * @param array $data
+	 * @return bool
+	 *
+	 * @author Gijs Jorissen
+	 * @since 1.3
+	 *
+	 */
+	static function _is_bundle( $data )
+	{
+		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'bundle' );
 	}
 }

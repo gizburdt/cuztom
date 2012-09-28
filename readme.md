@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.1  
+**Version:** 1.3  
 **Requires:** 3.0+  
 
 ### Contributors
@@ -124,6 +124,9 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###1.3
+* Improvements: Cuztom is now OOP and basid in Field classes.
 
 ###1.2.2
 * Minor fixes

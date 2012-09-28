@@ -11,13 +11,13 @@
  */
 class Cuztom_Post_Type
 {
-	var $post_type_name;
-	var $post_type_args;
-	var $post_type_labels;
+	var $name;
+	var $args;
+	var $labels;
 	
 	
 	/**
-	 * Construct a new Custom Post Type
+	 * Construct a new Cuztom Post Type
 	 *
 	 * @param string $name
 	 * @param array $args
@@ -32,12 +32,12 @@ class Cuztom_Post_Type
 		if( ! empty( $name ) )
 		{
 			// Set some important variables
-			$this->post_type_name		= Cuztom::uglify( $name );
-			$this->post_type_args 		= $args;
-			$this->post_type_labels 	= $labels;
+			$this->name		= Cuztom::uglify( $name );
+			$this->args 	= $args;
+			$this->labels 	= $labels;
 
 			// Add action to register the post type, if the post type doesnt exist
-			if( ! post_type_exists( $this->post_type_name ) )
+			if( ! post_type_exists( $this->name ) )
 			{
 				add_action( 'init', array( &$this, 'register_post_type' ) );
 			}
@@ -54,12 +54,11 @@ class Cuztom_Post_Type
 	 */
 	function register_post_type()
 	{		
-		// Capitilize the words and make it plural
-		$name 		= Cuztom::beautify( $this->post_type_name );
+		// Capitilize and pluralize
+		$name 		= Cuztom::beautify( $this->name );
 		$plural 	= Cuztom::pluralize( $name );
 
-		// We set the default labels based on the post type name and plural. 
-		// We overwrite them with the given labels.
+		// Set labels
 		$labels = array_merge(
 
 			// Default
@@ -80,11 +79,11 @@ class Cuztom_Post_Type
 			),
 
 			// Given labels
-			$this->post_type_labels
+			$this->labels
 
 		);
 
-		// Post type argument
+		// Post type arguments
 		$args = array_merge(
 
 			// Default
@@ -96,12 +95,12 @@ class Cuztom_Post_Type
 			),
 
 			// Given args
-			$this->post_type_args
+			$this->args
 
 		);
 
 		// Register the post type
-		register_post_type( $this->post_type_name, $args );
+		register_post_type( $this->name, $args );
 	}
 	
 	
@@ -119,7 +118,7 @@ class Cuztom_Post_Type
 	function add_taxonomy( $name, $args = array(), $labels = array() )
 	{
 		// Call Cuztom_Taxonomy with this post type name as second parameter
-		$taxonomy = new Cuztom_Taxonomy( $name, $this->post_type_name, $args, $labels );
+		$taxonomy = new Cuztom_Taxonomy( $name, $this->name, $args, $labels );
 		
 		// For method chaining
 		return $this;
@@ -140,7 +139,8 @@ class Cuztom_Post_Type
 	 */
 	function add_meta_box( $title, $fields = array(), $context = 'normal', $priority = 'default' )
 	{
-		$meta_box = new Cuztom_Meta_Box( $title, $this->post_type_name, $fields, $context, $priority );
+		// Call Cuztom_Meta_Box with this post type name as second parameter
+		$meta_box = new Cuztom_Meta_Box( $title, $this->name, $fields, $context, $priority );
 		
 		// For method chaining
 		return $this;

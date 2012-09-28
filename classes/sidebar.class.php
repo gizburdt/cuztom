@@ -10,9 +10,9 @@
 class Cuztom_Sidebar
 {
 	var $sidebar;
-	var $sidebar_name;
-	var $sidebar_id;
-	var $sidebar_description;
+	var $name;
+	var $id;
+	var $description;
 	var $before_widget;
 	var $after_widget;
 	var $before_title;
@@ -49,9 +49,9 @@ class Cuztom_Sidebar
 		}
 		else
 		{
-			$this->sidebar_name = Cuztom::beautify( $name );
-			$this->sidebar_id = $id ? Cuztom::uglify( $id ) : $this->sidebar_name;
-			$this->sidebar_description = $description;
+			$this->name = Cuztom::beautify( $name );
+			$this->id = $id ? Cuztom::uglify( $id ) : Cuztom::uglify( $this->name );
+			$this->description = $description;
 			$this->before_widget = $before_widget;
 			$this->after_widget = $after_widget;
 			$this->before_title = $before_title;
@@ -74,9 +74,9 @@ class Cuztom_Sidebar
 		$args = ( $this->sidebar )
 			? $this->sidebar 
 			: array(
-				'name' => $this->sidebar_name,
-				'id' => $this->sidebar_id,
-				'description' => $this->sidebar_description,
+				'name' => $this->name,
+				'id' => $this->id,
+				'description' => $this->description,
 				'before_widget' => $this->before_widget,
 				'after_widget' => $this->after_widget,
 				'before_title' => $this->before_title,

@@ -6,15 +6,19 @@ jQuery(function($) {
 		$(this).datepicker({ dateFormat: $(this).data('date-format') });
 	});
 	
+	
 	// Colorpicker
 	$('.cuztom_colorpicker').miniColors();
 	
+
 	// Tabs
 	$('.cuztom_tabs').tabs();
 	
+
 	// Accordion
 	$('.cuztom_accordion').accordion();
 	
+
 	// Remove current attached image
 	$('.cuztom_td').on( 'click', '.cuztom_remove_image', function(){
 		$('.cuztom_preview').html('');
@@ -24,6 +28,7 @@ jQuery(function($) {
 		return false;
 	});
 	
+
 	// Upload image
 	$('.cuztom_td').on( 'click', '.cuztom_upload', function() {
 		parent		= $(this).closest('.cuztom_td');
@@ -50,20 +55,25 @@ jQuery(function($) {
 		return false;
 	});
 	
+
 	// Repeatable
 	$('.cuztom_repeatable_wrap, .cuztom_bundle_wrap').sortable();
 	
-	$('.cuztom_helper').on( 'click', '.remove_repeatable', function() {
+
+	$('.cuztom_helper').on( 'click', '.remove_repeatable, .remove_bundle', function() 
+	{
 		var that = $(this),
-			field = that.closest('.cuztom_field'),
-			wrap = that.closest('.cuztom_repeatable_wrap'),
-			fields = wrap.find('.cuztom_field').length;
+			field = that.closest('.cuztom_field, .cuztom_bundle'),
+			wrap = that.closest('.cuztom_repeatable_wrap, .cuztom_bundle_wrap'),
+			fields = wrap.find('.cuztom_field, .cuztom_bundle').length;
 		
 		if( fields > 1 ) { field.remove(); }
-		if( fields == 2 ){ wrap.find('.cuztom_field').find('.remove_repeatable').remove(); }
+		if( fields == 2 ){ wrap.find('.cuztom_field, .cuztom_bundle').find('.remove_repeatable, .remove_bundle').remove(); }
 	});
 	
-	$('.cuztom_td').on( 'click', '.cuztom_add_field', function() {
+
+	$('.cuztom_td').on( 'click', '.cuztom_add_field', function() 
+	{
 		// Set some variables
 		var parent = $(this).closest('.cuztom_td'),
 			wrap = $('.cuztom_repeatable_wrap', parent),
@@ -85,18 +95,9 @@ jQuery(function($) {
 		return false;
 	});
 	
-	// Bundles
-	$('.cuztom_helper').on( 'click', '.remove_bundle', function() {
-		var that = $(this),
-			bundle = that.closest('.cuztom_bundle'),
-			wrap = that.closest('.cuztom_bundle_wrap'),
-			bundles = wrap.find('.cuztom_bundle').length;
-		
-		if( bundles > 1 ) { bundle.remove(); }
-		if( bundles == 2 ){ wrap.find('.cuztom_bundle').find('.remove_bundle').remove(); }
-	});
-	
-	$('.cuztom_helper').on( 'click', '.cuztom_add_bundle', function() {
+
+	$('.cuztom_helper').on( 'click', '.cuztom_add_bundle', function() 
+	{
 		// Set some variables
 		var parent = $(this).closest('.cuztom_helper'),
 			wrap = $('.cuztom_bundle_wrap', parent),
@@ -110,8 +111,7 @@ jQuery(function($) {
 			$(this).attr('name', function( i, val ){ return val.replace( /(\d+)/, function( n ){ return Number(n) + 1 } ) } );
 		});
 		
-		//
-		
+		// Add the new bundle
 		new_bundle.find('input, textarea, select').val('').removeAttr('selected');
 		new_bundle.appendTo(wrap);
 		
