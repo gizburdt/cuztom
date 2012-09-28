@@ -4,7 +4,7 @@
 ob_start();
 
 // Define
-define( 'CUZTOM_VERSION', '1.3' );
+define( 'CUZTOM_VERSION', '1.3.1' );
 if( ! defined( 'CUZTOM_TEXTDOMAIN' ) ) define( 'CUZTOM_TEXTDOMAIN', 'cuztom' );
 if( ! defined( 'CUZTOM_JQUERY_UI_STYLE' ) ) define( 'CUZTOM_JQUERY_UI_STYLE', 'cuztom' );
 

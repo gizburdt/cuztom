@@ -15,5 +15,7 @@ class Cuztom_Field_Radios extends Cuztom_Field
 				}
 			}
 		$output .= '</div>';
+
+		return $output;
 	}
 }

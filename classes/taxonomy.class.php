@@ -92,7 +92,7 @@ class Cuztom_Taxonomy
 
 			// Default
 			array(
-				'label'					=> $plural,
+				'label'					=> __( $plural, CUZTOM_TEXTDOMAIN ),
 				'labels'				=> $labels,
 				"hierarchical" 			=> true,
 				'public' 				=> true,

@@ -74,8 +74,7 @@ class Cuztom_Post_Type
 				'search_items' 			=> sprintf( __( 'Search %s', CUZTOM_TEXTDOMAIN ), strtolower( $plural ) ),
 				'not_found' 			=> sprintf( __( 'No %s found', CUZTOM_TEXTDOMAIN ), strtolower( $plural ) ),
 				'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', CUZTOM_TEXTDOMAIN ), strtolower( $plural ) ),
-				'parent_item_colon' 	=> '',
-				'menu_name' 			=> $plural
+				'menu_name' 			=> __( $plural, CUZTOM_TEXTDOMAIN )
 			),
 
 			// Given labels
@@ -88,7 +87,7 @@ class Cuztom_Post_Type
 
 			// Default
 			array(
-				'label' 				=> $plural,
+				'label' 				=> __( $plural, CUZTOM_TEXTDOMAIN ),
 				'labels' 				=> $labels,
 				'public' 				=> true,
 				'supports' 				=> array( 'title', 'editor' ),

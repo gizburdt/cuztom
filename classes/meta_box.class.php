@@ -158,7 +158,8 @@ class Cuztom_Meta_Box
 													{
 														echo '<div class="cuztom_padding_wrap">';
 														echo '<a class="button-secondary cuztom_add cuztom_add_field cuztom_button" href="#">';
-														echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
+														echo sprintf( '+ %s', __( 'Add', CUZTOM_TEXTDOMAIN ) );
+														echo '</a>';
 														echo '<ul class="cuztom_repeatable_wrap">';
 													}
 												
@@ -189,7 +190,8 @@ class Cuztom_Meta_Box
 				
 					echo '<div class="cuztom_padding_wrap">';
 						echo '<a class="button-secondary cuztom_add cuztom_add_bundle cuztom_button" href="#">';
-						echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
+						echo sprintf( '+ %s', __( 'Add', CUZTOM_TEXTDOMAIN ) );
+						echo '</a>';
 						echo '<ul class="cuztom_bundle_wrap">';
 							
 							if( ! empty( $meta ) && isset( $meta[0] ) )
@@ -307,7 +309,8 @@ class Cuztom_Meta_Box
 										{
 											echo '<div class="cuztom_padding_wrap">';
 											echo '<a class="button-secondary cuztom_add cuztom_add_field cuztom_button" href="#">';
-											echo '+ ' . __( 'Add', CUZTOM_TEXTDOMAIN ) . '</a>';
+											echo sprintf( '+ %s', __( 'Add', CUZTOM_TEXTDOMAIN ) );
+											echo '</a>';
 											echo '<ul class="cuztom_repeatable_wrap">';
 										}
 										
