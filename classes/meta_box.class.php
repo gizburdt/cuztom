@@ -136,7 +136,7 @@ class Cuztom_Meta_Box
 							// Show header if accordion
 							if( $data instanceof Cuztom_Accordion )
 							{
-								echo '<h3>' . Cuztom::beautify( $title ) . '</h3>';
+								echo '<h3>' . Cuztom::beautify( $tab_title ) . '</h3>';
 							}
 							
 							echo '<div id="' . $tab_id . '">';
