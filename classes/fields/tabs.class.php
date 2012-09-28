@@ -1,6 +1,7 @@
 <?php
 
-class Cuztom_Field_Tabs
+class Cuztom_Tabs
 {
-	var $tabs;	
+	var $id;
+	var $tabs = array();
 }

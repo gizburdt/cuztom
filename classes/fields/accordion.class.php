@@ -1,6 +1,6 @@
 <?php
 
-class Cuztom_Field_Accordion
+class Cuztom_Accordion
 {
 	
 }

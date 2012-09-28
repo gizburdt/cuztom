@@ -2,7 +2,7 @@
 
 class Cuztom_Field_Yesno extends Cuztom_Field
 {
-	function _output()
+	function _output( $value )
 	{
 		$output = '<div class="cuztom_checked_wrap cuztom_padding_wrap">';
 			$output .= '<input type="radio" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '_yes" value="yes" ' . ( ! empty( $value ) ? checked( $value, 'yes', false ) : checked( $this->default_value, 'yes', false ) ) . ' class="cuztom_input" /> ';

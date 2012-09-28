@@ -2,16 +2,8 @@
 
 class Cuztom_Field_Hidden extends Cuztom_Field
 {
-	function __construct( $field, $meta_box )
+	function _output( $value )
 	{
-		parent::__construct( $field, $meta_box );
+		return '<input type="hidden" name="cuztom' . $this->pre . '[' . $this->id_name . ']" id="' . $this->id_name . '" value="' . $this->default_value . '" class="cuztom_input" />';
 	}
-	
-	function generate_output()
-	{
-	}
-	
-	function generate_repeatable_output()
-	{
-	}	
 }

@@ -1,6 +1,7 @@
 <?php
 
-class Cuztom_Field_Bundle
+class Cuztom_Bundle
 {
-	
+	var $id;
+	var $fields = array();
 }

@@ -9,9 +9,13 @@ class Cuztom_Field_Textarea extends Cuztom_Field
 	
 	function _repeatable_output( $value )
 	{
+		$output = '';
+
 		foreach( $value as $item )
 		{
-			return '<li class="cuztom_field"><div class="handle_repeatable"></div><textarea name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '" class="cuztom_input">' . ( ! empty( $item ) ? $item : $this->default_value ) . '</textarea>' . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
+			$output .= '<li class="cuztom_field"><div class="handle_repeatable"></div><textarea name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '" class="cuztom_input">' . ( ! empty( $item ) ? $item : $this->default_value ) . '</textarea>' . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
 		}
+
+		return $output;
 	}
 }
