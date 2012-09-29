@@ -4,7 +4,16 @@ class Cuztom_Field_Image extends Cuztom_Field
 {
 	function _output( $value )
 	{
-		$image = ( ! empty( $value ) ) ? '<img src="' . $value . '" />' : '';
+		if( ! empty( $value ) )
+		{
+			$url = wp_get_attachment_image_src( $value, apply_filters( 'cuztom_preview_size', 'medium' ) );
+			$url = $url[0];
+			$image  = '<img src="' . $url . '" />';
+		}
+		else 
+		{
+			$image = '';
+		}
 	
 		$output = '<div class="cuztom_button_wrap">';
 			$output .= '<input type="hidden" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" class="cuztom_hidden" value="' . ( ! empty( $value ) ? $value : '' ) . '" class="cuztom_input" />';

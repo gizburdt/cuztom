@@ -44,7 +44,7 @@ class Cuztom_Meta_Box
 			$this->context		= $context;
 			$this->priority		= $priority;
 
-			if( ( ! is_array( $data ) ) || ( ( is_array( $data ) && ! is_array( $data[1] ) ) && method_exists( $data[0], $data[1] ) || class_exists( $data[0] ) ) ) 
+			if( ( ! is_array( $data ) ) || ( ( is_array( $data ) && ! is_array( $data[1] ) ) && ( method_exists( $data[0], $data[1] ) || class_exists( $data[0] ) ) ) ) 
 			{
 				$this->callback = $data;
 			}

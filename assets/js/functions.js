@@ -20,7 +20,8 @@ jQuery(function($) {
 	
 
 	// Remove current attached image
-	$('.cuztom_td').on( 'click', '.cuztom_remove_image', function(){
+	$('.cuztom_td').on( 'click', '.cuztom_remove_image', function()
+	{
 		$('.cuztom_preview').html('');
 		$('.cuztom_hidden').val('');
 		$(this).hide();
@@ -30,7 +31,8 @@ jQuery(function($) {
 	
 
 	// Upload image
-	$('.cuztom_td').on( 'click', '.cuztom_upload', function() {
+	$('.cuztom_td').on( 'click', '.cuztom_upload', function() 
+	{
 		parent		= $(this).closest('.cuztom_td');
 		
 	    uploadID 	= parent.find('.cuztom_hidden');
@@ -42,7 +44,11 @@ jQuery(function($) {
 		window.send_to_editor = function( html ) {
 			// Add image source to the hidden field
 		    img = $(html).find('img');
-		    uploadID.val( img.attr('src') );
+		    imgID = html.match(/wp-image-(\d+)/g)[0].split('-')[2];
+
+			console.log(imgID);
+
+		    uploadID.val( imgID );
 
 			// Add the image to the preview
 			html = $(html).find('img');
