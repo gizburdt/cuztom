@@ -14,6 +14,7 @@ class Cuztom_Meta_Box
 	var $context;
 	var $priority;
 	var $post_type_name;
+	var $callback;
 	var $data;
 	var $fields;
 	
@@ -43,18 +44,27 @@ class Cuztom_Meta_Box
 			$this->context		= $context;
 			$this->priority		= $priority;
 
-			// Build the meta box and fields
-			$this->_build( $data );
-			
-			// Actions and filters
-			add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
-			add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
-			
-			// Add multipart for files/images
-			add_action( 'post_edit_form_tag', array( $this, 'post_edit_form_tag' ) );
+			if( ( ! is_array( $data ) ) || ( ( is_array( $data ) && ! is_array( $data[1] ) ) && method_exists( $data[0], $data[1] ) || class_exists( $data[0] ) ) ) 
+			{
+				$this->callback = $data;
+			}
+			else
+			{
+				$this->callback = array( $this, 'callback' );
 
-			// Listen for the save post hook
-			add_action( 'save_post', array( $this, 'save_post' ) );
+				// Build the meta box and fields
+				$this->_build( $data );
+
+				// Actions and filters
+				add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
+				add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
+
+				// Add multipart for files/images
+				add_action( 'post_edit_form_tag', array( $this, 'post_edit_form_tag' ) );
+
+				// Listen for the save post hook
+				add_action( 'save_post', array( $this, 'save_post' ) );
+			}
 			
 			// Add the meta box
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
@@ -70,11 +80,11 @@ class Cuztom_Meta_Box
 	 *
 	 */
 	function add_meta_box()
-	{			
+	{	
 		add_meta_box(
 			$this->id,
 			$this->title,
-			array( $this, 'callback' ),
+			$this->callback,
 			$this->post_type_name,
 			$this->context,
 			$this->priority
