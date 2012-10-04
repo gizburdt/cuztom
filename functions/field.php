@@ -7,10 +7,10 @@ function cuztom_field( $value )
 
 function _cuztom_field_supports_repeatable( $field )
 {
-	return $field::_supports_repeatable();
+	return $field->_supports_repeatable();
 }
 
 function _cuztom_field_supports_bundle( $field )
 {
-	return $field::_supports_bundle();
+	return $field->_supports_bundle();
 }
