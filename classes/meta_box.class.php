@@ -361,7 +361,7 @@ class Cuztom_Meta_Box
 		if( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) return;
 		
 		// Verify nonce
-		if( ! isset( $_POST['cuztom_nonce'] ) || ! wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) return;
+		if( ! wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) return;
 		
 		// Is the post from the given post type?
 		if( get_post_type( $post_id ) != $this->post_type_name ) return;
