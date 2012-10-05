@@ -1,8 +1,11 @@
 <?php
 
-function cuztom_field( $value )
+function cuztom_field( $field, $value )
 {
-	echo Cuztom_Field::output( $value );
+	if( is_object( $field ) )
+		echo $field->output( $value );
+	else
+		return false;
 }
 
 function _cuztom_field_supports_repeatable( $field )
