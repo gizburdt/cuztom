@@ -30,6 +30,7 @@ include( 'classes/fields/checkboxes.class.php' );
 include( 'classes/fields/radios.class.php' );
 include( 'classes/fields/wysiwyg.class.php' );
 include( 'classes/fields/image.class.php' );
+include( 'classes/fields/file.class.php' );
 include( 'classes/fields/date.class.php' );
 include( 'classes/fields/color.class.php' );
 include( 'classes/fields/post_select.class.php' );

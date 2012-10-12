@@ -20,10 +20,10 @@ jQuery(function($) {
 	
 
 	// Remove current attached image
-	$('.cuztom_td').on( 'click', '.cuztom_remove_image', function()
+	$('.cuztom_td').on( 'click', '.cuztom_remove_image, .cuztom_remove_file', function()
 	{
-		$('.cuztom_preview').html('');
-		$('.cuztom_hidden').val('');
+		$(this).closest('.cuztom_td').find('.cuztom_preview').html('');
+		$(this).closest('.cuztom_td').find('.cuztom_hidden').val('');
 		$(this).hide();
 		
 		return false;
@@ -33,6 +33,8 @@ jQuery(function($) {
 	// Upload image
 	$('.cuztom_td').on( 'click', '.cuztom_upload', function() 
 	{
+		type 		= $(this).hasClass('cuztom_file') ? 'file' : 'image';
+
 		parent		= $(this).closest('.cuztom_td');
 		
 	    uploadID 	= parent.find('.cuztom_hidden');
@@ -42,18 +44,29 @@ jQuery(function($) {
 		tb_show( '', 'media-upload.php?type=image&TB_iframe=true&post_id=0' );
 		
 		window.send_to_editor = function( html ) {
-			// Add image source to the hidden field
-		    img = $(html).find('img');
-		    imgID = html.match(/wp-image-(\d+)/g)[0].split('-')[2];
 
-			console.log(imgID);
+			if( type == 'image' )
+			{
+				// Add image source to the hidden field
+			    img 	= $(html).find('img');
+			    imgID 	= html.match(/wp-image-(\d+)/g)[0].split('-')[2];
 
-		    uploadID.val( imgID );
+			    uploadID.val( imgID );
 
-			// Add the image to the preview
-			html = $(html).find('img');
-		    spanID.html( html );
+				// Add the image to the preview
+				html 	= $(html).find('img');
+			    spanID.html( html );
+			}
+			else
+			{
+				url		= $(html).attr('href');
+				uploadID.val( url );
 
+				anchor	= $(html).text();
+				html	= $('<span class="cuztom_mime"><a href="' + url + '" target="_blank">' + anchor + '</a></span>' );
+				spanID.html( html );
+			}
+			
 			// Close Wordpress media popup
 			tb_remove();
 		}
