@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.3.3  
+**Version:** 1.4  
 **Requires:** 3.0+  
 
 ### Contributors
@@ -124,6 +124,9 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###1.4
+* Added: File input field. Just using the Wordpress media uploader. For allowing mime types, you need to add a filter seperately.
 
 ###1.3.3
 * Added: Issue #25: Cuztom now saves the attachment ID instead of the URL, so now you can use image sizes etc.
