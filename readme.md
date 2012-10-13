@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.4.1  
+**Version:** 1.4.2  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -123,6 +123,11 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###1.4.2
+* Improvement: Removed unnecessary files
+* Fixed: Issue #31: PHP Warnings and Notices about class_exists
+* Fixed: Undefined index notice about the cuztom_nonce is fixed
 
 ###1.4.1
 * Added: It is now possible to set the Cuztom dir URI yourself
