@@ -11,6 +11,7 @@ class Cuztom
 {
 	var $dir = array();
 	
+
 	/**
 	 * Contructs the Cuztom class
 	 * Adds actions
@@ -147,7 +148,8 @@ class Cuztom
 	{
 		wp_localize_script( 'cuztom_js', 'Cuztom', array(
 			'home_url'		=> get_home_url(),
-			'date_format'	=> get_option('date_format')
+			'ajax_url'		=> admin_url( 'admin-ajax.php' ),
+			'date_format'	=> get_option( 'date_format' )
 		) );
 	}
 	
@@ -180,7 +182,7 @@ class Cuztom
 	 */
 	static function uglify( $string )
 	{
-		return apply_filters( 'cuztom_uglify', strtolower( preg_replace( '/[^A-z0-9]/', '_', $string ) ) );
+		return apply_filters( 'cuztom_uglify', str_replace( '-', '_', sanitize_title( $string ) ) );
 	}
 	
 	
@@ -229,29 +231,36 @@ class Cuztom
 	 */
 	function _determine_cuztom_dir( $path = __FILE__ )
 	{
-		$path = dirname( $path );
-		$path = str_replace( '\\', '/', $path );
-		$explode_path = explode( '/', $path );
-		
-		$current_dir = $explode_path[count( $explode_path ) - 1];
-		array_push( $this->dir, $current_dir );
-		
-		if( $current_dir == 'wp-content' )
+		if( defined( 'CUZTOM_DIR' ) && CUZTOM_DIR != '' )
 		{
-			// Build new paths
-			$path = '';
-			$directories = array_reverse( $this->dir );
-			
-			foreach( $directories as $dir )
-			{
-				$path = $path . '/' . $dir;
-			}
-
-			$this->dir = $path;
+			$this->dir = CUZTOM_DIR;
 		}
 		else
 		{
-			return apply_filters( 'cuztom_dir', $this->_determine_cuztom_dir( $path ) );
+			$path = dirname( $path );
+			$path = str_replace( '\\', '/', $path );
+			$explode_path = explode( '/', $path );
+			
+			$current_dir = $explode_path[count( $explode_path ) - 1];
+			array_push( $this->dir, $current_dir );
+			
+			if( $current_dir == 'wp-content' )
+			{
+				// Build new paths
+				$path = '';
+				$directories = array_reverse( $this->dir );
+				
+				foreach( $directories as $dir )
+				{
+					$path = $path . '/' . $dir;
+				}
+
+				$this->dir = $path;
+			}
+			else
+			{
+				return $this->_determine_cuztom_dir( $path );
+			}
 		}
 	}		
 }

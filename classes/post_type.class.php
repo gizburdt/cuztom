@@ -5,13 +5,15 @@
  * Can call add_taxonomy and add_meta_box to call the associated classes
  * Method chaining is possible
  *
- * @author Gijs jorissen
+ * @author Gijs Jorissen
  * @since 0.1
  *
  */
 class Cuztom_Post_Type
 {
 	var $name;
+	var $title;
+	var $plural;
 	var $args;
 	var $labels;
 	
@@ -31,8 +33,19 @@ class Cuztom_Post_Type
 	{
 		if( ! empty( $name ) )
 		{
-			// Set some important variables
-			$this->name		= Cuztom::uglify( $name );
+			if( is_array( $name ) )
+			{
+				$this->name		= Cuztom::uglify( $name[0] );
+				$this->title	= Cuztom::beautify( $name[0] );
+				$this->plural 	= Cuztom::beautify( $name[1] );
+			}
+			else
+			{
+				$this->name		= Cuztom::uglify( $name );
+				$this->title	= Cuztom::beautify( $name );
+				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
+			}
+
 			$this->args 	= $args;
 			$this->labels 	= $labels;
 
@@ -53,28 +66,24 @@ class Cuztom_Post_Type
 	 *
 	 */
 	function register_post_type()
-	{		
-		// Capitilize and pluralize
-		$name 		= Cuztom::beautify( $this->name );
-		$plural 	= Cuztom::pluralize( $name );
-
+	{
 		// Set labels
 		$labels = array_merge(
 
 			// Default
 			array(
-				'name' 					=> _x( $plural, 'post type general name', CUZTOM_TEXTDOMAIN ),
-				'singular_name' 		=> _x( $name, 'post type singular name', CUZTOM_TEXTDOMAIN ),
-				'add_new' 				=> _x( 'Add New', $name, CUZTOM_TEXTDOMAIN ),
-				'add_new_item' 			=> sprintf( __( 'Add New %s', CUZTOM_TEXTDOMAIN ), $name ),
-				'edit_item' 			=> sprintf( __( 'Edit %s', CUZTOM_TEXTDOMAIN ), $name ),
-				'new_item' 				=> sprintf( __( 'New %s', CUZTOM_TEXTDOMAIN ), $name ),
-				'all_items' 			=> sprintf( __( 'All %s', CUZTOM_TEXTDOMAIN ), $plural ),
-				'view_item' 			=> sprintf( __( 'View %s', CUZTOM_TEXTDOMAIN ), $name ),
-				'search_items' 			=> sprintf( __( 'Search %s', CUZTOM_TEXTDOMAIN ), $plural ),
-				'not_found' 			=> sprintf( __( 'No %s found', CUZTOM_TEXTDOMAIN ), $plural ),
-				'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', CUZTOM_TEXTDOMAIN ), $plural ),
-				'menu_name' 			=> __( $plural, CUZTOM_TEXTDOMAIN )
+				'name' 					=> _x( $this->plural, 'post type general name', CUZTOM_TEXTDOMAIN ),
+				'singular_name' 		=> _x( $this->title, 'post type singular title', CUZTOM_TEXTDOMAIN ),
+				'add_new' 				=> _x( 'Add New', $this->title, CUZTOM_TEXTDOMAIN ),
+				'add_new_item' 			=> sprintf( __( 'Add New %s', CUZTOM_TEXTDOMAIN ), $this->title ),
+				'edit_item' 			=> sprintf( __( 'Edit %s', CUZTOM_TEXTDOMAIN ), $this->title ),
+				'new_item' 				=> sprintf( __( 'New %s', CUZTOM_TEXTDOMAIN ), $this->title ),
+				'all_items' 			=> sprintf( __( 'All %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
+				'view_item' 			=> sprintf( __( 'View %s', CUZTOM_TEXTDOMAIN ), $this->title ),
+				'search_items' 			=> sprintf( __( 'Search %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
+				'not_found' 			=> sprintf( __( 'No %s found', CUZTOM_TEXTDOMAIN ), $this->plural ),
+				'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', CUZTOM_TEXTDOMAIN ), $this->plural ),
+				'menu_name' 			=> __( $this->plural, CUZTOM_TEXTDOMAIN )
 			),
 
 			// Given labels
@@ -87,7 +96,7 @@ class Cuztom_Post_Type
 
 			// Default
 			array(
-				'label' 				=> __( $plural, CUZTOM_TEXTDOMAIN ),
+				'label' 				=> __( $this->plural, CUZTOM_TEXTDOMAIN ),
 				'labels' 				=> $labels,
 				'public' 				=> true,
 				'supports' 				=> array( 'title', 'editor' ),
