@@ -14,7 +14,6 @@ Include the main file.
 ### Add Custom Post Types
 	
 	$book = register_cuztom_post_type( 'Book' );
-	
 
 **Note:** If you're using Custom Post Types, don't forget to *[flush rewrite rules on activation](http://codex.wordpress.org/Function_Reference/register_post_type#Flushing_Rewrite_on_Activation "Flushing Rewrite Rules on Activation")*.
 
@@ -136,16 +135,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 
 ###1.4
 * Added: File input field. Just using the Wordpress media uploader. For allowing mime types, you need to add a filter seperately.
-
-###1.3.3
-* Added: Issue #25: Cuztom now saves the attachment ID instead of the URL, so now you can use image sizes etc.
-
-###1.3.2
-* Added: You can now call your own function as callback of the add_meta_box, just like the Wordpress way, instead of an array with fields.
-
-###1.3.1
-* Fixed: Radios didn't return
-* Improvements: Better translations with sprintf
-
-###1.3
-* Improvements: Cuztom is now OOP based, even the Field classes.
