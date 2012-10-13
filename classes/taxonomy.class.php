@@ -3,7 +3,6 @@
 /**
  * Creates custom taxonomies
  *
- *
  * @author Gijs Jorissen
  * @since 0.2
  *
@@ -11,6 +10,8 @@
 class Cuztom_Taxonomy
 {
 	var $name;
+	var $title;
+	var $plural;
 	var $labels;
 	var $args;
 	var $post_type_name;
@@ -34,9 +35,20 @@ class Cuztom_Taxonomy
 		if( ! empty( $name ) )
 		{
 			$this->post_type_name = $post_type_name;
-			
-			// Taxonomy properties
-			$this->name		= Cuztom::uglify( $name );
+
+			if( is_array( $name ) )
+			{
+				$this->name		= Cuztom::uglify( $name[0] );
+				$this->title	= Cuztom::beautify( $name[0] );
+				$this->plural 	= Cuztom::beautify( $name[1] );
+			}
+			else
+			{
+				$this->name		= Cuztom::uglify( $name );
+				$this->title	= Cuztom::beautify( $name );
+				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
+			}
+
 			$this->labels	= $labels;
 			$this->args		= $args;
 
@@ -61,25 +73,22 @@ class Cuztom_Taxonomy
 	 */
 	function register_taxonomy()
 	{
-		$name 		= Cuztom::beautify( $this->name );
-		$plural 	= Cuztom::pluralize( $name );
-
 		// Default labels, overwrite them with the given labels.
 		$labels = array_merge(
 
 			// Default
 			array(
-				'name' 					=> _x( $plural, 'taxonomy general name', CUZTOM_TEXTDOMAIN ),
-				'singular_name' 		=> _x( $name, 'taxonomy singular name', CUZTOM_TEXTDOMAIN ),
-			    'search_items' 			=> __( 'Search ' . $plural, CUZTOM_TEXTDOMAIN ),
-			    'all_items' 			=> __( 'All ' . $plural, CUZTOM_TEXTDOMAIN ),
-			    'parent_item' 			=> __( 'Parent ' . $name, CUZTOM_TEXTDOMAIN ),
-			    'parent_item_colon' 	=> __( 'Parent ' . $name . ':', CUZTOM_TEXTDOMAIN ),
-			    'edit_item' 			=> __( 'Edit ' . $name, CUZTOM_TEXTDOMAIN ), 
-			    'update_item' 			=> __( 'Update ' . $name, CUZTOM_TEXTDOMAIN ),
-			    'add_new_item' 			=> __( 'Add New ' . $name, CUZTOM_TEXTDOMAIN ),
-			    'new_item_name' 		=> __( 'New ' . $name . ' Name', CUZTOM_TEXTDOMAIN ),
-			    'menu_name' 			=> __( $plural, CUZTOM_TEXTDOMAIN ),
+				'name' 					=> _x( $this->plural, 'taxonomy general name', CUZTOM_TEXTDOMAIN ),
+				'singular_name' 		=> _x( $this->title, 'taxonomy singular name', CUZTOM_TEXTDOMAIN ),
+			    'search_items' 			=> __( 'Search ' . $this->plural, CUZTOM_TEXTDOMAIN ),
+			    'all_items' 			=> __( 'All ' . $this->plural, CUZTOM_TEXTDOMAIN ),
+			    'parent_item' 			=> __( 'Parent ' . $this->title, CUZTOM_TEXTDOMAIN ),
+			    'parent_item_colon' 	=> __( 'Parent ' . $this->title . ':', CUZTOM_TEXTDOMAIN ),
+			    'edit_item' 			=> __( 'Edit ' . $this->title, CUZTOM_TEXTDOMAIN ), 
+			    'update_item' 			=> __( 'Update ' . $this->title, CUZTOM_TEXTDOMAIN ),
+			    'add_new_item' 			=> __( 'Add New ' . $this->title, CUZTOM_TEXTDOMAIN ),
+			    'new_item_name' 		=> __( 'New ' . $this->title . ' Name', CUZTOM_TEXTDOMAIN ),
+			    'menu_name' 			=> __( $this->plural, CUZTOM_TEXTDOMAIN ),
 			),
 
 			// Given labels
@@ -92,7 +101,7 @@ class Cuztom_Taxonomy
 
 			// Default
 			array(
-				'label'					=> __( $plural, CUZTOM_TEXTDOMAIN ),
+				'label'					=> __( $this->plural, CUZTOM_TEXTDOMAIN ),
 				'labels'				=> $labels,
 				"hierarchical" 			=> true,
 				'public' 				=> true,
