@@ -5,10 +5,6 @@ This class can be used to quickly register Custom Post Types, Taxonomies, Meta B
 **Version:** 1.4  
 **Requires:** 3.0+  
 
-### Contributors
-* Gijs Jorissen [<a href="https://github.com/Gizburdt">Gizburdt</a>]
-* Paul [<a href="https://github.com/Pushplaybang">Pushplaybang</a>]
-
 ## Basic usage
 
 Include the main file.
