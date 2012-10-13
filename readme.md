@@ -19,6 +19,9 @@ Include the main file.
 	
 	$book = register_cuztom_post_type( 'Book' );
 	
+
+**Note:** If you're using Custom Post Types, don't forget to *[flush rewrite rules on activation](http://codex.wordpress.org/Function_Reference/register_post_type#Flushing_Rewrite_on_Activation "Flushing Rewrite Rules on Activation")*.
+
 ### Add Custom Taxonomies
 	
 To add Custom Taxonomies to the newly created Post Type, simply call this method.
