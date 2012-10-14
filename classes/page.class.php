@@ -3,8 +3,8 @@
 /**
  * Main class for pages
  *
- * @author Gijs Jorissen
- * @since 1.3
+ * @author 	Gijs Jorissen
+ * @since 	1.3
  *
  */
 

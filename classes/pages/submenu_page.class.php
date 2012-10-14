@@ -3,8 +3,8 @@
 /**
  * Cuztom class to create submenus
  *
- * @author Gijs Jorissen
- * @since 0.4
+ * @author 	Gijs Jorissen
+ * @since 	0.4
  *
  */
 class Cuztom_Submenu_Page extends Cuztom_Page
@@ -15,15 +15,15 @@ class Cuztom_Submenu_Page extends Cuztom_Page
 	/**
 	 * Constructor
 	 *
-	 * @param string $parent_slug
-	 * @param string $page_title
-	 * @param string $menu_title
-	 * @param string $capability
-	 * @param string $menu_slug
-	 * @param string $function
+	 * @param 	string 			$parent_slug
+	 * @param 	string 			$page_title
+	 * @param 	string 			$menu_title
+	 * @param 	string 			$capability
+	 * @param 	string 			$menu_slug
+	 * @param 	string 			$function
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.4
+	 * @author 	Gijs Jorissen
+	 * @since 	0.4
 	 *
 	 */
 	function __construct( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '' )
@@ -42,8 +42,8 @@ class Cuztom_Submenu_Page extends Cuztom_Page
 	/**
 	 * Calls the add submenu page
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.4
+	 * @author 	Gijs Jorissen
+	 * @since 	0.4
 	 *
 	 */
 	function register_submenu_page()

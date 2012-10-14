@@ -31,15 +31,15 @@ class Cuztom_Field_File extends Cuztom_Field
 	/**
 	 * Get attachment by given url
 	 * 
-	 * @param  string $image_url
-	 * @return int
+	 * @param  string 			$url
+	 * @return integer
 	 */
-	function get_attachment_by_url( $image_url ) 
+	function get_attachment_by_url( $url ) 
 	{
 		global $wpdb;
 		
-		$attachment = $wpdb->get_row( $wpdb->prepare( "SELECT ID,post_title,post_mime_type FROM " . $wpdb->prefix . "posts" . " WHERE guid='" . $image_url . "';" ) );
+		$attachment = $wpdb->get_row( $wpdb->prepare( "SELECT ID,post_title,post_mime_type FROM " . $wpdb->prefix . "posts" . " WHERE guid='" . $url . "';" ) );
 
-		return $attachment;	
+		return $attachment;
 	}
 }

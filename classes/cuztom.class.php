@@ -3,8 +3,8 @@
 /**
  * General class with main methods and helper methods
  *
- * @author Gijs Jorissen
- * @since 0.2
+ * @author 	Gijs Jorissen
+ * @since 	0.2
  *
  */
 class Cuztom
@@ -16,8 +16,8 @@ class Cuztom
 	 * Contructs the Cuztom class
 	 * Adds actions
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.3
+	 * @author 	Gijs Jorissen
+	 * @since 	0.3
 	 *
 	 */
 	function __construct()
@@ -37,8 +37,8 @@ class Cuztom
 	/**
 	 * Registers styles
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.3
+	 * @author 	Gijs Jorissen
+	 * @since 	0.3
 	 *
 	 */
 	function register_styles()
@@ -84,8 +84,8 @@ class Cuztom
 	/**
 	 * Enqueues styles
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.3
+	 * @author 	Gijs Jorissen
+	 * @since 	0.3
 	 *
 	 */
 	function enqueue_styles()
@@ -99,8 +99,8 @@ class Cuztom
 	/**
 	 * Registers scripts
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.3
+	 * @author 	Gijs Jorissen
+	 * @since 	0.3
 	 *
 	 */
 	function register_scripts()
@@ -124,8 +124,8 @@ class Cuztom
 	/**
 	 * Enqueues scripts
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.3
+	 * @author 	Gijs Jorissen
+	 * @since 	0.3
 	 *
 	 */
 	function enqueue_scripts()
@@ -140,8 +140,8 @@ class Cuztom
 	/**
 	 * Localizes scripts
 	 * 
-	 * @author Gijs Jorissen
-	 * @since 1.1.1
+	 * @author 	Gijs Jorissen
+	 * @since 	1.1.1
 	 *
 	 */
 	function localize_scripts()
@@ -157,11 +157,11 @@ class Cuztom
 	/**
 	 * Beautifies a string. Capitalize words and remove underscores
 	 *
-	 * @param string $string
-	 * @return string
+	 * @param 	string 			$string
+	 * @return 	string
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.1
+	 * @author 	Gijs Jorissen
+	 * @since 	0.1
 	 *
 	 */
 	static function beautify( $string )
@@ -173,11 +173,11 @@ class Cuztom
 	/**
 	 * Uglifies a string. Remove underscores and lower strings
 	 *
-	 * @param string $string
-	 * @return string
+	 * @param 	string 			$string
+	 * @return 	string
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.1
+	 * @author 	Gijs Jorissen
+	 * @since 	0.1
 	 *
 	 */
 	static function uglify( $string )
@@ -189,11 +189,11 @@ class Cuztom
 	/**
 	 * Makes a word plural
 	 *
-	 * @param string $string
-	 * @return string
+	 * @param 	string 			$string
+	 * @return 	string
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.1
+	 * @author 	Gijs Jorissen
+	 * @since 	0.1
 	 *
 	 */
 	static function pluralize( $string )
@@ -222,11 +222,11 @@ class Cuztom
 	/**
 	 * Recursive method to determine the path to the Cuztom folder
 	 *
-	 * @param string $path
-	 * @return string
+	 * @param 	string 			$path
+	 * @return 	string
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.4.1
+	 * @author 	Gijs Jorissen
+	 * @since 	0.4.1
 	 *
 	 */
 	function _determine_cuztom_dir( $path = __FILE__ )

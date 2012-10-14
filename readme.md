@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.4.3  
+**Version:** 1.4.4  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -111,17 +111,12 @@ To add a submenu page to another page.
 	
 ## Advanced usage
 See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for the full and advanced guides.
-	
-## Todo
-Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Roadmap">here</a>.
-
-* Better documentation / Wiki
-* More input types like slider and gallery for Meta Boxes.
-* Widgets
-* Theme Options
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###1.4.4
+* Improvement: Better docs
 
 ###1.4.3
 * Added: add_post_type_support and remove_post_type_support for a Cuztom Post Type

@@ -3,8 +3,8 @@
 /**
  * Registers the meta boxes
  *
- * @author Gijs Jorissen
- * @since 0.2
+ * @author 	Gijs Jorissen
+ * @since 	0.2
  *
  */
 class Cuztom_Meta_Box
@@ -22,14 +22,14 @@ class Cuztom_Meta_Box
 	/**
 	 * Constructs the meta box
 	 *
-	 * @param string $title
-	 * @param array $fields
-	 * @param string $post_type_name
-	 * @param string $context
-	 * @param string $priority
+	 * @param 	string 			$title
+	 * @param 	array|string	$fields
+	 * @param 	string 			$post_type_name
+	 * @param 	string 			$context
+	 * @param 	string 			$priority
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.2
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
 	 *
 	 */
 	function __construct( $title, $post_type_name, $data = array(), $context = 'normal', $priority = 'default' )
@@ -56,14 +56,10 @@ class Cuztom_Meta_Box
 				// Build the meta box and fields
 				$this->_build( $data );
 
-				// Actions and filters
 				add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
 				add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
 
-				// Listen for the save post hook
 				add_action( 'save_post', array( $this, 'save_post' ) );
-
-				// Add multipart for files/images
 				add_action( '_edit_form_tag', array( $this, 'post_edit_form_tag' ) );
 			}
 			
@@ -76,8 +72,8 @@ class Cuztom_Meta_Box
 	/**
 	 * Method that calls the add_meta_box function
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.2
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
 	 *
 	 */
 	function add_meta_box()
@@ -96,12 +92,12 @@ class Cuztom_Meta_Box
 	/**
 	 * Main callback function of add_meta_box
 	 *
-	 * @param object $post
-	 * @param object $data
-	 * @return mixed
+	 * @param 	object 			$post
+	 * @param 	object 			$data
+	 * @return 	mixed
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.2
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
 	 *
 	 */	
 	function callback( $post, $data )
@@ -352,8 +348,8 @@ class Cuztom_Meta_Box
 	/**
 	 * Hooks into the save hook for the newly registered Post Type
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.1
+	 * @author 	Gijs Jorissen
+	 * @since 	0.1
 	 *
 	 */
 	function save_post( $post_id )
@@ -396,12 +392,12 @@ class Cuztom_Meta_Box
 	/**
 	 * Actual method that saves the post meta
 	 *
-	 * @param integer $post_id
-	 * @param string $field  
-	 * @param string $field_id_name
+	 * @param 	integer 			$post_id
+	 * @param 	array 				$field  
+	 * @param 	string 				$id_name
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.7
+	 * @author 	Gijs Jorissen
+	 * @since 	0.7
 	 *
 	 */
 	function _save_meta( $post_id, $field, $id_name )
@@ -426,17 +422,15 @@ class Cuztom_Meta_Box
 	/**
 	 * Used to add a column head to the Post Type's List Table
 	 *
-	 * @param array $default
-	 * @return array
+	 * @param 	array 			$default
+	 * @return 	array
 	 *
-	 * @author Gijs Jorissen
-	 * @since 1.1
+	 * @author 	Gijs Jorissen
+	 * @since 	1.1
 	 *
 	 */
 	function add_column_head( $default )
 	{
-		$data = $this->data;
-		
 		foreach( $this->fields as $field_id_name => $field )
 		{
 			if( $field->show_column ) $default[$field_id_name] = $field->label;
@@ -449,12 +443,12 @@ class Cuztom_Meta_Box
 	/**
 	 * Used to add the column content to the column head
 	 *
-	 * @param string $column
-	 * @param int $post_id
-	 * @return mixed
+	 * @param 	string 			$column
+	 * @param 	integer 		$post_id
+	 * @return 	mixed
 	 *
-	 * @author Gijs Jorissen
-	 * @since 1.1
+	 * @author 	Gijs Jorissen
+	 * @since 	1.1
 	 *
 	 */
 	function add_column_content( $column, $post_id )
@@ -475,11 +469,11 @@ class Cuztom_Meta_Box
 	/**
 	 * This array builds the complete array with the right key => value pairs
 	 *
-	 * @param array $data
-	 * @return array
+	 * @param 	array 			$data
+	 * @return 	array
 	 *
-	 * @author Gijs Jorissen
-	 * @since 1.1
+	 * @author 	Gijs Jorissen
+	 * @since 	1.1
 	 *
 	 */
 	function _build( $data )
@@ -557,10 +551,10 @@ class Cuztom_Meta_Box
 	/**
 	 * Adds multipart support to the post form
 	 *
-	 * @return mixed
+	 * @return 	mixed
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.2
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
 	 *
 	 */
 	static function _edit_form_tag()
@@ -572,11 +566,11 @@ class Cuztom_Meta_Box
 	/**
 	 * Checks if the given array are tabs
 	 *
-	 * @param array $data
-	 * @return bool
+	 * @param 	array 			$data
+	 * @return 	boolean
 	 *
-	 * @author Gijs Jorissen
-	 * @since 1.3
+	 * @author 	Gijs Jorissen
+	 * @since 	1.3
 	 *
 	 */
 	static function _is_tabs( $data )
@@ -588,11 +582,11 @@ class Cuztom_Meta_Box
 	/**
 	 * Checks if the given array is an accordion
 	 *
-	 * @param array $data
-	 * @return bool
+	 * @param 	array 			$data
+	 * @return 	bool
 	 *
-	 * @author Gijs Jorissen
-	 * @since 1.3
+	 * @author 	Gijs Jorissen
+	 * @since 	1.3
 	 *
 	 */
 	static function _is_accordion( $data )
@@ -604,11 +598,11 @@ class Cuztom_Meta_Box
 	/**
 	 * Checks if the given array is a bundle
 	 *
-	 * @param array $data
-	 * @return bool
+	 * @param 	array 			$data
+	 * @return 	bool
 	 *
-	 * @author Gijs Jorissen
-	 * @since 1.3
+	 * @author 	Gijs Jorissen
+	 * @since 	1.3
 	 *
 	 */
 	static function _is_bundle( $data )

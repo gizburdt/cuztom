@@ -5,8 +5,8 @@
  * Can call add_taxonomy and add_meta_box to call the associated classes
  * Method chaining is possible
  *
- * @author Gijs Jorissen
- * @since 0.1
+ * @author 	Gijs Jorissen
+ * @since 	0.1
  *
  */
 class Cuztom_Post_Type
@@ -23,18 +23,19 @@ class Cuztom_Post_Type
 	/**
 	 * Construct a new Cuztom Post Type
 	 *
-	 * @param string $name
-	 * @param array $args
-	 * @param array $labels
+	 * @param 	string|array 	$name
+	 * @param 	array 			$args
+	 * @param 	array 			$labels
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.1
+	 * @author 	Gijs Jorissen
+	 * @since 	0.1
 	 *
 	 */
 	function __construct( $name, $args = array(), $labels = array() )
 	{
 		if( ! empty( $name ) )
 		{
+			// If $name is an array, the first element is the normal name, the second is the plural name
 			if( is_array( $name ) )
 			{
 				$this->name		= Cuztom::uglify( $name[0] );
@@ -63,9 +64,9 @@ class Cuztom_Post_Type
 	
 	/**
 	 * Register the Post Type
-	 *
-	 * @author Gijs Jorissen
-	 * @since 0.1
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since 	0.1
 	 *
 	 */
 	function register_post_type()
@@ -118,12 +119,13 @@ class Cuztom_Post_Type
 	/**
 	 * Add a taxonomy to the Post Type
 	 *
-	 * @param string $name
-	 * @param array $args
-	 * @param array $labels
+	 * @param 	string|array 	$name
+	 * @param 	array 			$args
+	 * @param 	array 			$labels
+	 * @return  object 			Cuztom_Post_Type
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.1
+	 * @author 	Gijs Jorissen
+	 * @since 	0.1
 	 *
 	 */
 	function add_taxonomy( $name, $args = array(), $labels = array() )
@@ -139,13 +141,14 @@ class Cuztom_Post_Type
 	/**
 	 * Add post meta box to the Post Type
 	 *
-	 * @param string $title
-	 * @param array $fields
-	 * @param string $context
-	 * @param string $priority
+	 * @param 	string 			$title
+	 * @param 	array 			$fields
+	 * @param 	string 			$context
+	 * @param 	string 			$priority
+	 * @return  object 			Cuztom_Post_Type
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.1
+	 * @author 	Gijs Jorissen
+	 * @since 	0.1
 	 *
 	 */
 	function add_meta_box( $title, $fields = array(), $context = 'normal', $priority = 'default' )
@@ -157,6 +160,7 @@ class Cuztom_Post_Type
 		return $this;
 	}
 	
+
 	/**
 	 * Add action to register support of certain features for a post type.
 	 *
@@ -167,10 +171,12 @@ class Cuztom_Post_Type
 	 * Additionally, the 'revisions' feature dictates whether the post type will store revisions,
 	 * and the 'comments' feature dictates whether the comments count will show on the edit screen.
 	 *
-	 * @author Abhinav Sood
-	 * @since 1.4.3
-	 * @param string|array $feature the feature being added, can be an array of feature strings or a single string
-	 * @return Cuztom_Post_Type
+	 * @param 	string|array 	$feature 			The feature being added, can be an array of feature strings or a single string
+	 * @return 	object 			Cuztom_Post_Type
+	 *
+	 * @author 	Abhinav Sood
+	 * @since 	1.4.3
+	 * 
 	 */
 	function add_post_type_support( $feature )
 	{
@@ -181,16 +187,20 @@ class Cuztom_Post_Type
 		return $this;
 	}
 	
+
 	/**
 	 * Register support of certain features for a post type.
-	 *
-	 * @author Abhinav Sood
-	 * @since 1.4.3
+	 * 
+	 * @author 	Abhinav Sood
+	 * @since 	1.4.3
+	 * 
 	 */
-	function _add_post_type_support() {
+	function _add_post_type_support() 
+	{
 		add_post_type_support( $this->name, $this->add_features );
 	}
 	
+
 	/**
 	 * Add action to remove support of certain features for a post type.
 	 *
@@ -201,10 +211,12 @@ class Cuztom_Post_Type
 	 * Additionally, the 'revisions' feature dictates whether the post type will store revisions,
 	 * and the 'comments' feature dictates whether the comments count will show on the edit screen.
 	 *
-	 * @author Abhinav Sood
-	 * @since 1.4.3
-	 * @param string|array $feature the feature being removed, can be an array of feature strings or a single string
-	 * @return Cuztom_Post_Type
+	 * @param 	string|array 	$feature 			The feature being removed, can be an array of feature strings or a single string
+	 * @return 	object 			Cuztom_Post_Type
+	 * 
+	 * @author 	Abhinav Sood
+	 * @since 	1.4.3
+	 * 
 	 */
 	function remove_post_type_support( $feature )
 	{
@@ -215,11 +227,13 @@ class Cuztom_Post_Type
 		return $this;
 	}
 	
+
 	/**
 	 * Remove support of certain features for a post type.
-	 *
-	 * @author Abhinav Sood
-	 * @since 1.4.3
+	 * 
+	 * @author 	Abhinav Sood
+	 * @since 	1.4.3
+	 * 
 	 */
 	function _remove_post_type_support()
 	{

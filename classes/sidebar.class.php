@@ -3,8 +3,8 @@
 /**
  * Registers sidebars
  *
- * @author Gijs Jorissen
- * @since 0.5
+ * @author 	Gijs Jorissen
+ * @since 	0.5
  *
  */
 class Cuztom_Sidebar
@@ -22,15 +22,15 @@ class Cuztom_Sidebar
 	/**
 	 * Constructor
 	 *
-	 * @param string $name
-	 * @param string $description
-	 * @param string $before_widget
-	 * @param string $after_widget
-	 * @param string $before_title
-	 * @param string $after_title
+	 * @param 	string|array	$name
+	 * @param 	string 			$description
+	 * @param 	string 			$before_widget
+	 * @param 	string 			$after_widget
+	 * @param 	string 			$before_title
+	 * @param 	string 			$after_title
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.5
+	 * @author 	Gijs Jorissen
+	 * @since 	0.5
 	 *
 	 */
 	function __construct( $name, $id = '', $description = '', $before_widget = '', $after_widget = '', $before_title = '', $after_title = '' )
@@ -65,8 +65,8 @@ class Cuztom_Sidebar
 	/**
 	 * Register the Sidebar
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.1
+	 * @author 	Gijs Jorissen
+	 * @since 	0.1
 	 *
 	 */
 	function register_sidebar()

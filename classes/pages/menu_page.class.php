@@ -3,8 +3,8 @@
 /**
  * Class to register Menu Pages
  *
- * @author Gijs Jorissen
- * @since 0.4
+ * @author 	Gijs Jorissen
+ * @since 	0.4
  *
  */
 class Cuztom_Menu_Page extends Cuztom_Page
@@ -16,16 +16,16 @@ class Cuztom_Menu_Page extends Cuztom_Page
 	/**
 	 * Constructor
 	 *
-	 * @param string $page_title
-	 * @param string $menu_title
-	 * @param string $capability
-	 * @param string $menu_slug
-	 * @param string $function
-	 * @param string $icon_url
-	 * @param int $position
+	 * @param 	string 			$page_title
+	 * @param 	string 			$menu_title
+	 * @param 	string 			$capability
+	 * @param 	string 			$menu_slug
+	 * @param 	string 			$function
+	 * @param 	string 			$icon_url
+	 * @param 	integer 		$position
 	 *
-	 * @author Gijs Jorissen 
-	 * @since 0.4
+	 * @author 	Gijs Jorissen 
+	 * @since 	0.4
 	 *
 	 */
 	function __construct( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url = '', $position = 100 )
@@ -45,8 +45,8 @@ class Cuztom_Menu_Page extends Cuztom_Page
 	/**
 	 * Hooked function to regster the menu page
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.4
+	 * @author 	Gijs Jorissen
+	 * @since 	0.4
 	 *
 	 */
 	function register_menu_page()
@@ -67,14 +67,14 @@ class Cuztom_Menu_Page extends Cuztom_Page
 	 * Add submenu page to the current parent page
 	 * Method chaining is possible
 	 *
-	 * @param string $page_title
-	 * @param string $menu_title
-	 * @param string $capability
-	 * @param string $menu_slug
-	 * @param string $functions
+	 * @param 	string 			$page_title
+	 * @param 	string 			$menu_title
+	 * @param 	string 			$capability
+	 * @param 	string 			$menu_slug
+	 * @param 	string 			$functions
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.4
+	 * @author 	Gijs Jorissen
+	 * @since 	0.4
 	 *
 	 */
 	function add_submenu_page( $page_title, $menu_title, $capability, $menu_slug, $function )

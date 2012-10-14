@@ -3,8 +3,8 @@
 /**
  * Cuztom Field Class
  *
- * @author Gijs Jorissen
- * @since 0.3.3
+ * @author 	Gijs Jorissen
+ * @since 	0.3.3
  *
  */
 class Cuztom_Field
@@ -24,10 +24,20 @@ class Cuztom_Field
 	var $meta_box		= '';
 	
 	
+	/**
+	 * Constructs a Cuztom_Field
+	 * 
+	 * @param 	array 			$field
+	 * @param 	string 			$meta_box
+	 *
+	 * @author  Gijs Jorissen
+	 * @since 	0.3.3
+	 * 
+	 */
 	function __construct( $field, $meta_box )
 	{
 		// Build array with defaults
-		$field = self::_build_array( $field );
+		$field = self::_build( $field );
 		
 		// Set variables
 		$this->name 			= $field['name'];
@@ -50,13 +60,11 @@ class Cuztom_Field
 	/**
 	 * Outputs a field based on its type
 	 *
-	 * @param string $field_id_name
-	 * @param array $type
-	 * @param array $meta
-	 * @return mixed
+	 * @param 	string|array 	$value
+	 * @return  mixed
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.2
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
 	 *
 	 */
 	function output( $value )
@@ -68,11 +76,10 @@ class Cuztom_Field
 	/**
 	 * Checks if the field supports repeatable functionality
 	 *
-	 * @param $field or $field_type
-	 * @return boolean
+	 * @return 	boolean
 	 *
-	 * @author Gijs Jorissen
-	 * @since 1.0
+	 * @author 	Gijs Jorissen
+	 * @since 	1.0
 	 *
 	 */
 	function _supports_repeatable()
@@ -84,11 +91,10 @@ class Cuztom_Field
 	/**
 	 * Checks if the field supports bundle functionality
 	 *
-	 * @param $field or $field_type
-	 * @return boolean
+	 * @return 	boolean
 	 *
-	 * @author Gijs Jorissen
-	 * @since 1.2
+	 * @author 	Gijs Jorissen
+	 * @since 	1.2
 	 *
 	 */
 	function _supports_bundle()
@@ -100,11 +106,12 @@ class Cuztom_Field
 	/**
 	 * Builds an string used as field id and name
 	 *
-	 * @param array $field
-	 * @return string
+	 * @param 	string 			$name
+	 * @param  	string 			$meta_box
+	 * @return 	string
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.9
+	 * @author 	Gijs Jorissen
+	 * @since 	0.9
 	 *
 	 */
 	function _build_id_name( $name, $meta_box )
@@ -116,14 +123,14 @@ class Cuztom_Field
 	/**
 	 * Builds an array of a field with all the arguments needed
 	 *
-	 * @param array $field
-	 * @return array
+	 * @param 	array 			$field
+	 * @return 	array
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.9
+	 * @author 	Gijs Jorissen
+	 * @since 	0.9
 	 *
 	 */
-	static function _build_array( $field )
+	static function _build( $field )
 	{
 		$field = array_merge(
 		

@@ -3,8 +3,8 @@
 /**
  * Creates custom taxonomies
  *
- * @author Gijs Jorissen
- * @since 0.2
+ * @author 	Gijs Jorissen
+ * @since 	0.2
  *
  */
 class Cuztom_Taxonomy
@@ -21,13 +21,13 @@ class Cuztom_Taxonomy
 	 * Constructs the class with important vars and method calls
 	 * If the taxonomy exists, it will be attached to the post type
 	 *
-	 * @param string $name
-	 * @param string $post_type_name
-	 * @param array $args
-	 * @param array $labels
+	 * @param 	string 			$name
+	 * @param 	string 			$post_type_name
+	 * @param 	array 			$args
+	 * @param 	array 			$labels
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.2
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
 	 *
 	 */
 	function __construct( $name, $post_type_name = null, $args = array(), $labels = array() )
@@ -67,8 +67,8 @@ class Cuztom_Taxonomy
 	/**
 	 * Registers the custom taxonomy with the given arguments
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.2
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
 	 *
 	 */
 	function register_taxonomy()
@@ -122,8 +122,8 @@ class Cuztom_Taxonomy
 	/**
 	 * Used to attach the existing taxonomy to the post type
 	 *
-	 * @author Gijs Jorissen
-	 * @since 0.2
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
 	 *
 	 */
 	function register_taxonomy_for_object_type()
