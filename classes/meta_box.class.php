@@ -44,7 +44,8 @@ class Cuztom_Meta_Box
 			$this->context		= $context;
 			$this->priority		= $priority;
 
-			if( ( ! is_array( $data ) ) || ( ( is_array( $data ) && ! is_array( $data[1] ) ) && ( method_exists( $data[0], $data[1] ) || class_exists( $data[0] ) ) ) ) 
+			// Chack if the class, function or method exist, otherwise use cuztom callback
+			if( ( ! is_array( $data ) ) || ( is_array( $data ) && ( ( isset( $data[1] ) && ! is_array( $data[1] ) && method_exists( $data[0], $data[1] ) ) || ( isset( $data[0] ) && ! is_array( $data[0] ) && class_exists( $data[0] ) ) ) ) )
 			{
 				$this->callback = $data;
 			}
@@ -359,9 +360,9 @@ class Cuztom_Meta_Box
 	{
 		// Deny the wordpress autosave function
 		if( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) return;
-		
+
 		// Verify nonce
-		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) ) return;
+		if( isset( $_POST['cuztom_nonce'] ) && ! wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) return;
 		
 		// Is the post from the given post type?
 		if( get_post_type( $post_id ) != $this->post_type_name ) return;

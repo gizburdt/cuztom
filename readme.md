@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.4  
+**Version:** 1.4.2  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -14,7 +14,6 @@ Include the main file.
 ### Add Custom Post Types
 	
 	$book = register_cuztom_post_type( 'Book' );
-	
 
 **Note:** If you're using Custom Post Types, don't forget to *[flush rewrite rules on activation](http://codex.wordpress.org/Function_Reference/register_post_type#Flushing_Rewrite_on_Activation "Flushing Rewrite Rules on Activation")*.
 
@@ -124,18 +123,15 @@ Full roadmap can be found <a href="https://github.com/Gizburdt/Wordpress-Cuztom-
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###1.4.2
+* Improvement: Removed unnecessary files
+* Fixed: Issue #31: PHP Warnings and Notices about class_exists
+* Fixed: Undefined index notice about the cuztom_nonce is fixed
+
+###1.4.1
+* Added: It is now possible to set the Cuztom dir URI yourself
+* Improvement: Cuztom::uglify now uses sanitize_title
+* Improvement: Post type name can now be an array. The first element is the normal name and the second one it plural name. 
+
 ###1.4
 * Added: File input field. Just using the Wordpress media uploader. For allowing mime types, you need to add a filter seperately.
-
-###1.3.3
-* Added: Issue #25: Cuztom now saves the attachment ID instead of the URL, so now you can use image sizes etc.
-
-###1.3.2
-* Added: You can now call your own function as callback of the add_meta_box, just like the Wordpress way, instead of an array with fields.
-
-###1.3.1
-* Fixed: Radios didn't return
-* Improvements: Better translations with sprintf
-
-###1.3
-* Improvements: Cuztom is now OOP based, even the Field classes.
