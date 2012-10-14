@@ -16,6 +16,8 @@ class Cuztom_Post_Type
 	var $plural;
 	var $args;
 	var $labels;
+	var $add_features;
+	var $remove_features;
 	
 	
 	/**
@@ -48,6 +50,7 @@ class Cuztom_Post_Type
 
 			$this->args 	= $args;
 			$this->labels 	= $labels;
+			$this->add_features	= $this->remove_features	= array();
 
 			// Add action to register the post type, if the post type doesnt exist
 			if( ! post_type_exists( $this->name ) )
@@ -152,5 +155,77 @@ class Cuztom_Post_Type
 		
 		// For method chaining
 		return $this;
-	}	
+	}
+	
+	/**
+	 * Add action to register support of certain features for a post type.
+	 *
+	 * All features are directly associated with a functional area of the edit screen, such as the
+	 * editor or a meta box: 'title', 'editor', 'comments', 'revisions', 'trackbacks', 'author',
+	 * 'excerpt', 'page-attributes', 'thumbnail', and 'custom-fields'.
+	 *
+	 * Additionally, the 'revisions' feature dictates whether the post type will store revisions,
+	 * and the 'comments' feature dictates whether the comments count will show on the edit screen.
+	 *
+	 * @author Abhinav Sood
+	 * @since 1.4.3
+	 * @param string|array $feature the feature being added, can be an array of feature strings or a single string
+	 * @return Cuztom_Post_Type
+	 */
+	function add_post_type_support( $feature )
+	{
+		$this->add_features	= (array) $feature;
+		add_action( 'init', array( &$this, '_add_post_type_support' ) );
+		
+		// For method chaining
+		return $this;
+	}
+	
+	/**
+	 * Register support of certain features for a post type.
+	 *
+	 * @author Abhinav Sood
+	 * @since 1.4.3
+	 */
+	function _add_post_type_support() {
+		add_post_type_support( $this->name, $this->add_features );
+	}
+	
+	/**
+	 * Add action to remove support of certain features for a post type.
+	 *
+	 * All features are directly associated with a functional area of the edit screen, such as the
+	 * editor or a meta box: 'title', 'editor', 'comments', 'revisions', 'trackbacks', 'author',
+	 * 'excerpt', 'page-attributes', 'thumbnail', and 'custom-fields'.
+	 *
+	 * Additionally, the 'revisions' feature dictates whether the post type will store revisions,
+	 * and the 'comments' feature dictates whether the comments count will show on the edit screen.
+	 *
+	 * @author Abhinav Sood
+	 * @since 1.4.3
+	 * @param string|array $feature the feature being removed, can be an array of feature strings or a single string
+	 * @return Cuztom_Post_Type
+	 */
+	function remove_post_type_support( $feature )
+	{
+		$this->remove_features	= (array) $feature;
+		add_action( 'init', array( &$this, '_remove_post_type_support' ) );
+		
+		// For method chaining
+		return $this;
+	}
+	
+	/**
+	 * Remove support of certain features for a post type.
+	 *
+	 * @author Abhinav Sood
+	 * @since 1.4.3
+	 */
+	function _remove_post_type_support()
+	{
+		foreach( $this->remove_features as $feature )
+		{
+			remove_post_type_support( $this->name, $feature );
+		}
+	}
 }
