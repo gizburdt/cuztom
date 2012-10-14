@@ -60,11 +60,11 @@ class Cuztom_Meta_Box
 				add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
 				add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
 
-				// Add multipart for files/images
-				add_action( 'post_edit_form_tag', array( $this, 'post_edit_form_tag' ) );
-
 				// Listen for the save post hook
 				add_action( 'save_post', array( $this, 'save_post' ) );
+
+				// Add multipart for files/images
+				add_action( '_edit_form_tag', array( $this, 'post_edit_form_tag' ) );
 			}
 			
 			// Add the meta box
@@ -362,7 +362,7 @@ class Cuztom_Meta_Box
 		if( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) return;
 
 		// Verify nonce
-		if( isset( $_POST['cuztom_nonce'] ) && ! wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) return;
+		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) ) return;
 		
 		// Is the post from the given post type?
 		if( get_post_type( $post_id ) != $this->post_type_name ) return;
@@ -563,7 +563,7 @@ class Cuztom_Meta_Box
 	 * @since 0.2
 	 *
 	 */
-	static function post_edit_form_tag()
+	static function _edit_form_tag()
 	{
 		echo ' enctype="multipart/form-data"';
 	}
