@@ -7,23 +7,23 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 		parent::__construct( $field, $meta_box );
 
 		$this->options = array_merge(
-					
+
 			// Default
 			array(
 				'post_type'		=> 'post',
 			),
-			
+
 			// Given
 			$this->options
-		
+
 		);
 
 		$this->posts 	= get_posts( $this->options );
 	}
-	
+
 	function _output( $value )
 	{
-		$output = ( $this->repeatable ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . '<select name="cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' ) . '" id="' . $this->id_name . '">';
+		$output = ( $this->repeatable ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . '<select name="cuztom' . $this->pre . '[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' ) . $this->after . '" id="' . $this->id_name . '">';
 			if( is_array( $this->posts ) )
 			{
 				foreach( $posts = $this->posts as $post )
@@ -35,7 +35,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 
 		return $output;
 	}
-	
+
 	function _repeatable_output( $value )
 	{
 		$output = '';

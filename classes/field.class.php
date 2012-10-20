@@ -22,23 +22,23 @@ class Cuztom_Field
 	var $pre			= '';
 	var $after			= '';
 	var $meta_box		= '';
-	
-	
+
+
 	/**
 	 * Constructs a Cuztom_Field
-	 * 
+	 *
 	 * @param 	array 			$field
 	 * @param 	string 			$meta_box
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	0.3.3
-	 * 
+	 *
 	 */
 	function __construct( $field, $meta_box )
 	{
 		// Build array with defaults
 		$field = self::_build( $field );
-		
+
 		// Set variables
 		$this->name 			= $field['name'];
 		$this->label			= $field['label'];
@@ -52,11 +52,11 @@ class Cuztom_Field
 		$this->pre				= '';
 		$this->after			= '';
 		$this->meta_box			= $meta_box;
-		
+
 		$this->id_name 			= $this->_build_id_name( $this->name, $meta_box );
 	}
-	
-	
+
+
 	/**
 	 * Outputs a field based on its type
 	 *
@@ -71,8 +71,8 @@ class Cuztom_Field
 	{
 		return $this->repeatable && $this->_supports_repeatable() && is_array( $value ) ? $this->_repeatable_output( $value ) : $this->_output( $value );
 	}
-	
-	
+
+
 	/**
 	 * Checks if the field supports repeatable functionality
 	 *
@@ -86,8 +86,8 @@ class Cuztom_Field
 	{
 		return in_array( $this->type, apply_filters( 'cuztom_supports_repeatable', array( 'text', 'textarea', 'select', 'post_select', 'term_select' ) ) );
 	}
-	
-	
+
+
 	/**
 	 * Checks if the field supports bundle functionality
 	 *
@@ -98,11 +98,11 @@ class Cuztom_Field
 	 *
 	 */
 	function _supports_bundle()
-	{		
-		return in_array( $this->type, apply_filters( 'cuztom_supports_bundle', array( 'text', 'textarea' ) ) );
+	{
+		return in_array( $this->type, apply_filters( 'cuztom_supports_bundle', array( 'text', 'textarea', 'post_select' ) ) );
 	}
-	
-	
+
+
 	/**
 	 * Builds an string used as field id and name
 	 *
@@ -115,11 +115,11 @@ class Cuztom_Field
 	 *
 	 */
 	function _build_id_name( $name, $meta_box )
-	{		
+	{
 		return apply_filters( 'cuztom_build_id_name', ( $this->hide ? '_' : '' ) . Cuztom::uglify( $meta_box ) . "_" . Cuztom::uglify( $name ) );
 	}
-	
-	
+
+
 	/**
 	 * Builds an array of a field with all the arguments needed
 	 *
@@ -133,7 +133,7 @@ class Cuztom_Field
 	static function _build( $field )
 	{
 		$field = array_merge(
-		
+
 			// Default
 			array(
 				'name'          => '',
@@ -146,12 +146,12 @@ class Cuztom_Field
 				'repeatable'	=> false,
 				'show_column'	=> false
 			),
-			
+
 			// Given
 			$field
-		
+
 		);
-		
+
 		return $field;
 	}
 }
