@@ -121,8 +121,8 @@ jQuery(function($) {
 		var parent = $(this).closest('.cuztom_helper'),
 			wrap = $('.cuztom_bundle_wrap', parent),
 			bundle = $('.cuztom_bundle:last', wrap),
-			handle = '<div class="handle_repeatable"></div>',
-			remover = '<div class="remove_repeatable"></div>',
+			handle = '<div class="handle_bundle"></div>',
+			remover = '<div class="remove_bundle"></div>',
 			new_bundle = bundle.clone(true);
 		
 		// Add the new bundle
