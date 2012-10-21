@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.4.5  
+**Version:** 1.4.6  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -114,6 +114,10 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###1.4.6
+* **NOTE**: cuztom_helper.php is renamed to cuztom.php. Please check your functions.php and change the include.
+* Improvement: Imprive the saving process of bundles, props @ivanblagdan
 
 ###1.4.5
 * Fixed: Issue #41: Possible conflict of classes in functions.js

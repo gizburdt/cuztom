@@ -194,6 +194,7 @@ class Cuztom_Meta_Box
 				elseif( $data instanceof Cuztom_Bundle )
 				{
 					$meta = get_post_meta( $post->ID, $this->id, false ) ? get_post_meta( $post->ID, $this->id, false ) : false;
+					$meta = $meta[0];
 				
 					echo '<div class="cuztom_padding_wrap">';
 						echo '<a class="button-secondary cuztom_add cuztom_add_bundle cuztom_button" href="#">';
@@ -373,10 +374,7 @@ class Cuztom_Meta_Box
 			{
 				delete_post_meta( $post_id, $this->id );
 				
-				foreach( $_POST['cuztom'][$this->id] as $bundle_id => $bundle )
-				{
-					$this->_save_meta( $post_id, $this->id, $bundle_id );
-				}
+				$this->_save_meta( $post_id, $this->id, 0 );
 			}
 			else
 			{
@@ -404,7 +402,8 @@ class Cuztom_Meta_Box
 	{
 		if( is_object( $this->data ) && $this->data instanceof Cuztom_Bundle )
 		{
-			$value = isset( $_POST['cuztom'][$field][$id_name] ) ? $_POST['cuztom'][$field][$id_name] : '';
+			$value = isset( $_POST['cuztom'][$field] ) ? array_values( $_POST['cuztom'][$field] ) : '';
+			
 			add_post_meta( $post_id, $field, $value );
 		}
 		else
