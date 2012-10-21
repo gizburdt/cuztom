@@ -117,7 +117,7 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 
 ###1.4.6
 * **NOTE**: cuztom_helper.php is renamed to cuztom.php. Please check your functions.php and change the include.
-* Improvement: Imprive the saving process of bundles, props @ivanblagdan
+* Improvement: Improved the saving process of bundles, props @ivanblagdan
 
 ###1.4.5
 * Fixed: Issue #41: Possible conflict of classes in functions.js
