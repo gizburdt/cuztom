@@ -41,7 +41,7 @@ jQuery(function($) {
 	    spanID 		= parent.find('.cuztom_preview');		
 	    formfield 	= parent.find('.cuztom_hidden').attr('name');
 	    
-		tb_show( '', 'media-upload.php?type=image&TB_iframe=true&post_id=0' );
+		tb_show( '', 'media-upload.php?post_id=0&type=image&TB_iframe=true' );
 		
 		window.send_to_editor = function( html ) {
 
