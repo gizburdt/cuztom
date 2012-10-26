@@ -13,7 +13,7 @@ class Cuztom_Meta_Box
 	var $title;
 	var $context;
 	var $priority;
-	var $post_type_name;
+	var $post_types;
 	var $callback;
 	var $data;
 	var $fields;
@@ -32,11 +32,11 @@ class Cuztom_Meta_Box
 	 * @since 	0.2
 	 *
 	 */
-	function __construct( $title, $post_type_name, $data = array(), $context = 'normal', $priority = 'default' )
+	function __construct( $title, $post_type, $data = array(), $context = 'normal', $priority = 'default' )
 	{
 		if( ! empty( $title ) )
 		{
-			$this->post_type_name 	= $post_type_name;
+			$this->post_types 	= (array) $post_type;
 			
 			// Meta variables	
 			$this->id 			= Cuztom::uglify( $title );
@@ -51,13 +51,17 @@ class Cuztom_Meta_Box
 			}
 			else
 			{
-				$this->callback = array( $this, 'callback' );
+				$this->callback = array( &$this, 'callback' );
 
 				// Build the meta box and fields
 				$this->_build( $data );
 
-				add_filter( 'manage_posts_columns', array( $this, 'add_column_head' ) );
-				add_action( 'manage_posts_custom_column', array( $this, 'add_column_content' ), 10, 2 );
+				foreach( $this->post_types as $post_type )
+				{
+					add_filter( 'manage_' . $post_type . '_posts_columns', array( &$this, 'add_column' ) );
+					add_action( 'manage_' . $post_type . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
+					add_action( 'manage_edit-' . $post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
+				}
 
 				add_action( 'save_post', array( $this, 'save_post' ) );
 				add_action( '_edit_form_tag', array( $this, 'post_edit_form_tag' ) );
@@ -77,15 +81,18 @@ class Cuztom_Meta_Box
 	 *
 	 */
 	function add_meta_box()
-	{	
-		add_meta_box(
+	{
+		foreach( $this->post_types as $post_type )
+		{
+			add_meta_box(
 			$this->id,
 			$this->title,
 			$this->callback,
-			$this->post_type_name,
+			$post_type,
 			$this->context,
 			$this->priority
 		);
+		}
 	}
 	
 	
@@ -362,10 +369,11 @@ class Cuztom_Meta_Box
 		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( __FILE__ ) ) ) ) return;
 		
 		// Is the post from the given post type?
-		if( get_post_type( $post_id ) != $this->post_type_name ) return;
+		if( ! in_array( get_post_type( $post_id ), $this->post_types ) ) return;
 		
 		// Is the current user capable to edit this post
-		if( ! current_user_can( get_post_type_object( $this->post_type_name )->cap->edit_post, $post_id ) ) return;
+		foreach( $this->post_types as $post_type )
+			if( ! current_user_can( get_post_type_object( $post_type )->cap->edit_post, $post_id ) ) return;
 		
 		// Loop through each meta box
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
@@ -421,21 +429,24 @@ class Cuztom_Meta_Box
 	/**
 	 * Used to add a column head to the Post Type's List Table
 	 *
-	 * @param 	array 			$default
+	 * @param 	array 			$columns
 	 * @return 	array
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	1.1
 	 *
 	 */
-	function add_column_head( $default )
+	function add_column( $columns )
 	{
-		foreach( $this->fields as $field_id_name => $field )
+		unset( $columns['date'] );
+
+		foreach( $this->fields as $id_name => $field )
 		{
-			if( $field->show_column ) $default[$field_id_name] = $field->label;
+			if( $field->show_column ) $columns[$id_name] = $field->label;
 		}
 
-		return $default;
+		$columns['date'] = __( 'Date' );
+		return $columns;
 	}
 	
 	
@@ -462,6 +473,25 @@ class Cuztom_Meta_Box
 				break;
 			}
 		}
+	}
+
+
+	/**
+	 * Used to make all columns sortable
+	 * 
+	 * @param 	array 			$columns
+	 * @return  array
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   1.4.8
+	 * 
+	 */
+	function add_sortable_column( $columns )
+	{
+		foreach( $this->fields as $id_name => $field )
+			if( $field->show_column ) $columns[$id_name] = $field->label;
+
+		return $columns;
 	}
 	
 	
