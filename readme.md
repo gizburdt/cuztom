@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.4.7  
+**Version:** 1.4.8  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -114,6 +114,9 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###1.4.8
+* Added: It is now possible to add a Cuztom_Meta_Box to multiple Post Types. Just pass an array as second parameter.
 
 ###1.4.7
 * Fixed: Indefined index in media library
