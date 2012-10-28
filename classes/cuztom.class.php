@@ -9,7 +9,7 @@
  */
 class Cuztom
 {
-	var $dir = array();
+	var $url = array();
 	
 
 	/**
@@ -30,7 +30,7 @@ class Cuztom
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		
 		// Determine the full path to the this folder
-		$this->_determine_cuztom_dir( dirname( __FILE__ ) );
+		$this->_determine_cuztom_url( dirname( __FILE__ ) );
 	}
 	
 	
@@ -48,7 +48,7 @@ class Cuztom
 			if( CUZTOM_JQUERY_UI_STYLE == 'cuztom' )
 			{
 				wp_register_style( 'cuztom_jquery_ui_css', 
-					$this->dir . '/assets/css/jquery_ui.css', 
+					$this->url . '/assets/css/jquery_ui.css', 
 					false, 
 					CUZTOM_VERSION, 
 					'screen'
@@ -66,14 +66,14 @@ class Cuztom
 		}
 		
 		wp_register_style( 'cuztom_colorpicker_css', 
-			$this->dir . '/assets/css/colorpicker.css', 
+			$this->url . '/assets/css/colorpicker.css', 
 			false, 
 			CUZTOM_VERSION, 
 			'screen'
 		);
 		
 		wp_register_style( 'cuztom_css', 
-			$this->dir . '/assets/css/style.css', 
+			$this->url . '/assets/css/style.css', 
 			false, 
 			CUZTOM_VERSION, 
 			'screen'
@@ -106,14 +106,14 @@ class Cuztom
 	function register_scripts()
 	{
 		wp_register_script( 'cuztom_colorpicker_js', 
-			$this->dir . '/assets/js/jquery.colorpicker.js',
+			$this->url . '/assets/js/jquery.colorpicker.js',
 			array( 'jquery' ), 
 			CUZTOM_VERSION, 
 			true 
 		);
 		
 		wp_register_script( 'cuztom_js', 
-			$this->dir . '/assets/js/functions.js',
+			$this->url . '/assets/js/functions.js',
 			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom_colorpicker_js', 'jquery-ui-sortable' ), 
 			CUZTOM_VERSION, 
 			true 
@@ -229,11 +229,11 @@ class Cuztom
 	 * @since 	0.4.1
 	 *
 	 */
-	function _determine_cuztom_dir( $path = __FILE__ )
+	function _determine_cuztom_url( $path = __FILE__ )
 	{
-		if( defined( 'CUZTOM_DIR' ) && CUZTOM_DIR != '' )
+		if( defined( 'CUZTOM_URL' ) && CUZTOM_URL != '' )
 		{
-			$this->dir = CUZTOM_DIR;
+			$this->url = CUZTOM_URL;
 		}
 		else
 		{
@@ -242,24 +242,24 @@ class Cuztom
 			$explode_path = explode( '/', $path );
 			
 			$current_dir = $explode_path[count( $explode_path ) - 1];
-			array_push( $this->dir, $current_dir );
+			array_push( $this->url, $current_dir );
 			
 			if( $current_dir == 'wp-content' )
 			{
 				// Build new paths
 				$path = '';
-				$directories = array_reverse( $this->dir );
+				$directories = array_reverse( $this->url );
 				
 				foreach( $directories as $dir )
 				{
 					$path = $path . '/' . $dir;
 				}
 
-				$this->dir = $path;
+				$this->url = $path;
 			}
 			else
 			{
-				return $this->_determine_cuztom_dir( $path );
+				return $this->_determine_cuztom_url( $path );
 			}
 		}
 	}		
