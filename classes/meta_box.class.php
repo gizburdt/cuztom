@@ -382,7 +382,7 @@ class Cuztom_Meta_Box
 			{
 				delete_post_meta( $post_id, $this->id );
 				
-				$this->_save_meta( $post_id, $this->id, 0 );
+				$this->_save_meta( $post_id, $this, 0 );
 			}
 			else
 			{
@@ -410,9 +410,10 @@ class Cuztom_Meta_Box
 	{
 		if( is_object( $this->data ) && $this->data instanceof Cuztom_Bundle )
 		{
-			$value = isset( $_POST['cuztom'][$field] ) ? array_values( $_POST['cuztom'][$field] ) : '';
-			
-			add_post_meta( $post_id, $field, $value );
+			$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
+			$value = apply_filters( "cuztom_post_meta_save_bundle_$field->id", apply_filters( 'cuztom_post_meta_bundle', $value, $field, $post_id ), $field, $post_id );			
+
+			add_post_meta( $post_id, $field->id, $value );
 		}
 		else
 		{
@@ -420,6 +421,8 @@ class Cuztom_Meta_Box
 
 			if( $field instanceof Cuztom_Field_Wysiwyg ) $value = wpautop( $value );
 			if( ( $field instanceof Cuztom_Field_Checkbox || $field instanceof Cuztom_Field_Checkboxes || $field instanceof Cuztom_Field_Post_Checkboxes || $field instanceof Cuztom_Field_Term_Checkboxes ) && empty( $value ) ) $value = '-1';
+
+			$value = apply_filters( "cuztom_post_meta_save_$field->type", apply_filters( 'cuztom_post_meta_save', $value, $field, $post_id ), $field, $post_id );
 
 			update_post_meta( $post_id, $id_name, $value );
 		}

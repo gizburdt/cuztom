@@ -33,6 +33,7 @@ jQuery(function($) {
 	// Upload image
 	$('.cuztom_td').on( 'click', '.cuztom_upload', function() 
 	{
+		that		= $(this);
 		type 		= $(this).hasClass('cuztom_file') ? 'file' : 'image';
 
 		parent		= $(this).closest('.cuztom_td');
@@ -69,6 +70,9 @@ jQuery(function($) {
 			
 			// Close Wordpress media popup
 			tb_remove();
+
+			// Add remove button
+			that.after('<a href="#" class="cuztom_remove_image">' + ( type == 'image' ? Cuztom.remove_image : Cuztom.remove_file ) + '</a> ')
 		}
 	    
 		return false;

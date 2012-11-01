@@ -147,9 +147,11 @@ class Cuztom
 	function localize_scripts()
 	{
 		wp_localize_script( 'cuztom_js', 'Cuztom', array(
-			'home_url'		=> get_home_url(),
-			'ajax_url'		=> admin_url( 'admin-ajax.php' ),
-			'date_format'	=> get_option( 'date_format' )
+			'home_url'			=> get_home_url(),
+			'ajax_url'			=> admin_url( 'admin-ajax.php' ),
+			'date_format'		=> get_option( 'date_format' ),
+			'remove_image'		=> __( 'Remove current image', CUZTOM_TEXTDOMAIN ),
+			'remove_file'		=> __( 'Remove current file', CUZTOM_TEXTDOMAIN )
 		) );
 	}
 	
