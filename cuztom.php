@@ -11,10 +11,7 @@ if( ! defined( 'CUZTOM_JQUERY_UI_STYLE' ) ) define( 'CUZTOM_JQUERY_UI_STYLE', 'c
 
 // Include
 include( 'classes/cuztom.class.php' );
-include( 'classes/post_type.class.php' );
-include( 'classes/taxonomy.class.php' );
 
-include( 'classes/meta_box.class.php' );
 include( 'classes/field.class.php' );
 include( 'classes/fields/bundle.class.php' );
 include( 'classes/fields/tabs.class.php' );
@@ -40,9 +37,15 @@ include( 'classes/fields/term_select.class.php' );
 include( 'classes/fields/term_checkboxes.class.php' );
 include( 'classes/fields/hidden.class.php' );
 
+include( 'classes/post_type.class.php' );
+include( 'classes/taxonomy.class.php' );
+include( 'classes/meta_box.class.php' );
+
 include( 'classes/page.class.php' );
 include( 'classes/pages/menu_page.class.php' );
 include( 'classes/pages/submenu_page.class.php' );
+
+include( 'classes/user_meta.class.php' );
 include( 'classes/sidebar.class.php' );
 
 include( 'functions/post_type.php' );
