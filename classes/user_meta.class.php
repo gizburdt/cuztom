@@ -52,7 +52,7 @@ class Cuztom_User_Meta extends Cuztom_Meta
 
 
 	/**
-	 * Hooks into the save hook for the newly registered Post Type
+	 * Hooks into the save hook for the user meta
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	1.5
@@ -60,6 +60,9 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	 */
 	function save_user( $user_id )
 	{
+		// Verify nonce
+		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( dirname( __FILE__ ) ) ) ) ) return;
+
 		// Loop through each meta box
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
@@ -81,7 +84,7 @@ class Cuztom_User_Meta extends Cuztom_Meta
 
 
 	/**
-	 * Actual method that saves the post meta
+	 * Actual method that saves the user meta
 	 *
 	 * @param 	integer 			$user_id
 	 * @param 	array 				$field  

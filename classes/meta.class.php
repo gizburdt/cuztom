@@ -70,7 +70,7 @@ class Cuztom_Meta
 								echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 									foreach( $fields as $field_id_name => $field )
 									{
-										$value = get_post_meta( $post->ID, $field_id_name, true );
+										$value = $this->get_meta_type() == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
 										
 										if( ! $field instanceof Cuztom_Field_Hidden )
 										{
@@ -113,7 +113,7 @@ class Cuztom_Meta
 				}
 				elseif( $data instanceof Cuztom_Bundle )
 				{
-					$meta = get_post_meta( $post->ID, $this->id, false ) ? get_post_meta( $post->ID, $this->id, false ) : false;
+					$meta = $this->get_meta_type() == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
 					$meta = $meta[0];
 				
 					echo '<div class="cuztom_padding_wrap">';
@@ -222,7 +222,7 @@ class Cuztom_Meta
 						/* Loop through $data */
 						foreach( $data as $field_id_name => $field )
 						{
-							$meta = get_post_meta( $post->ID, $field_id_name, true ) ? get_post_meta( $post->ID, $field_id_name, true ) : false;
+							$meta = $this->get_meta_type() == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
 
 							if( ! $field instanceof Cuztom_Field_Hidden )
 							{
@@ -263,6 +263,31 @@ class Cuztom_Meta
 			
 			echo '</div>';
 		}
+	}
+
+
+	/**
+	 * Check what kind of meta we're dealing with
+	 * 
+	 * @return  string
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	1.5
+	 * 
+	 */
+	function get_meta_type()
+	{
+		switch( get_class( $this ) ) :
+
+			case 'Cuztom_User_Meta' :
+				return 'user';
+			break;
+
+			default:
+				return 'post';
+			break;
+
+		endswitch;
 	}
 
 
