@@ -217,7 +217,7 @@ class Cuztom_Meta
 				}
 				else
 				{					
-					echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
+					echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom_table cuztom_helper_table">';
 
 						/* Loop through $data */
 						foreach( $data as $field_id_name => $field )

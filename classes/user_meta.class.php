@@ -51,6 +51,14 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	}
 
 
+	function callback( $user, $data = array() )
+	{
+		echo '<h3>' . $this->title . '</h3>';
+
+		parent::callback( $user, $data );
+	}
+
+
 	/**
 	 * Hooks into the save hook for the user meta
 	 *
