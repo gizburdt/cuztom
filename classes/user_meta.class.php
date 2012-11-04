@@ -17,10 +17,15 @@ class Cuztom_User_Meta extends Cuztom_Meta
 
 
 	/**
-	 * [__construct description]
-	 * @param [type] $title     [description]
-	 * @param [type] $locations [description]
-	 * @param array  $data      [description]
+	 * Constructor for User Meta
+	 * 
+	 * @param 	string 				$title
+	 * @param 	string|array 		$locations
+	 * @param 	array  				$data
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   1.5
+	 * 
 	 */
 	function __construct( $title, $locations, $data = array() )
 	{
