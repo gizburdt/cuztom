@@ -9,7 +9,7 @@ This class can be used to quickly register Custom Post Types, Taxonomies, Meta B
 
 Include the main file.
 	
-	include( 'cuztom_helper/cuztom.php' );
+	include( 'cuztom/cuztom.php' );
    
 ### Add Custom Post Types
 	
