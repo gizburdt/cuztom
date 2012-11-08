@@ -74,7 +74,7 @@ class Cuztom
 		
 		wp_register_style( 'cuztom_css', 
 			$this->url . '/assets/css/style.css', 
-			false, 
+			array( 'thickbox' ), 
 			CUZTOM_VERSION, 
 			'screen'
 		);
@@ -114,7 +114,7 @@ class Cuztom
 		
 		wp_register_script( 'cuztom_js', 
 			$this->url . '/assets/js/functions.js',
-			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom_colorpicker_js', 'jquery-ui-sortable' ), 
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom_colorpicker_js', 'jquery-ui-sortable', 'thickbox' ), 
 			CUZTOM_VERSION, 
 			true 
 		);

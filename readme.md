@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.5  
+**Version:** 1.5.1  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -114,6 +114,9 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###1.5.1
+* Fixed: Issue #48: tb_show is not defined
 
 ###1.5
 * Added: It is now possible to extend user profiles.
