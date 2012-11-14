@@ -12,6 +12,7 @@
 class Cuztom_Post_Type
 {
 	var $name;
+	var $archive_name;
 	var $title;
 	var $plural;
 	var $args;
@@ -49,6 +50,7 @@ class Cuztom_Post_Type
 				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
 			}
 
+            $this->archive_name = Cuztom::pluralize($this->name);
 			$this->args 	= $args;
 			$this->labels 	= $labels;
 			$this->add_features	= $this->remove_features	= array();
@@ -104,6 +106,7 @@ class Cuztom_Post_Type
 				'labels' 				=> $labels,
 				'public' 				=> true,
 				'supports' 				=> array( 'title', 'editor' ),
+				'has_archive'           => $this->archive_name
 			),
 
 			// Given args
