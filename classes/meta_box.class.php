@@ -154,7 +154,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		if( is_object( $this->data ) && $this->data instanceof Cuztom_Bundle )
 		{
 			$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
-			$value = apply_filters( "cuztom_post_meta_save_bundle_$field->id", apply_filters( 'cuztom_post_meta_bundle', $value, $field, $post_id ), $field, $post_id );			
+			$value = apply_filters( "cuztom_post_meta_save_bundle_$field->id", apply_filters( 'cuztom_post_meta_bundle', $value, $field, $post_id ), $field, $post_id );
 
 			add_post_meta( $post_id, $field->id, $value );
 		}

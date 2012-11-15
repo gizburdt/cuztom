@@ -113,15 +113,14 @@ class Cuztom_Meta
 				}
 				elseif( $data instanceof Cuztom_Bundle )
 				{
-					$meta = $this->get_meta_type() == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
-					$meta = $meta[0];
-				
 					echo '<div class="cuztom_padding_wrap">';
 						echo '<a class="button-secondary cuztom_add cuztom_add_bundle cuztom_button" href="#">';
 						echo sprintf( '+ %s', __( 'Add', CUZTOM_TEXTDOMAIN ) );
 						echo '</a>';
 						echo '<ul class="cuztom_bundle_wrap">';
 							
+							$meta = $this->get_meta_type() == 'user' ? get_user_meta( $post->ID, $data->id, true ) : get_post_meta( $post->ID, $data->id, true );
+
 							if( ! empty( $meta ) && isset( $meta[0] ) )
 							{
 								$i = 0;
