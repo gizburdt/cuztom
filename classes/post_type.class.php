@@ -104,7 +104,7 @@ class Cuztom_Post_Type
 				'labels' 				=> $labels,
 				'public' 				=> true,
 				'supports' 				=> array( 'title', 'editor' ),
-				'has_archive'           		=> Cuztom::pluralize( $this->name );
+				'has_archive'           => Cuztom::pluralize( $this->name )
 			),
 
 			// Given args
