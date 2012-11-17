@@ -74,7 +74,7 @@ class Cuztom
 		
 		wp_register_style( 'cuztom_css', 
 			$this->url . '/assets/css/style.css', 
-			false, 
+			array( 'thickbox' ), 
 			CUZTOM_VERSION, 
 			'screen'
 		);
@@ -114,7 +114,7 @@ class Cuztom
 		
 		wp_register_script( 'cuztom_js', 
 			$this->url . '/assets/js/functions.js',
-			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom_colorpicker_js', 'jquery-ui-sortable' ), 
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom_colorpicker_js', 'jquery-ui-sortable', 'thickbox' ), 
 			CUZTOM_VERSION, 
 			true 
 		);
@@ -218,6 +218,12 @@ class Cuztom
 		}
 		
 		return apply_filters( 'cuztom_pluralize', $string );
+	}
+
+
+	function _is_wp_callback( $callback )
+	{
+		return ( ! is_array( $callback ) ) || ( is_array( $callback ) && ( ( isset( $callback[1] ) && ! is_array( $callback[1] ) && method_exists( $callback[0], $callback[1] ) ) || ( isset( $callback[0] ) && ! is_array( $callback[0] ) && class_exists( $callback[0] ) ) ) );
 	}
 	
 	

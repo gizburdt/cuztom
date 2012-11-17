@@ -96,15 +96,14 @@ class Cuztom_Post_Type
 		);
 
 		// Post type arguments
-		$args = array_merge(
-
+		$args = array_merge( 
 			// Default
 			array(
 				'label' 				=> __( $this->plural, CUZTOM_TEXTDOMAIN ),
 				'labels' 				=> $labels,
 				'public' 				=> true,
 				'supports' 				=> array( 'title', 'editor' ),
-				'has_archive'           => Cuztom::pluralize( $this->name ) 
+				'has_archive'           => Cuztom::pluralize( $this->name )
 			),
 
 			// Given args

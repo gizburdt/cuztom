@@ -2,14 +2,14 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.4.9  
+**Version:** 1.5.3  
 **Requires:** 3.0+  
 
 ## Basic usage
 
 Include the main file.
 	
-	include( 'cuztom_helper/cuztom.php' );
+	include( 'cuztom/cuztom.php' );
    
 ### Add Custom Post Types
 	
@@ -115,39 +115,19 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###1.5.3
+* Fixed: Minor bug in Cuztom_Post_Type
+
+###1.5.2
+* Improvement: Cuztom now sets has_archive = true for Cuztom Post Types
+* Fixed: Issue #49: Bundles won't save
+
+###1.5.1
+* Fixed: Issue #48: tb_show is not defined
+
+###1.5
+* Added: It is now possible to extend user profiles.
+
 ###1.4.9
 * Enhancement: When image of file is selected, a Remove button will show to remove the currently selected image or file
 * Enhancement: Added filters to the post meta save hook for field and field type
-
-###1.4.8
-* Added: It is now possible to add a Cuztom_Meta_Box to multiple Post Types. Just pass an array as second parameter.
-
-###1.4.7
-* Fixed: Indefined index in media library
-
-###1.4.6
-* **NOTE**: cuztom_helper.php is renamed to cuztom.php. Please check your functions.php and change the include.
-* Improvement: Improved the saving process of bundles, props @ivanblagdan
-
-###1.4.5
-* Fixed: Issue #41: Possible conflict of classes in functions.js
-
-###1.4.4
-* Improvement: Better docs
-
-###1.4.3
-* Added: add_post_type_support and remove_post_type_support for a Cuztom Post Type
-* Improvement: Minor improvements
-
-###1.4.2
-* Improvement: Removed unnecessary files
-* Fixed: Issue #31: PHP Warnings and Notices about class_exists
-* Fixed: Undefined index notice about the cuztom_nonce is fixed
-
-###1.4.1
-* Added: It is now possible to set the Cuztom dir URI yourself
-* Improvement: Cuztom::uglify now uses sanitize_title
-* Improvement: Post type name can now be an array. The first element is the normal name and the second one it plural name. 
-
-###1.4
-* Added: File input field. Just using the Wordpress media uploader. For allowing mime types, you need to add a filter seperately.
