@@ -119,7 +119,7 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Fixed: Minor bug in Cuztom_Post_Type
 
 ###1.5.2
-* Improvement: Cuztom now sets has_archive = true for Cuztom Post Types
+* Improvement: Cuztom now enables archives for Cuztom Post Types. Details <a href="http://www.abhinavsood.com/custom-post-type-archives-with-wordpress-cuztom-helper/">here</a>.
 * Fixed: Issue #49: Bundles won't save
 
 ###1.5.1
