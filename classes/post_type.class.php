@@ -49,8 +49,8 @@ class Cuztom_Post_Type
 				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
 			}
 
-			$this->args 	= $args;
-			$this->labels 	= $labels;
+			$this->args 		= $args;
+			$this->labels 		= $labels;
 			$this->add_features	= $this->remove_features	= array();
 
 			// Add action to register the post type, if the post type doesnt exist
@@ -103,7 +103,7 @@ class Cuztom_Post_Type
 				'labels' 				=> $labels,
 				'public' 				=> true,
 				'supports' 				=> array( 'title', 'editor' ),
-				'has_archive'           => Cuztom::pluralize( $this->name )
+				'has_archive'           => sanitize_title( $this->plural )
 			),
 
 			// Given args

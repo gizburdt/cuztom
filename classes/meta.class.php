@@ -32,7 +32,7 @@ class Cuztom_Meta
 		{
 			// Hidden field, so cuztom is always set
 			echo '<input type="hidden" name="cuztom[__activate]" />';
-			echo '<div class="cuztom_helper">';
+			echo '<div class="cuztom">';
 			
 				if( ( $data instanceof Cuztom_Tabs ) || ( $data instanceof Cuztom_Accordion ) )
 				{
