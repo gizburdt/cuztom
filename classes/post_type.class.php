@@ -242,4 +242,19 @@ class Cuztom_Post_Type
 			remove_post_type_support( $this->name, $feature );
 		}
 	}
+	
+	/**
+	 * Check if post type supports a certain feature
+	 *
+	 * @param 	string  $feature    The feature to check support for
+	 * @return  boolean if custom post type supports the feature then true else false
+	 * 
+	 * @author 	Abhinav Sood
+	 * @since 	1.5.3
+	 * 
+	 */
+	function post_type_supports( $feature )
+	{
+	    return post_type_supports( $this->name, $feature );
+	}
 }
