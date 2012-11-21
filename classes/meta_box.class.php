@@ -215,7 +215,18 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		{
 			if( $column == $field_id_name )
 			{
-				echo $field->repeatable && $field->_supports_repeatable() ? implode( $meta, ', ' ) : $meta;
+				if( $field->repeatable && $field->_supports_repeatable() )
+				{
+					echo implode( $meta, ', ' );
+				}
+				else
+				{
+					if( $field instanceof Cuztom_Field_Image )
+						echo wp_get_attachment_image( $meta, array( 100, 100 ) );
+					else
+						echo $meta;
+				}
+
 				break;
 			}
 		}
