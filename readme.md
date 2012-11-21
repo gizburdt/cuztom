@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.5.3  
+**Version:** 1.6  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -115,6 +115,9 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###1.6
+* Added: Taxonomy as Post Table Column and as filter above the Post Table. Just set show_column = true in the Cuztom_Taxonomy args and it's all done. ( Issue #47 )
+
 ###1.5.3
 * Fixed: Minor bug in Cuztom_Post_Type
 
@@ -127,7 +130,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 
 ###1.5
 * Added: It is now possible to extend user profiles.
-
-###1.4.9
-* Enhancement: When image of file is selected, a Remove button will show to remove the currently selected image or file
-* Enhancement: Added filters to the post meta save hook for field and field type

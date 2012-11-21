@@ -60,6 +60,16 @@ class Cuztom_Taxonomy
 			{
 				add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
 			}
+
+			if( isset( $args['show_column'] ) && $args['show_column'] )
+			{
+				add_filter( 'manage_' . $this->post_type_name . '_posts_columns', array( &$this, 'add_column' ) );
+				add_action( 'manage_' . $this->post_type_name . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
+				add_action( 'manage_edit-' . $this->post_type_name . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
+
+				add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
+				add_filter( 'parse_query', array( &$this, '_post_filter_query') );
+			}
 		}
 	}
 	
@@ -103,11 +113,12 @@ class Cuztom_Taxonomy
 			array(
 				'label'					=> __( $this->plural, CUZTOM_TEXTDOMAIN ),
 				'labels'				=> $labels,
-				"hierarchical" 			=> true,
+				'hierarchical' 			=> true,
 				'public' 				=> true,
 				'show_ui' 				=> true,
 				'show_in_nav_menus' 	=> true,
 				'_builtin' 				=> false,
+				'show_column'			=> false
 			),
 
 			// Given
@@ -129,5 +140,113 @@ class Cuztom_Taxonomy
 	function register_taxonomy_for_object_type()
 	{
 		register_taxonomy_for_object_type( $this->name, $this->post_type_name );
-	}	
+	}
+
+
+	/**
+	 * Used to add a column head to the Post Type's List Table
+	 *
+	 * @param 	array 			$columns
+	 * @return 	array
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	1.6
+	 *
+	 */
+	function add_column( $columns )
+	{
+		unset( $columns['date'] );
+
+		$columns[$this->name] = $this->title;
+
+		$columns['date'] = __( 'Date' );
+		return $columns;
+	}
+	
+	
+	/**
+	 * Used to add the column content to the column head
+	 *
+	 * @param 	string 			$column
+	 * @param 	integer 		$post_id
+	 * @return 	mixed
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	1.6
+	 *
+	 */
+	function add_column_content( $column, $post_id )
+	{
+		$terms = wp_get_post_terms( $post_id, $this->name, array( 'fields' => 'names' ) );
+
+		echo implode( $terms, ', ' );
+	}
+
+
+	/**
+	 * Used to make all columns sortable
+	 * 
+	 * @param 	array 			$columns
+	 * @return  array
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   1.6
+	 * 
+	 */
+	function add_sortable_column( $columns )
+	{
+		$columns[$this->name] = $this->title;
+
+		return $columns;
+	}
+
+
+	/**
+	 * Adds a filter to the post table filters
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since 	1.6
+	 * 
+	 */
+	function _post_filter() 
+	{
+		global $typenow;
+		global $wp_query;
+
+		if( $typenow == $this->post_type_name ) 
+		{
+			wp_dropdown_categories( array(
+				'show_option_all'	=> sprintf( __( 'Show All %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
+				'taxonomy'       	=> $this->name,
+				'name'            	=> $this->name,
+				'orderby'         	=> 'name',
+				'selected'        	=> isset( $wp_query->query[$this->name] ) ? $wp_query->query[$this->name] : '',
+				'hierarchical'    	=> true,
+				'show_count'      	=> true,
+				'hide_empty'      	=> true,
+			) );
+		}
+	}
+
+
+	/**
+	 * Applies the selected filter to the query
+	 * 
+	 * @param 	object 			$query
+	 *
+	 * @author  Gijs Jorissen
+	 * @since  	1.6
+	 * 
+	 */
+	function _post_filter_query( $query ) 
+	{
+    	global $pagenow;
+    	$vars = &$query->query_vars;
+
+		if( $pagenow == 'edit.php' && isset( $vars[$this->name] ) && is_numeric( $vars[$this->name] ) ) 
+    	{
+    		$term = get_term_by( 'id', $vars[$this->name], $this->name );
+        	$vars[$this->name] = $term->slug;
+    	}
+	}
 }

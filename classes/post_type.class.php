@@ -243,11 +243,12 @@ class Cuztom_Post_Type
 		}
 	}
 	
+	
 	/**
 	 * Check if post type supports a certain feature
 	 *
-	 * @param 	string  $feature    The feature to check support for
-	 * @return  boolean if custom post type supports the feature then true else false
+	 * @param 	string  		$feature    		The feature to check support for
+	 * @return  boolean 
 	 * 
 	 * @author 	Abhinav Sood
 	 * @since 	1.5.3
