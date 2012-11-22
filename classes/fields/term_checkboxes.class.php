@@ -18,7 +18,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 			
 		);
 
-		$this->terms = get_terms( $this->options['taxonomy'], $this->options );
+		add_action( 'init', array( &$this, 'get_taxonomy_terms' ) );
 	}
 	
 	function _output( $value )
@@ -37,4 +37,16 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 
 		return $output;
 	}
+	
+	/**
+	 * Gets taxonomy terms for use in the output
+	 * 
+	 * @author 	Abhinav Sood
+	 * @since 	1.6.1
+	 * 
+	 */
+	function get_taxonomy_terms()
+    {
+        $this->terms = get_terms( $this->options['taxonomy'], $this->options );
+    }
 }
