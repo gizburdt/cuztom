@@ -68,7 +68,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			}
 			
 			// Add the meta box
-			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
+			add_action( 'add_meta_boxes', array( &$this, 'add_meta_box' ) );
 		}	
 	}
 	
