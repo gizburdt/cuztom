@@ -15,15 +15,6 @@ class Cuztom_Taxonomy
 	var $labels;
 	var $args;
 	var $post_type_name;
-
-	protected $_reserved = array( 'attachment', 'attachment_id', 'author', 'author_name', 'calendar', 'cat', 'category','category__and', 'category__in', 'category__not_in', 
-		'category_name', 'comments_per_page', 'comments_popup', 'cpage', 'day', 'debug', 'error', 'exact', 'feed', 'hour', 'link_category', 
-		'm', 'minute', 'monthnum', 'more', 'name', 'nav_menu', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 
-		'perm', 'post', 'post__in', 'post__not_in', 'post_format', 'post_mime_type', 'post_status', 'post_tag', 'post_type', 
-		'posts', 'posts_per_archive_page', 'posts_per_page', 'preview', 'robots', 's', 'search', 'second', 'sentence', 'showposts', 
-		'static', 'subpost', 'subpost_id', 'tag', 'tag__and', 'tag__in','tag__not_in', 'tag_id', 'tag_slug__and', 'tag_slug__in', 'taxonomy', 
-		'tb', 'term', 'type', 'w', 'withcomments', 'withoutcomments', 'year' );
-	
 	
 	/**
 	 * Constructs the class with important vars and method calls
@@ -60,9 +51,14 @@ class Cuztom_Taxonomy
 			$this->labels	= $labels;
 			$this->args		= $args;
 
-			if( ! in_array( $this->name, $this->_reserved ) )
-			{
-				if( ! taxonomy_exists( $this->name ) )
+            
+            if ( $is_reserved_term = Cuztom::is_reserved_term( $this->name ) )
+            {
+                echo '<div id="message" class="error"><p>' . $is_reserved_term->get_error_message() . ': ' . $this->name . '</p></div>';
+            }
+            else
+            {
+                if( ! taxonomy_exists( $this->name ) )
 				{
 					add_action( 'init', array( &$this, 'register_taxonomy' ) );
 				}
@@ -80,7 +76,7 @@ class Cuztom_Taxonomy
 					add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
 					add_filter( 'parse_query', array( &$this, '_post_filter_query') );
 				}
-			}
+            }
 		}
 	}
 	
