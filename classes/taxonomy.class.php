@@ -15,6 +15,14 @@ class Cuztom_Taxonomy
 	var $labels;
 	var $args;
 	var $post_type_name;
+
+	protected $_reserved = array( 'attachment', 'attachment_id', 'author', 'author_name', 'calendar', 'cat', 'category','category__and', 'category__in', 'category__not_in', 
+		'category_name', 'comments_per_page', 'comments_popup', 'cpage', 'day', 'debug', 'error', 'exact', 'feed', 'hour', 'link_category', 
+		'm', 'minute', 'monthnum', 'more', 'name', 'nav_menu', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 
+		'perm', 'post', 'post__in', 'post__not_in', 'post_format', 'post_mime_type', 'post_status', 'post_tag', 'post_type', 
+		'posts', 'posts_per_archive_page', 'posts_per_page', 'preview', 'robots', 's', 'search', 'second', 'sentence', 'showposts', 
+		'static', 'subpost', 'subpost_id', 'tag', 'tag__and', 'tag__in','tag__not_in', 'tag_id', 'tag_slug__and', 'tag_slug__in', 'taxonomy', 
+		'tb', 'term', 'type', 'w', 'withcomments', 'withoutcomments', 'year' );
 	
 	
 	/**
@@ -52,23 +60,26 @@ class Cuztom_Taxonomy
 			$this->labels	= $labels;
 			$this->args		= $args;
 
-			if( ! taxonomy_exists( $this->name ) )
+			if( ! in_array( $this->name, $this->_reserved ) )
 			{
-				add_action( 'init', array( &$this, 'register_taxonomy' ) );
-			}
-			else
-			{
-				add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
-			}
+				if( ! taxonomy_exists( $this->name ) )
+				{
+					add_action( 'init', array( &$this, 'register_taxonomy' ) );
+				}
+				else
+				{
+					add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
+				}
 
-			if( isset( $args['show_column'] ) && $args['show_column'] )
-			{
-				add_filter( 'manage_' . $this->post_type_name . '_posts_columns', array( &$this, 'add_column' ) );
-				add_action( 'manage_' . $this->post_type_name . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
-				add_action( 'manage_edit-' . $this->post_type_name . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
+				if( isset( $args['show_column'] ) && $args['show_column'] )
+				{
+					add_filter( 'manage_' . $this->post_type_name . '_posts_columns', array( &$this, 'add_column' ) );
+					add_action( 'manage_' . $this->post_type_name . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
+					add_action( 'manage_edit-' . $this->post_type_name . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
 
-				add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
-				add_filter( 'parse_query', array( &$this, '_post_filter_query') );
+					add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
+					add_filter( 'parse_query', array( &$this, '_post_filter_query') );
+				}
 			}
 		}
 	}

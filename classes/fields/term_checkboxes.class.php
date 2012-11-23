@@ -2,6 +2,8 @@
 
 class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 {
+	var $terms;
+
 	function __construct( $field, $meta_box )
 	{
 		parent::__construct( $field, $meta_box );
