@@ -30,7 +30,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 			{
 				foreach( $this->terms as $term )
 				{
-					$output .= '<input type="checkbox" name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '_' . Cuztom::uglify( $term->name ) . '" value="' . $term->term_id . '" ' . ( ! empty( $value ) ? ( in_array( $term->term_id, ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) : ( is_array( $this->default_value ) && in_array( $term->term_id, $this->default_value ) ) ? 'checked="checked"' : checked( $this->default_value, $term->term_id, false ) ) . ' class="cuztom_input" /> ';
+					$output .= '<input type="checkbox" name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '_' . Cuztom::uglify( $term->name ) . '" value="' . $term->term_id . '" ' . ( ! empty( $value ) ? ( in_array( $term->term_id, ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) : ( is_array( $this->default_value ) && in_array( $term->term_id, $this->default_value ) ) ? 'checked="checked"' : ( $value == -1 ) ? '' : checked( $this->default_value, $term->term_id, false ) ) . ' class="cuztom_input" /> ';
 					$output .= '<label for="' . $this->id_name . '_' . Cuztom::uglify( $term->name ) . '">' . $term->name . '</label>';
 					$output .= '<br />';
 				}
