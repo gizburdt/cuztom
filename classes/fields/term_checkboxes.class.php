@@ -39,6 +39,13 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 
 		return $output;
 	}
+
+	function save( $post_id, $value )
+	{
+		$value = empty( $value ) ? '-1' : $value;
+
+		parent::save( $post_id, $value );
+	}
 	
 	/**
 	 * Gets taxonomy terms for use in the output

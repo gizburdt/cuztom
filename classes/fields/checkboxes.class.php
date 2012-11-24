@@ -17,5 +17,12 @@ class Cuztom_Field_Checkboxes extends Cuztom_Field
 		$output .= '</div>';
 
 		return $output;
+	}
+
+	function save( $post_id, $value )
+	{
+		$value = empty( $value ) ? '-1' : $value;
+
+		parent::save( $post_id, $value );
 	}	
 }
