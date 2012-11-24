@@ -96,14 +96,14 @@ class Cuztom_Taxonomy
 			array(
 				'name' 					=> _x( $this->plural, 'taxonomy general name', CUZTOM_TEXTDOMAIN ),
 				'singular_name' 		=> _x( $this->title, 'taxonomy singular name', CUZTOM_TEXTDOMAIN ),
-			    'search_items' 			=> __( 'Search ' . $this->plural, CUZTOM_TEXTDOMAIN ),
-			    'all_items' 			=> __( 'All ' . $this->plural, CUZTOM_TEXTDOMAIN ),
-			    'parent_item' 			=> __( 'Parent ' . $this->title, CUZTOM_TEXTDOMAIN ),
-			    'parent_item_colon' 	=> __( 'Parent ' . $this->title . ':', CUZTOM_TEXTDOMAIN ),
-			    'edit_item' 			=> __( 'Edit ' . $this->title, CUZTOM_TEXTDOMAIN ), 
-			    'update_item' 			=> __( 'Update ' . $this->title, CUZTOM_TEXTDOMAIN ),
-			    'add_new_item' 			=> __( 'Add New ' . $this->title, CUZTOM_TEXTDOMAIN ),
-			    'new_item_name' 		=> __( 'New ' . $this->title . ' Name', CUZTOM_TEXTDOMAIN ),
+			    'search_items' 			=> sprintf( __( 'Search %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
+			    'all_items' 			=> sprintf( __( 'All %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
+			    'parent_item' 			=> sprintf( __( 'Parent %s', CUZTOM_TEXTDOMAIN ), $this->title ),
+			    'parent_item_colon' 	=> sprintf( __( 'Parent %s:', CUZTOM_TEXTDOMAIN ), $this->title ),
+			    'edit_item' 			=> sprintf( __( 'Edit %s', CUZTOM_TEXTDOMAIN ), $this->title ), 
+			    'update_item' 			=> sprintf( __( 'Update %s', CUZTOM_TEXTDOMAIN ), $this->title ),
+			    'add_new_item' 			=> sprintf( __( 'Add New %s', CUZTOM_TEXTDOMAIN ), $this->title ),
+			    'new_item_name' 		=> sprintf( __( 'New ' . $this->title . ' Name', CUZTOM_TEXTDOMAIN ) ),
 			    'menu_name' 			=> __( $this->plural, CUZTOM_TEXTDOMAIN ),
 			),
 
@@ -222,7 +222,7 @@ class Cuztom_Taxonomy
 		if( $typenow == $this->post_type_name ) 
 		{
 			wp_dropdown_categories( array(
-				'show_option_all'	=> sprintf( __( 'Show All %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
+				'show_option_all'	=> sprintf( __( 'Show all %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
 				'taxonomy'       	=> $this->name,
 				'name'            	=> $this->name,
 				'orderby'         	=> 'name',
