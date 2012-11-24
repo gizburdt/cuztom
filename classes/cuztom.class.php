@@ -282,10 +282,8 @@ class Cuztom
 	
 	static function is_reserved_term( $term )
 	{
-	    if( ! in_array( $term, self::$_reserved ) ) {
-	        return false;
-	    }
+	    if( ! in_array( $term, self::$_reserved ) ) return false;
 	    
-	    return new WP_Error('reserved_term_used', __( "Use of a reserved term", CUZTOM_TEXTDOMAIN ) );
+	    return new WP_Error( 'reserved_term_used', __( "Use of a reserved term", CUZTOM_TEXTDOMAIN ) );
 	}
 }

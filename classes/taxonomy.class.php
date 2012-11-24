@@ -50,11 +50,10 @@ class Cuztom_Taxonomy
 
 			$this->labels	= $labels;
 			$this->args		= $args;
-
             
             if ( $is_reserved_term = Cuztom::is_reserved_term( $this->name ) )
             {
-                echo '<div id="message" class="error"><p>' . $is_reserved_term->get_error_message() . ': ' . $this->name . '</p></div>';
+                echo '<div id="message" class="error"><p>' . $is_reserved_term->get_error_message() . ': <strong>' . $this->name . '</strong></p></div>';
             }
             else
             {
