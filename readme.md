@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.6.1  
+**Version:** 1.6.2  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -115,21 +115,14 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###1.6.2
+* Enhancement: The savinf process is now better OOP based
+* Enhancement: Better check for which checkboxes need to be checked
+* Enhancement: Sprintf in Taxonomy labels
+* Enhancement: Error message of reserved term usage only visible in Admin area
+
 ###1.6.1
 * Enhancement: If a Cuztom Image Field is shown as a Post Table column, then the image is shown instead of the attachment_id
 
 ###1.6
 * Added: Taxonomy as Post Table Column and as filter above the Post Table. Just set show_column = true in the Cuztom_Taxonomy args and it's all done. ( Issue #47 )
-
-###1.5.3
-* Fixed: Minor bug in Cuztom_Post_Type
-
-###1.5.2
-* Improvement: Cuztom now enables archives for Cuztom Post Types. Details <a href="http://www.abhinavsood.com/custom-post-type-archives-with-wordpress-cuztom-helper/">here</a>.
-* Fixed: Issue #49: Bundles won't save
-
-###1.5.1
-* Fixed: Issue #48: tb_show is not defined
-
-###1.5
-* Added: It is now possible to extend user profiles.
