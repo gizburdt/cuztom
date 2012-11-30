@@ -19,7 +19,6 @@ class Cuztom_Post_Type
 	var $add_features;
 	var $remove_features;
 	
-	
 	/**
 	 * Construct a new Cuztom Post Type
 	 *
@@ -60,7 +59,6 @@ class Cuztom_Post_Type
 			}
 		}
 	}
-	
 	
 	/**
 	 * Register the Post Type
@@ -115,7 +113,6 @@ class Cuztom_Post_Type
 		register_post_type( $this->name, $args );
 	}
 	
-	
 	/**
 	 * Add a taxonomy to the Post Type
 	 *
@@ -136,7 +133,6 @@ class Cuztom_Post_Type
 		// For method chaining
 		return $this;
 	}
-	
 	
 	/**
 	 * Add post meta box to the Post Type
@@ -159,7 +155,6 @@ class Cuztom_Post_Type
 		// For method chaining
 		return $this;
 	}
-	
 
 	/**
 	 * Add action to register support of certain features for a post type.
@@ -186,7 +181,6 @@ class Cuztom_Post_Type
 		// For method chaining
 		return $this;
 	}
-	
 
 	/**
 	 * Register support of certain features for a post type.
@@ -199,7 +193,6 @@ class Cuztom_Post_Type
 	{
 		add_post_type_support( $this->name, $this->add_features );
 	}
-	
 
 	/**
 	 * Add action to remove support of certain features for a post type.
@@ -226,7 +219,6 @@ class Cuztom_Post_Type
 		// For method chaining
 		return $this;
 	}
-	
 
 	/**
 	 * Remove support of certain features for a post type.
@@ -242,7 +234,6 @@ class Cuztom_Post_Type
 			remove_post_type_support( $this->name, $feature );
 		}
 	}
-	
 	
 	/**
 	 * Check if post type supports a certain feature

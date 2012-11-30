@@ -21,41 +21,33 @@ class Cuztom_Field
 	var $show_column 	= false;
 	var $pre			= '';
 	var $after			= '';
-	var $meta_box		= '';
-	
+	var $context		= '';
 	
 	/**
 	 * Constructs a Cuztom_Field
 	 * 
 	 * @param 	array 			$field
-	 * @param 	string 			$meta_box
+	 * @param 	string 			$context
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	0.3.3
 	 * 
 	 */
-	function __construct( $field, $meta_box )
+	function __construct( $field, $context )
 	{
-		// Build array with defaults
-		$field = self::_build( $field );
+		$this->name 			= isset( $field['name'] ) ? $field['name'] : $this->name;
+		$this->label			= isset( $field['label'] ) ? $field['label'] : $this->label;
+		$this->description		= isset( $field['description'] ) ? $field['description'] : $this->description;
+		$this->type				= isset( $field['type'] ) ? $field['type'] : $this->type;
+		$this->hide				= isset( $field['hide'] ) ? $field['hide'] : $this->hide;
+		$this->default_value	= isset( $field['default_value'] ) ? (array) $field['default_value'] : $this->default_value;
+		$this->options			= isset( $field['options'] ) ? $field['options'] : $this->options;
+		$this->repeatable		= isset( $field['repeatable'] ) ? $field['repeatable'] : $this->repeatable ;
+		$this->show_column		= isset( $field['show_column'] ) ? $field['show_column'] : $this->show_column;
+		$this->context			= $context;
 		
-		// Set variables
-		$this->name 			= $field['name'];
-		$this->label			= $field['label'];
-		$this->description		= $field['description'];
-		$this->type				= $field['type'];
-		$this->hide				= $field['hide'];
-		$this->default_value	= $field['default_value'];
-		$this->options			= $field['options'];
-		$this->repeatable		= $field['repeatable'];
-		$this->show_column		= $field['show_column'];
-		$this->pre				= '';
-		$this->after			= '';
-		$this->meta_box			= $meta_box;
-		
-		$this->id_name 			= $this->_build_id_name( $this->name, $meta_box );
+		$this->id_name 			= $this->_build_id_name( $this->name, $context );
 	}
-	
 	
 	/**
 	 * Outputs a field based on its type
@@ -71,7 +63,21 @@ class Cuztom_Field
 	{
 		return $this->repeatable && $this->_supports_repeatable() && is_array( $value ) ? $this->_repeatable_output( $value ) : $this->_output( $value );
 	}
-	
+
+	/**
+	 * Save meta
+	 * 
+	 * @param  	int 			$post_id
+	 * @param  	string 			$value
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since  	1.6.2
+	 * 
+	 */
+	function save( $post_id, $value )
+	{
+		update_post_meta( $post_id, $this->id_name, $value );
+	}
 	
 	/**
 	 * Checks if the field supports repeatable functionality
@@ -87,7 +93,6 @@ class Cuztom_Field
 		return in_array( $this->type, apply_filters( 'cuztom_supports_repeatable', array( 'text', 'textarea', 'select', 'post_select', 'term_select' ) ) );
 	}
 	
-	
 	/**
 	 * Checks if the field supports bundle functionality
 	 *
@@ -102,56 +107,19 @@ class Cuztom_Field
 		return in_array( $this->type, apply_filters( 'cuztom_supports_bundle', array( 'text', 'textarea' ) ) );
 	}
 	
-	
 	/**
 	 * Builds an string used as field id and name
 	 *
 	 * @param 	string 			$name
-	 * @param  	string 			$meta_box
+	 * @param  	string 			$context
 	 * @return 	string
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	0.9
 	 *
 	 */
-	function _build_id_name( $name, $meta_box )
+	function _build_id_name( $name, $context )
 	{		
-		return apply_filters( 'cuztom_build_id_name', ( $this->hide ? '_' : '' ) . Cuztom::uglify( $meta_box ) . "_" . Cuztom::uglify( $name ) );
-	}
-	
-	
-	/**
-	 * Builds an array of a field with all the arguments needed
-	 *
-	 * @param 	array 			$field
-	 * @return 	array
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.9
-	 *
-	 */
-	static function _build( $field )
-	{
-		$field = array_merge(
-		
-			// Default
-			array(
-				'name'          => '',
-	            'label'         => '',
-	            'description'   => '',
-	            'type'          => 'text',
-				'hide'			=> true,
-				'default_value'	=> '',
-				'options'		=> array(),
-				'repeatable'	=> false,
-				'show_column'	=> false
-			),
-			
-			// Given
-			$field
-		
-		);
-		
-		return $field;
+		return apply_filters( 'cuztom_build_id_name', ( $this->hide ? '_' : '' ) . Cuztom::uglify( $context ) . "_" . Cuztom::uglify( $name ) );
 	}
 }

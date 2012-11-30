@@ -18,7 +18,6 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	var $data;
 	var $fields;
 	
-	
 	/**
 	 * Constructs the meta box
 	 *
@@ -72,7 +71,6 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		}	
 	}
 	
-	
 	/**
 	 * Method that calls the add_meta_box function
 	 *
@@ -94,7 +92,6 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			);
 		}
 	}
-	
 	
 	/**
 	 * Hooks into the save hook for the newly registered Post Type
@@ -121,56 +118,28 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		// Loop through each meta box
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
-			if( is_object( $this->data ) && $this->data instanceof Cuztom_Bundle )
+			if( is_object( $this->data ) && $this->data instanceof Cuztom_Bundle && $field = $this->data )
 			{
+				// Delete old data, so the new sorted data can be saved
 				delete_post_meta( $post_id, $this->id );
 				
-				$this->_save_meta( $post_id, $this, 0 );
+				$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
+				$value = apply_filters( "cuztom_post_meta_save_bundle_$field->id", apply_filters( 'cuztom_post_meta_bundle', $value, $field, $post_id ), $field, $post_id );
+
+				$field->save( $post_id, $value );
 			}
 			else
 			{
-				foreach( $this->fields as $field_id_name => $field )
+				foreach( $this->fields as $id_name => $field )
 				{
-					$this->_save_meta( $post_id, $field, $field_id_name );
+					$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
+					$value = apply_filters( "cuztom_post_meta_save_$field->type", apply_filters( 'cuztom_post_meta_save', $value, $field, $post_id ), $field, $post_id );
+
+					$field->save( $post_id, $value );
 				}
 			}
 		}		
 	}
-	
-	
-	/**
-	 * Actual method that saves the post meta
-	 *
-	 * @param 	integer 			$post_id
-	 * @param 	array 				$field  
-	 * @param 	string 				$id_name
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.7
-	 *
-	 */
-	function _save_meta( $post_id, $field, $id_name )
-	{
-		if( is_object( $this->data ) && $this->data instanceof Cuztom_Bundle )
-		{
-			$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
-			$value = apply_filters( "cuztom_post_meta_save_bundle_$field->id", apply_filters( 'cuztom_post_meta_bundle', $value, $field, $post_id ), $field, $post_id );
-
-			add_post_meta( $post_id, $field->id, $value );
-		}
-		else
-		{
-			$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
-
-			if( $field instanceof Cuztom_Field_Wysiwyg ) $value = wpautop( $value );
-			if( ( $field instanceof Cuztom_Field_Checkbox || $field instanceof Cuztom_Field_Checkboxes || $field instanceof Cuztom_Field_Post_Checkboxes || $field instanceof Cuztom_Field_Term_Checkboxes ) && empty( $value ) ) $value = '-1';
-
-			$value = apply_filters( "cuztom_post_meta_save_$field->type", apply_filters( 'cuztom_post_meta_save', $value, $field, $post_id ), $field, $post_id );
-
-			update_post_meta( $post_id, $id_name, $value );
-		}
-	}
-	
 	
 	/**
 	 * Used to add a column head to the Post Type's List Table
@@ -194,7 +163,6 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		$columns['date'] = __( 'Date' );
 		return $columns;
 	}
-	
 	
 	/**
 	 * Used to add the column content to the column head
@@ -231,7 +199,6 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			}
 		}
 	}
-
 
 	/**
 	 * Used to make all columns sortable
