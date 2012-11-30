@@ -9,7 +9,9 @@ class Cuztom_Field_Checkboxes extends Cuztom_Field
 			{
 				foreach( $this->options as $slug => $name )
 				{
-					$output .= '<input type="checkbox" name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '_' . Cuztom::uglify( $slug ) . '" value="' . Cuztom::uglify( $slug ) . '" ' . ( ( ! empty( $value ) ) ? ( in_array( Cuztom::uglify( $slug ), ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) : ( is_array( $this->default_value ) && in_array( $slug, $this->default_value ) ) ? 'checked="checked"' : ( $value == -1 ) ? '' : checked( $this->default_value, Cuztom::uglify( $slug ), false ) ) . ' class="cuztom_input" /> ';								
+					$slug = Cuztom::uglify( $slug );
+
+					$output .= '<input type="checkbox" name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '_' . $slug . '" value="' . $slug . '" ' . ( is_array( $value ) ? ( in_array( $slug, $value ) ? 'checked="checked"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $slug, $this->default_value ) ? 'checked="checked"' : '' ) ) . ' class="cuztom_input" /> ';
 					$output .= '<label for="' . $this->id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
 					$output .= '<br />';
 				}

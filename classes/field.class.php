@@ -40,7 +40,7 @@ class Cuztom_Field
 		$this->description		= isset( $field['description'] ) ? $field['description'] : $this->description;
 		$this->type				= isset( $field['type'] ) ? $field['type'] : $this->type;
 		$this->hide				= isset( $field['hide'] ) ? $field['hide'] : $this->hide;
-		$this->default_value	= isset( $field['default_value'] ) ? $field['default_value'] : $this->default_value;
+		$this->default_value	= isset( $field['default_value'] ) ? (array) $field['default_value'] : $this->default_value;
 		$this->options			= isset( $field['options'] ) ? $field['options'] : $this->options;
 		$this->repeatable		= isset( $field['repeatable'] ) ? $field['repeatable'] : $this->repeatable ;
 		$this->show_column		= isset( $field['show_column'] ) ? $field['show_column'] : $this->show_column;

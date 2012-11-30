@@ -11,7 +11,10 @@ class Cuztom
 {
 	var $url = array();
 	
-	// WordPress reserved terms
+	/**
+	 * Wordpress reserved terms
+	 * @var array
+	 */
 	static $_reserved = array( 'attachment', 'attachment_id', 'author', 'author_name', 'calendar', 'cat', 'category','category__and', 'category__in', 'category__not_in', 
 		'category_name', 'comments_per_page', 'comments_popup', 'cpage', 'day', 'debug', 'error', 'exact', 'feed', 'hour', 'link_category', 
 		'm', 'minute', 'monthnum', 'more', 'name', 'nav_menu', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 
@@ -40,7 +43,6 @@ class Cuztom
 		// Determine the full path to the this folder
 		$this->_determine_cuztom_url( dirname( __FILE__ ) );
 	}
-	
 	
 	/**
 	 * Registers styles
@@ -88,7 +90,6 @@ class Cuztom
 		);
 	}
 	
-	
 	/**
 	 * Enqueues styles
 	 *
@@ -102,7 +103,6 @@ class Cuztom
 		wp_enqueue_style( 'cuztom_colorpicker_css' );
 		wp_enqueue_style( 'cuztom_css' );
 	}
-	
 	
 	/**
 	 * Registers scripts
@@ -128,7 +128,6 @@ class Cuztom
 		);
 	}
 	
-	
 	/**
 	 * Enqueues scripts
 	 *
@@ -143,7 +142,6 @@ class Cuztom
 		
 		self::localize_scripts();
 	}
-	
 	
 	/**
 	 * Localizes scripts
@@ -163,7 +161,6 @@ class Cuztom
 		) );
 	}
 	
-	
 	/**
 	 * Beautifies a string. Capitalize words and remove underscores
 	 *
@@ -179,7 +176,6 @@ class Cuztom
 		return apply_filters( 'cuztom_beautify', ucwords( str_replace( '_', ' ', $string ) ) );
 	}
 	
-	
 	/**
 	 * Uglifies a string. Remove underscores and lower strings
 	 *
@@ -194,7 +190,6 @@ class Cuztom
 	{
 		return apply_filters( 'cuztom_uglify', str_replace( '-', '_', sanitize_title( $string ) ) );
 	}
-	
 	
 	/**
 	 * Makes a word plural
@@ -228,12 +223,22 @@ class Cuztom
 		return apply_filters( 'cuztom_pluralize', $string );
 	}
 
-
+	/**
+	 * Checks if the callback is a Wordpress callback
+	 * So, if the class, method and/or function exists. If so, call it.
+	 * If it doesn't use the data array.
+	 * 
+	 * @param	string|array   	$callback
+	 * @return 	boolean
+	 *
+	 * @author  Gijs Jorissen
+	 * @since 	1.5
+	 * 
+	 */
 	function _is_wp_callback( $callback )
 	{
 		return ( ! is_array( $callback ) ) || ( is_array( $callback ) && ( ( isset( $callback[1] ) && ! is_array( $callback[1] ) && method_exists( $callback[0], $callback[1] ) ) || ( isset( $callback[0] ) && ! is_array( $callback[0] ) && class_exists( $callback[0] ) ) ) );
 	}
-	
 	
 	/**
 	 * Recursive method to determine the path to the Cuztom folder
@@ -280,6 +285,16 @@ class Cuztom
 		}
 	}
 	
+	/**
+	 * Check if the term is reserved by Wordpress
+	 * 
+	 * @param  	string  		$term
+	 * @return 	boolean
+	 *
+	 * @author  Gijs Jorissen
+	 * @since  	1.6
+	 * 
+	 */
 	static function is_reserved_term( $term )
 	{
 	    if( ! in_array( $term, self::$_reserved ) ) return false;
