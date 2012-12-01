@@ -2,6 +2,13 @@
 
 class Cuztom_Field_Checkboxes extends Cuztom_Field
 {
+	function __construct( $field, $context )
+	{
+		parent::__construct( $field, $context );
+
+		$this->default_value = (array) $this->default_value;
+	}
+
 	function _output( $value )
 	{
 		$output = '<div class="cuztom_checked_wrap cuztom_padding_wrap">';

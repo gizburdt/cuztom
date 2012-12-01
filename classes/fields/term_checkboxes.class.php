@@ -20,6 +20,8 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 			
 		);
 
+		$this->default_value = (array) $this->default_value;
+
 		add_action( 'init', array( &$this, 'get_taxonomy_terms' ) );
 	}
 	

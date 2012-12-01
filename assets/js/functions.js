@@ -83,7 +83,7 @@ jQuery(function($) {
 	$('.cuztom_repeatable_wrap, .cuztom_bundle_wrap').sortable();
 	
 
-	$('.cuztom_helper').on( 'click', '.remove_repeatable, .remove_bundle', function() 
+	$('.cuztom').on( 'click', '.remove_repeatable, .remove_bundle', function() 
 	{
 		var that = $(this),
 			field = that.closest('.cuztom_field, .cuztom_bundle'),
@@ -119,10 +119,10 @@ jQuery(function($) {
 	});
 	
 
-	$('.cuztom_helper').on( 'click', '.cuztom_add_bundle', function() 
+	$('.cuztom').on( 'click', '.cuztom_add_bundle', function() 
 	{
 		// Set some variables
-		var parent = $(this).closest('.cuztom_helper'),
+		var parent = $(this).closest('.cuztom'),
 			wrap = $('.cuztom_bundle_wrap', parent),
 			bundle = $('.cuztom_bundle:last', wrap),
 			handle = '<div class="handle_bundle"></div>',

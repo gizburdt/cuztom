@@ -18,6 +18,7 @@ class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 		
 		);
 		
+		$this->default_value = (array) $this->default_value;
 		$this->posts = get_posts( $this->options );
 	}
 	
