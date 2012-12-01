@@ -9,14 +9,9 @@
  */
 class Cuztom_Meta_Box extends Cuztom_Meta
 {
-	var $id;
-	var $title;
 	var $context;
 	var $priority;
 	var $post_types;
-	var $callback;
-	var $data;
-	var $fields;
 	
 	/**
 	 * Constructs the meta box

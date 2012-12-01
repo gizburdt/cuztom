@@ -9,12 +9,7 @@
  */
 class Cuztom_User_Meta extends Cuztom_Meta
 {
-	var $id;
-	var $title;
 	var $locations;
-	var $data;
-	var $fields;
-
 
 	/**
 	 * Constructor for User Meta

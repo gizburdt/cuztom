@@ -9,6 +9,12 @@
  */
 class Cuztom_Meta
 {
+	var $id;
+	var $title;
+	var $callback;
+	var $data;
+	var $fields;
+
 	/**
 	 * Main callback for meta
 	 *
