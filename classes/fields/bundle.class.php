@@ -5,6 +5,16 @@ class Cuztom_Bundle
 	var $id;
 	var $fields = array();
 
+	/**
+	 * Outputs a bundle
+	 * 
+	 * @param  	object 			$post
+	 * @param   string 			$context
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   1.6.5
+	 *
+	 */
 	function output( $post, $context )
 	{
 		echo '<div class="cuztom_padding_wrap">';
