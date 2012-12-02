@@ -28,10 +28,10 @@ class Cuztom_Field_Checkboxes extends Cuztom_Field
 		return $output;
 	}
 
-	function save( $post_id, $value )
+	function save( $post_id, $value, $context )
 	{
 		$value = empty( $value ) ? '-1' : $value;
 
-		parent::save( $post_id, $value );
+		parent::save( $post_id, $value, $context );
 	}	
 }

@@ -49,14 +49,22 @@ class Cuztom_User_Meta extends Cuztom_Meta
 			add_action( $location, $this->callback );
 	}
 
-
+	/**
+	 * Callback for user meta, adds a title
+	 * 
+	 * @param  	int     			$user [description]
+	 * @param  	array    	$data [description]
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   1.5
+	 * 
+	 */
 	function callback( $user, $data = array() )
 	{
 		echo '<h3>' . $this->title . '</h3>';
 
 		parent::callback( $user, $data );
 	}
-
 
 	/**
 	 * Hooks into the save hook for the user meta
@@ -73,7 +81,7 @@ class Cuztom_User_Meta extends Cuztom_Meta
 		// Loop through each meta box
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
-			if( is_object( $this->data ) && $this->data instanceof Cuztom_Bundle )
+			if( $this->data instanceof Cuztom_Bundle && $field = $this->data )
 			{
 				delete_user_meta( $user_id, $this->id );
 				
@@ -89,7 +97,6 @@ class Cuztom_User_Meta extends Cuztom_Meta
 		}		
 	}
 
-
 	/**
 	 * Actual method that saves the user meta
 	 *
@@ -103,23 +110,19 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	 */
 	function _save_meta( $user_id, $field, $id_name )
 	{
-		if( is_object( $this->data ) && $this->data instanceof Cuztom_Bundle )
+		if( $this->data instanceof Cuztom_Bundle && $field = $this->data )
 		{
 			$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
 			$value = apply_filters( "cuztom_user_meta_save_bundle_$field->id", apply_filters( 'cuztom_user_meta_bundle', $value, $field, $user_id ), $field, $user_id );			
 
-			add_user_meta( $user_id, $field->id, $value );
+			$field->save( $user_id, $value, 'user' );
 		}
 		else
 		{
 			$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
-
-			if( $field instanceof Cuztom_Field_Wysiwyg ) $value = wpautop( $value );
-			if( ( $field instanceof Cuztom_Field_Checkbox || $field instanceof Cuztom_Field_Checkboxes || $field instanceof Cuztom_Field_Post_Checkboxes || $field instanceof Cuztom_Field_Term_Checkboxes ) && empty( $value ) ) $value = '-1';
-
 			$value = apply_filters( "cuztom_user_meta_save_$field->type", apply_filters( 'cuztom_user_meta_save', $value, $field, $user_id ), $field, $user_id );
 
-			update_user_meta( $user_id, $id_name, $value );
+			$field->save( $user_id, $value, 'user' );
 		}
 	}
 }

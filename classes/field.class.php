@@ -74,9 +74,12 @@ class Cuztom_Field
 	 * @since  	1.6.2
 	 * 
 	 */
-	function save( $post_id, $value )
+	function save( $id, $value, $context )
 	{
-		update_post_meta( $post_id, $this->id_name, $value );
+		if( $context == 'user' )
+			update_user_meta( $id, $this->id_name, $value );
+		else
+			update_post_meta( $id, $this->id_name, $value );
 	}
 	
 	/**

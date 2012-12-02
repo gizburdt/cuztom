@@ -111,7 +111,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		// Loop through each meta box
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
-			if( is_object( $this->data ) && $this->data instanceof Cuztom_Bundle && $field = $this->data )
+			if( $this->data instanceof Cuztom_Bundle && $field = $this->data )
 			{
 				// Delete old data, so the new sorted data can be saved
 				delete_post_meta( $post_id, $this->id );
@@ -119,7 +119,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 				$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
 				$value = apply_filters( "cuztom_post_meta_save_bundle_$field->id", apply_filters( 'cuztom_post_meta_bundle', $value, $field, $post_id ), $field, $post_id );
 
-				$field->save( $post_id, $value );
+				$field->save( $post_id, $value, 'post' );
 			}
 			else
 			{
@@ -128,7 +128,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 					$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
 					$value = apply_filters( "cuztom_post_meta_save_$field->type", apply_filters( 'cuztom_post_meta_save', $value, $field, $post_id ), $field, $post_id );
 
-					$field->save( $post_id, $value );
+					$field->save( $post_id, $value, 'post' );
 				}
 			}
 		}		
