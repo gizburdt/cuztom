@@ -160,6 +160,8 @@ class Cuztom_Meta
 				foreach( $data[1] as $title => $fields )
 				{			
 					$tab = new Cuztom_Tab();
+					$tab->id = Cuztom::uglify( $title );
+					$tab->title = Cuztom::beautify( $title );
 
 					foreach( $fields as $field )
 					{
