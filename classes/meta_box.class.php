@@ -30,11 +30,9 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	{
 		if( ! empty( $title ) )
 		{
+			parent::__construct( $title );
+
 			$this->post_types 	= (array) $post_type;
-			
-			// Meta variables	
-			$this->id 			= Cuztom::uglify( $title );
-			$this->title 		= Cuztom::beautify( $title );
 			$this->context		= $context;
 			$this->priority		= $priority;
 

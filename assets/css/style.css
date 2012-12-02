@@ -1,5 +1,6 @@
 .cuztom{ width: 100%; }
 .cuztom .cuztom_tabs{ padding-top: 10px; }
+.cuztom .cuztom_box_description{ padding-bottom: 10px; border-bottom: 1px solid #dfdfdf; font-style: italic; }
 
 /* cuztom_table */
 .cuztom .cuztom_table{ width: 100%; }

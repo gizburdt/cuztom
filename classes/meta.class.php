@@ -14,6 +14,31 @@ class Cuztom_Meta
 	var $callback;
 	var $data;
 	var $fields;
+	var $description;
+
+	/**
+	 * Construct for all meta types, creates title (and description)
+	 * 
+	 * @param 	string|array 	$title
+	 *
+	 * @author  Gijs Jorissen
+	 * @since 	1.6.4
+	 * 
+	 */
+	function __construct( $title )
+	{
+		if( is_array( $title ) )
+		{
+			$this->title 		= Cuztom::beautify( $title[0] );
+			$this->description 	= $title[1];
+		}
+		else
+		{
+			$this->title 		= Cuztom::beautify( $title );
+		}
+
+		$this->id 			= Cuztom::uglify( $this->title );
+	}
 
 	/**
 	 * Main callback for meta
@@ -39,6 +64,8 @@ class Cuztom_Meta
 			// Hidden field, so cuztom is always set
 			echo '<input type="hidden" name="cuztom[__activate]" />';
 			echo '<div class="cuztom">';
+
+				if( ! empty( $this->description ) ) echo '<p class="cuztom_box_description">' . $this->description . '</p>';
 			
 				if( ( $data instanceof Cuztom_Tabs ) || ( $data instanceof Cuztom_Accordion ) )
 				{
@@ -76,7 +103,7 @@ class Cuztom_Meta
 								echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
 									foreach( $fields as $field_id_name => $field )
 									{
-										$value = $this->get_meta_type() == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
+										$value = $this->_get_meta_type() == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
 										
 										if( ! $field instanceof Cuztom_Field_Hidden )
 										{
@@ -125,7 +152,7 @@ class Cuztom_Meta
 						echo '</a>';
 						echo '<ul class="cuztom_bundle_wrap">';
 							
-							$meta = $this->get_meta_type() == 'user' ? get_user_meta( $post->ID, $data->id, true ) : get_post_meta( $post->ID, $data->id, true );
+							$meta = $this->_get_meta_type() == 'user' ? get_user_meta( $post->ID, $data->id, true ) : get_post_meta( $post->ID, $data->id, true );
 
 							if( ! empty( $meta ) && isset( $meta[0] ) )
 							{
@@ -227,7 +254,7 @@ class Cuztom_Meta
 						/* Loop through $data */
 						foreach( $data as $field_id_name => $field )
 						{
-							$meta = $this->get_meta_type() == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
+							$meta = $this->_get_meta_type() == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
 
 							if( ! $field instanceof Cuztom_Field_Hidden )
 							{
@@ -280,19 +307,9 @@ class Cuztom_Meta
 	 * @since 	1.5
 	 * 
 	 */
-	function get_meta_type()
+	function _get_meta_type()
 	{
-		switch( get_class( $this ) ) :
-
-			case 'Cuztom_User_Meta' :
-				return 'user';
-			break;
-
-			default:
-				return 'post';
-			break;
-
-		endswitch;
+		return get_class( $this ) == 'Cuztom_User_Meta' ? 'user' : 'post';
 	}
 
 

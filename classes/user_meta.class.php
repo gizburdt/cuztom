@@ -24,9 +24,8 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	 */
 	function __construct( $title, $locations, $data = array() )
 	{
-		// Meta variables	
-		$this->id 			= Cuztom::uglify( $title );
-		$this->title 		= Cuztom::beautify( $title );
+		parent::__construct( $title );
+
 		$this->locations	= array( 'show_user_profile', 'edit_user_profile' );
 
 		// Chack if the class, function or method exist, otherwise use cuztom callback
