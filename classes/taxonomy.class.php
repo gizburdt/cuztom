@@ -51,31 +51,31 @@ class Cuztom_Taxonomy
 			$this->labels	= $labels;
 			$this->args		= $args;
             
-            if ( $is_reserved_term = Cuztom::is_reserved_term( $this->name ) )
-            {
-                if( is_admin() ) echo '<div id="message" class="error"><p>' . $is_reserved_term->get_error_message() . ': <strong>' . $this->name . '</strong></p></div>';
-            }
-            else
-            {
-                if( ! taxonomy_exists( $this->name ) )
+            if( ! taxonomy_exists( $this->name ) )
+			{
+				if ( $is_reserved_term = Cuztom::is_reserved_term( $this->name ) )
+	            {
+	                if( is_admin() ) echo '<div id="message" class="error"><p>' . $is_reserved_term->get_error_message() . ': <strong>' . $this->name . '</strong></p></div>';
+	            }
+				else
 				{
 					add_action( 'init', array( &$this, 'register_taxonomy' ) );
 				}
-				else
-				{
-					add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
-				}
+			}
+			else
+			{
+				add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
+			}
 
-				if( isset( $args['show_column'] ) && $args['show_column'] )
-				{
-					add_filter( 'manage_' . $this->post_type_name . '_posts_columns', array( &$this, 'add_column' ) );
-					add_action( 'manage_' . $this->post_type_name . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
-					add_action( 'manage_edit-' . $this->post_type_name . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
+			if( isset( $args['show_column'] ) && $args['show_column'] )
+			{
+				add_filter( 'manage_' . $this->post_type_name . '_posts_columns', array( &$this, 'add_column' ) );
+				add_action( 'manage_' . $this->post_type_name . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
+				add_action( 'manage_edit-' . $this->post_type_name . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
 
-					add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
-					add_filter( 'parse_query', array( &$this, '_post_filter_query') );
-				}
-            }
+				add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
+				add_filter( 'parse_query', array( &$this, '_post_filter_query') );
+			}
 		}
 	}
 	
