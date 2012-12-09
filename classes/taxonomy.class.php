@@ -55,7 +55,8 @@ class Cuztom_Taxonomy
 			{
 				if ( $is_reserved_term = Cuztom::is_reserved_term( $this->name ) )
 	            {
-	                if( is_admin() ) echo '<div id="message" class="error"><p>' . $is_reserved_term->get_error_message() . ': <strong>' . $this->name . '</strong></p></div>';
+	            	$this->reserved_term_notice = $is_reserved_term->get_error_message();
+	            	add_action( 'admin_notices', 'add_reserved_term_notice' );
 	            }
 				else
 				{
@@ -254,5 +255,20 @@ class Cuztom_Taxonomy
     		$term = get_term_by( 'id', $vars[$this->name], $this->name );
         	$vars[$this->name] = $term->slug;
     	}
+	}
+
+
+	/**
+	 * Notice for reserved term usage
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	1.6.7
+	 * 
+	 */
+	function add_reserved_term_notice()
+	{
+		echo '<div class="updated">';
+			echo '<p>' . $this->reserved_term_notice . '</p>';
+    	echo '</div>';
 	}
 }

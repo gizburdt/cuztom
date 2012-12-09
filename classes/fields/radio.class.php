@@ -1,6 +1,6 @@
 <?php
 
-class Cuztom_Field_Radio extends Cuztom_Field
+class Deprecated_Cuztom_Field_Radio extends Cuztom_Field
 {
 	function _output( $value )
 	{
