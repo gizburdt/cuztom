@@ -57,8 +57,8 @@ class Cuztom
 		{
 			if( CUZTOM_JQUERY_UI_STYLE == 'cuztom' )
 			{
-				wp_register_style( 'cuztom_jquery_ui_css', 
-					$this->url . '/assets/css/jquery_ui.css', 
+				wp_register_style( 'cuztom-jquery-ui', 
+					$this->url . '/assets/css/cuztom-jquery-ui.css', 
 					false, 
 					CUZTOM_VERSION, 
 					'screen'
@@ -66,7 +66,7 @@ class Cuztom
 			}
 			else
 			{
-				wp_register_style( 'cuztom_jquery_ui_css', 
+				wp_register_style( 'cuztom-jquery-ui', 
 					'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/' . CUZTOM_JQUERY_UI_STYLE . '/jquery-ui.css', 
 					false, 
 					CUZTOM_VERSION, 
@@ -75,16 +75,16 @@ class Cuztom
 			}
 		}
 		
-		wp_register_style( 'cuztom_colorpicker_css', 
+		wp_register_style( 'cuztom-colorpicker', 
 			$this->url . '/assets/css/colorpicker.css', 
 			false, 
 			CUZTOM_VERSION, 
 			'screen'
 		);
 		
-		wp_register_style( 'cuztom_css', 
+		wp_register_style( 'cuztom', 
 			$this->url . '/assets/css/style.css', 
-			array( 'thickbox' ), 
+			false, 
 			CUZTOM_VERSION, 
 			'screen'
 		);
@@ -99,9 +99,11 @@ class Cuztom
 	 */
 	function enqueue_styles()
 	{
-		wp_enqueue_style( 'cuztom_jquery_ui_css' );
-		wp_enqueue_style( 'cuztom_colorpicker_css' );
-		wp_enqueue_style( 'cuztom_css' );
+		if( ! function_exists( 'wp_enqueue_media' ) ) wp_enqueue_style( 'thickbox' );
+
+		wp_enqueue_style( 'cuztom-jquery-ui' );
+		wp_enqueue_style( 'cuztom-colorpicker' );
+		wp_enqueue_style( 'cuztom' );
 	}
 	
 	/**
@@ -113,16 +115,16 @@ class Cuztom
 	 */
 	function register_scripts()
 	{
-		wp_register_script( 'cuztom_colorpicker_js', 
+		wp_register_script( 'cuztom-colorpicker', 
 			$this->url . '/assets/js/jquery.colorpicker.js',
 			array( 'jquery' ), 
 			CUZTOM_VERSION, 
 			true 
 		);
 		
-		wp_register_script( 'cuztom_js', 
+		wp_register_script( 'cuztom', 
 			$this->url . '/assets/js/functions.js',
-			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom_colorpicker_js', 'jquery-ui-sortable', 'thickbox' ), 
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom-colorpicker', 'jquery-ui-sortable' ), 
 			CUZTOM_VERSION, 
 			true 
 		);
@@ -137,8 +139,17 @@ class Cuztom
 	 */
 	function enqueue_scripts()
 	{
-		wp_enqueue_script( 'cuztom_colorpicker_js' );
-		wp_enqueue_script( 'cuztom_js' );
+		if( function_exists( 'wp_enqueue_media' ) )
+		{
+			wp_enqueue_media();
+		}
+		else
+		{
+			wp_enqueue_script( 'thickbox' );
+			wp_enqueue_script( 'media-upload' );
+		}
+
+		wp_enqueue_script( 'cuztom' );
 		
 		self::localize_scripts();
 	}
@@ -152,10 +163,11 @@ class Cuztom
 	 */
 	function localize_scripts()
 	{
-		wp_localize_script( 'cuztom_js', 'Cuztom', array(
+		wp_localize_script( 'cuztom', 'Cuztom', array(
 			'home_url'			=> get_home_url(),
 			'ajax_url'			=> admin_url( 'admin-ajax.php' ),
 			'date_format'		=> get_option( 'date_format' ),
+			'wp_version'		=> get_bloginfo( 'version' ),
 			'remove_image'		=> __( 'Remove current image', CUZTOM_TEXTDOMAIN ),
 			'remove_file'		=> __( 'Remove current file', CUZTOM_TEXTDOMAIN )
 		) );
