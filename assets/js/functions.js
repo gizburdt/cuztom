@@ -48,28 +48,28 @@ jQuery(function($)
 	// Add sortabe
 	$('.cuztom').on( 'click', '.js-cuztom-add-sortable', function() 
 	{
-		var that		= $(this),
-			parent 		= $(this).closest('.cuztom-td, .cuztom'),
-			wrap 		= $('.cuztom-sortable', parent),
-			last 		= $('.cuztom-sortable-item:last', wrap),
-			handle 		= '<div class="cuztom-handle-sortable"></div>',
-			remover 	= '<div class="js-cuztom-remove-sortable remove_bundle"></div>',
-			new_item 	= last.clone(true);
-
-		console.log(last);
+		var that		= $( this ),
+			parent 		= that.closest( '.cuztom-td, .cuztom' ),
+			wrap 		= $( '.js-cuztom-sortable', parent ),
+			is_bundle	= wrap.data( 'cuztom-sortable-type') == 'bundle' ? true : false,
+			last 		= $( '.js-cuztom-sortable-item:last', wrap ),
+			handle 		= '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>',
+			remover 	= '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>',
+			new_item 	= last.clone( true );
 		
-		// Add the new bundle
-		if( wrap.hasClass('js-cuztom-sortable-bundle') )
+		// Set new bundle array key
+		if( is_bundle )
 		{
 			new_item.find('.cuztom-input').each(function(){
 				$(this).attr('name', function( i, val ){ return val.replace( /(\d+)/, function( n ){ return Number(n) + 1 } ) } );
 			});
 		}
 		
-		// Add the item
+		// Add the new item
 		new_item.find('input, textarea, select').val('').removeAttr('selected');
-		new_item.appendTo(wrap);
+		new_item.appendTo( wrap );
 		
+		// Add new handler and remover if necessary
 		$('.js-cuztom-sortable-item', parent).each(function( index, item ) {
 			if( $('.js-cuztom-handle-sortable', item ).length == 0 ) { $(item).prepend( handle ); }
 			if( $('.js-cuztom-remove-sortable', item ).length == 0 ) { $(item).append( remover ); }
