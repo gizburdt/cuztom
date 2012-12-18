@@ -1,42 +1,90 @@
 jQuery.noConflict();
-jQuery(function($) {
-	
+
+jQuery(function($) 
+{	
 	// Datepicker
-	$('.cuztom_datepicker').each(function(){
+	$('.js-cuztom-datepicker').each(function(){
 		$(this).datepicker({ dateFormat: $(this).data('date-format') });
 	});
 	
-	
 	// Colorpicker
-	$('.cuztom_colorpicker').miniColors();
-	
+	$('.js-cuztom-colorpicker').miniColors();
 
 	// Tabs
-	$('.cuztom_tabs').tabs();
-	
+	$('.js-cuztom-tabs').tabs();
 
 	// Accordion
-	$('.cuztom_accordion').accordion();
-	
+	$('.js-cuztom-accordion').accordion();
+
+	// Sortable
+	$('.js-cuztom-sortable').sortable();
+
+	// Remove sortable
+	$('.cuztom').on( 'click', '.js-cuztom-remove-sortable', function() 
+	{
+		var that 		= $( this ),
+			field 		= that.closest('.js-cuztom-sortable-item'),
+			wrap 		= that.closest('.js-cuztom-sortable'),
+			fields 		= $( '.js-cuztom-sortable-item', wrap ).length;
+		
+		if( fields > 1 ) { field.remove(); }
+		if( fields == 2 ){ $( '.js-cuztom-sortable-item', wrap ).find('.js-cuztom-remove-sortable').remove(); }
+	});
 
 	// Remove current attached image
-	$('.cuztom_td').on( 'click', '.cuztom_remove_image, .cuztom_remove_file', function()
+	$('.cuztom-td').on( 'click', '.js-cuztom-remove-media', function()
 	{
-		$(this).closest('.cuztom_td').find('.cuztom_preview').html('');
-		$(this).closest('.cuztom_td').find('.cuztom_hidden').val('');
-		$(this).hide();
+		var that 	= $( this ),
+			td 		= that.closest('.cuztom-td');
+
+		$( '.cuztom-preview', td ).html('');
+		$( '.cuztom-hidden', td ).val('');
+		
+		that.hide();
+		
+		return false;
+	});		
+	
+	// Add sortabe
+	$('.cuztom').on( 'click', '.js-cuztom-add-sortable', function() 
+	{
+		var that		= $(this),
+			parent 		= $(this).closest('.cuztom-td, .cuztom'),
+			wrap 		= $('.cuztom-sortable', parent),
+			last 		= $('.cuztom-sortable-item:last', wrap),
+			handle 		= '<div class="cuztom-handle-sortable"></div>',
+			remover 	= '<div class="js-cuztom-remove-sortable remove_bundle"></div>',
+			new_item 	= last.clone(true);
+
+		console.log(last);
+		
+		// Add the new bundle
+		if( wrap.hasClass('js-cuztom-sortable-bundle') )
+		{
+			new_item.find('.cuztom-input').each(function(){
+				$(this).attr('name', function( i, val ){ return val.replace( /(\d+)/, function( n ){ return Number(n) + 1 } ) } );
+			});
+		}
+		
+		// Add the item
+		new_item.find('input, textarea, select').val('').removeAttr('selected');
+		new_item.appendTo(wrap);
+		
+		$('.js-cuztom-sortable-item', parent).each(function( index, item ) {
+			if( $('.js-cuztom-handle-sortable', item ).length == 0 ) { $(item).prepend( handle ); }
+			if( $('.js-cuztom-remove-sortable', item ).length == 0 ) { $(item).append( remover ); }
+		});
 		
 		return false;
 	});
-	
 
 	// Upload image
-	$('.cuztom_td').on( 'click', '.cuztom_upload', function() 
+	$('.cuztom-td').on( 'click', '.js-cuztom-upload', function() 
 	{
 		that		= $(this);
 		type 		= $(this).hasClass('cuztom_file') ? 'file' : 'image';
 
-		parent		= $(this).closest('.cuztom_td');
+		parent		= $(this).closest('.cuztom-td');
 		
 	    uploadID 	= parent.find('.cuztom_hidden');
 	    spanID 		= parent.find('.cuztom_preview');		
@@ -75,74 +123,6 @@ jQuery(function($) {
 			that.after('<a href="#" class="cuztom_remove_image">' + ( type == 'image' ? Cuztom.remove_image : Cuztom.remove_file ) + '</a> ')
 		}
 	    
-		return false;
-	});
-	
-
-	// Repeatable
-	$('.cuztom_repeatable_wrap, .cuztom_bundle_wrap').sortable();
-	
-
-	$('.cuztom').on( 'click', '.remove_repeatable, .remove_bundle', function() 
-	{
-		var that = $(this),
-			field = that.closest('.cuztom_field, .cuztom_bundle'),
-			wrap = that.closest('.cuztom_repeatable_wrap, .cuztom_bundle_wrap'),
-			fields = wrap.find('.cuztom_field, .cuztom_bundle').length;
-		
-		if( fields > 1 ) { field.remove(); }
-		if( fields == 2 ){ wrap.find('.cuztom_field, .cuztom_bundle').find('.remove_repeatable, .remove_bundle').remove(); }
-	});
-	
-
-	$('.cuztom_td').on( 'click', '.cuztom_add_field', function() 
-	{
-		// Set some variables
-		var parent = $(this).closest('.cuztom_td'),
-			wrap = $('.cuztom_repeatable_wrap', parent),
-			field = $('.cuztom_field:last', wrap),
-			first = $('.cuztom_field:first', parent),
-			handle = '<div class="handle_repeatable"></div>',
-			remover = '<div class="remove_repeatable"></div>',
-			new_field = field.clone(true);
-		
-		// Add the new field
-		new_field.find('input, textarea, select').val('').removeAttr('selected');
-		new_field.appendTo(wrap);
-		
-		$('.cuztom_field', parent).each(function( index, item ) {
-			if( $('.handle_repeatable', item ).length == 0 ) { $(item).prepend( handle ); }
-			if( $('.remove_repeatable', item ).length == 0 ) { $(item).append( remover ); }
-		});
-		
-		return false;
-	});
-	
-
-	$('.cuztom').on( 'click', '.cuztom_add_bundle', function() 
-	{
-		// Set some variables
-		var parent = $(this).closest('.cuztom'),
-			wrap = $('.cuztom_bundle_wrap', parent),
-			bundle = $('.cuztom_bundle:last', wrap),
-			handle = '<div class="handle_bundle"></div>',
-			remover = '<div class="remove_bundle"></div>',
-			new_bundle = bundle.clone(true);
-		
-		// Add the new bundle
-		new_bundle.find('.cuztom_input').each(function(){
-			$(this).attr('name', function( i, val ){ return val.replace( /(\d+)/, function( n ){ return Number(n) + 1 } ) } );
-		});
-		
-		// Add the new bundle
-		new_bundle.find('input, textarea, select').val('').removeAttr('selected');
-		new_bundle.appendTo(wrap);
-		
-		$('.cuztom_bundle', parent).each(function( index, item ) {
-			if( $('.handle_bundle', item ).length == 0 ) { $(item).prepend( handle ); }
-			if( $('.remove_bundle', item ).length == 0 ) { $(item).append( remover ); }
-		});
-		
 		return false;
 	});
 	
