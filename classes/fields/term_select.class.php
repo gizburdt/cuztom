@@ -45,7 +45,7 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 			
 			$output .= '<li class="cuztom_field"><div class="handle_repeatable"></div>';
 				$output .= wp_dropdown_categories( $this->options );
-			$output .= ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
+			$output .= ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable remove_repeatable"></div>' : '' ) . '</li>';
 		}
 
 		return $output;

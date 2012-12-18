@@ -50,7 +50,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 						$output .= '<option value="' . $post->ID . '" ' . ( ! empty( $item ) ? selected( $post->ID, $item, false ) : selected( $this->default_value, $post->ID, false ) ) . '>' . $post->post_title . '</option>';
 					}
 				}
-			$output .= '</select>' . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';;
+			$output .= '</select>' . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable remove_repeatable"></div>' : '' ) . '</li>';;
 		}
 
 		return $output;

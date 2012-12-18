@@ -14,7 +14,7 @@ class Cuztom_Tab
 		if( $type == 'accordion' ) echo '<h3>' . $this->title . '</h3>';
 		
 		echo '<div id="' . $this->id . '">';
-			echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
+			echo '<table border="0" cellading="0" cellspacing="0" class="from-table cuztom-table">';
 				foreach( $fields as $field_id_name => $field )
 				{
 					$value = $context == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
@@ -24,17 +24,17 @@ class Cuztom_Tab
 						echo '<tr>';
 							echo '<th class="cuztom_th th">';
 								echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field->label . '</label>';
-								echo '<div class="cuztom_description description">' . $field->description . '</div>';
+								echo '<div class="cuztom-description description">' . $field->description . '</div>';
 							echo '</th>';
-							echo '<td class="cuztom_td td">';
+							echo '<td class="cuztom-td cuztom_td td">';
 							
 								if( $field->repeatable && $field->_supports_repeatable() )
 								{
 									echo '<div class="cuztom_padding_wrap">';
-									echo '<a class="button-secondary cuztom_add cuztom_add_field cuztom_button" href="#">';
+									echo '<a class="button-secondary js-cuztom-add-field cuztom_add cuztom_add_field cuztom_button" href="#">';
 									echo sprintf( '+ %s', __( 'Add', CUZTOM_TEXTDOMAIN ) );
 									echo '</a>';
-									echo '<ul class="cuztom_repeatable_wrap">';
+									echo '<ul class="js-cuztom-sortable cuztom-sortable">';
 								}
 							
 								echo $field->output( $value );

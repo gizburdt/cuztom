@@ -66,7 +66,7 @@ class Cuztom_Meta
 			echo '<input type="hidden" name="cuztom[__activate]" />';
 			echo '<div class="cuztom">';
 
-				if( ! empty( $this->description ) ) echo '<p class="cuztom_box_description">' . $this->description . '</p>';
+				if( ! empty( $this->description ) ) echo '<p class="cuztom-box-description">' . $this->description . '</p>';
 			
 				if( ( $data instanceof Cuztom_Tabs ) || ( $data instanceof Cuztom_Accordion ) || ( $data instanceof Cuztom_Bundle ) )
 				{
@@ -74,7 +74,7 @@ class Cuztom_Meta
 				}
 				else
 				{					
-					echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom_table cuztom_helper_table">';
+					echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
 
 						/* Loop through $data */
 						foreach( $data as $id_name => $field )
@@ -86,17 +86,17 @@ class Cuztom_Meta
 								echo '<tr>';
 									echo '<th class="cuztom_th th">';
 										echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
-										echo '<div class="cuztom_description description">' . $field->description . '</div>';
+										echo '<div class="cuztom-description description">' . $field->description . '</div>';
 									echo '</th>';
-									echo '<td class="cuztom_td td">';
+									echo '<td class="cuztom-td cuztom_td td">';
 
 										if( $field->repeatable && $field->_supports_repeatable() )
 										{
 											echo '<div class="cuztom_padding_wrap">';
-											echo '<a class="button-secondary cuztom_add cuztom_add_field cuztom_button" href="#">';
+											echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
 											echo sprintf( '+ %s', __( 'Add', CUZTOM_TEXTDOMAIN ) );
 											echo '</a>';
-											echo '<ul class="cuztom_repeatable_wrap">';
+											echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
 										}
 										
 											echo $field->output( $meta );
