@@ -13,9 +13,9 @@
 
 /* Sortable */
 .cuztom .cuztom-handle-sortable,
-.cuztom .cuztom-remove-sortable{ display: inline-block; vertical-align: middle; height: 16px; width: 16px; }
-.cuztom .cuztom-handle-sortable{ background: url('../images/jquery-ui/ui-icons_454545_256x240.png') -132px -48px no-repeat; cursor: move; }
-.cuztom .cuztom-remove-sortable{ background: url('../images/jquery-ui/ui-icons_454545_256x240.png') -77px -128px no-repeat; cursor: pointer; }
+.cuztom .cuztom-remove-sortable{ display: inline-block; vertical-align: middle; height: 16px; width: 16px; background: url('../images/jquery-ui/ui-icons_454545_256x240.png') no-repeat; }
+.cuztom .cuztom-handle-sortable{ background-position: -132px -48px; cursor: move; }
+.cuztom .cuztom-remove-sortable{ background-position: -77px -128px; cursor: pointer; }
 .cuztom .cuztom-sortable-item fieldset{ display: inline-block; vertical-align: middle; border: 1px solid #ccc; padding: 10px; border-radius: 2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; width: 90%; }
 
 

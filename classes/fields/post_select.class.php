@@ -23,7 +23,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 	
 	function _output( $value )
 	{
-		$output = ( $this->repeatable ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . '<select name="cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' ) . '" id="' . $this->id_name . '">';
+		$output = ( $this->repeatable ? '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' : '' ) . '<select name="cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' ) . '" id="' . $this->id_name . '" class="cuztom-input">';
 			if( is_array( $this->posts ) )
 			{
 				foreach( $posts = $this->posts as $post )
@@ -42,7 +42,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 
 		foreach( $value as $item )
 		{
-			$output .= '<li class="cuztom_field"><div class="handle_repeatable"></div><select name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '" class="cuztom_input">';
+			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div><select name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '" class="cuztom-input">';
 				if( is_array( $this->posts ) )
 				{
 					foreach( $this->posts as $post )
@@ -50,7 +50,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 						$output .= '<option value="' . $post->ID . '" ' . ( ! empty( $item ) ? selected( $post->ID, $item, false ) : selected( $this->default_value, $post->ID, false ) ) . '>' . $post->post_title . '</option>';
 					}
 				}
-			$output .= '</select>' . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable remove_repeatable"></div>' : '' ) . '</li>';;
+			$output .= '</select>' . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"></div>' : '' ) . '</li>';;
 		}
 
 		return $output;

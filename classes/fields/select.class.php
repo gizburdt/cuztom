@@ -4,7 +4,7 @@ class Cuztom_Field_Select extends Cuztom_Field
 {	
 	function _output( $value )
 	{
-		$output = ( $this->repeatable ? '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable"></div>' : '' ) . '<select name="cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' ) . '" id="' . $this->id_name . '" class="cuztom-input">';
+		$output = ( $this->repeatable ? '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' : '' ) . '<select name="cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' ) . '" id="' . $this->id_name . '" class="cuztom-input">';
 			if( is_array( $this->options ) )
 			{
 				foreach( $this->options as $slug => $name )
@@ -23,7 +23,7 @@ class Cuztom_Field_Select extends Cuztom_Field
 
 		foreach( $value as $item )
 		{
-			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable"></div><select name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '" class="cuztom-input">';
+			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div><select name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '" class="cuztom-input">';
 				if( is_array( $this->options ) )
 				{
 					foreach( $this->options as $slug => $name )
