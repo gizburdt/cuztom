@@ -4,9 +4,9 @@
 ob_start();
 
 // Define
-define( 'CUZTOM_VERSION', '1.6.7' );
-if( ! defined( 'CUZTOM_URL' ) ) define( 'CUZTOM_URL', '' );
-if( ! defined( 'CUZTOM_TEXTDOMAIN' ) ) define( 'CUZTOM_TEXTDOMAIN', 'cuztom' ); 
+if( ! defined( 'CUZTOM_VERSION' ) ) 		define( 'CUZTOM_VERSION', '1.6.7' );
+if( ! defined( 'CUZTOM_URL' ) ) 			define( 'CUZTOM_URL', '' );
+if( ! defined( 'CUZTOM_TEXTDOMAIN' ) ) 		define( 'CUZTOM_TEXTDOMAIN', 'cuztom' ); 
 if( ! defined( 'CUZTOM_JQUERY_UI_STYLE' ) ) define( 'CUZTOM_JQUERY_UI_STYLE', 'cuztom' );
 
 // Include
@@ -17,11 +17,9 @@ include( 'classes/fields/bundle.class.php' );
 include( 'classes/fields/tabs.class.php' );
 include( 'classes/fields/accordion.class.php' );
 include( 'classes/fields/tab.class.php' );
-
 include( 'classes/fields/text.class.php' );
 include( 'classes/fields/textarea.class.php' );
 include( 'classes/fields/checkbox.class.php' );
-include( 'classes/fields/radio.class.php' );
 include( 'classes/fields/yesno.class.php' );
 include( 'classes/fields/select.class.php' );
 include( 'classes/fields/checkboxes.class.php' );
