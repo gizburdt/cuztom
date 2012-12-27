@@ -79,7 +79,7 @@ jQuery(function($)
 	});
 
 	// Upload image
-	$('.cuztom-td').on( 'click', '.js-cuztom-upload', function() 
+	$('.cuztom-td').on( 'click', '.js-cuztom-upload', function()
 	{
 		that		= $(this);
 		type 		= $(this).hasClass('cuztom_file') ? 'file' : 'image';
@@ -112,7 +112,7 @@ jQuery(function($)
 				uploadID.val( url );
 
 				anchor	= $(html).text();
-				html	= $('<span class="cuztom_mime"><a href="' + url + '" target="_blank">' + anchor + '</a></span>' );
+				html	= $('<span class="cuztom-mime"><a href="' + url + '" target="_blank">' + anchor + '</a></span>' );
 				spanID.html( html );
 			}
 			
