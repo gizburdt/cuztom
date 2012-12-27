@@ -84,7 +84,7 @@ class Cuztom_Meta
 							if( ! $field instanceof Cuztom_Field_Hidden )
 							{
 								echo '<tr>';
-									echo '<th class="cuztom_th th">';
+									echo '<th class="cuztom-th">';
 										echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
 										echo '<div class="cuztom-description description">' . $field->description . '</div>';
 									echo '</th>';

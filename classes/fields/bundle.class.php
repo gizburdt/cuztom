@@ -44,11 +44,11 @@ class Cuztom_Bundle
 									if( ! $field instanceof Cuztom_Field_Hidden )
 									{
 										echo '<tr>';
-											echo '<th class="cuztom-th th">';
-												echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
-												echo '<div class="cuztom-description description">' . $field->description . '</div>';
+											echo '<th class="cuztom-th">';
+												echo '<label for="' . $id_name . '" class="cuztom-label">' . $field->label . '</label>';
+												echo '<div class="cuztom-description">' . $field->description . '</div>';
 											echo '</th>';
-											echo '<td class="cuztom-td td">';
+											echo '<td class="cuztom-td">';
 
 												if( $field->_supports_bundle() )
 													echo $field->output( $value );
@@ -90,11 +90,11 @@ class Cuztom_Bundle
 								if( ! $field instanceof Cuztom_Field_Hidden )
 								{
 									echo '<tr>';
-										echo '<th class="cuztom_th th">';
-											echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
-											echo '<div class="cuztom-description description">' . $field->description . '</div>';
+										echo '<th class="cuztom-th">';
+											echo '<label for="' . $id_name . '" class="cuztom-label">' . $field->label . '</label>';
+											echo '<div class="cuztom-description">' . $field->description . '</div>';
 										echo '</th>';
-										echo '<td class="cuztom-td cuztom_td td">';
+										echo '<td class="cuztom-td">';
 
 											if( $field->_supports_bundle() )
 												echo $field->output( $value );

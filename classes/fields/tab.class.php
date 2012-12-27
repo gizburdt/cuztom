@@ -22,16 +22,16 @@ class Cuztom_Tab
 					if( ! $field instanceof Cuztom_Field_Hidden )
 					{
 						echo '<tr>';
-							echo '<th class="cuztom_th th">';
-								echo '<label for="' . $field_id_name . '" class="cuztom_label">' . $field->label . '</label>';
-								echo '<div class="cuztom-description description">' . $field->description . '</div>';
+							echo '<th class="cuztom-th">';
+								echo '<label for="' . $field_id_name . '" class="cuztom-label">' . $field->label . '</label>';
+								echo '<div class="cuztom-description">' . $field->description . '</div>';
 							echo '</th>';
-							echo '<td class="cuztom-td cuztom_td td">';
+							echo '<td class="cuztom-td">';
 							
 								if( $field->repeatable && $field->_supports_repeatable() )
 								{
-									echo '<div class="cuztom_padding_wrap">';
-									echo '<a class="button-secondary js-cuztom-add-field cuztom_add cuztom_add_field cuztom_button" href="#">';
+									echo '<div class="cuztom-padding-wrap">';
+									echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
 									echo sprintf( '+ %s', __( 'Add', CUZTOM_TEXTDOMAIN ) );
 									echo '</a>';
 									echo '<ul class="js-cuztom-sortable cuztom-sortable">';

@@ -20,7 +20,7 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 		
 		);
 		
-		$this->options['editor_class'] .= ' cuztom_input';
+		$this->options['editor_class'] .= ' cuztom-input';
 	}
 
 	function _output( $value )
