@@ -2,6 +2,7 @@
 
 .cuztom .cuztom-box-description{ padding-bottom: 10px; border-bottom: 1px solid #dfdfdf; font-style: italic; }
 .cuztom .cuztom-tabs{ padding-top: 10px; }
+.cuztom .js-cuztom-remove-media{ display: inline-block; margin-left: 10px; }
 
 /* Wraps */
 .cuztom .padding-wrap{ padding: 5px 0 0 0; }
@@ -31,4 +32,4 @@
 .cuztom .mceStatusbar{ width: 100% !important; padding-left: 0 !important; text-indent: 10px; }
 
 /* Mime */
-.cuztom-mime{ padding: 5px 0 5px 25px; height: 25px; display: block; background: url('../images/mime/file.png') 0 0 no-repeat; }
+.cuztom-mime{ padding: 5px 0 5px 25px; height: 25px; display: block; background: url('../images/mime/file.png') 0 2px no-repeat; }

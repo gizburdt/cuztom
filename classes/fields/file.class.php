@@ -20,8 +20,8 @@ class Cuztom_Field_File extends Cuztom_Field
 		}
 	
 		$output .= '<input type="hidden" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" class="cuztom-hidden cuztom-input" value="' . ( ! empty( $value ) ? $value : '' ) . '" />';
-		$output .= sprintf( '<input id="upload-file-button" type="button" class="button js-cuztom-upload" value="%s" />', __( 'Select file', CUZTOM_TEXTDOMAIN ) );
-		$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom_remove_file">%s</a>', __( 'Remove current file', CUZTOM_TEXTDOMAIN ) ) : '' );
+		$output .= sprintf( '<input id="upload-file-button" type="button" class="button js-cuztom-upload" data-cuztom-media-type="file" value="%s" />', __( 'Select file', CUZTOM_TEXTDOMAIN ) );
+		$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media">%s</a>', __( 'Remove current file', CUZTOM_TEXTDOMAIN ) ) : '' );
 
 		$output .= '<span class="cuztom-preview">' . $file . '</span>';
 
@@ -39,7 +39,7 @@ class Cuztom_Field_File extends Cuztom_Field
 	{
 		global $wpdb;
 		
-		$attachment = $wpdb->get_row( $wpdb->prepare( "SELECT ID,post_title,post_mime_type FROM " . $wpdb->prefix . "posts" . " WHERE guid='" . $url . "';" ) );
+		$attachment = $wpdb->get_row( $wpdb->prepare( "SELECT ID,post_title,post_mime_type FROM " . $wpdb->prefix . "posts" . " WHERE guid=%s;", $url ) );
 
 		return $attachment;
 	}

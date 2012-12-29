@@ -88,7 +88,7 @@ class Cuztom_Meta
 										echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
 										echo '<div class="cuztom-description description">' . $field->description . '</div>';
 									echo '</th>';
-									echo '<td class="cuztom-td cuztom_td td">';
+									echo '<td class="cuztom-td">';
 
 										if( $field->repeatable && $field->_supports_repeatable() )
 										{
