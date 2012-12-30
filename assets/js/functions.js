@@ -91,6 +91,33 @@ jQuery(function($)
 		return false;
 	});
 
+	// Ajax save
+	$('.cuztom-td').on( 'click', '.js-cuztom-ajax-save', function()
+	{
+		var that		= $(this),
+			parent		= that.closest('.cuztom-td'),
+			cuztom 		= parent.closest('.cuztom'),
+			context 	= cuztom.data('context'),
+			input 		= $('.cuztom-input', parent),
+			id 			= cuztom.data('id'),
+			id_name 	= input.attr('id'),
+			value		= input.val();
+
+		var data = {
+			action: 	'cuztom_field_ajax_save',
+			value: 		value,
+			context:  	context,
+			id: 		id,
+			id_name: 	id_name
+		};
+
+		$.post( Cuztom.ajax_url, data, function(r) {
+			input.addClass('is-done');
+		});
+
+		return false;
+	});
+
 	// Upload image
 	$('.cuztom-td').on( 'click', '.js-cuztom-upload', function()
 	{

@@ -63,8 +63,10 @@ class Cuztom_Meta
 		if( ! empty( $data ) )
 		{
 			// Hidden field, so cuztom is always set
+			global $user_id;
+
 			echo '<input type="hidden" name="cuztom[__activate]" />';
-			echo '<div class="cuztom">';
+			echo '<div class="cuztom" data-id="' . ( $context == 'post' ? get_the_ID() : $user_id ) . '" data-context="' . $context . '">';
 
 				if( ! empty( $this->description ) ) echo '<p class="cuztom-box-description">' . $this->description . '</p>';
 			

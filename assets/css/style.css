@@ -3,6 +3,7 @@
 .cuztom .cuztom-box-description{ padding-bottom: 10px; border-bottom: 1px solid #dfdfdf; font-style: italic; }
 .cuztom .cuztom-tabs{ padding-top: 10px; }
 .cuztom .js-cuztom-remove-media{ display: inline-block; margin-left: 10px; }
+.cuztom .cuztom-ajax-save{ display: inline-block; vertical-align: middle; height: 23px; }
 
 /* Wraps */
 .cuztom .padding-wrap{ padding: 5px 0 0 0; }
@@ -23,7 +24,7 @@
 
 /* Input */
 .cuztom textarea, 
-.cuztom input[type="text"]{ width: 90%; display: inline-block; vertical-align: middle; }
+.cuztom input[type="text"]{ width: 80%; display: inline-block; vertical-align: middle; }
 .cuztom textarea{ height: 100px; }
 .cuztom .cuztom-preview{ width: 100%; display: block; margin-top: 8px; }
 .cuztom .cuztom-preview img{ max-width: 100%; }
@@ -33,3 +34,7 @@
 
 /* Mime */
 .cuztom-mime{ padding: 5px 0 5px 25px; height: 25px; display: block; background: url('../images/mime/file.png') 0 2px no-repeat; }
+
+/* Messages */
+.is-done{ border-color: green !important; }
+.is-failure{ border-color: red !important; }

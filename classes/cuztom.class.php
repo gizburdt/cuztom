@@ -40,6 +40,10 @@ class Cuztom
 		add_action( 'admin_init', array( $this, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		
+		// Ajax
+		add_action( 'wp_ajax_cuztom_field_ajax_save', array( 'Cuztom_Field', 'ajax_save' ) );
+		add_action( 'wp_ajax_nopriv_cuztom_field_ajax_save', array( 'Cuztom_Field', 'ajax_save') );
+
 		// Determine the full path to the this folder
 		$this->_determine_cuztom_url( dirname( __FILE__ ) );
 	}

@@ -18,4 +18,12 @@ class Cuztom_Field_Text extends Cuztom_Field
 
 		return $output;
 	}
+
+	function _ajax_output( $value )
+	{
+		$output = '<input type="text" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" value="' . ( ! empty( $value ) ? $value : $this->default_value ) . '" class="cuztom-input" />';
+		$output .= sprintf( '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">%s</a>', __( 'Save', CUZTOM_TEXTDOMAIN ) );
+
+		return $output;
+	}
 }

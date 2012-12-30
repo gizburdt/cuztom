@@ -18,6 +18,7 @@ class Cuztom_Field
 	var $default_value 	= '';
 	var $options 		= array();
 	var $repeatable 	= false;
+	var $ajax 			= false;
 	var $show_column 	= false;
 	var $pre			= '';
 	var $after			= '';
@@ -43,6 +44,7 @@ class Cuztom_Field
 		$this->default_value	= isset( $field['default_value'] ) ? $field['default_value'] : $this->default_value;
 		$this->options			= isset( $field['options'] ) ? $field['options'] : $this->options;
 		$this->repeatable		= isset( $field['repeatable'] ) ? $field['repeatable'] : $this->repeatable ;
+		$this->ajax				= isset( $field['ajax'] ) ? $field['ajax'] : $this->ajax ;
 		$this->show_column		= isset( $field['show_column'] ) ? $field['show_column'] : $this->show_column;
 		$this->context			= $context;
 		
@@ -61,7 +63,12 @@ class Cuztom_Field
 	 */
 	function output( $value )
 	{
-		return $this->repeatable && $this->_supports_repeatable() && is_array( $value ) ? $this->_repeatable_output( $value ) : $this->_output( $value );
+		if( $this->repeatable && $this->_supports_repeatable() && is_array( $value ) )
+			return $this->_repeatable_output( $value );
+		elseif( $this->ajax && $this->_supports_ajax() )
+			return $this->_ajax_output( $value );
+		else
+			return $this->_output( $value );
 	}
 
 	/**
@@ -80,6 +87,31 @@ class Cuztom_Field
 			update_user_meta( $id, $this->id_name, $value );
 		else
 			update_post_meta( $id, $this->id_name, $value );
+	}
+
+	/**
+	 * Saves an ajax field
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	2.0
+	 * 
+	 */
+	function ajax_save()
+	{
+		$id 		= $_POST['id'];
+		$id_name 	= $_POST['id_name'];
+		$value 		= $_POST['value'];
+		$context 	= $_POST['context'];
+
+		if( empty( $id ) ) die();
+
+		if( $context == 'user' )
+			update_user_meta( $id, $id_name, $value );
+		else
+			update_post_meta( $id, $id_name, $value );
+
+		// For Wordpress
+		die();
 	}
 	
 	/**
@@ -108,6 +140,20 @@ class Cuztom_Field
 	function _supports_bundle()
 	{		
 		return in_array( $this->type, apply_filters( 'cuztom_supports_bundle', array( 'text', 'textarea' ) ) );
+	}
+
+	/**
+	 * Checks if the field supports ajax
+	 * 
+	 * @return  boolean
+	 *
+	 * @author  Gijs Jorissen
+	 * @since 	2.0
+	 * 
+	 */
+	function _supports_ajax()
+	{
+		return in_array( $this->type, apply_filters( 'cuztom_supports_ajax', array( 'text' ) ) );	
 	}
 	
 	/**
