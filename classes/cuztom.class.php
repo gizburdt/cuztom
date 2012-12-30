@@ -115,8 +115,15 @@ class Cuztom
 	 */
 	function register_scripts()
 	{
-		wp_register_script( 'cuztom-colorpicker', 
+		wp_register_script( 'jquery-colorpicker', 
 			$this->url . '/assets/js/jquery.colorpicker.js',
+			array( 'jquery' ), 
+			CUZTOM_VERSION, 
+			true 
+		);
+
+		wp_register_script( 'jquery-timepicker', 
+			$this->url . '/assets/js/jquery.timepicker.js',
 			array( 'jquery' ), 
 			CUZTOM_VERSION, 
 			true 
@@ -124,7 +131,7 @@ class Cuztom
 		
 		wp_register_script( 'cuztom', 
 			$this->url . '/assets/js/functions.js',
-			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom-colorpicker', 'jquery-ui-sortable' ), 
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-colorpicker', 'jquery-timepicker', 'jquery-ui-sortable' ), 
 			CUZTOM_VERSION, 
 			true 
 		);

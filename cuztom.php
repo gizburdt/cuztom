@@ -28,6 +28,8 @@ include( 'classes/fields/wysiwyg.class.php' );
 include( 'classes/fields/image.class.php' );
 include( 'classes/fields/file.class.php' );
 include( 'classes/fields/date.class.php' );
+include( 'classes/fields/time.class.php' );
+include( 'classes/fields/datetime.class.php' );
 include( 'classes/fields/color.class.php' );
 include( 'classes/fields/post_select.class.php' );
 include( 'classes/fields/post_checkboxes.class.php' );

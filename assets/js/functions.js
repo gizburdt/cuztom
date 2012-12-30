@@ -6,6 +6,19 @@ jQuery(function($)
 	$('.js-cuztom-datepicker').each(function(){
 		$(this).datepicker({ dateFormat: $(this).data('date-format') });
 	});
+
+	// Timepicker
+	$('.js-cuztom-timepicker').each(function(){
+		$(this).timepicker({ timeFormat: $(this).data('time-format') });
+	});
+
+	// Datetime
+	$('.js-cuztom-datetimepicker').each(function(){
+		$(this).datetimepicker({ 
+			timeFormat: $(this).data('time-format'),
+			dateFormat: $(this).data('date-format') 
+		});
+	});
 	
 	// Colorpicker
 	$('.js-cuztom-colorpicker').miniColors();
