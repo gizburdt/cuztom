@@ -159,13 +159,6 @@ class Cuztom_Post_Type
 	/**
 	 * Add action to register support of certain features for a post type.
 	 *
-	 * All features are directly associated with a functional area of the edit screen, such as the
-	 * editor or a meta box: 'title', 'editor', 'comments', 'revisions', 'trackbacks', 'author',
-	 * 'excerpt', 'page-attributes', 'thumbnail', and 'custom-fields'.
-	 *
-	 * Additionally, the 'revisions' feature dictates whether the post type will store revisions,
-	 * and the 'comments' feature dictates whether the comments count will show on the edit screen.
-	 *
 	 * @param 	string|array 	$feature 			The feature being added, can be an array of feature strings or a single string
 	 * @return 	object 			Cuztom_Post_Type
 	 *
@@ -196,13 +189,6 @@ class Cuztom_Post_Type
 
 	/**
 	 * Add action to remove support of certain features for a post type.
-	 *
-	 * All features are directly associated with a functional area of the edit screen, such as the
-	 * editor or a meta box: 'title', 'editor', 'comments', 'revisions', 'trackbacks', 'author',
-	 * 'excerpt', 'page-attributes', 'thumbnail', and 'custom-fields'.
-	 *
-	 * Additionally, the 'revisions' feature dictates whether the post type will store revisions,
-	 * and the 'comments' feature dictates whether the comments count will show on the edit screen.
 	 *
 	 * @param 	string|array 	$feature 			The feature being removed, can be an array of feature strings or a single string
 	 * @return 	object 			Cuztom_Post_Type

@@ -11,7 +11,6 @@ class Cuztom_Submenu_Page extends Cuztom_Page
 {
 	var $parent_slug;
 	
-	
 	/**
 	 * Constructor
 	 *
@@ -37,7 +36,6 @@ class Cuztom_Submenu_Page extends Cuztom_Page
 		
 		add_action( 'admin_menu', array( $this, 'register_submenu_page' ) );
 	}
-	
 	
 	/**
 	 * Calls the add submenu page

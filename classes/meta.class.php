@@ -124,6 +124,20 @@ class Cuztom_Meta
 	}
 
 	/**
+	 * Adds multipart support to form
+	 *
+	 * @return 	mixed
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
+	 *
+	 */
+	static function _edit_form_tag()
+	{
+		echo ' enctype="multipart/form-data"';
+	}
+
+	/**
 	 * Check what kind of meta we're dealing with
 	 * 
 	 * @return  string
@@ -220,7 +234,6 @@ class Cuztom_Meta
 		}
 	}
 	
-	
 	/**
 	 * Checks if the given array are tabs
 	 *
@@ -235,7 +248,6 @@ class Cuztom_Meta
 	{
 		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'tabs' );
 	}
-	
 	
 	/**
 	 * Checks if the given array is an accordion
@@ -252,7 +264,6 @@ class Cuztom_Meta
 		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'accordion' );
 	}
 	
-	
 	/**
 	 * Checks if the given array is a bundle
 	 *
@@ -266,20 +277,5 @@ class Cuztom_Meta
 	static function _is_bundle( $data )
 	{
 		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'bundle' );
-	}
-
-
-	/**
-	 * Adds multipart support to form
-	 *
-	 * @return 	mixed
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.2
-	 *
-	 */
-	static function _edit_form_tag()
-	{
-		echo ' enctype="multipart/form-data"';
 	}
 }

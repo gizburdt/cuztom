@@ -7,7 +7,6 @@
  * @since 	1.3
  *
  */
-
 class Cuztom_Page
 {
 	var $page_title;
