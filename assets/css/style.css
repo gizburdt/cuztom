@@ -34,7 +34,3 @@
 
 /* Mime */
 .cuztom-mime{ padding: 5px 0 5px 25px; height: 25px; display: block; background: url('../images/mime/file.png') 0 2px no-repeat; }
-
-/* Messages */
-.is-done{ border-color: green !important; }
-.is-failure{ border-color: red !important; }

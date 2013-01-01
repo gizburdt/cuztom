@@ -33,24 +33,29 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 	function _output( $value )
 	{
 		$this->options['selected'] 	= ( ! empty( $value ) ? $value : $this->default_value );
-
-		$output = ( $this->repeatable ? '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' : '' );
-			$output .= $this->dropdown;
-		$output .= ( $this->repeatable ? '</li>' : '' );
+		$output = $this->dropdown;
 
 		return $output;
 	}
 	
 	function _repeatable_output( $value )
 	{
+		$this->after = '[]';
 		$output = '';
 
-		foreach( $value as $item )
+		if( is_array( $value ) )
 		{
-			$this->options['selected'] = ( ! empty( $item ) ? $item : $this->default_value );
-			
+			foreach( $value as $item )
+			{				
+				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>';
+					$output .= $this->_output( $item );
+				$output .= ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"></div>' : '' ) . '</li>';
+			}
+		}
+		else
+		{
 			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>';
-				$output .= $this->dropdown;
+				$output .= $this->_output( $value );
 			$output .= ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"></div>' : '' ) . '</li>';
 		}
 

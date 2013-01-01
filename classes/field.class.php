@@ -67,7 +67,7 @@ class Cuztom_Field
 	 */
 	function output( $value )
 	{
-		if( $this->repeatable && $this->_supports_repeatable && is_array( $value ) )
+		if( $this->repeatable && $this->_supports_repeatable )
 			return $this->_repeatable_output( $value );
 		elseif( $this->ajax && $this->_supports_ajax )
 			return $this->_ajax_output( $value );
