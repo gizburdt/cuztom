@@ -9,8 +9,13 @@ class Cuztom_Field_File extends Cuztom_Field
 		if( ! empty( $value ) )
 		{
 			$attachment = self::get_attachment_by_url( $value );
-			$mime = str_replace( '/', '_', $attachment->post_mime_type );
-			$name = $attachment->post_title;
+			$mime = '';
+
+			if( is_object( $attachment ) )
+			{
+				$mime = str_replace( '/', '_', $attachment->post_mime_type );
+				$name = $attachment->post_title;
+			}
 
 			$file = '<span class="cuztom-mime mime-' . $mime . '"><a target="_blank" href="' . $value . '">' . $name . '</a></span>';
 		}

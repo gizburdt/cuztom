@@ -143,7 +143,9 @@ jQuery(function($)
 		    	{
 		    		if( type == 'image' )
 		    		{
-		    			var thumbnail = attachment.sizes.medium;
+		    			console.log(attachment)
+
+		    			var thumbnail = attachment.sizes ? attachment.sizes.medium : attachment;
 
 		    			preview.html('<img src="' + thumbnail.url + '" height="' + thumbnail.height + '" width="' + thumbnail.width + '" />')
 		    			hidden.val(attachment.id);
