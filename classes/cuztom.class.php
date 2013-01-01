@@ -34,11 +34,11 @@ class Cuztom
 	function __construct()
 	{
 		// Add actions
-		add_action( 'admin_init', array( $this, 'register_styles' ) );
-		add_action( 'admin_print_styles', array( $this, 'enqueue_styles' ) );
+		add_action( 'admin_init', array( &$this, 'register_styles' ) );
+		add_action( 'admin_print_styles', array( &$this, 'enqueue_styles' ) );
 		
-		add_action( 'admin_init', array( $this, 'register_scripts' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_init', array( &$this, 'register_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 		
 		// Ajax
 		add_action( 'wp_ajax_cuztom_field_ajax_save', array( 'Cuztom_Field', 'ajax_save' ) );
@@ -258,9 +258,26 @@ class Cuztom
 	 * @since 	1.5
 	 * 
 	 */
-	function _is_wp_callback( $callback )
+	function is_wp_callback( $callback )
 	{
 		return ( ! is_array( $callback ) ) || ( is_array( $callback ) && ( ( isset( $callback[1] ) && ! is_array( $callback[1] ) && method_exists( $callback[0], $callback[1] ) ) || ( isset( $callback[0] ) && ! is_array( $callback[0] ) && class_exists( $callback[0] ) ) ) );
+	}
+
+	/**
+	 * Check if the term is reserved by Wordpress
+	 * 
+	 * @param  	string  		$term
+	 * @return 	boolean
+	 *
+	 * @author  Gijs Jorissen
+	 * @since  	1.6
+	 * 
+	 */
+	static function is_reserved_term( $term )
+	{
+	    if( ! in_array( $term, self::$_reserved ) ) return false;
+	    
+	    return new WP_Error( 'reserved_term_used', __( "Use of a reserved term", CUZTOM_TEXTDOMAIN ) );
 	}
 	
 	/**
@@ -306,22 +323,5 @@ class Cuztom
 				return $this->_determine_cuztom_url( $path );
 			}
 		}
-	}
-	
-	/**
-	 * Check if the term is reserved by Wordpress
-	 * 
-	 * @param  	string  		$term
-	 * @return 	boolean
-	 *
-	 * @author  Gijs Jorissen
-	 * @since  	1.6
-	 * 
-	 */
-	static function is_reserved_term( $term )
-	{
-	    if( ! in_array( $term, self::$_reserved ) ) return false;
-	    
-	    return new WP_Error( 'reserved_term_used', __( "Use of a reserved term", CUZTOM_TEXTDOMAIN ) );
 	}
 }
