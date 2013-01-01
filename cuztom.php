@@ -55,7 +55,6 @@ include( 'functions/meta_box.php' );
 include( 'functions/sidebar.php' );
 include( 'functions/menu_page.php' );
 include( 'functions/submenu_page.php' );
-include( 'functions/field.php' );
 
 // Init
 $cuztom = new Cuztom();

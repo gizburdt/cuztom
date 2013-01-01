@@ -92,9 +92,8 @@ class Cuztom_Meta
 									echo '</th>';
 									echo '<td class="cuztom-td">';
 
-										if( $field->repeatable && $field->_supports_repeatable() )
+										if( $field->repeatable && $field->_supports_repeatable )
 										{
-											echo '<div class="cuztom_padding_wrap">';
 											echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
 											echo sprintf( '+ %s', __( 'Add', CUZTOM_TEXTDOMAIN ) );
 											echo '</a>';
@@ -103,9 +102,9 @@ class Cuztom_Meta
 										
 											echo $field->output( $meta );
 
-										if( $field->repeatable && $field->_supports_repeatable() )
+										if( $field->repeatable && $field->_supports_repeatable )
 										{
-											echo '</ul></div>';
+											echo '</ul>';
 										}
 
 									echo '</td>';

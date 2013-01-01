@@ -2,6 +2,8 @@
 
 class Cuztom_Field_Term_Select extends Cuztom_Field
 {
+	var $_supports_repeatable 	= true;
+	
 	var $dropdown;
 
 	function __construct( $field, $meta_box )

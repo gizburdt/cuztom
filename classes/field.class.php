@@ -23,7 +23,11 @@ class Cuztom_Field
 	var $pre			= '';
 	var $after			= '';
 	var $context		= '';
-	
+
+	var $_supports_repeatable 	= false;
+	var $_supports_bundle		= false;
+	var $_supports_ajax			= false; 
+
 	/**
 	 * Constructs a Cuztom_Field
 	 * 
@@ -63,9 +67,9 @@ class Cuztom_Field
 	 */
 	function output( $value )
 	{
-		if( $this->repeatable && $this->_supports_repeatable() && is_array( $value ) )
+		if( $this->repeatable && $this->_supports_repeatable && is_array( $value ) )
 			return $this->_repeatable_output( $value );
-		elseif( $this->ajax && $this->_supports_ajax() )
+		elseif( $this->ajax && $this->_supports_ajax )
 			return $this->_ajax_output( $value );
 		else
 			return $this->_output( $value );
@@ -98,62 +102,24 @@ class Cuztom_Field
 	 */
 	function ajax_save()
 	{
-		$id 		= $_POST['id'];
-		$id_name 	= $_POST['id_name'];
-		$value 		= $_POST['value'];
-		$context 	= $_POST['context'];
+		if( $_POST )
+		{
+			$id 		= $_POST['id'];
+			$id_name 	= $_POST['id_name'];
+			$value 		= $_POST['value'];
+			$context 	= $_POST['context'];
 
-		if( empty( $id ) ) die();
+			if( empty( $id ) ) 
+				die();
 
-		if( $context == 'user' )
-			update_user_meta( $id, $id_name, $value );
-		else
-			update_post_meta( $id, $id_name, $value );
+			if( $context == 'user' )
+				update_user_meta( $id, $id_name, $value );
+			else
+				update_post_meta( $id, $id_name, $value );
+		}
 
 		// For Wordpress
 		die();
-	}
-	
-	/**
-	 * Checks if the field supports repeatable functionality
-	 *
-	 * @return 	boolean
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	1.0
-	 *
-	 */
-	function _supports_repeatable()
-	{
-		return in_array( $this->type, apply_filters( 'cuztom_supports_repeatable', array( 'text', 'textarea', 'select', 'post_select', 'term_select' ) ) );
-	}
-	
-	/**
-	 * Checks if the field supports bundle functionality
-	 *
-	 * @return 	boolean
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	1.2
-	 *
-	 */
-	function _supports_bundle()
-	{		
-		return in_array( $this->type, apply_filters( 'cuztom_supports_bundle', array( 'text', 'textarea' ) ) );
-	}
-
-	/**
-	 * Checks if the field supports ajax
-	 * 
-	 * @return  boolean
-	 *
-	 * @author  Gijs Jorissen
-	 * @since 	2.0
-	 * 
-	 */
-	function _supports_ajax()
-	{
-		return in_array( $this->type, apply_filters( 'cuztom_supports_ajax', array( 'text' ) ) );	
 	}
 	
 	/**

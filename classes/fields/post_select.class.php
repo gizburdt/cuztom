@@ -2,6 +2,8 @@
 
 class Cuztom_Field_Post_Select extends Cuztom_Field
 {
+	var $_supports_repeatable 	= true;
+	
 	function __construct( $field, $meta_box )
 	{
 		parent::__construct( $field, $meta_box );

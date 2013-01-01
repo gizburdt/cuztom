@@ -1,7 +1,9 @@
 <?php
 
 class Cuztom_Field_Select extends Cuztom_Field
-{	
+{
+	var $_supports_repeatable 	= true;
+	
 	function _output( $value )
 	{
 		$output = ( $this->repeatable ? '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' : '' ) . '<select name="cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' ) . '" id="' . $this->id_name . '" class="cuztom-input">';
