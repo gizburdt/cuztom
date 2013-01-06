@@ -12,7 +12,6 @@ class Cuztom_Menu_Page extends Cuztom_Page
 	var $icon_url;
 	var $position;
 	
-	
 	/**
 	 * Constructor
 	 *
@@ -41,7 +40,6 @@ class Cuztom_Menu_Page extends Cuztom_Page
 		add_action( 'admin_menu', array( $this, 'register_menu_page' ) );
 	}
 	
-	
 	/**
 	 * Hooked function to regster the menu page
 	 *
@@ -61,7 +59,6 @@ class Cuztom_Menu_Page extends Cuztom_Page
 			$this->position
 		);
 	}
-	
 	
 	/**
 	 * Add submenu page to the current parent page

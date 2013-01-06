@@ -62,7 +62,7 @@ class Cuztom
 			if( CUZTOM_JQUERY_UI_STYLE == 'cuztom' )
 			{
 				wp_register_style( 'cuztom-jquery-ui', 
-					$this->url . '/assets/css/cuztom-jquery-ui.css', 
+					$this->url . '/assets/css/cuztom_jquery_ui.css', 
 					false, 
 					CUZTOM_VERSION, 
 					'screen'
