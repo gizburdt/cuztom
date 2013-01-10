@@ -176,7 +176,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		{
 			if( $column == $field_id_name )
 			{
-				if( $field->repeatable && $field->_supports_repeatable() )
+				if( $field->repeatable && $field->_supports_repeatable )
 				{
 					echo implode( $meta, ', ' );
 				}
