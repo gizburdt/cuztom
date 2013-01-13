@@ -102,12 +102,12 @@ class Cuztom_Field
 	 */
 	function ajax_save()
 	{
-		if( $_POST )
+		if( $_POST['cuztom'] )
 		{
-			$id 		= $_POST['id'];
-			$id_name 	= $_POST['id_name'];
-			$value 		= $_POST['value'];
-			$context 	= $_POST['context'];
+			$id 		= $_POST['cuztom']['id'];
+			$id_name 	= $_POST['cuztom']['id_name'];
+			$value 		= $_POST['cuztom']['value'];
+			$context 	= $_POST['cuztom']['context'];
 
 			if( empty( $id ) ) 
 				die();

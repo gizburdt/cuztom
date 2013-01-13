@@ -107,15 +107,19 @@ jQuery(function($)
 
 		var data = {
 			action: 	'cuztom_field_ajax_save',
-			value: 		value,
-			id_name: 	id_name,
+			cuztom: 	{
+				value: 		value,
+				id_name: 	id_name,
 
-			// Need better handling
-			context:  	context,
-			id: 		id
+				// Need better handling
+				context:  	context,
+				id: 		id
+			}
 		};
 
 		$.post( Cuztom.ajax_url, data, function(r) {
+			console.log(r)
+
 			var border_color = input.css('border-color');
 			input.animate({ borderColor: '#60b334' }, 200, function(){ input.animate({ borderColor: border_color }); });
 		});
