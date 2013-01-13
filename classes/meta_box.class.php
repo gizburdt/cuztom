@@ -172,9 +172,9 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	{
 		$meta = get_post_meta( $post_id, $column, true );
 		
-		foreach( $this->fields as $field_id_name => $field )
+		foreach( $this->fields as $id_name => $field )
 		{
-			if( $column == $field_id_name )
+			if( $column == $id_name )
 			{
 				if( $field->repeatable && $field->_supports_repeatable )
 				{
