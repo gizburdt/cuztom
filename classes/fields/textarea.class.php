@@ -4,6 +4,7 @@ class Cuztom_Field_Textarea extends Cuztom_Field
 {
 	var $_supports_repeatable 	= true;
 	var $_supports_bundle		= true;
+	var $_supports_ajax			= true;
 	
 	function _output( $value )
 	{

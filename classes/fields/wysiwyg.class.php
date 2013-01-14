@@ -2,6 +2,8 @@
 
 class Cuztom_Field_Wysiwyg extends Cuztom_Field
 {
+	var $_supports_ajax			= true;
+	
 	function __construct( $field, $meta_box )
 	{
 		parent::__construct( $field, $meta_box );

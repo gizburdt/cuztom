@@ -121,6 +121,24 @@ class Cuztom_Field
 		// For Wordpress
 		die();
 	}
+
+	/**
+	 * Outputs the field, ready for ajax save
+	 * 
+	 * @param  	string|array 	$value
+	 * @return  mixed 			$output
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   2.0
+	 * 
+	 */
+	function _ajax_output( $value )
+	{
+		$output = $this->_output( $value );
+		$output .= sprintf( '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">%s</a>', __( 'Save', CUZTOM_TEXTDOMAIN ) );
+
+		return $output;
+	}
 	
 	/**
 	 * Builds an string used as field id and name

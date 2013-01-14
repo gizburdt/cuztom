@@ -11,7 +11,7 @@ class Cuztom_Field_Checkboxes extends Cuztom_Field
 
 	function _output( $value )
 	{
-		$output = '<div class="cuztom-padding-wrap">';
+		$output = '<div class="cuztom-padding-wrap cuztom-checkboxes-wrap">';
 			if( is_array( $this->options ) )
 			{
 				foreach( $this->options as $slug => $name )

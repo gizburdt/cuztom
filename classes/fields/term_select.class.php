@@ -3,8 +3,10 @@
 class Cuztom_Field_Term_Select extends Cuztom_Field
 {
 	var $_supports_repeatable 	= true;
+	var $_supports_ajax			= true;
 	
 	var $dropdown;
+	var $value;
 
 	function __construct( $field, $meta_box )
 	{
@@ -15,7 +17,8 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 			// Default
 			array(
 				'taxonomy'		=> 'category',
-				'class'			=> ''
+				'class'			=> '',
+				'hide_empty'	=> 0
 			),
 			
 			// Given
@@ -23,16 +26,17 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 
 		);
 		
-		$this->options['class'] .= ' cuztom-input';
-		$this->options['name'] 	= 'cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' );
-		$this->options['echo']	= 0;
-
-		add_action( 'init', array( &$this, 'get_dropdown' ) );
+		$this->options['class'] 	.= ' cuztom-input';
+		$this->options['name'] 		= 'cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' );
+		$this->options['id']		= $this->id_name;
+		$this->options['echo']		= 0;
 	}
 
 	function _output( $value )
 	{
 		$this->options['selected'] 	= ( ! empty( $value ) ? $value : $this->default_value );
+		$this->dropdown 			= wp_dropdown_categories( $this->options );
+
 		$output = $this->dropdown;
 
 		return $output;
@@ -71,6 +75,6 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 	 */
 	function get_dropdown()
     {
-        $this->dropdown = wp_dropdown_categories( $this->options );
+        
     }
 }

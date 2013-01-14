@@ -2,6 +2,8 @@
 
 class Cuztom_Field_File extends Cuztom_Field
 {
+	var $_supports_ajax			= true;
+	
 	function _output( $value )
 	{
 		$output = '';

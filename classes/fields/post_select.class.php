@@ -3,6 +3,7 @@
 class Cuztom_Field_Post_Select extends Cuztom_Field
 {
 	var $_supports_repeatable 	= true;
+	var $_supports_ajax			= true;
 	
 	function __construct( $field, $meta_box )
 	{

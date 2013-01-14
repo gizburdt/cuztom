@@ -30,12 +30,4 @@ class Cuztom_Field_Text extends Cuztom_Field
 
 		return $output;
 	}
-
-	function _ajax_output( $value )
-	{
-		$output = $this->_output( $value );
-		$output .= sprintf( '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">%s</a>', __( 'Save', CUZTOM_TEXTDOMAIN ) );
-
-		return $output;
-	}
 }
