@@ -17,6 +17,7 @@ class Cuztom_Field
 	var $hide 			= true;
 	var $default_value 	= '';
 	var $options 		= array();
+	var $args			= array();
 	var $repeatable 	= false;
 	var $ajax 			= false;
 	var $show_column 	= false;
@@ -47,6 +48,7 @@ class Cuztom_Field
 		$this->hide				= isset( $field['hide'] ) ? $field['hide'] : $this->hide;
 		$this->default_value	= isset( $field['default_value'] ) ? $field['default_value'] : $this->default_value;
 		$this->options			= isset( $field['options'] ) ? $field['options'] : $this->options;
+		$this->args				= isset( $field['args'] ) ? $field['args'] : $this->args;
 		$this->repeatable		= isset( $field['repeatable'] ) ? $field['repeatable'] : $this->repeatable ;
 		$this->ajax				= isset( $field['ajax'] ) ? $field['ajax'] : $this->ajax ;
 		$this->show_column		= isset( $field['show_column'] ) ? $field['show_column'] : $this->show_column;

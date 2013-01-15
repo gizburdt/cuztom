@@ -1,14 +1,14 @@
-.miniColors-trigger {
+.miniColors-trigger{
 	height: 22px;
 	width: 22px;
-	background: url(../images/colorpicker/trigger.png) center no-repeat;
+	background: url('../images/colorpicker/trigger.png') center no-repeat;
 	vertical-align: middle;
 	margin: 0 .25em;
 	display: inline-block;
 	outline: none;
 }
 
-.miniColors-selector {
+.miniColors-selector{
 	position: absolute;
 	width: 175px;
 	height: 150px;
@@ -24,32 +24,32 @@
 	z-index: 999999;
 }
 
-.miniColors-selector.black {
+.miniColors-selector.black{
 	background: #000;
 	border-color: #000;
 }
 
-.miniColors-colors {
+.miniColors-colors{
 	position: absolute;
 	top: 5px;
 	left: 5px;
 	width: 150px;
 	height: 150px;
-	background: url(../images/colorpicker/colors.png) right no-repeat;
+	background: url('../images/colorpicker/colors.png') right no-repeat;
 	cursor: crosshair;
 }
 
-.miniColors-hues {
+.miniColors-hues{
 	position: absolute;
 	top: 5px;
 	left: 160px;
 	width: 20px;
 	height: 150px;
-	background: url(../images/colorpicker/colors.png) left no-repeat;
+	background: url('../images/colorpicker/colors.png') left no-repeat;
 	cursor: crosshair;
 }
 
-.miniColors-colorPicker {
+.miniColors-colorPicker{
 	position: absolute;
 	width: 9px;
 	height: 9px;
@@ -58,7 +58,8 @@
 	-webkit-border-radius: 11px;
 	border-radius: 11px;
 }
-.miniColors-colorPicker-inner {
+
+.miniColors-colorPicker-inner{
 	position: absolute;
 	top: 0;
 	left: 0; 
@@ -70,7 +71,7 @@
 	border-radius: 9px;
 }
 
-.miniColors-huePicker {
+.miniColors-huePicker{
 	position: absolute;
 	left: -3px;
 	width: 24px;

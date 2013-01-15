@@ -6,7 +6,7 @@ class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 	{
 		parent::__construct( $field, $meta_box );
 
-		$this->options = array_merge(
+		$this->args = array_merge(
 					
 			// Default
 			array(
@@ -14,12 +14,12 @@ class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 			),
 			
 			// Given
-			$this->options
+			$this->args
 		
 		);
 		
 		$this->default_value = (array) $this->default_value;
-		$this->posts = get_posts( $this->options );
+		$this->posts = get_posts( $this->args );
 	}
 	
 	function _output( $value )

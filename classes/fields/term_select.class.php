@@ -12,7 +12,7 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 	{
 		parent::__construct( $field, $meta_box );
 
-		$this->options = array_merge(
+		$this->args = array_merge(
 
 			// Default
 			array(
@@ -22,20 +22,20 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 			),
 			
 			// Given
-			$this->options
+			$this->args
 
 		);
 		
-		$this->options['class'] 	.= ' cuztom-input';
-		$this->options['name'] 		= 'cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' );
-		$this->options['id']		= $this->id_name;
-		$this->options['echo']		= 0;
+		$this->args['class'] 	.= ' cuztom-input';
+		$this->args['name'] 		= 'cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' );
+		$this->args['id']		= $this->id_name;
+		$this->args['echo']		= 0;
 	}
 
 	function _output( $value )
 	{
-		$this->options['selected'] 	= ( ! empty( $value ) ? $value : $this->default_value );
-		$this->dropdown 			= wp_dropdown_categories( $this->options );
+		$this->args['selected'] 	= ( ! empty( $value ) ? $value : $this->default_value );
+		$this->dropdown 			= wp_dropdown_categories( $this->args );
 
 		$output = $this->dropdown;
 
@@ -65,16 +65,4 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 
 		return $output;
 	}
-
-	/**
-	 * Gets taxonomy terms for use in the output
-	 * 
-	 * @author 	Gijs Jorissen
-	 * @since 	2.0
-	 * 
-	 */
-	function get_dropdown()
-    {
-        
-    }
 }

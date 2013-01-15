@@ -8,7 +8,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 	{
 		parent::__construct( $field, $meta_box );
 
-		$this->options = array_merge(
+		$this->args = array_merge(
 					
 			// Default
 			array(
@@ -16,7 +16,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 			),
 			
 			// Given
-			$this->options
+			$this->args
 			
 		);
 
@@ -58,6 +58,6 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 	 */
 	function get_taxonomy_terms()
     {
-        $this->terms = get_terms( $this->options['taxonomy'], $this->options );
+        $this->terms = get_terms( $this->args['taxonomy'], $this->options );
     }
 }
