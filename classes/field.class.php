@@ -14,6 +14,7 @@ class Cuztom_Field
     var $label 			= '';
 	var $type			= '';
     var $description 	= '';
+    var $explanation	= '';
 	var $hide 			= true;
 	var $default_value 	= '';
 	var $options 		= array();
@@ -44,6 +45,7 @@ class Cuztom_Field
 		$this->name 			= isset( $field['name'] ) ? $field['name'] : $this->name;
 		$this->label			= isset( $field['label'] ) ? $field['label'] : $this->label;
 		$this->description		= isset( $field['description'] ) ? $field['description'] : $this->description;
+		$this->explanation		= isset( $field['explanation'] ) ? $field['explanation'] : $this->explanation;
 		$this->type				= isset( $field['type'] ) ? $field['type'] : $this->type;
 		$this->hide				= isset( $field['hide'] ) ? $field['hide'] : $this->hide;
 		$this->default_value	= isset( $field['default_value'] ) ? $field['default_value'] : $this->default_value;

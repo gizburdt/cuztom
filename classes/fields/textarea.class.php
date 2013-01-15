@@ -8,7 +8,7 @@ class Cuztom_Field_Textarea extends Cuztom_Field
 	
 	function _output( $value )
 	{
-		return '<textarea name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '" id="' . $this->id_name . '" class="cuztom-input">' . ( ! empty( $value ) ? $value : $this->default_value ) . '</textarea>';	
+		return '<textarea name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '" id="' . $this->id_name . '" class="cuztom-input">' . ( ! empty( $value ) ? $value : $this->default_value ) . '</textarea>' . ( ! $this->repeatable && $this->explanation ? '<em class="cuztom-explanation">' . $this->explanation . '</em>' : '' );
 	}
 	
 	function _repeatable_output( $value )
