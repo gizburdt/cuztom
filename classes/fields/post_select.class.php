@@ -27,6 +27,9 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 	function _output( $value )
 	{
 		$output = '<select name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '" id="' . $this->id_name . '" class="cuztom-input">';
+			if( isset( $this->args['option_none'] ) && $this->args['option_none'] )
+				$output .= '<option value="0" ' . ( empty( $value ) ? 'selected="selected"' : '' ) . '>' . __( 'None', CUZTOM_TEXTDOMAIN ) . '</option>';
+			
 			if( is_array( $this->posts ) )
 			{
 				foreach( $posts = $this->posts as $post )
