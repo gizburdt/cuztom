@@ -95,8 +95,8 @@ class Cuztom_Taxonomy
 
 			// Default
 			array(
-				'name' 					=> _x( $this->plural, 'taxonomy general name', CUZTOM_TEXTDOMAIN ),
-				'singular_name' 		=> _x( $this->title, 'taxonomy singular name', CUZTOM_TEXTDOMAIN ),
+				'name' 					=> sprintf( _x( '%s', 'taxonomy general name', CUZTOM_TEXTDOMAIN ), $this->plural ),
+				'singular_name' 		=> sprintf( _x( '%s', 'taxonomy singular name', CUZTOM_TEXTDOMAIN ), $this->title ),
 			    'search_items' 			=> sprintf( __( 'Search %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
 			    'all_items' 			=> sprintf( __( 'All %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
 			    'parent_item' 			=> sprintf( __( 'Parent %s', CUZTOM_TEXTDOMAIN ), $this->title ),
@@ -104,8 +104,8 @@ class Cuztom_Taxonomy
 			    'edit_item' 			=> sprintf( __( 'Edit %s', CUZTOM_TEXTDOMAIN ), $this->title ), 
 			    'update_item' 			=> sprintf( __( 'Update %s', CUZTOM_TEXTDOMAIN ), $this->title ),
 			    'add_new_item' 			=> sprintf( __( 'Add New %s', CUZTOM_TEXTDOMAIN ), $this->title ),
-			    'new_item_name' 		=> sprintf( __( 'New ' . $this->title . ' Name', CUZTOM_TEXTDOMAIN ) ),
-			    'menu_name' 			=> __( $this->plural, CUZTOM_TEXTDOMAIN ),
+			    'new_item_name' 		=> sprintf( __( 'New %s Name', CUZTOM_TEXTDOMAIN ), $this->title ),
+			    'menu_name' 			=> sprintf( __( '%s', CUZTOM_TEXTDOMAIN ), $this->plural )
 			),
 
 			// Given labels
@@ -118,14 +118,14 @@ class Cuztom_Taxonomy
 
 			// Default
 			array(
-				'label'					=> __( $this->plural, CUZTOM_TEXTDOMAIN ),
+				'label'					=> sprintf( __( '%s', CUZTOM_TEXTDOMAIN ), $this->plural ),
 				'labels'				=> $labels,
 				'hierarchical' 			=> true,
 				'public' 				=> true,
 				'show_ui' 				=> true,
 				'show_in_nav_menus' 	=> true,
 				'_builtin' 				=> false,
-				'show_column'			=> false
+				'show_admin_column'     => false
 			),
 
 			// Given
@@ -166,7 +166,7 @@ class Cuztom_Taxonomy
 
 		$columns[$this->name] = $this->title;
 
-		$columns['date'] = __( 'Date' );
+		$columns['date'] = __( 'Date', CUZTOM_TEXTDOMAIN );
 		return $columns;
 	}
 	
