@@ -94,7 +94,7 @@ class Cuztom_Meta
 										{
 											echo '<div class="cuztom_padding_wrap">';
 											echo '<a class="button-secondary cuztom_add cuztom_add_field cuztom_button" href="#">';
-											echo sprintf( '+ %s', __( 'Add', CUZTOM_TEXTDOMAIN ) );
+											echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
 											echo '</a>';
 											echo '<ul class="cuztom_repeatable_wrap">';
 										}

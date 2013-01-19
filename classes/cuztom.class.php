@@ -156,8 +156,8 @@ class Cuztom
 			'home_url'			=> get_home_url(),
 			'ajax_url'			=> admin_url( 'admin-ajax.php' ),
 			'date_format'		=> get_option( 'date_format' ),
-			'remove_image'		=> __( 'Remove current image', CUZTOM_TEXTDOMAIN ),
-			'remove_file'		=> __( 'Remove current file', CUZTOM_TEXTDOMAIN )
+			'remove_image'		=> __( 'Remove current image', 'cuztom' ),
+			'remove_file'		=> __( 'Remove current file', 'cuztom' )
 		) );
 	}
 	
@@ -299,6 +299,6 @@ class Cuztom
 	{
 	    if( ! in_array( $term, self::$_reserved ) ) return false;
 	    
-	    return new WP_Error( 'reserved_term_used', __( "Use of a reserved term", CUZTOM_TEXTDOMAIN ) );
+	    return new WP_Error( 'reserved_term_used', __( "Use of a reserved term", 'cuztom' ) );
 	}
 }

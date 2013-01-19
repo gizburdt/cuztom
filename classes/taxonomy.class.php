@@ -95,17 +95,17 @@ class Cuztom_Taxonomy
 
 			// Default
 			array(
-				'name' 					=> sprintf( _x( '%s', 'taxonomy general name', CUZTOM_TEXTDOMAIN ), $this->plural ),
-				'singular_name' 		=> sprintf( _x( '%s', 'taxonomy singular name', CUZTOM_TEXTDOMAIN ), $this->title ),
-			    'search_items' 			=> sprintf( __( 'Search %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
-			    'all_items' 			=> sprintf( __( 'All %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
-			    'parent_item' 			=> sprintf( __( 'Parent %s', CUZTOM_TEXTDOMAIN ), $this->title ),
-			    'parent_item_colon' 	=> sprintf( __( 'Parent %s:', CUZTOM_TEXTDOMAIN ), $this->title ),
-			    'edit_item' 			=> sprintf( __( 'Edit %s', CUZTOM_TEXTDOMAIN ), $this->title ), 
-			    'update_item' 			=> sprintf( __( 'Update %s', CUZTOM_TEXTDOMAIN ), $this->title ),
-			    'add_new_item' 			=> sprintf( __( 'Add New %s', CUZTOM_TEXTDOMAIN ), $this->title ),
-			    'new_item_name' 		=> sprintf( __( 'New %s Name', CUZTOM_TEXTDOMAIN ), $this->title ),
-			    'menu_name' 			=> sprintf( __( '%s', CUZTOM_TEXTDOMAIN ), $this->plural )
+				'name' 					=> sprintf( _x( '%s', 'taxonomy general name', 'cuztom' ), $this->plural ),
+				'singular_name' 		=> sprintf( _x( '%s', 'taxonomy singular name', 'cuztom' ), $this->title ),
+			    'search_items' 			=> sprintf( __( 'Search %s', 'cuztom' ), $this->plural ),
+			    'all_items' 			=> sprintf( __( 'All %s', 'cuztom' ), $this->plural ),
+			    'parent_item' 			=> sprintf( __( 'Parent %s', 'cuztom' ), $this->title ),
+			    'parent_item_colon' 	=> sprintf( __( 'Parent %s:', 'cuztom' ), $this->title ),
+			    'edit_item' 			=> sprintf( __( 'Edit %s', 'cuztom' ), $this->title ), 
+			    'update_item' 			=> sprintf( __( 'Update %s', 'cuztom' ), $this->title ),
+			    'add_new_item' 			=> sprintf( __( 'Add New %s', 'cuztom' ), $this->title ),
+			    'new_item_name' 		=> sprintf( __( 'New %s Name', 'cuztom' ), $this->title ),
+			    'menu_name' 			=> sprintf( __( '%s', 'cuztom' ), $this->plural )
 			),
 
 			// Given labels
@@ -118,7 +118,7 @@ class Cuztom_Taxonomy
 
 			// Default
 			array(
-				'label'					=> sprintf( __( '%s', CUZTOM_TEXTDOMAIN ), $this->plural ),
+				'label'					=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
 				'labels'				=> $labels,
 				'hierarchical' 			=> true,
 				'public' 				=> true,
@@ -166,7 +166,7 @@ class Cuztom_Taxonomy
 
 		$columns[$this->name] = $this->title;
 
-		$columns['date'] = __( 'Date', CUZTOM_TEXTDOMAIN );
+		$columns['date'] = __( 'Date', 'cuztom' );
 		return $columns;
 	}
 	
@@ -223,7 +223,7 @@ class Cuztom_Taxonomy
 		if( $typenow == $this->post_type_name ) 
 		{
 			wp_dropdown_categories( array(
-				'show_option_all'	=> sprintf( __( 'Show all %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
+				'show_option_all'	=> sprintf( __( 'Show all %s', 'cuztom' ), $this->plural ),
 				'taxonomy'       	=> $this->name,
 				'name'            	=> $this->name,
 				'orderby'         	=> 'name',

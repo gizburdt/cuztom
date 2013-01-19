@@ -17,8 +17,8 @@ class Cuztom_Field_Image extends Cuztom_Field
 	
 		$output = '<div class="cuztom_button_wrap">';
 			$output .= '<input type="hidden" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" class="cuztom_hidden" value="' . ( ! empty( $value ) ? $value : '' ) . '" class="cuztom_input" />';
-			$output .= sprintf( '<input id="upload_image_button" type="button" class="button cuztom_button cuztom_upload" value="%s" class="cuztom_upload" />', __( 'Select image', CUZTOM_TEXTDOMAIN ) );
-			$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="cuztom_remove_image">%s</a>', __( 'Remove current image', CUZTOM_TEXTDOMAIN ) ) : '' );
+			$output .= sprintf( '<input id="upload_image_button" type="button" class="button cuztom_button cuztom_upload" value="%s" class="cuztom_upload" />', __( 'Select image', 'cuztom' ) );
+			$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="cuztom_remove_image">%s</a>', __( 'Remove current image', 'cuztom' ) ) : '' );
 		$output .= '</div>';
 		$output .= '<span class="cuztom_preview">' . $image . '</span>';
 
