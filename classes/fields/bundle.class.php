@@ -19,7 +19,7 @@ class Cuztom_Bundle
 	{
 		echo '<div class="cuztom_padding_wrap">';
 			echo '<a class="button-secondary cuztom_add cuztom_add_bundle cuztom_button" href="#">';
-			echo sprintf( '+ %s', __( 'Add', CUZTOM_TEXTDOMAIN ) );
+			echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
 			echo '</a>';
 			echo '<ul class="cuztom_bundle_wrap">';
 				

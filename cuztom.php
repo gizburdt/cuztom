@@ -6,7 +6,6 @@ ob_start();
 // Define
 define( 'CUZTOM_VERSION', '1.6.7' );
 if( ! defined( 'CUZTOM_URL' ) ) define( 'CUZTOM_URL', '' );
-if( ! defined( 'CUZTOM_TEXTDOMAIN' ) ) define( 'CUZTOM_TEXTDOMAIN', 'cuztom' ); 
 if( ! defined( 'CUZTOM_JQUERY_UI_STYLE' ) ) define( 'CUZTOM_JQUERY_UI_STYLE', 'cuztom' );
 
 // Include
