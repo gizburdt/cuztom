@@ -74,9 +74,9 @@ class Cuztom_Post_Type
 
 			// Default
 			array(
-				'name' 					=> _x( $this->plural, 'post type general name', CUZTOM_TEXTDOMAIN ),
-				'singular_name' 		=> _x( $this->title, 'post type singular title', CUZTOM_TEXTDOMAIN ),
-				'add_new' 				=> _x( 'Add New', $this->title, CUZTOM_TEXTDOMAIN ),
+				'name' 					=> sprintf( _x( '%s', 'post type general name', CUZTOM_TEXTDOMAIN ), $this->plural ),
+				'singular_name' 		=> sprintf( _x( '%s', 'post type singular title', CUZTOM_TEXTDOMAIN ), $this->title ),
+				'add_new' 				=> sprintf( _x( 'Add New', '%s', CUZTOM_TEXTDOMAIN ), $this->title ),
 				'add_new_item' 			=> sprintf( __( 'Add New %s', CUZTOM_TEXTDOMAIN ), $this->title ),
 				'edit_item' 			=> sprintf( __( 'Edit %s', CUZTOM_TEXTDOMAIN ), $this->title ),
 				'new_item' 				=> sprintf( __( 'New %s', CUZTOM_TEXTDOMAIN ), $this->title ),
@@ -85,7 +85,7 @@ class Cuztom_Post_Type
 				'search_items' 			=> sprintf( __( 'Search %s', CUZTOM_TEXTDOMAIN ), $this->plural ),
 				'not_found' 			=> sprintf( __( 'No %s found', CUZTOM_TEXTDOMAIN ), $this->plural ),
 				'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', CUZTOM_TEXTDOMAIN ), $this->plural ),
-				'menu_name' 			=> __( $this->plural, CUZTOM_TEXTDOMAIN )
+				'menu_name' 			=> sprintf( __( '%s', CUZTOM_TEXTDOMAIN ), $this->plural )
 			),
 
 			// Given labels
@@ -97,7 +97,7 @@ class Cuztom_Post_Type
 		$args = array_merge( 
 			// Default
 			array(
-				'label' 				=> __( $this->plural, CUZTOM_TEXTDOMAIN ),
+				'label' 				=> sprintf( __( '%s', CUZTOM_TEXTDOMAIN ), $this->plural ),
 				'labels' 				=> $labels,
 				'public' 				=> true,
 				'supports' 				=> array( 'title', 'editor' ),
