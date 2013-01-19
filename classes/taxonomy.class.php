@@ -125,7 +125,7 @@ class Cuztom_Taxonomy
 				'show_ui' 				=> true,
 				'show_in_nav_menus' 	=> true,
 				'_builtin' 				=> false,
-				'show_admin_column'     => false
+				'show_column'     => false
 			),
 
 			// Given
