@@ -153,7 +153,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			if( $field->show_column ) $columns[$id_name] = $field->label;
 		}
 
-		$columns['date'] = __( 'Date', 'cuztom' );
+		$columns['date'] = __( 'Date' );
 		return $columns;
 	}
 	
