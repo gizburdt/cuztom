@@ -19,8 +19,8 @@ class Cuztom_Field_File extends Cuztom_Field
 	
 		$output = '<div class="cuztom_button_wrap">';
 			$output .= '<input type="hidden" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" class="cuztom_hidden" value="' . ( ! empty( $value ) ? $value : '' ) . '" class="cuztom_input" />';
-			$output .= sprintf( '<input id="upload_file_button" type="button" class="button cuztom_button cuztom_upload cuztom_file" value="%s" class="cuztom_upload" />', __( 'Select file', CUZTOM_TEXTDOMAIN ) );
-			$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="cuztom_remove_file">%s</a>', __( 'Remove current file', CUZTOM_TEXTDOMAIN ) ) : '' );
+			$output .= sprintf( '<input id="upload_file_button" type="button" class="button cuztom_button cuztom_upload cuztom_file" value="%s" class="cuztom_upload" />', __( 'Select file', 'cuztom' ) );
+			$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="cuztom_remove_file">%s</a>', __( 'Remove current file', 'cuztom' ) ) : '' );
 		$output .= '</div>';
 		$output .= '<span class="cuztom_preview">' . $file . '</span>';
 
