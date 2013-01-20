@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.6.7  
+**Version:** 1.6.8  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -114,6 +114,10 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###1.6.8
+* Enhancement: We're now using 'cuztom' (as string) as textdomain instead of CUZTOM_TEXTDOMAIN
+* Enhancement: No PHP variables in translation functions
 
 ###1.6.7
 * Deprecated: Cuztom_Radio_Field is from now on deprecated, because it is not usable
