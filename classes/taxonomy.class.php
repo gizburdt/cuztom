@@ -68,7 +68,7 @@ class Cuztom_Taxonomy
 				add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
 			}
 
-			if( ( get_bloginfo( 'version' ) < '3.5' ) && ( isset( $args['show_column'] ) && $args['show_column'] ) )
+			if( ( get_bloginfo( 'version' ) < '3.5' ) && ( isset( $args['show_admin_column'] ) && $args['show_admin_column'] ) )
 			{
 				add_filter( 'manage_' . $this->post_type_name . '_posts_columns', array( &$this, 'add_column' ) );
 				add_action( 'manage_' . $this->post_type_name . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
@@ -124,7 +124,7 @@ class Cuztom_Taxonomy
 				'show_ui' 				=> true,
 				'show_in_nav_menus' 	=> true,
 				'_builtin' 				=> false,
-				'show_column'			=> false
+				'show_admin_column'		=> false
 			),
 
 			// Given
