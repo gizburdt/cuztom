@@ -51,7 +51,7 @@ class Cuztom_Meta
 	 * @since 	0.2
 	 *
 	 */	
-	function callback( $post, $data = array() )
+	function callback( $object, $data = array() )
 	{
 		// Nonce field for validation
 		wp_nonce_field( plugin_basename( dirname( __FILE__ ) ), 'cuztom_nonce' );
@@ -62,17 +62,14 @@ class Cuztom_Meta
 		
 		if( ! empty( $data ) )
 		{
-			// Hidden field, so cuztom is always set
-			global $post, $user_id;
-
 			echo '<input type="hidden" name="cuztom[__activate]" />';
-			echo '<div class="cuztom" data-id="' . ( $context == 'post' ? get_the_ID() : $user_id ) . '" data-context="' . $context . '">';
+			echo '<div class="cuztom" data-id="' . ( $context == 'post' ? get_the_ID() : $object->ID ) . '" data-context="' . $context . '">';
 
 				if( ! empty( $this->description ) ) echo '<p class="cuztom-box-description">' . $this->description . '</p>';
 			
 				if( ( $data instanceof Cuztom_Tabs ) || ( $data instanceof Cuztom_Accordion ) || ( $data instanceof Cuztom_Bundle ) )
 				{
-					$data->output( $post, $context );
+					$data->output( $object, $context );
 				}
 				else
 				{					
@@ -81,7 +78,7 @@ class Cuztom_Meta
 						/* Loop through $data */
 						foreach( $data as $id_name => $field )
 						{
-							$meta = $this->_get_meta_type() == 'user' ? get_user_meta( $post->ID, $id_name, true ) : get_post_meta( $post->ID, $id_name, true );
+							$meta = $this->_get_meta_type() == 'user' ? get_user_meta( $object->ID, $id_name, true ) : get_post_meta( $object->ID, $id_name, true );
 
 							if( ! $field instanceof Cuztom_Field_Hidden )
 							{
@@ -100,7 +97,7 @@ class Cuztom_Meta
 											echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
 										}
 										
-											echo $field->output( $meta, $post );
+											echo $field->output( $meta, $object );
 
 										if( $field->repeatable && $field->_supports_repeatable )
 										{
@@ -112,7 +109,7 @@ class Cuztom_Meta
 							}
 							else
 							{
-								echo $field->output( $meta, $post );
+								echo $field->output( $meta, $object );
 							}
 						}
 
