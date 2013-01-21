@@ -100,7 +100,7 @@ class Cuztom_Meta
 											echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
 										}
 										
-											echo $field->output( $meta );
+											echo $field->output( $meta, $post );
 
 										if( $field->repeatable && $field->_supports_repeatable )
 										{
@@ -112,7 +112,7 @@ class Cuztom_Meta
 							}
 							else
 							{
-								echo $field->output( $meta );
+								echo $field->output( $meta, $post );
 							}
 						}
 

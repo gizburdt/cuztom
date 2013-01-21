@@ -37,7 +37,7 @@ class Cuztom_Tab
 									echo '<ul class="js-cuztom-sortable cuztom-sortable">';
 								}
 							
-								echo $field->output( $value );
+								echo $field->output( $value, $post );
 								
 								if( $field->repeatable && $field->_supports_repeatable() )
 								{
@@ -49,7 +49,7 @@ class Cuztom_Tab
 					}
 					else
 					{
-						echo $field->output( $value );
+						echo $field->output( $value, $post );
 					}
 				}
 			echo '</table>';
