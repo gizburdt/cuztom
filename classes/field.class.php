@@ -9,22 +9,22 @@
  */
 class Cuztom_Field
 {
-	var $id_name		= '';
-	var $name 			= '';
-    var $label 			= '';
-	var $type			= '';
-    var $description 	= '';
-    var $explanation	= '';
-	var $hide 			= true;
-	var $default_value 	= '';
-	var $options 		= array();
-	var $args			= array();
-	var $repeatable 	= false;
-	var $ajax 			= false;
-	var $show_column 	= false;
-	var $pre			= '';
-	var $after			= '';
-	var $context		= '';
+	var $id_name			= '';
+	var $name 				= '';
+    var $label 				= '';
+	var $type				= '';
+    var $description 		= '';
+    var $explanation		= '';
+	var $hide 				= true;
+	var $default_value 		= '';
+	var $options 			= array();
+	var $args				= array();
+	var $repeatable 		= false;
+	var $ajax 				= false;
+	var $show_admin_column 	= false;
+	var $pre				= '';
+	var $after				= '';
+	var $context			= '';
 
 	var $_supports_repeatable 	= false;
 	var $_supports_bundle		= false;
@@ -40,23 +40,23 @@ class Cuztom_Field
 	 * @since 	0.3.3
 	 * 
 	 */
-	function __construct( $field, $context )
+	function __construct( $field, $context, $post = null )
 	{
-		$this->name 			= isset( $field['name'] ) ? $field['name'] : $this->name;
-		$this->label			= isset( $field['label'] ) ? $field['label'] : $this->label;
-		$this->description		= isset( $field['description'] ) ? $field['description'] : $this->description;
-		$this->explanation		= isset( $field['explanation'] ) ? $field['explanation'] : $this->explanation;
-		$this->type				= isset( $field['type'] ) ? $field['type'] : $this->type;
-		$this->hide				= isset( $field['hide'] ) ? $field['hide'] : $this->hide;
-		$this->default_value	= isset( $field['default_value'] ) ? $field['default_value'] : $this->default_value;
-		$this->options			= isset( $field['options'] ) ? $field['options'] : $this->options;
-		$this->args				= isset( $field['args'] ) ? $field['args'] : $this->args;
-		$this->repeatable		= isset( $field['repeatable'] ) ? $field['repeatable'] : $this->repeatable ;
-		$this->ajax				= isset( $field['ajax'] ) ? $field['ajax'] : $this->ajax ;
-		$this->show_column		= isset( $field['show_column'] ) ? $field['show_column'] : $this->show_column;
-		$this->context			= $context;
+		$this->name 				= isset( $field['name'] ) ? $field['name'] : $this->name;
+		$this->label				= isset( $field['label'] ) ? $field['label'] : $this->label;
+		$this->description			= isset( $field['description'] ) ? $field['description'] : $this->description;
+		$this->explanation			= isset( $field['explanation'] ) ? $field['explanation'] : $this->explanation;
+		$this->type					= isset( $field['type'] ) ? $field['type'] : $this->type;
+		$this->hide					= isset( $field['hide'] ) ? $field['hide'] : $this->hide;
+		$this->default_value		= isset( $field['default_value'] ) ? $field['default_value'] : $this->default_value;
+		$this->options				= isset( $field['options'] ) ? $field['options'] : $this->options;
+		$this->args					= isset( $field['args'] ) ? $field['args'] : $this->args;
+		$this->repeatable			= isset( $field['repeatable'] ) ? $field['repeatable'] : $this->repeatable ;
+		$this->ajax					= isset( $field['ajax'] ) ? $field['ajax'] : $this->ajax ;
+		$this->show_admin_column	= isset( $field['show_admin_column'] ) ? $field['show_admin_column'] : $this->show_admin_column;
+		$this->context				= $context;
 		
-		$this->id_name 			= $this->_build_id_name( $this->name, $context );
+		$this->id_name 				= $this->_build_id_name( $this->name, $context );
 	}
 	
 	/**
