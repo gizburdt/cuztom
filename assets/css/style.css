@@ -11,6 +11,10 @@
 .cuztom .cuztom-checkboxes-wrap{ width: 30%; margin-right: 10px; display: inline-block; vertical-align: middle; max-height: 100px; overflow-y: scroll; overflow-x: hidden; }
 .cuztom .cuztom-checkbox-wrap{ width: 10%; margin-right: 10px; display: inline-block; vertical-align: middle; }
 
+/* Tabs */
+.cuztom .cuztom-tabs .ui-state-active{ border-color: #ccc; background: #fff; }
+.cuztom .cuztom-tabs .ui-state-active a{ color: #d54e21; }
+
 /* Table */
 .cuztom .cuztom-table{ width: 100%; margin-top: 0; }
 .cuztom .cuztom-table th{ font-weight: normal; text-align: left; vertical-align: top; }
