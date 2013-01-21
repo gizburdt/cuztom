@@ -2,52 +2,67 @@
 
 class Cuztom_Field_Term_Select extends Cuztom_Field
 {
-	function __construct( $field, $meta_box )
+	var $_supports_repeatable 	= true;
+	var $_supports_ajax			= true;
+	
+	var $dropdown;
+	var $value;
+
+	function __construct( $field, $meta_box, $post = null )
 	{
 		parent::__construct( $field, $meta_box );
 
-		$this->options = array_merge(
+		$this->args = array_merge(
 
 			// Default
 			array(
 				'taxonomy'		=> 'category',
-				'class'			=> ''
+				'class'			=> '',
+				'hide_empty'	=> 0
 			),
 			
 			// Given
-			$this->options
+			$this->args
 
 		);
 		
-		$this->options['class'] 	.=  ' cuztom_input';
-		$this->options['name'] 		= 'cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' );
-		$this->options['echo']		= 0;
+		$this->args['class'] 	.= ' cuztom-input';
+		$this->args['name'] 	= 'cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' );
+		$this->args['id']		= $this->id_name;
+		$this->args['echo']		= 0;
 	}
 
 	function _output( $value )
 	{
-		$this->options['selected'] 	= ( ! empty( $value ) ? $value : $this->default_value );
+		$this->args['selected'] = ( ! empty( $value ) ? $value : $this->default_value );
+		$this->dropdown 		= wp_dropdown_categories( $this->args );
 
-		$output = ( $this->repeatable ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' );
-			$output .= wp_dropdown_categories( $this->options );
-		$output .= ( $this->repeatable ? '</li>' : '' );
+		$output = $this->dropdown;
 
 		return $output;
 	}
 	
 	function _repeatable_output( $value )
 	{
+		$this->after = '[]';
 		$output = '';
 
-		foreach( $value as $item )
+		if( is_array( $value ) )
 		{
-			$this->options['selected'] = ( ! empty( $item ) ? $item : $this->default_value );
-			
-			$output .= '<li class="cuztom_field"><div class="handle_repeatable"></div>';
-				$output .= wp_dropdown_categories( $this->options );
-			$output .= ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
+			foreach( $value as $item )
+			{				
+				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>';
+					$output .= $this->_output( $item );
+				$output .= ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"></div>' : '' ) . '</li>';
+			}
+		}
+		else
+		{
+			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>';
+				$output .= $this->_output( $value );
+			$output .= ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"></div>' : '' ) . '</li>';
 		}
 
 		return $output;
-	}	
+	}
 }

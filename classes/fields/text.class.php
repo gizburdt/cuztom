@@ -1,19 +1,31 @@
 <?php
 
 class Cuztom_Field_Text extends Cuztom_Field
-{	
+{
+	var $_supports_repeatable 	= true;
+	var $_supports_bundle		= true;
+	var $_supports_ajax			= true;
+
 	function _output( $value )
 	{
-		return ( $this->repeatable ? '<li class="cuztom_field"><div class="handle_repeatable"></div>' : '' ) . '<input type="text" name="cuztom' . $this->pre . '[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' ) . $this->after . '" id="' . $this->id_name . '" value="' . ( ! empty( $value ) ? $value : $this->default_value ) . '" class="cuztom_input" />' . ( $this->repeatable ? '</li>' : '' );
+		return '<input type="text" name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '" id="' . $this->id_name . '" value="' . ( ! empty( $value ) ? $value : $this->default_value ) . '" class="cuztom-input" />' . ( ! $this->repeatable && $this->explanation ? '<em class="cuztom-explanation">' . $this->explanation . '</em>' : '' );
 	}
 	
 	function _repeatable_output( $value )
 	{
+		$this->after = '[]';
 		$output = '';
 		
-		foreach( $value as $item )
+		if( is_array( $value ) )
 		{
-			$output .= '<li class="cuztom_field"><div class="handle_repeatable"></div><input type="text" name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '" value="' . ( ! empty( $item ) ? $item : $this->default_value ) . '" class="cuztom_input" />' . ( count( $value ) > 1 ? '<div class="remove_repeatable"></div>' : '' ) . '</li>';
+			foreach( $value as $item )
+			{
+				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $item ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"></div>' : '' ) . '</li>';
+			}
+		}
+		else
+		{
+			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $value ) . '</li>';
 		}
 
 		return $output;

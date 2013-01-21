@@ -16,11 +16,9 @@ include( 'classes/fields/bundle.class.php' );
 include( 'classes/fields/tabs.class.php' );
 include( 'classes/fields/accordion.class.php' );
 include( 'classes/fields/tab.class.php' );
-
 include( 'classes/fields/text.class.php' );
 include( 'classes/fields/textarea.class.php' );
 include( 'classes/fields/checkbox.class.php' );
-include( 'classes/fields/radio.class.php' );
 include( 'classes/fields/yesno.class.php' );
 include( 'classes/fields/select.class.php' );
 include( 'classes/fields/checkboxes.class.php' );
@@ -29,6 +27,8 @@ include( 'classes/fields/wysiwyg.class.php' );
 include( 'classes/fields/image.class.php' );
 include( 'classes/fields/file.class.php' );
 include( 'classes/fields/date.class.php' );
+include( 'classes/fields/time.class.php' );
+include( 'classes/fields/datetime.class.php' );
 include( 'classes/fields/color.class.php' );
 include( 'classes/fields/post_select.class.php' );
 include( 'classes/fields/post_checkboxes.class.php' );
@@ -54,7 +54,6 @@ include( 'functions/meta_box.php' );
 include( 'functions/sidebar.php' );
 include( 'functions/menu_page.php' );
 include( 'functions/submenu_page.php' );
-include( 'functions/field.php' );
 
 // Init
 $cuztom = new Cuztom();

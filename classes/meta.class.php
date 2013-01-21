@@ -51,7 +51,7 @@ class Cuztom_Meta
 	 * @since 	0.2
 	 *
 	 */	
-	function callback( $post, $data = array() )
+	function callback( $object, $data = array() )
 	{
 		// Nonce field for validation
 		wp_nonce_field( plugin_basename( dirname( __FILE__ ) ), 'cuztom_nonce' );
@@ -62,48 +62,46 @@ class Cuztom_Meta
 		
 		if( ! empty( $data ) )
 		{
-			// Hidden field, so cuztom is always set
 			echo '<input type="hidden" name="cuztom[__activate]" />';
-			echo '<div class="cuztom">';
+			echo '<div class="cuztom" data-id="' . ( $context == 'post' ? get_the_ID() : $object->ID ) . '" data-context="' . $context . '">';
 
-				if( ! empty( $this->description ) ) echo '<p class="cuztom_box_description">' . $this->description . '</p>';
+				if( ! empty( $this->description ) ) echo '<p class="cuztom-box-description">' . $this->description . '</p>';
 			
 				if( ( $data instanceof Cuztom_Tabs ) || ( $data instanceof Cuztom_Accordion ) || ( $data instanceof Cuztom_Bundle ) )
 				{
-					$data->output( $post, $context );
+					$data->output( $object, $context );
 				}
 				else
 				{					
-					echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom_table cuztom_helper_table">';
+					echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
 
 						/* Loop through $data */
 						foreach( $data as $id_name => $field )
 						{
-							$meta = $this->_get_meta_type() == 'user' ? get_user_meta( $post->ID, $id_name, true ) : get_post_meta( $post->ID, $id_name, true );
+							$meta = $this->_get_meta_type() == 'user' ? get_user_meta( $object->ID, $id_name, true ) : get_post_meta( $object->ID, $id_name, true );
 
 							if( ! $field instanceof Cuztom_Field_Hidden )
 							{
 								echo '<tr>';
-									echo '<th class="cuztom_th th">';
+									echo '<th class="cuztom-th">';
 										echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
-										echo '<div class="cuztom_description description">' . $field->description . '</div>';
+										echo '<div class="cuztom-description description">' . $field->description . '</div>';
 									echo '</th>';
-									echo '<td class="cuztom_td td">';
+									echo '<td class="cuztom-td">';
 
-										if( $field->repeatable && $field->_supports_repeatable() )
+										if( $field->repeatable && $field->_supports_repeatable )
 										{
-											echo '<div class="cuztom_padding_wrap">';
-											echo '<a class="button-secondary cuztom_add cuztom_add_field cuztom_button" href="#">';
-											echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
+											echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
+												echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
 											echo '</a>';
-											echo '<ul class="cuztom_repeatable_wrap">';
+											echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
 										}
 										
-											echo $field->output( $meta );
+											echo $field->output( $meta, $object );
 
-										if( $field->repeatable && $field->_supports_repeatable() )
+										if( $field->repeatable && $field->_supports_repeatable )
 										{
-											echo '</ul></div>';
+											echo '</ul>';
 										}
 
 									echo '</td>';
@@ -111,7 +109,7 @@ class Cuztom_Meta
 							}
 							else
 							{
-								echo $field->output( $meta );
+								echo $field->output( $meta, $object );
 							}
 						}
 
@@ -120,6 +118,20 @@ class Cuztom_Meta
 			
 			echo '</div>';
 		}
+	}
+
+	/**
+	 * Adds multipart support to form
+	 *
+	 * @return 	mixed
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
+	 *
+	 */
+	static function _edit_form_tag()
+	{
+		echo ' enctype="multipart/form-data"';
 	}
 
 	/**
@@ -219,7 +231,6 @@ class Cuztom_Meta
 		}
 	}
 	
-	
 	/**
 	 * Checks if the given array are tabs
 	 *
@@ -234,7 +245,6 @@ class Cuztom_Meta
 	{
 		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'tabs' );
 	}
-	
 	
 	/**
 	 * Checks if the given array is an accordion
@@ -251,7 +261,6 @@ class Cuztom_Meta
 		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'accordion' );
 	}
 	
-	
 	/**
 	 * Checks if the given array is a bundle
 	 *
@@ -265,20 +274,5 @@ class Cuztom_Meta
 	static function _is_bundle( $data )
 	{
 		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'bundle' );
-	}
-
-
-	/**
-	 * Adds multipart support to form
-	 *
-	 * @return 	mixed
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.2
-	 *
-	 */
-	static function _edit_form_tag()
-	{
-		echo ' enctype="multipart/form-data"';
 	}
 }

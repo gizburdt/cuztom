@@ -20,7 +20,7 @@ class Cuztom_Tabs
 		$tabs = $this->tabs;
 				
 		// If it's about tabs or accordion
-		echo '<div class="cuztom_tabs">';
+		echo '<div class="js-cuztom-tabs cuztom-tabs">';
 			
 			echo '<ul>';
 				foreach( $tabs as $title => $tab )

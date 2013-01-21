@@ -37,7 +37,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			$this->priority		= $priority;
 
 			// Chack if the class, function or method exist, otherwise use cuztom callback
-			if( Cuztom::_is_wp_callback( $data ) )
+			if( Cuztom::is_wp_callback( $data ) )
 			{
 				$this->callback = $data;
 			}
@@ -150,7 +150,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 
 		foreach( $this->fields as $id_name => $field )
 		{
-			if( $field->show_column ) $columns[$id_name] = $field->label;
+			if( $field->show_admin_column ) $columns[$id_name] = $field->label;
 		}
 
 		$columns['date'] = __( 'Date' );
@@ -172,11 +172,11 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	{
 		$meta = get_post_meta( $post_id, $column, true );
 		
-		foreach( $this->fields as $field_id_name => $field )
+		foreach( $this->fields as $id_name => $field )
 		{
-			if( $column == $field_id_name )
+			if( $column == $id_name )
 			{
-				if( $field->repeatable && $field->_supports_repeatable() )
+				if( $field->repeatable && $field->_supports_repeatable )
 				{
 					echo implode( $meta, ', ' );
 				}
@@ -206,7 +206,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	function add_sortable_column( $columns )
 	{
 		foreach( $this->fields as $id_name => $field )
-			if( $field->show_column ) $columns[$id_name] = $field->label;
+			if( $field->show_admin_column ) $columns[$id_name] = $field->label;
 
 		return $columns;
 	}

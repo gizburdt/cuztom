@@ -68,7 +68,7 @@ class Cuztom_Taxonomy
 				add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
 			}
 
-			if( isset( $args['show_column'] ) && $args['show_column'] )
+			if( ( get_bloginfo( 'version' ) < '3.5' ) && ( isset( $args['show_admin_column'] ) && $args['show_admin_column'] ) )
 			{
 				add_filter( 'manage_' . $this->post_type_name . '_posts_columns', array( &$this, 'add_column' ) );
 				add_action( 'manage_' . $this->post_type_name . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
@@ -79,7 +79,6 @@ class Cuztom_Taxonomy
 			}
 		}
 	}
-	
 	
 	/**
 	 * Registers the custom taxonomy with the given arguments
@@ -125,7 +124,7 @@ class Cuztom_Taxonomy
 				'show_ui' 				=> true,
 				'show_in_nav_menus' 	=> true,
 				'_builtin' 				=> false,
-				'show_column'     		=> false
+				'show_admin_column'		=> false
 			),
 
 			// Given
@@ -135,7 +134,6 @@ class Cuztom_Taxonomy
 		
 		register_taxonomy( $this->name, $this->post_type_name, $args );
 	}
-	
 	
 	/**
 	 * Used to attach the existing taxonomy to the post type
@@ -148,7 +146,6 @@ class Cuztom_Taxonomy
 	{
 		register_taxonomy_for_object_type( $this->name, $this->post_type_name );
 	}
-
 
 	/**
 	 * Used to add a column head to the Post Type's List Table
@@ -170,7 +167,6 @@ class Cuztom_Taxonomy
 		return $columns;
 	}
 	
-	
 	/**
 	 * Used to add the column content to the column head
 	 *
@@ -189,7 +185,6 @@ class Cuztom_Taxonomy
 		echo implode( $terms, ', ' );
 	}
 
-
 	/**
 	 * Used to make all columns sortable
 	 * 
@@ -206,7 +201,6 @@ class Cuztom_Taxonomy
 
 		return $columns;
 	}
-
 
 	/**
 	 * Adds a filter to the post table filters
@@ -235,7 +229,6 @@ class Cuztom_Taxonomy
 		}
 	}
 
-
 	/**
 	 * Applies the selected filter to the query
 	 * 
@@ -256,7 +249,6 @@ class Cuztom_Taxonomy
         	$vars[$this->name] = $term->slug;
     	}
 	}
-
 
 	/**
 	 * Notice for reserved term usage

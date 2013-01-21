@@ -18,7 +18,6 @@ class Cuztom_Sidebar
 	var $before_title;
 	var $after_title;
 	
-	
 	/**
 	 * Constructor
 	 *
@@ -60,7 +59,6 @@ class Cuztom_Sidebar
 		
 		add_action( 'widgets_init', array( $this, 'register_sidebar' ) );
 	}
-	
 	
 	/**
 	 * Register the Sidebar

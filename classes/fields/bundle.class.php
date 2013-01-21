@@ -17,11 +17,12 @@ class Cuztom_Bundle
 	 */
 	function output( $post, $context )
 	{
-		echo '<div class="cuztom_padding_wrap">';
-			echo '<a class="button-secondary cuztom_add cuztom_add_bundle cuztom_button" href="#">';
-			echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
+		echo '<div class="padding-wrap">';
+			echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable js-cuztom-add-bundle cuztom-add-sortable" href="#">';
+				echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
 			echo '</a>';
-			echo '<ul class="cuztom_bundle_wrap">';
+
+			echo '<ul class="js-cuztom-sortable cuztom-sortable js-cuztom-bundle" data-cuztom-sortable-type="bundle">';
 				
 				$meta = $context == 'user' ? get_user_meta( $post->ID, $this->id, true ) : get_post_meta( $post->ID, $this->id, true );
 
@@ -30,10 +31,10 @@ class Cuztom_Bundle
 					$i = 0;
 					foreach( $meta as $bundle )
 					{
-						echo '<li class="cuztom_bundle">';
-							echo '<div class="handle_bundle"></div>';
+						echo '<li class="cuztom-sortable-item js-cuztom-sortable-item">';
+							echo '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>';
 							echo '<fieldset>';
-							echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
+							echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
 								
 								foreach( $this->fields as $id_name => $field )
 								{
@@ -43,14 +44,14 @@ class Cuztom_Bundle
 									if( ! $field instanceof Cuztom_Field_Hidden )
 									{
 										echo '<tr>';
-											echo '<th class="cuztom_th th">';
-												echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
-												echo '<div class="cuztom_description description">' . $field->description . '</div>';
+											echo '<th class="cuztom-th">';
+												echo '<label for="' . $id_name . '" class="cuztom-label">' . $field->label . '</label>';
+												echo '<div class="cuztom-description">' . $field->description . '</div>';
 											echo '</th>';
-											echo '<td class="cuztom_td td">';
+											echo '<td class="cuztom-td">';
 
-												if( $field->_supports_bundle() )
-													echo $field->output( $value );
+												if( $field->_supports_bundle )
+													echo $field->output( $value, $post );
 												else
 													_e( '<em>This input type doesn\'t support the bundle functionality (yet).</em>' );
 
@@ -59,13 +60,13 @@ class Cuztom_Bundle
 									}
 									else
 									{
-										echo $field->output( $value );
+										echo $field->output( $value, $post );
 									}
 								}
 
 							echo '</table>';
 							echo '</fieldset>';
-							echo count( $meta ) > 1 ? '<div class="remove_bundle"></div>' : '';
+							echo count( $meta ) > 1 ? '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>' : '';
 						echo '</li>';
 						
 						$i++;
@@ -74,10 +75,10 @@ class Cuztom_Bundle
 				}
 				else
 				{
-					echo '<li class="cuztom_bundle">';
-						echo '<div class="handle_bundle"></div>';
+					echo '<li class="cuztom-sortable-item js-cuztom-sortable-item">';
+						echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"></div>';
 						echo '<fieldset>';
-						echo '<table border="0" cellading="0" cellspacing="0" class="cuztom_table cuztom_helper_table">';
+						echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
 							
 							$fields = $this->fields;
 							
@@ -89,14 +90,14 @@ class Cuztom_Bundle
 								if( ! $field instanceof Cuztom_Field_Hidden )
 								{
 									echo '<tr>';
-										echo '<th class="cuztom_th th">';
-											echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
-											echo '<div class="cuztom_description description">' . $field->description . '</div>';
+										echo '<th class="cuztom-th">';
+											echo '<label for="' . $id_name . '" class="cuztom-label">' . $field->label . '</label>';
+											echo '<div class="cuztom-description">' . $field->description . '</div>';
 										echo '</th>';
-										echo '<td class="cuztom_td td">';
+										echo '<td class="cuztom-td">';
 
-											if( $field->_supports_bundle() )
-												echo $field->output( $value );
+											if( $field->_supports_bundle )
+												echo $field->output( $value, $post );
 											else
 												_e( '<em>This input type doesn\'t support the bundle functionality (yet).</em>' );
 
@@ -105,7 +106,7 @@ class Cuztom_Bundle
 								}
 								else
 								{
-									echo $field->output( $value );
+									echo $field->output( $value, $post );
 								}
 							}
 

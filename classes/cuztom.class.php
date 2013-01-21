@@ -34,12 +34,16 @@ class Cuztom
 	function __construct()
 	{
 		// Add actions
-		add_action( 'admin_init', array( $this, 'register_styles' ) );
-		add_action( 'admin_print_styles', array( $this, 'enqueue_styles' ) );
+		add_action( 'admin_init', array( &$this, 'register_styles' ) );
+		add_action( 'admin_print_styles', array( &$this, 'enqueue_styles' ) );
 		
-		add_action( 'admin_init', array( $this, 'register_scripts' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_init', array( &$this, 'register_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 		
+		// Ajax
+		add_action( 'wp_ajax_cuztom_field_ajax_save', array( 'Cuztom_Field', 'ajax_save' ) );
+		add_action( 'wp_ajax_nopriv_cuztom_field_ajax_save', array( 'Cuztom_Field', 'ajax_save' ) );
+
 		// Determine the full path to the this folder
 		$this->_determine_cuztom_url( dirname( __FILE__ ) );
 	}
@@ -57,8 +61,8 @@ class Cuztom
 		{
 			if( CUZTOM_JQUERY_UI_STYLE == 'cuztom' )
 			{
-				wp_register_style( 'cuztom_jquery_ui_css', 
-					$this->url . '/assets/css/jquery_ui.css', 
+				wp_register_style( 'cuztom-jquery-ui', 
+					$this->url . '/assets/css/cuztom_jquery_ui.css', 
 					false, 
 					CUZTOM_VERSION, 
 					'screen'
@@ -66,7 +70,7 @@ class Cuztom
 			}
 			else
 			{
-				wp_register_style( 'cuztom_jquery_ui_css', 
+				wp_register_style( 'cuztom-jquery-ui', 
 					'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/' . CUZTOM_JQUERY_UI_STYLE . '/jquery-ui.css', 
 					false, 
 					CUZTOM_VERSION, 
@@ -75,16 +79,16 @@ class Cuztom
 			}
 		}
 		
-		wp_register_style( 'cuztom_colorpicker_css', 
+		wp_register_style( 'cuztom-colorpicker', 
 			$this->url . '/assets/css/colorpicker.css', 
 			false, 
 			CUZTOM_VERSION, 
 			'screen'
 		);
 		
-		wp_register_style( 'cuztom_css', 
+		wp_register_style( 'cuztom', 
 			$this->url . '/assets/css/style.css', 
-			array( 'thickbox' ), 
+			false, 
 			CUZTOM_VERSION, 
 			'screen'
 		);
@@ -99,9 +103,11 @@ class Cuztom
 	 */
 	function enqueue_styles()
 	{
-		wp_enqueue_style( 'cuztom_jquery_ui_css' );
-		wp_enqueue_style( 'cuztom_colorpicker_css' );
-		wp_enqueue_style( 'cuztom_css' );
+		if( ! function_exists( 'wp_enqueue_media' ) ) wp_enqueue_style( 'thickbox' );
+
+		wp_enqueue_style( 'cuztom-jquery-ui' );
+		wp_enqueue_style( 'cuztom-colorpicker' );
+		wp_enqueue_style( 'cuztom' );
 	}
 	
 	/**
@@ -113,16 +119,23 @@ class Cuztom
 	 */
 	function register_scripts()
 	{
-		wp_register_script( 'cuztom_colorpicker_js', 
+		wp_register_script( 'jquery-colorpicker', 
 			$this->url . '/assets/js/jquery.colorpicker.js',
 			array( 'jquery' ), 
 			CUZTOM_VERSION, 
 			true 
 		);
+
+		wp_register_script( 'jquery-timepicker', 
+			$this->url . '/assets/js/jquery.timepicker.js',
+			array( 'jquery' ), 
+			CUZTOM_VERSION, 
+			true 
+		);
 		
-		wp_register_script( 'cuztom_js', 
+		wp_register_script( 'cuztom', 
 			$this->url . '/assets/js/functions.js',
-			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'cuztom_colorpicker_js', 'jquery-ui-sortable', 'thickbox' ), 
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-colorpicker', 'jquery-timepicker', 'jquery-ui-sortable' ), 
 			CUZTOM_VERSION, 
 			true 
 		);
@@ -137,8 +150,17 @@ class Cuztom
 	 */
 	function enqueue_scripts()
 	{
-		wp_enqueue_script( 'cuztom_colorpicker_js' );
-		wp_enqueue_script( 'cuztom_js' );
+		if( function_exists( 'wp_enqueue_media' ) )
+		{
+			wp_enqueue_media();
+		}
+		else
+		{
+			wp_enqueue_script( 'thickbox' );
+			wp_enqueue_script( 'media-upload' );
+		}
+
+		wp_enqueue_script( 'cuztom' );
 		
 		self::localize_scripts();
 	}
@@ -152,10 +174,11 @@ class Cuztom
 	 */
 	function localize_scripts()
 	{
-		wp_localize_script( 'cuztom_js', 'Cuztom', array(
+		wp_localize_script( 'cuztom', 'Cuztom', array(
 			'home_url'			=> get_home_url(),
 			'ajax_url'			=> admin_url( 'admin-ajax.php' ),
 			'date_format'		=> get_option( 'date_format' ),
+			'wp_version'		=> get_bloginfo( 'version' ),
 			'remove_image'		=> __( 'Remove current image', 'cuztom' ),
 			'remove_file'		=> __( 'Remove current file', 'cuztom' )
 		) );
@@ -235,9 +258,26 @@ class Cuztom
 	 * @since 	1.5
 	 * 
 	 */
-	function _is_wp_callback( $callback )
+	function is_wp_callback( $callback )
 	{
 		return ( ! is_array( $callback ) ) || ( is_array( $callback ) && ( ( isset( $callback[1] ) && ! is_array( $callback[1] ) && method_exists( $callback[0], $callback[1] ) ) || ( isset( $callback[0] ) && ! is_array( $callback[0] ) && class_exists( $callback[0] ) ) ) );
+	}
+
+	/**
+	 * Check if the term is reserved by Wordpress
+	 * 
+	 * @param  	string  		$term
+	 * @return 	boolean
+	 *
+	 * @author  Gijs Jorissen
+	 * @since  	1.6
+	 * 
+	 */
+	static function is_reserved_term( $term )
+	{
+	    if( ! in_array( $term, self::$_reserved ) ) return false;
+	    
+	    return new WP_Error( 'reserved_term_used', __( "Use of a reserved term", 'cuztom' ) );
 	}
 	
 	/**
@@ -283,22 +323,5 @@ class Cuztom
 				return $this->_determine_cuztom_url( $path );
 			}
 		}
-	}
-	
-	/**
-	 * Check if the term is reserved by Wordpress
-	 * 
-	 * @param  	string  		$term
-	 * @return 	boolean
-	 *
-	 * @author  Gijs Jorissen
-	 * @since  	1.6
-	 * 
-	 */
-	static function is_reserved_term( $term )
-	{
-	    if( ! in_array( $term, self::$_reserved ) ) return false;
-	    
-	    return new WP_Error( 'reserved_term_used', __( "Use of a reserved term", 'cuztom' ) );
 	}
 }

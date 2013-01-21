@@ -2,8 +2,12 @@
 
 class Cuztom_Field_Image extends Cuztom_Field
 {
+	var $_supports_ajax			= true;
+	
 	function _output( $value )
 	{
+		$output = '';
+
 		if( ! empty( $value ) )
 		{
 			$url = wp_get_attachment_image_src( $value, apply_filters( 'cuztom_preview_size', 'medium' ) );
@@ -15,12 +19,11 @@ class Cuztom_Field_Image extends Cuztom_Field
 			$image = '';
 		}
 	
-		$output = '<div class="cuztom_button_wrap">';
-			$output .= '<input type="hidden" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" class="cuztom_hidden" value="' . ( ! empty( $value ) ? $value : '' ) . '" class="cuztom_input" />';
-			$output .= sprintf( '<input id="upload_image_button" type="button" class="button cuztom_button cuztom_upload" value="%s" class="cuztom_upload" />', __( 'Select image', 'cuztom' ) );
-			$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="cuztom_remove_image">%s</a>', __( 'Remove current image', 'cuztom' ) ) : '' );
-		$output .= '</div>';
-		$output .= '<span class="cuztom_preview">' . $image . '</span>';
+		$output .= '<input type="hidden" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" class="cuztom-hidden cuztom-input" value="' . ( ! empty( $value ) ? $value : '' ) . '" />';
+		$output .= sprintf( '<input id="upload-image-button" type="button" class="button js-cuztom-upload" data-cuztom-media-type="image" value="%s" />', __( 'Select image', 'cuztom' ) );
+		$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media">%s</a>', __( 'Remove current image', 'cuztom' ) ) : '' );
+
+		$output .= '<span class="cuztom-preview">' . $image . '</span>';
 
 		return $output;
 	}

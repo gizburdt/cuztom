@@ -2,27 +2,35 @@
 
 class Cuztom_Field_File extends Cuztom_Field
 {
+	var $_supports_ajax			= true;
+	
 	function _output( $value )
 	{
+		$output = '';
+
 		if( ! empty( $value ) )
 		{
 			$attachment = self::get_attachment_by_url( $value );
-			$mime = str_replace( '/', '_', $attachment->post_mime_type );
-			$name = $attachment->post_title;
+			$mime = '';
 
-			$file = '<span class="cuztom_mime mime_' . $mime . '"><a target="_blank" href="' . $value . '">' . $name . '</a></span>';
+			if( is_object( $attachment ) )
+			{
+				$mime = str_replace( '/', '_', $attachment->post_mime_type );
+				$name = $attachment->post_title;
+			}
+
+			$file = '<span class="cuztom-mime mime-' . $mime . '"><a target="_blank" href="' . $value . '">' . $name . '</a></span>';
 		}
 		else 
 		{
 			$file = '';
 		}
 	
-		$output = '<div class="cuztom_button_wrap">';
-			$output .= '<input type="hidden" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" class="cuztom_hidden" value="' . ( ! empty( $value ) ? $value : '' ) . '" class="cuztom_input" />';
-			$output .= sprintf( '<input id="upload_file_button" type="button" class="button cuztom_button cuztom_upload cuztom_file" value="%s" class="cuztom_upload" />', __( 'Select file', 'cuztom' ) );
-			$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="cuztom_remove_file">%s</a>', __( 'Remove current file', 'cuztom' ) ) : '' );
-		$output .= '</div>';
-		$output .= '<span class="cuztom_preview">' . $file . '</span>';
+		$output .= '<input type="hidden" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" class="cuztom-hidden cuztom-input" value="' . ( ! empty( $value ) ? $value : '' ) . '" />';
+		$output .= sprintf( '<input id="upload-file-button" type="button" class="button js-cuztom-upload" data-cuztom-media-type="file" value="%s" />', __( 'Select file', 'cuztom' ) );
+		$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media">%s</a>', __( 'Remove current file', 'cuztom' ) ) : '' );
+
+		$output .= '<span class="cuztom-preview">' . $file . '</span>';
 
 		return $output;
 	}
@@ -38,7 +46,7 @@ class Cuztom_Field_File extends Cuztom_Field
 	{
 		global $wpdb;
 		
-		$attachment = $wpdb->get_row( $wpdb->prepare( "SELECT ID,post_title,post_mime_type FROM " . $wpdb->prefix . "posts" . " WHERE guid='" . $url . "';" ) );
+		$attachment = $wpdb->get_row( $wpdb->prepare( "SELECT ID,post_title,post_mime_type FROM " . $wpdb->prefix . "posts" . " WHERE guid=%s;", $url ) );
 
 		return $attachment;
 	}

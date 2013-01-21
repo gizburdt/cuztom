@@ -9,20 +9,27 @@
  */
 class Cuztom_Field
 {
-	var $id_name		= '';
-	var $name 			= '';
-    var $label 			= '';
-	var $type			= '';
-    var $description 	= '';
-	var $hide 			= true;
-	var $default_value 	= '';
-	var $options 		= array();
-	var $repeatable 	= false;
-	var $show_column 	= false;
-	var $pre			= '';
-	var $after			= '';
-	var $context		= '';
-	
+	var $id_name			= '';
+	var $name 				= '';
+    var $label 				= '';
+	var $type				= '';
+    var $description 		= '';
+    var $explanation		= '';
+	var $hide 				= true;
+	var $default_value 		= '';
+	var $options 			= array();
+	var $args				= array();
+	var $repeatable 		= false;
+	var $ajax 				= false;
+	var $show_admin_column 	= false;
+	var $pre				= '';
+	var $after				= '';
+	var $context			= '';
+
+	var $_supports_repeatable 	= false;
+	var $_supports_bundle		= false;
+	var $_supports_ajax			= false; 
+
 	/**
 	 * Constructs a Cuztom_Field
 	 * 
@@ -33,20 +40,23 @@ class Cuztom_Field
 	 * @since 	0.3.3
 	 * 
 	 */
-	function __construct( $field, $context )
+	function __construct( $field, $context, $post = null )
 	{
-		$this->name 			= isset( $field['name'] ) ? $field['name'] : $this->name;
-		$this->label			= isset( $field['label'] ) ? $field['label'] : $this->label;
-		$this->description		= isset( $field['description'] ) ? $field['description'] : $this->description;
-		$this->type				= isset( $field['type'] ) ? $field['type'] : $this->type;
-		$this->hide				= isset( $field['hide'] ) ? $field['hide'] : $this->hide;
-		$this->default_value	= isset( $field['default_value'] ) ? $field['default_value'] : $this->default_value;
-		$this->options			= isset( $field['options'] ) ? $field['options'] : $this->options;
-		$this->repeatable		= isset( $field['repeatable'] ) ? $field['repeatable'] : $this->repeatable ;
-		$this->show_column		= isset( $field['show_column'] ) ? $field['show_column'] : $this->show_column;
-		$this->context			= $context;
+		$this->name 				= isset( $field['name'] ) ? $field['name'] : $this->name;
+		$this->label				= isset( $field['label'] ) ? $field['label'] : $this->label;
+		$this->description			= isset( $field['description'] ) ? $field['description'] : $this->description;
+		$this->explanation			= isset( $field['explanation'] ) ? $field['explanation'] : $this->explanation;
+		$this->type					= isset( $field['type'] ) ? $field['type'] : $this->type;
+		$this->hide					= isset( $field['hide'] ) ? $field['hide'] : $this->hide;
+		$this->default_value		= isset( $field['default_value'] ) ? $field['default_value'] : $this->default_value;
+		$this->options				= isset( $field['options'] ) ? $field['options'] : $this->options;
+		$this->args					= isset( $field['args'] ) ? $field['args'] : $this->args;
+		$this->repeatable			= isset( $field['repeatable'] ) ? $field['repeatable'] : $this->repeatable ;
+		$this->ajax					= isset( $field['ajax'] ) ? $field['ajax'] : $this->ajax ;
+		$this->show_admin_column	= isset( $field['show_admin_column'] ) ? $field['show_admin_column'] : $this->show_admin_column;
+		$this->context				= $context;
 		
-		$this->id_name 			= $this->_build_id_name( $this->name, $context );
+		$this->id_name 				= $this->_build_id_name( $this->name, $context );
 	}
 	
 	/**
@@ -61,7 +71,12 @@ class Cuztom_Field
 	 */
 	function output( $value )
 	{
-		return $this->repeatable && $this->_supports_repeatable() && is_array( $value ) ? $this->_repeatable_output( $value ) : $this->_output( $value );
+		if( $this->repeatable && $this->_supports_repeatable )
+			return $this->_repeatable_output( $value );
+		elseif( $this->ajax && $this->_supports_ajax )
+			return $this->_ajax_output( $value );
+		else
+			return $this->_output( $value );
 	}
 
 	/**
@@ -81,33 +96,52 @@ class Cuztom_Field
 		else
 			update_post_meta( $id, $this->id_name, $value );
 	}
-	
+
 	/**
-	 * Checks if the field supports repeatable functionality
-	 *
-	 * @return 	boolean
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	1.0
-	 *
+	 * Saves an ajax field
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	2.0
+	 * 
 	 */
-	function _supports_repeatable()
+	function ajax_save()
 	{
-		return in_array( $this->type, apply_filters( 'cuztom_supports_repeatable', array( 'text', 'textarea', 'select', 'post_select', 'term_select' ) ) );
+		if( $_POST['cuztom'] )
+		{
+			$id 		= $_POST['cuztom']['id'];
+			$id_name 	= $_POST['cuztom']['id_name'];
+			$value 		= $_POST['cuztom']['value'];
+			$context 	= $_POST['cuztom']['context'];
+
+			if( empty( $id ) ) 
+				die();
+
+			if( $context == 'user' )
+				update_user_meta( $id, $id_name, $value );
+			else
+				update_post_meta( $id, $id_name, $value );
+		}
+
+		// For Wordpress
+		die();
 	}
-	
+
 	/**
-	 * Checks if the field supports bundle functionality
+	 * Outputs the field, ready for ajax save
+	 * 
+	 * @param  	string|array 	$value
+	 * @return  mixed 			$output
 	 *
-	 * @return 	boolean
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	1.2
-	 *
+	 * @author  Gijs Jorissen
+	 * @since   2.0
+	 * 
 	 */
-	function _supports_bundle()
-	{		
-		return in_array( $this->type, apply_filters( 'cuztom_supports_bundle', array( 'text', 'textarea' ) ) );
+	function _ajax_output( $value )
+	{
+		$output = $this->_output( $value );
+		$output .= sprintf( '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">%s</a>', __( 'Save', 'cuztom' ) );
+
+		return $output;
 	}
 	
 	/**

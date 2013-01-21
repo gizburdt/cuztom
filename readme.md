@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 1.6.8  
+**Version:** 2.0  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -114,6 +114,21 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###2.0
+* Added: Explanation. This is a second description shown below the field (not all fields are supported yet)
+* Added: Possibility to add a 'None' option to Cuztom_Select and Cuztom_Post_Select
+* Added: AJAX support for all fields (except radios and checkboxes)
+* Added: New fields, datepicker and datetimepicker
+* Enhancement: Better CSS and JS (selectors)
+* Enhancement: Better field outputting
+* Enhancement: Better handling of images and files
+* Enhancement: Many minor enchancements
+* Changed: show_column is renamed to show_admin_column, for Taxonomies and Fields
+* Changed: $options is changed to $args (field options). Options is now used for select, radios and checkboxes
+* Fixed: Many minor bugs
+* Removed: Field functions (/functions/field.php)
+* Removed: Cuztom_Field_Radio
 
 ###1.6.8
 * Enhancement: We're now using 'cuztom' (as string) as textdomain instead of CUZTOM_TEXTDOMAIN

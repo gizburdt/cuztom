@@ -2,11 +2,13 @@
 
 class Cuztom_Field_Wysiwyg extends Cuztom_Field
 {
+	var $_supports_ajax			= true;
+	
 	function __construct( $field, $meta_box )
 	{
 		parent::__construct( $field, $meta_box );
 
-		$this->options = array_merge( 
+		$this->args = array_merge( 
 					
 			// Default
 			array(
@@ -16,11 +18,11 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 			),
 			
 			// Given
-			$this->options
+			$this->args
 		
 		);
 		
-		$this->options['editor_class'] .= ' cuztom_input';
+		$this->args['editor_class'] .= ' cuztom-input';
 	}
 
 	function _output( $value )
