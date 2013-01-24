@@ -27,7 +27,7 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 
 	function _output( $value )
 	{	
-		return wp_editor( ( ! empty( $value ) ? $value : $this->default_value ), $this->id_name, $this->options );
+		return wp_editor( ( ! empty( $value ) ? $value : $this->default_value ), $this->id_name, $this->args );
 	}
 
 	function save( $post_id, $value, $context )
