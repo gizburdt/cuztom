@@ -2,7 +2,7 @@
 
 This class can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.0  
+**Version:** 2.0.1  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -114,6 +114,9 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###2.0.1
+* Fixed: Issue #100: Little bug with the WYSIWYG editor where data is not saved to the database
 
 ###2.0
 * Added: Explanation. This is a second description shown below the field (not all fields are supported yet)
