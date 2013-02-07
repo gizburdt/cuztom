@@ -4,7 +4,7 @@
 ob_start();
 
 // Define
-define( 'CUZTOM_VERSION', '2.0.1' );
+define( 'CUZTOM_VERSION', '2.0.2' );
 if( ! defined( 'CUZTOM_URL' ) ) define( 'CUZTOM_URL', '' );
 if( ! defined( 'CUZTOM_JQUERY_UI_STYLE' ) ) define( 'CUZTOM_JQUERY_UI_STYLE', 'cuztom' );
 
