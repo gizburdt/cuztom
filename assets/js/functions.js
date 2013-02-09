@@ -136,7 +136,7 @@ jQuery(function($)
 			hidden 	= $( '.cuztom-hidden', parent ),
 			preview = $( '.cuztom-preview', parent );
 
-		if( Cuztom.wp_version >= 3.5 )
+		if( Cuztom.wp_version >= '3.5' )
 		{
 			var	_original_send_attachment = wp.media.editor.send.attachment;
 				_cuztom = true;
