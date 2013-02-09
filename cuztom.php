@@ -21,6 +21,7 @@ include( 'classes/fields/textarea.class.php' );
 include( 'classes/fields/checkbox.class.php' );
 include( 'classes/fields/yesno.class.php' );
 include( 'classes/fields/select.class.php' );
+include( 'classes/fields/multi_select.class.php' );
 include( 'classes/fields/checkboxes.class.php' );
 include( 'classes/fields/radios.class.php' );
 include( 'classes/fields/wysiwyg.class.php' );

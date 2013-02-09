@@ -34,6 +34,7 @@
 .cuztom textarea, 
 .cuztom input[type="text"]{ width: 80%; display: inline-block; vertical-align: middle; }
 .cuztom textarea{ height: 100px; }
+.cuztom select{ min-width: 160px; }
 .cuztom .cuztom-preview{ width: 100%; display: block; margin-top: 8px; }
 .cuztom .cuztom-preview img{ max-width: 100%; }
 .cuztom .mceContentBody, 
