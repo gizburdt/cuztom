@@ -53,7 +53,7 @@ class Cuztom_Bundle
 												if( $field->_supports_bundle )
 													echo $field->output( $value, $post );
 												else
-													_e( '<em>This input type doesn\'t support the bundle functionality (yet).</em>' );
+													echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
 
 											echo '</td>';
 										echo '</tr>';
@@ -99,7 +99,7 @@ class Cuztom_Bundle
 											if( $field->_supports_bundle )
 												echo $field->output( $value, $post );
 											else
-												_e( '<em>This input type doesn\'t support the bundle functionality (yet).</em>' );
+												echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
 
 										echo '</td>';
 									echo '</tr>';
