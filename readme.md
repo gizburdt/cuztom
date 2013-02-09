@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.0.2  
+**Version:** 2.1  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -115,6 +115,13 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###2.1
+* Added: New field: multi select
+* Enhancement: Table and fields are now looking better when the metabox is in the sidebar
+* Enhancement: The version check within the javascript wasn't working well
+* Enhancement: HTML tags outside of the translated string
+* Changed (NOTE): Meta boxes now have a $id and a $title. Id is the unique string, the title can be translated
+
 ###2.0.2
 * Enhancement: new jQuery UI theme version
 * Fixed: Issue #105: Strings inside meta are now translated after using it in logic
@@ -136,36 +143,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Fixed: Many minor bugs
 * Removed: Field functions (/functions/field.php)
 * Removed: Cuztom_Field_Radio
-
-###1.6.8
-* Enhancement: We're now using 'cuztom' (as string) as textdomain instead of CUZTOM_TEXTDOMAIN
-* Enhancement: No PHP variables in translation functions
-
-###1.6.7
-* Deprecated: Cuztom_Radio_Field is from now on deprecated, because it is not usable
-* Enhancement: The reserved term notice in Cuztom_Taxonomy is better handled with admin_notices
-
-###1.6.6
-* Fixed: Issue #76: Adding existing taxonomies to post types resulted in reserved tag error
-
-###1.6.5
-* Enhancement: Better use of OOP, especially in the fields and tabs section.
-
-###1.6.4
-* Enhancement: Box description. If you want a descrption for a box, just pass an array to the $title parameter. The first element is the title, the second is the description.
-
-###1.6.3
-* Fixed: Bugs in javascript
-* Enhancement: The checked check for checkboxes is improved
-
-###1.6.2
-* Enhancement: The savinf process is now better OOP based
-* Enhancement: Better check for which checkboxes need to be checked
-* Enhancement: Sprintf in Taxonomy labels
-* Enhancement: Error message of reserved term usage only visible in Admin area
-
-###1.6.1
-* Enhancement: If a Cuztom Image Field is shown as a Post Table column, then the image is shown instead of the attachment_id
-
-###1.6
-* Added: Taxonomy as Post Table Column and as filter above the Post Table. Just set show_column = true in the Cuztom_Taxonomy args and it's all done. ( Issue #47 )
