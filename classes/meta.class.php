@@ -30,15 +30,12 @@ class Cuztom_Meta
 		if( is_array( $title ) )
 		{
 			$this->title 		= Cuztom::beautify( $title[0] );
-			$this->description 	= sprintf( __( '%s', 'cuztom' ), $title[1] );
+			$this->description 	= $title[1];
 		}
 		else
 		{
 			$this->title 		= Cuztom::beautify( $title );
 		}
-
-		$this->id 		= Cuztom::uglify( $this->title );
-		$this->title 	= sprintf( __( '%s', 'cuztom' ), $this->title );
 	}
 
 	/**
