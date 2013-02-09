@@ -13,19 +13,21 @@ class Cuztom_User_Meta extends Cuztom_Meta
 
 	/**
 	 * Constructor for User Meta
-	 * 
-	 * @param 	string 				$title
-	 * @param 	string|array 		$locations
-	 * @param 	array  				$data
+	 *
+	 * @param   integer 		$id
+	 * @param 	string|array	$title
+	 * @param 	string|array 	$locations
+	 * @param 	array  			$data
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   1.5
 	 * 
 	 */
-	function __construct( $title, $locations, $data = array() )
+	function __construct( $id, $title, $locations, $data = array() )
 	{
 		parent::__construct( $title );
 
+		$this->id 			= $id;
 		$this->locations	= array( 'show_user_profile', 'edit_user_profile' );
 
 		// Chack if the class, function or method exist, otherwise use cuztom callback

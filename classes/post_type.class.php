@@ -71,31 +71,27 @@ class Cuztom_Post_Type
 	{
 		// Set labels
 		$labels = array_merge(
-
-			// Default
 			array(
 				'name' 					=> sprintf( _x( '%s', 'post type general name', 'cuztom' ), $this->plural ),
 				'singular_name' 		=> sprintf( _x( '%s', 'post type singular title', 'cuztom' ), $this->title ),
+				'menu_name' 			=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
+				'all_items' 			=> sprintf( __( 'All %s', 'cuztom' ), $this->plural ),
 				'add_new' 				=> sprintf( _x( 'Add New', '%s', 'cuztom' ), $this->title ),
 				'add_new_item' 			=> sprintf( __( 'Add New %s', 'cuztom' ), $this->title ),
 				'edit_item' 			=> sprintf( __( 'Edit %s', 'cuztom' ), $this->title ),
 				'new_item' 				=> sprintf( __( 'New %s', 'cuztom' ), $this->title ),
-				'all_items' 			=> sprintf( __( 'All %s', 'cuztom' ), $this->plural ),
 				'view_item' 			=> sprintf( __( 'View %s', 'cuztom' ), $this->title ),
+				'items_archive'			=> sprintf( __( '%s Archive', 'cuztom' ), $this->title ),
 				'search_items' 			=> sprintf( __( 'Search %s', 'cuztom' ), $this->plural ),
 				'not_found' 			=> sprintf( __( 'No %s found', 'cuztom' ), $this->plural ),
 				'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', 'cuztom' ), $this->plural ),
-				'menu_name' 			=> sprintf( __( '%s', 'cuztom' ), $this->plural )
+				'parent_item_colon'		=> sprintf( __( '%s Parent', 'cuztom' ), $this->title ),
 			),
-
-			// Given labels
 			$this->labels
-
 		);
 
 		// Post type arguments
 		$args = array_merge( 
-			// Default
 			array(
 				'label' 				=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
 				'labels' 				=> $labels,
@@ -103,10 +99,7 @@ class Cuztom_Post_Type
 				'supports' 				=> array( 'title', 'editor' ),
 				'has_archive'           => sanitize_title( $this->plural )
 			),
-
-			// Given args
 			$this->args
-
 		);
 
 		// Register the post type
@@ -137,6 +130,7 @@ class Cuztom_Post_Type
 	/**
 	 * Add post meta box to the Post Type
 	 *
+	 * @param   integer 		$id
 	 * @param 	string 			$title
 	 * @param 	array 			$fields
 	 * @param 	string 			$context
@@ -147,10 +141,10 @@ class Cuztom_Post_Type
 	 * @since 	0.1
 	 *
 	 */
-	function add_meta_box( $title, $fields = array(), $context = 'normal', $priority = 'default' )
+	function add_meta_box( $id, $title, $fields = array(), $context = 'normal', $priority = 'default' )
 	{
 		// Call Cuztom_Meta_Box with this post type name as second parameter
-		$meta_box = new Cuztom_Meta_Box( $title, $this->name, $fields, $context, $priority );
+		$meta_box = new Cuztom_Meta_Box( $id, $title, $this->name, $fields, $context, $priority );
 		
 		// For method chaining
 		return $this;

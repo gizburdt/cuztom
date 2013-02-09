@@ -16,7 +16,8 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	/**
 	 * Constructs the meta box
 	 *
-	 * @param 	string 			$title
+	 * @param   integer 		$id
+	 * @param 	string|array	$title
 	 * @param 	array|string	$fields
 	 * @param 	string 			$post_type_name
 	 * @param 	string 			$context
@@ -26,12 +27,13 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 * @since 	0.2
 	 *
 	 */
-	function __construct( $title, $post_type, $data = array(), $context = 'normal', $priority = 'default' )
+	function __construct( $id, $title, $post_type, $data = array(), $context = 'normal', $priority = 'default' )
 	{
 		if( ! empty( $title ) )
 		{
 			parent::__construct( $title );
 
+			$this->id 			= $id;
 			$this->post_types 	= (array) $post_type;
 			$this->context		= $context;
 			$this->priority		= $priority;
