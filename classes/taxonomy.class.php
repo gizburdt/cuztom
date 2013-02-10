@@ -180,9 +180,12 @@ class Cuztom_Taxonomy
 	 */
 	function add_column_content( $column, $post_id )
 	{
-		$terms = wp_get_post_terms( $post_id, $this->name, array( 'fields' => 'names' ) );
+		if ( $column === $this->name ) 
+		{
+			$terms = wp_get_post_terms( $post_id, $this->name, array( 'fields' => 'names' ) );
 
-		echo implode( $terms, ', ' );
+			echo implode( $terms, ', ' );
+		}
 	}
 
 	/**
