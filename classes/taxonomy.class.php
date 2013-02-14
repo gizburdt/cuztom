@@ -56,7 +56,7 @@ class Cuztom_Taxonomy
 				if ( $is_reserved_term = Cuztom::is_reserved_term( $this->name ) )
 	            {
 	            	$this->reserved_term_notice = $is_reserved_term->get_error_message();
-	            	add_action( 'admin_notices', 'add_reserved_term_notice' );
+	            	add_action( 'admin_notices', array( &$this, 'add_reserved_term_notice' ) );
 	            }
 				else
 				{
