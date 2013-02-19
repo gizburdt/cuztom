@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.1.1  
+**Version:** 2.1.2  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -114,6 +114,10 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###2.1.2
+* Fixed: Fixed a bug where only 5 posts were shown in Cuztom post fields
+* Fixed: call_to_user_func error
 
 ###2.1.1
 * Fixed: Issue #47: Wrong content in the wrong admin column
