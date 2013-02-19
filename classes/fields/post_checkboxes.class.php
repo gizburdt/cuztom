@@ -11,7 +11,7 @@ class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 			// Default
 			array(
 				'post_type'		=> 'post',
-				'posts_per_page'  	=> '*',
+				'posts_per_page'  	=> -1,
 			),
 			
 			// Given
