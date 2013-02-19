@@ -14,6 +14,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 			// Default
 			array(
 				'post_type'		=> 'post',
+				'posts_per_page'  	=> -1,
 			),
 			
 			// Given
