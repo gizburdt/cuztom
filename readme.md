@@ -32,6 +32,7 @@ You can also call this as a seperate class like this. The second parameter is th
 Add Meta Boxes.
 
 	$book->add_meta_box( 
+		'meta_box_id',
 		'Book Info', 
 		array(
 			array(
@@ -46,6 +47,7 @@ Add Meta Boxes.
 Meta Boxes can be added with their own class too. The second parameter is the Post Type name.
 
 	$box = add_cuztom_meta_box(  
+		'meta_box_id',
 		'Book Info', 
 		'book',
 		array(
