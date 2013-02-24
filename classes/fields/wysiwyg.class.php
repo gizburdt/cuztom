@@ -13,7 +13,6 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 			// Default
 			array(
 				'textarea_name' => 'cuztom[' . $this->id_name . ']',
-				'media_buttons' => false,
 				'editor_class'	=> ''
 			),
 			
