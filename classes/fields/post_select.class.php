@@ -4,27 +4,27 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 {
 	var $_supports_repeatable 	= true;
 	var $_supports_ajax			= true;
-	
+
 	function __construct( $field, $meta_box )
 	{
 		parent::__construct( $field, $meta_box );
 
 		$this->args = array_merge(
-					
+
 			// Default
 			array(
 				'post_type'			=> 'post',
 				'posts_per_page'	=> -1
 			),
-			
+
 			// Given
 			$this->args
-		
+
 		);
 
 		$this->posts 	= get_posts( $this->args );
 	}
-	
+
 	function _output( $value )
 	{
 		$output = '<select name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '" id="' . $this->id_name . '" class="cuztom-input">';
@@ -42,7 +42,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 
 		return $output;
 	}
-	
+
 	function _repeatable_output( $value )
 	{
 		$this->after = '[]';

@@ -9,36 +9,36 @@
  */
 class Cuztom_Field
 {
-	var $id_name			= '';
-	var $name 				= '';
-    var $label 				= '';
-	var $type				= '';
-    var $description 		= '';
-    var $explanation		= '';
-	var $hide 				= true;
-	var $default_value 		= '';
-	var $options 			= array();
-	var $args				= array();
-	var $repeatable 		= false;
-	var $ajax 				= false;
-	var $show_admin_column 	= false;
-	var $pre				= '';
-	var $after				= '';
-	var $context			= '';
+		var $id_name              = '';
+		var $name                 = '';
+		var $label                = '';
+		var $type                 = '';
+		var $description          = '';
+		var $explanation          = '';
+		var $hide                 = true;
+		var $default_value        = '';
+		var $options              = array();
+		var $args                 = array();
+		var $repeatable           = false;
+		var $ajax                 = false;
+		var $show_admin_column    = false;
+		var $pre                  = '';
+		var $after                = '';
+		var $context              = '';
 
-	var $_supports_repeatable 	= false;
-	var $_supports_bundle		= false;
-	var $_supports_ajax			= false; 
+		var $_supports_repeatable = false;
+		var $_supports_bundle     = false;
+		var $_supports_ajax       = false;
 
 	/**
 	 * Constructs a Cuztom_Field
-	 * 
+	 *
 	 * @param 	array 			$field
 	 * @param 	string 			$context
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	0.3.3
-	 * 
+	 *
 	 */
 	function __construct( $field, $context, $post = null )
 	{
@@ -55,10 +55,10 @@ class Cuztom_Field
 		$this->ajax					= isset( $field['ajax'] ) ? $field['ajax'] : $this->ajax ;
 		$this->show_admin_column	= isset( $field['show_admin_column'] ) ? $field['show_admin_column'] : $this->show_admin_column;
 		$this->context				= $context;
-		
+
 		$this->id_name 				= $this->_build_id_name( $this->name, $context );
 	}
-	
+
 	/**
 	 * Outputs a field based on its type
 	 *
@@ -81,13 +81,13 @@ class Cuztom_Field
 
 	/**
 	 * Save meta
-	 * 
+	 *
 	 * @param  	int 			$post_id
 	 * @param  	string 			$value
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since  	1.6.2
-	 * 
+	 *
 	 */
 	function save( $id, $value, $context )
 	{
@@ -99,10 +99,10 @@ class Cuztom_Field
 
 	/**
 	 * Saves an ajax field
-	 * 
+	 *
 	 * @author  Gijs Jorissen
 	 * @since  	2.0
-	 * 
+	 *
 	 */
 	function ajax_save()
 	{
@@ -113,7 +113,7 @@ class Cuztom_Field
 			$value 		= $_POST['cuztom']['value'];
 			$context 	= $_POST['cuztom']['context'];
 
-			if( empty( $id ) ) 
+			if( empty( $id ) )
 				die();
 
 			if( $context == 'user' )
@@ -128,13 +128,13 @@ class Cuztom_Field
 
 	/**
 	 * Outputs the field, ready for ajax save
-	 * 
+	 *
 	 * @param  	string|array 	$value
 	 * @return  mixed 			$output
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   2.0
-	 * 
+	 *
 	 */
 	function _ajax_output( $value )
 	{
@@ -143,7 +143,7 @@ class Cuztom_Field
 
 		return $output;
 	}
-	
+
 	/**
 	 * Builds an string used as field id and name
 	 *
@@ -156,7 +156,7 @@ class Cuztom_Field
 	 *
 	 */
 	function _build_id_name( $name, $context )
-	{		
+	{
 		return apply_filters( 'cuztom_build_id_name', ( $this->hide ? '_' : '' ) . Cuztom::uglify( $context ) . "_" . Cuztom::uglify( $name ) );
 	}
 }
