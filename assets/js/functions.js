@@ -58,7 +58,7 @@ jQuery(function($)
 		return false;
 	});		
 	
-	// Add sortabe
+	// Add sortable
 	$('.cuztom').on( 'click', '.js-cuztom-add-sortable', function() 
 	{
 		var that		= $( this ),
@@ -74,7 +74,7 @@ jQuery(function($)
 		if( is_bundle )
 		{
 			new_item.find('.cuztom-input').each(function(){
-				$(this).attr('name', function( i, val ){ return val.replace( /(\d+)/, function( n ){ return Number(n) + 1 } ) } );
+				$(this).attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return "[" + ( Number(n) + 1 ) + "]"; }); })
 			});
 		}
 		
@@ -118,8 +118,6 @@ jQuery(function($)
 		};
 
 		$.post( Cuztom.ajax_url, data, function(r) {
-			console.log(r)
-
 			var border_color = input.css('border-color');
 			input.animate({ borderColor: '#60b334' }, 200, function(){ input.animate({ borderColor: border_color }); });
 		});
@@ -147,8 +145,6 @@ jQuery(function($)
 		    	{
 		    		if( type == 'image' )
 		    		{
-		    			console.log(attachment)
-
 		    			var thumbnail = attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full;
 
 		    			preview.html('<img src="' + thumbnail.url + '" height="' + thumbnail.height + '" width="' + thumbnail.width + '" />')
