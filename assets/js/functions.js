@@ -1,7 +1,7 @@
 jQuery.noConflict();
 
-jQuery(function($) 
-{
+jQuery(function($) {
+	
 	// Datepicker
 	$('.js-cuztom-datepicker').each(function(){
 		$(this).datepicker({ dateFormat: $(this).data('date-format') });
