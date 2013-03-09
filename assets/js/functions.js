@@ -78,8 +78,12 @@ jQuery(function($) {
 			});
 		}
 		
+		// Reset data
+		new_item.find('.cuztom-input, textarea, select, .cuztom-hidden').val('').removeAttr('selected');
+		new_item.find('.js-cuztom-remove-media').remove();
+		new_item.find('.cuztom-preview').html('');
+
 		// Add the new item
-		new_item.find('input, textarea, select').val('').removeAttr('selected');
 		new_item.appendTo( wrap );
 		
 		// Add new handler and remover if necessary
