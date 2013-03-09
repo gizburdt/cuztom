@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.2  
+**Version:** 2.2.1  
 **Requires:** 3.0+  
 
 ## Basic usage
@@ -116,6 +116,10 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###2.2.1
+* Fixed: Issue #130: Image select button loses ats value in bundle
+* Added: Select in bundle
 
 ###2.2
 * Fixed: Issue #126: Image field error when editor is not supported by post type
