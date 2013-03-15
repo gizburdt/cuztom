@@ -3,6 +3,7 @@
 class Cuztom_Field_Image extends Cuztom_Field
 {
 	var $_supports_ajax			= true;
+	var $_supports_bundle		= true;
 	
 	function _output( $value )
 	{
@@ -19,7 +20,7 @@ class Cuztom_Field_Image extends Cuztom_Field
 			$image = '';
 		}
 	
-		$output .= '<input type="hidden" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . '" class="cuztom-hidden cuztom-input" value="' . ( ! empty( $value ) ? $value : '' ) . '" />';
+		$output .= '<input type="hidden" name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '" id="' . $this->id_name . '" class="cuztom-hidden cuztom-input" value="' . ( ! empty( $value ) ? $value : '' ) . '" />';
 		$output .= sprintf( '<input id="upload-image-button" type="button" class="button js-cuztom-upload" data-cuztom-media-type="image" value="%s" />', __( 'Select image', 'cuztom' ) );
 		$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media">%s</a>', __( 'Remove current image', 'cuztom' ) ) : '' );
 

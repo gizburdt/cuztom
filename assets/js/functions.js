@@ -1,7 +1,7 @@
 jQuery.noConflict();
 
-jQuery(function($) 
-{
+jQuery(function($) {
+	
 	// Datepicker
 	$('.js-cuztom-datepicker').each(function(){
 		$(this).datepicker({ dateFormat: $(this).data('date-format') });
@@ -58,7 +58,7 @@ jQuery(function($)
 		return false;
 	});		
 	
-	// Add sortabe
+	// Add sortable
 	$('.cuztom').on( 'click', '.js-cuztom-add-sortable', function() 
 	{
 		var that		= $( this ),
@@ -74,12 +74,16 @@ jQuery(function($)
 		if( is_bundle )
 		{
 			new_item.find('.cuztom-input').each(function(){
-				$(this).attr('name', function( i, val ){ return val.replace( /(\d+)/, function( n ){ return Number(n) + 1 } ) } );
+				$(this).attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return "[" + ( Number(n) + 1 ) + "]"; }); })
 			});
 		}
 		
+		// Reset data
+		new_item.find('.cuztom-input, textarea, select, .cuztom-hidden').val('').removeAttr('selected');
+		new_item.find('.js-cuztom-remove-media').remove();
+		new_item.find('.cuztom-preview').html('');
+
 		// Add the new item
-		new_item.find('input, textarea, select').val('').removeAttr('selected');
 		new_item.appendTo( wrap );
 		
 		// Add new handler and remover if necessary
@@ -118,8 +122,6 @@ jQuery(function($)
 		};
 
 		$.post( Cuztom.ajax_url, data, function(r) {
-			console.log(r)
-
 			var border_color = input.css('border-color');
 			input.animate({ borderColor: '#60b334' }, 200, function(){ input.animate({ borderColor: border_color }); });
 		});
@@ -147,8 +149,6 @@ jQuery(function($)
 		    	{
 		    		if( type == 'image' )
 		    		{
-		    			console.log(attachment)
-
 		    			var thumbnail = attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full;
 
 		    			preview.html('<img src="' + thumbnail.url + '" height="' + thumbnail.height + '" width="' + thumbnail.width + '" />')

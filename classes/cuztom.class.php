@@ -157,10 +157,10 @@ class Cuztom
 		else
 		{
 			wp_enqueue_script( 'thickbox' );
-			wp_enqueue_script( 'media-upload' );
 		}
 
 		wp_enqueue_script( 'cuztom' );
+		wp_enqueue_script( 'media-upload' );
 		
 		self::localize_scripts();
 	}
