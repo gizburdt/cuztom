@@ -73,7 +73,7 @@ jQuery(function($) {
 		// Set new bundle array key
 		if( is_bundle )
 		{
-			new_item.find('.cuztom-input').each(function(){
+			new_item.find('.cuztom-input').each( function() {
 				$(this).attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return "[" + ( Number(n) + 1 ) + "]"; }); })
 			});
 		}
