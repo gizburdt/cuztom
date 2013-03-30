@@ -5,7 +5,7 @@ class Cuztom_Field_Rating extends Cuztom_Field
 
 	function _output( $value )
 	{
-		extract($this->options);
+		extract($this->args);
 		if(is_array($hints)){
 			$hints = implode('", "', $hints);
 		}else{
