@@ -36,6 +36,7 @@ include( 'classes/fields/post_checkboxes.class.php' );
 include( 'classes/fields/term_select.class.php' );
 include( 'classes/fields/term_checkboxes.class.php' );
 include( 'classes/fields/hidden.class.php' );
+include( 'classes/fields/rating.class.php' );
 
 include( 'classes/meta.class.php' );
 include( 'classes/meta_box.class.php' );
