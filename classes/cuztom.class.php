@@ -133,6 +133,13 @@ class Cuztom
 			true 
 		);
 		
+		wp_register_script( 'jquery-raty', 
+			$this->url . '/assets/js/jquery.raty.min.js',
+			array( 'jquery' ), 
+			CUZTOM_VERSION, 
+			false 
+		);
+		
 		wp_register_script( 'cuztom', 
 			$this->url . '/assets/js/functions.js',
 			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-colorpicker', 'jquery-timepicker', 'jquery-ui-sortable' ), 
@@ -160,6 +167,7 @@ class Cuztom
 		}
 
 		wp_enqueue_script( 'cuztom' );
+		wp_enqueue_script( 'jquery-raty' );
 		wp_enqueue_script( 'media-upload' );
 		
 		self::localize_scripts();
