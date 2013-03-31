@@ -200,7 +200,7 @@ class Cuztom
 	}
 	
 	/**
-	 * Uglifies a string. Remove underscores and lower strings
+	 * Uglifies a string. Remove strange characters and lower strings
 	 *
 	 * @param 	string 			$string
 	 * @return 	string
@@ -291,7 +291,7 @@ class Cuztom
 	/**
 	 * Checks if the callback is a Wordpress callback
 	 * So, if the class, method and/or function exists. If so, call it.
-	 * If it doesn't use the data array.
+	 * If it doesn't use the data array (cuztom).
 	 * 
 	 * @param	string|array   	$callback
 	 * @return 	boolean
@@ -300,7 +300,7 @@ class Cuztom
 	 * @since 	1.5
 	 * 
 	 */
-	function is_wp_callback( $callback )
+	static function is_wp_callback( $callback )
 	{
 		return ( ! is_array( $callback ) ) || ( is_array( $callback ) && ( ( isset( $callback[1] ) && ! is_array( $callback[1] ) && method_exists( $callback[0], $callback[1] ) ) || ( isset( $callback[0] ) && ! is_array( $callback[0] ) && class_exists( $callback[0] ) ) ) );
 	}
@@ -365,5 +365,6 @@ class Cuztom
 				return $this->_determine_cuztom_url( $path );
 			}
 		}
+	    return new WP_Error( 'reserved_term_used', __( 'Use of a reserved term', 'cuztom' ) );
 	}
 }
