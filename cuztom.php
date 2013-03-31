@@ -1,12 +1,27 @@
 <?php
 
-// Start
-ob_start();
-
+/**
+ * Cuztom_Singleton handles init of Cuztom
+ *
+ * @author 	Gijs Jorissen
+ * @since  	2.3
+ * 
+ */
 class Cuztom_Singleton
 {
+	/**
+	 * Place where instance is saved
+	 * @var   object 		$instance
+	 */
 	private static $instance;
 
+	/**
+	 * Public function to set the instance
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since  	2.3
+	 * 
+	 */
 	public function instance()
 	{
 		if ( ! isset( self::$instance ) ) 
@@ -20,6 +35,13 @@ class Cuztom_Singleton
 		return self::$instance;
 	}
 
+	/**
+	 * Setup all the constants
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   2.3
+	 * 
+	 */
 	private function setup_constants()
 	{
 		if( ! defined( 'CUZTOM_VERSION' ) ) 
@@ -35,6 +57,13 @@ class Cuztom_Singleton
 			define( 'CUZTOM_JQUERY_UI_STYLE', 'cuztom' );
 	}
 
+	/**
+	 * Include the necessary files
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   2.3
+	 * 
+	 */
 	private function includes()
 	{
 		include( CUZTOM_DIR . '/classes/cuztom.class.php' );
@@ -87,6 +116,13 @@ class Cuztom_Singleton
 		include( CUZTOM_DIR . '/functions/submenu_page.php' );
 	}
 
+	/**
+	 * Add hooks
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   2.3
+	 * 
+	 */
 	private function add_hooks()
 	{
 		// Add actions
