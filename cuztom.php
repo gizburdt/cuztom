@@ -1,5 +1,9 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
+if( ! class_exists( 'Cuztom' ) ) :
+
 /**
  * Cuztom_Singleton handles init of Cuztom
  *
@@ -9,10 +13,6 @@
  */
 class Cuztom_Singleton
 {
-	/**
-	 * Place where instance is saved
-	 * @var   object 		$instance
-	 */
 	private static $instance;
 
 	/**
@@ -73,6 +73,8 @@ class Cuztom_Singleton
 
 		if( is_admin() )
 		{
+			include( CUZTOM_DIR . '/classes/notice.class.php' );
+
 			include( CUZTOM_DIR . '/classes/meta.class.php' );
 			include( CUZTOM_DIR . '/classes/meta_box.class.php' );
 			include( CUZTOM_DIR . '/classes/user_meta.class.php' );
@@ -287,5 +289,7 @@ class Cuztom_Singleton
 		}
 	}
 }
+
+endif; // End class_exists check
 
 Cuztom_Singleton::instance();

@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * General class with main methods and helper methods
  *
@@ -9,10 +11,6 @@
  */
 class Cuztom
 {
-	/**
-	 * Wordpress reserved terms
-	 * @var  	array 			$_reserved
-	 */
 	static $_reserved = array( 'attachment', 'attachment_id', 'author', 'author_name', 'calendar', 'cat', 'category','category__and', 'category__in', 'category__not_in', 
 		'category_name', 'comments_per_page', 'comments_popup', 'cpage', 'day', 'debug', 'error', 'exact', 'feed', 'hour', 'link_category', 
 		'm', 'minute', 'monthnum', 'more', 'name', 'nav_menu', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 
@@ -156,6 +154,6 @@ class Cuztom
 	{
 	    if( ! in_array( $term, self::$_reserved ) ) return false;
 	    
-	    return new WP_Error( 'reserved_term_used', __( 'Use of a reserved term', 'cuztom' ) );
+	    return new WP_Error( 'reserved_term_used', __( 'Use of a reserved term.', 'cuztom' ) );
 	}
 }

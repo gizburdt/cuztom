@@ -95,7 +95,7 @@ class Cuztom_Meta
 											echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
 										}
 										
-											echo $field->output( $meta, $object );
+										echo $field->output( $meta, $object );
 
 										if( $field->repeatable && $field->_supports_repeatable )
 										{
@@ -119,20 +119,6 @@ class Cuztom_Meta
 	}
 
 	/**
-	 * Adds multipart support to form
-	 *
-	 * @return 	mixed
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.2
-	 *
-	 */
-	static function _edit_form_tag()
-	{
-		echo ' enctype="multipart/form-data"';
-	}
-
-	/**
 	 * Check what kind of meta we're dealing with
 	 * 
 	 * @return  string
@@ -144,6 +130,51 @@ class Cuztom_Meta
 	function _get_meta_type()
 	{
 		return get_class( $this ) == 'Cuztom_User_Meta' ? 'user' : 'post';
+	}
+	
+	/**
+	 * Checks if the given array are tabs
+	 *
+	 * @param 	array 			$data
+	 * @return 	boolean
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	1.3
+	 *
+	 */
+	static function _is_tabs( $data )
+	{
+		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'tabs' );
+	}
+	
+	/**
+	 * Checks if the given array is an accordion
+	 *
+	 * @param 	array 			$data
+	 * @return 	bool
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	1.3
+	 *
+	 */
+	static function _is_accordion( $data )
+	{
+		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'accordion' );
+	}
+	
+	/**
+	 * Checks if the given array is a bundle
+	 *
+	 * @param 	array 			$data
+	 * @return 	bool
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	1.3
+	 *
+	 */
+	static function _is_bundle( $data )
+	{
+		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'bundle' );
 	}
 
 	/**
@@ -228,49 +259,18 @@ class Cuztom_Meta
 			}
 		}
 	}
-	
+
 	/**
-	 * Checks if the given array are tabs
+	 * Adds multipart support to form
 	 *
-	 * @param 	array 			$data
-	 * @return 	boolean
+	 * @return 	mixed
 	 *
 	 * @author 	Gijs Jorissen
-	 * @since 	1.3
+	 * @since 	0.2
 	 *
 	 */
-	static function _is_tabs( $data )
+	static function _edit_form_tag()
 	{
-		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'tabs' );
-	}
-	
-	/**
-	 * Checks if the given array is an accordion
-	 *
-	 * @param 	array 			$data
-	 * @return 	bool
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	1.3
-	 *
-	 */
-	static function _is_accordion( $data )
-	{
-		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'accordion' );
-	}
-	
-	/**
-	 * Checks if the given array is a bundle
-	 *
-	 * @param 	array 			$data
-	 * @return 	bool
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	1.3
-	 *
-	 */
-	static function _is_bundle( $data )
-	{
-		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'bundle' );
+		echo ' enctype="multipart/form-data"';
 	}
 }
