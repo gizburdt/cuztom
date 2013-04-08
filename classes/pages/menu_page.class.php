@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Class to register Menu Pages
  *

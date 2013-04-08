@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 {
 	var $terms;

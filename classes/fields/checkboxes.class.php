@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 class Cuztom_Field_Checkboxes extends Cuztom_Field
 {
 	function __construct( $field, $context )

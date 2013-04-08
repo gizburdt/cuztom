@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Cuztom Meta for handling meta data
  *

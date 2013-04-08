@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 class Cuztom_Field_Select extends Cuztom_Field
 {
 	var $_supports_repeatable 	= true;

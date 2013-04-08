@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Registers a Taxonomy for a Post Type
  *

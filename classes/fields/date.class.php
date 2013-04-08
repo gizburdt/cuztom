@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 class Cuztom_Field_Date extends Cuztom_Field
 {
 	var $_supports_ajax			= true;

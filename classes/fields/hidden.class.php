@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 class Cuztom_Field_Hidden extends Cuztom_Field
 {
 	function _output( $value )
