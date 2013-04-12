@@ -34,7 +34,7 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 		$this->args['echo']		= 0;
 	}
 
-	function _output( $value )
+	function _output( $value, $object )
 	{
 		$this->args['selected'] = ( ! empty( $value ) ? $value : $this->default_value );
 		$this->dropdown 		= wp_dropdown_categories( $this->args );
@@ -44,7 +44,7 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 		return $output;
 	}
 	
-	function _repeatable_output( $value )
+	function _repeatable_output( $value, $object )
 	{
 		$this->after = '[]';
 		$output = '';

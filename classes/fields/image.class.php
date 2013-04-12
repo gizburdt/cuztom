@@ -7,7 +7,7 @@ class Cuztom_Field_Image extends Cuztom_Field
 	var $_supports_ajax			= true;
 	var $_supports_bundle		= true;
 	
-	function _output( $value )
+	function _output( $value, $object )
 	{
 		$output = '';
 

@@ -4,14 +4,14 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Checkboxes extends Cuztom_Field
 {
-	function __construct( $field, $context )
+	function __construct( $field, $meta_type )
 	{
-		parent::__construct( $field, $context );
+		parent::__construct( $field, $meta_type );
 
 		$this->default_value = (array) $this->default_value;
 	}
 
-	function _output( $value )
+	function _output( $value, $object )
 	{
 		$output = '<div class="cuztom-padding-wrap cuztom-checkboxes-wrap">';
 			if( is_array( $this->options ) )
@@ -30,10 +30,10 @@ class Cuztom_Field_Checkboxes extends Cuztom_Field
 		return $output;
 	}
 
-	function save( $post_id, $value, $context )
+	function save( $post_id, $value, $meta_type )
 	{
 		$value = empty( $value ) ? '-1' : $value;
 
-		parent::save( $post_id, $value, $context );
+		parent::save( $post_id, $value, $meta_type );
 	}
 }

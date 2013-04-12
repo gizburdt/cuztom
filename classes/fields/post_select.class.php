@@ -27,7 +27,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 		$this->posts 	= get_posts( $this->args );
 	}
 	
-	function _output( $value )
+	function _output( $value, $object )
 	{
 		$output = '<select name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '" id="' . $this->id_name . '" class="cuztom-input">';
 			if( isset( $this->args['option_none'] ) && $this->args['option_none'] )
@@ -45,7 +45,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 		return $output;
 	}
 	
-	function _repeatable_output( $value )
+	function _repeatable_output( $value, $object )
 	{
 		$this->after = '[]';
 		$output = '';

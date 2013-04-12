@@ -4,7 +4,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Multi_Select extends Cuztom_Field
 {	
-	function _output( $value )
+	function _output( $value, $object )
 	{
 		$output = '<select name="cuztom[' . $this->id_name . '][]' . $this->after . '" id="' . $this->id_name . '" class="cuztom-input" multiple="true">';
 			if( isset( $this->args['option_none'] ) && $this->args['option_none'] )

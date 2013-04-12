@@ -8,7 +8,7 @@ class Cuztom_Tab
 	var $title;
 	var $fields = array();
 
-	function output( $post, $context, $type )
+	function output( $post, $meta_type, $type )
 	{
 		$fields = $this->fields;
 				
@@ -19,7 +19,7 @@ class Cuztom_Tab
 			echo '<table border="0" cellading="0" cellspacing="0" class="from-table cuztom-table">';
 				foreach( $fields as $field_id_name => $field )
 				{
-					$value = $context == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
+					$value = $meta_type == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
 					
 					if( ! $field instanceof Cuztom_Field_Hidden )
 					{
