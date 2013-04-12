@@ -11,22 +11,22 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 class Cuztom_Field
 {
-	var $id_name			= '';
-	var $name 				= '';
-    var $label 				= '';
-	var $type				= '';
-    var $description 		= '';
-    var $explanation		= '';
-	var $hide 				= true;
-	var $default_value 		= '';
-	var $options 			= array();
-	var $args				= array();
-	var $repeatable 		= false;
-	var $ajax 				= false;
-	var $show_admin_column 	= false;
-	var $pre				= '';
-	var $after				= '';
-	var $context			= '';
+	var $id_name				= '';
+	var $type					= '';
+	var $name 					= '';
+    var $label 					= '';
+    var $description 			= '';
+    var $explanation			= '';
+	var $default_value 			= '';
+	var $options 				= array();
+	var $args					= array();
+	var $hide 					= true;
+	var $repeatable 			= false;
+	var $ajax 					= false;
+	var $show_admin_column 		= false;
+	var $pre					= '';
+	var $after					= '';
+	var $parent					= '';
 
 	var $_supports_repeatable 	= false;
 	var $_supports_bundle		= false;
@@ -36,29 +36,33 @@ class Cuztom_Field
 	 * Constructs a Cuztom_Field
 	 * 
 	 * @param 	array 			$field
-	 * @param 	string 			$context
+	 * @param 	string 			$parent
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	0.3.3
 	 * 
 	 */
-	function __construct( $field, $context, $post = null )
+	function __construct( $field, $parent, $post = null )
 	{
-		$this->name 				= isset( $field['name'] ) ? $field['name'] : $this->name;
-		$this->label				= isset( $field['label'] ) ? $field['label'] : $this->label;
-		$this->description			= isset( $field['description'] ) ? $field['description'] : $this->description;
-		$this->explanation			= isset( $field['explanation'] ) ? $field['explanation'] : $this->explanation;
-		$this->type					= isset( $field['type'] ) ? $field['type'] : $this->type;
-		$this->hide					= isset( $field['hide'] ) ? $field['hide'] : $this->hide;
-		$this->default_value		= isset( $field['default_value'] ) ? $field['default_value'] : $this->default_value;
-		$this->options				= isset( $field['options'] ) ? $field['options'] : $this->options;
-		$this->args					= isset( $field['args'] ) ? $field['args'] : $this->args;
-		$this->repeatable			= isset( $field['repeatable'] ) ? $field['repeatable'] : $this->repeatable ;
-		$this->ajax					= isset( $field['ajax'] ) ? $field['ajax'] : $this->ajax ;
-		$this->show_admin_column	= isset( $field['show_admin_column'] ) ? $field['show_admin_column'] : $this->show_admin_column;
-		$this->context				= $context;
+		$this->name 				= isset( $field['name'] ) 				? $field['name'] 				: $this->name;
+		$this->label				= isset( $field['label'] ) 				? $field['label'] 				: $this->label;
+		$this->description			= isset( $field['description'] ) 		? $field['description'] 		: $this->description;
+		$this->explanation			= isset( $field['explanation'] ) 		? $field['explanation'] 		: $this->explanation;
+		$this->type					= isset( $field['type'] ) 				? $field['type'] 				: $this->type;
+		$this->hide					= isset( $field['hide'] ) 				? $field['hide'] 				: $this->hide;
+		$this->default_value		= isset( $field['default_value'] ) 		? $field['default_value'] 		: $this->default_value;
+		$this->options				= isset( $field['options'] ) 			? $field['options'] 			: $this->options;
+		$this->args					= isset( $field['args'] ) 				? $field['args'] 				: $this->args;
+		$this->repeatable			= isset( $field['repeatable'] ) 		? $field['repeatable'] 			: $this->repeatable ;
+		$this->ajax					= isset( $field['ajax'] ) 				? $field['ajax'] 				: $this->ajax ;
+		$this->show_admin_column	= isset( $field['show_admin_column'] ) 	? $field['show_admin_column'] 	: $this->show_admin_column;
 		
-		$this->id_name 				= $this->_build_id_name( $this->name, $context );
+		// Mostly the name of the meta box
+		$this->parent				= $parent;
+		
+		// Id_name is used as id to select the field
+		// If i'ts not in the $field paramater, the id_name will be genereted
+		$this->id_name 				= isset( $field['id_name'] ) 			? $field['id_name'] 			: $this->_build_id_name( $this->name, $parent );
 	}
 	
 	/**
@@ -71,14 +75,14 @@ class Cuztom_Field
 	 * @since 	0.2
 	 *
 	 */
-	function output( $value )
+	function output( $value, $object )
 	{
 		if( $this->repeatable && $this->_supports_repeatable )
-			return $this->_repeatable_output( $value );
+			return $this->_repeatable_output( $value, $object );
 		elseif( $this->ajax && $this->_supports_ajax )
-			return $this->_ajax_output( $value );
+			return $this->_ajax_output( $value, $object );
 		else
-			return $this->_output( $value );
+			return $this->_output( $value, $object );
 	}
 
 	/**
@@ -91,9 +95,9 @@ class Cuztom_Field
 	 * @since  	1.6.2
 	 * 
 	 */
-	function save( $id, $value, $context )
+	function save( $id, $value, $meta_type )
 	{
-		if( $context == 'user' )
+		if( $meta_type == 'user' )
 			update_user_meta( $id, $this->id_name, $value );
 		else
 			update_post_meta( $id, $this->id_name, $value );
@@ -113,12 +117,12 @@ class Cuztom_Field
 			$id 		= $_POST['cuztom']['id'];
 			$id_name 	= $_POST['cuztom']['id_name'];
 			$value 		= $_POST['cuztom']['value'];
-			$context 	= $_POST['cuztom']['context'];
+			$meta_type 	= $_POST['cuztom']['meta_type'];
 
 			if( empty( $id ) ) 
 				die();
 
-			if( $context == 'user' )
+			if( $meta_type == 'user' )
 				update_user_meta( $id, $id_name, $value );
 			else
 				update_post_meta( $id, $id_name, $value );
@@ -150,15 +154,15 @@ class Cuztom_Field
 	 * Builds an string used as field id and name
 	 *
 	 * @param 	string 			$name
-	 * @param  	string 			$context
+	 * @param  	string 			$parent
 	 * @return 	string
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	0.9
 	 *
 	 */
-	function _build_id_name( $name, $context )
+	function _build_id_name( $name, $parent )
 	{		
-		return apply_filters( 'cuztom_build_id_name', ( $this->hide ? '_' : '' ) . Cuztom::uglify( $context ) . "_" . Cuztom::uglify( $name ) );
+		return apply_filters( 'cuztom_build_id_name', ( $this->hide ? '_' : '' ) . Cuztom::uglify( $parent ) . "_" . Cuztom::uglify( $name ) );
 	}
 }

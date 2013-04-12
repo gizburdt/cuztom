@@ -106,7 +106,7 @@ jQuery(function($) {
 			value		= input.val(),
 
 			// Need better handling
-			context 	= cuztom.data('context'),
+			meta_type 	= cuztom.data('meta-type'),
 			id 			= cuztom.data('id');
 
 		var data = {
@@ -116,7 +116,7 @@ jQuery(function($) {
 				id_name: 	id_name,
 
 				// Need better handling
-				context:  	context,
+				meta_type:  meta_type,
 				id: 		id
 			}
 		};
