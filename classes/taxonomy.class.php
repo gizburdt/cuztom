@@ -56,13 +56,9 @@ class Cuztom_Taxonomy
             if( ! taxonomy_exists( $this->name ) )
 			{
 				if ( $is_reserved_term = Cuztom::is_reserved_term( $this->name ) )
-	            {
 	            	new Cuztom_Notice( $is_reserved_term->get_error_message(), 'error' );
-	            }
 				else
-				{
 					add_action( 'init', array( &$this, 'register_taxonomy' ) );
-				}
 			}
 			else
 			{

@@ -146,38 +146,13 @@ class Cuztom_Singleton
 		if( CUZTOM_JQUERY_UI_STYLE != 'none' )
 		{
 			if( CUZTOM_JQUERY_UI_STYLE == 'cuztom' )
-			{
-				wp_register_style( 'cuztom-jquery-ui', 
-					CUZTOM_URL. '/assets/css/cuztom_jquery_ui.css', 
-					false, 
-					CUZTOM_VERSION, 
-					'screen'
-				);
-			}
+				wp_register_style( 'cuztom-jquery-ui', CUZTOM_URL. '/assets/css/cuztom-jquery-ui.css', false, CUZTOM_VERSION, 'screen' );
 			else
-			{
-				wp_register_style( 'cuztom-jquery-ui', 
-					'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/' . CUZTOM_JQUERY_UI_STYLE . '/jquery-ui.css', 
-					false, 
-					CUZTOM_VERSION, 
-					'screen'
-				);
-			}
+				wp_register_style( 'cuztom-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/' . CUZTOM_JQUERY_UI_STYLE . '/jquery-ui.css', false, CUZTOM_VERSION, 'screen' );
 		}
 		
-		wp_register_style( 'cuztom-colorpicker', 
-			CUZTOM_URL . '/assets/css/colorpicker.css', 
-			false, 
-			CUZTOM_VERSION, 
-			'screen'
-		);
-		
-		wp_register_style( 'cuztom', 
-			CUZTOM_URL . '/assets/css/style.css', 
-			false, 
-			CUZTOM_VERSION, 
-			'screen'
-		);
+		wp_register_style( 'cuztom-colorpicker', 	CUZTOM_URL . '/assets/css/colorpicker.css', false, CUZTOM_VERSION, 'screen' );
+		wp_register_style( 'cuztom', 				CUZTOM_URL . '/assets/css/style.css', 		false, CUZTOM_VERSION, 'screen' );
 	}
 
 	/**
