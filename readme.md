@@ -25,7 +25,7 @@ To add Custom Taxonomies to the newly created Post Type, simply call this method
 			
 You can also call this as a seperate class like this. The second parameter is the Post Type name.
 
-	$taxonomy = register_cuztom_taxonomy( 'Author', 'book' ) )
+	$taxonomy = register_cuztom_taxonomy( 'Author', 'book' );
 
 ### Add Meta Boxes
 	
@@ -61,14 +61,6 @@ Meta Boxes can be added with their own class too. The second parameter is the Po
 ### Add Sidebars
 
 To register a sidebar, just call this.
-
-	$sidebar = register_cuztom_sidebar( 
-		'Sidebar',
-		'sidebar' ,
-		'Just a little description',
-	);
-	
-Or with an array.
 
 	$sidebar = register_cuztom_sidebar( array(
 		'name'				=> 'Sidebar Twee',
