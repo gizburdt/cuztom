@@ -18,8 +18,6 @@ class Cuztom_Field_Checkboxes extends Cuztom_Field
 			{
 				foreach( $this->options as $slug => $name )
 				{
-					$slug = Cuztom::uglify( $slug );
-
 					$output .= '<input type="checkbox" name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '_' . $slug . '" value="' . $slug . '" ' . ( is_array( $value ) ? ( in_array( $slug, $value ) ? 'checked="checked"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $slug, $this->default_value ) ? 'checked="checked"' : '' ) ) . ' class="cuztom-input" /> ';
 					$output .= '<label for="' . $this->id_name . '_' . Cuztom::uglify( $slug ) . '">' . Cuztom::beautify( $name ) . '</label>';
 					$output .= '<br />';

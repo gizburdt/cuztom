@@ -18,7 +18,7 @@ class Cuztom_Field_Select extends Cuztom_Field
 			{
 				foreach( $this->options as $slug => $name )
 				{
-					$output .= '<option value="' . Cuztom::uglify( $slug ) . '" ' . ( ! empty( $value ) ? selected( Cuztom::uglify( $slug ), $value, false ) : selected( $this->default_value, Cuztom::uglify( $slug ), false ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
+					$output .= '<option value="' . $slug . '" ' . ( ! empty( $value ) ? selected( $slug, $value, false ) : selected( $this->default_value, $slug, false ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
 				}
 			}
 		$output .= '</select>';
