@@ -9,16 +9,11 @@ class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 		parent::__construct( $field, $meta_box );
 
 		$this->args = array_merge(
-					
-			// Default
 			array(
 				'post_type'			=> 'post',
 				'posts_per_page'	=> -1
 			),
-			
-			// Given
 			$this->args
-		
 		);
 		
 		$this->default_value = (array) $this->default_value;

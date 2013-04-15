@@ -12,16 +12,11 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 		parent::__construct( $field, $meta_box );
 
 		$this->args = array_merge(
-					
-			// Default
 			array(
 				'post_type'			=> 'post',
 				'posts_per_page'	=> -1
 			),
-			
-			// Given
 			$this->args
-		
 		);
 
 		$this->posts 	= get_posts( $this->args );
@@ -41,26 +36,6 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 				}
 			}
 		$output .= '</select>';
-
-		return $output;
-	}
-	
-	function _repeatable_output( $value, $object )
-	{
-		$this->after = '[]';
-		$output = '';
-
-		if( is_array( $value ) )
-		{
-			foreach( $value as $item )
-			{
-				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $item ) . '</li>';
-			}
-		}
-		else
-		{
-			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $value ) . '</li>';
-		}
 
 		return $output;
 	}

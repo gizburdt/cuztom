@@ -11,16 +11,11 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 		parent::__construct( $field, $meta_box );
 
 		$this->args = array_merge( 
-					
-			// Default
 			array(
 				'textarea_name' => 'cuztom[' . $this->id_name . ']',
 				'editor_class'	=> ''
 			),
-			
-			// Given
 			$this->args
-		
 		);
 		
 		$this->args['editor_class'] .= ' cuztom-input';

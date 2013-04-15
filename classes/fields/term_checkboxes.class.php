@@ -11,15 +11,10 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 		parent::__construct( $field, $meta_box );
 
 		$this->args = array_merge(
-					
-			// Default
 			array(
 				'taxonomy'		=> 'category',
 			),
-			
-			// Given
 			$this->args
-			
 		);
 
 		$this->default_value = (array) $this->default_value;

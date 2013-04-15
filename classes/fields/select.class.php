@@ -25,24 +25,4 @@ class Cuztom_Field_Select extends Cuztom_Field
 
 		return $output;
 	}
-	
-	function _repeatable_output( $value, $object )
-	{
-		$this->after = '[]';
-		$output = '';
-
-		if( is_array( $value ) )
-		{
-			foreach( $value as $item )
-			{
-				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $item ) . '</li>';
-			}
-		}
-		else
-		{
-			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $value ) . '</li>';
-		}
-
-		return $output;
-	}
 }

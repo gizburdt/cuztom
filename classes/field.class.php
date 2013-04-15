@@ -37,12 +37,13 @@ class Cuztom_Field
 	 * 
 	 * @param 	array 			$field
 	 * @param 	string 			$parent
+	 * @param   object 			$object
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	0.3.3
 	 * 
 	 */
-	function __construct( $field, $parent, $post = null )
+	function __construct( $field, $parent, $object = null )
 	{
 		$this->name 				= isset( $field['name'] ) 				? $field['name'] 				: $this->name;
 		$this->label				= isset( $field['label'] ) 				? $field['label'] 				: $this->label;
@@ -69,6 +70,7 @@ class Cuztom_Field
 	 * Outputs a field based on its type
 	 *
 	 * @param 	string|array 	$value
+	 * @param   object 			$object
 	 * @return  mixed
 	 *
 	 * @author 	Gijs Jorissen
@@ -86,10 +88,59 @@ class Cuztom_Field
 	}
 
 	/**
+	 * Outputs the field, ready for repeatable functionality
+	 * 
+	 * @param  	string|array 	$value
+	 * @param   object 			$object
+	 * @return  mixed 			$output
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   2.0
+	 * 
+	 */
+	function _repeatable_output( $value, $object )
+	{
+		$this->after = '[]';
+		$output = '';
+
+		if( is_array( $value ) )
+		{
+			foreach( $value as $item )
+				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $item, $object ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"></div>' : '' ) . '</li>';
+		}
+		else
+		{
+			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $value, $object ) . ( $this->repeatable ? '</li>' : '' );		
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Outputs the field, ready for ajax save
+	 * 
+	 * @param  	string|array 	$value
+	 * @param   object 			$object
+	 * @return  mixed 			$output
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   2.0
+	 * 
+	 */
+	function _ajax_output( $value, $object )
+	{
+		$output = $this->_output( $value, $object );
+		$output .= sprintf( '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">%s</a>', __( 'Save', 'cuztom' ) );
+
+		return $output;
+	}
+
+	/**
 	 * Save meta
 	 * 
 	 * @param  	int 			$post_id
 	 * @param  	string 			$value
+	 * @param   string 			$meta_type
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since  	1.6.2
@@ -130,24 +181,6 @@ class Cuztom_Field
 
 		// For Wordpress
 		die();
-	}
-
-	/**
-	 * Outputs the field, ready for ajax save
-	 * 
-	 * @param  	string|array 	$value
-	 * @return  mixed 			$output
-	 *
-	 * @author  Gijs Jorissen
-	 * @since   2.0
-	 * 
-	 */
-	function _ajax_output( $value )
-	{
-		$output = $this->_output( $value );
-		$output .= sprintf( '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">%s</a>', __( 'Save', 'cuztom' ) );
-
-		return $output;
 	}
 	
 	/**
