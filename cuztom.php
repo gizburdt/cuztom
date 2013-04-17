@@ -179,7 +179,7 @@ class Cuztom_Singleton
 	{
 		wp_register_script( 'jquery-colorpicker', 	CUZTOM_URL . '/assets/js/jquery.colorpicker.js', 	array( 'jquery' ), CUZTOM_VERSION, true );
 		wp_register_script( 'jquery-timepicker', 	CUZTOM_URL . '/assets/js/jquery.timepicker.js', 	array( 'jquery' ), CUZTOM_VERSION, true );
-		wp_register_script( 'cuztom', 				CUZTOM_URL . '/assets/js/functions.js', 			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'jquery-colorpicker', 'jquery-timepicker' ), CUZTOM_VERSION, true );
+		wp_register_script( 'cuztom', 				CUZTOM_URL . '/assets/js/functions.js', 			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'jquery-colorpicker', 'jquery-timepicker', 'jquery-ui-slider' ), CUZTOM_VERSION, true );
 	}
 	
 	/**

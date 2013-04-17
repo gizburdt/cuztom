@@ -26,6 +26,9 @@ jQuery(function($) {
 	// Tabs
 	$('.js-cuztom-tabs').tabs();
 
+	// Slider
+	$( ".js-slider" ).slider();
+
 	// Accordion
 	$('.js-cuztom-accordion').accordion();
 
