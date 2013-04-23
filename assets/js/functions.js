@@ -1,7 +1,7 @@
 jQuery.noConflict();
 
-jQuery(function($) 
-{
+jQuery(function($) {
+	
 	// Datepicker
 	$('.js-cuztom-datepicker').each(function(){
 		$(this).datepicker({ dateFormat: $(this).data('date-format') });
@@ -25,6 +25,9 @@ jQuery(function($)
 
 	// Tabs
 	$('.js-cuztom-tabs').tabs();
+
+	// Slider
+	$( ".js-slider" ).slider();
 
 	// Accordion
 	$('.js-cuztom-accordion').accordion();
@@ -58,7 +61,7 @@ jQuery(function($)
 		return false;
 	});		
 	
-	// Add sortabe
+	// Add sortable
 	$('.cuztom').on( 'click', '.js-cuztom-add-sortable', function() 
 	{
 		var that		= $( this ),
@@ -73,13 +76,17 @@ jQuery(function($)
 		// Set new bundle array key
 		if( is_bundle )
 		{
-			new_item.find('.cuztom-input').each(function(){
-				$(this).attr('name', function( i, val ){ return val.replace( /(\d+)/, function( n ){ return Number(n) + 1 } ) } );
+			new_item.find('.cuztom-input').each( function() {
+				$(this).attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return "[" + ( Number(n) + 1 ) + "]"; }); })
 			});
 		}
 		
+		// Reset data
+		new_item.find('.cuztom-input, textarea, select, .cuztom-hidden').val('').removeAttr('selected');
+		new_item.find('.js-cuztom-remove-media').remove();
+		new_item.find('.cuztom-preview').html('');
+
 		// Add the new item
-		new_item.find('input, textarea, select').val('').removeAttr('selected');
 		new_item.appendTo( wrap );
 		
 		// Add new handler and remover if necessary
@@ -102,7 +109,7 @@ jQuery(function($)
 			value		= input.val(),
 
 			// Need better handling
-			context 	= cuztom.data('context'),
+			meta_type 	= cuztom.data('meta-type'),
 			id 			= cuztom.data('id');
 
 		var data = {
@@ -112,14 +119,12 @@ jQuery(function($)
 				id_name: 	id_name,
 
 				// Need better handling
-				context:  	context,
+				meta_type:  meta_type,
 				id: 		id
 			}
 		};
 
 		$.post( Cuztom.ajax_url, data, function(r) {
-			console.log(r)
-
 			var border_color = input.css('border-color');
 			input.animate({ borderColor: '#60b334' }, 200, function(){ input.animate({ borderColor: border_color }); });
 		});
@@ -147,8 +152,6 @@ jQuery(function($)
 		    	{
 		    		if( type == 'image' )
 		    		{
-		    			console.log(attachment)
-
 		    			var thumbnail = attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full;
 
 		    			preview.html('<img src="' + thumbnail.url + '" height="' + thumbnail.height + '" width="' + thumbnail.width + '" />')

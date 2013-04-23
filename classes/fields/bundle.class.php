@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 class Cuztom_Bundle
 {
 	var $id;
@@ -9,13 +11,13 @@ class Cuztom_Bundle
 	 * Outputs a bundle
 	 * 
 	 * @param  	object 			$post
-	 * @param   string 			$context
+	 * @param   string 			$meta_type
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   1.6.5
 	 *
 	 */
-	function output( $post, $context )
+	function output( $post, $meta_type )
 	{
 		echo '<div class="padding-wrap">';
 			echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable js-cuztom-add-bundle cuztom-add-sortable" href="#">';
@@ -24,7 +26,7 @@ class Cuztom_Bundle
 
 			echo '<ul class="js-cuztom-sortable cuztom-sortable js-cuztom-bundle" data-cuztom-sortable-type="bundle">';
 				
-				$meta = $context == 'user' ? get_user_meta( $post->ID, $this->id, true ) : get_post_meta( $post->ID, $this->id, true );
+				$meta = $meta_type == 'user' ? get_user_meta( $post->ID, $this->id, true ) : get_post_meta( $post->ID, $this->id, true );
 
 				if( ! empty( $meta ) && isset( $meta[0] ) )
 				{
@@ -128,9 +130,9 @@ class Cuztom_Bundle
 	 * @since 	1.6.2
 	 * 
 	 */
-	function save( $id, $value, $context )
+	function save( $id, $value, $meta_type )
 	{
-		if( $context == 'user' )
+		if( $meta_type == 'user' )
 			update_user_meta( $id, $this->id, $value );
 		else
 			update_post_meta( $id, $this->id, $value );

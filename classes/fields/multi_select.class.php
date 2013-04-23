@@ -1,8 +1,10 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 class Cuztom_Field_Multi_Select extends Cuztom_Field
 {	
-	function _output( $value )
+	function _output( $value, $object )
 	{
 		$output = '<select name="cuztom[' . $this->id_name . '][]' . $this->after . '" id="' . $this->id_name . '" class="cuztom-input" multiple="true">';
 			if( isset( $this->args['option_none'] ) && $this->args['option_none'] )
@@ -12,7 +14,7 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 			{
 				foreach( $this->options as $slug => $name )
 				{
-					$output .= '<option value="' . Cuztom::uglify( $slug ) . '" ' . ( is_array( $value ) ? ( in_array( $slug, $value ) ? 'selected="selected"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $slug, $this->default_value ) ? 'selected="selected"' : '' ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
+					$output .= '<option value="' . $slug . '" ' . ( is_array( $value ) ? ( in_array( $slug, $value ) ? 'selected="selected"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $slug, $this->default_value ) ? 'selected="selected"' : '' ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
 				}
 			}
 		$output .= '</select>';

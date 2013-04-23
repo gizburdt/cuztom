@@ -1,9 +1,9 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Post Type class used to register post types
- * Can call add_taxonomy and add_meta_box to call the associated classes
- * Method chaining is possible
  *
  * @author 	Gijs Jorissen
  * @since 	0.1
@@ -34,7 +34,7 @@ class Cuztom_Post_Type
 	{
 		if( ! empty( $name ) )
 		{
-			// If $name is an array, the first element is the normal name, the second is the plural name
+			// If $name is an array, the first element is the singular name, the second is the plural name
 			if( is_array( $name ) )
 			{
 				$this->name		= Cuztom::uglify( $name[0] );
@@ -50,7 +50,7 @@ class Cuztom_Post_Type
 
 			$this->args 		= $args;
 			$this->labels 		= $labels;
-			$this->add_features	= $this->remove_features	= array();
+			$this->add_features	= $this->remove_features = array();
 
 			// Add action to register the post type, if the post type doesnt exist
 			if( ! post_type_exists( $this->name ) )
@@ -163,6 +163,7 @@ class Cuztom_Post_Type
 	function add_post_type_support( $feature )
 	{
 		$this->add_features	= (array) $feature;
+		
 		add_action( 'init', array( &$this, '_add_post_type_support' ) );
 		
 		// For method chaining
@@ -194,6 +195,7 @@ class Cuztom_Post_Type
 	function remove_post_type_support( $feature )
 	{
 		$this->remove_features	= (array) $feature;
+		
 		add_action( 'init', array( &$this, '_remove_post_type_support' ) );
 		
 		// For method chaining

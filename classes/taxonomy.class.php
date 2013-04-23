@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Creates custom taxonomies
  *
@@ -14,14 +16,14 @@ class Cuztom_Taxonomy
 	var $plural;
 	var $labels;
 	var $args;
-	var $post_type_name;
+	var $post_type;
 	
 	/**
 	 * Constructs the class with important vars and method calls
 	 * If the taxonomy exists, it will be attached to the post type
 	 *
 	 * @param 	string 			$name
-	 * @param 	string 			$post_type_name
+	 * @param 	string 			$post_type
 	 * @param 	array 			$args
 	 * @param 	array 			$labels
 	 *
@@ -29,11 +31,11 @@ class Cuztom_Taxonomy
 	 * @since 	0.2
 	 *
 	 */
-	function __construct( $name, $post_type_name = null, $args = array(), $labels = array() )
+	function __construct( $name, $post_type = null, $args = array(), $labels = array() )
 	{
 		if( ! empty( $name ) )
 		{
-			$this->post_type_name = $post_type_name;
+			$this->post_type = $post_type;
 
 			if( is_array( $name ) )
 			{
@@ -54,14 +56,9 @@ class Cuztom_Taxonomy
             if( ! taxonomy_exists( $this->name ) )
 			{
 				if ( $is_reserved_term = Cuztom::is_reserved_term( $this->name ) )
-	            {
-	            	$this->reserved_term_notice = $is_reserved_term->get_error_message();
-	            	add_action( 'admin_notices', array( &$this, 'add_reserved_term_notice' ) );
-	            }
+	            	new Cuztom_Notice( $is_reserved_term->get_error_message(), 'error' );
 				else
-				{
 					add_action( 'init', array( &$this, 'register_taxonomy' ) );
-				}
 			}
 			else
 			{
@@ -70,9 +67,9 @@ class Cuztom_Taxonomy
 
 			if( ( get_bloginfo( 'version' ) < '3.5' ) && ( isset( $args['show_admin_column'] ) && $args['show_admin_column'] ) )
 			{
-				add_filter( 'manage_' . $this->post_type_name . '_posts_columns', array( &$this, 'add_column' ) );
-				add_action( 'manage_' . $this->post_type_name . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
-				add_action( 'manage_edit-' . $this->post_type_name . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
+				add_filter( 'manage_' . $this->post_type . '_posts_columns', array( &$this, 'add_column' ) );
+				add_action( 'manage_' . $this->post_type . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
+				add_action( 'manage_edit-' . $this->post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
 
 				add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
 				add_filter( 'parse_query', array( &$this, '_post_filter_query') );
@@ -91,8 +88,6 @@ class Cuztom_Taxonomy
 	{
 		// Default labels, overwrite them with the given labels.
 		$labels = array_merge(
-
-			// Default
 			array(
 				'name' 					=> sprintf( _x( '%s', 'taxonomy general name', 'cuztom' ), $this->plural ),
 				'singular_name' 		=> sprintf( _x( '%s', 'taxonomy singular name', 'cuztom' ), $this->title ),
@@ -106,16 +101,11 @@ class Cuztom_Taxonomy
 			    'new_item_name' 		=> sprintf( __( 'New %s Name', 'cuztom' ), $this->title ),
 			    'menu_name' 			=> sprintf( __( '%s', 'cuztom' ), $this->plural )
 			),
-
-			// Given labels
 			$this->labels
-
 		);
 
 		// Default arguments, overwitten with the given arguments
 		$args = array_merge(
-
-			// Default
 			array(
 				'label'					=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
 				'labels'				=> $labels,
@@ -126,13 +116,10 @@ class Cuztom_Taxonomy
 				'_builtin' 				=> false,
 				'show_admin_column'		=> false
 			),
-
-			// Given
 			$this->args
-
 		);
 		
-		register_taxonomy( $this->name, $this->post_type_name, $args );
+		register_taxonomy( $this->name, $this->post_type, $args );
 	}
 	
 	/**
@@ -144,7 +131,7 @@ class Cuztom_Taxonomy
 	 */
 	function register_taxonomy_for_object_type()
 	{
-		register_taxonomy_for_object_type( $this->name, $this->post_type_name );
+		register_taxonomy_for_object_type( $this->name, $this->post_type );
 	}
 
 	/**
@@ -162,8 +149,8 @@ class Cuztom_Taxonomy
 		unset( $columns['date'] );
 
 		$columns[$this->name] = $this->title;
-
 		$columns['date'] = __( 'Date', 'cuztom' );
+		
 		return $columns;
 	}
 	
@@ -214,10 +201,9 @@ class Cuztom_Taxonomy
 	 */
 	function _post_filter() 
 	{
-		global $typenow;
-		global $wp_query;
+		global $typenow, $wp_query;
 
-		if( $typenow == $this->post_type_name ) 
+		if( $typenow == $this->post_type ) 
 		{
 			wp_dropdown_categories( array(
 				'show_option_all'	=> sprintf( __( 'Show all %s', 'cuztom' ), $this->plural ),
@@ -251,19 +237,5 @@ class Cuztom_Taxonomy
     		$term = get_term_by( 'id', $vars[$this->name], $this->name );
         	$vars[$this->name] = $term->slug;
     	}
-	}
-
-	/**
-	 * Notice for reserved term usage
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	1.6.7
-	 * 
-	 */
-	function add_reserved_term_notice()
-	{
-		echo '<div class="updated">';
-			echo '<p>' . $this->reserved_term_notice . '</p>';
-    	echo '</div>';
 	}
 }

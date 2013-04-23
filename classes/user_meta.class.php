@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * User Meta
  *
@@ -40,11 +42,11 @@ class Cuztom_User_Meta extends Cuztom_Meta
 			$this->callback = array( &$this, 'callback' );
 
 			// Build the meta box and fields
-			$this->_build( $data );
+			$this->build( $data );
 
 			add_action( 'personal_options_update', array( &$this, 'save_user' ) );
 			add_action( 'edit_user_profile_update', array( &$this, 'save_user' ) );
-			add_action( 'user_edit_form_tag', array( &$this, '_edit_form_tag' ) );
+			add_action( 'user_edit_form_tag', array( &$this, 'edit_form_tag' ) );
 		}
 
 		foreach( $this->locations as $location )
@@ -87,44 +89,21 @@ class Cuztom_User_Meta extends Cuztom_Meta
 			{
 				delete_user_meta( $user_id, $this->id );
 				
-				$this->_save_meta( $user_id, $this, 0 );
+				$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
+				$value = apply_filters( "cuztom_user_meta_save_bundle_$field->id", apply_filters( 'cuztom_user_meta_save_bundle', $value, $field, $user_id ), $field, $user_id );			
+
+				$field->save( $user_id, $value, 'user' );
 			}
 			else
 			{
 				foreach( $this->fields as $id_name => $field )
 				{
-					$this->_save_meta( $user_id, $field, $id_name );
+					$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
+					$value = apply_filters( "cuztom_user_meta_save_$field->type", apply_filters( 'cuztom_user_meta_save', $value, $field, $user_id ), $field, $user_id );
+
+					$field->save( $user_id, $value, 'user' );
 				}
 			}
 		}		
-	}
-
-	/**
-	 * Actual method that saves the user meta
-	 *
-	 * @param 	integer 			$user_id
-	 * @param 	array 				$field  
-	 * @param 	string 				$id_name
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	1.5
-	 *
-	 */
-	function _save_meta( $user_id, $field, $id_name )
-	{
-		if( $this->data instanceof Cuztom_Bundle && $field = $this->data )
-		{
-			$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
-			$value = apply_filters( "cuztom_user_meta_save_bundle_$field->id", apply_filters( 'cuztom_user_meta_bundle', $value, $field, $user_id ), $field, $user_id );			
-
-			$field->save( $user_id, $value, 'user' );
-		}
-		else
-		{
-			$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
-			$value = apply_filters( "cuztom_user_meta_save_$field->type", apply_filters( 'cuztom_user_meta_save', $value, $field, $user_id ), $field, $user_id );
-
-			$field->save( $user_id, $value, 'user' );
-		}
 	}
 }

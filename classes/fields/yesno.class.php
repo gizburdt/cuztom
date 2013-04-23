@@ -1,8 +1,10 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 class Cuztom_Field_Yesno extends Cuztom_Field
 {
-	function _output( $value )
+	function _output( $value, $object )
 	{
 		$output = '';
 

@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Registers the meta boxes
  *
@@ -48,7 +50,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 				$this->callback = array( &$this, 'callback' );
 
 				// Build the meta box and fields
-				$this->_build( $data );
+				$this->build( $data );
 
 				foreach( $this->post_types as $post_type )
 				{
@@ -58,7 +60,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 				}
 
 				add_action( 'save_post', array( &$this, 'save_post' ) );
-				add_action( 'post_edit_form_tag', array( &$this, '_edit_form_tag' ) );
+				add_action( 'post_edit_form_tag', array( &$this, 'edit_form_tag' ) );
 			}
 			
 			// Add the meta box
@@ -119,7 +121,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 				delete_post_meta( $post_id, $this->id );
 				
 				$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
-				$value = apply_filters( "cuztom_post_meta_save_bundle_$field->id", apply_filters( 'cuztom_post_meta_bundle', $value, $field, $post_id ), $field, $post_id );
+				$value = apply_filters( "cuztom_post_meta_save_bundle_$field->id", apply_filters( 'cuztom_post_meta_save_bundle', $value, $field, $post_id ), $field, $post_id );
 
 				$field->save( $post_id, $value, 'post' );
 			}

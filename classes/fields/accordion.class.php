@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 class Cuztom_Accordion
 {
 	var $id;
@@ -9,13 +11,13 @@ class Cuztom_Accordion
 	 * Outputs an accordion
 	 * 
 	 * @param  	object 			$post
-	 * @param   string 			$context
+	 * @param   string 			$meta_type
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   1.6.5
 	 *
 	 */
-	function output( $post, $context )
+	function output( $post, $meta_type )
 	{
 		$tabs 	= $this->tabs;
 				
@@ -25,7 +27,7 @@ class Cuztom_Accordion
 			/* Loop through $data, tabs in this case */
 			foreach( $tabs as $title => $tab )
 			{
-				$tab->output( $post, $context, 'accordion' );
+				$tab->output( $post, $meta_type, 'accordion' );
 			}
 		
 		echo '</div>';

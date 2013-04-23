@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 {
 	function __construct( $field, $meta_box )
@@ -7,23 +9,18 @@ class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 		parent::__construct( $field, $meta_box );
 
 		$this->args = array_merge(
-					
-			// Default
 			array(
 				'post_type'			=> 'post',
 				'posts_per_page'	=> -1
 			),
-			
-			// Given
 			$this->args
-		
 		);
 		
-		$this->default_value = (array) $this->default_value;
-		$this->posts = get_posts( $this->args );
+		$this->default_value 	= (array) $this->default_value;
+		$this->posts 			= get_posts( $this->args );
 	}
 	
-	function _output( $value )
+	function _output( $value, $object )
 	{		
 		$output = '<div class="cuztom-checkboxes-wrap">';
 			if( is_array( $this->posts ) )

@@ -1,5 +1,7 @@
 <?php
 
+if( ! defined( 'ABSPATH' ) ) exit;
+
 class Cuztom_Field_Post_Select extends Cuztom_Field
 {
 	var $_supports_repeatable 	= true;
@@ -11,21 +13,18 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 
 		$this->args = array_merge(
 
-			// Default
 			array(
-				'post_type'			=> 'post',
-				'posts_per_page'	=> -1
+				'post_type'      => 'post',
+				'posts_per_page' => -1
 			),
 
-			// Given
 			$this->args
-
 		);
 
 		$this->posts 	= get_posts( $this->args );
 	}
 
-	function _output( $value )
+	function _output( $value, $object )
 	{
 		$output = '<select name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '" id="' . $this->id_name . '" class="cuztom-input">';
 			if( isset( $this->args['option_none'] ) && $this->args['option_none'] )
@@ -39,26 +38,6 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 				}
 			}
 		$output .= '</select>';
-
-		return $output;
-	}
-
-	function _repeatable_output( $value )
-	{
-		$this->after = '[]';
-		$output = '';
-
-		if( is_array( $value ) )
-		{
-			foreach( $value as $item )
-			{
-				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $item ) . '</li>';
-			}
-		}
-		else
-		{
-			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $value ) . '</li>';
-		}
 
 		return $output;
 	}
