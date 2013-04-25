@@ -9,7 +9,7 @@ class Cuztom_Bundle
 
 	/**
 	 * Outputs a bundle
-	 * 
+	 *
 	 * @param  	object 			$post
 	 * @param   string 			$meta_type
 	 *
@@ -25,7 +25,7 @@ class Cuztom_Bundle
 			echo '</a>';
 
 			echo '<ul class="js-cuztom-sortable cuztom-sortable js-cuztom-bundle" data-cuztom-sortable-type="bundle">';
-				
+
 				$meta = $meta_type == 'user' ? get_user_meta( $post->ID, $this->id, true ) : get_post_meta( $post->ID, $this->id, true );
 
 				if( ! empty( $meta ) && isset( $meta[0] ) )
@@ -37,25 +37,27 @@ class Cuztom_Bundle
 							echo '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>';
 							echo '<fieldset>';
 							echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
-								
+
 								foreach( $this->fields as $id_name => $field )
 								{
 									$field->pre = '[' . $this->id . '][' . $i . ']';
+									$field->id_field = $id_name . '_' . $i;
 									$value = isset( $meta[$i][$id_name] ) ? $meta[$i][$id_name] : '';
-									
+
 									if( ! $field instanceof Cuztom_Field_Hidden )
 									{
 										echo '<tr>';
 											echo '<th class="cuztom-th">';
-												echo '<label for="' . $id_name . '" class="cuztom-label">' . $field->label . '</label>';
+												echo '<label for="' . $field->id_field . '" class="cuztom-label">' . $field->label . '</label>';
 												echo '<div class="cuztom-description">' . $field->description . '</div>';
 											echo '</th>';
 											echo '<td class="cuztom-td">';
 
-												if( $field->_supports_bundle )
+												if( $field->_supports_bundle ){
 													echo $field->output( $value, $post );
-												else
+												}else{
 													echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
+												}
 
 											echo '</td>';
 										echo '</tr>';
@@ -70,10 +72,10 @@ class Cuztom_Bundle
 							echo '</fieldset>';
 							echo count( $meta ) > 1 ? '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>' : '';
 						echo '</li>';
-						
+
 						$i++;
 					}
-					
+
 				}
 				else
 				{
@@ -81,12 +83,13 @@ class Cuztom_Bundle
 						echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"></div>';
 						echo '<fieldset>';
 						echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
-							
+
 							$fields = $this->fields;
-							
+
 							foreach( $fields as $id_name => $field )
 							{
 								$field->pre = '[' . $this->id . '][0]';
+								$field->id_field = $id_name . '_0';
 								$value = '';
 
 								if( ! $field instanceof Cuztom_Field_Hidden )
@@ -122,13 +125,13 @@ class Cuztom_Bundle
 
 	/**
 	 * Save bundle meta
-	 * 
+	 *
 	 * @param  	int 			$post_id
 	 * @param  	string 			$value
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	1.6.2
-	 * 
+	 *
 	 */
 	function save( $id, $value, $meta_type )
 	{

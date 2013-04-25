@@ -12,6 +12,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Field
 {
 		var $id_name           = '';
+		var $id_field					 = '';
 		var $type              = '';
 		var $name              = '';
 		var $label             = '';
@@ -64,6 +65,7 @@ class Cuztom_Field
 		// Id_name is used as id to select the field
 		// If i'ts not in the $field paramater, the id_name will be genereted
 		$this->id_name 				= isset( $field['id_name'] ) 			? $field['id_name'] 			: $this->_build_id_name( $this->name, $parent );
+		$this->id_field       = $this->id_name;
 	}
 
 	/**

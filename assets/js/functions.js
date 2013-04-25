@@ -1,7 +1,7 @@
 jQuery.noConflict();
 
 jQuery(function($) {
-	
+
 	// Datepicker
 	$('.js-cuztom-datepicker').each(function(){
 		$(this).datepicker({ dateFormat: $(this).data('date-format') });
@@ -14,12 +14,12 @@ jQuery(function($) {
 
 	// Datetime
 	$('.js-cuztom-datetimepicker').each(function(){
-		$(this).datetimepicker({ 
+		$(this).datetimepicker({
 			timeFormat: $(this).data('time-format'),
 			dateFormat: $(this).data('date-format')
 		});
 	});
-	
+
 	// Colorpicker
 	$('.js-cuztom-colorpicker').miniColors();
 
@@ -33,16 +33,29 @@ jQuery(function($) {
 	$('.js-cuztom-accordion').accordion();
 
 	// Sortable
-	$('.js-cuztom-sortable').sortable();
+	$('.js-cuztom-sortable').sortable({
+		sort: function(event, ui){
+			ui.item.find('textarea.wp-editor-area').each(function(){
+				tinymce_id = $(this).attr('id');
+				tinyMCE.execCommand("mceRemoveControl", false, tinymce_id);
+			});
+		},
+		stop: function(event, ui){
+			ui.item.find('textarea.wp-editor-area').each(function(){
+				tinymce_id = $(this).attr('id');
+				tinyMCE.execCommand("mceAddControl", false, tinymce_id);
+			});
+		}
+	});
 
 	// Remove sortable
-	$('.cuztom').on( 'click', '.js-cuztom-remove-sortable', function() 
+	$('.cuztom').on( 'click', '.js-cuztom-remove-sortable', function()
 	{
 		var that 		= $( this ),
 			field 		= that.closest('.js-cuztom-sortable-item'),
 			wrap 		= that.closest('.js-cuztom-sortable'),
 			fields 		= $( '.js-cuztom-sortable-item', wrap ).length;
-		
+
 		if( fields > 1 ) { field.remove(); }
 		if( fields == 2 ){ $( '.js-cuztom-sortable-item', wrap ).find('.js-cuztom-remove-sortable').remove(); }
 	});
@@ -55,14 +68,14 @@ jQuery(function($) {
 
 		$( '.cuztom-preview', td ).html('');
 		$( '.cuztom-hidden', td ).val('');
-		
+
 		that.hide();
-		
+
 		return false;
-	});		
-	
+	});
+
 	// Add sortable
-	$('.cuztom').on( 'click', '.js-cuztom-add-sortable', function() 
+	$('.cuztom').on( 'click', '.js-cuztom-add-sortable', function()
 	{
 		var that		= $( this ),
 			parent 		= that.closest( '.cuztom-td, .cuztom' ),
@@ -70,33 +83,58 @@ jQuery(function($) {
 			is_bundle	= wrap.data( 'cuztom-sortable-type') == 'bundle' ? true : false,
 			last 		= $( '.js-cuztom-sortable-item:last', wrap ),
 			handle 		= '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>',
-			remover 	= '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>',
-			new_item 	= last.clone( true );
-		
+			remover 	= '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>';
+
+			// remove tinymce
+			last.find('textarea.wp-editor-area').each(function(){
+				tinymce_id = $(this).attr('id');
+				tinyMCE.execCommand("mceRemoveControl", false, tinymce_id);
+			});
+
+		var new_item 	= last.clone( true );
+
 		// Set new bundle array key
 		if( is_bundle )
 		{
 			new_item.find('.cuztom-input').each( function() {
 				$(this).attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return "[" + ( Number(n) + 1 ) + "]"; }); })
+				$(this).attr('id', function( i, val ) { return val.replace( /\_(\d+)/, function( match, n ) { return "_" + ( Number(n) + 1 ); }); })
 			});
 		}
-		
+
+		// readd tinymce
+		last.find('textarea.wp-editor-area').each(function(){
+			tinymce_id = $(this).attr('id');
+			tinyMCE.execCommand("mceAddControl", false, tinymce_id);
+		});
+
 		// Reset data
 		new_item.find('.cuztom-input, textarea, select, .cuztom-hidden').val('').removeAttr('selected');
 		new_item.find('.js-cuztom-remove-media').remove();
 		new_item.find('.cuztom-preview').html('');
 
+
 		// Add the new item
 		new_item.appendTo( wrap );
-		
+		// readd tinymce to new item
+		new_item.find('textarea.wp-editor-area').each(function(){
+			tinymce_id = $(this).attr('id');
+			tinyMCE.execCommand("mceAddControl", false, tinymce_id);
+		});
+
 		// Add new handler and remover if necessary
 		$('.js-cuztom-sortable-item', parent).each(function( index, item ) {
 			if( $('.js-cuztom-handle-sortable', item ).length == 0 ) { $(item).prepend( handle ); }
 			if( $('.js-cuztom-remove-sortable', item ).length == 0 ) { $(item).append( remover ); }
 		});
-		
+
 		return false;
 	});
+
+	// Handle sortable TinyMCE
+	// tinyMCE.execCommand("mceRemoveControl", false, '_id_of_tinymce_instance_')
+	// tinyMCE.execCommand('mceAddControl', false, '_id_of_tinymce_instance_');
+
 
 	// Ajax save
 	$('.cuztom-td').on( 'click', '.js-cuztom-ajax-save', function()
@@ -164,8 +202,8 @@ jQuery(function($) {
 		    		}
 
 		    		_cuztom = false;
-		    	} 
-		    	else 
+		    	}
+		    	else
 		    	{
 		    		return _original_send_attachment.apply( this, [props, attachment] );
 		      	};
@@ -179,10 +217,10 @@ jQuery(function($) {
 		    	spanID 		= preview;
 
 		    var	_original_send_to_editor = window.send_to_editor;
-		    
+
 			tb_show( '', 'media-upload.php?post_id=0&type=image&TB_iframe=true' );
-			
-			window.send_to_editor = function( html ) 
+
+			window.send_to_editor = function( html )
 			{
 				if( type == 'image' )
 				{
@@ -205,7 +243,7 @@ jQuery(function($) {
 					html	= $('<span class="cuztom-mime"><a href="' + url + '" target="_blank">' + anchor + '</a></span>' );
 					spanID.html( html );
 				}
-				
+
 				// Close Wordpress media popup
 				tb_remove();
 
@@ -217,8 +255,8 @@ jQuery(function($) {
 		// Add remove button
 		$('.js-cuztom-remove-media', parent).remove();
 		that.after('<a href="#" class="js-cuztom-remove-media cuztom-remove-media">' + ( type == 'image' ? Cuztom.remove_image : Cuztom.remove_file ) + '</a> ');
-	    
+
 		return false;
 	});
-	
+
 });
