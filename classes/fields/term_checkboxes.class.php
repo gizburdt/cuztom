@@ -12,7 +12,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 
 		$this->args = array_merge(
 			array(
-				'taxonomy'		=> 'category',
+				'taxonomy'		=> $this->options['taxonomy'],
 			),
 			$this->args
 		);
