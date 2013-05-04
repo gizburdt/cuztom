@@ -100,7 +100,7 @@ class Cuztom_Singleton
 		include( CUZTOM_DIR . 'classes/fields/post_checkboxes.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/term_select.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/term_checkboxes.class.php' );
-		include( CUZTOM_DIR . 'classes/fields/slider.class.php' );
+		// include( CUZTOM_DIR . 'classes/fields/slider.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/hidden.class.php' );
 
 		include( CUZTOM_DIR . '/classes/page.class.php' );
