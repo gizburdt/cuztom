@@ -24,9 +24,10 @@ class Cuztom_Field
 	var $repeatable 			= false;
 	var $ajax 					= false;
 	var $show_admin_column 		= false;
+	var $parent					= '';
 	var $pre					= '';
 	var $after					= '';
-	var $parent					= '';
+	var $after_id				= '';
 
 	var $_supports_repeatable 	= false;
 	var $_supports_bundle		= false;

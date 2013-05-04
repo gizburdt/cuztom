@@ -25,7 +25,7 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 		
 		$this->args['class'] 	.= ' cuztom-input';
 		$this->args['name'] 	= 'cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' );
-		$this->args['id']		= $this->id_name;
+		$this->args['id']		= $this->id_name . $this->after_id;
 		$this->args['echo']		= 0;
 	}
 

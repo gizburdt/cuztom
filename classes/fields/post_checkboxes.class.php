@@ -27,8 +27,8 @@ class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 			{
 				foreach( $this->posts as $post )
 				{
-					$output .= '<input type="checkbox" name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . '_' . Cuztom::uglify( $post->post_title ) . '" value="' . $post->ID . '" ' . ( is_array( $value ) ? ( in_array( $post->ID, $value ) ? 'checked="checked"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $post->ID, $this->default_value ) ? 'checked="checked"' : '' ) ) . ' class="cuztom-input" /> ';
-					$output .= '<label for="' . $this->id_name . '_' . Cuztom::uglify( $post->post_title ) . '">' . $post->post_title . '</label>';
+					$output .= '<input type="checkbox" name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . $this->after_id . '_' . Cuztom::uglify( $post->post_title ) . '" value="' . $post->ID . '" ' . ( is_array( $value ) ? ( in_array( $post->ID, $value ) ? 'checked="checked"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $post->ID, $this->default_value ) ? 'checked="checked"' : '' ) ) . ' class="cuztom-input" /> ';
+					$output .= '<label for="' . $this->id_name . $this->after_id . '_' . Cuztom::uglify( $post->post_title ) . '">' . $post->post_title . '</label>';
 					$output .= '<br />';
 				}
 			}

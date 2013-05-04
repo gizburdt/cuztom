@@ -40,8 +40,9 @@ class Cuztom_Bundle
 								
 								foreach( $this->fields as $id_name => $field )
 								{
-									$field->pre = '[' . $this->id . '][' . $i . ']';
-									$value = isset( $meta[$i][$id_name] ) ? $meta[$i][$id_name] : '';
+									$field->pre 		= '[' . $this->id . '][' . $i . ']';
+									$field->after_id 	= '_' . $i;
+									$value 				= isset( $meta[$i][$id_name] ) ? $meta[$i][$id_name] : '';
 									
 									if( ! $field instanceof Cuztom_Field_Hidden )
 									{
@@ -86,8 +87,9 @@ class Cuztom_Bundle
 							
 							foreach( $fields as $id_name => $field )
 							{
-								$field->pre = '[' . $this->id . '][0]';
-								$value = '';
+								$field->pre 		= '[' . $this->id . '][0]';
+								$field->after_id	= '_0';
+								$value 				= '';
 
 								if( ! $field instanceof Cuztom_Field_Hidden )
 								{
