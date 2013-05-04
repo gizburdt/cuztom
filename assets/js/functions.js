@@ -64,6 +64,7 @@ jQuery(function($) {
 		{
 			new_item.find('.cuztom-input').each( function() {
 				$(this).attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return "[" + ( Number(n) + 1 ) + "]"; }); })
+				$(this).attr('id', function( i, val ) { return val.replace( /\_(\d+)/, function( match, n ) { return "_" + ( Number(n) + 1 ); }); })
 			});
 		}
 		
