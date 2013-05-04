@@ -45,20 +45,6 @@ jQuery(function($) {
 		
 		if( fields > 1 ) { field.remove(); }
 		if( fields == 2 ){ $( '.js-cuztom-sortable-item', wrap ).find('.js-cuztom-remove-sortable').remove(); }
-	});
-
-	// Remove current attached image
-	$('.cuztom-td').on( 'click', '.js-cuztom-remove-media', function()
-	{
-		var that 	= $( this ),
-			td 		= that.closest('.cuztom-td');
-
-		$( '.cuztom-preview', td ).html('');
-		$( '.cuztom-hidden', td ).val('');
-		
-		that.hide();
-		
-		return false;
 	});		
 	
 	// Add sortable
@@ -129,6 +115,20 @@ jQuery(function($) {
 			input.animate({ borderColor: '#60b334' }, 200, function(){ input.animate({ borderColor: border_color }); });
 		});
 
+		return false;
+	});
+
+	// Remove current attached image
+	$('.cuztom-td').on( 'click', '.js-cuztom-remove-media', function()
+	{
+		var that 	= $( this ),
+			td 		= that.closest('.cuztom-td');
+
+		$( '.cuztom-preview', td ).html('');
+		$( '.cuztom-hidden', td ).val('');
+		
+		that.hide();
+		
 		return false;
 	});
 
