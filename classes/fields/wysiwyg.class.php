@@ -4,12 +4,11 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Wysiwyg extends Cuztom_Field
 {
-	var $_supports_bundle		= true;
 	var $_supports_ajax			= true;
 	
-	function __construct( $field, $meta_box )
+	function __construct( $field, $parent )
 	{
-		parent::__construct( $field, $meta_box );
+		parent::__construct( $field, $parent );
 
 		$this->args = array_merge( 
 			array(

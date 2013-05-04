@@ -7,9 +7,9 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 	var $_supports_repeatable 	= true;
 	var $_supports_ajax			= true;
 	
-	function __construct( $field, $meta_box )
+	function __construct( $field, $parent )
 	{
-		parent::__construct( $field, $meta_box );
+		parent::__construct( $field, $parent );
 
 		$this->args = array_merge(
 			array(

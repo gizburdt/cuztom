@@ -4,9 +4,9 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Checkboxes extends Cuztom_Field
 {
-	function __construct( $field, $meta_type )
+	function __construct( $field, $parent )
 	{
-		parent::__construct( $field, $meta_type );
+		parent::__construct( $field, $parent );
 
 		$this->default_value = (array) $this->default_value;
 	}
