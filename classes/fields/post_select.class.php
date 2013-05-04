@@ -14,12 +14,14 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 		$this->args = array_merge(
 			array(
 				'post_type'			=> 'post',
-				'posts_per_page'	=> -1
+				'posts_per_page'	=> -1,
+				'cache_results' 	=> false, 
+				'no_found_rows' 	=> true,
 			),
 			$this->args
 		);
 
-		$this->posts 	= get_posts( $this->args );
+		$this->posts = get_posts( $this->args );
 	}
 	
 	function _output( $value, $object )
