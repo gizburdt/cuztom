@@ -248,6 +248,7 @@ class Cuztom_Meta
 					{
 						$field = new $class( $field, $this->id );
 						$field->repeatable = false;
+						$field->ajax = false;
 
 						$this->fields[$field->id_name] = $field;
 						$bundle->fields[$field->id_name] = $field;
