@@ -25,9 +25,13 @@ class Cuztom_Field
 	var $ajax 					= false;
 	var $show_admin_column 		= false;
 	var $parent					= '';
-	var $pre					= '';
-	var $after					= '';
-	var $after_id				= '';
+
+	var $data_attributes 		= array();
+	var $css_classes			= array();
+	
+	var $pre					= ''; // Before name
+	var $after					= ''; // After name
+	var $after_id				= ''; // After id
 
 	var $_supports_repeatable 	= false;
 	var $_supports_bundle		= false;
@@ -64,7 +68,7 @@ class Cuztom_Field
 		
 		// Id_name is used as id to select the field
 		// If i'ts not in the $field paramater, the id_name will be genereted
-		$this->id_name 				= isset( $field['id_name'] ) 			? $field['id_name'] 			: $this->_build_id_name( $this->name, $parent );
+		$this->id_name 				= isset( $field['id_name'] ) 			? $field['id_name'] 			: $this->build_id_name( $this->name, $parent );
 	}
 	
 	/**
@@ -86,6 +90,22 @@ class Cuztom_Field
 			return $this->_ajax_output( $value, $object );
 		else
 			return $this->_output( $value, $object );
+	}
+
+	/**
+	 * Output method
+	 *
+	 * @param 	string|array 	$value
+	 * @param   object 			$object
+	 * @return  mixed
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.3.4
+	 *
+	 */
+	function _output( $value, $object )
+	{
+		return __( 'Overwrite the _output method in the specific field class.', 'cuztom' );
 	}
 
 	/**
@@ -131,7 +151,7 @@ class Cuztom_Field
 	function _ajax_output( $value, $object )
 	{
 		$output = $this->_output( $value, $object );
-		$output .= sprintf( '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">%s</a>', __( 'Save', 'cuztom' ) );
+		$output .= '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
 
 		return $output;
 	}
@@ -183,6 +203,33 @@ class Cuztom_Field
 		// For Wordpress
 		die();
 	}
+
+	function output_css_class( $extra = array() )
+	{
+		$classes = array_merge( $this->css_classes, $extra );
+
+		return 'class="' . implode( ' ', $classes ) . '"';
+	}
+
+	function output_data_attributes( $extra = array() )
+	{
+		$output = '';
+
+		foreach( array_merge( $this->data_attributes, $extra ) as $attribute => $value )
+		{
+			if( ! is_null( $value ) )
+				$output .= 'data-' . $attribute . '="' . $value . '"';
+			elseif( ! $value && isset( $this->args[Cuztom::uglify( $attribute )] ) )
+				$output .= 'data-' . $attribute . '="' . $this->args[Cuztom::uglify( $attribute )] . '"';
+		}
+
+		return $output;
+	}
+
+	function output_explanation()
+	{
+		return ( ! $this->repeatable && $this->explanation ? '<em class="cuztom-explanation">' . $this->explanation . '</em>' : '' );
+	}
 	
 	/**
 	 * Builds an string used as field id and name
@@ -195,7 +242,7 @@ class Cuztom_Field
 	 * @since 	0.9
 	 *
 	 */
-	function _build_id_name( $name, $parent )
+	function build_id_name( $name, $parent )
 	{		
 		return apply_filters( 'cuztom_build_id_name', ( $this->hide ? '_' : '' ) . Cuztom::uglify( $parent ) . "_" . Cuztom::uglify( $name ) );
 	}
