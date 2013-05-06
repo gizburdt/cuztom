@@ -66,8 +66,7 @@ class Cuztom_Field
 		// Mostly the name of the meta box
 		$this->parent				= $parent;
 		
-		// Id_name is used as id to select the field
-		// If i'ts not in the $field paramater, the id_name will be genereted
+		// Id_name is used as id to select the field, if i'ts not in the $field paramater, the id_name will be genereted
 		$this->id_name 				= isset( $field['id_name'] ) 			? $field['id_name'] 			: $this->build_id_name( $this->name, $parent );
 	}
 	
@@ -100,7 +99,7 @@ class Cuztom_Field
 	 * @return  mixed
 	 *
 	 * @author 	Gijs Jorissen
-	 * @since 	2.3.4
+	 * @since 	2.4
 	 *
 	 */
 	function _output( $value, $object )
@@ -204,6 +203,15 @@ class Cuztom_Field
 		die();
 	}
 
+	/**
+	 * Outputs the fields css classes
+	 *
+	 * @param 	array 			$extra
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	2.4
+	 * 
+	 */
 	function output_css_class( $extra = array() )
 	{
 		$classes = array_merge( $this->css_classes, $extra );
@@ -211,6 +219,15 @@ class Cuztom_Field
 		return 'class="' . implode( ' ', $classes ) . '"';
 	}
 
+	/**
+	 * Outputs the fields data attributes
+	 *
+	 * @param 	array 			$extra
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	2.4
+	 * 
+	 */
 	function output_data_attributes( $extra = array() )
 	{
 		$output = '';
@@ -226,6 +243,13 @@ class Cuztom_Field
 		return $output;
 	}
 
+	/**
+	 * Outputs the fields explanation
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	2.4
+	 * 
+	 */
 	function output_explanation()
 	{
 		return ( ! $this->repeatable && $this->explanation ? '<em class="cuztom-explanation">' . $this->explanation . '</em>' : '' );
