@@ -31,6 +31,7 @@ class Cuztom_Field
 	
 	var $pre					= ''; // Before name
 	var $after					= ''; // After name
+	var $pre_id					= ''; // Before id
 	var $after_id				= ''; // After id
 
 	var $_supports_repeatable 	= false;
@@ -201,6 +202,30 @@ class Cuztom_Field
 
 		// For Wordpress
 		die();
+	}
+
+	/**
+	 * Outputs the fields name attribute
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	2.4
+	 * 
+	 */
+	function output_name()
+	{
+		return 'name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '"';
+	}
+
+	/**
+	 * Outputs the fields id attribute
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	2.4
+	 * 
+	 */
+	function output_id()
+	{
+		return 'id="' . $this->pre_id . $this->id_name . $this->after_id . '"';
 	}
 
 	/**
