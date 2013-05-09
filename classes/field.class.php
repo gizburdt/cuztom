@@ -94,6 +94,7 @@ class Cuztom_Field
 
 	/**
 	 * Output method
+	 * Defaults to a normal text field
 	 *
 	 * @param 	string|array 	$value
 	 * @param   object 			$object
@@ -105,7 +106,7 @@ class Cuztom_Field
 	 */
 	function _output( $value, $object )
 	{
-		return __( 'Overwrite the _output method in the specific field class.', 'cuztom' );
+		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $value ) ? $value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
 	}
 
 	/**

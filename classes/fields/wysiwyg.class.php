@@ -26,10 +26,10 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 		return wp_editor( ( ! empty( $value ) ? $value : $this->default_value ), $this->id_name, $this->args );
 	}
 
-	function save( $post_id, $value, $context )
+	function save( $id, $value, $context )
 	{
 		$value = wpautop( $value );
 
-		parent::save( $post_id, $value, $context );
+		parent::save( $id, $value, $context );
 	}
 }

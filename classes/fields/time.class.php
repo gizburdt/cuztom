@@ -5,9 +5,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Field_Time extends Cuztom_Field
 {
 	var $_supports_ajax			= true;
-	
-	function _output( $value, $object )
-	{
-		return '<input type="text" name="cuztom[' . $this->id_name . ']" id="' . $this->id_name . $this->after_id . '" class="js-cuztom-timepicker cuztom-timepicker timepicker cuztom-input" value="' . ( ! empty( $value ) ? $value : $this->default_value ) . '" ' . ( isset( $this->args['time_format'] ) ? 'data-time-format="' . $this->args['time_format'] . '"' : '' ) . ' />' . ( ! $this->repeatable && $this->explanation ? '<em class="cuztom-explanation">' . $this->explanation . '</em>' : '' );
-	}
+
+	var $css_classes			= array( 'js-cuztom-timepicker', 'cuztom-timepicker', 'timepicker', 'cuztom-input' );
+	var $data_attributes		= array( 'time-format' => null );
 }
