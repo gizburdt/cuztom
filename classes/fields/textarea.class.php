@@ -7,6 +7,8 @@ class Cuztom_Field_Textarea extends Cuztom_Field
 	var $_supports_repeatable 	= true;
 	var $_supports_bundle		= true;
 	var $_supports_ajax			= true;
+
+	var $css_classes 			= array( 'cuztom-input' );
 	
 	function _output( $value, $object )
 	{
