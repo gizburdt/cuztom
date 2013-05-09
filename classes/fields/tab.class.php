@@ -17,15 +17,15 @@ class Cuztom_Tab
 		
 		echo '<div id="' . $this->id . '">';
 			echo '<table border="0" cellading="0" cellspacing="0" class="from-table cuztom-table">';
-				foreach( $fields as $field_id_name => $field )
+				foreach( $fields as $id_name => $field )
 				{
-					$value = $meta_type == 'user' ? get_user_meta( $post->ID, $field_id_name, true ) : get_post_meta( $post->ID, $field_id_name, true );
+					$value = $meta_type == 'user' ? get_user_meta( $post->ID, $id_name, true ) : get_post_meta( $post->ID, $id_name, true );
 					
 					if( ! $field instanceof Cuztom_Field_Hidden )
 					{
 						echo '<tr>';
 							echo '<th class="cuztom-th">';
-								echo '<label for="' . $field_id_name . '" class="cuztom-label">' . $field->label . '</label>';
+								echo '<label for="' . $id_name . '" class="cuztom-label">' . $field->label . '</label>';
 								echo '<div class="cuztom-description">' . $field->description . '</div>';
 							echo '</th>';
 							echo '<td class="cuztom-td">';
