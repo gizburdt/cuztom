@@ -3,10 +3,12 @@
 if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Multi_Select extends Cuztom_Field
-{	
+{
+	var $css_classes 			= array( 'cuztom-input' );
+	
 	function _output( $value, $object )
 	{
-		$output = '<select name="cuztom[' . $this->id_name . '][]' . $this->after . '" id="' . $this->id_name . $this->after_id . '" class="cuztom-input" multiple="true">';
+		$output = '<select ' . $this->output_name( 'cuztom[' . $this->id_name . '][]' . $this->after ) . ' ' . $this->output_id() . ' ' . $this->output_css_classes() . ' multiple="true">';
 			if( isset( $this->args['option_none'] ) && $this->args['option_none'] )
 				$output .= '<option value="0" ' . ( is_array( $value ) ? ( in_array( 0, $value ) ? 'selected="selected"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( 0, $this->default_value ) ? 'selected="selected"' : '' ) ) . '>' . __( 'None', 'cuztom' ) . '</option>';
 

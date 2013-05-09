@@ -4,6 +4,8 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 {
+	var $css_classes 			= array( 'cuztom-input' );
+
 	function __construct( $field, $parent )
 	{
 		parent::__construct( $field, $parent );
@@ -27,7 +29,7 @@ class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 			{
 				foreach( $this->posts as $post )
 				{
-					$output .= '<input type="checkbox" name="cuztom[' . $this->id_name . '][]" id="' . $this->id_name . $this->after_id . '_' . Cuztom::uglify( $post->post_title ) . '" value="' . $post->ID . '" ' . ( is_array( $value ) ? ( in_array( $post->ID, $value ) ? 'checked="checked"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $post->ID, $this->default_value ) ? 'checked="checked"' : '' ) ) . ' class="cuztom-input" /> ';
+					$output .= '<input type="checkbox" ' . $this->output_name( 'cuztom[' . $this->id_name . '][]' ) . ' ' . $this->output_id( $this->id_name . $this->after_id . '_' . Cuztom::uglify( $post->post_title ) ) . ' ' . $this->output_css_class() . ' value="' . $post->ID . '" ' . ( is_array( $value ) ? ( in_array( $post->ID, $value ) ? 'checked="checked"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $post->ID, $this->default_value ) ? 'checked="checked"' : '' ) ) . ' /> ';
 					$output .= '<label for="' . $this->id_name . $this->after_id . '_' . Cuztom::uglify( $post->post_title ) . '">' . $post->post_title . '</label>';
 					$output .= '<br />';
 				}

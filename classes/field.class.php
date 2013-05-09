@@ -212,9 +212,9 @@ class Cuztom_Field
 	 * @since  	2.4
 	 * 
 	 */
-	function output_name()
+	function output_name( $overwrite = null )
 	{
-		return 'name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '"';
+		return $overwrite ? 'name="' . $overwrite . '"' : 'name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '"';
 	}
 
 	/**
@@ -224,9 +224,9 @@ class Cuztom_Field
 	 * @since  	2.4
 	 * 
 	 */
-	function output_id()
+	function output_id( $overwrite = null )
 	{
-		return 'id="' . $this->pre_id . $this->id_name . $this->after_id . '"';
+		return $overwrite ? 'id="' . $overwrite . '"' : 'id="' . $this->pre_id . $this->id_name . $this->after_id . '"';
 	}
 
 	/**
@@ -267,6 +267,18 @@ class Cuztom_Field
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Outputs the for attribute
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	2.4
+	 * 
+	 */
+	function output_for_attribute( $for = null )
+	{
+		return $for ? 'for="' . $for . '"' : '';
 	}
 
 	/**
