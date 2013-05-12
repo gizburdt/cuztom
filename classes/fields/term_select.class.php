@@ -36,6 +36,8 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 
 		$output = $this->dropdown;
 
+		$output .= $this->output_explanation();
+
 		return $output;
 	}
 }

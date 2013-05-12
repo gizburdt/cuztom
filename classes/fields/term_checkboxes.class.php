@@ -14,7 +14,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 
 		$this->args = array_merge(
 			array(
-				'taxonomy'		=> $this->options['taxonomy'],
+				'taxonomy'		=> 'category',
 			),
 			$this->args
 		);
@@ -37,6 +37,8 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 				}
 			}
 		$output .= '</div>';
+
+		$output .= $this->output_explanation();
 
 		return $output;
 	}

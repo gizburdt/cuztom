@@ -41,6 +41,8 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 			}
 		$output .= '</select>';
 
+		$output .= $this->output_explanation();
+
 		return $output;
 	}
 }

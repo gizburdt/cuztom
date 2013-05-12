@@ -36,6 +36,8 @@ class Cuztom_Field_File extends Cuztom_Field
 
 		$output .= '<span class="cuztom-preview">' . $file . '</span>';
 
+		$output .= $this->output_explanation();
+
 		return $output;
 	}
 

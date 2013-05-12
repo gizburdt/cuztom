@@ -12,7 +12,7 @@ class Cuztom_Field_Select extends Cuztom_Field
 	
 	function _output( $value, $object )
 	{
-		$output = '<select ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_classes() . '>';
+		$output = '<select ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . '>';
 			if( isset( $this->args['option_none'] ) && $this->args['option_none'] )
 				$output .= '<option value="0" ' . ( empty( $value ) ? 'selected="selected"' : '' ) . '>' . __( 'None', 'cuztom' ) . '</option>';				
 
@@ -24,6 +24,8 @@ class Cuztom_Field_Select extends Cuztom_Field
 				}
 			}
 		$output .= '</select>';
+
+		$output .= $this->output_explanation();
 
 		return $output;
 	}

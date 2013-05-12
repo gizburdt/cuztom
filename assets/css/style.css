@@ -21,7 +21,7 @@
 .cuztom .cuztom-table th label{ font-size: 12px; font-weight: bold; }
 .cuztom .cuztom-table th .cuztom-description,
 .cuztom .cuztom-table td .cuztom-explanation{ font-size: 10px; font-style: italic; font-weight: normal; }
-.cuztom .cuztom-table td .cuztom-explanation{ float: left; }
+.cuztom .cuztom-table td .cuztom-explanation{ display: block; }
 
 /* Sortable */
 .cuztom .cuztom-handle-sortable,

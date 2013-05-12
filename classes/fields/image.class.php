@@ -30,6 +30,8 @@ class Cuztom_Field_Image extends Cuztom_Field
 
 		$output .= '<span class="cuztom-preview">' . $image . '</span>';
 
+		$output .= $this->output_explanation();
+
 		return $output;
 	}
 }

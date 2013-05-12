@@ -17,6 +17,8 @@ class Cuztom_Field_Yesno extends Cuztom_Field
 			$output .= '<input type="radio" ' . $this->output_name() . ' ' . $this->output_id( $this->id_name . $this->after_id . '_no' ) . ' ' . $this->output_css_class() . ' value="no" ' . ( ! empty( $value ) ? checked( $value, 'no', false ) : checked( $this->default_value, 'no', false ) ) . ' /> ';
 			$output .= sprintf( '<label class="cuztom-label" for="%s_no">%s</label>', $this->id_name, __( 'No', 'cuztom' ) );
 		$output .= '</div>';
+
+		$output .= $this->output_explanation();
 		
 		return $output;
 	}
