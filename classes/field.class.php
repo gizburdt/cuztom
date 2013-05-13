@@ -21,6 +21,7 @@ class Cuztom_Field
 	var $options 				= array();
 	var $args					= array();
 	var $hide 					= true;
+	var $required 				= false;
 	var $repeatable 			= false;
 	var $ajax 					= false;
 	var $show_admin_column 		= false;
@@ -57,6 +58,7 @@ class Cuztom_Field
 		$this->explanation			= isset( $field['explanation'] ) 		? $field['explanation'] 		: $this->explanation;
 		$this->type					= isset( $field['type'] ) 				? $field['type'] 				: $this->type;
 		$this->hide					= isset( $field['hide'] ) 				? $field['hide'] 				: $this->hide;
+		$this->required				= isset( $field['required'] ) 			? $field['required'] 			: $this->required;
 		$this->default_value		= isset( $field['default_value'] ) 		? $field['default_value'] 		: $this->default_value;
 		$this->options				= isset( $field['options'] ) 			? $field['options'] 			: $this->options;
 		$this->args					= isset( $field['args'] ) 				? $field['args'] 				: $this->args;

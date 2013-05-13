@@ -85,6 +85,7 @@ class Cuztom_Meta
 								echo '<tr>';
 									echo '<th class="cuztom-th">';
 										echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
+										echo $field->required ? ' <span class="cuztom-required">*</span>' : '';
 										echo '<div class="cuztom-description description">' . $field->description . '</div>';
 									echo '</th>';
 									echo '<td class="cuztom-td">';

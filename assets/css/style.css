@@ -19,6 +19,7 @@
 .cuztom .cuztom-table{ width: 100%; margin-top: 0; }
 .cuztom .cuztom-table th{ font-weight: normal; text-align: left; vertical-align: top; }
 .cuztom .cuztom-table th label{ font-size: 12px; font-weight: bold; }
+.cuztom .cuztom-table th .cuztom-required{ color: red; }
 .cuztom .cuztom-table th .cuztom-description,
 .cuztom .cuztom-table td .cuztom-explanation{ font-size: 10px; font-style: italic; font-weight: normal; }
 .cuztom .cuztom-table td .cuztom-explanation{ display: block; }
