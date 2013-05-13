@@ -65,14 +65,22 @@ class Cuztom_Taxonomy
 				add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
 			}
 
-			if( ( get_bloginfo( 'version' ) < '3.5' ) && ( isset( $args['show_admin_column'] ) && $args['show_admin_column'] ) )
+			if( isset( $args['show_admin_column'] ) && $args['show_admin_column'] )
 			{
-				add_filter( 'manage_' . $this->post_type . '_posts_columns', array( &$this, 'add_column' ) );
-				add_action( 'manage_' . $this->post_type . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
-				add_action( 'manage_edit-' . $this->post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
+				if( get_bloginfo( 'version' ) < '3.5' )
+				{
+					add_filter( 'manage_' . $this->post_type . '_posts_columns', array( &$this, 'add_column' ) );
+					add_action( 'manage_' . $this->post_type . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
+				}
 
-				add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
-				add_filter( 'parse_query', array( &$this, '_post_filter_query') );
+				// if( isset( $args['admin_column_sortable'] ) && $args['admin_column_sortable'] )
+					add_action( 'manage_edit-' . $this->post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
+
+				if( isset( $args['admin_column_filter'] ) && $args['admin_column_filter'] ) 
+				{
+					add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
+					add_filter( 'parse_query', array( &$this, '_post_filter_query') );
+				}
 			}
 		}
 	}
@@ -187,7 +195,7 @@ class Cuztom_Taxonomy
 	 */
 	function add_sortable_column( $columns )
 	{
-		$columns[$this->name] = $this->title;
+		$columns[( get_bloginfo( 'version' ) < '3.5' ) ? $this->name : 'taxonomy-' . $this->name] = $this->title;
 
 		return $columns;
 	}
@@ -232,10 +240,12 @@ class Cuztom_Taxonomy
     	global $pagenow;
     	$vars = &$query->query_vars;
 
-		if( $pagenow == 'edit.php' && isset( $vars[$this->name] ) && is_numeric( $vars[$this->name] ) ) 
+		if( $pagenow == 'edit.php' && isset( $vars[$this->name] ) && is_numeric( $vars[$this->name] ) && $vars[$this->name] ) 
     	{
     		$term = get_term_by( 'id', $vars[$this->name], $this->name );
         	$vars[$this->name] = $term->slug;
     	}
+
+    	return $vars;
 	}
 }
