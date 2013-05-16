@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.3.3  
+**Version:** 2.4  
 **Requires:** 3.5 / 3.0+  
 
 ## Basic usage
@@ -109,6 +109,13 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###2.4
+* Change/ Fix: No ajax save within bundles
+* Added: Helper methods for field html attributes
+* Added: Required field (only frontend, no logic)
+* Enhancement: Explanation for all fields
+* Enhancement: Sort, filter for taxonomy in admin table
+
 ###2.3.3
 * Enhancement: Small (performance) updates
 
@@ -133,42 +140,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Fixed: Issue #126: Image field error when editor is not supported by post type
 * Fixed: Issue #125: Conflict with names in repeatable fields
 * Added: Image support in bundles
-
-###2.1.3
-* Fixed: Issue #118: Upload with small images
-
-###2.1.2
-* Fixed: Fixed a bug where only 5 posts were shown in Cuztom post fields
-* Fixed: call_to_user_func error
-
-###2.1.1
-* Fixed: Issue #47: Wrong content in the wrong admin column
-
-###2.1
-* Added: New field: multi select
-* Enhancement: Table and fields are now looking better when the metabox is in the sidebar
-* Enhancement: The version check within the javascript wasn't working well
-* Enhancement: HTML tags outside of the translated string
-* Changed (NOTE): Meta boxes now have a $id and a $title. Id is the unique string, the title can be translated
-
-###2.0.2
-* Enhancement: new jQuery UI theme version
-* Fixed: Issue #105: Strings inside meta are now translated after using it in logic
-
-###2.0.1
-* Fixed: Issue #100: Little bug with the WYSIWYG editor where data is not saved to the database
-
-###2.0
-* Added: Explanation. This is a second description shown below the field (not all fields are supported yet)
-* Added: Possibility to add a 'None' option to Cuztom_Select and Cuztom_Post_Select
-* Added: AJAX support for all fields (except radios and checkboxes)
-* Added: New fields, datepicker and datetimepicker
-* Enhancement: Better CSS and JS (selectors)
-* Enhancement: Better field outputting
-* Enhancement: Better handling of images and files
-* Enhancement: Many minor enchancements
-* Changed: show_column is renamed to show_admin_column, for Taxonomies and Fields
-* Changed: $options is changed to $args (field options). Options is now used for select, radios and checkboxes
-* Fixed: Many minor bugs
-* Removed: Field functions (/functions/field.php)
-* Removed: Cuztom_Field_Radio
