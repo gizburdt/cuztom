@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.4.1  
+**Version:** 2.4.2  
 **Requires:** 3.5 / 3.0+  
 
 ## Basic usage
@@ -108,6 +108,9 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###2.4.2
+* Enhancement: All select fields now have the option show_option_none. Just set the text you want to show for this option.
 
 ###2.4.1
 * Fixed: Issue #158: Htmlspecialchars for text field
