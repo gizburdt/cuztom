@@ -75,6 +75,7 @@ class Cuztom_Singleton
 		include( CUZTOM_DIR . 'classes/meta.class.php' );
 		include( CUZTOM_DIR . 'classes/meta_box.class.php' );
 		include( CUZTOM_DIR . 'classes/user_meta.class.php' );
+		include( CUZTOM_DIR . 'classes/term_meta.class.php' );
 		
 		include( CUZTOM_DIR . 'classes/field.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/bundle.class.php' );
