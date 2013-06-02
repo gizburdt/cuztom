@@ -27,7 +27,24 @@ jQuery(function($) {
 	$('.js-cuztom-tabs').tabs();
 
 	// Slider
-	$( ".js-slider" ).slider();
+	$('.js-cuztom-slider .cuztom-slider-div').each(function(){
+		var value = $(this).data('value');
+		var from = $(this).data('range-from');
+		var to = $(this).data('range-to');
+		var step = $(this).data('step');
+
+		$(this).noUiSlider({
+			range: [from, to],
+			step: step,
+			handles: 1,
+			start: value,
+			slide: function(){
+				var values = $(this).val();
+				$(this).prev().val(values);
+				$(this).next().find('strong').html(values);
+			}
+		});
+	});
 
 	// Accordion
 	$('.js-cuztom-accordion').accordion();
