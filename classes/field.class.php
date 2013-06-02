@@ -18,6 +18,9 @@ class Cuztom_Field
     var $description 			= '';
     var $explanation			= '';
 	var $default_value 			= '';
+	var $unit          			= '';
+	var $range          		= array(0, 100);
+	var $step          			= 2;
 	var $options 				= array();
 	var $args					= array();
 	var $hide 					= true;
@@ -60,6 +63,9 @@ class Cuztom_Field
 		$this->hide					= isset( $field['hide'] ) 				? $field['hide'] 				: $this->hide;
 		$this->required				= isset( $field['required'] ) 			? $field['required'] 			: $this->required;
 		$this->default_value		= isset( $field['default_value'] ) 		? $field['default_value'] 		: $this->default_value;
+		$this->unit         		= isset( $field['unit'] ) 		        ? $field['unit'] 	        	: $this->unit;
+		$this->range         		= isset( $field['range'] ) 		        ? $field['range'] 	        	: $this->range;
+		$this->step         		= isset( $field['step'] ) 		        ? $field['step'] 	        	: $this->step;
 		$this->options				= isset( $field['options'] ) 			? $field['options'] 			: $this->options;
 		$this->args					= isset( $field['args'] ) 				? $field['args'] 				: $this->args;
 		$this->repeatable			= isset( $field['repeatable'] ) 		? $field['repeatable'] 			: $this->repeatable ;
