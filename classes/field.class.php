@@ -84,7 +84,7 @@ class Cuztom_Field
 	 * @since 	0.2
 	 *
 	 */
-	function output( $value, $object )
+	function output( $value, $object = '' )
 	{
 		if( $this->repeatable && $this->_supports_repeatable )
 			return $this->_repeatable_output( $value, $object );
@@ -174,8 +174,12 @@ class Cuztom_Field
 	{
 		if( $meta_type == 'user' )
 			update_user_meta( $id, $this->id_name, $value );
-		else
+		elseif( $meta_type == 'post' )
 			update_post_meta( $id, $this->id_name, $value );
+		elseif( $meta_type == 'term' )
+			return $value;
+
+		return false;
 	}
 
 	/**
@@ -199,7 +203,7 @@ class Cuztom_Field
 
 			if( $meta_type == 'user' )
 				update_user_meta( $id, $id_name, $value );
-			else
+			elseif( $meta_type == 'post' )
 				update_post_meta( $id, $id_name, $value );
 		}
 
@@ -308,6 +312,6 @@ class Cuztom_Field
 	 */
 	function build_id_name( $name, $parent )
 	{		
-		return apply_filters( 'cuztom_build_id_name', ( $this->hide ? '_' : '' ) . Cuztom::uglify( $parent ) . "_" . Cuztom::uglify( $name ) );
+		return apply_filters( 'cuztom_build_id_name',  ( $this->hide ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
 	}
 }
