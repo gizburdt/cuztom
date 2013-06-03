@@ -55,6 +55,9 @@ class Cuztom_Singleton
 
 		if( ! defined( 'CUZTOM_JQUERY_UI_STYLE' ) ) 
 			define( 'CUZTOM_JQUERY_UI_STYLE', 'cuztom' );
+
+		if( ! defined( 'CUZTOM_GOOGLE_API_KEY' ) )
+			define( 'CUZTOM_GOOGLE_API_KEY', '' );
 	}
 
 	/**
@@ -101,7 +104,8 @@ class Cuztom_Singleton
 		include( CUZTOM_DIR . 'classes/fields/post_checkboxes.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/term_select.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/term_checkboxes.class.php' );
-		// include( CUZTOM_DIR . 'classes/fields/slider.class.php' );
+		include( CUZTOM_DIR . 'classes/fields/slider.class.php' );
+		include( CUZTOM_DIR . 'classes/fields/location.class.php' );
 		// include( CUZTOM_DIR . 'classes/fields/url.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/hidden.class.php' );
 
@@ -152,6 +156,7 @@ class Cuztom_Singleton
 		}
 		
 		wp_register_style( 'cuztom-colorpicker', 	CUZTOM_URL . '/assets/css/colorpicker.css', false, CUZTOM_VERSION, 'screen' );
+		wp_register_style( 'cuztom-nouislider', 	CUZTOM_URL . '/assets/css/jquery.nouislider.fox.css', false, CUZTOM_VERSION, 'screen' );
 		wp_register_style( 'cuztom', 				CUZTOM_URL . '/assets/css/style.css', 		false, CUZTOM_VERSION, 'screen' );
 	}
 
@@ -167,6 +172,7 @@ class Cuztom_Singleton
 		wp_enqueue_style( 'thickbox' );
 		wp_enqueue_style( 'cuztom-jquery-ui' );
 		wp_enqueue_style( 'cuztom-colorpicker' );
+		wp_enqueue_style( 'cuztom-nouislider' );
 		wp_enqueue_style( 'cuztom' );
 	}
 
@@ -179,9 +185,11 @@ class Cuztom_Singleton
 	 */
 	function register_scripts()
 	{
-		wp_register_script( 'jquery-colorpicker', 	CUZTOM_URL . '/assets/js/jquery.colorpicker.js', 	array( 'jquery' ), CUZTOM_VERSION, true );
-		wp_register_script( 'jquery-timepicker', 	CUZTOM_URL . '/assets/js/jquery.timepicker.js', 	array( 'jquery' ), CUZTOM_VERSION, true );
-		wp_register_script( 'cuztom', 				CUZTOM_URL . '/assets/js/functions.js', 			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'jquery-colorpicker', 'jquery-timepicker', 'jquery-ui-slider' ), CUZTOM_VERSION, true );
+		wp_register_script( 'jquery-colorpicker', 	            CUZTOM_URL . '/assets/js/jquery.colorpicker.js', 	array( 'jquery' ), CUZTOM_VERSION, true );
+		wp_register_script( 'jquery-timepicker', 	            CUZTOM_URL . '/assets/js/jquery.timepicker.js', 	array( 'jquery' ), CUZTOM_VERSION, true );
+		wp_register_script( 'jquery-nouislider',              	CUZTOM_URL . '/assets/js/jquery.nouislider.min.js', array( 'jquery' ), CUZTOM_VERSION, true );
+		wp_register_script( 'gmap', 'https://maps.googleapis.com/maps/api/js?key=' . CUZTOM_GOOGLE_API_KEY . '&sensor=false', array(), CUZTOM_VERSION, true );
+		wp_register_script( 'cuztom', CUZTOM_URL . '/assets/js/functions.js', 			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'jquery-colorpicker', 'jquery-timepicker', 'jquery-nouislider', 'gmap' ), CUZTOM_VERSION, true );
 	}
 	
 	/**
@@ -197,6 +205,8 @@ class Cuztom_Singleton
 		
 		wp_enqueue_script( 'thickbox' );
 		wp_enqueue_script( 'cuztom' );
+		wp_enqueue_script( 'jquery-nouislider' );
+		wp_enqueue_script( 'gmap' );
 		wp_enqueue_script( 'media-upload' );
 		
 		self::localize_scripts();

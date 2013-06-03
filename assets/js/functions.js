@@ -1,5 +1,7 @@
 jQuery.noConflict();
 
+var cuztom_map_markers = [];
+
 jQuery(function($) {
 	
 	// Datepicker
@@ -27,7 +29,90 @@ jQuery(function($) {
 	$('.js-cuztom-tabs').tabs();
 
 	// Slider
-	$( ".js-slider" ).slider();
+	$('.js-cuztom-slider .cuztom-slider-div').each(function(){
+		var value = $(this).data('value');
+		var from = $(this).data('range-from');
+		var to = $(this).data('range-to');
+		var step = $(this).data('step');
+
+		$(this).noUiSlider({
+			range: [from, to],
+			step: step,
+			handles: 1,
+			start: value,
+			slide: function(){
+				var values = $(this).val();
+				$(this).prev().val(values);
+				$(this).next().find('strong').html(values);
+			}
+		});
+	});
+
+	// Location
+	$('.js-cuztom-location').each(function(){
+		// Store jQuery DOM elements
+		var $lat = $(this).find('.cuztom-lat');
+		var $long = $(this).find('.cuztom-long');
+		var $lat_and_long = $(this).find('.cuztom-lat, .cuztom-long');
+		var $map = $(this).find('.cuztom-map');
+
+		// Store variables
+		var map_id = $map.attr('id');
+		var lat = ($lat.val() != '') ? parseFloat($lat.val().replace(',','.')) : 0;
+		var long = ($long.val() != '') ? parseFloat($long.val().replace(',','.')) : 0;
+		var has_marker = (lat == 0 && long == 0) ? false : true;
+		var zoom = (has_marker) ? 12 : 1;
+
+		// Add marker to global array so we can remove it later
+		cuztom_map_markers[map_id] = [];
+
+		var map_options = {
+			center: new google.maps.LatLng(lat, long),
+			zoom: zoom,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+
+		// Initialize the map
+		var map = new google.maps.Map(document.getElementById(map_id), map_options);
+
+		// If value or default value is set, otherwise don't create marker
+		if (has_marker) {
+			var marker_latlng = new google.maps.LatLng(lat,long);
+			var marker = new google.maps.Marker({
+				position: marker_latlng,
+				map: map
+			});
+			cuztom_map_markers[map_id].push(marker);
+		}
+
+		// On 'blur' event on lat or long fields ...
+		$lat_and_long.on('blur', function() {
+			var lat = parseFloat($lat.val().replace(',','.'));
+			var long = parseFloat($long.val().replace(',','.'));
+			var marker_latlng = new google.maps.LatLng(lat,long);
+
+			// ... remove existing marker from map ...
+			if (cuztom_map_markers[map_id].length > 0) {
+				for (i in cuztom_map_markers[map_id]) {
+					cuztom_map_markers[map_id][i].setMap(null);
+				}
+				cuztom_map_markers[map_id].length = 0;
+			}
+
+			// ... add new marker on the map ...
+			var marker = new google.maps.Marker({
+				position: marker_latlng,
+				map: map
+			});
+
+			// ... center the map ...
+			map.setCenter(marker_latlng);
+			map.setZoom(12);
+
+			// ... and add the new marker to the global array
+			cuztom_map_markers[map_id].push(marker);
+		});
+	});
 
 	// Accordion
 	$('.js-cuztom-accordion').accordion();
