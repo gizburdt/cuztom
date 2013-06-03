@@ -30,6 +30,6 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 	{
 		$value = wpautop( $value );
 
-		parent::save( $id, $value, $context );
+		return parent::save( $id, $value, $context );
 	}
 }

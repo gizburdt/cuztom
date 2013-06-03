@@ -15,6 +15,6 @@ class Cuztom_Field_Checkbox extends Cuztom_Field
 	{
 		$value = empty( $value ) ? '-1' : $value;
 
-		parent::save( $post_id, $value, $meta_type );
+		return parent::save( $post_id, $value, $meta_type );
 	}
 }

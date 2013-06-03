@@ -14,6 +14,6 @@ class Cuztom_Field_Text extends Cuztom_Field
 	{
 		$value = htmlspecialchars( $value );
 
-		parent::save( $post_id, $value, $meta_type );
+		return parent::save( $post_id, $value, $meta_type );
 	}
 }

@@ -72,7 +72,7 @@ class Cuztom_Meta
 					$data->output( $object, $meta_type );
 				}
 				else
-				{					
+				{
 					echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
 
 						/* Loop through $data */

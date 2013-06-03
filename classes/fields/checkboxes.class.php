@@ -36,6 +36,6 @@ class Cuztom_Field_Checkboxes extends Cuztom_Field
 	{
 		$value = empty( $value ) ? '-1' : $value;
 
-		parent::save( $id, $value, $meta_type );
+		return parent::save( $id, $value, $meta_type );
 	}
 }
