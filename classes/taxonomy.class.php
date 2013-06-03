@@ -143,6 +143,22 @@ class Cuztom_Taxonomy
 	}
 
 	/**
+	 * Add term meta to this taxonomy
+	 *
+	 * @param 	array 			$data
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.5
+	 *
+	 */
+	function add_term_meta( $data = array() )
+	{
+		$term_meta = new Cuztom_Term_Meta( $this->name, $data );
+
+		return $this;
+	}
+
+	/**
 	 * Used to add a column head to the Post Type's List Table
 	 *
 	 * @param 	array 			$columns
