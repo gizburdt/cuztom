@@ -46,6 +46,11 @@
 .cuztom .cuztom-slider-value { text-align:center; margin-top:0.5em; }
 .cuztom .cuztom-slider-value .unit { margin-left:0.25em; }
 
+/* Location */
+.cuztom .cuztom-lat { float:left; width:48%  !important; margin-right:2%; }
+.cuztom .cuztom-long { float:left; width:48% !important; }
+.cuztom .cuztom-map { clear:left; margin-top: 0.5em; width:100%; height:200px; }
+
 /* Misc */
 .cuztom .cuztom-mime{ padding: 5px 0 5px 25px; display: block; background: url('../images/mime/file.png') 0 2px no-repeat; }
 
