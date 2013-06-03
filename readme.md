@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.4.2  
+**Version:** 2.5  
 **Requires:** 3.5 / 3.0+  
 
 ## Basic usage
@@ -109,6 +109,9 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###2.5
+* Added: Term meta!
+
 ###2.4.2
 * Enhancement: All select fields now have the option show_option_none. Just set the text you want to show for this option.
 
@@ -121,28 +124,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Added: Required field (only frontend, no logic)
 * Enhancement: Explanation for all fields
 * Enhancement: Sort, filter for taxonomy in admin table
-
-###2.3.3
-* Enhancement: Small (performance) updates
-
-###2.3.2
-* Change: Removed is_admin check in Cuztom_Singleton
-
-###2.3.1
-* Fixed: Issue #136: Cuztom::uglify() is removed from select, radio, checkbox slug. So you can control the slug, like BottomLeft.
-
-###2.3
-* Enhancement: Cuztom pluralize can now handle more types of plural words
-* Enhancement: Security improvements
-* Enhancement: Cleaner code, better asset naming
-* Added: Cuztom now uses a Singleton to handle the initialization
-* Added: Cuztom_Notice to handle admin notices better
-
-###2.2.1
-* Fixed: Issue #130: Image select button loses ats value in bundle
-* Added: Select in bundle
-
-###2.2
-* Fixed: Issue #126: Image field error when editor is not supported by post type
-* Fixed: Issue #125: Conflict with names in repeatable fields
-* Added: Image support in bundles
