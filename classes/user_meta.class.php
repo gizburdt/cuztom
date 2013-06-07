@@ -16,7 +16,7 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	/**
 	 * Constructor for User Meta
 	 *
-	 * @param   integer 		$id
+	 * @param   string 			$id
 	 * @param 	string|array	$title
 	 * @param 	string|array 	$locations
 	 * @param 	array  			$data

@@ -18,7 +18,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	/**
 	 * Constructs the meta box
 	 *
-	 * @param   integer 		$id
+	 * @param   string 			$id
 	 * @param 	string|array	$title
 	 * @param 	array|string	$fields
 	 * @param 	string 			$post_type_name
