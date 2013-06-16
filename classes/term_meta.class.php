@@ -89,13 +89,15 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 		/* Loop through $data */
 		foreach( $this->data as $id_name => $field )
 		{
+			$value[$id_name] = isset( $value[$id_name] ) ? $value[$id_name] : '';
+
 			if( ! $field instanceof Cuztom_Field_Hidden )
 			{
-				echo '<tr class="form-field">';
+				echo '<tr class="cuztom form-field">';
 					echo '<th scope="row" valign="top">';
 						echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
 					echo '</th>';
-					echo '<td>';
+					echo '<td class="cuztom-td">';
 						echo $field->output( $value[$id_name] );
 						if( ! empty( $field->description ) ) echo '<p class="description cuztom-description">' . $field->description . '</p>';
 					echo '</td>';

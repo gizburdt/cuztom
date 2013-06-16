@@ -41,6 +41,7 @@
 .cuztom .mceContentBody, 
 .cuztom .mceIframeContainer{ background: #fff !important; }
 .cuztom .mceStatusbar{ width: 100% !important; padding-left: 0 !important; text-indent: 10px; }
+.cuztom.form-field input[type="button"]{ width: auto; }
 
 /* Misc */
 .cuztom .cuztom-mime{ padding: 5px 0 5px 25px; display: block; background: url('../images/mime/file.png') 0 2px no-repeat; }
