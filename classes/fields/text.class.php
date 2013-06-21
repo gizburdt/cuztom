@@ -12,8 +12,16 @@ class Cuztom_Field_Text extends Cuztom_Field
 
 	function save( $post_id, $value, $meta_type )
 	{
-		$value = htmlspecialchars( $value );
+		if( is_array( $value ) )
+			array_walk_recursive( $value, array( &$this, 'do_htmlspecialchars' ) );
+		else
+			$value = htmlspecialchars( $value );
 
 		return parent::save( $post_id, $value, $meta_type );
+	}
+
+	function do_htmlspecialchars( &$value )
+	{
+		$value = htmlspecialchars( $value );
 	}
 }
