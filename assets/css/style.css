@@ -37,7 +37,7 @@
 .cuztom textarea{ height: 100px; }
 .cuztom select{ min-width: 160px; }
 .cuztom .cuztom-preview{ width: 100%; display: block; margin-top: 8px; }
-.cuztom .cuztom-preview img{ max-width: 100%; }
+.cuztom .cuztom-preview img{ max-width: 100%; height: auto; }
 .cuztom .mceContentBody, 
 .cuztom .mceIframeContainer{ background: #fff !important; }
 .cuztom .mceStatusbar{ width: 100% !important; padding-left: 0 !important; text-indent: 10px; }
