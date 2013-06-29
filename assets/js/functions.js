@@ -3,18 +3,18 @@ jQuery.noConflict();
 jQuery(function($) {
 	
 	// Datepicker
-	$('.js-cuztom-datepicker').each(function(){
-		$(this).datepicker({ dateFormat: $(this).data('date-format') });
+	$('.js-cuztom-datepicker').map(function(){
+		return $(this).datepicker({ dateFormat: $(this).data('date-format') });
 	});
 
 	// Timepicker
-	$('.js-cuztom-timepicker').each(function(){
-		$(this).timepicker({ timeFormat: $(this).data('time-format') });
+	$('.js-cuztom-timepicker').map(function(){
+		return $(this).timepicker({ timeFormat: $(this).data('time-format') });
 	});
 
 	// Datetime
-	$('.js-cuztom-datetimepicker').each(function(){
-		$(this).datetimepicker({ 
+	$('.js-cuztom-datetimepicker').map(function(){
+		return $(this).datetimepicker({ 
 			timeFormat: $(this).data('time-format'),
 			dateFormat: $(this).data('date-format')
 		});
@@ -95,7 +95,7 @@ jQuery(function($) {
 			id_name 	= input.attr('id'),
 			value		= input.val(),
 
-			// Need better handling
+			// Needs better handling
 			meta_type 	= cuztom.data('meta-type'),
 			id 			= cuztom.data('id');
 
@@ -105,7 +105,7 @@ jQuery(function($) {
 				value: 		value,
 				id_name: 	id_name,
 
-				// Need better handling
+				// Needs better handling
 				meta_type:  meta_type,
 				id: 		id
 			}
