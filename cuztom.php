@@ -151,7 +151,6 @@ class Cuztom_Singleton
 				wp_register_style( 'cuztom-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/' . CUZTOM_JQUERY_UI_STYLE . '/jquery-ui.css', false, CUZTOM_VERSION, 'screen' );
 		}
 		
-		wp_register_style( 'cuztom-colorpicker', 	CUZTOM_URL . '/assets/css/colorpicker.css', false, CUZTOM_VERSION, 'screen' );
 		wp_register_style( 'cuztom', 				CUZTOM_URL . '/assets/css/style.css', 		false, CUZTOM_VERSION, 'screen' );
 	}
 
@@ -166,7 +165,7 @@ class Cuztom_Singleton
 	{
 		wp_enqueue_style( 'thickbox' );
 		wp_enqueue_style( 'cuztom-jquery-ui' );
-		wp_enqueue_style( 'cuztom-colorpicker' );
+		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'cuztom' );
 	}
 
@@ -179,9 +178,8 @@ class Cuztom_Singleton
 	 */
 	function register_scripts()
 	{
-		wp_register_script( 'jquery-colorpicker', 	CUZTOM_URL . '/assets/js/jquery.colorpicker.js', 	array( 'jquery' ), CUZTOM_VERSION, true );
 		wp_register_script( 'jquery-timepicker', 	CUZTOM_URL . '/assets/js/jquery.timepicker.js', 	array( 'jquery' ), CUZTOM_VERSION, true );
-		wp_register_script( 'cuztom', 				CUZTOM_URL . '/assets/js/functions.js', 			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'jquery-colorpicker', 'jquery-timepicker', 'jquery-ui-slider' ), CUZTOM_VERSION, true );
+		wp_register_script( 'cuztom', 				CUZTOM_URL . '/assets/js/functions.js', 			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-timepicker', 'jquery-ui-slider' ), CUZTOM_VERSION, true );
 	}
 	
 	/**

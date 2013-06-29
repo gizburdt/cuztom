@@ -21,7 +21,8 @@ jQuery(function($) {
 	});
 	
 	// Colorpicker
-	$('.js-cuztom-colorpicker').miniColors();
+	// $('.js-cuztom-colorpicker').miniColors();
+	$('.js-cuztom-colorpicker').wpColorPicker();
 
 	// Tabs
 	$('.js-cuztom-tabs').tabs();

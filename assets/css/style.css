@@ -45,6 +45,9 @@
 
 /* Misc */
 .cuztom .cuztom-mime{ padding: 5px 0 5px 25px; display: block; background: url('../images/mime/file.png') 0 2px no-repeat; }
+.cuztom .wp-picker-container{ width: 100%; }
+.cuztom input[type="text"].wp-color-picker,
+.cuztom .wp-picker-clear{ width: auto; }
 
 /* Side meta box */
 #side-sortables .cuztom-table{}
