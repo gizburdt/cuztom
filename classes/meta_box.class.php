@@ -210,7 +210,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	function add_sortable_column( $columns )
 	{
 		foreach( $this->fields as $id_name => $field )
-			if( $field->show_admin_column ) $columns[$id_name] = $field->label;
+			if( $field->admin_column_sortable ) $columns[$id_name] = $field->label;
 
 		return $columns;
 	}

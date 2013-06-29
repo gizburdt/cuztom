@@ -25,6 +25,8 @@ class Cuztom_Field
 	var $repeatable 			= false;
 	var $ajax 					= false;
 	var $show_admin_column 		= false;
+	var $admin_column_sortable	= false;
+	var $admin_column_filter	= false;
 	var $parent					= '';
 
 	var $data_attributes 		= array();

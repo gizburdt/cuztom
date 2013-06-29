@@ -12,6 +12,8 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Term_Meta extends Cuztom_Meta
 {
 	var $taxonomies;
+	var $data;
+	var $fields;
 
 	/**
 	 * Construct the term meta
@@ -33,6 +35,9 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 		{
 			add_action( $taxonomy . '_add_form_fields', array( &$this, 'add_form_fields' ) );
 			add_action( $taxonomy . '_edit_form_fields', array( &$this, 'edit_form_fields' ) );
+
+			add_filter( 'manage_edit-' . $taxonomy . '_columns', array( &$this, 'add_column' ) );
+			add_filter( 'manage_' . $taxonomy . '_custom_column', array( &$this, 'add_column_content' ), 10, 3 );
 
 			add_action( 'created_' . $taxonomy, array( &$this, 'save_term' ) );
 			add_action( 'edited_' . $taxonomy, array( &$this, 'save_term' ) );  
@@ -82,7 +87,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 */
 	function edit_form_fields( $term )
 	{
-		$value = get_option( 'term_meta_' . $term->term_id );
+		$value = get_cuztom_term_meta( $term->term_id, $term->taxonomy );
 
 		echo '<input type="hidden" name="cuztom[__activate]" />';
 
@@ -134,6 +139,61 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 			}
 
 			update_option( 'term_meta_' . $term_id, $data );
+		}
+	}
+
+	/**
+	 * Used to add a column head to the Taxonomy's List Table
+	 *
+	 * @param 	array 			$columns
+	 * @return 	array
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	1.1
+	 *
+	 */
+	function add_column( $columns )
+	{
+		foreach( $this->fields as $id_name => $field )
+			if( $field->show_admin_column ) $columns[$id_name] = $field->label;
+
+		return $columns;
+	}
+
+	/**
+	 * Used to add the column content to the column head
+	 *
+	 * @param 	string 			$row
+	 * @param 	integer 		$column
+	 * @param 	integer 		$term_id
+	 * @return 	mixed
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	1.1
+	 *
+	 */
+	function add_column_content( $row, $column, $term_id )
+	{
+		$meta = get_cuztom_term_meta_by_id( $term_id, $column );
+		
+		foreach( $this->fields as $id_name => $field )
+		{
+			if( $column == $id_name )
+			{
+				if( $field->repeatable && $field->_supports_repeatable )
+				{
+					echo implode( $meta, ', ' );
+				}
+				else
+				{
+					if( $field instanceof Cuztom_Field_Image )
+						echo wp_get_attachment_image( $meta, array( 100, 100 ) );
+					else
+						echo $meta;
+				}
+
+				break;
+			}
 		}
 	}
 }
