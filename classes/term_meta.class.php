@@ -29,7 +29,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 		$this->taxonomies 	= (array) $taxonomy;
 		
 		// Build the meta box and fields
-		$this->build( $data );
+		$this->data = $this->build( $data );
 
 		foreach( $this->taxonomies as $taxonomy )
 		{

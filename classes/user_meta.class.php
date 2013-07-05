@@ -42,7 +42,7 @@ class Cuztom_User_Meta extends Cuztom_Meta
 			$this->callback = array( &$this, 'callback' );
 
 			// Build the meta box and fields
-			$this->build( $data );
+			$this->data = $this->build( $data );
 
 			add_action( 'personal_options_update', array( &$this, 'save_user' ) );
 			add_action( 'edit_user_profile_update', array( &$this, 'save_user' ) );
