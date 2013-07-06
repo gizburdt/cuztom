@@ -72,7 +72,7 @@ class Cuztom_Field
 		$this->parent				= $parent;
 		
 		// Id_name is used as id to select the field, if i'ts not in the $field paramater, the id_name will be genereted
-		$this->id_name 				= isset( $field['id'] ) 				? $field['id'] 					: $this->build_id( $this->name, $parent );
+		$this->id_name 				= isset( $field['id_name'] ) 			? $field['id_name']				: $this->build_id( $this->name, $parent );
 	}
 	
 	/**
