@@ -72,7 +72,7 @@ class Cuztom_Field
 		$this->parent				= $parent;
 		
 		// Id_name is used as id to select the field, if i'ts not in the $field paramater, the id_name will be genereted
-		$this->id_name 				= isset( $field['id_name'] ) 			? $field['id_name'] 			: $this->build_id_name( $this->name, $parent );
+		$this->id_name 				= isset( $field['id'] ) 				? $field['id'] 					: $this->build_id( $this->name, $parent );
 	}
 	
 	/**
@@ -312,8 +312,8 @@ class Cuztom_Field
 	 * @since 	0.9
 	 *
 	 */
-	function build_id_name( $name, $parent )
+	function build_id( $name, $parent )
 	{		
-		return apply_filters( 'cuztom_build_id_name',  ( $this->hide ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
+		return apply_filters( 'cuztom_build_id',  ( $this->hide ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
 	}
 }
