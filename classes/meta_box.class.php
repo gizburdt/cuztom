@@ -112,56 +112,24 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		foreach( $this->post_types as $post_type )
 			if( ! current_user_can( get_post_type_object( $post_type )->cap->edit_post, $post_id ) ) return;
 
-		// Loop through each meta box
-		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
+		parent::save( $post_id );
+	}
+
+	/**
+	 * Normal save method to save all the fields in a metabox
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.6
+	 */
+	function save()
+	{
+		foreach( $this->fields as $id_name => $field )
 		{
-			if( $this->data instanceof Cuztom_Bundle && $field = $this->data )
-			{
-				// Delete old data, so the new sorted data can be saved
-				delete_post_meta( $post_id, $this->id );
-				
-				$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
-				$value = apply_filters( "cuztom_post_meta_save_bundle_$field->id", apply_filters( 'cuztom_post_meta_save_bundle', $value, $field, $post_id ), $field, $post_id );
+			$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
+			$value = apply_filters( "cuztom_post_meta_save_$field->type", apply_filters( 'cuztom_post_meta_save', $value, $field, $post_id ), $field, $post_id );
 
-				$field->save( $post_id, $value, 'post' );
-			}
-			elseif( $this->data instanceof Cuztom_Tabs || $this->data instanceof Cuztom_Accordion )
-			{
-				foreach( $this->data->tabs as $tab )
-				{
-					if( $tab->fields instanceof Cuztom_Bundle && $field = $tab->fields )
-					{
-						// Delete old data, so the new sorted data can be saved
-						delete_post_meta( $post_id, $this->id );
-						
-						$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
-						$value = apply_filters( "cuztom_post_meta_save_bundle_$field->id", apply_filters( 'cuztom_post_meta_save_bundle', $value, $field, $post_id ), $field, $post_id );
-
-						$field->save( $post_id, $value, 'post' );
-					}
-					else
-					{
-						foreach( $this->fields as $id_name => $field )
-						{
-							$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
-							$value = apply_filters( "cuztom_post_meta_save_$field->type", apply_filters( 'cuztom_post_meta_save', $value, $field, $post_id ), $field, $post_id );
-
-							$field->save( $post_id, $value, 'post' );
-						}
-					}
-				}
-			}
-			else
-			{
-				foreach( $this->fields as $id_name => $field )
-				{
-					$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
-					$value = apply_filters( "cuztom_post_meta_save_$field->type", apply_filters( 'cuztom_post_meta_save', $value, $field, $post_id ), $field, $post_id );
-
-					$field->save( $post_id, $value, 'post' );
-				}
-			}
-		}		
+			$field->save( $post_id, $value, 'post' );
+		}
 	}
 	
 	/**

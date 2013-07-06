@@ -121,6 +121,43 @@ class Cuztom_Meta
 	}
 
 	/**
+	 * Normal save method to save all the fields in a metabox
+	 * Metabox and User Meta rely on this method
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.6
+	 */
+	function save( $object_id )
+	{
+		// Loop through each meta box
+		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
+		{
+			if( $this->data instanceof Cuztom_Bundle && $bundle = $this->data )
+			{
+				$field->save( $object_id, $value, $this->get_meta_type() );
+			}
+			elseif( $this->data instanceof Cuztom_Tabs || $this->data instanceof Cuztom_Accordion )
+			{
+				foreach( $this->data->tabs as $tab )
+				{
+					if( $tab->fields instanceof Cuztom_Bundle && $bundle = $tab->fields )
+					{
+						$bundle->save( $object_id, $value, $this->get_meta_type() );
+					}
+					else
+					{
+						$this->save();
+					}
+				}
+			}
+			else
+			{
+				$this->save();
+			}
+		}
+	}
+
+	/**
 	 * Check what kind of meta we're dealing with
 	 * 
 	 * @return  string

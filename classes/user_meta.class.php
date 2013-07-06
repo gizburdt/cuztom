@@ -82,28 +82,23 @@ class Cuztom_User_Meta extends Cuztom_Meta
 		// Verify nonce
 		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( dirname( __FILE__ ) ) ) ) ) return;
 
-		// Loop through each meta box
-		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
+		parent::save( $user_id );
+	}
+
+	/**
+	 * Normal save method to save all the fields in a metabox
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.6
+	 */
+	function save()	
+	{
+		foreach( $this->fields as $id_name => $field )
 		{
-			if( $this->data instanceof Cuztom_Bundle && $field = $this->data )
-			{
-				delete_user_meta( $user_id, $this->id );
-				
-				$value = isset( $_POST['cuztom'][$field->id] ) ? array_values( $_POST['cuztom'][$field->id] ) : '';
-				$value = apply_filters( "cuztom_user_meta_save_bundle_$field->id", apply_filters( 'cuztom_user_meta_save_bundle', $value, $field, $user_id ), $field, $user_id );			
+			$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
+			$value = apply_filters( "cuztom_user_meta_save_$field->type", apply_filters( 'cuztom_user_meta_save', $value, $field, $user_id ), $field, $user_id );
 
-				$field->save( $user_id, $value, 'user' );
-			}
-			else
-			{
-				foreach( $this->fields as $id_name => $field )
-				{
-					$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
-					$value = apply_filters( "cuztom_user_meta_save_$field->type", apply_filters( 'cuztom_user_meta_save', $value, $field, $user_id ), $field, $user_id );
-
-					$field->save( $user_id, $value, 'user' );
-				}
-			}
-		}		
+			$field->save( $user_id, $value, 'user' );
+		}
 	}
 }
