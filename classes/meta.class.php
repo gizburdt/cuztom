@@ -59,11 +59,11 @@ class Cuztom_Meta
 		// Get all inputs from $data
 		$data 		= $this->data;
 		$meta_type 	= $this->get_meta_type();
-		
+
 		if( ! empty( $data ) )
 		{
 			echo '<input type="hidden" name="cuztom[__activate]" />';
-			echo '<div class="cuztom" data-id="' . ( $meta_type == 'post' ? get_the_ID() : $object->ID ) . '" data-meta-type="' . $meta_type . '">';
+			echo '<div class="cuztom" data-object-id="' . ( $meta_type == 'post' ? get_the_ID() : $object->ID ) . '" data-meta-type="' . $meta_type . '">';
 
 				if( ! empty( $this->description ) ) echo '<p class="cuztom-box-description">' . $this->description . '</p>';
 			
@@ -121,6 +121,43 @@ class Cuztom_Meta
 	}
 
 	/**
+	 * Normal save method to save all the fields in a metabox
+	 * Metabox and User Meta rely on this method
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.6
+	 */
+	function save( $object_id )
+	{
+		// Loop through each meta box
+		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
+		{
+			if( $this->data instanceof Cuztom_Bundle && $bundle = $this->data )
+			{
+				$field->save( $object_id, $value, $this->get_meta_type() );
+			}
+			elseif( $this->data instanceof Cuztom_Tabs || $this->data instanceof Cuztom_Accordion )
+			{
+				foreach( $this->data->tabs as $tab )
+				{
+					if( $tab->fields instanceof Cuztom_Bundle && $bundle = $tab->fields )
+					{
+						$bundle->save( $object_id, $value, $this->get_meta_type() );
+					}
+					else
+					{
+						$this->save();
+					}
+				}
+			}
+			else
+			{
+				$this->save();
+			}
+		}
+	}
+
+	/**
 	 * Check what kind of meta we're dealing with
 	 * 
 	 * @return  string
@@ -160,7 +197,7 @@ class Cuztom_Meta
 	 */
 	static function is_tabs( $data )
 	{
-		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'tabs' );
+		return isset( $data[0] ) && ( ! is_array( $data[0] ) ) && ( $data[0] == 'tabs' );
 	}
 	
 	/**
@@ -175,7 +212,7 @@ class Cuztom_Meta
 	 */
 	static function is_accordion( $data )
 	{
-		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'accordion' );
+		return isset( $data[0] ) && ( ! is_array( $data[0] ) ) && ( $data[0] == 'accordion' );
 	}
 	
 	/**
@@ -190,7 +227,7 @@ class Cuztom_Meta
 	 */
 	static function is_bundle( $data )
 	{
-		return ( ! is_array( $data[0] ) ) && ( $data[0] == 'bundle' );
+		return isset( $data[0] ) && ( ! is_array( $data[0] ) ) && ( $data[0] == 'bundle' );
 	}
 
 	/**
@@ -203,10 +240,10 @@ class Cuztom_Meta
 	 * @since 	1.1
 	 *
 	 */
-	function build( $data )
+	function build( $data, $parent = null )
 	{
-		$array = array();
-		
+		$return = array();
+
 		if( is_array( $data ) && ! empty( $data ) )
 		{
 			if( self::is_tabs( $data ) || self::is_accordion( $data ) )
@@ -215,27 +252,34 @@ class Cuztom_Meta
 				$tabs->id 	= $this->id;
 
 				foreach( $data[1] as $title => $fields )
-				{			
+				{
 					$tab 		= new Cuztom_Tab();
 					$tab->id 	= Cuztom::uglify( $title );
 					$tab->title = Cuztom::beautify( $title );
 
-					foreach( $fields as $field )
+					if( self::is_bundle( $fields[0] ) || self::is_accordion( $fields[0] ) )
 					{
-						$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
-						if( class_exists( $class ) )
+						$tab->fields = $this->build( $fields[0] );
+					}
+					else
+					{
+						foreach( $fields as $field )
 						{
-							$field = new $class( $field, $this->id );
+							$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
+							if( class_exists( $class ) )
+							{
+								$field = new $class( $field, $this->id );
 
-							$this->fields[$field->id_name] = $field;
-							$tab->fields[$field->id_name] = $field;
+								$this->fields[$field->id] = $field;
+								$tab->fields[$field->id] = $field;
+							}
 						}
 					}
 
 					$tabs->tabs[$title] = $tab;
 				}
 
-				$this->data = $tabs;
+				$return = $tabs;
 			}
 			elseif( self::is_bundle( $data ) )
 			{
@@ -251,12 +295,12 @@ class Cuztom_Meta
 						$field->repeatable = false;
 						$field->ajax = false;
 
-						$this->fields[$field->id_name] = $field;
-						$bundle->fields[$field->id_name] = $field;
+						$this->fields[$field->id] = $field;
+						$bundle->fields[$field->id] = $field;
 					}
 				}
 
-				$this->data = $bundle;
+				$return = $bundle;
 			}
 			else
 			{
@@ -267,14 +311,14 @@ class Cuztom_Meta
 					{
 						$field = new $class( $field, $this->id );
 
-						$this->fields[$field->id_name] = $field;
-						$array[$field->id_name] = $field;
+						$this->fields[$field->id] = $field;
+						$return[$field->id] = $field;
 					}
 				}
-
-				$this->data = $array;
 			}
 		}
+
+		return $return;
 	}
 
 	/**

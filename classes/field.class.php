@@ -11,23 +11,24 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 class Cuztom_Field
 {
-	var $id_name				= '';
+	var $id						= '';
 	var $type					= '';
 	var $name 					= '';
     var $label 					= '';
     var $description 			= '';
     var $explanation			= '';
 	var $default_value 			= '';
-	var $options 				= array();
-	var $args					= array();
+	var $options 				= array(); // Only used for radio, checkboxes etc.
+	var $args					= array(); // Specific args for the field
 	var $hide 					= true;
 	var $required 				= false;
 	var $repeatable 			= false;
 	var $ajax 					= false;
+	var $parent					= '';
+	
 	var $show_admin_column 		= false;
 	var $admin_column_sortable	= false;
 	var $admin_column_filter	= false;
-	var $parent					= '';
 
 	var $data_attributes 		= array();
 	var $css_classes			= array();
@@ -71,8 +72,8 @@ class Cuztom_Field
 		// Mostly the name of the meta box
 		$this->parent				= $parent;
 		
-		// Id_name is used as id to select the field, if i'ts not in the $field paramater, the id_name will be genereted
-		$this->id_name 				= isset( $field['id_name'] ) 			? $field['id_name'] 			: $this->build_id_name( $this->name, $parent );
+		// Id is used as id to select the field, if i'ts not in the $field paramater, the id will be genereted
+		$this->id  					= isset( $field['id'] ) 				? $field['id']					: $this->build_id( $this->name, $parent );
 	}
 	
 	/**
@@ -164,7 +165,7 @@ class Cuztom_Field
 	/**
 	 * Save meta
 	 * 
-	 * @param  	int 			$post_id
+	 * @param  	int 			$object_id
 	 * @param  	string 			$value
 	 * @param   string 			$meta_type
 	 *
@@ -172,12 +173,12 @@ class Cuztom_Field
 	 * @since  	1.6.2
 	 * 
 	 */
-	function save( $id, $value, $meta_type )
+	function save( $object_id, $value, $meta_type )
 	{
 		if( $meta_type == 'user' )
-			update_user_meta( $id, $this->id_name, $value );
+			update_user_meta( $object_id, $this->id, $value );
 		elseif( $meta_type == 'post' )
-			update_post_meta( $id, $this->id_name, $value );
+			update_post_meta( $object_id, $this->id, $value );
 		elseif( $meta_type == 'term' )
 			return $value;
 
@@ -195,18 +196,18 @@ class Cuztom_Field
 	{
 		if( $_POST['cuztom'] )
 		{
-			$id 		= $_POST['cuztom']['id'];
-			$id_name 	= $_POST['cuztom']['id_name'];
+			$object_id	= $_POST['cuztom']['object_id'];
+			$id_field	= $_POST['cuztom']['field_id'];
 			$value 		= $_POST['cuztom']['value'];
 			$meta_type 	= $_POST['cuztom']['meta_type'];
 
-			if( empty( $id ) ) 
+			if( empty( $object_id ) ) 
 				die();
 
 			if( $meta_type == 'user' )
-				update_user_meta( $id, $id_name, $value );
+				update_user_meta( $object_id, $field_id, $value );
 			elseif( $meta_type == 'post' )
-				update_post_meta( $id, $id_name, $value );
+				update_post_meta( $object_id, $field_id, $value );
 		}
 
 		// For Wordpress
@@ -222,7 +223,7 @@ class Cuztom_Field
 	 */
 	function output_name( $overwrite = null )
 	{
-		return $overwrite ? 'name="' . $overwrite . '"' : 'name="cuztom' . $this->pre . '[' . $this->id_name . ']' . $this->after . '"';
+		return $overwrite ? 'name="' . $overwrite . '"' : 'name="cuztom' . $this->pre . '[' . $this->id . ']' . $this->after . '"';
 	}
 
 	/**
@@ -234,7 +235,7 @@ class Cuztom_Field
 	 */
 	function output_id( $overwrite = null )
 	{
-		return $overwrite ? 'id="' . $overwrite . '"' : 'id="' . $this->pre_id . $this->id_name . $this->after_id . '"';
+		return $overwrite ? 'id="' . $overwrite . '"' : 'id="' . $this->pre_id . $this->id . $this->after_id . '"';
 	}
 
 	/**
@@ -312,8 +313,8 @@ class Cuztom_Field
 	 * @since 	0.9
 	 *
 	 */
-	function build_id_name( $name, $parent )
+	function build_id( $name, $parent )
 	{		
-		return apply_filters( 'cuztom_build_id_name',  ( $this->hide ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
+		return apply_filters( 'cuztom_build_id',  ( $this->hide ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
 	}
 }

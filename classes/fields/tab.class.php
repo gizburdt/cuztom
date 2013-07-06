@@ -16,45 +16,53 @@ class Cuztom_Tab
 		if( $type == 'accordion' ) echo '<h3>' . $this->title . '</h3>';
 		
 		echo '<div id="' . $this->id . '">';
-			echo '<table border="0" cellading="0" cellspacing="0" class="from-table cuztom-table">';
-				foreach( $fields as $id_name => $field )
-				{
-					$value = $meta_type == 'user' ? get_user_meta( $post->ID, $id_name, true ) : get_post_meta( $post->ID, $id_name, true );
-					
-					if( ! $field instanceof Cuztom_Field_Hidden )
+
+			if( $fields instanceof Cuztom_Bundle )
+			{
+				$fields->output( $post, $meta_type );
+			}
+			else
+			{
+				echo '<table border="0" cellading="0" cellspacing="0" class="from-table cuztom-table">';
+					foreach( $fields as $id_name => $field )
 					{
-						echo '<tr>';
-							echo '<th class="cuztom-th">';
-								echo '<label for="' . $id_name . '" class="cuztom-label">' . $field->label . '</label>';
-								echo '<div class="cuztom-description">' . $field->description . '</div>';
-							echo '</th>';
-							echo '<td class="cuztom-td">';
-							
-								if( $field->repeatable && $field->_supports_repeatable() )
-								{
-									echo '<div class="cuztom-padding-wrap">';
-									echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
-										echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
-									echo '</a>';
-									echo '<ul class="js-cuztom-sortable cuztom-sortable">';
-								}
-							
-								echo $field->output( $value, $post );
+						$value = $meta_type == 'user' ? get_user_meta( $post->ID, $id_name, true ) : get_post_meta( $post->ID, $id_name, true );
+						
+						if( ! $field instanceof Cuztom_Field_Hidden )
+						{
+							echo '<tr>';
+								echo '<th class="cuztom-th">';
+									echo '<label for="' . $id_name . '" class="cuztom-label">' . $field->label . '</label>';
+									echo '<div class="cuztom-description">' . $field->description . '</div>';
+								echo '</th>';
+								echo '<td class="cuztom-td">';
 								
-								if( $field->repeatable && $field->_supports_repeatable() )
-								{
-									echo '</ul></div>';
-								}
+									if( $field->repeatable && $field->_supports_repeatable() )
+									{
+										echo '<div class="cuztom-padding-wrap">';
+										echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
+											echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
+										echo '</a>';
+										echo '<ul class="js-cuztom-sortable cuztom-sortable">';
+									}
 								
-							echo '</td>';
-						echo '</tr>';
+									echo $field->output( $value, $post );
+									
+									if( $field->repeatable && $field->_supports_repeatable() )
+									{
+										echo '</ul></div>';
+									}
+									
+								echo '</td>';
+							echo '</tr>';
+						}
+						else
+						{
+							echo $field->output( $value, $post );
+						}
 					}
-					else
-					{
-						echo $field->output( $value, $post );
-					}
-				}
-			echo '</table>';
+				echo '</table>';
+			}
 		echo '</div>';
 	}
 }

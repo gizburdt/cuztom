@@ -134,9 +134,18 @@ class Cuztom_Bundle
 	 */
 	function save( $id, $value, $meta_type )
 	{
+		$value = isset( $_POST['cuztom'][$this->id] ) ? array_values( $_POST['cuztom'][$this->id] ) : '';
+		$value = apply_filters( "cuztom_" . $meta_type . "_meta_save_bundle_$this->id", apply_filters( 'cuztom_' . $meta_type . '_meta_save_bundle', $value, $this, $user_id ), $this, $user_id );	
+
 		if( $meta_type == 'user' )
+		{
+			delete_user_meta( $id, $this->id );		
 			update_user_meta( $id, $this->id, $value );
+		}
 		else
+		{
+			delete_post_meta( $id, $this->id );
 			update_post_meta( $id, $this->id, $value );
+		}
 	}
 }
