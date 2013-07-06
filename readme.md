@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.5.3  
+**Version:** 2.6  
 **Requires:** 3.5 / 3.0+  
 
 ## Basic usage
@@ -109,6 +109,11 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+### 2.6
+* NOTE: If you would like to set the id, you need to set id, and not id_name anymore
+* Improvement: Use better OOP for saving meta
+* Added: It is now possible to add bundles within tabs
+
 ###2.5.3
 * Improvement: Image select improvements
 * Improvement: New colorpicker (Iris)
@@ -123,16 +128,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 
 ###2.5
 * Added: Term meta!
-
-###2.4.2
-* Enhancement: All select fields now have the option show_option_none. Just set the text you want to show for this option.
-
-###2.4.1
-* Fixed: Issue #158: Htmlspecialchars for text field
-
-###2.4
-* Change/ Fix: No ajax save within bundles
-* Added: Helper methods for field html attributes
-* Added: Required field (only frontend, no logic)
-* Enhancement: Explanation for all fields
-* Enhancement: Sort, filter for taxonomy in admin table
