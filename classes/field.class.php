@@ -18,16 +18,17 @@ class Cuztom_Field
     var $description 			= '';
     var $explanation			= '';
 	var $default_value 			= '';
-	var $options 				= array();
-	var $args					= array();
+	var $options 				= array(); // Only used for radio, checkboxes etc.
+	var $args					= array(); // Specific args for the field
 	var $hide 					= true;
 	var $required 				= false;
 	var $repeatable 			= false;
 	var $ajax 					= false;
+	var $parent					= '';
+	
 	var $show_admin_column 		= false;
 	var $admin_column_sortable	= false;
 	var $admin_column_filter	= false;
-	var $parent					= '';
 
 	var $data_attributes 		= array();
 	var $css_classes			= array();
