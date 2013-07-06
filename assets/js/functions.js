@@ -92,22 +92,22 @@ jQuery(function($) {
 			parent		= that.closest('.cuztom-td'),
 			cuztom 		= parent.closest('.cuztom'),
 			input 		= $('.cuztom-input', parent),
-			id_name 	= input.attr('id'),
+			field_id 	= input.attr('id'),
 			value		= input.val(),
 
 			// Needs better handling
 			meta_type 	= cuztom.data('meta-type'),
-			id 			= cuztom.data('id');
+			object_id	= cuztom.data('object-id');
 
 		var data = {
 			action: 	'cuztom_field_ajax_save',
 			cuztom: 	{
 				value: 		value,
-				id_name: 	id_name,
+				field_id: 	field_id,
 
 				// Needs better handling
 				meta_type:  meta_type,
-				id: 		id
+				object_id: 	object_id
 			}
 		};
 

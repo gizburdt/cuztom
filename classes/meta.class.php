@@ -63,7 +63,7 @@ class Cuztom_Meta
 		if( ! empty( $data ) )
 		{
 			echo '<input type="hidden" name="cuztom[__activate]" />';
-			echo '<div class="cuztom" data-id="' . ( $meta_type == 'post' ? get_the_ID() : $object->ID ) . '" data-meta-type="' . $meta_type . '">';
+			echo '<div class="cuztom" data-object-id="' . ( $meta_type == 'post' ? get_the_ID() : $object->ID ) . '" data-meta-type="' . $meta_type . '">';
 
 				if( ! empty( $this->description ) ) echo '<p class="cuztom-box-description">' . $this->description . '</p>';
 			
@@ -270,8 +270,8 @@ class Cuztom_Meta
 							{
 								$field = new $class( $field, $this->id );
 
-								$this->fields[$field->id_name] = $field;
-								$tab->fields[$field->id_name] = $field;
+								$this->fields[$field->id] = $field;
+								$tab->fields[$field->id] = $field;
 							}
 						}
 					}
@@ -295,8 +295,8 @@ class Cuztom_Meta
 						$field->repeatable = false;
 						$field->ajax = false;
 
-						$this->fields[$field->id_name] = $field;
-						$bundle->fields[$field->id_name] = $field;
+						$this->fields[$field->id] = $field;
+						$bundle->fields[$field->id] = $field;
 					}
 				}
 
@@ -311,8 +311,8 @@ class Cuztom_Meta
 					{
 						$field = new $class( $field, $this->id );
 
-						$this->fields[$field->id_name] = $field;
-						$return[$field->id_name] = $field;
+						$this->fields[$field->id] = $field;
+						$return[$field->id] = $field;
 					}
 				}
 			}
