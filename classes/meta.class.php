@@ -146,13 +146,13 @@ class Cuztom_Meta
 					}
 					else
 					{
-						$this->save();
+						$this->save( $object_id );
 					}
 				}
 			}
 			else
 			{
-				$this->save();
+				$this->save( $object_id );
 			}
 		}
 	}
