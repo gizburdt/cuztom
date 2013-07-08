@@ -121,7 +121,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 * @author 	Gijs Jorissen
 	 * @since 	2.6
 	 */
-	function save()
+	function save( $post_id )
 	{
 		foreach( $this->fields as $id_name => $field )
 		{
