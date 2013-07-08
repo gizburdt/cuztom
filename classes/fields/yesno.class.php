@@ -6,7 +6,7 @@ class Cuztom_Field_Yesno extends Cuztom_Field
 {
 	var $css_classes 			= array( 'cuztom-input' );
 
-	function _output( $value, $object )
+	function _output( $value )
 	{
 		$output = '';
 

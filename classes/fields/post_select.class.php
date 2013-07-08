@@ -26,7 +26,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 		$this->posts = get_posts( $this->args );
 	}
 	
-	function _output( $value, $object )
+	function _output( $value )
 	{
 		$output = '<select ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . '>';
 			if( isset( $this->args['show_option_none'] ) )

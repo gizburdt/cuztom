@@ -24,7 +24,9 @@ class Cuztom_Field
 	var $required 				= false;
 	var $repeatable 			= false;
 	var $ajax 					= false;
+	
 	var $parent					= '';
+	var $meta_type				= '';
 	
 	var $show_admin_column 		= false;
 	var $admin_column_sortable	= false;
@@ -47,54 +49,57 @@ class Cuztom_Field
 	 * 
 	 * @param 	array 			$field
 	 * @param 	string 			$parent
-	 * @param   object 			$object
+	 * @param   string 			$meta_type
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	0.3.3
 	 * 
 	 */
-	function __construct( $field, $parent, $object = null )
+	function __construct( $field, $parent, $meta_type )
 	{
-		$this->name 				= isset( $field['name'] ) 				? $field['name'] 				: $this->name;
-		$this->label				= isset( $field['label'] ) 				? $field['label'] 				: $this->label;
-		$this->description			= isset( $field['description'] ) 		? $field['description'] 		: $this->description;
-		$this->explanation			= isset( $field['explanation'] ) 		? $field['explanation'] 		: $this->explanation;
-		$this->type					= isset( $field['type'] ) 				? $field['type'] 				: $this->type;
-		$this->hide					= isset( $field['hide'] ) 				? $field['hide'] 				: $this->hide;
-		$this->required				= isset( $field['required'] ) 			? $field['required'] 			: $this->required;
-		$this->default_value		= isset( $field['default_value'] ) 		? $field['default_value'] 		: $this->default_value;
-		$this->options				= isset( $field['options'] ) 			? $field['options'] 			: $this->options;
-		$this->args					= isset( $field['args'] ) 				? $field['args'] 				: $this->args;
-		$this->repeatable			= isset( $field['repeatable'] ) 		? $field['repeatable'] 			: $this->repeatable ;
-		$this->ajax					= isset( $field['ajax'] ) 				? $field['ajax'] 				: $this->ajax ;
-		$this->show_admin_column	= isset( $field['show_admin_column'] ) 	? $field['show_admin_column'] 	: $this->show_admin_column;
+		$this->type				= isset( $field['type'] ) 				? $field['type'] 				: $this->type;
+		$this->name 			= isset( $field['name'] ) 				? $field['name'] 				: $this->name;
+		$this->label			= isset( $field['label'] ) 				? $field['label'] 				: $this->label;
+		$this->description		= isset( $field['description'] ) 		? $field['description'] 		: $this->description;
+		$this->explanation		= isset( $field['explanation'] ) 		? $field['explanation'] 		: $this->explanation;
+		$this->default_value	= isset( $field['default_value'] ) 		? $field['default_value'] 		: $this->default_value;
+		$this->options			= isset( $field['options'] ) 			? $field['options'] 			: $this->options;
+		$this->args				= isset( $field['args'] ) 				? $field['args'] 				: $this->args;
+		$this->hide				= isset( $field['hide'] ) 				? $field['hide'] 				: $this->hide;
+		$this->required			= isset( $field['required'] ) 			? $field['required'] 			: $this->required;	
+		$this->repeatable		= isset( $field['repeatable'] ) 		? $field['repeatable'] 			: $this->repeatable ;
+		$this->ajax				= isset( $field['ajax'] ) 				? $field['ajax'] 				: $this->ajax ;
+		
+		$this->show_admin_column		= isset( $field['show_admin_column'] ) 		? $field['show_admin_column'] 		: $this->show_admin_column;
+		$this->admin_column_sortable	= isset( $field['admin_column_sortable'] ) 	? $field['admin_column_sortable'] 	: $this->admin_column_sortable;
+		$this->admin_column_filter		= isset( $field['admin_column_filter'] ) 	? $field['admin_column_filter'] 	: $this->admin_column_filter;
 		
 		// Mostly the name of the meta box
-		$this->parent				= $parent;
+		$this->parent			= $parent;
+		$this->meta_type		= $meta_type;
 		
 		// Id is used as id to select the field, if i'ts not in the $field paramater, the id will be genereted
-		$this->id  					= isset( $field['id'] ) 				? $field['id']					: $this->build_id( $this->name, $parent );
+		$this->id  				= isset( $field['id'] ) 				? $field['id']					: $this->build_id( $this->name, $parent );
 	}
 	
 	/**
 	 * Outputs a field based on its type
 	 *
 	 * @param 	string|array 	$value
-	 * @param   object 			$object
 	 * @return  mixed
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	0.2
 	 *
 	 */
-	function output( $value, $object = '' )
+	function output( $value )
 	{
 		if( $this->repeatable && $this->_supports_repeatable )
-			return $this->_repeatable_output( $value, $object );
+			return $this->_repeatable_output( $value );
 		elseif( $this->ajax && $this->_supports_ajax )
-			return $this->_ajax_output( $value, $object );
+			return $this->_ajax_output( $value );
 		else
-			return $this->_output( $value, $object );
+			return $this->_output( $value );
 	}
 
 	/**
@@ -109,7 +114,7 @@ class Cuztom_Field
 	 * @since 	2.4
 	 *
 	 */
-	function _output( $value, $object )
+	function _output( $value )
 	{
 		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $value ) ? $value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
 	}
@@ -118,14 +123,13 @@ class Cuztom_Field
 	 * Outputs the field, ready for repeatable functionality
 	 * 
 	 * @param  	string|array 	$value
-	 * @param   object 			$object
 	 * @return  mixed 			$output
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   2.0
 	 * 
 	 */
-	function _repeatable_output( $value, $object )
+	function _repeatable_output( $value )
 	{
 		$this->after = '[]';
 		$output = '';
@@ -133,11 +137,11 @@ class Cuztom_Field
 		if( is_array( $value ) )
 		{
 			foreach( $value as $item )
-				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $item, $object ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"></div>' : '' ) . '</li>';
+				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $item ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"></div>' : '' ) . '</li>';
 		}
 		else
 		{
-			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $value, $object ) . ( $this->repeatable ? '</li>' : '' );		
+			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>' . $this->_output( $value ) . ( $this->repeatable ? '</li>' : '' );		
 		}
 
 		return $output;
@@ -147,16 +151,15 @@ class Cuztom_Field
 	 * Outputs the field, ready for ajax save
 	 * 
 	 * @param  	string|array 	$value
-	 * @param   object 			$object
 	 * @return  mixed 			$output
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   2.0
 	 * 
 	 */
-	function _ajax_output( $value, $object )
+	function _ajax_output( $value )
 	{
-		$output = $this->_output( $value, $object );
+		$output = $this->_output( $value );
 		$output .= '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
 
 		return $output;
@@ -167,19 +170,18 @@ class Cuztom_Field
 	 * 
 	 * @param  	int 			$object_id
 	 * @param  	string 			$value
-	 * @param   string 			$meta_type
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since  	1.6.2
 	 * 
 	 */
-	function save( $object_id, $value, $meta_type )
+	function save( $object_id, $value )
 	{
-		if( $meta_type == 'user' )
+		if( $this->meta_type == 'user' )
 			update_user_meta( $object_id, $this->id, $value );
-		elseif( $meta_type == 'post' )
+		elseif( $this->meta_type == 'post' )
 			update_post_meta( $object_id, $this->id, $value );
-		elseif( $meta_type == 'term' )
+		elseif( $this->meta_type == 'term' )
 			return $value;
 
 		return false;

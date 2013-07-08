@@ -13,7 +13,7 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 		$this->default_value 	= (array) $this->default_value;
 	}
 
-	function _output( $value, $object )
+	function _output( $value )
 	{
 		$output = '<select ' . $this->output_name( 'cuztom[' . $this->id_name . '][]' . $this->after ) . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' multiple="true">';
 			if( isset( $this->args['show_option_none'] ) )

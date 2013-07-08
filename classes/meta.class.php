@@ -268,7 +268,7 @@ class Cuztom_Meta
 							$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 							if( class_exists( $class ) )
 							{
-								$field = new $class( $field, $this->id );
+								$field = new $class( $field, $this->id, $this->get_meta_type() );
 
 								$this->fields[$field->id] = $field;
 								$tab->fields[$field->id] = $field;
@@ -291,7 +291,7 @@ class Cuztom_Meta
 					$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 					if( class_exists( $class ) )
 					{
-						$field = new $class( $field, $this->id );
+						$field = new $class( $field, $this->id, $this->get_meta_type() );
 						$field->repeatable = false;
 						$field->ajax = false;
 
@@ -309,7 +309,7 @@ class Cuztom_Meta
 					$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 					if( class_exists( $class ) )
 					{
-						$field = new $class( $field, $this->id );
+						$field = new $class( $field, $this->id, $this->get_meta_type() );
 
 						$this->fields[$field->id] = $field;
 						$return[$field->id] = $field;

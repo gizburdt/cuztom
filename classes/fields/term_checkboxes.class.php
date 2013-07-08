@@ -24,7 +24,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 		add_action( 'init', array( &$this, 'get_taxonomy_terms' ) );
 	}
 	
-	function _output( $value, $object )
+	function _output( $value )
 	{
 		$output = '<div class="cuztom-checkboxes-wrap">';
 			if( is_array( $this->terms ) )

@@ -21,7 +21,7 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 		$this->args['editor_class'] .= ' cuztom-input';
 	}
 
-	function _output( $value, $object )
+	function _output( $value )
 	{	
 		return wp_editor( ( ! empty( $value ) ? $value : $this->default_value ), $this->id_name, $this->args ) . $this->output_explanation();
 	}

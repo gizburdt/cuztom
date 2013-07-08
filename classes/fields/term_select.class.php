@@ -29,7 +29,7 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 		$this->args['echo']		= 0;
 	}
 
-	function _output( $value, $object )
+	function _output( $value )
 	{
 		$this->args['selected'] = ( ! empty( $value ) ? $value : $this->default_value );
 		$this->dropdown 		= wp_dropdown_categories( $this->args );

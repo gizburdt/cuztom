@@ -10,7 +10,7 @@ class Cuztom_Field_Select extends Cuztom_Field
 
 	var $css_classes 			= array( 'cuztom-input' );
 	
-	function _output( $value, $object )
+	function _output( $value )
 	{
 		$output = '<select ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . '>';
 			if( isset( $this->args['show_option_none'] ) )
