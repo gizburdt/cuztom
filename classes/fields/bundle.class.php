@@ -6,6 +6,7 @@ class Cuztom_Bundle
 {
 	var $id;
 	var $fields = array();
+	var $meta_type;
 
 	/**
 	 * Outputs a bundle
@@ -132,20 +133,19 @@ class Cuztom_Bundle
 	 * @since 	1.6.2
 	 * 
 	 */
-	function save( $id, $value, $meta_type )
+	function save( $object_id, $value )
 	{
-		$value = isset( $_POST['cuztom'][$this->id] ) ? array_values( $_POST['cuztom'][$this->id] ) : '';
-		$value = apply_filters( "cuztom_" . $meta_type . "_meta_save_bundle_$this->id", apply_filters( 'cuztom_' . $meta_type . '_meta_save_bundle', $value, $this, $user_id ), $this, $user_id );	
+		$value = apply_filters( "cuztom_" . $this->meta_type . "_meta_save_bundle_$this->id", apply_filters( 'cuztom_' . $this->meta_type . '_meta_save_bundle', $value, $this, $object_id ), $this, $object_id );	
 
-		if( $meta_type == 'user' )
+		if( $this->meta_type == 'user' )
 		{
-			delete_user_meta( $id, $this->id );		
-			update_user_meta( $id, $this->id, $value );
+			delete_user_meta( $object_id, $this->id );		
+			update_user_meta( $object_id, $this->id, $value );
 		}
 		else
 		{
-			delete_post_meta( $id, $this->id );
-			update_post_meta( $id, $this->id, $value );
+			delete_post_meta( $object_id, $this->id );
+			update_post_meta( $object_id, $this->id, $value );
 		}
 	}
 }

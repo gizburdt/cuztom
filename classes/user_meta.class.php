@@ -82,6 +82,8 @@ class Cuztom_User_Meta extends Cuztom_Meta
 		// Verify nonce
 		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( dirname( __FILE__ ) ) ) ) ) return;
 
+		$value = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
+
 		parent::save( $user_id );
 	}
 
@@ -91,11 +93,11 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	 * @author 	Gijs Jorissen
 	 * @since 	2.6
 	 */
-	function save()	
+	function save( $user_id, $value )
 	{
 		foreach( $this->fields as $id_name => $field )
 		{
-			$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
+			$value = isset( $value[$id_name] ) ? $value[$id_name] : '';
 			$value = apply_filters( "cuztom_user_meta_save_$field->type", apply_filters( 'cuztom_user_meta_save', $value, $field, $user_id ), $field, $user_id );
 
 			$field->save( $user_id, $value, 'user' );
