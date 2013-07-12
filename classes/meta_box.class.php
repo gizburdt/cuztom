@@ -123,11 +123,11 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 * @author 	Gijs Jorissen
 	 * @since 	2.6
 	 */
-	function save( $post_id, $value )
+	function save( $post_id, $values )
 	{
-		foreach( $this->fields as $id_name => $field )
+		foreach( $this->fields as $id => $field )
 		{
-			$value = isset( $value[$id_name] ) ? $value[$id_name] : '';
+			$value = isset( $values[$id] ) ? $values[$id] : '';
 			$value = apply_filters( "cuztom_post_meta_save_$field->type", apply_filters( 'cuztom_post_meta_save', $value, $field, $post_id ), $field, $post_id );
 
 			$field->save( $post_id, $value, 'post' );

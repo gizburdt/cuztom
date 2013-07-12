@@ -93,11 +93,11 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	 * @author 	Gijs Jorissen
 	 * @since 	2.6
 	 */
-	function save( $user_id, $value )
+	function save( $user_id, $values )
 	{
-		foreach( $this->fields as $id_name => $field )
+		foreach( $this->fields as $id => $field )
 		{
-			$value = isset( $value[$id_name] ) ? $value[$id_name] : '';
+			$value = isset( $values[$id] ) ? $values[$id] : '';
 			$value = apply_filters( "cuztom_user_meta_save_$field->type", apply_filters( 'cuztom_user_meta_save', $value, $field, $user_id ), $field, $user_id );
 
 			$field->save( $user_id, $value, 'user' );

@@ -142,7 +142,7 @@ class Cuztom_Meta
 				{
 					if( $tab->fields instanceof Cuztom_Bundle && $bundle = $tab->fields )
 					{
-						$bundle->save( $object_id, $value );
+						$bundle->save( $object_id, $value[$bundle->id] );
 					}
 					else
 					{
