@@ -6,9 +6,9 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 {
 	var $css_classes 			= array( 'cuztom-input' );
 	
-	function __construct( $field, $parent, $meta_type )
+	function __construct( $field, $parent )
 	{
-		parent::__construct( $field, $parent, $meta_type );
+		parent::__construct( $field, $parent );
 		
 		$this->default_value 	= (array) $this->default_value;
 	}
@@ -33,10 +33,10 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 		return $output;
 	}
 
-	function save( $post_id, $value, $context )
+	function save( $post_id, $value )
 	{
 		$value = empty( $value ) ? '-1' : $value;
 
-		return parent::save( $post_id, $value, $context );
+		return parent::save( $post_id, $value );
 	}
 }

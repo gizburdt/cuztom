@@ -32,10 +32,10 @@ class Cuztom_Field_Checkboxes extends Cuztom_Field
 		return $output;
 	}
 
-	function save( $id, $value, $meta_type )
+	function save( $id, $value )
 	{
 		$value = empty( $value ) ? '-1' : $value;
 
-		return parent::save( $id, $value, $meta_type );
+		return parent::save( $id, $value );
 	}
 }
