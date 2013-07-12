@@ -10,9 +10,9 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 	var $dropdown;
 	var $value;
 
-	function __construct( $field, $parent )
+	function __construct( $field, $parent, $meta_type )
 	{
-		parent::__construct( $field, $parent );
+		parent::__construct( $field, $parent, $meta_type );
 
 		$this->args = array_merge(
 			array(
@@ -24,8 +24,8 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 		);
 		
 		$this->args['class'] 	.= ' cuztom-input';
-		$this->args['name'] 	= 'cuztom[' . $this->id_name . ']' . ( $this->repeatable ? '[]' : '' );
-		$this->args['id']		= $this->id_name . $this->after_id;
+		$this->args['name'] 	= 'cuztom[' . $this->id . ']' . ( $this->repeatable ? '[]' : '' );
+		$this->args['id']		= $this->id . $this->after_id;
 		$this->args['echo']		= 0;
 	}
 

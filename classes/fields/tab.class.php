@@ -6,9 +6,10 @@ class Cuztom_Tab
 {
 	var $id;
 	var $title;
+	var $meta_type;
 	var $fields = array();
 
-	function output( $post, $meta_type, $type )
+	function output( $post, $type )
 	{
 		$fields = $this->fields;
 				
@@ -19,20 +20,20 @@ class Cuztom_Tab
 
 			if( $fields instanceof Cuztom_Bundle )
 			{
-				$fields->output( $post, $meta_type );
+				$fields->output( $post );
 			}
 			else
 			{
 				echo '<table border="0" cellading="0" cellspacing="0" class="from-table cuztom-table">';
-					foreach( $fields as $id_name => $field )
+					foreach( $fields as $id => $field )
 					{
-						$value = $meta_type == 'user' ? get_user_meta( $post->ID, $id_name, true ) : get_post_meta( $post->ID, $id_name, true );
+						$value = $this->meta_type == 'user' ? get_user_meta( $post->ID, $id, true ) : get_post_meta( $post->ID, $id, true );
 						
 						if( ! $field instanceof Cuztom_Field_Hidden )
 						{
 							echo '<tr>';
 								echo '<th class="cuztom-th">';
-									echo '<label for="' . $id_name . '" class="cuztom-label">' . $field->label . '</label>';
+									echo '<label for="' . $id . '" class="cuztom-label">' . $field->label . '</label>';
 									echo '<div class="cuztom-description">' . $field->description . '</div>';
 								echo '</th>';
 								echo '<td class="cuztom-td">';
@@ -46,7 +47,7 @@ class Cuztom_Tab
 										echo '<ul class="js-cuztom-sortable cuztom-sortable">';
 									}
 								
-									echo $field->output( $value, $post );
+									echo $field->output( $value );
 									
 									if( $field->repeatable && $field->_supports_repeatable() )
 									{
@@ -58,7 +59,7 @@ class Cuztom_Tab
 						}
 						else
 						{
-							echo $field->output( $value, $post );
+							echo $field->output( $value );
 						}
 					}
 				echo '</table>';

@@ -69,7 +69,7 @@ class Cuztom_Meta
 			
 				if( ( $data instanceof Cuztom_Tabs ) || ( $data instanceof Cuztom_Accordion ) || ( $data instanceof Cuztom_Bundle ) )
 				{
-					$data->output( $object, $meta_type );
+					$data->output( $object );
 				}
 				else
 				{
@@ -248,14 +248,16 @@ class Cuztom_Meta
 		{
 			if( self::is_tabs( $data ) || self::is_accordion( $data ) )
 			{
-				$tabs 		= self::is_tabs( $data ) ? new Cuztom_Tabs() : new Cuztom_Accordion();
-				$tabs->id 	= $this->id;
+				$tabs 				= self::is_tabs( $data ) ? new Cuztom_Tabs() : new Cuztom_Accordion();
+				$tabs->id 			= $this->id;
+				$tabs->meta_type 	= $this->get_meta_type();
 
 				foreach( $data[1] as $title => $fields )
 				{
-					$tab 		= new Cuztom_Tab();
-					$tab->id 	= Cuztom::uglify( $title );
-					$tab->title = Cuztom::beautify( $title );
+					$tab 			= new Cuztom_Tab();
+					$tab->id 		= Cuztom::uglify( $title );
+					$tab->title 	= Cuztom::beautify( $title );
+					$tab->meta_type = $this->get_meta_type();
 
 					if( self::is_bundle( $fields[0] ) || self::is_accordion( $fields[0] ) )
 					{

@@ -5,19 +5,19 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Tabs
 {
 	var $id;
+	var $meta_type;
 	var $tabs = array();
 
 	/**
 	 * Outputs tabs
 	 * 
 	 * @param  	object 			$post
-	 * @param   string 			$context
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   1.6.5
 	 *
 	 */
-	function output( $post, $context )
+	function output( $post )
 	{
 		$tabs = $this->tabs;
 				
@@ -34,7 +34,7 @@ class Cuztom_Tabs
 			/* Loop through $data, tabs in this case */
 			foreach( $tabs as $title => $tab )
 			{
-				$tab->output( $post, $context, 'tabs' );
+				$tab->output( $post, 'tabs' );
 			}
 		
 		echo '</div>';

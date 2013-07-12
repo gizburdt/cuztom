@@ -9,9 +9,9 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 
 	var $css_classes 			= array( 'cuztom-input' );
 	
-	function __construct( $field, $parent )
+	function __construct( $field, $parent, $meta_type )
 	{
-		parent::__construct( $field, $parent );
+		parent::__construct( $field, $parent, $meta_type );
 
 		$this->args = array_merge(
 			array(

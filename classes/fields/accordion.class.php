@@ -5,6 +5,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Accordion
 {
 	var $id;
+	var $meta_type;
 	var $tabs = array();
 
 	/**
@@ -17,7 +18,7 @@ class Cuztom_Accordion
 	 * @since   1.6.5
 	 *
 	 */
-	function output( $post, $meta_type )
+	function output( $post )
 	{
 		$tabs 	= $this->tabs;
 				
@@ -27,7 +28,7 @@ class Cuztom_Accordion
 			/* Loop through $data, tabs in this case */
 			foreach( $tabs as $title => $tab )
 			{
-				$tab->output( $post, $meta_type, 'accordion' );
+				$tab->output( $post, 'accordion' );
 			}
 		
 		echo '</div>';

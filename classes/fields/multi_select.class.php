@@ -6,16 +6,16 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 {
 	var $css_classes 			= array( 'cuztom-input' );
 	
-	function __construct( $field, $parent )
+	function __construct( $field, $parent, $meta_type )
 	{
-		parent::__construct( $field, $parent );
+		parent::__construct( $field, $parent, $meta_type );
 		
 		$this->default_value 	= (array) $this->default_value;
 	}
 
 	function _output( $value )
 	{
-		$output = '<select ' . $this->output_name( 'cuztom[' . $this->id_name . '][]' . $this->after ) . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' multiple="true">';
+		$output = '<select ' . $this->output_name( 'cuztom[' . $this->id . '][]' . $this->after ) . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' multiple="true">';
 			if( isset( $this->args['show_option_none'] ) )
 				$output .= '<option value="0" ' . ( is_array( $value ) ? ( in_array( 0, $value ) ? 'selected="selected"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( 0, $this->default_value ) ? 'selected="selected"' : '' ) ) . '>' . $this->args['show_option_none'] . '</option>';
 
