@@ -127,14 +127,14 @@ class Cuztom_Meta
 	 * @author 	Gijs Jorissen
 	 * @since 	2.6
 	 */
-	function save( $object_id, $value )
+	function save( $object_id, $values )
 	{
 		// Loop through each meta box
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
 			if( $this->data instanceof Cuztom_Bundle && $bundle = $this->data )
 			{
-				$bundle->save( $object_id, $value );
+				$bundle->save( $object_id, $values );
 			}
 			elseif( $this->data instanceof Cuztom_Tabs || $this->data instanceof Cuztom_Accordion )
 			{
@@ -142,17 +142,17 @@ class Cuztom_Meta
 				{
 					if( $tab->fields instanceof Cuztom_Bundle && $bundle = $tab->fields )
 					{
-						$bundle->save( $object_id, $value[$bundle->id] );
+						$bundle->save( $object_id, $values[$bundle->id] );
 					}
 					else
 					{
-						$this->save( $object_id, $value );
+						$this->save( $object_id, $values );
 					}
 				}
 			}
 			else
 			{
-				$this->save( $object_id, $value );
+				$this->save( $object_id, $values );
 			}
 		}
 	}

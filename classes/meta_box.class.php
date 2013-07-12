@@ -112,9 +112,9 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		foreach( $this->post_types as $post_type )
 			if( ! current_user_can( get_post_type_object( $post_type )->cap->edit_post, $post_id ) ) return;
 
-		$value = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
+		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
 
-		parent::save( $post_id, $value );
+		parent::save( $post_id, $values );
 	}
 
 	/**
