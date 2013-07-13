@@ -136,6 +136,7 @@ class Cuztom_Bundle
 	function save( $object_id, $value )
 	{
 		$value = apply_filters( "cuztom_" . $this->meta_type . "_meta_save_bundle_$this->id", apply_filters( 'cuztom_' . $this->meta_type . '_meta_save_bundle', $value, $this, $object_id ), $this, $object_id );	
+		$value = array_values( $value );
 
 		if( $this->meta_type == 'user' )
 		{
