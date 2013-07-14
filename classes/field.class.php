@@ -27,6 +27,7 @@ class Cuztom_Field
 	
 	var $parent					= '';
 	var $meta_type				= '';
+	var $in_bundle				= false;
 	
 	var $show_admin_column 		= false;
 	var $admin_column_sortable	= false;

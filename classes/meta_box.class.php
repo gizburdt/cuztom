@@ -127,6 +127,8 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	{
 		foreach( $this->fields as $id => $field )
 		{
+			if( $field->in_bundle ) continue;
+			
 			$value = isset( $values[$id] ) ? $values[$id] : '';
 			$value = apply_filters( "cuztom_post_meta_save_$field->type", apply_filters( 'cuztom_post_meta_save', $value, $field, $post_id ), $field, $post_id );
 

@@ -97,6 +97,8 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	{
 		foreach( $this->fields as $id => $field )
 		{
+			if( $field->in_bundle ) continue;
+			
 			$value = isset( $values[$id] ) ? $values[$id] : '';
 			$value = apply_filters( "cuztom_user_meta_save_$field->type", apply_filters( 'cuztom_user_meta_save', $value, $field, $user_id ), $field, $user_id );
 

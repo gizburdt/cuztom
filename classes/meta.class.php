@@ -298,6 +298,7 @@ class Cuztom_Meta
 						$field->repeatable = false;
 						$field->ajax = false;
 						$field->meta_type = $this->get_meta_type();
+						$field->in_bundle = true;
 
 						$this->fields[$field->id] = $field;
 						$bundle->fields[$field->id] = $field;
