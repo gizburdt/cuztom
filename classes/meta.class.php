@@ -168,7 +168,20 @@ class Cuztom_Meta
 	 */
 	function get_meta_type()
 	{
-		return get_class( $this ) == 'Cuztom_User_Meta' ? 'user' : 'post';
+		switch( get_class( $this ) ) :
+			case 'Cuztom_Meta_Box' : 
+				return 'post'; 
+				break;
+			case 'Cuztom_User_Meta' : 
+				return 'user'; 
+				break;
+			case 'Cuztom_Term_Meta' : 
+				return 'term'; 
+				break;
+			default :
+				return false; 
+				break;
+		endswitch;
 	}
 
 	/**

@@ -129,13 +129,11 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
 			$data = array();
+			$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
 
 			foreach( $this->fields as $id_name => $field )
-			{
-				$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
-				// $data[$id_name] = $field->save( $term_id, $value, 'term' );
-				
-				$data[$id_name] = $field->save( $term_id, $value, 'term' );				
+			{				
+				$data[$id_name] = $field->save( $term_id, $values[$field->id], 'term' );			
 			}
 
 			update_option( 'term_meta_' . $term_id, $data );
