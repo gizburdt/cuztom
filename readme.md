@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.6.1  
+**Version:** 2.6.2  
 **Requires:** 3.5 / 3.0+  
 
 ## Basic usage
@@ -108,6 +108,10 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###2.6.2
+* Fixed: Since 2.6.1 there were some bugs and errors, regarding the saving and displaying of meta data. They are all fixed now.
+* Removed: The page classes are now removed, because they are not very helpful. They will be back when there is more logic for them to handle.
 
 ###2.6.1
 * Fixed: Issue #175: PHP warnings and errors
