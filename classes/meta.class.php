@@ -134,7 +134,7 @@ class Cuztom_Meta
 		{
 			if( $this->data instanceof Cuztom_Bundle && $bundle = $this->data )
 			{
-				$bundle->save( $object_id, $values );
+				$bundle->save( $object_id, $values[$bundle->id] );
 			}
 			elseif( $this->data instanceof Cuztom_Tabs || $this->data instanceof Cuztom_Accordion )
 			{
