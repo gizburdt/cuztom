@@ -105,10 +105,6 @@ class Cuztom_Singleton
 		// include( CUZTOM_DIR . 'classes/fields/url.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/hidden.class.php' );
 
-		include( CUZTOM_DIR . '/classes/page.class.php' );
-		include( CUZTOM_DIR . '/classes/pages/menu_page.class.php' );
-		include( CUZTOM_DIR . '/classes/pages/submenu_page.class.php' );
-
 		include( CUZTOM_DIR . 'functions/post_type.php' );
 		include( CUZTOM_DIR . 'functions/taxonomy.php' );
 	}

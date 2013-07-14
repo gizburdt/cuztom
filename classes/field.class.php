@@ -27,6 +27,7 @@ class Cuztom_Field
 	
 	var $parent					= '';
 	var $meta_type				= '';
+	var $in_bundle				= false;
 	
 	var $show_admin_column 		= false;
 	var $admin_column_sortable	= false;
@@ -55,7 +56,7 @@ class Cuztom_Field
 	 * @since 	0.3.3
 	 * 
 	 */
-	function __construct( $field, $parent, $meta_type )
+	function __construct( $field, $parent )
 	{
 		$this->type				= isset( $field['type'] ) 				? $field['type'] 				: $this->type;
 		$this->name 			= isset( $field['name'] ) 				? $field['name'] 				: $this->name;
@@ -76,7 +77,6 @@ class Cuztom_Field
 		
 		// Mostly the name of the meta box
 		$this->parent			= $parent;
-		$this->meta_type		= $meta_type;
 		
 		// Id is used as id to select the field, if i'ts not in the $field paramater, the id will be genereted
 		$this->id  				= isset( $field['id'] ) 				? $field['id']					: $this->build_id( $this->name, $parent );

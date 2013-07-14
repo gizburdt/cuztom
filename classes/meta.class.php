@@ -69,7 +69,7 @@ class Cuztom_Meta
 			
 				if( ( $data instanceof Cuztom_Tabs ) || ( $data instanceof Cuztom_Accordion ) || ( $data instanceof Cuztom_Bundle ) )
 				{
-					$data->output( $object, $meta_type );
+					$data->output( $object );
 				}
 				else
 				{
@@ -127,14 +127,14 @@ class Cuztom_Meta
 	 * @author 	Gijs Jorissen
 	 * @since 	2.6
 	 */
-	function save( $object_id )
+	function save( $object_id, $values )
 	{
 		// Loop through each meta box
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
 			if( $this->data instanceof Cuztom_Bundle && $bundle = $this->data )
 			{
-				$bundle->save( $object_id, $value, $this->get_meta_type() );
+				$bundle->save( $object_id, $values[$bundle->id] );
 			}
 			elseif( $this->data instanceof Cuztom_Tabs || $this->data instanceof Cuztom_Accordion )
 			{
@@ -142,17 +142,17 @@ class Cuztom_Meta
 				{
 					if( $tab->fields instanceof Cuztom_Bundle && $bundle = $tab->fields )
 					{
-						$bundle->save( $object_id, $value, $this->get_meta_type() );
+						$bundle->save( $object_id, $values[$bundle->id] );
 					}
 					else
 					{
-						$this->save();
+						$this->save( $object_id, $values );
 					}
 				}
 			}
 			else
 			{
-				$this->save();
+				$this->save( $object_id, $values );
 			}
 		}
 	}
@@ -168,7 +168,20 @@ class Cuztom_Meta
 	 */
 	function get_meta_type()
 	{
-		return get_class( $this ) == 'Cuztom_User_Meta' ? 'user' : 'post';
+		switch( get_class( $this ) ) :
+			case 'Cuztom_Meta_Box' : 
+				return 'post'; 
+				break;
+			case 'Cuztom_User_Meta' : 
+				return 'user'; 
+				break;
+			case 'Cuztom_Term_Meta' : 
+				return 'term'; 
+				break;
+			default :
+				return false; 
+				break;
+		endswitch;
 	}
 
 	/**
@@ -248,16 +261,18 @@ class Cuztom_Meta
 		{
 			if( self::is_tabs( $data ) || self::is_accordion( $data ) )
 			{
-				$tabs 		= self::is_tabs( $data ) ? new Cuztom_Tabs() : new Cuztom_Accordion();
-				$tabs->id 	= $this->id;
+				$tabs 				= self::is_tabs( $data ) ? new Cuztom_Tabs() : new Cuztom_Accordion();
+				$tabs->id 			= $this->id;
+				$tabs->meta_type 	= $this->get_meta_type();
 
 				foreach( $data[1] as $title => $fields )
 				{
-					$tab 		= new Cuztom_Tab();
-					$tab->id 	= Cuztom::uglify( $title );
-					$tab->title = Cuztom::beautify( $title );
+					$tab 			= new Cuztom_Tab();
+					$tab->id 		= Cuztom::uglify( $title );
+					$tab->title 	= Cuztom::beautify( $title );
+					$tab->meta_type = $this->get_meta_type();
 
-					if( self::is_bundle( $fields[0] ) || self::is_accordion( $fields[0] ) )
+					if( self::is_bundle( $fields[0] ) )
 					{
 						$tab->fields = $this->build( $fields[0] );
 					}
@@ -268,7 +283,8 @@ class Cuztom_Meta
 							$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 							if( class_exists( $class ) )
 							{
-								$field = new $class( $field, $this->id, $this->get_meta_type() );
+								$field = new $class( $field, $this->id );
+								$field->meta_type = $this->get_meta_type();
 
 								$this->fields[$field->id] = $field;
 								$tab->fields[$field->id] = $field;
@@ -291,12 +307,15 @@ class Cuztom_Meta
 					$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 					if( class_exists( $class ) )
 					{
-						$field = new $class( $field, $this->id, $this->get_meta_type() );
+						$field = new $class( $field, $this->id );
 						$field->repeatable = false;
 						$field->ajax = false;
+						$field->meta_type = $this->get_meta_type();
+						$field->in_bundle = true;
 
 						$this->fields[$field->id] = $field;
 						$bundle->fields[$field->id] = $field;
+						$bundle->meta_type = $this->get_meta_type();
 					}
 				}
 
@@ -309,7 +328,8 @@ class Cuztom_Meta
 					$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 					if( class_exists( $class ) )
 					{
-						$field = new $class( $field, $this->id, $this->get_meta_type() );
+						$field = new $class( $field, $this->id );
+						$field->meta_type = $this->get_meta_type();
 
 						$this->fields[$field->id] = $field;
 						$return[$field->id] = $field;

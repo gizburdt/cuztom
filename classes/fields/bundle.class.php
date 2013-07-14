@@ -6,6 +6,7 @@ class Cuztom_Bundle
 {
 	var $id;
 	var $fields = array();
+	var $meta_type;
 
 	/**
 	 * Outputs a bundle
@@ -17,7 +18,7 @@ class Cuztom_Bundle
 	 * @since   1.6.5
 	 *
 	 */
-	function output( $post, $meta_type )
+	function output( $post )
 	{
 		echo '<div class="padding-wrap">';
 			echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable js-cuztom-add-bundle cuztom-add-sortable" href="#">';
@@ -26,7 +27,7 @@ class Cuztom_Bundle
 
 			echo '<ul class="js-cuztom-sortable cuztom-sortable js-cuztom-bundle" data-cuztom-sortable-type="bundle">';
 				
-				$meta = $meta_type == 'user' ? get_user_meta( $post->ID, $this->id, true ) : get_post_meta( $post->ID, $this->id, true );
+				$meta = $this->meta_type == 'user' ? get_user_meta( $post->ID, $this->id, true ) : get_post_meta( $post->ID, $this->id, true );
 
 				if( ! empty( $meta ) && isset( $meta[0] ) )
 				{
@@ -38,17 +39,17 @@ class Cuztom_Bundle
 							echo '<fieldset>';
 							echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
 								
-								foreach( $this->fields as $id_name => $field )
+								foreach( $this->fields as $id => $field )
 								{
 									$field->pre 		= '[' . $this->id . '][' . $i . ']';
 									$field->after_id 	= '_' . $i;
-									$value 				= isset( $meta[$i][$id_name] ) ? $meta[$i][$id_name] : '';
+									$value 				= isset( $meta[$i][$id] ) ? $meta[$i][$id] : '';
 									
 									if( ! $field instanceof Cuztom_Field_Hidden )
 									{
 										echo '<tr>';
 											echo '<th class="cuztom-th">';
-												echo '<label for="' . $id_name . '" class="cuztom-label">' . $field->label . '</label>';
+												echo '<label for="' . $id . '" class="cuztom-label">' . $field->label . '</label>';
 												echo '<div class="cuztom-description">' . $field->description . '</div>';
 											echo '</th>';
 											echo '<td class="cuztom-td">';
@@ -85,7 +86,7 @@ class Cuztom_Bundle
 							
 							$fields = $this->fields;
 							
-							foreach( $fields as $id_name => $field )
+							foreach( $fields as $id => $field )
 							{
 								$field->pre 		= '[' . $this->id . '][0]';
 								$field->after_id	= '_0';
@@ -95,7 +96,7 @@ class Cuztom_Bundle
 								{
 									echo '<tr>';
 										echo '<th class="cuztom-th">';
-											echo '<label for="' . $id_name . '" class="cuztom-label">' . $field->label . '</label>';
+											echo '<label for="' . $id . '" class="cuztom-label">' . $field->label . '</label>';
 											echo '<div class="cuztom-description">' . $field->description . '</div>';
 										echo '</th>';
 										echo '<td class="cuztom-td">';
@@ -132,20 +133,20 @@ class Cuztom_Bundle
 	 * @since 	1.6.2
 	 * 
 	 */
-	function save( $id, $value, $meta_type )
+	function save( $object_id, $value )
 	{
-		$value = isset( $_POST['cuztom'][$this->id] ) ? array_values( $_POST['cuztom'][$this->id] ) : '';
-		$value = apply_filters( "cuztom_" . $meta_type . "_meta_save_bundle_$this->id", apply_filters( 'cuztom_' . $meta_type . '_meta_save_bundle', $value, $this, $user_id ), $this, $user_id );	
+		$value = apply_filters( "cuztom_" . $this->meta_type . "_meta_save_bundle_$this->id", apply_filters( 'cuztom_' . $this->meta_type . '_meta_save_bundle', $value, $this, $object_id ), $this, $object_id );	
+		$value = array_values( $value );
 
-		if( $meta_type == 'user' )
+		if( $this->meta_type == 'user' )
 		{
-			delete_user_meta( $id, $this->id );		
-			update_user_meta( $id, $this->id, $value );
+			delete_user_meta( $object_id, $this->id );		
+			update_user_meta( $object_id, $this->id, $value );
 		}
 		else
 		{
-			delete_post_meta( $id, $this->id );
-			update_post_meta( $id, $this->id, $value );
+			delete_post_meta( $object_id, $this->id );
+			update_post_meta( $object_id, $this->id, $value );
 		}
 	}
 }

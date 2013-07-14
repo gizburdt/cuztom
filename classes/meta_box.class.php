@@ -112,7 +112,9 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		foreach( $this->post_types as $post_type )
 			if( ! current_user_can( get_post_type_object( $post_type )->cap->edit_post, $post_id ) ) return;
 
-		parent::save( $post_id );
+		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
+
+		parent::save( $post_id, $values );
 	}
 
 	/**
@@ -121,11 +123,13 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 * @author 	Gijs Jorissen
 	 * @since 	2.6
 	 */
-	function save( $post_id )
+	function save( $post_id, $values )
 	{
-		foreach( $this->fields as $id_name => $field )
+		foreach( $this->fields as $id => $field )
 		{
-			$value = isset( $_POST['cuztom'][$id_name] ) ? $_POST['cuztom'][$id_name] : '';
+			if( $field->in_bundle ) continue;
+			
+			$value = isset( $values[$id] ) ? $values[$id] : '';
 			$value = apply_filters( "cuztom_post_meta_save_$field->type", apply_filters( 'cuztom_post_meta_save', $value, $field, $post_id ), $field, $post_id );
 
 			$field->save( $post_id, $value, 'post' );

@@ -15,7 +15,7 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 
 	function _output( $value )
 	{
-		$output = '<select ' . $this->output_name( 'cuztom[' . $this->id_name . '][]' . $this->after ) . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' multiple="true">';
+		$output = '<select ' . $this->output_name( 'cuztom[' . $this->id . '][]' . $this->after ) . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' multiple="true">';
 			if( isset( $this->args['show_option_none'] ) )
 				$output .= '<option value="0" ' . ( is_array( $value ) ? ( in_array( 0, $value ) ? 'selected="selected"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( 0, $this->default_value ) ? 'selected="selected"' : '' ) ) . '>' . $this->args['show_option_none'] . '</option>';
 
@@ -33,10 +33,10 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 		return $output;
 	}
 
-	function save( $post_id, $value, $context )
+	function save( $post_id, $value )
 	{
 		$value = empty( $value ) ? '-1' : $value;
 
-		return parent::save( $post_id, $value, $context );
+		return parent::save( $post_id, $value );
 	}
 }
