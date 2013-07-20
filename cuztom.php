@@ -45,7 +45,7 @@ class Cuztom_Singleton
 	private function setup_constants()
 	{
 		if( ! defined( 'CUZTOM_VERSION' ) ) 
-			define( 'CUZTOM_VERSION', '2.6.2' );
+			define( 'CUZTOM_VERSION', '2.6.3' );
 
 		if( ! defined( 'CUZTOM_DIR' ) ) 
 			define( 'CUZTOM_DIR', plugin_dir_path( __FILE__ ) );
