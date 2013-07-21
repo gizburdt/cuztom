@@ -134,7 +134,8 @@ class Cuztom_Meta
 		{
 			if( $this->data instanceof Cuztom_Bundle && $bundle = $this->data )
 			{
-				$bundle->save( $object_id, $values[$bundle->id] );
+				if( isset( $values[$bundle->id] ) )
+					$bundle->save( $object_id, $values[$bundle->id] );
 			}
 			elseif( $this->data instanceof Cuztom_Tabs || $this->data instanceof Cuztom_Accordion )
 			{
@@ -142,7 +143,8 @@ class Cuztom_Meta
 				{
 					if( $tab->fields instanceof Cuztom_Bundle && $bundle = $tab->fields )
 					{
-						$bundle->save( $object_id, $values[$bundle->id] );
+						if( isset( $values[$bundle->id] ) )
+							$bundle->save( $object_id, $values[$bundle->id] );
 					}
 					else
 					{
