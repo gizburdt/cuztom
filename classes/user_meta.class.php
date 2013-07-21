@@ -82,9 +82,10 @@ class Cuztom_User_Meta extends Cuztom_Meta
 		// Verify nonce
 		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( dirname( __FILE__ ) ) ) ) ) return;
 
-		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
+		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : array();
 
-		parent::save( $user_id, $values );
+		if( ! empty( $values ) )
+			parent::save( $user_id, $values );
 	}
 
 	/**
