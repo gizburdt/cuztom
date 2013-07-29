@@ -22,7 +22,7 @@ class Cuztom_Singleton
 	 * @since  	2.3
 	 * 
 	 */
-	public function instance()
+	public static function instance()
 	{
 		if ( ! isset( self::$instance ) ) 
 		{
