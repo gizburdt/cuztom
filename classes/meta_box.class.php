@@ -175,23 +175,26 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	{
 		$meta = get_post_meta( $post_id, $column, true );
 		
-		foreach( $this->fields as $id_name => $field )
+		if( $this->fields )
 		{
-			if( $column == $id_name )
+			foreach( $this->fields as $id_name => $field )
 			{
-				if( $field->repeatable && $field->_supports_repeatable )
+				if( $column == $id_name )
 				{
-					echo implode( $meta, ', ' );
-				}
-				else
-				{
-					if( $field instanceof Cuztom_Field_Image )
-						echo wp_get_attachment_image( $meta, array( 100, 100 ) );
+					if( $field->repeatable && $field->_supports_repeatable )
+					{
+						echo implode( $meta, ', ' );
+					}
 					else
-						echo $meta;
-				}
+					{
+						if( $field instanceof Cuztom_Field_Image )
+							echo wp_get_attachment_image( $meta, array( 100, 100 ) );
+						else
+							echo $meta;
+					}
 
-				break;
+					break;
+				}
 			}
 		}
 	}
@@ -208,8 +211,11 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 */
 	function add_sortable_column( $columns )
 	{
-		foreach( $this->fields as $id_name => $field )
-			if( $field->admin_column_sortable ) $columns[$id_name] = $field->label;
+		if( $this->fields )
+		{
+			foreach( $this->fields as $id_name => $field )
+				if( $field->admin_column_sortable ) $columns[$id_name] = $field->label;
+		}
 
 		return $columns;
 	}
