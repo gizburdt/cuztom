@@ -149,4 +149,21 @@ class Cuztom_Bundle
 			update_post_meta( $object_id, $this->id, $value );
 		}
 	}
+
+	/**
+	 * Build the id for the bundle
+	 * 
+	 * @return  string
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.7
+	 * 
+	 */
+	function build_id( $id )
+	{
+		if( strpos( $id, '_', 0 ) !== 0 )
+			$id = '_' . $id;
+
+		return $id;
+	}
 }
