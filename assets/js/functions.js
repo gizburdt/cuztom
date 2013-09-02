@@ -143,6 +143,12 @@ jQuery(function($) {
 			preview = $( '.cuztom-preview', parent ),
 			_cuztom_uploader;
 
+		try {
+			size	= $.parseJSON( that.data('cuztom-media-size') );
+		} catch(e) {
+			size	= that.data('cuztom-media-size');
+		}
+
 		if( Cuztom.wp_version >= '3.5' )
 		{
 			if( _cuztom_uploader ) 
@@ -167,9 +173,9 @@ jQuery(function($) {
             	// Send an id or url to the field and set the preview
             	if( type == 'image' )
 				{
-					var thumbnail = attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full;
+					var thumbnail = size && !$.isArray(size) ? attachment.sizes[size] : attachment.sizes.full;
 
-					preview.html('<img src="' + thumbnail.url + '" height="' + thumbnail.height + '" width="' + thumbnail.width + '" />')
+					preview.html('<img src="' + thumbnail.url + '" height="' + ($.isArray(size) ? size[1] : thumbnail.height) + '" width="' + ($.isArray(size) ? size[0] : thumbnail.width) + '" />');
 					hidden.val( attachment.id );
 				}
 				else
