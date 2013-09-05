@@ -98,6 +98,9 @@ class Cuztom_Meta
 											echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
 												echo $field->output( $value, $object );
 											echo '</ul>';
+											echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
+												echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
+											echo '</a>';
 										}
 										else
 										{

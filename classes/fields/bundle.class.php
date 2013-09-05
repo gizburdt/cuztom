@@ -120,6 +120,9 @@ class Cuztom_Bundle
 					echo '</li>';
 				}
 			echo '</ul>';
+			echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable js-cuztom-add-bundle cuztom-add-sortable" href="#">';
+				echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
+			echo '</a>';
 		echo '</div>';
 	}
 
