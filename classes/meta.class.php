@@ -73,7 +73,7 @@ class Cuztom_Meta
 				}
 				else
 				{
-					echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
+					echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table ' . $this->get_table_class() . '">';
 
 						/* Loop through $data */
 						foreach( $data as $id_name => $field )
@@ -160,6 +160,20 @@ class Cuztom_Meta
 				$this->save( $object_id, $values );
 			}
 		}
+	}
+
+	/**
+	 * Get the class for the meta table
+	 * 
+	 * @return  string
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.7
+	 * 
+	 */
+	function get_table_class()
+	{
+		return 'cuztom-table' . sanitize_title( $this->id );
 	}
 
 	/**
@@ -305,7 +319,7 @@ class Cuztom_Meta
 			elseif( self::is_bundle( $data ) )
 			{
 				$bundle 	= new Cuztom_Bundle();
-				$bundle->id = $this->id;
+				$bundle->id = $bundle->build_id( $this->id );
 
 				foreach( $data[1] as $field )
 				{

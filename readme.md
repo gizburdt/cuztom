@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.6.6  
+**Version:** 2.7  
 **Requires:** 3.5 / 3.0+  
 
 ## Basic usage
@@ -108,6 +108,12 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###2.7
+* Improvement: Tables now get a unique class
+* Improvement: Bundles are now saved hidden, starting with _
+* Improvement: Responsive WYSIWYG editor within cuztom
+* Fixed: #205: Image upload for user/term meta
 
 ###2.6.6
 * Fixed: Issue #185: Hidden fields now work just like normal text fields, but still hidden ofcourse ;)

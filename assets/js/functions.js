@@ -120,10 +120,10 @@ jQuery(function($) {
 	});
 
 	// Remove current attached image
-	$('.cuztom-td').on( 'click', '.js-cuztom-remove-media', function()
+	$('.cuztom-td, .form-field').on( 'click', '.js-cuztom-remove-media', function()
 	{
 		var that 	= $( this ),
-			td 		= that.closest('.cuztom-td');
+			td 		= that.closest('.cuztom-td, .form-field');
 
 		$( '.cuztom-preview', td ).html('');
 		$( '.cuztom-hidden', td ).val('');
@@ -134,11 +134,11 @@ jQuery(function($) {
 	});
 
 	// Upload image
-	$('.cuztom-td').on( 'click', '.js-cuztom-upload', function()
+	$('.cuztom-td, .form-field').on( 'click', '.js-cuztom-upload', function()
 	{
 		var that	= $(this),
 			type 	= that.data('cuztom-media-type'),
-			parent	= that.closest('.cuztom-td'),
+			parent	= that.closest('.cuztom-td, .form-field'),
 			hidden 	= $( '.cuztom-hidden', parent ),
 			preview = $( '.cuztom-preview', parent ),
 			_cuztom_uploader;
