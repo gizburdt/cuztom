@@ -43,7 +43,7 @@ class Cuztom_Field
 
 	var $_supports_repeatable 	= false;
 	var $_supports_bundle		= false;
-	var $_supports_ajax			= false; 
+	var $_supports_ajax			= false;
 
 	/**
 	 * Constructs a Cuztom_Field
@@ -177,6 +177,8 @@ class Cuztom_Field
 	 */
 	function save( $object_id, $value )
 	{
+		$value = $this->save_value( $value );
+
 		if( $this->meta_type == 'user' )
 			update_user_meta( $object_id, $this->id, $value );
 		elseif( $this->meta_type == 'post' )
@@ -185,6 +187,20 @@ class Cuztom_Field
 			return $value;
 
 		return false;
+	}
+
+	/**
+	 * Output save value
+	 * 
+	 * @param  	string 			$value
+	 *
+	 * @author 	Ante Primorac
+	 * @since  	2.8
+	 * 
+	 */
+	function save_value( $value )
+	{
+		return $value;
 	}
 
 	/**
