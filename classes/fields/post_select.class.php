@@ -6,8 +6,9 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 {
 	var $_supports_repeatable 	= true;
 	var $_supports_ajax			= true;
+	var $_supports_bundle		= true;
 
-	var $css_classes 			= array( 'cuztom-input' );
+	var $css_classes 			= array( 'cuztom-input cuztom-select cuztom-post-select' );
 	
 	function __construct( $field, $parent )
 	{
