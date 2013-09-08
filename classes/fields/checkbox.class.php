@@ -4,6 +4,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Checkbox extends Cuztom_Field
 {
+	var $_supports_bundle		= true;
 	var $css_classes			= array( 'cuztom-input' );
 
 	function _output( $value )

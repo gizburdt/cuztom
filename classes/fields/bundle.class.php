@@ -49,7 +49,7 @@ class Cuztom_Bundle
 									{
 										echo '<tr>';
 											echo '<th class="cuztom-th">';
-												echo '<label for="' . $id . '" class="cuztom-label">' . $field->label . '</label>';
+												echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
 												echo '<div class="cuztom-description">' . $field->description . '</div>';
 											echo '</th>';
 											echo '<td class="cuztom-td">';
@@ -96,7 +96,7 @@ class Cuztom_Bundle
 								{
 									echo '<tr>';
 										echo '<th class="cuztom-th">';
-											echo '<label for="' . $id . '" class="cuztom-label">' . $field->label . '</label>';
+											echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
 											echo '<div class="cuztom-description">' . $field->description . '</div>';
 										echo '</th>';
 										echo '<td class="cuztom-td">';
@@ -133,26 +133,32 @@ class Cuztom_Bundle
 	 * @since 	1.6.2
 	 * 
 	 */
-	function save( $object_id, $value )
+	function save( $object_id, $values )
 	{
-		$value = apply_filters( "cuztom_" . $this->meta_type . "_meta_save_bundle_$this->id", apply_filters( 'cuztom_' . $this->meta_type . '_meta_save_bundle', $value, $this, $object_id ), $this, $object_id );	
-		$value = array_values( $value );
+		$values = apply_filters( "cuztom_" . $this->meta_type . "_meta_save_bundle_$this->id", apply_filters( 'cuztom_' . $this->meta_type . '_meta_save_bundle', $values, $this, $object_id ), $this, $object_id );	
+		$values = array_values( $values );
+
+		foreach($values as $row_id => $row) {
+			foreach($row as $id => $value) {
+				$values[$row_id][$id] = $this->fields[$id]->save_value($value);
+			}
+		}
 
 		if( $this->meta_type == 'user' )
 		{
 			delete_user_meta( $object_id, $this->id );		
-			update_user_meta( $object_id, $this->id, $value );
+			update_user_meta( $object_id, $this->id, $values );
 		}
 		else
 		{
 			delete_post_meta( $object_id, $this->id );
-			update_post_meta( $object_id, $this->id, $value );
+			update_post_meta( $object_id, $this->id, $values );
 		}
 	}
 
 	/**
 	 * Build the id for the bundle
-	 * 
+	 *
 	 * @return  string
 	 *
 	 * @author 	Gijs Jorissen
