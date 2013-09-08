@@ -14,6 +14,7 @@ class Cuztom_Field_Select extends Cuztom_Field
 	function __construct( $field, $parent )
 	{
 		parent::__construct( $field, $parent );
+		
 		$this->data_attributes['default-value'] = $this->default_value;
 	}
 	

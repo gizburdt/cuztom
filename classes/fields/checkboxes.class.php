@@ -12,8 +12,7 @@ class Cuztom_Field_Checkboxes extends Cuztom_Field
 		parent::__construct( $field, $parent );
 
 		$this->default_value = (array) $this->default_value;
-
-		$this->after .= '[]';
+		$this->after 		.= '[]';
 	}
 
 	function _output( $value )

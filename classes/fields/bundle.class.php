@@ -138,10 +138,10 @@ class Cuztom_Bundle
 		$values = apply_filters( "cuztom_" . $this->meta_type . "_meta_save_bundle_$this->id", apply_filters( 'cuztom_' . $this->meta_type . '_meta_save_bundle', $values, $this, $object_id ), $this, $object_id );	
 		$values = array_values( $values );
 
-		foreach($values as $row_id => $row) {
-			foreach($row as $id => $value) {
+		foreach( $values as $row_id => $row ) 
+		{
+			foreach( $row as $id => $value )
 				$values[$row_id][$id] = $this->fields[$id]->save_value($value);
-			}
 		}
 
 		if( $this->meta_type == 'user' )

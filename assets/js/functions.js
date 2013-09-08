@@ -1,20 +1,23 @@
 jQuery.noConflict();
 
-jQuery(function($) {
+jQuery( function( $ ) {
 
-	function add_events(parent) {
+	var add_events;
+
+	(add_events = function( object ) 
+	{
 		// Datepicker
-		$('.js-cuztom-datepicker', parent).map(function(){
+		$('.js-cuztom-datepicker', object).map(function(){
 			return $(this).datepicker({ dateFormat: $(this).data('date-format') });
 		});
 
 		// Timepicker
-		$('.js-cuztom-timepicker', parent).map(function(){
+		$('.js-cuztom-timepicker', object).map(function(){
 			return $(this).timepicker({ timeFormat: $(this).data('time-format') });
 		});
 
 		// Datetime
-		$('.js-cuztom-datetimepicker', parent).map(function(){
+		$('.js-cuztom-datetimepicker', object).map(function(){
 			return $(this).datetimepicker({ 
 				timeFormat: $(this).data('time-format'),
 				dateFormat: $(this).data('date-format')
@@ -22,22 +25,22 @@ jQuery(function($) {
 		});
 		
 		// Colorpicker
-		$('.js-cuztom-colorpicker', parent).wpColorPicker();
+		$('.js-cuztom-colorpicker', object).wpColorPicker();
 
 		// Tabs
-		$('.js-cuztom-tabs', parent).tabs();
+		$('.js-cuztom-tabs', object).tabs();
 
 		// Slider
-		$( '.js-slider', parent ).slider();
+		$( '.js-slider', object ).slider();
 
 		// Accordion
-		$('.js-cuztom-accordion', parent).accordion();
+		$('.js-cuztom-accordion', object).accordion();
 
 		// Sortable
-		$('.js-cuztom-sortable', parent).sortable();
+		$('.js-cuztom-sortable', object).sortable();
 
 		// Remove current attached image
-		$('.cuztom-td, .form-field', parent).on( 'click', '.js-cuztom-remove-media', function()
+		$('.cuztom-td, .form-field', object).on( 'click', '.js-cuztom-remove-media', function()
 		{
 			var that 	= $( this ),
 				td 		= that.closest('.cuztom-td, .form-field');
@@ -51,7 +54,7 @@ jQuery(function($) {
 		});
 
 		// Upload image
-		$('.cuztom-td, .form-field', parent).on( 'click', '.js-cuztom-upload', function()
+		$('.cuztom-td, .form-field', object).on( 'click', '.js-cuztom-upload', function()
 		{
 			var that	= $(this),
 				type 	= that.data('cuztom-media-type'),
@@ -144,15 +147,7 @@ jQuery(function($) {
 
 			return false;
 		});
-
-		$('.cuztom-th label, .form-field label', parent).on('click', function(event) {
-			event.preventDefault();
-			$('*[id="' + $(this).attr('for') + '"]').focus();
-			return false;
-		});
-	}
-
-	add_events($('body'));
+	})( $('body') );
 
 	// Remove sortable
 	$('.cuztom').on( 'click', '.js-cuztom-remove-sortable', function() 
@@ -169,15 +164,15 @@ jQuery(function($) {
 	// Add sortable
 	$('.cuztom').on( 'click', '.js-cuztom-add-sortable', function() 
 	{
-		var that		= $( this ),
-			parent 		= that.closest( '.cuztom-td, .cuztom' ),
-			wrap 		= $( '.js-cuztom-sortable', parent ),
-			is_bundle	= wrap.data( 'cuztom-sortable-type') == 'bundle' ? true : false,
-			last 		= $( '.js-cuztom-sortable-item:last', wrap ),
-			handle 		= '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>',
-			remover 	= '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>',
-			new_item 	= last.clone( false, false ),
-			switch_editors = [];
+		var that			= $( this ),
+			parent 			= that.closest( '.cuztom-td, .cuztom' ),
+			wrap 			= $( '.js-cuztom-sortable', parent ),
+			is_bundle		= wrap.data( 'cuztom-sortable-type') == 'bundle' ? true : false,
+			last 			= $( '.js-cuztom-sortable-item:last', wrap ),
+			handle 			= '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>',
+			remover 		= '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>',
+			new_item 		= last.clone( false, false ),
+			switch_editors 	= [];
 		
 		// Set new bundle array key
 		if( is_bundle )
@@ -257,7 +252,7 @@ jQuery(function($) {
 		}
 		
 		// Reset data
-		new_item.find('.cuztom-input:not([type="checkbox"], [type="radio"], select), textarea').val('').removeAttr('selected');
+		new_item.find('.cuztom-input, select, textarea').val('').removeAttr('selected');
 		new_item.find('.js-cuztom-remove-media').remove();
 		new_item.find('.cuztom-preview').html('');
 
@@ -274,8 +269,8 @@ jQuery(function($) {
 		});
 
 		// Switch editors
-		for( var i=0; i<switch_editors.length; i++ )
-			switchEditors.go(switch_editors[i]['id'], switch_editors[i]['mode']);
+		for( var i = 0; i < switch_editors.length; i++ )
+			switchEditors.go( switch_editors[i]['id'], switch_editors[i]['mode'] );
 		
 		return false;
 	});
@@ -313,4 +308,5 @@ jQuery(function($) {
 
 		return false;
 	});
+
 });

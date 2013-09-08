@@ -302,14 +302,14 @@ class Cuztom_Meta
 			elseif( self::is_bundle( $data ) )
 			{
 				$bundle 	= new Cuztom_Bundle();
-				$bundle->id = $this->id;
+				$bundle->id = $bundle->build_id( $this->id );
 
 				foreach( $data[1] as $field )
 				{
 					$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 					if( class_exists( $class ) )
 					{
-						$field = new $class( $field, $this->id );
+						$field = new $class( $field, '' );
 						$field->repeatable = false;
 						$field->ajax = false;
 						$field->meta_type = $this->get_meta_type();

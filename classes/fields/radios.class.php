@@ -11,8 +11,9 @@ class Cuztom_Field_Radios extends Cuztom_Field
 	function __construct( $field, $parent )
 	{
 		parent::__construct( $field, $parent );
-		$this->after			.= '[]';
-		$this->data_attributes['default-value'] = $this->default_value;
+		
+		$this->data_attributes['default-value']  = $this->default_value;
+		$this->after							.= '[]';
 	}
 
 	function _output( $value )
