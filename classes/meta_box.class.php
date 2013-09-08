@@ -156,7 +156,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			if( $field->show_admin_column ) $columns[$id_name] = $field->label;
 		}
 
-		$columns['date'] = __( 'Date' );
+		$columns['date'] = __( 'Date', 'cuztom' );
 		return $columns;
 	}
 	
