@@ -51,7 +51,11 @@ class Cuztom_Tab
 									
 									if( $field->repeatable && $field->_supports_repeatable() )
 									{
-										echo '</ul></div>';
+										echo '</ul>';
+										echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
+											echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
+										echo '</a>';
+										echo '</div>';
 									}
 									
 								echo '</td>';
