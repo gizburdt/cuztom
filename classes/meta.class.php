@@ -73,7 +73,7 @@ class Cuztom_Meta
 				}
 				else
 				{
-					echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table ' . $this->get_table_class() . '">';
+					echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
 
 						/* Loop through $data */
 						foreach( $data as $id_name => $field )
@@ -157,20 +157,6 @@ class Cuztom_Meta
 				$this->save( $object_id, $values );
 			}
 		}
-	}
-
-	/**
-	 * Get the class for the meta table
-	 * 
-	 * @return  string
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	2.7
-	 * 
-	 */
-	function get_table_class()
-	{
-		return 'cuztom-table' . sanitize_title( $this->id );
 	}
 
 	/**
@@ -323,7 +309,7 @@ class Cuztom_Meta
 					$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 					if( class_exists( $class ) )
 					{
-						$field = new $class( $field, $this->id );
+						$field = new $class( $field, '' );
 						$field->repeatable = false;
 						$field->ajax = false;
 						$field->meta_type = $this->get_meta_type();

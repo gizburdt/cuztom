@@ -2,16 +2,16 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-if( ! class_exists( 'Cuztom_Singleton' ) ) :
+if( ! class_exists( 'Cuztom_Initializer' ) ) :
 
 /**
- * Cuztom_Singleton handles init of Cuztom
+ * Cuztom_Initializer handles init of Cuztom
  *
  * @author 	Gijs Jorissen
  * @since  	2.3
  * 
  */
-class Cuztom_Singleton
+class Cuztom_Initializer
 {
 	private static $instance;
 
@@ -26,7 +26,7 @@ class Cuztom_Singleton
 	{
 		if ( ! isset( self::$instance ) ) 
 		{
-			self::$instance = new Cuztom_Singleton;
+			self::$instance = new Cuztom_Initializer;
 			self::$instance->setup_constants();
 			self::$instance->includes();
 			self::$instance->add_hooks();
@@ -256,4 +256,4 @@ class Cuztom_Singleton
 
 endif; // End class_exists check
 
-Cuztom_Singleton::instance();
+Cuztom_Initializer::instance();
