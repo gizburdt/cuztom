@@ -63,6 +63,12 @@ jQuery( function( $ ) {
 				preview = $( '.cuztom-preview', parent ),
 				_cuztom_uploader;
 
+			try {
+				preview_size  = $.parseJSON( that.data('cuztom-media-preview-size') );
+			} catch(e) {
+				preview_size  = that.data('cuztom-media-preview-size');
+			}
+
 			if( Cuztom.wp_version >= '3.5' )
 			{
 				if( _cuztom_uploader ) 
@@ -87,7 +93,13 @@ jQuery( function( $ ) {
 	            	// Send an id or url to the field and set the preview
 	            	if( type == 'image' )
 					{
-						var thumbnail = attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full;
+						var thumbnail = preview_size && !$.isArray(preview_size) && attachment.sizes[preview_size] ? attachment.sizes[preview_size] : attachment.sizes.full;
+						if( $.isArray( preview_size ) ) {
+							if( parseInt( preview_size[0] ) > 0 )
+								thumbnail.width = parseInt( preview_size[0] );
+							if( parseInt( preview_size[1] ) > 0 )
+								thumbnail.height = parseInt( preview_size[1] );
+						}
 
 						preview.html('<img src="' + thumbnail.url + '" height="' + thumbnail.height + '" width="' + thumbnail.width + '" />')
 						hidden.val( attachment.id );
