@@ -93,7 +93,8 @@ jQuery( function( $ ) {
 	            	// Send an id or url to the field and set the preview
 	            	if( type == 'image' )
 					{
-						var thumbnail = preview_size && !$.isArray(preview_size) && attachment.sizes[preview_size] ? attachment.sizes[preview_size] : attachment.sizes.full;
+						console.log( attachment );
+						var thumbnail = preview_size && !$.isArray(preview_size) && attachment.sizes[preview_size] ? attachment.sizes[preview_size] : ( attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full );
 						if( $.isArray( preview_size ) ) {
 							if( parseInt( preview_size[0] ) > 0 )
 								thumbnail.width = parseInt( preview_size[0] );
