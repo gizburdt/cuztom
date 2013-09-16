@@ -77,6 +77,59 @@ class Cuztom_Bundle
 					}
 					
 				}
+				elseif( ! empty( $this->default_value ) )
+				{
+					$i = 0;
+
+					foreach( $this->default_value as $default )
+					{
+						echo '<li class="cuztom-sortable-item js-cuztom-sortable-item">';
+							echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"></div>';
+							echo '<fieldset>';
+							echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
+								
+								$fields = $this->fields;
+								$y 		= 0;
+								
+								foreach( $fields as $id => $field )
+								{
+									$field->pre 			= '[' . $this->id . '][0]';
+									$field->after_id		= '_0';
+									$field->default_value 	= $this->default_value[$i][$y];
+									$value 					= '';
+
+									if( ! $field instanceof Cuztom_Field_Hidden )
+									{
+										echo '<tr>';
+											echo '<th class="cuztom-th">';
+												echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
+												echo '<div class="cuztom-description">' . $field->description . '</div>';
+											echo '</th>';
+											echo '<td class="cuztom-td">';
+
+												if( $field->_supports_bundle )
+													echo $field->output( $value, $post );
+												else
+													echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
+
+											echo '</td>';
+										echo '</tr>';
+									}
+									else
+									{
+										echo $field->output( $value, $post );
+									}
+
+									$y++;
+								}
+
+							echo '</table>';
+							echo '</fieldset>';
+						echo '</li>';
+
+						$i++;
+					}
+				}
 				else
 				{
 					echo '<li class="cuztom-sortable-item js-cuztom-sortable-item">';

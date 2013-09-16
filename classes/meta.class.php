@@ -301,8 +301,9 @@ class Cuztom_Meta
 			}
 			elseif( self::is_bundle( $data ) )
 			{
-				$bundle 	= new Cuztom_Bundle();
-				$bundle->id = $bundle->build_id( $this->id );
+				$bundle 				= new Cuztom_Bundle();
+				$bundle->id 			= $bundle->build_id( $this->id );
+				$bundle->default_value 	= $data['default_value'];
 
 				foreach( $data[1] as $field )
 				{
