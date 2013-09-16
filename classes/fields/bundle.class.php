@@ -5,8 +5,27 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Bundle
 {
 	var $id;
-	var $fields = array();
 	var $meta_type;
+	
+	var $fields 				= array();
+	var $default_value 			= '';
+
+	/**
+	 * Construct for bundle
+	 *
+	 * @param   int  		$id
+	 * @param 	array 		$data
+	 *
+	 * @author  Gijs Jorissen
+	 * @since 	2.8.4
+	 * 
+	 */
+	function __construct( $id, $data )
+	{
+		$this->default_value	= isset( $data['default_value'] ) 		? $data['default_value'] 		: $this->default_value;
+
+		$this->id  				= isset( $data['id'] ) 				? $data['id']					: $this->build_id( $id );
+	}
 
 	/**
 	 * Outputs a bundle
