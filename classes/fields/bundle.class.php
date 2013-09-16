@@ -112,8 +112,8 @@ class Cuztom_Bundle
 								
 								foreach( $fields as $id => $field )
 								{
-									$field->pre 			= '[' . $this->id . '][0]';
-									$field->after_id		= '_0';
+									$field->pre 			= '[' . $this->id . '][' . $i . ']';
+									$field->after_id 		= '_' . $i;
 									$field->default_value 	= $this->default_value[$i][$y];
 									$value 					= '';
 
