@@ -8,6 +8,11 @@ class Cuztom_Tabs
 	var $meta_type;
 	var $tabs = array();
 
+	function __construct( $id )
+	{
+		$this->id 	= $id;
+	}
+	
 	/**
 	 * Outputs tabs
 	 * 

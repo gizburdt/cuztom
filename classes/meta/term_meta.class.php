@@ -18,8 +18,8 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	/**
 	 * Construct the term meta
 	 * 
-	 * @param 	string 		$taxonomy
-	 * @param 	array  		$data
+	 * @param 	string|array 	$taxonomy
+	 * @param 	array  			$data
 	 *
 	 * @author 	Gijs Jorissen
  	 * @since 	2.5
@@ -128,7 +128,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 		// Loop through each meta box
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
-			$data = array();
+			$data 	= array();
 			$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
 
 			foreach( $this->fields as $id_name => $field )

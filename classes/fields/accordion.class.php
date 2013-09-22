@@ -8,6 +8,11 @@ class Cuztom_Accordion
 	var $meta_type;
 	var $tabs = array();
 
+	function __construct( $id )
+	{
+		$this->id 	= $id;
+	}
+
 	/**
 	 * Outputs an accordion
 	 * 
