@@ -73,9 +73,9 @@ class Cuztom_Initializer
 		include( CUZTOM_DIR . 'classes/sidebar.class.php' );
 
 		include( CUZTOM_DIR . 'classes/meta.class.php' );
-		include( CUZTOM_DIR . 'classes/meta_box.class.php' );
-		include( CUZTOM_DIR . 'classes/user_meta.class.php' );
-		include( CUZTOM_DIR . 'classes/term_meta.class.php' );
+		include( CUZTOM_DIR . 'classes/meta/meta_box.class.php' );
+		include( CUZTOM_DIR . 'classes/meta/user_meta.class.php' );
+		include( CUZTOM_DIR . 'classes/meta/term_meta.class.php' );
 		
 		include( CUZTOM_DIR . 'classes/field.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/bundle.class.php' );
@@ -101,8 +101,6 @@ class Cuztom_Initializer
 		include( CUZTOM_DIR . 'classes/fields/post_checkboxes.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/term_select.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/term_checkboxes.class.php' );
-		// include( CUZTOM_DIR . 'classes/fields/slider.class.php' );
-		// include( CUZTOM_DIR . 'classes/fields/url.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/hidden.class.php' );
 
 		include( CUZTOM_DIR . 'functions/post_type.php' );
