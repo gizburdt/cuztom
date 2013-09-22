@@ -24,7 +24,7 @@ class Cuztom_Bundle
 	{
 		$this->default_value	= isset( $data['default_value'] ) 		? $data['default_value'] 		: $this->default_value;
 
-		$this->id  				= isset( $data['id'] ) 				? $data['id']					: $this->build_id( $id );
+		$this->id  				= $this->build_id( $data['id'] );
 	}
 
 	/**
