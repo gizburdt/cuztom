@@ -22,9 +22,9 @@ class Cuztom_Bundle
 	 */
 	function __construct( $id, $data )
 	{
-		$this->default_value	= isset( $data['default_value'] ) 		? $data['default_value'] 		: $this->default_value;
+		$this->default_value	= isset( $data['default_value'] ) 	? 	$data['default_value'] 			: $this->default_value;
 
-		$this->id  				= $this->build_id( $data['id'] );
+		$this->id  				= isset( $data['id'] )				?	$this->build_id( $data['id'] )	: $this->id;
 	}
 
 	/**
