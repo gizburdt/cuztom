@@ -128,15 +128,16 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 		// Loop through each meta box
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
-			$data 	= array();
-			$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
+			$data 		= array();
+			$values 	= isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
+			$taxonomy 	= $_POST['taxonomy'];
 
 			foreach( $this->fields as $id_name => $field )
 			{				
 				$data[$id_name] = $field->save( $term_id, $values[$field->id], 'term' );			
 			}
 
-			update_option( 'term_meta_' . $term_id, $data );
+			update_option( 'term_meta_' . $taxonomy . '_' . $term_id, $data );
 		}
 	}
 
@@ -172,7 +173,10 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 */
 	function add_column_content( $row, $column, $term_id )
 	{
-		$meta = get_cuztom_term_meta_by_id( $term_id, $column );
+		$screen 	= get_current_screen();
+		$taxonomy 	= $screen->taxonomy;
+
+		$meta = get_cuztom_term_meta( $term_id, $taxonomy, $column );
 		
 		foreach( $this->fields as $id_name => $field )
 		{
