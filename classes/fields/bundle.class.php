@@ -23,7 +23,6 @@ class Cuztom_Bundle
 	function __construct( $id, $data )
 	{
 		$this->default_value	= isset( $data['default_value'] ) 	? 	$data['default_value'] 			: $this->default_value;
-
 		$this->id  				= isset( $data['id'] )				?	$this->build_id( $data['id'] )	: $this->id;
 	}
 
@@ -207,7 +206,8 @@ class Cuztom_Bundle
 	 */
 	function save( $object_id, $values )
 	{
-		$values = apply_filters( "cuztom_" . $this->meta_type . "_meta_save_bundle_$this->id", apply_filters( 'cuztom_' . $this->meta_type . '_meta_save_bundle', $values, $this, $object_id ), $this, $object_id );	
+		$values = apply_filters( "cuztom_" . $this->meta_type . "_meta_save_bundle_$this->id", 	$values, $this, $object_id );	
+		$values = apply_filters( 'cuztom_' . $this->meta_type . '_meta_save_bundle', 			$values, $this, $object_id );
 		$values = array_values( $values );
 
 		foreach( $values as $row_id => $row ) 

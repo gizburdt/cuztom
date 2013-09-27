@@ -27,13 +27,19 @@ class Cuztom_Field_Datetime extends Cuztom_Field
 		return strtotime( $value );
 	}
 
-	/*
+	/**
 	 * Matches each symbol of PHP date format standard
 	 * with jQuery equivalent codeword
-	 * @author Tristan Jahier
+	 * 
+	 * @param 	string 			$php_format
+	 *
+	 * @author 	Tristan Jahier
+	 * @since 	2.9
+	 * 
 	 */
-	function parse_date_format($php_format) {
-		$SYMBOLS_MATCHING = array(
+	function parse_date_format( $php_format ) 
+	{
+		$matching = array(
 			// Day
 			'd' => 'dd',
 			'D' => 'D',
@@ -70,24 +76,36 @@ class Cuztom_Field_Datetime extends Cuztom_Field
 			// ISO 8601
 			'c' => 'Z'
 		);
-		$jqueryui_format = "";
-		$escaping = false;
-		for($i = 0; $i < strlen($php_format); $i++) {
-			$char = $php_format[$i];
-			if($char === '\\') {
+
+		$jqueryui_format 	= '';
+		$escaping 			= false;
+
+		for( $i = 0; $i < strlen( $php_format ); $i++ ) 
+		{
+			$char 	= $php_format[$i];
+			if( $char === '\\' ) 
+			{
 				$i++;
-				if($escaping) $jqueryui_format .= $php_format[$i];
-				else $jqueryui_format .= '\'' . $php_format[$i];
+				if( $escaping ) $jqueryui_format 	.= $php_format[$i];
+				else $jqueryui_format 				.= '\'' . $php_format[$i];
+				
 				$escaping = true;
 			}
-			else {
-				if($escaping) { $jqueryui_format .= "'"; $escaping = false; }
-				if(isset($SYMBOLS_MATCHING[$char]))
-					$jqueryui_format .= $SYMBOLS_MATCHING[$char];
+			else 
+			{
+				if( $escaping ) 
+				{
+					$jqueryui_format .= "'"; 
+					$escaping = false; 
+				}
+				
+				if( isset( $matching[$char] ) )
+					$jqueryui_format .= $matching[$char];
 				else
 					$jqueryui_format .= $char;
 			}
 		}
+		
 		return $jqueryui_format;
 	}
 }
