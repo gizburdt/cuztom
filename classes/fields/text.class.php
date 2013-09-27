@@ -10,12 +10,14 @@ class Cuztom_Field_Text extends Cuztom_Field
 
 	var $css_classes			= array( 'cuztom-input' );
 
-	function save_value( $post_id, $value )
+	function save_value( $value )
 	{
 		if( is_array( $value ) )
 			array_walk_recursive( $value, array( &$this, 'do_htmlspecialchars' ) );
 		else
 			$value = htmlspecialchars( $value );
+
+		return $value;
 	}
 
 	function do_htmlspecialchars( &$value )
