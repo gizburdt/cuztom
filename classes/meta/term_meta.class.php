@@ -134,11 +134,26 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 
 			foreach( $this->fields as $id_name => $field )
 			{				
-				$data[$id_name] = $field->save( $term_id, $values[$field->id], 'term' );			
+				$data[$id_name] = $field->save_value( $values[$field->id] );			
 			}
 
-			update_option( 'term_meta_' . $taxonomy . '_' . $term_id, $data );
+			$this->save( $term_id, $taxonomy, $data );
 		}
+	}
+
+	/**
+	 * Save method
+	 * 
+	 * @param 	int 		$term_id
+	 * @param 	string 		$taxonomy
+	 * @param 	mixed 		$value
+	 *
+	 * @author 	Gijs Jorissen
+ 	 * @since 	2.9
+	 */
+	function save( $term_id, $taxonomy, $value )
+	{
+		update_option( 'term_meta_' . $taxonomy . '_' . $term_id, $value );
 	}
 
 	/**
