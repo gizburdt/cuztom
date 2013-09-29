@@ -14,6 +14,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	var $taxonomies;
 	var $data;
 	var $fields;
+	var $locations;
 
 	/**
 	 * Construct the term meta
@@ -24,23 +25,30 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 * @author 	Gijs Jorissen
  	 * @since 	2.5
 	 */
-	function __construct( $taxonomy, $data = array() )
+	function __construct( $taxonomy, $data = array(), $locations = array( 'add_form', 'edit_form' ) )
 	{
 		$this->taxonomies 	= (array) $taxonomy;
+		$this->locations 	= (array) $locations;
 		
 		// Build the meta box and fields
 		$this->data = $this->build( $data );
 
 		foreach( $this->taxonomies as $taxonomy )
 		{
-			add_action( $taxonomy . '_add_form_fields', array( &$this, 'add_form_fields' ) );
-			add_action( $taxonomy . '_edit_form_fields', array( &$this, 'edit_form_fields' ) );
+			if( in_array( 'add_form', $this->locations ) )
+			{
+				add_action( $taxonomy . '_add_form_fields', array( &$this, 'add_form_fields' ) );
+				add_action( 'created_' . $taxonomy, array( &$this, 'save_term' ) );
+			}
+
+			if( in_array( 'edit_form', $this->locations ) )
+			{
+				add_action( $taxonomy . '_edit_form_fields', array( &$this, 'edit_form_fields' ) );
+				add_action( 'edited_' . $taxonomy, array( &$this, 'save_term' ) );
+			}
 
 			add_filter( 'manage_edit-' . $taxonomy . '_columns', array( &$this, 'add_column' ) );
 			add_filter( 'manage_' . $taxonomy . '_custom_column', array( &$this, 'add_column_content' ), 10, 3 );
-
-			add_action( 'created_' . $taxonomy, array( &$this, 'save_term' ) );
-			add_action( 'edited_' . $taxonomy, array( &$this, 'save_term' ) );  
 		}
 	}
 
