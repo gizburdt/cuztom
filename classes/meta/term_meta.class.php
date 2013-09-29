@@ -174,27 +174,31 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	function add_column_content( $row, $column, $term_id )
 	{
 		$screen 	= get_current_screen();
-		$taxonomy 	= $screen->taxonomy;
 
-		$meta = get_cuztom_term_meta( $term_id, $taxonomy, $column );
-		
-		foreach( $this->fields as $id_name => $field )
+		if( $screen )
 		{
-			if( $column == $id_name )
-			{
-				if( $field->repeatable && $field->_supports_repeatable )
-				{
-					echo implode( $meta, ', ' );
-				}
-				else
-				{
-					if( $field instanceof Cuztom_Field_Image )
-						echo wp_get_attachment_image( $meta, array( 100, 100 ) );
-					else
-						echo $meta;
-				}
+			$taxonomy 	= $screen->taxonomy;
 
-				break;
+			$meta = get_cuztom_term_meta( $term_id, $taxonomy, $column );
+			
+			foreach( $this->fields as $id_name => $field )
+			{
+				if( $column == $id_name )
+				{
+					if( $field->repeatable && $field->_supports_repeatable )
+					{
+						echo implode( $meta, ', ' );
+					}
+					else
+					{
+						if( $field instanceof Cuztom_Field_Image )
+							echo wp_get_attachment_image( $meta, array( 100, 100 ) );
+						else
+							echo $meta;
+					}
+
+					break;
+				}
 			}
 		}
 	}
