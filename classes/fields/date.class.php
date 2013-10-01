@@ -14,7 +14,7 @@ class Cuztom_Field_Date extends Cuztom_Field
 	{
 		parent::__construct( $field, $parent );
 
-		$this->data_attributes['date-format'] = $this->parse_date_format( isset( $this->args['date_format'] ) ? $this->args['date_format'] : 'm/d/Y H:i' );
+		$this->data_attributes['date-format'] = $this->parse_date_format( isset( $this->args['date_format'] ) ? $this->args['date_format'] : 'm/d/Y' );
 	}
 
 	function _output( $value )
