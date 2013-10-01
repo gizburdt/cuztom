@@ -54,7 +54,7 @@ class Cuztom_Meta
 	function callback( $object, $data = array() )
 	{
 		// Nonce field for validation
-		wp_nonce_field( plugin_basename( dirname( __FILE__ ) ), 'cuztom_nonce' );
+		wp_nonce_field( 'cuztom_meta', 'cuztom_nonce' );
 
 		// Get all inputs from $data
 		$data 		= $this->data;
