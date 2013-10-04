@@ -51,10 +51,7 @@ class Cuztom_Initializer
 			define( 'CUZTOM_DIR', plugin_dir_path( __FILE__ ) );
 
 		if( ! defined( 'CUZTOM_URL' ) ) 
-			define( 'CUZTOM_URL', self::get_cuztom_url( __FILE__ ) );	
-
-		if( ! defined( 'CUZTOM_JQUERY_UI_STYLE' ) ) 
-			define( 'CUZTOM_JQUERY_UI_STYLE', 'cuztom' );
+			define( 'CUZTOM_URL', self::get_cuztom_url( __FILE__ ) );
 	}
 
 	/**
@@ -73,9 +70,9 @@ class Cuztom_Initializer
 		include( CUZTOM_DIR . 'classes/sidebar.class.php' );
 
 		include( CUZTOM_DIR . 'classes/meta.class.php' );
-		include( CUZTOM_DIR . 'classes/meta_box.class.php' );
-		include( CUZTOM_DIR . 'classes/user_meta.class.php' );
-		include( CUZTOM_DIR . 'classes/term_meta.class.php' );
+		include( CUZTOM_DIR . 'classes/meta/meta_box.class.php' );
+		include( CUZTOM_DIR . 'classes/meta/user_meta.class.php' );
+		include( CUZTOM_DIR . 'classes/meta/term_meta.class.php' );
 		
 		include( CUZTOM_DIR . 'classes/field.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/bundle.class.php' );
@@ -101,8 +98,6 @@ class Cuztom_Initializer
 		include( CUZTOM_DIR . 'classes/fields/post_checkboxes.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/term_select.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/term_checkboxes.class.php' );
-		// include( CUZTOM_DIR . 'classes/fields/slider.class.php' );
-		// include( CUZTOM_DIR . 'classes/fields/url.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/hidden.class.php' );
 
 		include( CUZTOM_DIR . 'functions/post_type.php' );
@@ -139,14 +134,7 @@ class Cuztom_Initializer
 	 */
 	function register_styles()
 	{		
-		if( CUZTOM_JQUERY_UI_STYLE != 'none' )
-		{
-			if( CUZTOM_JQUERY_UI_STYLE == 'cuztom' )
-				wp_register_style( 'cuztom-jquery-ui', CUZTOM_URL. '/assets/css/cuztom-jquery-ui.css', false, CUZTOM_VERSION, 'screen' );
-			else
-				wp_register_style( 'cuztom-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/' . CUZTOM_JQUERY_UI_STYLE . '/jquery-ui.css', false, CUZTOM_VERSION, 'screen' );
-		}
-		
+		wp_register_style( 'cuztom-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, CUZTOM_VERSION, 'screen' );
 		wp_register_style( 'cuztom', CUZTOM_URL . '/assets/css/style.css', false, CUZTOM_VERSION, 'screen' );
 	}
 
@@ -160,8 +148,8 @@ class Cuztom_Initializer
 	function enqueue_styles()
 	{
 		wp_enqueue_style( 'thickbox' );
-		wp_enqueue_style( 'cuztom-jquery-ui' );
 		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_style( 'cuztom-jquery-ui' );
 		wp_enqueue_style( 'cuztom' );
 	}
 

@@ -4,8 +4,9 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Radios extends Cuztom_Field
 {
-	var $css_classes 			= array( 'cuztom-input' );
 	var $_supports_bundle		= true;
+	
+	var $css_classes 			= array( 'cuztom-input' );
 	var $data_attributes 		= array( 'default-value' => null );
 
 	function __construct( $field, $parent )

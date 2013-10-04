@@ -4,8 +4,9 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Multi_Select extends Cuztom_Field
 {
-	var $css_classes 			= array( 'cuztom-input cuztom-select cuztom-multi-select' );
 	var $_supports_bundle		= true;
+	
+	var $css_classes 			= array( 'cuztom-input cuztom-select cuztom-multi-select' );
 	
 	function __construct( $field, $parent )
 	{

@@ -37,7 +37,9 @@ jQuery( function( $ ) {
 		$('.js-cuztom-accordion', object).accordion();
 
 		// Sortable
-		$('.js-cuztom-sortable', object).sortable();
+		$('.js-cuztom-sortable', object).sortable({
+			handle: '.cuztom-handle-sortable'
+		});
 
 		// Remove current attached image
 		$('.cuztom-td, .form-field', object).on( 'click', '.js-cuztom-remove-media', function()

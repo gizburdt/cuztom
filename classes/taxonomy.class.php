@@ -73,7 +73,7 @@ class Cuztom_Taxonomy
 					add_action( 'manage_' . $this->post_type . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
 				}
 
-				// if( isset( $args['admin_column_sortable'] ) && $args['admin_column_sortable'] )
+				if( isset( $args['admin_column_sortable'] ) && $args['admin_column_sortable'] )
 					add_action( 'manage_edit-' . $this->post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
 
 				if( isset( $args['admin_column_filter'] ) && $args['admin_column_filter'] ) 
