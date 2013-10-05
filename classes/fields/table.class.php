@@ -54,7 +54,7 @@ class Cuztom_Field_Table extends Cuztom_Field
 					
 					jQuery("#table_'.$this->id.' input").on("keyup",cfg'.$this->id.'.functions.update_value);
 					jQuery("#table_'.$this->id.' .remove_row").on("click",cfg'.$this->id.'.functions.remove_row);
-					jQuery("#table_'.$this->id.' .datepicker").datepicker();
+					if(typeof jQuery.datepicker !== "undefined")jQuery("#table_'.$this->id.' .datepicker").datepicker();
 				},
 				get_value : function(){
 					var table_id = "'.$this->id.'";
@@ -117,7 +117,7 @@ class Cuztom_Field_Table extends Cuztom_Field
 					return "<input type=\"number\" class=\""+cleanupName(cfg.name)+"\" value=\""+text_value+"\">";
 					break;
 				case "datepicker":
-					return "<input type=\"text\" class=\"datepicker "+cleanupName(cfg.name)+"\" value=\""+text_value+"\">";
+					return "<input type=\"text\" class=\"js-cuztom-datepicker cuztom-datepicker datepicker "+cleanupName(cfg.name)+"\" value=\""+text_value+"\">";
 					break;
 			}
 		}
