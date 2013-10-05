@@ -99,6 +99,7 @@ class Cuztom_Initializer
 		include( CUZTOM_DIR . 'classes/fields/term_select.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/term_checkboxes.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/hidden.class.php' );
+		include( CUZTOM_DIR . 'classes/fields/table.class.php' );
 
 		include( CUZTOM_DIR . 'functions/post_type.php' );
 		include( CUZTOM_DIR . 'functions/taxonomy.php' );
