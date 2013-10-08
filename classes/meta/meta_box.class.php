@@ -103,7 +103,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		if( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) return;
 
 		// Verify nonce
-		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( dirname( __FILE__ ) ) ) ) ) return;
+		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], 'cuztom_meta' ) ) ) return;
 
 		// Is the post from the given post type?
 		if( ! in_array( get_post_type( $post_id ), array_merge( $this->post_types, array( 'revision' ) ) ) ) return;
@@ -156,7 +156,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			if( $field->show_admin_column ) $columns[$id_name] = $field->label;
 		}
 
-		$columns['date'] = __( 'Date' );
+		$columns['date'] = __( 'Date', 'cuztom' );
 		return $columns;
 	}
 	

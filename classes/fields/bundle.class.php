@@ -5,8 +5,29 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Bundle
 {
 	var $id;
-	var $fields = array();
 	var $meta_type;
+	
+	var $fields 				= array();
+	var $default_value 			= '';
+
+	/**
+	 * Construct for bundle
+	 *
+	 * @param   int  		$id
+	 * @param 	array 		$data
+	 *
+	 * @author  Gijs Jorissen
+	 * @since 	2.8.4
+	 * 
+	 */
+	function __construct( $id, $data )
+	{
+		// Bundle data
+		$this->default_value	= isset( $data['default_value'] ) 	? 	$data['default_value'] 			: $this->default_value;
+		
+		// Bundle id
+		$this->id  				= isset( $id )						?	$this->build_id( $id )			: $this->id;
+	}
 
 	/**
 	 * Outputs a bundle
@@ -49,7 +70,7 @@ class Cuztom_Bundle
 									{
 										echo '<tr>';
 											echo '<th class="cuztom-th">';
-												echo '<label for="' . $id . '" class="cuztom-label">' . $field->label . '</label>';
+												echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
 												echo '<div class="cuztom-description">' . $field->description . '</div>';
 											echo '</th>';
 											echo '<td class="cuztom-td">';
@@ -77,6 +98,59 @@ class Cuztom_Bundle
 					}
 					
 				}
+				elseif( ! empty( $this->default_value ) )
+				{
+					$i = 0;
+
+					foreach( $this->default_value as $default )
+					{
+						echo '<li class="cuztom-sortable-item js-cuztom-sortable-item">';
+							echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"></div>';
+							echo '<fieldset>';
+							echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
+								
+								$fields = $this->fields;
+								$y 		= 0;
+								
+								foreach( $fields as $id => $field )
+								{
+									$field->pre 			= '[' . $this->id . '][' . $i . ']';
+									$field->after_id 		= '_' . $i;
+									$field->default_value 	= $this->default_value[$i][$y];
+									$value 					= '';
+
+									if( ! $field instanceof Cuztom_Field_Hidden )
+									{
+										echo '<tr>';
+											echo '<th class="cuztom-th">';
+												echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
+												echo '<div class="cuztom-description">' . $field->description . '</div>';
+											echo '</th>';
+											echo '<td class="cuztom-td">';
+
+												if( $field->_supports_bundle )
+													echo $field->output( $value, $post );
+												else
+													echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
+
+											echo '</td>';
+										echo '</tr>';
+									}
+									else
+									{
+										echo $field->output( $value, $post );
+									}
+
+									$y++;
+								}
+
+							echo '</table>';
+							echo '</fieldset>';
+						echo '</li>';
+
+						$i++;
+					}
+				}
 				else
 				{
 					echo '<li class="cuztom-sortable-item js-cuztom-sortable-item">';
@@ -96,7 +170,7 @@ class Cuztom_Bundle
 								{
 									echo '<tr>';
 										echo '<th class="cuztom-th">';
-											echo '<label for="' . $id . '" class="cuztom-label">' . $field->label . '</label>';
+											echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
 											echo '<div class="cuztom-description">' . $field->description . '</div>';
 										echo '</th>';
 										echo '<td class="cuztom-td">';
@@ -133,20 +207,44 @@ class Cuztom_Bundle
 	 * @since 	1.6.2
 	 * 
 	 */
-	function save( $object_id, $value )
+	function save( $object_id, $values )
 	{
-		$value = apply_filters( "cuztom_" . $this->meta_type . "_meta_save_bundle_$this->id", apply_filters( 'cuztom_' . $this->meta_type . '_meta_save_bundle', $value, $this, $object_id ), $this, $object_id );	
-		$value = array_values( $value );
+		$values = apply_filters( "cuztom_" . $this->meta_type . "_meta_save_bundle_$this->id", 	$values, $this, $object_id );	
+		$values = apply_filters( 'cuztom_' . $this->meta_type . '_meta_save_bundle', 			$values, $this, $object_id );
+		$values = array_values( $values );
+
+		foreach( $values as $row_id => $row ) 
+		{
+			foreach( $row as $id => $value )
+				$values[$row_id][$id] = $this->fields[$id]->save_value($value);
+		}
 
 		if( $this->meta_type == 'user' )
 		{
 			delete_user_meta( $object_id, $this->id );		
-			update_user_meta( $object_id, $this->id, $value );
+			update_user_meta( $object_id, $this->id, $values );
 		}
 		else
 		{
 			delete_post_meta( $object_id, $this->id );
-			update_post_meta( $object_id, $this->id, $value );
+			update_post_meta( $object_id, $this->id, $values );
 		}
+	}
+
+	/**
+	 * Build the id for the bundle
+	 *
+	 * @return  string
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.7
+	 * 
+	 */
+	function build_id( $id )
+	{
+		if( strpos( $id, '_', 0 ) !== 0 )
+			$id = '_' . $id;
+
+		return $id;
 	}
 }

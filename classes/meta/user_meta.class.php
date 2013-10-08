@@ -80,7 +80,7 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	function save_user( $user_id )
 	{
 		// Verify nonce
-		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], plugin_basename( dirname( __FILE__ ) ) ) ) ) return;
+		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], 'cuztom_meta' ) ) ) return;
 
 		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : array();
 

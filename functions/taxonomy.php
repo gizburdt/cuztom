@@ -43,7 +43,7 @@ function get_cuztom_term_meta( $term, $taxonomy, $key = null )
     	$term = $term->term_id;
     }
 
-    $meta = get_option( 'term_meta_' . $term );
+    $meta = get_option( 'term_meta_' . $taxonomy . '_' . $term );
     
     if( $key ) if( ! empty( $meta[$key] ) ) return $meta[$key]; else return '';
         
@@ -65,26 +65,4 @@ function the_cuztom_term_meta( $term, $taxonomy, $key = null )
     if( empty( $term ) || empty( $taxonomy ) ) return false;
 
     echo get_cuztom_term_meta( $term, $taxonomy, $key );
-}
-
-/**
- * Get term meta by the term id
- * Can be used if we don;t know the taxonomy for sutre
- * 
- * @param   int|string      $term       Can be the id or the slug of the term
- * @param   string          $key
- * @return  string
- *
- * @author  Gijs Jorissen
- * @since   2.5.3
- */
-function get_cuztom_term_meta_by_id( $term_id, $key = null )
-{
-    if( empty( $term_id ) ) return false;
-
-    $meta = get_option( 'term_meta_' . $term_id );
-    
-    if( $key ) if( ! empty( $meta[$key] ) ) return $meta[$key]; else return '';
-        
-    return $meta;
 }

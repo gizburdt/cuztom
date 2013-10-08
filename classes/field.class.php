@@ -20,7 +20,7 @@ class Cuztom_Field
 	var $default_value 			= '';
 	var $options 				= array(); // Only used for radio, checkboxes etc.
 	var $args					= array(); // Specific args for the field
-	var $hide 					= true;
+	var $underscore 			= true;
 	var $required 				= false;
 	var $repeatable 			= false;
 	var $ajax 					= false;
@@ -43,7 +43,7 @@ class Cuztom_Field
 
 	var $_supports_repeatable 	= false;
 	var $_supports_bundle		= false;
-	var $_supports_ajax			= false; 
+	var $_supports_ajax			= false;
 
 	/**
 	 * Constructs a Cuztom_Field
@@ -66,7 +66,7 @@ class Cuztom_Field
 		$this->default_value	= isset( $field['default_value'] ) 		? $field['default_value'] 		: $this->default_value;
 		$this->options			= isset( $field['options'] ) 			? $field['options'] 			: $this->options;
 		$this->args				= isset( $field['args'] ) 				? $field['args'] 				: $this->args;
-		$this->hide				= isset( $field['hide'] ) 				? $field['hide'] 				: $this->hide;
+		$this->underscore		= isset( $field['underscore'] ) 		? $field['underscore'] 			: $this->underscore;
 		$this->required			= isset( $field['required'] ) 			? $field['required'] 			: $this->required;	
 		$this->repeatable		= isset( $field['repeatable'] ) 		? $field['repeatable'] 			: $this->repeatable ;
 		$this->ajax				= isset( $field['ajax'] ) 				? $field['ajax'] 				: $this->ajax ;
@@ -177,6 +177,8 @@ class Cuztom_Field
 	 */
 	function save( $object_id, $value )
 	{
+		$value = $this->save_value( $value );
+
 		if( $this->meta_type == 'user' )
 			update_user_meta( $object_id, $this->id, $value );
 		elseif( $this->meta_type == 'post' )
@@ -185,6 +187,20 @@ class Cuztom_Field
 			return $value;
 
 		return false;
+	}
+
+	/**
+	 * Output save value
+	 * 
+	 * @param  	string 			$value
+	 *
+	 * @author 	Ante Primorac
+	 * @since  	2.8
+	 * 
+	 */
+	function save_value( $value )
+	{
+		return $value;
 	}
 
 	/**
@@ -317,6 +333,6 @@ class Cuztom_Field
 	 */
 	function build_id( $name, $parent )
 	{		
-		return apply_filters( 'cuztom_build_id',  ( $this->hide ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
+		return apply_filters( 'cuztom_build_id',  ( $this->underscore ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
 	}
 }

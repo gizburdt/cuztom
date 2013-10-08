@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.6.6  
+**Version:** 2.9  
 **Requires:** 3.5 / 3.0+  
 
 ## Basic usage
@@ -109,43 +109,35 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
-###2.6.6
-* Fixed: Issue #185: Hidden fields now work just like normal text fields, but still hidden ofcourse ;)
-* Fixed: Issue #186: Data is now saved when value is 0
-* Fixed: Small fixes and improvements
-* Added: License file
+###2.9
+* Added: Term meta locations: You can now determine where term meta can be edited (add/edit form)
+* Improvement: Term meta is now saved based on taxonomy name and term id
+* Changed: Bundles can now only be handled with the arrow
+* Changed: uztom now just uses the base jQuery UI theme
+* Fixed: Strict standards
+* Fixed: Date fields were sometimes displaying in a weird way
+* Fixed: Many small fixes
 
-###2.6.4 / 2.6.5
-* Fixed: Issue #175: Errors when saving meta
+###2.8.4
+* Fixed: Fixed bug with bundle default value
 
-###2.6.3
-* Improvement: Iris picker is now shown with the right CSS. probs @ikixxx
-* Fixed: Issue #179: Meta data not being saved on pages. 
+###2.8.3
+* Added: Default values for bundles, so you can preset some bundles
 
-###2.6.2
-* Fixed: Since 2.6.1 there were some bugs and errors, regarding the saving and displaying of meta data. They are all fixed now.
-* Removed: The page classes are now removed, because they are not very helpful. They will be back when there is more logic for them to handle.
+###2.8.2
+* Improvement: Javasscript preview size set to medium (and some extra checks)
 
-###2.6.1
-* Fixed: Issue #175: PHP warnings and errors
-* Improvement: Code cleanup of Cuztom_Field
+###2.8.1
+* Fixed: Issue #221: Data attribute
+* Changed: Default image preview size
 
-### 2.6
-* NOTE: If you would like to set the id, you need to set id, and not id_name anymore
-* Improvement: Use better OOP for saving meta
-* Added: It is now possible to add bundles within tabs
+###2.8
+* Added: Image preview size for image field. props @anteprimorachr
+* Added: Bundle support for all fields. props @anteprimorachr
+* Fixed: Small fixes & improvements
 
-###2.5.3
-* Improvement: Image select improvements
-* Improvement: New colorpicker (Iris)
-* Added: Term meta in Taxonomy List Table
-
-###2.5.2
-* Fixed: Issue #168: Repeatable field won't save
-
-###2.5.1
-* Fixed: Issue #167: Fields that require javascript now work in Term Meta
-* Changed: Date and datetime are now being saved as unix time stamp
-
-###2.5
-* Added: Term meta!
+###2.7
+* Improvement: Tables now get a unique class
+* Improvement: Bundles are now saved hidden, starting with _
+* Improvement: Responsive WYSIWYG editor within cuztom
+* Fixed: #205: Image upload for user/term meta

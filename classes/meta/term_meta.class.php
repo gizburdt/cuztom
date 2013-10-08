@@ -14,33 +14,41 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	var $taxonomies;
 	var $data;
 	var $fields;
+	var $locations;
 
 	/**
 	 * Construct the term meta
 	 * 
-	 * @param 	string 		$taxonomy
-	 * @param 	array  		$data
+	 * @param 	string|array 	$taxonomy
+	 * @param 	array  			$data
 	 *
 	 * @author 	Gijs Jorissen
  	 * @since 	2.5
 	 */
-	function __construct( $taxonomy, $data = array() )
+	function __construct( $taxonomy, $data = array(), $locations = array( 'add_form', 'edit_form' ) )
 	{
 		$this->taxonomies 	= (array) $taxonomy;
+		$this->locations 	= (array) $locations;
 		
 		// Build the meta box and fields
 		$this->data = $this->build( $data );
 
 		foreach( $this->taxonomies as $taxonomy )
 		{
-			add_action( $taxonomy . '_add_form_fields', array( &$this, 'add_form_fields' ) );
-			add_action( $taxonomy . '_edit_form_fields', array( &$this, 'edit_form_fields' ) );
+			if( in_array( 'add_form', $this->locations ) )
+			{
+				add_action( $taxonomy . '_add_form_fields', array( &$this, 'add_form_fields' ) );
+				add_action( 'created_' . $taxonomy, array( &$this, 'save_term' ) );
+			}
+
+			if( in_array( 'edit_form', $this->locations ) )
+			{
+				add_action( $taxonomy . '_edit_form_fields', array( &$this, 'edit_form_fields' ) );
+				add_action( 'edited_' . $taxonomy, array( &$this, 'save_term' ) );
+			}
 
 			add_filter( 'manage_edit-' . $taxonomy . '_columns', array( &$this, 'add_column' ) );
 			add_filter( 'manage_' . $taxonomy . '_custom_column', array( &$this, 'add_column_content' ), 10, 3 );
-
-			add_action( 'created_' . $taxonomy, array( &$this, 'save_term' ) );
-			add_action( 'edited_' . $taxonomy, array( &$this, 'save_term' ) );  
 		}
 	}
 
@@ -128,15 +136,16 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 		// Loop through each meta box
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
-			$data = array();
-			$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
+			$data 		= array();
+			$values 	= isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
+			$taxonomy 	= $_POST['taxonomy'];
 
 			foreach( $this->fields as $id_name => $field )
 			{				
-				$data[$id_name] = $field->save( $term_id, $values[$field->id], 'term' );			
+				$data[$id_name] = $field->save_value( $values[$field->id] );			
 			}
 
-			update_option( 'term_meta_' . $term_id, $data );
+			update_option( 'term_meta_' . $taxonomy . '_' . $term_id, $data );
 		}
 	}
 
@@ -172,25 +181,32 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 */
 	function add_column_content( $row, $column, $term_id )
 	{
-		$meta = get_cuztom_term_meta_by_id( $term_id, $column );
-		
-		foreach( $this->fields as $id_name => $field )
-		{
-			if( $column == $id_name )
-			{
-				if( $field->repeatable && $field->_supports_repeatable )
-				{
-					echo implode( $meta, ', ' );
-				}
-				else
-				{
-					if( $field instanceof Cuztom_Field_Image )
-						echo wp_get_attachment_image( $meta, array( 100, 100 ) );
-					else
-						echo $meta;
-				}
+		$screen 	= get_current_screen();
 
-				break;
+		if( $screen )
+		{
+			$taxonomy 	= $screen->taxonomy;
+
+			$meta = get_cuztom_term_meta( $term_id, $taxonomy, $column );
+			
+			foreach( $this->fields as $id_name => $field )
+			{
+				if( $column == $id_name )
+				{
+					if( $field->repeatable && $field->_supports_repeatable )
+					{
+						echo implode( $meta, ', ' );
+					}
+					else
+					{
+						if( $field instanceof Cuztom_Field_Image )
+							echo wp_get_attachment_image( $meta, array( 100, 100 ) );
+						else
+							echo $meta;
+					}
+
+					break;
+				}
 			}
 		}
 	}

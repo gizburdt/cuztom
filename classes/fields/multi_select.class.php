@@ -4,18 +4,21 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Multi_Select extends Cuztom_Field
 {
-	var $css_classes 			= array( 'cuztom-input' );
+	var $_supports_bundle		= true;
+	
+	var $css_classes 			= array( 'cuztom-input cuztom-select cuztom-multi-select' );
 	
 	function __construct( $field, $parent )
 	{
 		parent::__construct( $field, $parent );
 		
 		$this->default_value 	= (array) $this->default_value;
+		$this->after 		   .= '[]';
 	}
 
 	function _output( $value )
 	{
-		$output = '<select ' . $this->output_name( 'cuztom[' . $this->id . '][]' . $this->after ) . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' multiple="true">';
+		$output = '<select ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' multiple="true">';
 			if( isset( $this->args['show_option_none'] ) )
 				$output .= '<option value="0" ' . ( is_array( $value ) ? ( in_array( 0, $value ) ? 'selected="selected"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( 0, $this->default_value ) ? 'selected="selected"' : '' ) ) . '>' . $this->args['show_option_none'] . '</option>';
 
@@ -33,10 +36,8 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 		return $output;
 	}
 
-	function save( $post_id, $value )
+	function save_value( $value )
 	{
-		$value = empty( $value ) ? '-1' : $value;
-
-		return parent::save( $post_id, $value );
+		return empty( $value ) ? '-1' : $value;
 	}
 }

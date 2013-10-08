@@ -9,6 +9,12 @@ class Cuztom_Tab
 	var $meta_type;
 	var $fields = array();
 
+	function __construct( $title )
+	{
+		$this->id 		= Cuztom::uglify( $title );
+		$this->title 	= Cuztom::beautify( $title );
+	}
+
 	function output( $post, $type )
 	{
 		$fields = $this->fields;

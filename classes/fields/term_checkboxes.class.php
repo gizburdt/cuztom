@@ -4,8 +4,9 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 {
+	var $_supports_bundle		= true;
+	
 	var $css_classes 			= array( 'cuztom-input' );
-
 	var $terms;
 
 	function __construct( $field, $parent )
@@ -22,6 +23,8 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 		$this->default_value = (array) $this->default_value;
 
 		add_action( 'init', array( &$this, 'get_taxonomy_terms' ) );
+
+		$this->after .= '[]';
 	}
 	
 	function _output( $value )
@@ -31,7 +34,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 			{
 				foreach( $this->terms as $term )
 				{
-					$output .= '<input type="checkbox" ' . $this->output_name( 'cuztom[' . $this->id . '][]' ) . ' ' . $this->output_id( $this->id . $this->after_id . '_' . Cuztom::uglify( $term->name ) ) . ' ' . $this->output_css_class() . ' value="' . $term->term_id . '" ' . ( is_array( $value ) ? ( in_array( $term->term_id, $value ) ? 'checked="checked"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $term->term_id, $this->default_value ) ? 'checked="checked"' : '' ) ) . ' /> ';
+					$output .= '<input type="checkbox" ' . $this->output_name() . ' ' . $this->output_id( $this->id . $this->after_id . '_' . Cuztom::uglify( $term->name ) ) . ' ' . $this->output_css_class() . ' value="' . $term->term_id . '" ' . ( is_array( $value ) ? ( in_array( $term->term_id, $value ) ? 'checked="checked"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $term->term_id, $this->default_value ) ? 'checked="checked"' : '' ) ) . ' /> ';
 					$output .= '<label for="' . $this->id . $this->after_id . '_' . Cuztom::uglify( $term->name ) . '">' . $term->name . '</label>';
 					$output .= '<br />';
 				}
@@ -43,11 +46,9 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 		return $output;
 	}
 
-	function save( $post_id, $value )
+	function save_value( $value )
 	{
-		$value = empty( $value ) ? '-1' : $value;
-
-		return parent::save( $post_id, $value );
+		return empty( $value ) ? '-1' : $value;
 	}
 	
 	/**

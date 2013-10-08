@@ -50,6 +50,13 @@
 .cuztom .wp-picker-clear{ width: auto; }
 .cuztom .iris-picker .iris-slider-offset{ position: absolute; top: 0px; left: 0; width: 100%; height: 100%; }
 
+/* Responsive wysiwyg editor */
+.cuztom .tmce-active table { max-width: none; }
+.cuztom .tmce-active table.mceLayout, .cuztom table.mceToolbar { width: 100% !important; height: auto !important; }
+.cuztom .tmce-active span.mceEditor { display: block !important; }
+.cuztom .mceToolbar div, .cuztom table.mceToolbar tr { white-space: normal; }
+.cuztom table.mceToolbar td { display: inline-block; white-space: normal; }
+
 /* Side meta box */
 #side-sortables .cuztom-table{}
 #side-sortables .cuztom-table th{ padding: 0 0 10px 0; width: 30%; }
