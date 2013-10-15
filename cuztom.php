@@ -215,11 +215,11 @@ class Cuztom_Initializer
 	 */
 	function get_cuztom_url( $path = __FILE__, $url = array() )
 	{
-		$path = dirname( $path );
-		$path = str_replace( '\\', '/', $path );
-		$explode_path = explode( '/', $path );
-		
-		$current_dir = $explode_path[count( $explode_path ) - 1];
+		$path 			= dirname( $path );
+		$path 			= str_replace( '\\', '/', $path );
+		$explode_path 	= explode( '/', $path );
+		$current_dir 	= $explode_path[count( $explode_path ) - 1];
+
 		array_push( $url, $current_dir );
 		
 		if( $current_dir == 'wp-content' )
