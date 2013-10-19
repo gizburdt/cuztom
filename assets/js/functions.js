@@ -1,10 +1,9 @@
 jQuery.noConflict();
-
 jQuery( function( $ ) {
 
-	var add_events;
+	var add_cuztom_events;
 
-	(add_events = function( object ) 
+	(add_cuztom_events = function( object ) 
 	{
 		// Datepicker
 		$('.js-cuztom-datepicker', object).map(function(){
@@ -71,94 +70,48 @@ jQuery( function( $ ) {
 				preview_size  = that.data('cuztom-media-preview-size');
 			}
 
-			if( Cuztom.wp_version >= '3.5' )
+			if( _cuztom_uploader ) 
 			{
-				if( _cuztom_uploader ) 
+				_cuztom_uploader.open();
+            	return;
+        	}
+
+        	//Extend the wp.media object
+	        _cuztom_uploader = wp.media.frames.file_frame = wp.media({
+	            multiple: false,
+	        });
+
+	        // Send the data to the fields
+	        _cuztom_uploader.on('select', function() {
+            	attachment = _cuztom_uploader.state().get('selection').first().toJSON();
+
+            	// (Re)set the remove button
+            	$('.js-cuztom-remove-media', parent).remove();
+            	that.after('<a href="#" class="js-cuztom-remove-media cuztom-remove-media">' + ( type == 'image' ? Cuztom.remove_image : Cuztom.remove_file ) + '</a> ');
+
+            	// Send an id or url to the field and set the preview
+            	if( type == 'image' )
 				{
-					_cuztom_uploader.open();
-	            	return;
-	        	}
-
-	        	//Extend the wp.media object
-		        _cuztom_uploader = wp.media.frames.file_frame = wp.media({
-		            multiple: false,
-		        });
-
-		        // Send the data to the fields
-		        _cuztom_uploader.on('select', function() {
-	            	attachment = _cuztom_uploader.state().get('selection').first().toJSON();
-
-	            	// (Re)set the remove button
-	            	$('.js-cuztom-remove-media', parent).remove();
-	            	that.after('<a href="#" class="js-cuztom-remove-media cuztom-remove-media">' + ( type == 'image' ? Cuztom.remove_image : Cuztom.remove_file ) + '</a> ');
-
-	            	// Send an id or url to the field and set the preview
-	            	if( type == 'image' )
-					{
-						console.log( attachment );
-						var thumbnail = preview_size && !$.isArray(preview_size) && attachment.sizes[preview_size] ? attachment.sizes[preview_size] : ( attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full );
-						if( $.isArray( preview_size ) ) {
-							if( parseInt( preview_size[0] ) > 0 )
-								thumbnail.width = parseInt( preview_size[0] );
-							if( parseInt( preview_size[1] ) > 0 )
-								thumbnail.height = parseInt( preview_size[1] );
-						}
-
-						preview.html('<img src="' + thumbnail.url + '" height="' + thumbnail.height + '" width="' + thumbnail.width + '" />')
-						hidden.val( attachment.id );
+					console.log( attachment );
+					var thumbnail = preview_size && !$.isArray(preview_size) && attachment.sizes[preview_size] ? attachment.sizes[preview_size] : ( attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full );
+					if( $.isArray( preview_size ) ) {
+						if( parseInt( preview_size[0] ) > 0 )
+							thumbnail.width = parseInt( preview_size[0] );
+						if( parseInt( preview_size[1] ) > 0 )
+							thumbnail.height = parseInt( preview_size[1] );
 					}
-					else
-					{
-						preview.html('<span class="cuztom-mime"><a href="' + attachment.url + '" target="_blank">' + attachment.name + '</a></span>' );
-						hidden.val( attachment.url );
-					}
-	        	});
 
-	        	_cuztom_uploader.open();
-			}
-			else
-			{
-				var uploadID 	= hidden,
-			    	spanID 		= preview;
-
-			    var	_original_send_to_editor = window.send_to_editor;
-			    
-				tb_show( '', 'media-upload.php?post_id=0&type=image&TB_iframe=true' );
-				
-				window.send_to_editor = function( html ) 
-				{
-					if( type == 'image' )
-					{
-						// Add image source to the hidden field
-					    img 	= $(html).find('img');
-					    imgID 	= html.match(/wp-image-(\d+)/g)[0].split('-')[2];
-
-					    uploadID.val( imgID );
-
-						// Add the image to the preview
-						html 	= $(html).find('img');
-					    spanID.html( html );
-					}
-					else
-					{
-						url		= $(html).attr('href');
-						uploadID.val( url );
-
-						anchor	= $(html).find('img').attr('title');
-						html	= $('<span class="cuztom-mime"><a href="' + url + '" target="_blank">' + anchor + '</a></span>' );
-						spanID.html( html );
-					}
-					
-					// Close Wordpress media popup
-					tb_remove();
-
-					$('.js-cuztom-remove-media', parent).remove();
-					that.after('<a href="#" class="js-cuztom-remove-media cuztom-remove-media">' + ( type == 'image' ? Cuztom.remove_image : Cuztom.remove_file ) + '</a> ');
-
-					// Reset default function
-					window.send_to_editor = _original_send_to_editor;
+					preview.html('<img src="' + thumbnail.url + '" height="' + thumbnail.height + '" width="' + thumbnail.width + '" />')
+					hidden.val( attachment.id );
 				}
-			}
+				else
+				{
+					preview.html('<span class="cuztom-mime"><a href="' + attachment.url + '" target="_blank">' + attachment.name + '</a></span>' );
+					hidden.val( attachment.url );
+				}
+        	});
+
+        	_cuztom_uploader.open();
 
 			return false;
 		});
@@ -174,6 +127,8 @@ jQuery( function( $ ) {
 		
 		if( fields > 1 ) { field.remove(); }
 		if( fields == 2 ){ $( '.js-cuztom-sortable-item', wrap ).find('.js-cuztom-remove-sortable').remove(); }
+
+		return false;
 	});		
 	
 	// Add sortable
@@ -275,7 +230,7 @@ jQuery( function( $ ) {
 		new_item.appendTo( wrap );
 
 		// Add events to the new item
-		add_events(new_item);
+		add_cuztom_events(new_item);
 		
 		// Add new handler and remover if necessary
 		$('.js-cuztom-sortable-item', parent).each(function( index, item ) {
