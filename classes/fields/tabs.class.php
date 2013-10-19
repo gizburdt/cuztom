@@ -8,12 +8,12 @@ class Cuztom_Tabs
 	var $meta_type;
 	var $tabs = array();
 
-	function __construct( $id )
+	function __construct( $id, $args )
 	{
-		$this->id 	= $id;
+		$this->id  		= $id;
 	}
 	
-	function output( $post )
+	function output( $object )
 	{
 		$tabs = $this->tabs;
 				
@@ -27,8 +27,16 @@ class Cuztom_Tabs
 	
 			foreach( $tabs as $title => $tab )
 			{
-				$tab->output( $post, 'tabs' );
+				$tab->output( $object, 'tabs' );
 			}
 		echo '</div>';
+	}
+
+	function save( $object_id, $values )
+	{
+		foreach( $this->tabs as $tab )
+		{
+			$tab->save( $object_id, $values );
+		}
 	}
 }

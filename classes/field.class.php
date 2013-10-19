@@ -317,7 +317,7 @@ class Cuztom_Field
 	 */
 	function output_explanation()
 	{
-		return ( ! $this->repeatable && $this->explanation ? '<em class="cuztom-explanation">' . $this->explanation . '</em>' : '' );
+		return ( ! $this->repeatable && $this->explanation ? '<em class="cuztom-field-explanation">' . $this->explanation . '</em>' : '' );
 	}
 	
 	/**
@@ -333,6 +333,6 @@ class Cuztom_Field
 	 */
 	function build_id( $name, $parent )
 	{		
-		return apply_filters( 'cuztom_build_id',  ( $this->underscore ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
+		return apply_filters( 'cuztom_build_id',  ( $this->underscore && ( strpos( $parent, '_', 0 ) !== 0 ) ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
 	}
 }

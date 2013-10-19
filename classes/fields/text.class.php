@@ -8,7 +8,7 @@ class Cuztom_Field_Text extends Cuztom_Field
 	var $_supports_bundle		= true;
 	var $_supports_ajax			= true;
 
-	var $css_classes			= array( 'cuztom-input' );
+	var $css_classes			= array( 'cuztom-input', 'cuztom-input-text' );
 
 	function save_value( $value )
 	{

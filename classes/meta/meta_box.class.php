@@ -117,25 +117,6 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		if( ! empty( $values ) )
 			parent::save( $post_id, $values );
 	}
-
-	/**
-	 * Normal save method to save all the fields in a metabox
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	2.6
-	 */
-	function save( $post_id, $values )
-	{
-		foreach( $this->fields as $id => $field )
-		{
-			if( $field->in_bundle ) continue;
-			
-			$value = isset( $values[$id] ) ? $values[$id] : '';
-			$value = apply_filters( "cuztom_post_meta_save_$field->type", apply_filters( 'cuztom_post_meta_save', $value, $field, $post_id ), $field, $post_id );
-
-			$field->save( $post_id, $value, 'post' );
-		}
-	}
 	
 	/**
 	 * Used to add a column head to the Post Type's List Table

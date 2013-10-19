@@ -6,6 +6,7 @@ class Cuztom_Bundle
 {
 	var $id;
 	var $meta_type;
+	var $underscore 			= true;
 	
 	var $fields 				= array();
 	var $default_value 			= '';
@@ -14,19 +15,20 @@ class Cuztom_Bundle
 	 * Construct for bundle
 	 *
 	 * @param   int  		$id
-	 * @param 	array 		$data
+	 * @param 	array 		$args
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	2.8.4
 	 * 
 	 */
-	function __construct( $id, $data )
+	function __construct( $args, $parent )
 	{
-		// Bundle data
-		$this->default_value	= isset( $data['default_value'] ) 	? 	$data['default_value'] 			: $this->default_value;
+		// Bundle args
+		$this->default_value	= isset( $args['default_value'] ) 	? 	$args['default_value'] 			: $this->default_value;
+		$this->underscore		= isset( $args['underscore'] ) 		? 	$args['underscore'] 			: $this->underscore;
 		
 		// Bundle id
-		$this->id  				= isset( $id )						?	$this->build_id( $id )			: $this->id;
+		$this->id  				= $this->build_id( $args['id'], $parent );
 	}
 
 	/**
@@ -41,12 +43,12 @@ class Cuztom_Bundle
 	 */
 	function output( $post )
 	{
-		echo '<div class="padding-wrap">';
+		echo '<div class="cuztom-bundles">';
 			echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable js-cuztom-add-bundle cuztom-add-sortable" href="#">';
 				echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
 			echo '</a>';
 
-			echo '<ul class="js-cuztom-sortable cuztom-sortable js-cuztom-bundle" data-cuztom-sortable-type="bundle">';
+			echo '<ul class="js-cuztom-sortable cuztom-sortable" data-cuztom-sortable-type="bundle">';
 				
 				$meta = $this->meta_type == 'user' ? get_user_meta( $post->ID, $this->id, true ) : get_post_meta( $post->ID, $this->id, true );
 
@@ -55,43 +57,43 @@ class Cuztom_Bundle
 					$i = 0;
 					foreach( $meta as $bundle )
 					{
-						echo '<li class="cuztom-sortable-item js-cuztom-sortable-item">';
-							echo '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>';
-							echo '<fieldset>';
-							echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
-								
-								foreach( $this->fields as $id => $field )
-								{
-									$field->pre 		= '[' . $this->id . '][' . $i . ']';
-									$field->after_id 	= '_' . $i;
-									$value 				= isset( $meta[$i][$id] ) ? $meta[$i][$id] : '';
+						echo '<li class="cuztom-sortable-item js-cuztom-sortable-item cuztom-bundle">';
+							echo '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#"></a></div>';
+							echo '<fieldset class="cuztom-fieldset">';
+								echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
 									
-									if( ! $field instanceof Cuztom_Field_Hidden )
+									foreach( $this->fields as $id => $field )
 									{
-										echo '<tr>';
-											echo '<th class="cuztom-th">';
-												echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
-												echo '<div class="cuztom-description">' . $field->description . '</div>';
-											echo '</th>';
-											echo '<td class="cuztom-td">';
+										$field->pre 		= '[' . $this->id . '][' . $i . ']';
+										$field->after_id 	= '_' . $i;
+										$value 				= isset( $meta[$i][$id] ) ? $meta[$i][$id] : '';
+										
+										if( ! $field instanceof Cuztom_Field_Hidden )
+										{
+											echo '<tr>';
+												echo '<th class="cuztom-th">';
+													echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
+													echo '<div class="cuztom-field-description">' . $field->description . '</div>';
+												echo '</th>';
+												echo '<td class="cuztom-td">';
 
-												if( $field->_supports_bundle )
-													echo $field->output( $value, $post );
-												else
-													echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
+													if( $field->_supports_bundle )
+														echo $field->output( $value, $post );
+													else
+														echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
 
-											echo '</td>';
-										echo '</tr>';
+												echo '</td>';
+											echo '</tr>';
+										}
+										else
+										{
+											echo $field->output( $value, $post );
+										}
 									}
-									else
-									{
-										echo $field->output( $value, $post );
-									}
-								}
 
-							echo '</table>';
+								echo '</table>';
 							echo '</fieldset>';
-							echo count( $meta ) > 1 ? '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>' : '';
+							echo count( $meta ) > 1 ? '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"><a href="#"></a></div>' : '';
 						echo '</li>';
 						
 						$i++;
@@ -101,12 +103,11 @@ class Cuztom_Bundle
 				elseif( ! empty( $this->default_value ) )
 				{
 					$i = 0;
-
 					foreach( $this->default_value as $default )
 					{
-						echo '<li class="cuztom-sortable-item js-cuztom-sortable-item">';
-							echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"></div>';
-							echo '<fieldset>';
+						echo '<li class="cuztom-sortable-item js-cuztom-sortable-item cuztom-bundle">';
+							echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"><a href="#"></a></div>';
+							echo '<fieldset class="cuztom-fieldset">';
 							echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
 								
 								$fields = $this->fields;
@@ -153,9 +154,9 @@ class Cuztom_Bundle
 				}
 				else
 				{
-					echo '<li class="cuztom-sortable-item js-cuztom-sortable-item">';
-						echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"></div>';
-						echo '<fieldset>';
+					echo '<li class="cuztom-sortable-item js-cuztom-sortable-item cuztom-bundle">';
+						echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"><a href="#"></a></div>';
+						echo '<fieldset class="cuztom-fieldset">';
 						echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
 							
 							$fields = $this->fields;
@@ -209,14 +210,12 @@ class Cuztom_Bundle
 	 */
 	function save( $object_id, $values )
 	{
-		$values = apply_filters( "cuztom_" . $this->meta_type . "_meta_save_bundle_$this->id", 	$values, $this, $object_id );	
-		$values = apply_filters( 'cuztom_' . $this->meta_type . '_meta_save_bundle', 			$values, $this, $object_id );
-		$values = array_values( $values );
+		$values 	= array_values( $values );
 
-		foreach( $values as $row_id => $row ) 
+		foreach( $values as $row => $fields ) 
 		{
-			foreach( $row as $id => $value )
-				$values[$row_id][$id] = $this->fields[$id]->save_value($value);
+			foreach( $fields as $id => $value )
+				$values[$row][$id] = $this->fields[$id]->save_value( $value );
 		}
 
 		if( $this->meta_type == 'user' )
@@ -229,6 +228,8 @@ class Cuztom_Bundle
 			delete_post_meta( $object_id, $this->id );
 			update_post_meta( $object_id, $this->id, $values );
 		}
+
+		// TODO: Term meta
 	}
 
 	/**
@@ -240,11 +241,8 @@ class Cuztom_Bundle
 	 * @since 	2.7
 	 * 
 	 */
-	function build_id( $id )
+	function build_id( $id, $parent )
 	{
-		if( strpos( $id, '_', 0 ) !== 0 )
-			$id = '_' . $id;
-
-		return $id;
+		return ( $this->underscore ? '_' : '' ) . $parent . '_' . $id;
 	}
 }
