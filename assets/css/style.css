@@ -48,7 +48,7 @@
 .cuztom .wp-picker-container{ width: 100%; }
 .cuztom input[type="text"].wp-color-picker,
 .cuztom .wp-picker-clear{ width: auto; }
-.cuztom .iris-picker .iris-slider-offset{ position: absolute; top: 0px; left: 0; width: 100%; height: 100%; }
+.cuztom .iris-picker .iris-slider-offset{ position: absolute; top: 0px; left: 0; width: 100%; height: 100%; background: none; border: none; }
 
 /* Responsive wysiwyg editor */
 .cuztom .tmce-active table { max-width: none; }
