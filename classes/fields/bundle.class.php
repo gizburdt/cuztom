@@ -43,7 +43,7 @@ class Cuztom_Bundle
 	 */
 	function output( $post )
 	{
-		echo '<div class="cuztom-bundles">';
+		echo '<div class="cuztom-bundles cuztom-bundles-' . $this->id . '">';
 			echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable js-cuztom-add-bundle cuztom-add-sortable" href="#">';
 				echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
 			echo '</a>';
@@ -57,7 +57,7 @@ class Cuztom_Bundle
 					$i = 0;
 					foreach( $meta as $bundle )
 					{
-						echo '<li class="cuztom-sortable-item js-cuztom-sortable-item cuztom-bundle">';
+						echo '<li class="cuztom-sortable-item js-cuztom-sortable-item cuztom-bundle cuztom-bundle-' . $this->id . '-' . $i . '">';
 							echo '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#"></a></div>';
 							echo '<fieldset class="cuztom-fieldset">';
 								echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';

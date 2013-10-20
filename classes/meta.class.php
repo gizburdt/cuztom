@@ -65,11 +65,11 @@ class Cuztom_Meta
 		if( ! empty( $data ) )
 		{
 			echo '<input type="hidden" name="cuztom[__activate]" />';
-			echo '<div class="cuztom cuztom-' . $meta_type . '-meta" data-object-id="' . $object_id . '" data-meta-type="' . $meta_type . '">';
+			echo '<div class="cuztom cuztom-' . $meta_type . '-meta cuztom-meta-' . $object_id . '" data-object-id="' . $object_id . '" data-meta-type="' . $meta_type . '">';
 
 				if( ! empty( $this->description ) ) echo '<p class="cuztom-box-description">' . $this->description . '</p>';
 
-				echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
+				echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table cuztom-main-table">';
 					foreach( $data as $id => $field )
 					{
 						if( ( $field instanceof Cuztom_Tabs ) || ( $field instanceof Cuztom_Accordion ) || ( $field instanceof Cuztom_Bundle ) )
