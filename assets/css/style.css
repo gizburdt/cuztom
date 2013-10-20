@@ -8,7 +8,7 @@
 .cuztom .cuztom-label{ font-weight: bold; line-height: 1; }
 .cuztom .cuztom-required{ color: red; }
 .cuztom .cuztom-field-description,
-.cuztom .cuztom-field-explanation{ font-size: 11px; font-style: italic; font-weight: normal; color: #999; }
+.cuztom .cuztom-field-explanation{ font-size: 10px; font-style: italic; font-weight: normal; color: #999; }
 .cuztom .cuztom-field-explanation{ display: block; }
 .cuztom .cuztom-input{ margin-right: 3px; }
 .cuztom .cuztom-input-text,
@@ -20,12 +20,20 @@
 /* Tabs */
 .cuztom .cuztom-tabs{ margin-left: -10px; margin-right: -10px; padding: 0; border: none; background: none; font-family: sans-serif; }
 .cuztom .cuztom-tabs .ui-tabs-nav{ padding: 0; background: none; margin-bottom: -1px; font-size: 12px; }
-.cuztom .cuztom-tabs .ui-tabs-nav li{ margin: 0; padding: 0; background: none; border: none; }
-.cuztom .cuztom-tabs .ui-tabs-nav li.ui-state-active{ background: #fff; border: 1px solid #ddd; border-bottom: none; }
+.cuztom .cuztom-tabs .ui-tabs-nav li{ margin: 0; padding: 0; background: none; border: none; padding-top: 1px; }
+.cuztom .cuztom-tabs .ui-tabs-nav li.ui-state-active{ background: #fff; border: 1px solid #ddd; border-bottom: none; padding-top: 0; }
 .cuztom .cuztom-tabs .ui-tabs-nav a{ color: #21759b; padding: 5px 10px; outline: none; }
 .cuztom .cuztom-tabs .ui-tabs-nav a:hover{ color: #d54e21; }
 .cuztom .cuztom-tabs .ui-tabs-panel{ background: #fff; border: 1px solid #ddd; -webkit-border-radius: 0 3px 3px 3px; border-radius: 0 3px 3px 3px; font-size: 12px; padding: 10px; }
 .cuztom .cuztom-tabs .cuztom-td{ padding-left: 0; }
+
+/* Sortable */
+.cuztom .cuztom-sortable-item .cuztom-handle-sortable,
+.cuztom .cuztom-sortable-item .cuztom-remove-sortable{ display: inline-block; vertical-align: middle; }
+.cuztom .cuztom-sortable-item .cuztom-handle-sortable a,
+.cuztom .cuztom-sortable-item .cuztom-remove-sortable a{ height: 16px; width: 8px; background: url('../images/jquery-ui/ui-icons_454545_256x240.png') no-repeat; display: block; outline: none; }
+.cuztom .cuztom-sortable-item .cuztom-handle-sortable a{ background-position: -132px -48px; cursor: move; margin-right: 10px; }
+.cuztom .cuztom-sortable-item .cuztom-remove-sortable a{ background-position: -85px -128px; cursor: pointer; margin-left: 10px; }
 
 /* Bundle */
 .cuztom .cuztom-bundles{ margin-left: -10px; margin-right: -10px; }
@@ -36,10 +44,7 @@
 .cuztom .cuztom-bundle .cuztom-handle-sortable,
 .cuztom .cuztom-bundle .cuztom-remove-sortable{ float: left; width: 3%; min-height: 60px; }
 .cuztom .cuztom-bundle .cuztom-handle-sortable a,
-.cuztom .cuztom-bundle .cuztom-remove-sortable a{ height: 16px; width: 8px; background: url('../images/jquery-ui/ui-icons_454545_256x240.png') no-repeat; top: 50%; margin-top: -8px; display: block; position: absolute; outline: none; }
-.cuztom .cuztom-bundle .cuztom-handle-sortable a{ background-position: -132px -48px; cursor: move; }
-.cuztom .cuztom-bundle .cuztom-remove-sortable a{ background-position: -85px -128px; cursor: pointer; }
-
+.cuztom .cuztom-bundle .cuztom-remove-sortable a{ top: 50%; margin: 0; margin-top: -8px; position: absolute; }
 
 /* Misc */
 .cuztom .cuztom-mime{ padding: 5px 0 5px 25px; display: block; background: url('../images/mime/file.png') 0 2px no-repeat; }
@@ -57,8 +62,8 @@
 
 /* Side meta box */
 #side-sortables .cuztom-table{}
-#side-sortables .cuztom-table th{ padding: 0 0 10px 0; width: 30%; }
-#side-sortables .cuztom-table td{ padding: 0 0 10px 0; width: 70%; }
+#side-sortables .cuztom-table .cuztom-th{ padding: 0 0 10px 0; width: 30%; }
+#side-sortables .cuztom-table .cuztom-td{ padding: 0 0 10px 0; width: 70%; }
 #side-sortables .cuztom-table .cuztom-description,
 #side-sortables .cuztom-table .cuztom-explanation{ display: none; }
 #side-sortables .cuztom-table .cuztom-input,
