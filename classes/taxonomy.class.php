@@ -35,8 +35,6 @@ class Cuztom_Taxonomy
 	{
 		if( ! empty( $name ) )
 		{
-			$this->post_type = $post_type;
-
 			if( is_array( $name ) )
 			{
 				$this->name		= Cuztom::uglify( $name[0] );
@@ -50,8 +48,9 @@ class Cuztom_Taxonomy
 				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
 			}
 
-			$this->labels	= $labels;
-			$this->args		= $args;
+			$this->post_type 	= $post_type;
+			$this->labels		= $labels;
+			$this->args			= $args;
             
             if( ! taxonomy_exists( $this->name ) )
 			{
@@ -67,12 +66,6 @@ class Cuztom_Taxonomy
 
 			if( isset( $args['show_admin_column'] ) && $args['show_admin_column'] )
 			{
-				if( get_bloginfo( 'version' ) < '3.5' )
-				{
-					add_filter( 'manage_' . $this->post_type . '_posts_columns', array( &$this, 'add_column' ) );
-					add_action( 'manage_' . $this->post_type . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
-				}
-
 				if( isset( $args['admin_column_sortable'] ) && $args['admin_column_sortable'] )
 					add_action( 'manage_edit-' . $this->post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
 
@@ -211,7 +204,7 @@ class Cuztom_Taxonomy
 	 */
 	function add_sortable_column( $columns )
 	{
-		$columns[( get_bloginfo( 'version' ) < '3.5' ) ? $this->name : 'taxonomy-' . $this->name] = $this->title;
+		$columns['taxonomy-' . $this->name] = $this->title;
 
 		return $columns;
 	}

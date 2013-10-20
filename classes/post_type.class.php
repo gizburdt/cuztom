@@ -54,9 +54,7 @@ class Cuztom_Post_Type
 
 			// Add action to register the post type, if the post type doesnt exist
 			if( ! post_type_exists( $this->name ) )
-			{
 				add_action( 'init', array( &$this, 'register_post_type' ) );
-			}
 		}
 	}
 	
