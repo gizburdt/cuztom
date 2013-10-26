@@ -29,6 +29,9 @@ class Cuztom_Bundle
 		
 		// Bundle id
 		$this->id  				= $this->build_id( $args['id'], $parent );
+
+		// Localize bundle
+		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
 	}
 
 	/**
@@ -230,6 +233,11 @@ class Cuztom_Bundle
 		}
 
 		// TODO: Term meta
+	}
+
+	function localize()
+	{
+		wp_localize_script( 'cuztom', 'Cuztom_' . $this->id, (array) $this );
 	}
 
 	/**

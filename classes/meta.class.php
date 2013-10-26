@@ -90,22 +90,22 @@ class Cuztom_Meta
 							{
 								echo '<tr class="cuztom-tr">';
 									echo '<th class="cuztom-th">';
-										echo '<label for="' . $id . '" class="cuztom-label">' . $field->label . '</label>';
+										echo '<label for="' . $field->id . '" class="cuztom-label">' . $field->label . '</label>';
 										echo $field->required ? ' <span class="cuztom-required">*</span>' : '';
 										echo '<div class="cuztom-field-description">' . $field->description . '</div>';
 									echo '</th>';
-									echo '<td class="cuztom-td">';
+									echo '<td class="cuztom-td js-field-selector" id="' . $field->id . '">';
 
 										if( $field->repeatable && $field->_supports_repeatable )
 										{
 											echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
-											echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
-												echo $field->output( $value, $object );
+											echo '<ul class="js-cuztom-sortable cuztom-sortable">';
+												echo $field->output( $value );
 											echo '</ul>';
 										}
 										else
 										{
-											echo $field->output( $value, $object );
+											echo $field->output( $value );
 										}
 
 									echo '</td>';
@@ -115,7 +115,7 @@ class Cuztom_Meta
 							}
 							else
 							{
-								echo $field->output( $value, $object );
+								echo $field->output( $value );
 							}
 						}
 					}
@@ -252,7 +252,7 @@ class Cuztom_Meta
 								$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 								if( class_exists( $class ) )
 								{
-									$field = new $class( $field, $this->id );
+									$field 						= new $class( $field, $this->id );
 									$field->meta_type 			= $this->get_meta_type();
 
 									$this->fields[$field->id] 	= $field;

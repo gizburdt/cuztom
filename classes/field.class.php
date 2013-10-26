@@ -23,6 +23,7 @@ class Cuztom_Field
 	var $underscore 			= true;
 	var $required 				= false;
 	var $repeatable 			= false;
+	var $limit					= null;
 	var $ajax 					= false;
 	
 	var $parent					= '';
@@ -58,28 +59,32 @@ class Cuztom_Field
 	 */
 	function __construct( $field, $parent )
 	{
-		$this->type				= isset( $field['type'] ) 				? $field['type'] 				: $this->type;
-		$this->name 			= isset( $field['name'] ) 				? $field['name'] 				: $this->name;
-		$this->label			= isset( $field['label'] ) 				? $field['label'] 				: $this->label;
-		$this->description		= isset( $field['description'] ) 		? $field['description'] 		: $this->description;
-		$this->explanation		= isset( $field['explanation'] ) 		? $field['explanation'] 		: $this->explanation;
-		$this->default_value	= isset( $field['default_value'] ) 		? $field['default_value'] 		: $this->default_value;
-		$this->options			= isset( $field['options'] ) 			? $field['options'] 			: $this->options;
-		$this->args				= isset( $field['args'] ) 				? $field['args'] 				: $this->args;
-		$this->underscore		= isset( $field['underscore'] ) 		? $field['underscore'] 			: $this->underscore;
-		$this->required			= isset( $field['required'] ) 			? $field['required'] 			: $this->required;	
-		$this->repeatable		= isset( $field['repeatable'] ) 		? $field['repeatable'] 			: $this->repeatable ;
-		$this->ajax				= isset( $field['ajax'] ) 				? $field['ajax'] 				: $this->ajax ;
+		$this->type						= isset( $field['type'] ) 					? $field['type'] 					: $this->type;
+		$this->name 					= isset( $field['name'] ) 					? $field['name'] 					: $this->name;
+		$this->label					= isset( $field['label'] ) 					? $field['label'] 					: $this->label;
+		$this->description				= isset( $field['description'] ) 			? $field['description'] 			: $this->description;
+		$this->explanation				= isset( $field['explanation'] ) 			? $field['explanation'] 			: $this->explanation;
+		$this->default_value			= isset( $field['default_value'] ) 			? $field['default_value'] 			: $this->default_value;
+		$this->options					= isset( $field['options'] ) 				? $field['options'] 				: $this->options;
+		$this->args						= isset( $field['args'] ) 					? $field['args'] 					: $this->args;
+		$this->underscore				= isset( $field['underscore'] ) 			? $field['underscore'] 				: $this->underscore;
+		$this->required					= isset( $field['required'] ) 				? $field['required'] 				: $this->required;	
+		$this->repeatable				= isset( $field['repeatable'] ) 			? $field['repeatable'] 				: $this->repeatable ;
+		$this->limit					= isset( $field['limit'] ) 					? $field['limit'] 					: $this->limit ;
+		$this->ajax						= isset( $field['ajax'] ) 					? $field['ajax'] 					: $this->ajax ;
 		
 		$this->show_admin_column		= isset( $field['show_admin_column'] ) 		? $field['show_admin_column'] 		: $this->show_admin_column;
 		$this->admin_column_sortable	= isset( $field['admin_column_sortable'] ) 	? $field['admin_column_sortable'] 	: $this->admin_column_sortable;
 		$this->admin_column_filter		= isset( $field['admin_column_filter'] ) 	? $field['admin_column_filter'] 	: $this->admin_column_filter;
 		
-		// Mostly the name of the meta box
-		$this->parent			= $parent;
+		// Mostly the name of the meta box/container
+		$this->parent					= $parent;
 		
-		// Id is used as id to select the field, if i'ts not in the $field paramater, the id will be genereted
-		$this->id  				= isset( $field['id'] ) 				? $field['id']					: $this->build_id( $this->name, $parent );
+		// Id is used as id to select the field, if it's not in the $field paramater, the id will be genereted
+		$this->id  						= isset( $field['id'] ) 					? $field['id']						: $this->build_id( $this->name, $parent );
+
+		// Localize field
+		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
 	}
 	
 	/**
@@ -94,9 +99,9 @@ class Cuztom_Field
 	 */
 	function output( $value )
 	{
-		if( $this->repeatable && $this->_supports_repeatable )
+		if( $this->is_repeatable() )
 			return $this->_repeatable_output( $value );
-		elseif( $this->ajax && $this->_supports_ajax )
+		elseif( $this->is_ajax() )
 			return $this->_ajax_output( $value );
 		else
 			return $this->_output( $value );
@@ -131,13 +136,19 @@ class Cuztom_Field
 	 */
 	function _repeatable_output( $value )
 	{
-		$this->after = '[]';
-		$output = '';
+		$this->after 	= '[]';
+		$output 		= '';
+		$x 				= 0;
 
 		if( is_array( $value ) )
 		{
 			foreach( $value as $item )
+			{
+				$x++;
 				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#"></a></div>' . $this->_output( $item ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#"></a></div>' : '' ) . '</li>';
+
+				if( $x >= $this->limit ) break;
+			}
 		}
 		else
 		{
@@ -159,8 +170,8 @@ class Cuztom_Field
 	 */
 	function _ajax_output( $value )
 	{
-		$output = $this->_output( $value );
-		$output .= '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
+		$output 	= $this->_output( $value );
+		$output 	.= '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
 
 		return $output;
 	}
@@ -179,11 +190,11 @@ class Cuztom_Field
 	{
 		$value = $this->save_value( $value );
 
-		if( $this->meta_type == 'user' )
+		if( $this->is_meta_type( 'user' ) )
 			update_user_meta( $object_id, $this->id, $value );
-		elseif( $this->meta_type == 'post' )
+		elseif( $this->is_meta_type( 'post' ) )
 			update_post_meta( $object_id, $this->id, $value );
-		elseif( $this->meta_type == 'term' )
+		elseif( $this->is_meta_type( 'term' ) )
 			return $value;
 
 		return false;
@@ -317,7 +328,54 @@ class Cuztom_Field
 	 */
 	function output_explanation()
 	{
-		return ( ! $this->repeatable && $this->explanation ? '<em class="cuztom-field-explanation">' . $this->explanation . '</em>' : '' );
+		return ( ! $this->is_repeatable() && $this->explanation ? '<em class="cuztom-field-explanation">' . $this->explanation . '</em>' : '' );
+	}
+
+	/**
+	 * Check what kind of meta we're dealing with
+	 * 
+	 * @return  string
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 * 
+	 */
+	function is_meta_type( $meta_type )
+	{
+		return $this->meta_type == $meta_type;
+	}
+
+	/**
+	 * Check if the field is in ajax mode
+	 * 
+	 * @return  string
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 * 
+	 */
+	function is_ajax()
+	{
+		return $this->ajax && $this->_supports_ajax;
+	}
+
+	/**
+	 * Check if the field is in repeatable mode
+	 * 
+	 * @return  string
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 * 
+	 */
+	function is_repeatable()
+	{
+		return $this->repeatable && $this->_supports_repeatable;
+	}
+
+	function localize()
+	{
+		wp_localize_script( 'cuztom', 'Cuztom_' . $this->id, (array) $this );
 	}
 	
 	/**

@@ -22,7 +22,7 @@ class Cuztom_Initializer
 	 * @since  	2.3
 	 * 
 	 */
-	public static function instance()
+	public static function run()
 	{
 		if ( ! isset( self::$instance ) ) 
 		{
@@ -244,4 +244,4 @@ class Cuztom_Initializer
 
 endif; // End class_exists check
 
-Cuztom_Initializer::instance();
+Cuztom_Initializer::run();
