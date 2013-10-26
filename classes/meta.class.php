@@ -77,7 +77,7 @@ class Cuztom_Meta
 							if( $divider ) echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>'; else $divider = true;
 
 							echo '<tr class="cuztom-tr">';
-								echo '<td class="cuztom-td js-field-selector" id="' . $field->id . '" colspan="2">';
+								echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $field->id . '" colspan="2">';
 									$field->output( $object );
 								echo '</td>';
 							echo '</tr>';
@@ -94,7 +94,7 @@ class Cuztom_Meta
 										echo $field->required ? ' <span class="cuztom-required">*</span>' : '';
 										echo '<div class="cuztom-field-description">' . $field->description . '</div>';
 									echo '</th>';
-									echo '<td class="cuztom-td js-field-selector" id="' . $field->id . '">';
+									echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $field->id . '">';
 
 										if( $field->repeatable && $field->_supports_repeatable )
 										{
