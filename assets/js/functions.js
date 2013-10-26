@@ -142,22 +142,32 @@ jQuery( function( $ ) {
 	});		
 	
 	// Add sortable
-	$('.cuztom').on( 'click', '.js-cuztom-add-sortable', function() 
+	$('body').on( 'click', '.js-cuztom-add-sortable', function() 
 	{
-		var that			= $( this ),
-			parent 			= that.closest( '.cuztom-td, .cuztom' ),
-			wrap 			= $( '.js-cuztom-sortable', parent ),
-			is_bundle		= wrap.data( 'cuztom-sortable-type') == 'bundle' ? true : false,
-			last 			= $( '.js-cuztom-sortable-item:last', wrap ),
+		var that			= $(this),
+			selector		= that.closest('.js-field-selector'),
+			fieldID 		= selector.attr('id'),
+			fieldObject 	= window['Cuztom_' + fieldID],
+			wrap 			= $( '.js-cuztom-sortable', selector ),
+			isBundle		= fieldObject.type == 'bundle',
 			handle 			= '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>',
 			remover 		= '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>',
-			new_item 		= last.clone( false, false ),
-			switch_editors 	= [];
-		
-		// Set new bundle array key
-		if( is_bundle )
+			lastItem 		= $( '.js-cuztom-sortable-item:last', wrap ),
+			newItem 		= lastItem.clone( false, false ),
+			countItems 		= $( '.js-cuztom-sortable-item', wrap ).length,
+			switchEditors 	= [];
+
+		// Check limit
+		if( countItems >= fieldObject.limit )
 		{
-			new_item.find('tr').each(function() {
+			alert( 'Limit reached!' );
+			return false;
+		}
+
+		// Dealing with bundles
+		if( isBundle )
+		{
+			newItem.find('tr').each(function() {
 
 				var cuztom_input = $(this).find('.cuztom-input');
 
@@ -226,21 +236,27 @@ jQuery( function( $ ) {
 					var mode = 'html';
 					if( $(this).find('.wp-editor-wrap').hasClass('tmce-active') )
 						mode = 'tmce';
-					switch_editors.push({'id': new_id, 'mode': mode});
+					switchEditors.push({'id': new_id, 'mode': mode});
 				}
 			});
-		}	
+		}
+		
+		// Dealing with repeatable
+		else
+		{
+
+		}
 		
 		// Reset data
-		new_item.find('.cuztom-input, select, textarea').val('').removeAttr('selected');
-		new_item.find('.js-cuztom-remove-media').remove();
-		new_item.find('.cuztom-preview').html('');
+		newItem.find('.cuztom-input, select, textarea').val('').removeAttr('selected');
+		newItem.find('.js-cuztom-remove-media').remove();
+		newItem.find('.cuztom-preview').html('');
 
 		// Add the new item
-		new_item.appendTo( wrap );
+		newItem.appendTo( wrap );
 
 		// Add events to the new item
-		cuztomEvents(new_item);
+		cuztomEvents(newItem);
 		
 		// Add new handler and remover if necessary
 		$('.js-cuztom-sortable-item', parent).each(function( index, item ) {
@@ -249,8 +265,8 @@ jQuery( function( $ ) {
 		});
 
 		// Switch editors
-		for( var i = 0; i < switch_editors.length; i++ )
-			switchEditors.go( switch_editors[i]['id'], switch_editors[i]['mode'] );
+		for( var i = 0; i < switchEditors.length; i++ )
+			switchEditors.go( switchEditors[i]['id'], switchEditors[i]['mode'] );
 		
 		return false;
 	});

@@ -5,7 +5,7 @@
 .cuztom .cuztom-divider td{ padding: 0; }
 .cuztom .cuztom-divider hr{ margin-left: -10px; margin-right: -12px; border: 0; border-bottom: 1px solid #dfdfdf; box-shadow: 0 1px 0 #fff; }
 .cuztom .cuztom-box-description{ padding: 0 12px 10px 10px; margin-left: -10px; margin-right: -12px; border-bottom: 1px solid #dfdfdf; box-shadow: 0 1px 0 #fff; font-style: italic; line-height: 1.5; }
-.cuztom .cuztom-label{ font-weight: bold; line-height: 1; }
+.cuztom .cuztom-label{ font-size: 12px; font-weight: bold; line-height: 1; }
 .cuztom .cuztom-required{ color: red; }
 .cuztom .cuztom-field-description,
 .cuztom .cuztom-field-explanation{ font-size: 10px; font-style: italic; font-weight: normal; color: #999; }

@@ -6,10 +6,12 @@ class Cuztom_Bundle
 {
 	var $id;
 	var $meta_type;
-	var $underscore 			= true;
-	
+	var $type 					= 'bundle';
 	var $fields 				= array();
-	var $default_value 			= '';
+	
+	var $args 					= true;
+	var $underscore 			= true;
+	var $limit 					= null;
 
 	/**
 	 * Construct for bundle
@@ -24,8 +26,9 @@ class Cuztom_Bundle
 	function __construct( $args, $parent )
 	{
 		// Bundle args
-		$this->default_value	= isset( $args['default_value'] ) 	? 	$args['default_value'] 			: $this->default_value;
-		$this->underscore		= isset( $args['underscore'] ) 		? 	$args['underscore'] 			: $this->underscore;
+		$this->args				= isset( $args['args'] ) 			? 	$args['args'] 			: $this->args;
+		$this->underscore		= isset( $args['underscore'] ) 		? 	$args['underscore'] 	: $this->underscore;
+		$this->limit			= isset( $args['limit'] ) 			? 	$args['limit'] 			: $this->limit;
 		
 		// Bundle id
 		$this->id  				= $this->build_id( $args['id'], $parent );

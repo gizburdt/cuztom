@@ -77,7 +77,7 @@ class Cuztom_Meta
 							if( $divider ) echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>'; else $divider = true;
 
 							echo '<tr class="cuztom-tr">';
-								echo '<td class="cuztom-td" colspan="2">';
+								echo '<td class="cuztom-td js-field-selector" id="' . $field->id . '" colspan="2">';
 									$field->output( $object );
 								echo '</td>';
 							echo '</tr>';
