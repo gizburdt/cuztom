@@ -46,7 +46,7 @@ jQuery( function( $ ) {
 	$('body').on( 'click', '.js-cuztom-upload', function()
 	{
 		var that			= $(this),
-			selector		= that.closest('.js-field-selector'),
+			selector		= that.closest('.js-cuztom-field-selector'),
 			fieldID 		= selector.attr('id'),
 			fieldObject 	= window['Cuztom_' + fieldID],
 			type 			= fieldObject.type,
@@ -128,15 +128,15 @@ jQuery( function( $ ) {
 	});
 
 	// Remove sortable
-	$('.body').on( 'click', '.js-cuztom-remove-sortable', function() 
+	$('body').on( 'click', '.js-cuztom-remove-sortable', function()
 	{
-		var that 		= $( this ),
+		var that 		= $(this),
 			field 		= that.closest('.js-cuztom-sortable-item'),
 			wrap 		= that.closest('.js-cuztom-sortable'),
-			fields 		= $( '.js-cuztom-sortable-item', wrap ).length;
+			fields 		= wrap.find('.js-cuztom-sortable-item').length;
 		
 		if( fields > 1 ) { field.remove(); }
-		if( fields == 2 ){ $( '.js-cuztom-sortable-item', wrap ).find('.js-cuztom-remove-sortable').remove(); }
+		if( fields == 2 ){ wrap.find('.js-cuztom-sortable-item').find('.js-cuztom-remove-sortable').remove(); }
 
 		return false;
 	});		
@@ -145,7 +145,7 @@ jQuery( function( $ ) {
 	$('body').on( 'click', '.js-cuztom-add-sortable', function() 
 	{
 		var that			= $(this),
-			selector		= that.closest('.js-field-selector'),
+			selector		= that.closest('.js-cuztom-field-selector'),
 			fieldID 		= selector.attr('id'),
 			fieldObject 	= window['Cuztom_' + fieldID],
 			wrap 			= $( '.js-cuztom-sortable', selector ),
@@ -167,13 +167,18 @@ jQuery( function( $ ) {
 		// Dealing with bundles
 		if( isBundle )
 		{
-			newItem.find('tr').each(function() {
+			newItem.find('.cuztom-tr').each(function() {
 
-				var cuztom_input = $(this).find('.cuztom-input');
+				var row				= $(this),
+					selector 		= row.find('.js-cuztom-field-selector'),
+					cuztomInput 	= $('.cuztom-input', selector),
+					fieldID 		= selector.attr('id'),
+					fieldObject 	= window['Cuztom_' + fieldID];
 
 				// Checkboxes and radios to default value
-				if( cuztom_input.attr('type') == 'checkbox' || cuztom_input.attr('type') == 'radio' ) {
-					cuztom_input.each(function() {
+				if( fieldObject.type == 'checkbox' || fieldObject.type == 'radio' ) 
+				{
+					cuztomInput.each(function() {
 						$(this).removeAttr('checked').prop('checked', false);
 
 						var default_value = $(this).closest('.cuztom-checkboxes-wrap').data('default-value');
@@ -183,27 +188,30 @@ jQuery( function( $ ) {
 				}
 
 				// Wysiwyg
-				if( cuztom_input.hasClass('wp-editor-area') ) {
-					var last_id = cuztom_input.attr('id'), last_name = cuztom_input.attr('name');
+				if( fieldObject.type == 'wysiwyg' ) 
+				{
+					var last_id = cuztomInput.attr('id'), last_name = cuztomInput.attr('name');
 					$(this).find('span.mceEditor').remove();
-					cuztom_input.show();
+					cuztomInput.show();
 				}
 
 				// New name and id attributes
-				cuztom_input.attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return '[' + ( Number(n) + 1 ) + ']'; });}).attr('id', function( i, val ) { return val.replace( /\_(\d+)/, function( match, n ) { return '_' + ( Number(n) + 1 ); })}).removeClass('hasDatepicker');
+				cuztomInput.attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return '[' + ( Number(n) + 1 ) + ']'; });}).attr('id', function( i, val ) { return val.replace( /\_(\d+)/, function( match, n ) { return '_' + ( Number(n) + 1 ); })}).removeClass('hasDatepicker');
 
 				// Set label for new id
-				$(this).find('label').attr('for', cuztom_input.attr('id'));
+				$(this).find('label').attr('for', cuztomInput.attr('id'));
 
 				// Color
-				if( cuztom_input.hasClass('cuztom-colorpicker') ) {
-					cuztom_input.attr('value', '');
-					$(this).find('.cuztom-td').html(cuztom_input.clone( false ));
+				if( fieldObject.type == 'color' ) 
+				{
+					cuztomInput.attr('value', '');
+					$(this).find('.cuztom-td').html(cuztomInput.clone( false ));
 				}
 
 				// Select
-				if( cuztom_input.hasClass('cuztom-select') ) {
-					cuztom_input.each(function() {
+				if( cuztomInput.hasClass('cuztom-select') ) 
+				{
+					cuztomInput.each(function() {
 						var default_value = $(this).data('default-value');
 						$(this).find('option').removeAttr('selected').prop('selected', false);
 						if( default_value != undefined && (default_value + '').length ) {
@@ -216,8 +224,9 @@ jQuery( function( $ ) {
 				}
 
 				// Add new wysiwyg
-				if( cuztom_input.hasClass('wp-editor-area' )) {
-					var new_id = cuztom_input.attr('id'), new_name = cuztom_input.attr('name'), last_id_regexp = new RegExp(last_id, 'g'), last_name_regexp = new RegExp(last_name, 'g');
+				if( fieldObject.type == 'wysiwyg' ) 
+				{
+					var new_id = cuztomInput.attr('id'), new_name = cuztomInput.attr('name'), last_id_regexp = new RegExp(last_id, 'g'), last_name_regexp = new RegExp(last_name, 'g');
 					$(this).html( $(this).html().replace( last_name_regexp, new_name ).replace( last_id_regexp, new_id ) );
 
 					// Clone tinyMCEPreInit.mceInit object
@@ -227,7 +236,7 @@ jQuery( function( $ ) {
 
 					// Clone QTags instance
 					QTags.instances[new_id] = QTags.instances[last_id];
-					QTags.instances[new_id].canvas = cuztom_input[0];
+					QTags.instances[new_id].canvas = cuztomInput[0];
 					QTags.instances[new_id].id = new_id;
 					QTags.instances[new_id].settings.id = new_id;
 					QTags.instances[new_id].name = 'qt_' + new_id;
