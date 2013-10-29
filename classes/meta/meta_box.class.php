@@ -40,7 +40,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			$this->context		= $context;
 			$this->priority		= $priority;
 
-			// Chack if the class, function or method exist, otherwise use cuztom callback
+			// Check if the class, function or method exist, otherwise use cuztom callback
 			if( Cuztom::is_wp_callback( $data ) )
 			{
 				$this->callback = $data;

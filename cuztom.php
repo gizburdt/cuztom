@@ -198,8 +198,9 @@ class Cuztom_Initializer
 			'ajax_url'			=> admin_url( 'admin-ajax.php' ),
 			'date_format'		=> get_option( 'date_format' ),
 			'wp_version'		=> get_bloginfo( 'version' ),
-			'remove_image'		=> __( 'Remove current image', 'cuztom' ),
-			'remove_file'		=> __( 'Remove current file', 'cuztom' )
+			'translations'		=> array(
+				'limit_reached'		=> __( 'Limit reached!', 'cuztom' )
+			)
 		) );
 	}
 

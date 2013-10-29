@@ -40,31 +40,26 @@ jQuery( function( $ ) {
 		$('.js-cuztom-sortable', object).sortable({
 			handle: '.cuztom-handle-sortable a'
 		});
-	})('body');
+	})(document);
 
 	// Upload image
-	$('body').on( 'click', '.js-cuztom-upload', function()
+	$(document).on( 'click', '.js-cuztom-upload', function()
 	{
 		var that			= $(this),
 			selector		= that.closest('.js-cuztom-field-selector'),
 			fieldID 		= selector.attr('id'),
 			fieldObject 	= window['Cuztom_' + fieldID],
+			parent 			= selector,
 			type 			= fieldObject.type,
 			hidden 			= $( '.cuztom-hidden', selector ),
 			preview 		= $( '.cuztom-preview', selector ),
 			_cuztom_uploader;
 
-		console.log(fieldObject);
-
 		// Set preview size
-		try 
-		{
-			preview_size  	= $.parseJSON( fieldObject.args.preview_size );
-		}
-		catch(e) 
-		{
-			preview_size  	= that.data('cuztom-media-preview-size');
-		}
+		if( fieldObject.args.preview_size )
+			previewSize  	= fieldObject.args.preview_size;
+		else
+			previewSize 	= 'medium';
 
 		// Fire!
 		if( _cuztom_uploader ) 
@@ -75,7 +70,8 @@ jQuery( function( $ ) {
 
     	// Extend the wp.media object
         _cuztom_uploader = wp.media.frames.file_frame = wp.media({
-            multiple: false,
+            multiple: 	false,
+            type:  		type
         });
 
         // Send the data to the fields
@@ -83,19 +79,18 @@ jQuery( function( $ ) {
         	attachment = _cuztom_uploader.state().get('selection').first().toJSON();
 
         	// (Re)set the remove button
-        	$('.js-cuztom-remove-media', parent).remove();
-        	that.after('<a href="#" class="js-cuztom-remove-media cuztom-remove-media">' + ( type == 'image' ? Cuztom.remove_image : Cuztom.remove_file ) + '</a> ');
+        	parent.find('.js-cuztom-remove-media').remove();
+        	that.after('<a href="#" class="js-cuztom-remove-media cuztom-remove-media"></a>');
 
         	// Send an id or url to the field and set the preview
         	if( type == 'image' )
 			{
-				console.log( attachment );
-				var thumbnail = preview_size && !$.isArray(preview_size) && attachment.sizes[preview_size] ? attachment.sizes[preview_size] : ( attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full );
-				if( $.isArray( preview_size ) ) {
-					if( parseInt( preview_size[0] ) > 0 )
-						thumbnail.width = parseInt( preview_size[0] );
-					if( parseInt( preview_size[1] ) > 0 )
-						thumbnail.height = parseInt( preview_size[1] );
+				var thumbnail = previewSize && !$.isArray(previewSize) && attachment.sizes[previewSize] ? attachment.sizes[previewSize] : ( attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full );
+				if( $.isArray( previewSize ) ) {
+					if( parseInt( previewSize[0] ) > 0 )
+						thumbnail.width = parseInt( previewSize[0] );
+					if( parseInt( previewSize[1] ) > 0 )
+						thumbnail.height = parseInt( previewSize[1] );
 				}
 
 				preview.html('<img src="' + thumbnail.url + '" height="' + thumbnail.height + '" width="' + thumbnail.width + '" />')
@@ -109,18 +104,18 @@ jQuery( function( $ ) {
     	});
 
     	_cuztom_uploader.open();
-
 		return false;
 	});
 
 	// Remove current attached image
-	$('body').on( 'click', '.js-cuztom-remove-media', function()
+	$(document).on( 'click', '.js-cuztom-remove-media', function()
 	{
-		var that 	= $(this),
-			parent 	= that.closest('.cuztom-td, .form-field');
+		var that 		= $(this),
+			selector 	= that.closest('.js-cuztom-field-selector'),
+			parent 		= selector;
 
-		$( '.cuztom-preview', parent ).html('');
-		$( '.cuztom-hidden', parent ).val('');
+		parent.find( '.cuztom-preview').html('');
+		parent.find( '.cuztom-hidden').val('');
 		
 		that.hide();
 		
@@ -128,7 +123,7 @@ jQuery( function( $ ) {
 	});
 
 	// Remove sortable
-	$('body').on( 'click', '.js-cuztom-remove-sortable', function()
+	$(document).on( 'click', '.js-cuztom-remove-sortable', function()
 	{
 		var that 		= $(this),
 			field 		= that.closest('.js-cuztom-sortable-item'),
@@ -142,7 +137,7 @@ jQuery( function( $ ) {
 	});		
 	
 	// Add sortable
-	$('body').on( 'click', '.js-cuztom-add-sortable', function() 
+	$(document).on( 'click', '.js-cuztom-add-sortable', function() 
 	{
 		var that			= $(this),
 			selector		= that.closest('.js-cuztom-field-selector'),
@@ -160,7 +155,7 @@ jQuery( function( $ ) {
 		// Check limit
 		if( countItems >= fieldObject.limit )
 		{
-			alert( 'Limit reached!' );
+			alert( Cuztom.translations.limit_reached );
 			return false;
 		}
 

@@ -15,7 +15,7 @@ class Cuztom_Field_Image extends Cuztom_Field
 
 		if( ! empty( $value ) )
 		{
-			$url = wp_get_attachment_image_src( $value, ! empty( $this->args["preview_size"] ) ? $this->args["preview_size"] : apply_filters( 'cuztom_preview_size', 'medium' ) );
+			$url = wp_get_attachment_image_src( $value, ( ! empty( $this->args["preview_size"] ) ? $this->args["preview_size"] : apply_filters( 'cuztom_preview_size', 'medium' ) ) );
 			$url = $url[0];
 			$image  = '<img src="' . $url . '" />';
 		}
