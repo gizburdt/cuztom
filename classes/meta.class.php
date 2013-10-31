@@ -60,27 +60,31 @@ class Cuztom_Meta
 		$data 		= $this->data;
 		$meta_type 	= $this->get_meta_type();
 		$object_id 	= $this->get_object_id( $object );
-		$divider 	= false;
 
 		if( ! empty( $data ) )
 		{
 			echo '<input type="hidden" name="cuztom[__activate]" />';
 			echo '<div class="cuztom cuztom-' . $meta_type . '-meta cuztom-meta-' . $object_id . '" data-object-id="' . $object_id . '" data-meta-type="' . $meta_type . '">';
-
-				if( ! empty( $this->description ) ) echo '<p class="cuztom-box-description">' . $this->description . '</p>';
-
 				echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table cuztom-main-table">';
+					if( ! empty( $this->description ) ) 
+					{
+						echo '<tr><td colspan="2"><div class="cuztom-box-description">' . $this->description . '</div></td></tr>';
+						echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
+					}
+
 					foreach( $data as $id => $field )
 					{
 						if( ( $field instanceof Cuztom_Tabs ) || ( $field instanceof Cuztom_Accordion ) || ( $field instanceof Cuztom_Bundle ) )
 						{
-							if( $divider ) echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>'; else $divider = true;
+							echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
 
 							echo '<tr class="cuztom-tr">';
 								echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $field->id . '" colspan="2">';
 									$field->output( $object );
 								echo '</td>';
 							echo '</tr>';
+
+							echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
 						}
 						else
 						{
@@ -232,7 +236,7 @@ class Cuztom_Meta
 				// Tabs / accordion
 				if( is_string( $type ) && ( $type == 'tabs' || $type == 'accordion' ) )
 				{
-					$tabs 				= $type == 'tabs' ? new Cuztom_Tabs( $this->id, $field['args'] ) : new Cuztom_Accordion( $this->id, $field['args'] );
+					$tabs 				= $type == 'tabs' ? new Cuztom_Tabs( $field, $this->id ) : new Cuztom_Accordion( $field, $this->id );
 					$tabs->meta_type 	= $this->get_meta_type();
 
 					foreach( $field['fields'] as $title => $fields )
@@ -270,8 +274,8 @@ class Cuztom_Meta
 				// Bundle
 				elseif( is_string( $type ) && $type == 'bundle' )
 				{
-					$args 		= array_merge( array( 'id' => $field['id'] ), (array) $field['args'] );
-					$bundle 	= new Cuztom_Bundle( $args, $this->id );
+					$field 		= array_merge( array( 'id' => $field['id'] ), (array) $field );
+					$bundle 	= new Cuztom_Bundle( $field, $this->id );
 
 					foreach( $field['fields'] as $type => $field )
 					{

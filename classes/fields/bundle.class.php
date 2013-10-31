@@ -26,7 +26,6 @@ class Cuztom_Bundle
 	function __construct( $args, $parent )
 	{
 		// Bundle args
-		$this->args				= isset( $args['args'] ) 			? 	$args['args'] 			: $this->args;
 		$this->underscore		= isset( $args['underscore'] ) 		? 	$args['underscore'] 	: $this->underscore;
 		$this->limit			= isset( $args['limit'] ) 			? 	$args['limit'] 			: $this->limit;
 		
@@ -228,16 +227,16 @@ class Cuztom_Bundle
 				$values[$row][$id] = $this->fields[$id]->save_value( $value );
 		}
 
-		if( $this->meta_type == 'user' )
-		{
-			delete_user_meta( $object_id, $this->id );		
-			update_user_meta( $object_id, $this->id, $values );
-		}
-		else
-		{
-			delete_post_meta( $object_id, $this->id );
-			update_post_meta( $object_id, $this->id, $values );
-		}
+		switch( $this->meta_type ) :
+			case 'user' :
+				delete_user_meta( $object_id, $this->id );		
+				update_user_meta( $object_id, $this->id, $values );
+			break;
+			default :
+				delete_post_meta( $object_id, $this->id );
+				update_post_meta( $object_id, $this->id, $values );
+			break;
+		endswitch;
 
 		// TODO: Term meta
 	}
