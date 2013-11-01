@@ -276,28 +276,25 @@ jQuery( function( $ ) {
 	});
 
 	// Ajax save
-	$('.cuztom-td').on( 'click', '.js-cuztom-ajax-save', function()
+	$(document).on( 'click', '.js-cuztom-ajax-save', function()
 	{
-		var that		= $(this),
-			parent		= that.closest('.cuztom-td'),
-			cuztom 		= parent.closest('.cuztom'),
-			input 		= $('.cuztom-input', parent),
-			field_id 	= input.attr('id'),
-			value		= input.val(),
-
-			// Needs better handling
-			meta_type 	= cuztom.data('meta-type'),
-			object_id	= cuztom.data('object-id');
+		var that			= $(this),
+			selector		= that.closest('.js-cuztom-field-selector'),
+			fieldID 		= selector.attr('id'),
+			fieldObject 	= window['Cuztom_' + fieldID],
+			parent 			= selector,
+			cuztom 			= parent.closest('.cuztom'),
+			objectID		= cuztom.data('object-id'),
+			input 			= parent.find('.cuztom-input'),
+			value			= input.val();
 
 		var data = {
 			action: 	'cuztom_field_ajax_save',
 			cuztom: 	{
 				value: 		value,
-				field_id: 	field_id,
-
-				// Needs better handling
-				meta_type:  meta_type,
-				object_id: 	object_id
+				id: 		fieldObject.id,
+				meta_type: 	fieldObject.meta_type,
+				object_id: 	objectID,
 			}
 		};
 
