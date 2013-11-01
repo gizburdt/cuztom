@@ -238,7 +238,7 @@ class Cuztom_Initializer
 		}
 		else
 		{
-			return $this->get_cuztom_url( $path, $url );
+			return apply_filters( 'cuztom_url', $this->get_cuztom_url( $path, $url ) );
 		}
 	}
 }

@@ -177,30 +177,6 @@ class Cuztom_Field
 	}
 
 	/**
-	 * Save meta
-	 * 
-	 * @param  	int 			$object_id
-	 * @param  	string 			$value
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since  	1.6.2
-	 * 
-	 */
-	function save( $object_id, $value )
-	{
-		$value = $this->save_value( $value );
-
-		if( $this->is_meta_type( 'user' ) )
-			update_user_meta( $object_id, $this->id, $value );
-		elseif( $this->is_meta_type( 'post' ) )
-			update_post_meta( $object_id, $this->id, $value );
-		elseif( $this->is_meta_type( 'term' ) )
-			return $value;
-
-		return false;
-	}
-
-	/**
 	 * Output save value
 	 * 
 	 * @param  	string 			$value
@@ -215,6 +191,35 @@ class Cuztom_Field
 	}
 
 	/**
+	 * Save meta
+	 * 
+	 * @param  	int 			$object_id
+	 * @param  	string 			$value
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since  	1.6.2
+	 * 
+	 */
+	function save( $object_id, $value )
+	{
+		$value = $this->save_value( $value );
+
+		switch( $this->get_meta_type() ):
+			case 'user' :
+				update_user_meta( $object_id, $this->id, $value ); 	
+			break;
+			case 'term' :
+				return $value;
+			break;
+			case 'post' : default :
+				update_post_meta( $object_id, $this->id, $value );
+			break;
+		endswitch;			
+
+		return false;
+	}
+
+	/**
 	 * Saves an ajax field
 	 * 
 	 * @author  Gijs Jorissen
@@ -226,7 +231,7 @@ class Cuztom_Field
 		if( $_POST['cuztom'] )
 		{
 			$object_id	= $_POST['cuztom']['object_id'];
-			$id_field	= $_POST['cuztom']['field_id'];
+			$id			= $_POST['cuztom']['id'];
 			$value 		= $_POST['cuztom']['value'];
 			$meta_type 	= $_POST['cuztom']['meta_type'];
 
@@ -234,9 +239,9 @@ class Cuztom_Field
 				die();
 
 			if( $meta_type == 'user' )
-				update_user_meta( $object_id, $field_id, $value );
+				update_user_meta( $object_id, $id, $value );
 			elseif( $meta_type == 'post' )
-				update_post_meta( $object_id, $field_id, $value );
+				update_post_meta( $object_id, $id, $value );
 		}
 
 		// For Wordpress
@@ -252,7 +257,7 @@ class Cuztom_Field
 	 */
 	function output_name( $overwrite = null )
 	{
-		return $overwrite ? 'name="' . $overwrite . '"' : 'name="cuztom' . $this->pre . '[' . $this->id . ']' . $this->after . '"';
+		return apply_filters( 'cuztom_field_output_name', ( $overwrite ? 'name="' . $overwrite . '"' : 'name="cuztom' . $this->pre . '[' . $this->id . ']' . $this->after . '"' ), $overwrite, $this );
 	}
 
 	/**
@@ -264,7 +269,7 @@ class Cuztom_Field
 	 */
 	function output_id( $overwrite = null )
 	{
-		return $overwrite ? 'id="' . $overwrite . '"' : 'id="' . $this->pre_id . $this->id . $this->after_id . '"';
+		return apply_filters( 'cuztom_field_output_id', ( $overwrite ? 'id="' . $overwrite . '"' : 'id="' . $this->pre_id . $this->id . $this->after_id . '"' ), $overwrite, $this );
 	}
 
 	/**
@@ -280,7 +285,7 @@ class Cuztom_Field
 	{
 		$classes = array_merge( $this->css_classes, $extra );
 
-		return 'class="' . implode( ' ', $classes ) . '"';
+		return apply_filters( 'cuztom_field_output_css_classes', ( 'class="' . implode( ' ', $classes ) . '"' ), $extra, $this );
 	}
 
 	/**
@@ -304,7 +309,7 @@ class Cuztom_Field
 				$output .= 'data-' . $attribute . '="' . $this->args[Cuztom::uglify( $attribute )] . '"';
 		}
 
-		return $output;
+		return apply_filters( 'cuztom_field_output_data_attributes', $output, $extra, $this );
 	}
 
 	/**
@@ -316,7 +321,7 @@ class Cuztom_Field
 	 */
 	function output_for_attribute( $for = null )
 	{
-		return $for ? 'for="' . $for . '"' : '';
+		return apply_filters( 'cuztom_field_output_for_attribute', ( $for ? 'for="' . $for . '"' : '' ), $for, $this );
 	}
 
 	/**
@@ -328,7 +333,7 @@ class Cuztom_Field
 	 */
 	function output_explanation()
 	{
-		return ( ! $this->is_repeatable() && $this->explanation ? '<em class="cuztom-field-explanation">' . $this->explanation . '</em>' : '' );
+		return apply_filters( 'cuztom_field_output_explanation', ( ! $this->is_repeatable() && $this->explanation ? '<em class="cuztom-field-explanation">' . $this->explanation . '</em>' : '' ), $this );
 	}
 
 	/**
@@ -347,8 +352,6 @@ class Cuztom_Field
 
 	/**
 	 * Check if the field is in ajax mode
-	 * 
-	 * @return  string
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	3.0
@@ -361,8 +364,6 @@ class Cuztom_Field
 
 	/**
 	 * Check if the field is in repeatable mode
-	 * 
-	 * @return  string
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	3.0
@@ -373,6 +374,13 @@ class Cuztom_Field
 		return $this->repeatable && $this->_supports_repeatable;
 	}
 
+	/**
+	 * Localize the field object
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 * 
+	 */
 	function localize()
 	{
 		wp_localize_script( 'cuztom', 'Cuztom_' . $this->id, (array) $this );
@@ -391,6 +399,6 @@ class Cuztom_Field
 	 */
 	function build_id( $name, $parent )
 	{		
-		return apply_filters( 'cuztom_build_id',  ( $this->underscore && ( strpos( $parent, '_', 0 ) !== 0 ) ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
+		return apply_filters( 'cuztom_field_build_id',  ( $this->underscore && ( strpos( $parent, '_', 0 ) !== 0 ) ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
 	}
 }

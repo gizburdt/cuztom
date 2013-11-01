@@ -62,7 +62,7 @@ class Cuztom
 	 */
 	static function pluralize( $string )
 	{
-		$plural = array(
+		$plural = apply_filters( 'cuztom_plural', array(
             array( '/(quiz)$/i',               "$1zes"   ),
         	array( '/^(ox)$/i',                "$1en"    ),
         	array( '/([m|l])ouse$/i',          "$1ice"   ),
@@ -81,17 +81,17 @@ class Cuztom
             array( '/(ax|test)is$/i',          "$1es"    ),
             array( '/s$/i',                    "s"       ),
             array( '/$/',                      "s"       )
-        );
+        ) );
 
-        $irregular = array(
+        $irregular = apply_filters( 'cuztom_irregular', array(
 	        array( 'move',   'moves'    ),
 	        array( 'sex',    'sexes'    ),
 	        array( 'child',  'children' ),
 	        array( 'man',    'men'      ),
 	        array( 'person', 'people'   )
-        );
+        ) );
 
-        $uncountable = array( 
+        $uncountable = apply_filters( 'cuztom_uncountable', array( 
 	        'sheep', 
 	        'fish',
 	        'series',
@@ -100,7 +100,7 @@ class Cuztom
 	        'rice',
 	        'information',
 	        'equipment'
-        );
+        ) );
 
         // Save time if string in uncountable
         if ( in_array( strtolower( $string ), $uncountable ) )
@@ -153,7 +153,7 @@ class Cuztom
 	 */
 	static function is_reserved_term( $term )
 	{
-	    if( ! in_array( $term, self::$_reserved ) ) return false;
+		if( ! in_array( $term, apply_filters( 'cuztom_reserved_terms', self::$reserved ) ) ) return false;
 	    
 	    return new WP_Error( 'reserved_term_used', __( 'Use of a reserved term.', 'cuztom' ) );
 	}
