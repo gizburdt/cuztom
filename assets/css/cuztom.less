@@ -2,6 +2,7 @@
 .cuztom-table{ width: 100%; margin: 0; }
 
 /* General */
+.cuztom .cuztom-td{ position: relative; }
 .cuztom .cuztom-divider td{ padding: 0; }
 .cuztom .cuztom-divider hr{ margin-left: -10px; margin-right: -12px; border: 0; border-bottom: 1px solid #dfdfdf; box-shadow: 0 1px 0 #fff; }
 .cuztom .cuztom-divider + .cuztom-divider,
@@ -11,10 +12,11 @@
 .cuztom .cuztom-required{ color: red; }
 .cuztom .cuztom-field-description,
 .cuztom .cuztom-field-explanation{ font-size: 10px; font-style: italic; font-weight: normal; color: #999; }
-.cuztom .cuztom-field-explanation{ display: block; }
-.cuztom .cuztom-input{ margin-right: 3px; }
+.cuztom .cuztom-field-explanation{ display: block; float: left; }
+.cuztom .cuztom-input{ margin-right: 3px; display: inline-block; vertical-align: middle; }
 .cuztom .cuztom-input-text,
-.cuztom .cuztom-textarea{ width: 80%; margin: 0; }
+.cuztom .cuztom-textarea{ width: 80%; min-height: 24px; }
+.cuztom .cuztom-ajax-save{ display: inline-block; vertical-align: middle; }
 
 /* Post meta */
 .cuztom-post-meta .cuztom-th{ padding-left: 0; }
@@ -27,7 +29,7 @@
 .cuztom .cuztom-tabs .ui-tabs-nav a{ color: #21759b; padding: 5px 10px; outline: none; }
 .cuztom .cuztom-tabs .ui-tabs-nav a:hover{ color: #d54e21; }
 .cuztom .cuztom-tabs .ui-tabs-panel{ background: #fff; border: 1px solid #ddd; -webkit-border-radius: 0 3px 3px 3px; border-radius: 0 3px 3px 3px; font-size: 12px; padding: 10px; }
-.cuztom .cuztom-tabs .cuztom-td{ padding-left: 0; }
+.cuztom .cuztom-tabs .cuztom-td{ padding-left: 0; position: relative; }
 
 /* Accordion */
 .cuztom .cuztom-accordion{ margin-left: -10px; margin-right: -10px; border: 1px solid #ddd; box-shadow: 0 1px 0 #fff; -webkit-border-radius: 3px; border-radius: 3px; }
