@@ -158,9 +158,9 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		
 		if( $this->fields )
 		{
-			foreach( $this->fields as $id_name => $field )
+			foreach( $this->fields as $id => $field )
 			{
-				if( $column == $id_name )
+				if( $column == $id )
 				{
 					if( $field->repeatable && $field->_supports_repeatable )
 					{
