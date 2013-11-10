@@ -25,12 +25,12 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	 * @since   1.5
 	 * 
 	 */
-	function __construct( $id, $title, $locations, $data = array() )
+	function __construct( $id, $title, $data = array(), $locations = array( 'show_user_profile', 'edit_user_profile' ) )
 	{
 		parent::__construct( $title );
 
 		$this->id 			= $id;
-		$this->locations	= array( 'show_user_profile', 'edit_user_profile' );
+		$this->locations 	= $locations;
 
 		// Chack if the class, function or method exist, otherwise use cuztom callback
 		if( Cuztom::is_wp_callback( $data ) )
@@ -67,7 +67,7 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	{
 		echo '<h3>' . $this->title . '</h3>';
 
-		parent::callback( $user, $data );
+		parent::callback( $user, $this->data );
 	}
 
 	/**

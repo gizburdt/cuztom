@@ -204,7 +204,7 @@ class Cuztom_Field
 	{
 		$value = $this->save_value( $value );
 
-		switch( $this->get_meta_type() ):
+		switch( $this->meta_type ):
 			case 'user' :
 				update_user_meta( $object_id, $this->id, $value ); 	
 			break;
