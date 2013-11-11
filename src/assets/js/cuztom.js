@@ -2,7 +2,7 @@ jQuery.noConflict();
 jQuery( function( $ ) {
 
 	var cuztomEvents;
-	(cuztomEvents = function( object ) 
+	(cuztomEvents = function(object)
 	{
 		object = $(object);
 
@@ -49,10 +49,10 @@ jQuery( function( $ ) {
 			selector		= that.closest('.js-cuztom-field-selector'),
 			fieldID 		= selector.attr('id'),
 			fieldObject 	= window['Cuztom_' + fieldID],
-			parent 			= selector,
 			type 			= fieldObject.type,
-			hidden 			= $( '.cuztom-hidden', selector ),
-			preview 		= $( '.cuztom-preview', selector ),
+			parent 			= that.parent(),
+			hidden 			= $( '.cuztom-hidden', parent ),
+			preview 		= $( '.cuztom-preview', parent ),
 			_cuztom_uploader;
 
 		// Set preview size
