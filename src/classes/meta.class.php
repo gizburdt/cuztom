@@ -206,6 +206,13 @@ class Cuztom_Meta
 		return $this->get_meta_type() == $meta_type;
 	}
 
+	/**
+	 * Get object ID
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 * 
+	 */
 	function get_object_id()
 	{
 		if( isset( $_GET['post'] ) ) :
@@ -217,8 +224,19 @@ class Cuztom_Meta
 		else :
 			return null;
 		endif;
+
+		// TODO: Use get_current_screen()
 	}
 
+	/**
+	 * Get value bases on field id
+	 * 
+	 * @return  field
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 * 
+	 */
 	function get_meta_value( $field )
 	{
 		switch( $this->get_meta_type() ) :
@@ -235,6 +253,8 @@ class Cuztom_Meta
 				return false;
 				break;
 		endswitch;
+
+		// TODO: Use global getters, so we get a complete array with all values
 	}
 
 	/**
