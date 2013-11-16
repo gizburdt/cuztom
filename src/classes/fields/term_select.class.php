@@ -9,7 +9,6 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 	var $_supports_bundle		= true;
 	
 	var $dropdown;
-	var $value;
 
 	function __construct( $field, $parent )
 	{
@@ -28,11 +27,11 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 		$this->args['echo']		= 0;
 	}
 
-	function _output( $value )
+	function _output()
 	{
 		$this->args['name'] 	= 'cuztom' . $this->pre . '[' . $this->id . ']' . $this->after . ( $this->repeatable ? '[]' : '' );
 		$this->args['id']		= $this->id . $this->after_id;
-		$this->args['selected'] = ( ! empty( $value ) ? $value : $this->default_value );
+		$this->args['selected'] = ( ! empty( $this->value ) ? $this->value : $this->default_value );
 		$this->dropdown 		= wp_dropdown_categories( $this->args );
 
 		$output = $this->dropdown;

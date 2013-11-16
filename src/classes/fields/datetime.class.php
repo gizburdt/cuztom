@@ -18,9 +18,9 @@ class Cuztom_Field_Datetime extends Cuztom_Field
 		$this->data_attributes['time-format'] = $this->parse_date_format( isset( $this->args['time_format'] ) ? $this->args['time_format'] : 'H:i' );
 	}
 
-	function _output( $value )
+	function _output()
 	{
-		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $value ) ? ( isset( $this->args['date_format'] ) && isset( $this->args['time_format'] ) ? date( $this->args['date_format'] . ' ' .  $this->args['time_format'], $value ) : date( 'm/d/Y H:i', $value ) ) : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation(); }
+		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $this->value ) ? ( isset( $this->args['date_format'] ) && isset( $this->args['time_format'] ) ? date( $this->args['date_format'] . ' ' .  $this->args['time_format'], $this->value ) : date( 'm/d/Y H:i', $this->value ) ) : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation(); }
 
 	function save_value( $value )
 	{

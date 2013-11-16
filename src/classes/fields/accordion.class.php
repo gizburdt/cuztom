@@ -4,14 +4,15 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Accordion extends Cuztom_Tabs
 {
-	function output( $object )
+	function output( $args = array() )
 	{
-		$tabs 	= $this->tabs;
+		$tabs 			= $this->tabs;
+		$args['type'] 	= 'accordion';
 
 		echo '<div class="js-cuztom-accordion cuztom-accordion cuztom-bundles-' . $this->id . '">';
 			foreach( $tabs as $title => $tab )
 			{
-				$tab->output( $object, 'accordion' );
+				$tab->output( $args );
 			}
 		echo '</div>';
 	}

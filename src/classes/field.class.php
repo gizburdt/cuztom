@@ -25,6 +25,9 @@ class Cuztom_Field
 	var $repeatable 			= false;
 	var $limit					= null;
 	var $ajax 					= false;
+
+	var $object 				= null;
+	var $value 					= null;
 	
 	var $parent					= '';
 	var $meta_type				= '';
@@ -90,62 +93,54 @@ class Cuztom_Field
 	/**
 	 * Outputs a field based on its type
 	 *
-	 * @param 	string|array 	$value
-	 * @return  mixed
-	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	0.2
 	 *
 	 */
-	function output( $value )
+	function output()
 	{
 		if( $this->is_repeatable() )
-			return $this->_repeatable_output( $value );
+			return $this->_repeatable_output();
 		elseif( $this->is_ajax() )
-			return $this->_ajax_output( $value );
+			return $this->_ajax_output();
 		else
-			return $this->_output( $value );
+			return $this->_output();
 	}
 
 	/**
 	 * Output method
 	 * Defaults to a normal text field
 	 *
-	 * @param 	string|array 	$value
-	 * @param   object 			$object
-	 * @return  mixed
+	 * @return  string
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	2.4
 	 *
 	 */
-	function _output( $value )
+	function _output()
 	{
-		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( strlen( $value ) > 0 ? $value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
+		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( strlen( $this->value ) > 0 ? $this->value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
 	}
 
 	/**
 	 * Outputs the field, ready for repeatable functionality
-	 * 
-	 * @param  	string|array 	$value
-	 * @return  mixed 			$output
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   2.0
 	 * 
 	 */
-	function _repeatable_output( $value )
+	function _repeatable_output()
 	{
 		$this->after 	= '[]';
 		$output 		= '';
 		$x 				= 0;
 
-		if( is_array( $value ) )
+		if( is_array( $this->value ) )
 		{
-			foreach( $value as $item )
+			foreach( $this->value as $item )
 			{
 				$x++;
-				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#"></a></div>' . $this->_output( $item ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#"></a></div>' : '' ) . '</li>';
+				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#"></a></div>' . $this->_output( $item ) . ( count( $this->value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#"></a></div>' : '' ) . '</li>';
 
 				if( $x >= $this->limit ) break;
 			}
@@ -160,17 +155,14 @@ class Cuztom_Field
 
 	/**
 	 * Outputs the field, ready for ajax save
-	 * 
-	 * @param  	string|array 	$value
-	 * @return  mixed 			$output
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   2.0
 	 * 
 	 */
-	function _ajax_output( $value )
+	function _ajax_output()
 	{
-		$output 	= $this->_output( $value );
+		$output 	= $this->_output();
 		$output 	.= '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
 
 		return $output;
@@ -200,19 +192,19 @@ class Cuztom_Field
 	 * @since  	1.6.2
 	 * 
 	 */
-	function save( $object_id, $value )
+	function save( $object, $value )
 	{
 		$value = $this->save_value( $value );
 
 		switch( $this->meta_type ):
 			case 'user' :
-				update_user_meta( $object_id, $this->id, $value ); 	
+				update_user_meta( $object, $this->id, $value );
 			break;
 			case 'term' :
 				return $value;
 			break;
 			case 'post' : default :
-				update_post_meta( $object_id, $this->id, $value );
+				update_post_meta( $object, $this->id, $value );
 			break;
 		endswitch;			
 

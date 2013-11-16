@@ -9,13 +9,13 @@ class Cuztom_Field_File extends Cuztom_Field
 
 	var $css_classes 			= array( 'cuztom-hidden', 'cuztom-input' );
 	
-	function _output( $value )
+	function _output()
 	{
 		$output = '';
 
-		if( ! empty( $value ) )
+		if( ! empty( $this->value ) )
 		{
-			$attachment = self::get_attachment_by_url( $value );
+			$attachment = self::get_attachment_by_url( $this->value );
 			$mime = '';
 
 			if( is_object( $attachment ) )
@@ -24,16 +24,16 @@ class Cuztom_Field_File extends Cuztom_Field
 				$name = $attachment->post_title;
 			}
 
-			$file = '<span class="cuztom-mime mime-' . $mime . '"><a target="_blank" href="' . $value . '">' . $name . '</a></span>';
+			$file = '<span class="cuztom-mime mime-' . $mime . '"><a target="_blank" href="' . $this->value . '">' . $name . '</a></span>';
 		}
 		else 
 		{
 			$file = '';
 		}
 	
-		$output .= '<input type="hidden" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $value ) ? $value : '' ) . '" />';
+		$output .= '<input type="hidden" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $this->value ) ? $this->value : '' ) . '" />';
 		$output .= sprintf( '<input id="upload-file-button" type="button" class="button js-cuztom-upload" data-cuztom-media-type="file" value="%s" />', __( 'Select file', 'cuztom' ) );
-		$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media">%s</a>', __( 'Remove current file', 'cuztom' ) ) : '' );
+		$output .= ( ! empty( $this->value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media">%s</a>', __( 'Remove current file', 'cuztom' ) ) : '' );
 
 		$output .= '<span class="cuztom-preview">' . $file . '</span>';
 

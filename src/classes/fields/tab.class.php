@@ -15,26 +15,25 @@ class Cuztom_Tab
 		$this->title 	= Cuztom::beautify( $title );
 	}
 
-	function output( $object, $type )
+	function output( $args = array() )
 	{
-		$fields = $this->fields;
+		$fields 	= $this->fields;
+		$object_id 	= $this->object;
 				
 		// Show header
-		if( $type == 'accordion' ) echo '<h3>' . $this->title . '</h3>';
+		if( $args['type'] == 'accordion' ) echo '<h3>' . $this->title . '</h3>';
 		
 		echo '<div id="' . $this->id . '">';
 
 			if( $fields instanceof Cuztom_Bundle )
 			{
-				$fields->output( $object );
+				$fields->output();
 			}
 			else
 			{
 				echo '<table border="0" cellading="0" cellspacing="0" class="from-table cuztom-table">';
 					foreach( $fields as $id => $field )
 					{
-						$value = $this->meta_type == 'user' ? get_user_meta( $object->ID, $id, true ) : get_post_meta( $object->ID, $id, true );
-
 						if( ! $field instanceof Cuztom_Field_Hidden )
 						{
 							echo '<tr class="cuztom-tr">';
@@ -49,12 +48,12 @@ class Cuztom_Tab
 									{
 										echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
 										echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
-											echo $field->output( $value, $object );
+											echo $field->output();
 										echo '</ul>';
 									}
 									else
 									{
-										echo $field->output( $value, $object );
+										echo $field->output();
 									}
 
 								echo '</td>';
@@ -64,7 +63,7 @@ class Cuztom_Tab
 						}
 						else
 						{
-							echo $field->output( $value, $object );
+							echo $field->output();
 						}
 					}
 				echo '</table>';
@@ -72,7 +71,7 @@ class Cuztom_Tab
 		echo '</div>';
 	}
 
-	function save( $object_id, $values )
+	function save( $object, $values )
 	{
 		foreach( $this->fields as $id => $field )
 		{
@@ -80,7 +79,7 @@ class Cuztom_Tab
 			$value 	= isset( $values[$id] ) ? $values[$id] : '';
 
 			// Save
-			$field->save( $object_id, $value );
+			$field->save( $value );
 		}
 	}
 }

@@ -62,27 +62,9 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 */
 	function add_form_fields( $taxonomy )
 	{
-		echo '<input type="hidden" name="cuztom[__activate]" />';
+		$term = null;
 
-		/* Loop through $data */
-		foreach( $this->data as $id_name => $field )
-		{
-			$value = '';
-
-			if( ! $field instanceof Cuztom_Field_Hidden )
-			{
-				echo '<div class="form-field">';
-					echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
-					echo $field->output( $value );
-
-					if( ! empty( $field->description ) ) echo '<p class="cuztom-description">' . $field->description . '</p>';
-				echo '</div>';
-			}
-			else
-			{
-				echo $field->output( $value );
-			}
-		}
+		parent::callback( $term, $this->data, array( 'taxonomy' => $taxonomy ) );
 	}
 
 	/**
@@ -95,32 +77,9 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 */
 	function edit_form_fields( $term )
 	{
-		$value = get_cuztom_term_meta( $term->term_id, $term->taxonomy );
-
-		echo '<input type="hidden" name="cuztom[__activate]" />';
-
-		/* Loop through $data */
-		foreach( $this->data as $id_name => $field )
-		{
-			$value[$id_name] = isset( $value[$id_name] ) ? $value[$id_name] : '';
-
-			if( ! $field instanceof Cuztom_Field_Hidden )
-			{
-				echo '<tr class="cuztom form-field">';
-					echo '<th scope="row" valign="top">';
-						echo '<label for="' . $id_name . '" class="cuztom_label">' . $field->label . '</label>';
-					echo '</th>';
-					echo '<td class="cuztom-td">';
-						echo $field->output( $value[$id_name] );
-						if( ! empty( $field->description ) ) echo '<p class="description cuztom-description">' . $field->description . '</p>';
-					echo '</td>';
-				echo '</tr>';
-			}
-			else
-			{
-				echo $field->output( $value );
-			}
-		}
+		echo '</table>';
+		
+		parent::callback( $term, $this->data, array( 'taxonomy' => $term->taxonomy ) );
 	}
 
 	/**
@@ -140,9 +99,9 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 			$values 	= isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
 			$taxonomy 	= $_POST['taxonomy'];
 
-			foreach( $this->fields as $id_name => $field )
+			foreach( $this->fields as $id => $field )
 			{				
-				$data[$id_name] = $field->save_value( $values[$field->id] );			
+				$data[$id] = $field->save_value( $values[$field->id] );			
 			}
 
 			update_option( 'term_meta_' . $taxonomy . '_' . $term_id, $data );
@@ -161,8 +120,8 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 */
 	function add_column( $columns )
 	{
-		foreach( $this->fields as $id_name => $field )
-			if( $field->show_admin_column ) $columns[$id_name] = $field->label;
+		foreach( $this->fields as $id => $field )
+			if( $field->show_admin_column ) $columns[$id] = $field->label;
 
 		return $columns;
 	}
@@ -189,9 +148,9 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 
 			$meta = get_cuztom_term_meta( $term_id, $taxonomy, $column );
 			
-			foreach( $this->fields as $id_name => $field )
+			foreach( $this->fields as $id => $field )
 			{
-				if( $column == $id_name )
+				if( $column == $id )
 				{
 					if( $field->repeatable && $field->_supports_repeatable )
 					{

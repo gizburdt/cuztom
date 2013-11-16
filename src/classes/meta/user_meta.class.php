@@ -63,11 +63,11 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	 * @since   1.5
 	 * 
 	 */
-	function callback( $user, $data = array() )
+	function callback( $user, $data = array(), $args = array() )
 	{
 		echo '<h3>' . $this->title . '</h3>';
 
-		parent::callback( $user, $this->data );
+		parent::callback( $user, $this->data, $args );
 	}
 
 	/**
@@ -85,6 +85,6 @@ class Cuztom_User_Meta extends Cuztom_Meta
 		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : array();
 
 		if( ! empty( $values ) )
-			parent::save( $user_id, $values );
+			parent::save( $object, $values );
 	}
 }

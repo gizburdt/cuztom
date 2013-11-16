@@ -9,6 +9,9 @@ class Cuztom_Bundle
 	var $type 					= 'bundle';
 	var $fields 				= array();
 	
+	var $object 				= null;
+	var $value 					= null;
+
 	var $args 					= true;
 	var $underscore 			= true;
 	var $limit 					= null;
@@ -39,15 +42,16 @@ class Cuztom_Bundle
 	/**
 	 * Outputs a bundle
 	 * 
-	 * @param  	object 			$post
-	 * @param   string 			$meta_type
+	 * @param  	object 			$object
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   1.6.5
 	 *
 	 */
-	function output( $post )
+	function output( $object, $args = array() )
 	{
+		$object_id = $object ? Cuztom::get_object_id( $this->meta_type, $object ) : 0;
+
 		echo '<div class="cuztom-bundles cuztom-bundles-' . $this->id . '">';
 			echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable js-cuztom-add-bundle cuztom-add-sortable" href="#">';
 				echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
@@ -55,7 +59,7 @@ class Cuztom_Bundle
 
 			echo '<ul class="js-cuztom-sortable cuztom-sortable" data-cuztom-sortable-type="bundle">';
 				
-				$meta = $this->meta_type == 'user' ? get_user_meta( $post->ID, $this->id, true ) : get_post_meta( $post->ID, $this->id, true );
+				$meta = $object ? Cuztom::get_value( $this->meta_type, $object_id, $this->id, $args ) : '';
 
 				if( ! empty( $meta ) && isset( $meta[0] ) )
 				{
@@ -83,7 +87,7 @@ class Cuztom_Bundle
 												echo '<td class="cuztom-td">';
 
 													if( $field->_supports_bundle )
-														echo $field->output( $value, $post );
+														echo $field->output( $value, $object );
 													else
 														echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
 
@@ -92,7 +96,7 @@ class Cuztom_Bundle
 										}
 										else
 										{
-											echo $field->output( $value, $post );
+											echo $field->output( $value, $object );
 										}
 									}
 
@@ -135,7 +139,7 @@ class Cuztom_Bundle
 											echo '<td class="cuztom-td">';
 
 												if( $field->_supports_bundle )
-													echo $field->output( $value, $post );
+													echo $field->output( $value, $object );
 												else
 													echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
 
@@ -144,7 +148,7 @@ class Cuztom_Bundle
 									}
 									else
 									{
-										echo $field->output( $value, $post );
+										echo $field->output( $value, $object );
 									}
 
 									$y++;
@@ -182,7 +186,7 @@ class Cuztom_Bundle
 										echo '<td class="cuztom-td">';
 
 											if( $field->_supports_bundle )
-												echo $field->output( $value, $post );
+												echo $field->output( $value, $object );
 											else
 												echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
 
@@ -191,7 +195,7 @@ class Cuztom_Bundle
 								}
 								else
 								{
-									echo $field->output( $value, $post );
+									echo $field->output( $value, $object );
 								}
 							}
 
@@ -217,7 +221,7 @@ class Cuztom_Bundle
 	 * @since 	1.6.2
 	 * 
 	 */
-	function save( $object_id, $values )
+	function save( $object, $values )
 	{
 		$values 	= array_values( $values );
 

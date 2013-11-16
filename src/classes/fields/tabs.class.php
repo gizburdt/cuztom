@@ -9,6 +9,9 @@ class Cuztom_Tabs
 	var $type 				= 'bundle';
 	var $tabs 				= array();
 	
+	var $object 			= null;
+	var $value 				= null;
+
 	var $args 				= true;
 	var $underscore 		= true;
 	var $limit 				= null;
@@ -25,9 +28,10 @@ class Cuztom_Tabs
 		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
 	}
 	
-	function output( $object )
+	function output( $args = array() )
 	{
-		$tabs = $this->tabs;
+		$tabs 			= $this->tabs;
+		$args['type'] 	= 'tabs';
 				
 		echo '<div class="js-cuztom-tabs cuztom-tabs cuztom-bundles-' . $this->id . '">';
 			echo '<ul>';
@@ -39,16 +43,16 @@ class Cuztom_Tabs
 	
 			foreach( $tabs as $title => $tab )
 			{
-				$tab->output( $object, 'tabs' );
+				$tab->output( $args );
 			}
 		echo '</div>';
 	}
 
-	function save( $object_id, $values )
+	function save( $object, $values )
 	{
 		foreach( $this->tabs as $tab )
 		{
-			$tab->save( $object_id, $values );
+			$tab->save( $values );
 		}
 	}
 	

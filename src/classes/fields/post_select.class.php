@@ -27,17 +27,17 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 		$this->posts = get_posts( $this->args );
 	}
 	
-	function _output( $value )
+	function _output()
 	{
 		$output = '<select ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . '>';
 			if( isset( $this->args['show_option_none'] ) )
-				$output .= '<option value="0" ' . ( empty( $value ) ? 'selected="selected"' : '' ) . '>' . $this->args['show_option_none'] . '</option>';
+				$output .= '<option value="0" ' . ( empty( $this->value ) ? 'selected="selected"' : '' ) . '>' . $this->args['show_option_none'] . '</option>';
 
 			if( is_array( $this->posts ) )
 			{
 				foreach( $posts = $this->posts as $post )
 				{
-					$output .= '<option value="' . $post->ID . '" ' . ( ! empty( $value ) ? selected( $post->ID, $value, false ) : selected( $this->default_value, $post->ID, false ) ) . '>' . $post->post_title . '</option>';
+					$output .= '<option value="' . $post->ID . '" ' . ( ! empty( $this->value ) ? selected( $post->ID, $this->value, false ) : selected( $this->default_value, $post->ID, false ) ) . '>' . $post->post_title . '</option>';
 				}
 			}
 		$output .= '</select>';

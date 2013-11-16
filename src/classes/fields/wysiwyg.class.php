@@ -22,10 +22,10 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 		$this->args['editor_class'] .= ' cuztom-input';
 	}
 
-	function _output( $value )
+	function _output()
 	{
 		$this->args['textarea_name'] = 'cuztom' . $this->pre . '[' . $this->id . ']' . $this->after;
-		return wp_editor( ( ! empty( $value ) ? $value : $this->default_value ), $this->pre_id . $this->id . $this->after_id, $this->args ) . $this->output_explanation();
+		return wp_editor( ( ! empty( $this->value ) ? $this->value : $this->default_value ), $this->pre_id . $this->id . $this->after_id, $this->args ) . $this->output_explanation();
 	}
 
 	function save_value( $value ) {

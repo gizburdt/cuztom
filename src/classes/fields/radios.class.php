@@ -17,7 +17,7 @@ class Cuztom_Field_Radios extends Cuztom_Field
 		$this->after							.= '[]';
 	}
 
-	function _output( $value )
+	function _output()
 	{
 		$output = '';
 
@@ -26,7 +26,7 @@ class Cuztom_Field_Radios extends Cuztom_Field
 			{
 				foreach( $this->options as $slug => $name )
 				{
-					$output .= '<input type="radio" ' . $this->output_name() . ' ' . $this->output_id( $this->id . $this->after_id . '_' . Cuztom::uglify( $slug ) ) . ' ' . $this->output_css_class() . ' value="' . $slug . '" ' . ( ! empty( $value ) ? ( in_array( $slug, ( is_array( maybe_unserialize( $value ) ) ? maybe_unserialize( $value ) : array() ) ) ? 'checked="checked"' : '' ) : checked( $this->default_value, $slug, false ) ) . ' /> ';
+					$output .= '<input type="radio" ' . $this->output_name() . ' ' . $this->output_id( $this->id . $this->after_id . '_' . Cuztom::uglify( $slug ) ) . ' ' . $this->output_css_class() . ' value="' . $slug . '" ' . ( ! empty( $this->value ) ? ( in_array( $slug, ( is_array( maybe_unserialize( $this->value ) ) ? maybe_unserialize( $this->value ) : array() ) ) ? 'checked="checked"' : '' ) : checked( $this->default_value, $slug, false ) ) . ' /> ';
 					$output .= '<label ' . $this->output_for_attribute( $this->id . $this->after_id . '_' . Cuztom::uglify( $slug ) ) . '">' . Cuztom::beautify( $name ) . '</label>';
 					$output .= '<br />';
 				}
