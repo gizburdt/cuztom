@@ -83,7 +83,7 @@ class Cuztom_Meta
 
 							echo '<tr class="cuztom-tr">';
 								echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $field->id . '" colspan="2">';
-									$field->output( $args );
+									$field->output( $field->value, $args );
 								echo '</td>';
 							echo '</tr>';
 
@@ -105,12 +105,12 @@ class Cuztom_Meta
 										{
 											echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
 											echo '<ul class="js-cuztom-sortable cuztom-sortable">';
-												echo $field->output();
+												echo $field->output( $field->value );
 											echo '</ul>';
 										}
 										else
 										{
-											echo $field->output();
+											echo $field->output( $field->value );
 										}
 
 									echo '</td>';
@@ -120,11 +120,11 @@ class Cuztom_Meta
 							}
 							else
 							{
-								echo $field->output();
+								echo $field->output( $field->value );
 							}
 						}
 					}
-				echo '</table>';			
+				echo '</table>';
 			echo '</div>';
 		}
 	}
@@ -146,10 +146,6 @@ class Cuztom_Meta
 				if( ( $field instanceof Cuztom_Tabs || $field instanceof Cuztom_Accordion ) && $tabs = $field )
 				{
 					$tabs->save( $object, $values );
-				}
-				elseif( $field instanceof Cuztom_Bundle && $bundle = $field )
-				{
-					$bundle->save( $object, $values );
 				}
 				else
 				{

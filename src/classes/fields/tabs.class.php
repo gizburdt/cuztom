@@ -52,7 +52,7 @@ class Cuztom_Tabs
 	{
 		foreach( $this->tabs as $tab )
 		{
-			$tab->save( $values );
+			$tab->save( $object, $values );
 		}
 	}
 	

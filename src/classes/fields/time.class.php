@@ -17,7 +17,7 @@ class Cuztom_Field_Time extends Cuztom_Field
 		$this->data_attributes['time-format'] = $this->parse_date_format( isset( $this->args['time_format'] ) ? $this->args['time_format'] : 'H:i' );
 	}
 
-	function _output()
+	function _output( $value = null )
 	{
 		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $this->value ) ? ( isset( $this->args['time_format'] ) ? date( $this->args['time_format'], $this->value ) : date( 'H:i', $this->value ) ) : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation(); }
 

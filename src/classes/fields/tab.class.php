@@ -27,7 +27,7 @@ class Cuztom_Tab
 
 			if( $fields instanceof Cuztom_Bundle )
 			{
-				$fields->output();
+				$fields->output( $field->value );
 			}
 			else
 			{
@@ -48,12 +48,12 @@ class Cuztom_Tab
 									{
 										echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
 										echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
-											echo $field->output();
+											echo $field->output( $field->value );
 										echo '</ul>';
 									}
 									else
 									{
-										echo $field->output();
+										echo $field->output( $field->value );
 									}
 
 								echo '</td>';
@@ -63,7 +63,7 @@ class Cuztom_Tab
 						}
 						else
 						{
-							echo $field->output();
+							echo $field->output( $field->value );
 						}
 					}
 				echo '</table>';
@@ -79,7 +79,7 @@ class Cuztom_Tab
 			$value 	= isset( $values[$id] ) ? $values[$id] : '';
 
 			// Save
-			$field->save( $value );
+			$field->save( $object, $value );
 		}
 	}
 }

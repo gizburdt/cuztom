@@ -97,14 +97,14 @@ class Cuztom_Field
 	 * @since 	0.2
 	 *
 	 */
-	function output()
+	function output( $value )
 	{
 		if( $this->is_repeatable() )
-			return $this->_repeatable_output();
+			return $this->_repeatable_output( $value );
 		elseif( $this->is_ajax() )
-			return $this->_ajax_output();
+			return $this->_ajax_output( $value );
 		else
-			return $this->_output();
+			return $this->_output( $value );
 	}
 
 	/**
@@ -117,9 +117,9 @@ class Cuztom_Field
 	 * @since 	2.4
 	 *
 	 */
-	function _output()
+	function _output( $value = null )
 	{
-		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( strlen( $this->value ) > 0 ? $this->value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
+		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( strlen( $value ) > 0 ? $value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Cuztom_Field
 	 * @since   2.0
 	 * 
 	 */
-	function _repeatable_output()
+	function _repeatable_output( $value )
 	{
 		$this->after 	= '[]';
 		$output 		= '';
@@ -137,10 +137,10 @@ class Cuztom_Field
 
 		if( is_array( $this->value ) )
 		{
-			foreach( $this->value as $item )
+			foreach( $this->value as $value )
 			{
 				$x++;
-				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#"></a></div>' . $this->_output( $item ) . ( count( $this->value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#"></a></div>' : '' ) . '</li>';
+				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#"></a></div>' . $this->_output( $value ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#"></a></div>' : '' ) . '</li>';
 
 				if( $x >= $this->limit ) break;
 			}
@@ -160,7 +160,7 @@ class Cuztom_Field
 	 * @since   2.0
 	 * 
 	 */
-	function _ajax_output()
+	function _ajax_output( $value )
 	{
 		$output 	= $this->_output();
 		$output 	.= '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">' . __( 'Save', 'cuztom' ) . '</a>';

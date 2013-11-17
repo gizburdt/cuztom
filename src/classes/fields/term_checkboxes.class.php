@@ -27,7 +27,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 		$this->after .= '[]';
 	}
 	
-	function _output()
+	function _output( $value = null )
 	{
 		$output = '<div class="cuztom-checkboxes-wrap">';
 			if( is_array( $this->terms ) )

@@ -9,7 +9,7 @@ class Cuztom_Field_File extends Cuztom_Field
 
 	var $css_classes 			= array( 'cuztom-hidden', 'cuztom-input' );
 	
-	function _output()
+	function _output( $value = null )
 	{
 		$output = '';
 
@@ -31,7 +31,7 @@ class Cuztom_Field_File extends Cuztom_Field
 			$file = '';
 		}
 	
-		$output .= '<input type="hidden" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $this->value ) ? $this->value : '' ) . '" />';
+		$output .= '<input type="hidden" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' ' . $this->output_value( $value ) . ' ' . '" />';
 		$output .= sprintf( '<input id="upload-file-button" type="button" class="button js-cuztom-upload" data-cuztom-media-type="file" value="%s" />', __( 'Select file', 'cuztom' ) );
 		$output .= ( ! empty( $this->value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media">%s</a>', __( 'Remove current file', 'cuztom' ) ) : '' );
 
