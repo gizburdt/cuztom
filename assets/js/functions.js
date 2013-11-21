@@ -60,7 +60,7 @@ jQuery( function( $ ) {
 		{
 			var that	= $(this),
 				type 	= that.data('cuztom-media-type'),
-				parent	= that.closest('.cuztom-td, .form-field'),
+				parent	= that.closest('.cuztom-field, .form-field'),
 				hidden 	= $( '.cuztom-hidden', parent ),
 				preview = $( '.cuztom-preview', parent ),
 				_cuztom_uploader;

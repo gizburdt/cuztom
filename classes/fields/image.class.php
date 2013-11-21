@@ -4,6 +4,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Image extends Cuztom_Field
 {
+	var $_supports_repeatable 	= true;
 	var $_supports_ajax			= true;
 	var $_supports_bundle		= true;
 
