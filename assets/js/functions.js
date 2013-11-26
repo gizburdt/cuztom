@@ -45,7 +45,7 @@ jQuery( function( $ ) {
 		$('.cuztom-td, .form-field', object).on( 'click', '.js-cuztom-remove-media', function()
 		{
 			var that 	= $( this ),
-				td 		= that.closest('.cuztom-td, .form-field');
+				td 		= that.closest('.cuztom-field, .cuztom-td, .form-field');
 
 			$( '.cuztom-preview', td ).html('');
 			$( '.cuztom-hidden', td ).val('');
@@ -60,7 +60,7 @@ jQuery( function( $ ) {
 		{
 			var that	= $(this),
 				type 	= that.data('cuztom-media-type'),
-				parent	= that.closest('.cuztom-field, .form-field'),
+				parent	= that.closest('.cuztom-field, .cuztom-td, .form-field'),
 				hidden 	= $( '.cuztom-hidden', parent ),
 				preview = $( '.cuztom-preview', parent ),
 				_cuztom_uploader;
