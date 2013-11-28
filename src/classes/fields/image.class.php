@@ -24,7 +24,7 @@ class Cuztom_Field_Image extends Cuztom_Field
 	
 		$output .= '<input type="hidden" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $value ) ? $value : '' ) . '" />';
 		$output .= sprintf( '<input id="upload-image-button" type="button" class="button js-cuztom-upload" value="%s" />', __( 'Select image', 'cuztom' ) );
-		$output .= ( ! empty( $this->value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media" title="%s"></a>', __( 'Remove current file', 'cuztom' ) ) : '' );
+		$output .= ( ! empty( $this->value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media" title="%s" tabindex="-1"></a>', __( 'Remove current file', 'cuztom' ) ) : '' );
 
 		$output .= '<span class="cuztom-preview">' . $image . '</span>';
 
