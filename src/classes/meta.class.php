@@ -147,6 +147,14 @@ class Cuztom_Meta
 				{
 					$tabs->save( $object, $values );
 				}
+				elseif( $field instanceof Cuztom_Bundle )
+				{
+					// Get value from values (and apply filters)
+					$value 	= isset( $values[$id] ) ? $values[$id] : '';
+
+					// Save
+					$field->save( $object, $value );
+				}
 				else
 				{
 					if( isset( $field->in_bundle ) && $field->in_bundle ) continue;
