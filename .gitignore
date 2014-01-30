@@ -1,4 +1,7 @@
+# Crap
 .DS_Store
+
+# Editor
 *.tmproj
 *.sublime-project
 *.sublime-workspace
