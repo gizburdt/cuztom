@@ -45,7 +45,7 @@ class Cuztom_Initializer
 	private function setup_constants()
 	{
 		if( ! defined( 'CUZTOM_VERSION' ) ) 
-			define( 'CUZTOM_VERSION', '2.9.3' );
+			define( 'CUZTOM_VERSION', '2.9.4' );
 
 		if( ! defined( 'CUZTOM_DIR' ) ) 
 			define( 'CUZTOM_DIR', plugin_dir_path( __FILE__ ) );
@@ -134,7 +134,7 @@ class Cuztom_Initializer
 	 */
 	function register_styles()
 	{		
-		wp_register_style( 'cuztom-jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, CUZTOM_VERSION, 'screen' );
+		wp_register_style( 'cuztom-jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, CUZTOM_VERSION, 'screen' );
 		wp_register_style( 'cuztom', CUZTOM_URL . '/assets/css/style.css', false, CUZTOM_VERSION, 'screen' );
 	}
 
