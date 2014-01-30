@@ -12,15 +12,15 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Field
 {
 	var $id						= '';
-	var $type					= '';
 	var $name 					= '';
+	var $underscore 			= true;
+	var $type					= '';
     var $label 					= '';
     var $description 			= '';
     var $explanation			= '';
 	var $default_value 			= '';
 	var $options 				= array(); // Only used for radio, checkboxes etc.
 	var $args					= array(); // Specific args for the field
-	var $underscore 			= true;
 	var $required 				= false;
 	var $repeatable 			= false;
 	var $limit					= null;
@@ -62,29 +62,16 @@ class Cuztom_Field
 	 */
 	function __construct( $field, $parent )
 	{
-		$this->type						= isset( $field['type'] ) 					? $field['type'] 					: $this->type;
-		$this->name 					= isset( $field['name'] ) 					? $field['name'] 					: $this->name;
-		$this->label					= isset( $field['label'] ) 					? $field['label'] 					: $this->label;
-		$this->description				= isset( $field['description'] ) 			? $field['description'] 			: $this->description;
-		$this->explanation				= isset( $field['explanation'] ) 			? $field['explanation'] 			: $this->explanation;
-		$this->default_value			= isset( $field['default_value'] ) 			? $field['default_value'] 			: $this->default_value;
-		$this->options					= isset( $field['options'] ) 				? $field['options'] 				: $this->options;
-		$this->args						= isset( $field['args'] ) 					? $field['args'] 					: $this->args;
-		$this->underscore				= isset( $field['underscore'] ) 			? $field['underscore'] 				: $this->underscore;
-		$this->required					= isset( $field['required'] ) 				? $field['required'] 				: $this->required;	
-		$this->repeatable				= isset( $field['repeatable'] ) 			? $field['repeatable'] 				: $this->repeatable ;
-		$this->limit					= isset( $field['limit'] ) 					? $field['limit'] 					: $this->limit ;
-		$this->ajax						= isset( $field['ajax'] ) 					? $field['ajax'] 					: $this->ajax ;
-		
-		$this->show_admin_column		= isset( $field['show_admin_column'] ) 		? $field['show_admin_column'] 		: $this->show_admin_column;
-		$this->admin_column_sortable	= isset( $field['admin_column_sortable'] ) 	? $field['admin_column_sortable'] 	: $this->admin_column_sortable;
-		$this->admin_column_filter		= isset( $field['admin_column_filter'] ) 	? $field['admin_column_filter'] 	: $this->admin_column_filter;
+		foreach( $field as $property => $value )
+		{
+			$this->$property 	= isset( $field[$property] ) ? $field[$property] : $this->$property;
+		}
 		
 		// Mostly the name of the meta box/container
-		$this->parent					= $parent;
+		$this->parent			= $parent;
 		
 		// Id is used as id to select the field, if it's not in the $field paramater, the id will be genereted
-		$this->id  						= isset( $field['id'] ) 					? $field['id']						: $this->build_id( $this->name, $parent );
+		$this->id  				= isset( $field['id'] ) ? $field['id'] : $this->build_id( $this->name, $parent );
 
 		// Localize field
 		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
@@ -194,6 +181,7 @@ class Cuztom_Field
 	 */
 	function save( $object, $value )
 	{
+		// Maybe parse it through filters
 		$value = $this->save_value( $value );
 
 		switch( $this->meta_type ):
@@ -201,6 +189,7 @@ class Cuztom_Field
 				update_user_meta( $object, $this->id, $value );
 			break;
 			case 'term' :
+				// Because we need an array
 				return $value;
 			break;
 			case 'post' : default :
