@@ -241,7 +241,7 @@ class Cuztom_Meta
 	 * @since 	3.0
 	 * 
 	 */
-	function get_meta_value( $field )
+	function get_meta_value( $field, $args = array() )
 	{
 		switch( $this->get_meta_type() ) :
 			case 'post' :
@@ -251,7 +251,7 @@ class Cuztom_Meta
 				return get_user_meta( $this->object, $field, true );
 				break;
 			case 'term' :
-				return get_cuztom_term_meta( $this->object, 'test', $field );
+				return get_cuztom_term_meta( $this->object, $args['taxonomy'], $field );
 				break;
 			default :
 				return false;
