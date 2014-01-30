@@ -138,7 +138,12 @@ class Cuztom
 	 */
 	static function is_wp_callback( $callback )
 	{
-		return ( ! is_array( $callback ) ) || ( is_array( $callback ) && ( ( isset( $callback[1] ) && ! is_array( $callback[1] ) && method_exists( $callback[0], $callback[1] ) ) || ( isset( $callback[0] ) && ! is_array( $callback[0] ) && class_exists( $callback[0] ) ) ) );
+		return 
+			( ! is_array( $callback ) ) || 
+			( is_array( $callback ) && ( 
+				( isset( $callback[1] ) && ! is_array( $callback[1] ) && method_exists( $callback[0], $callback[1] ) ) || 
+				( isset( $callback[0] ) && ! is_array( $callback[0] ) && class_exists( $callback[0] ) ) 
+			) );
 	}
 
 	/**

@@ -16,7 +16,7 @@ class Cuztom_Sidebar
 	/**
 	 * Constructor
 	 *
-	 * @param 	array		$args
+	 * @param 	array			$args
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	0.5
