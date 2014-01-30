@@ -51,7 +51,7 @@ class Cuztom_Initializer
 			define( 'CUZTOM_DIR', plugin_dir_path( __FILE__ ) );
 
 		if( ! defined( 'CUZTOM_URL' ) ) 
-			define( 'CUZTOM_URL', self::get_cuztom_url( __FILE__ ) );
+			define( 'CUZTOM_URL', $this->get_cuztom_url( __FILE__ ) );
 	}
 
 	/**
@@ -113,7 +113,7 @@ class Cuztom_Initializer
 	 */
 	private function add_hooks()
 	{
-		// Add actions
+		// Assets
 		add_action( 'admin_init', array( &$this, 'register_styles' ) );
 		add_action( 'admin_print_styles', array( &$this, 'enqueue_styles' ) );
 		
@@ -220,8 +220,9 @@ class Cuztom_Initializer
 		$path 			= str_replace( '\\', '/', $path );
 		$explode_path 	= explode( '/', $path );
 		$current_dir 	= $explode_path[count( $explode_path ) - 1];
+		$path 		= dirname( $path );
+		$path 		= str_replace( '\\', '/', $path );
 
-		array_push( $url, $current_dir );
 		
 		if( $current_dir == 'wp-content' )
 		{
@@ -234,11 +235,11 @@ class Cuztom_Initializer
 				$path = $path . '/' . $dir;
 			}
 
-			return $path;
+			return apply_filters( 'cuztom_url', $path );
 		}
 		else
 		{
-			return apply_filters( 'cuztom_url', $this->get_cuztom_url( $path, $url ) );
+			return $this->get_cuztom_url( $path, $url );
 		}
 	}
 }
