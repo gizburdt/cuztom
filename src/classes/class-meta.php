@@ -60,9 +60,6 @@ class Cuztom_Meta
 		$data 		= $this->data;
 		$meta_type 	= $this->get_meta_type();
 		$object_id 	= $this->object;
-		$args 		= array(
-			'taxonomy' 		=> isset( $object->taxonomy ) ? $object->taxonomy : null
-		);
 
 		if( ! empty( $data ) )
 		{
@@ -77,55 +74,66 @@ class Cuztom_Meta
 
 					foreach( $data as $id => $field )
 					{
-						if( ( $field instanceof Cuztom_Tabs ) || ( $field instanceof Cuztom_Accordion ) || ( $field instanceof Cuztom_Bundle ) )
-						{
-							echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
-
-							echo '<tr class="cuztom-tr">';
-								echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $field->id . '" colspan="2">';
-									$field->output( $field->value, $args );
-								echo '</td>';
-							echo '</tr>';
-
-							echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
-						}
-						else
-						{
-							if( ! $field instanceof Cuztom_Field_Hidden )
-							{
-								echo '<tr class="cuztom-tr">';
-									echo '<th class="cuztom-th">';
-										echo '<label for="' . $field->id . '" class="cuztom-label">' . $field->label . '</label>';
-										echo $field->required ? ' <span class="cuztom-required">*</span>' : '';
-										echo '<div class="cuztom-field-description">' . $field->description . '</div>';
-									echo '</th>';
-									echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $field->id . '">';
-
-										if( $field->repeatable && $field->_supports_repeatable )
-										{
-											echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
-											echo '<ul class="js-cuztom-sortable cuztom-sortable">';
-												echo $field->output( $field->value );
-											echo '</ul>';
-										}
-										else
-										{
-											echo $field->output( $field->value );
-										}
-
-									echo '</td>';
-								echo '</tr>';
-
-								$divider = true;
-							}
-							else
-							{
-								echo $field->output( $field->value );
-							}
-						}
+						$this->output_row( $field );
 					}
 				echo '</table>';
 			echo '</div>';
+		}
+	}
+
+	/**
+	 * Outputs a row in a meta table
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 */
+	function output_row( $field )
+	{
+		if( ( $field instanceof Cuztom_Tabs ) || ( $field instanceof Cuztom_Accordion ) || ( $field instanceof Cuztom_Bundle ) )
+		{
+			echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
+
+			echo '<tr class="cuztom-tr">';
+				echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $field->id . '" colspan="2">';
+					$field->output( $field->value );
+				echo '</td>';
+			echo '</tr>';
+
+			echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
+		}
+		else
+		{
+			if( ! $field instanceof Cuztom_Field_Hidden )
+			{
+				echo '<tr class="cuztom-tr">';
+					echo '<th class="cuztom-th">';
+						echo '<label for="' . $field->id . '" class="cuztom-label">' . $field->label . '</label>';
+						echo $field->required ? ' <span class="cuztom-required">*</span>' : '';
+						echo '<div class="cuztom-field-description">' . $field->description . '</div>';
+					echo '</th>';
+					echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $field->id . '">';
+
+						if( $field->repeatable && $field->_supports_repeatable )
+						{
+							echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
+							echo '<ul class="js-cuztom-sortable cuztom-sortable">';
+								echo $field->output( $field->value );
+							echo '</ul>';
+						}
+						else
+						{
+							echo $field->output( $field->value );
+						}
+
+					echo '</td>';
+				echo '</tr>';
+
+				$divider = true;
+			}
+			else
+			{
+				echo $field->output( $field->value );
+			}
 		}
 	}
 
@@ -251,7 +259,7 @@ class Cuztom_Meta
 				return get_user_meta( $this->object, $field, true );
 				break;
 			case 'term' :
-				return get_cuztom_term_meta( $this->object, $args['taxonomy'], $field );
+				return get_cuztom_term_meta( $this->object, isset( $object->taxonomy ) ? $object->taxonomy : null, $field );
 				break;
 			default :
 				return false;
