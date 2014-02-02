@@ -72,9 +72,9 @@ class Cuztom_Initializer
 
 		// Meta
 		include( CUZTOM_DIR . 'classes/class-meta.php' );
-		include( CUZTOM_DIR . 'classes/meta/meta_box.class.php' );
-		include( CUZTOM_DIR . 'classes/meta/user_meta.class.php' );
-		include( CUZTOM_DIR . 'classes/meta/term_meta.class.php' );
+		include( CUZTOM_DIR . 'classes/meta/class-meta-box.php' );
+		include( CUZTOM_DIR . 'classes/meta/class-user-meta.php' );
+		include( CUZTOM_DIR . 'classes/meta/class-term-meta.php' );
 		
 		// Fields
 		include( CUZTOM_DIR . 'classes/class-field.php' );

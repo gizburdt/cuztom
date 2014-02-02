@@ -241,7 +241,7 @@ class Cuztom_Meta
 	 * @since 	3.0
 	 * 
 	 */
-	function get_meta_value( $field, $args = array() )
+	function get_meta_value( $field, $args = array( 'taxonomy' => '' ) )
 	{
 		switch( $this->get_meta_type() ) :
 			case 'post' :
