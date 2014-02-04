@@ -33,6 +33,7 @@ class Cuztom_Taxonomy
 	 */
 	function __construct( $name, $post_type = null, $args = array(), $labels = array() )
 	{
+		// Build name
 		if( ! empty( $name ) )
 		{
 			if( is_array( $name ) )
@@ -47,34 +48,28 @@ class Cuztom_Taxonomy
 				$this->title	= Cuztom::beautify( $name );
 				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
 			}
+		}
 
-			$this->post_type 	= $post_type;
-			$this->labels		= $labels;
-			$this->args			= $args;
-            
-            if( ! taxonomy_exists( $this->name ) )
-			{
-				if ( $is_reserved_term = Cuztom::is_reserved_term( $this->name ) )
-	            	new Cuztom_Notice( $is_reserved_term->get_error_message(), 'error' );
-				else
-					add_action( 'init', array( &$this, 'register_taxonomy' ) );
-			}
-			else
-			{
-				add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
-			}
+		// Set properties
+		$this->post_type 	= $post_type;
+		$this->labels		= $labels;
+		$this->args			= $args;
+        
+        // Register taxonomy
+        if( taxonomy_exists( $this->name ) )
+        	add_action( 'init', array( &$this, 'register_taxonomy' ) );
+		else
+			add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
 
-			if( isset( $args['show_admin_column'] ) && $args['show_admin_column'] )
-			{
-				if( isset( $args['admin_column_sortable'] ) && $args['admin_column_sortable'] )
-					add_action( 'manage_edit-' . $this->post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
+		// Sortable columns
+		if( @$args['admin_column_sortable'] ) {
+			add_action( "manage_edit-{$post_type}_sortable_columns", array( &$this, 'add_sortable_column' ) );
+		}
 
-				if( isset( $args['admin_column_filter'] ) && $args['admin_column_filter'] ) 
-				{
-					add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
-					add_filter( 'parse_query', array( &$this, '_post_filter_query') );
-				}
-			}
+		// Column filter
+		if( @$args['admin_column_filter'] ) {
+			add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
+			add_filter( 'parse_query', array( &$this, '_post_filter_query') );
 		}
 	}
 	
@@ -87,40 +82,43 @@ class Cuztom_Taxonomy
 	 */
 	function register_taxonomy()
 	{
-		// Default labels, overwrite them with the given labels.
-		$labels = array_merge(
-			array(
-				'name' 					=> sprintf( _x( '%s', 'taxonomy general name', 'cuztom' ), $this->plural ),
-				'singular_name' 		=> sprintf( _x( '%s', 'taxonomy singular name', 'cuztom' ), $this->title ),
-			    'search_items' 			=> sprintf( __( 'Search %s', 'cuztom' ), $this->plural ),
-			    'all_items' 			=> sprintf( __( 'All %s', 'cuztom' ), $this->plural ),
-			    'parent_item' 			=> sprintf( __( 'Parent %s', 'cuztom' ), $this->title ),
-			    'parent_item_colon' 	=> sprintf( __( 'Parent %s:', 'cuztom' ), $this->title ),
-			    'edit_item' 			=> sprintf( __( 'Edit %s', 'cuztom' ), $this->title ), 
-			    'update_item' 			=> sprintf( __( 'Update %s', 'cuztom' ), $this->title ),
-			    'add_new_item' 			=> sprintf( __( 'Add New %s', 'cuztom' ), $this->title ),
-			    'new_item_name' 		=> sprintf( __( 'New %s Name', 'cuztom' ), $this->title ),
-			    'menu_name' 			=> sprintf( __( '%s', 'cuztom' ), $this->plural )
-			),
-			$this->labels
-		);
+		if ( $reserved = Cuztom::is_reserved_term( $this->name ) )
+			new Cuztom_Notice( $reserved->get_error_message(), 'error' );
+		else
+		{
+			$labels = array_merge(
+				array(
+					'name' 					=> sprintf( _x( '%s', 'taxonomy general name', 'cuztom' ), $this->plural ),
+					'singular_name' 		=> sprintf( _x( '%s', 'taxonomy singular name', 'cuztom' ), $this->title ),
+				    'search_items' 			=> sprintf( __( 'Search %s', 'cuztom' ), $this->plural ),
+				    'all_items' 			=> sprintf( __( 'All %s', 'cuztom' ), $this->plural ),
+				    'parent_item' 			=> sprintf( __( 'Parent %s', 'cuztom' ), $this->title ),
+				    'parent_item_colon' 	=> sprintf( __( 'Parent %s:', 'cuztom' ), $this->title ),
+				    'edit_item' 			=> sprintf( __( 'Edit %s', 'cuztom' ), $this->title ), 
+				    'update_item' 			=> sprintf( __( 'Update %s', 'cuztom' ), $this->title ),
+				    'add_new_item' 			=> sprintf( __( 'Add New %s', 'cuztom' ), $this->title ),
+				    'new_item_name' 		=> sprintf( __( 'New %s Name', 'cuztom' ), $this->title ),
+				    'menu_name' 			=> sprintf( __( '%s', 'cuztom' ), $this->plural )
+				),
+				$this->labels
+			);
 
-		// Default arguments, overwitten with the given arguments
-		$args = array_merge(
-			array(
-				'label'					=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
-				'labels'				=> $labels,
-				'hierarchical' 			=> true,
-				'public' 				=> true,
-				'show_ui' 				=> true,
-				'show_in_nav_menus' 	=> true,
-				'_builtin' 				=> false,
-				'show_admin_column'		=> false
-			),
-			$this->args
-		);
-		
-		register_taxonomy( $this->name, $this->post_type, $args );
+			$args = array_merge(
+				array(
+					'label'					=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
+					'labels'				=> $labels,
+					'hierarchical' 			=> true,
+					'public' 				=> true,
+					'show_ui' 				=> true,
+					'show_in_nav_menus' 	=> true,
+					'_builtin' 				=> false,
+					'show_admin_column'		=> false
+				),
+				$this->args
+			);
+			
+			register_taxonomy( $this->name, $this->post_type, $args );
+		}
 	}
 	
 	/**
@@ -204,7 +202,7 @@ class Cuztom_Taxonomy
 	 */
 	function add_sortable_column( $columns )
 	{
-		$columns['taxonomy-' . $this->name] = $this->title;
+		$columns["taxonomy-{$this->name}"] = $this->title;
 
 		return $columns;
 	}
