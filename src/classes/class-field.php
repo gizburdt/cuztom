@@ -37,9 +37,9 @@ class Cuztom_Field
 	var $data_attributes 		= array();
 	var $css_classes			= array();
 	
-	var $pre					= ''; // Before name
-	var $after					= ''; // After name
-	var $pre_id					= ''; // Before id
+	var $before_name			= ''; // Before name
+	var $after_name				= ''; // After name
+	var $before_id				= ''; // Before id
 	var $after_id				= ''; // After id
 
 	var $_supports_repeatable 	= false;
