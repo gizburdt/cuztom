@@ -62,9 +62,10 @@ class Cuztom_Field
 	 */
 	function __construct( $field, $parent )
 	{
-		foreach( $field as $property => $value )
-		{
-			$this->$property 	= isset( $field[$property] ) ? $field[$property] : $this->$property;
+		$properties = array_keys( get_class_vars( __CLASS__ ) );
+		
+		foreach ( $properties as $property ) {
+			$this->$property = isset( $field[ $property ] ) ? $field[ $property ] : $this->$property;
 		}
 		
 		// Mostly the name of the meta box/container
