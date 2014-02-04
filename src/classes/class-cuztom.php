@@ -11,7 +11,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 class Cuztom
 {
-	static $_reserved = array( 'attachment', 'attachment_id', 'author', 'author_name', 
+	static $reserved = array( 'attachment', 'attachment_id', 'author', 'author_name', 
 		'calendar', 'cat', 'category','category__and', 'category__in', 'category__not_in', 'category_name', 'comments_per_page', 'comments_popup', 'cpage', 
 		'day', 'debug', 'error', 'exact', 'feed', 'hour', 'link_category', 'm', 'minute', 'monthnum', 'more', 
 		'name', 'nav_menu', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 
