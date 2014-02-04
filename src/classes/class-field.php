@@ -12,13 +12,11 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Field
 {
 	var $id						= '';
-	var $name 					= '';
-	var $underscore 			= true;
 	var $type					= '';
     var $label 					= '';
     var $description 			= '';
     var $explanation			= '';
-	var $default_value 			= '';
+    var $default_value 			= '';
 	var $options 				= array(); // Only used for radio, checkboxes etc.
 	var $args					= array(); // Specific args for the field
 	var $required 				= false;
@@ -29,7 +27,6 @@ class Cuztom_Field
 	var $object 				= null;
 	var $value 					= null;
 	
-	var $parent					= '';
 	var $meta_type				= '';
 	var $in_bundle				= false;
 	
