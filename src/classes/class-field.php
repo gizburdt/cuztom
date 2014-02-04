@@ -37,10 +37,10 @@ class Cuztom_Field
 	var $data_attributes 		= array();
 	var $css_classes			= array();
 	
-	var $before_name			= ''; // Before name
-	var $after_name				= ''; // After name
-	var $before_id				= ''; // Before id
-	var $after_id				= ''; // After id
+	var $before_name			= '';
+	var $after_name				= '';
+	var $before_id				= '';
+	var $after_id				= '';
 
 	var $_supports_repeatable 	= false;
 	var $_supports_bundle		= false;
@@ -61,15 +61,12 @@ class Cuztom_Field
 	{
 		$properties = array_keys( get_class_vars( __CLASS__ ) );
 		
-		foreach ( $properties as $property ) {
+		// Set all properties
+		foreach ( $properties as $property )
 			$this->$property = isset( $field[ $property ] ) ? $field[ $property ] : $this->$property;
-		}
-		
-		// Mostly the name of the meta box/container
-		$this->parent			= $parent;
-		
-		// Id is used as id to select the field, if it's not in the $field paramater, the id will be genereted
-		$this->id  				= isset( $field['id'] ) ? $field['id'] : $this->build_id( $this->name, $parent );
+
+		// Set ID
+		$this->id 	= isset( $field['name'] ) ? '_' . Cuztom::uglify( $field['name'] ) : Cuztom::uglify( $this->id );
 
 		// Localize field
 		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
@@ -186,12 +183,12 @@ class Cuztom_Field
 			case 'user' :
 				update_user_meta( $object, $this->id, $value );
 			break;
+			case 'post' : default :
+				update_post_meta( $object, $this->id, $value );
+			break;
 			case 'term' :
 				// Because we need an array
 				return $value;
-			break;
-			case 'post' : default :
-				update_post_meta( $object, $this->id, $value );
 			break;
 		endswitch;			
 
@@ -363,21 +360,5 @@ class Cuztom_Field
 	function localize()
 	{
 		wp_localize_script( 'cuztom', 'Cuztom_' . $this->id, (array) $this );
-	}
-	
-	/**
-	 * Builds an string used as field id and name
-	 *
-	 * @param 	string 			$name
-	 * @param  	string 			$parent
-	 * @return 	string
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.9
-	 *
-	 */
-	function build_id( $name, $parent )
-	{		
-		return apply_filters( 'cuztom_field_build_id',  ( $this->underscore && ( strpos( $parent, '_', 0 ) !== 0 ) ? '_' : '' ) . ( ! empty( $parent ) ? Cuztom::uglify( $parent ) . '_' : '' ) . Cuztom::uglify( $name ) );
 	}
 }
