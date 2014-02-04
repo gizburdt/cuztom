@@ -32,9 +32,9 @@ class Cuztom_Post_Type
 	 */
 	function __construct( $name, $args = array(), $labels = array() )
 	{
+		// Build name
 		if( ! empty( $name ) )
 		{
-			// If $name is an array, the first element is the singular name, the second is the plural name
 			if( is_array( $name ) )
 			{
 				$this->name		= Cuztom::uglify( $name[0] );
@@ -47,19 +47,20 @@ class Cuztom_Post_Type
 				$this->title	= Cuztom::beautify( $name );
 				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
 			}
-
-			$this->args 		= $args;
-			$this->labels 		= $labels;
-			$this->add_features	= $this->remove_features = array();
-
-			// Add action to register the post type, if the post type doesnt exist
-			if( ! post_type_exists( $this->name ) )
-				add_action( 'init', array( &$this, 'register_post_type' ) );
 		}
+
+		// Set properties
+		$this->args 		= $args;
+		$this->labels 		= $labels;
+		$this->add_features	= $this->remove_features = array();
+
+		// Register
+		if( ! post_type_exists( $this->name ) )
+			add_action( 'init', array( &$this, 'register_post_type' ) );
 	}
 	
 	/**
-	 * Register the Post Type
+	 * Register Post Type
 	 * 
 	 * @author 	Gijs Jorissen
 	 * @since 	0.1
@@ -118,10 +119,8 @@ class Cuztom_Post_Type
 	 */
 	function add_taxonomy( $name, $args = array(), $labels = array() )
 	{
-		// Call Cuztom_Taxonomy with this post type name as second parameter
 		$taxonomy = new Cuztom_Taxonomy( $name, $this->name, $args, $labels );
 		
-		// For method chaining
 		return $this;
 	}
 	
@@ -141,10 +140,8 @@ class Cuztom_Post_Type
 	 */
 	function add_meta_box( $id, $title, $fields = array(), $context = 'normal', $priority = 'default' )
 	{
-		// Call Cuztom_Meta_Box with this post type name as second parameter
 		$meta_box = new Cuztom_Meta_Box( $id, $title, $this->name, $fields, $context, $priority );
 		
-		// For method chaining
 		return $this;
 	}
 
@@ -164,7 +161,6 @@ class Cuztom_Post_Type
 		
 		add_action( 'init', array( &$this, '_add_post_type_support' ) );
 		
-		// For method chaining
 		return $this;
 	}
 
@@ -196,7 +192,6 @@ class Cuztom_Post_Type
 		
 		add_action( 'init', array( &$this, '_remove_post_type_support' ) );
 		
-		// For method chaining
 		return $this;
 	}
 
@@ -210,9 +205,7 @@ class Cuztom_Post_Type
 	function _remove_post_type_support()
 	{
 		foreach( $this->remove_features as $feature )
-		{
 			remove_post_type_support( $this->name, $feature );
-		}
 	}
 	
 	/**
