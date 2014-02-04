@@ -56,7 +56,7 @@ class Cuztom_Taxonomy
 		$this->args			= $args;
         
         // Register taxonomy
-        if( taxonomy_exists( $this->name ) )
+        if( ! taxonomy_exists( $this->name ) )
         	add_action( 'init', array( &$this, 'register_taxonomy' ) );
 		else
 			add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
@@ -68,7 +68,7 @@ class Cuztom_Taxonomy
 
 		// Column filter
 		if( @$args['admin_column_filter'] ) {
-			add_action( 'restrict_manage_posts', array( &$this, '_post_filter' ) ); 
+			add_action( 'restrict_manage_posts', array( &$this, 'admin_column_filter' ) ); 
 			add_filter( 'parse_query', array( &$this, '_post_filter_query') );
 		}
 	}
@@ -214,7 +214,7 @@ class Cuztom_Taxonomy
 	 * @since 	1.6
 	 * 
 	 */
-	function _post_filter() 
+	function admin_column_filter() 
 	{
 		global $typenow, $wp_query;
 
