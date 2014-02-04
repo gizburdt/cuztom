@@ -11,20 +11,20 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 class Cuztom_Sidebar
 {
-	var $args;
+	var $sidebar;
 	
 	/**
 	 * Constructor
 	 *
-	 * @param 	array			$args
+	 * @param 	array			$sidebar
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	0.5
 	 *
 	 */
-	function __construct( $args = array() )
+	function __construct( $sidebar = array() )
 	{
-		$this->args = array(
+		$this->sidebar = array(
 			'name'				=> isset( $name['name'] ) 			? $name['name'] 			: '',
 			'id'				=> isset( $name['id'] ) 			? $name['id'] 				: '',
 			'description'		=> isset( $name['description'] ) 	? $name['description'] 		: '',
@@ -35,7 +35,7 @@ class Cuztom_Sidebar
 			'after_title'		=> isset( $name['after_title'] ) 	? $name['after_title'] 		: '',
 		);
 		
-		add_action( 'widgets_init', array( $this, 'register_sidebar' ) );
+		add_action( 'widgets_init', array( &$this, 'register_sidebar' ) );
 	}
 	
 	/**
@@ -47,6 +47,6 @@ class Cuztom_Sidebar
 	 */
 	function register_sidebar()
 	{
-		register_sidebar( $this->args );
+		register_sidebar( $this->sidebar );
 	}
 }
