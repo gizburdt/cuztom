@@ -47,11 +47,41 @@ class Cuztom_Initializer
 		if( ! defined( 'CUZTOM_VERSION' ) ) 
 			define( 'CUZTOM_VERSION', '2.9.4' );
 
-		if( ! defined( 'CUZTOM_DIR' ) ) 
-			define( 'CUZTOM_DIR', plugin_dir_path( __FILE__ ) );
+		if( ! defined( 'CUZTOM_THEME_MODE' ) )
+			define( 'CUZTOM_THEME_MODE', apply_filters( 'cuztom_theme_mode', false ) );
 
-		if( ! defined( 'CUZTOM_URL' ) ) 
-			define( 'CUZTOM_URL', self::get_cuztom_url( __FILE__ ) );
+		if( ! defined( 'CUZTOM_CHILD_THEME_MODE' ) )
+			define( 'CUZTOM_CHILD_THEME_MODE', apply_filters( 'cuztom_child_theme_mode', false ) );
+
+		if( CUZTOM_THEME_MODE == false && CUZTOM_CHILD_THEME_MODE == false )
+		{
+			if( ! defined( 'CUZTOM_DIR' ) )
+				define( 'CUZTOM_DIR', plugin_dir_path( __FILE__ ) );
+
+			if( ! defined( 'CUZTOM_URL' ) )
+				define( 'CUZTOM_URL', self::get_cuztom_url( __FILE__ ) );
+		}
+		else
+		{
+			if( CUZTOM_CHILD_THEME_MODE == true )
+			{
+				$dir = get_stylesheet_directory();
+				$dir_uri = get_stylesheet_directory_uri();
+			}
+			else
+			{
+				$dir = get_template_directory();
+				$dir_uri = get_template_directory_uri();
+			}
+
+			$path = ltrim( end( @explode( end( @explode( '/', $dir ) ), dirname( __FILE__ ) ) ), '/' );
+
+			if( ! defined( 'CUZTOM_DIR' ) )
+				define( 'CUZTOM_DIR', trailingslashit( trailingslashit( $dir ) . $path ) );
+
+			if( ! defined( 'CUZTOM_URL' ) )
+				define( 'CUZTOM_URL', trailingslashit( trailingslashit( $dir_uri ) . $path ) );
+		}
 	}
 
 	/**
