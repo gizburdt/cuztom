@@ -58,18 +58,19 @@ class Cuztom_Field
 	 */
 	function __construct( $field, $parent )
 	{
-		$this->type				= isset( $field['type'] ) 				? $field['type'] 				: $this->type;
-		$this->name 			= isset( $field['name'] ) 				? $field['name'] 				: $this->name;
-		$this->label			= isset( $field['label'] ) 				? $field['label'] 				: $this->label;
-		$this->description		= isset( $field['description'] ) 		? $field['description'] 		: $this->description;
-		$this->explanation		= isset( $field['explanation'] ) 		? $field['explanation'] 		: $this->explanation;
-		$this->default_value	= isset( $field['default_value'] ) 		? $field['default_value'] 		: $this->default_value;
-		$this->options			= isset( $field['options'] ) 			? $field['options'] 			: $this->options;
-		$this->args				= isset( $field['args'] ) 				? $field['args'] 				: $this->args;
-		$this->underscore		= isset( $field['underscore'] ) 		? $field['underscore'] 			: $this->underscore;
-		$this->required			= isset( $field['required'] ) 			? $field['required'] 			: $this->required;	
-		$this->repeatable		= isset( $field['repeatable'] ) 		? $field['repeatable'] 			: $this->repeatable ;
-		$this->ajax				= isset( $field['ajax'] ) 				? $field['ajax'] 				: $this->ajax ;
+		$this->type				= isset( $field['type'] ) 				? $field['type'] 											: $this->type;
+		$this->name 			= isset( $field['name'] ) 				? $field['name'] 											: $this->name;
+		$this->label			= isset( $field['label'] ) 				? $field['label'] 											: $this->label;
+		$this->description		= isset( $field['description'] ) 		? $field['description'] 									: $this->description;
+		$this->explanation		= isset( $field['explanation'] ) 		? $field['explanation'] 									: $this->explanation;
+		$this->default_value	= isset( $field['default_value'] ) 		? $field['default_value'] 									: $this->default_value;
+		$this->options			= isset( $field['options'] ) 			? $field['options'] 										: $this->options;
+		$this->args				= isset( $field['args'] ) 				? $field['args'] 											: $this->args;
+		$this->underscore		= isset( $field['underscore'] ) 		? $field['underscore'] 										: $this->underscore;
+		$this->required			= isset( $field['required'] ) 			? $field['required'] 										: $this->required;	
+		$this->repeatable		= isset( $field['repeatable'] ) 		? $field['repeatable'] 										: $this->repeatable ;
+		$this->ajax				= isset( $field['ajax'] ) 				? $field['ajax'] 											: $this->ajax ;
+		$this->css_classes		= isset( $field['css_classes'] )		? array_merge($this->css_classes, $field['css_classes'])	: $this->css_classes;
 		
 		$this->show_admin_column		= isset( $field['show_admin_column'] ) 		? $field['show_admin_column'] 		: $this->show_admin_column;
 		$this->admin_column_sortable	= isset( $field['admin_column_sortable'] ) 	? $field['admin_column_sortable'] 	: $this->admin_column_sortable;
