@@ -2,8 +2,8 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.9.4  
-**Requires:** 3.5 / 3.0+  
+**Version:** 2.9.5  
+**Requires:** 3.5 / 3.0+
 
 ## Basic usage
 
@@ -108,6 +108,10 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+
+###2.9.5
+* Fixed: Bug in tab class with repeatable fields
+* Improvement: Added the possibilty to set css classes for field, when building 
 
 ###2.9.4
 * Fixed: Fixes jquery-ui url to work with http and https. props @sebmaynard
