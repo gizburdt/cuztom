@@ -44,7 +44,7 @@ class Cuztom_Tab
 								echo '</th>';
 								echo '<td class="cuztom-td">';
 								
-									if( $field->repeatable && $field->_supports_repeatable() )
+									if( $field->repeatable && $field->_supports_repeatable )
 									{
 										echo '<div class="cuztom-padding-wrap">';
 										echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
@@ -55,7 +55,7 @@ class Cuztom_Tab
 								
 									echo $field->output( $value );
 									
-									if( $field->repeatable && $field->_supports_repeatable() )
+									if( $field->repeatable && $field->_supports_repeatable )
 									{
 										echo '</ul></div>';
 									}
