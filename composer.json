@@ -1,14 +1,4 @@
 {
-  "name": "np_wp_theme/x",
-  "type": "wordpress-theme",
-  "description": "X Theme for Wordpress",
-  "keywords": ["x","theme","wordpress"],
-  "require": {
-    "composer/installers": "~1.0.6"
-  }
-}
-
-{
     "name": "gizburdt/cuztom",
     "type": "wordpress-muplugin",
     "description": "Wordpress Cuztom Helper. Easy meta data.",
