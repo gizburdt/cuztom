@@ -62,46 +62,11 @@ Meta Boxes can be added with their own class too. The second parameter is the Po
 
 To register a sidebar, just call this.
 
-	$sidebar = register_cuztom_sidebar( array(
+	$sidebar = new Cuztom_Sidebar( array(
 		'name'				=> 'Sidebar Twee',
 		'id'				=> 'sidebar_twee',
 		'description'		=> 'Build with an array',
 	) );
-
-### Add Menu Page
-
-Add a menu page.
-
-	$menu_page = add_cuztom_menu_page(
-		'Page Title', 
-		'Menu Title', 
-		'read', 
-		'menu_page_slug', 
-		'callback_function'
-	);
-	
-### Add Submenu Page
-
-To add a submenu page to the newly added page, call this.
-
-	$menu_page->add_submenu_page(
-		'Sub Page Title',
-		'Sub Menu Title',
-		'read', 
-		'submenu_page_slug', 
-		'sub_callback_function'
-	);
-
-To add a submenu page to another page.
-
-	$submenu_page = add_cuztom_submenu_page(
-		'parent_slug',
-		'Sub Page Title',
-		'Sub Menu Title',
-		'read', 
-		'submenu_page_slug', 
-		'sub_callback_function'
-	);
 	
 ## Advanced usage
 See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for the full and advanced guides.
