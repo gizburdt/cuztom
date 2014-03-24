@@ -25,17 +25,17 @@ class Cuztom_Sidebar
 	function __construct( $args = array() )
 	{
 		$this->args = array(
-			'name'				=> isset( $name['name'] ) 			? $name['name'] 			: '',
-			'id'				=> isset( $name['id'] ) 			? $name['id'] 				: '',
-			'description'		=> isset( $name['description'] ) 	? $name['description'] 		: '',
-			'class'				=> isset( $name['class'] ) 			? $name['class'] 			: '',
-			'before_widget'		=> isset( $name['before_widget'] ) 	? $name['before_widget'] 	: '',
-			'after_widget'		=> isset( $name['after_widget'] ) 	? $name['after_widget'] 	: '',
-			'before_title'		=> isset( $name['before_title'] ) 	? $name['before_title'] 	: '',
-			'after_title'		=> isset( $name['after_title'] ) 	? $name['after_title'] 		: '',
+			'name'				=> isset( $args['name'] ) 			? $args['name'] 			: '',
+			'id'				=> isset( $args['id'] ) 			? $args['id'] 				: '',
+			'description'		=> isset( $args['description'] ) 	? $args['description'] 		: '',
+			'class'				=> isset( $args['class'] ) 			? $args['class'] 			: '',
+			'before_widget'		=> isset( $args['before_widget'] ) 	? $args['before_widget'] 	: '',
+			'after_widget'		=> isset( $args['after_widget'] ) 	? $args['after_widget'] 	: '',
+			'before_title'		=> isset( $args['before_title'] ) 	? $args['before_title'] 	: '',
+			'after_title'		=> isset( $args['after_title'] ) 	? $args['after_title'] 		: '',
 		);
 		
-		add_action( 'widgets_init', array( $this, 'register_sidebar' ) );
+		add_action( 'widgets_init', array( &$this, 'register_sidebar' ) );
 	}
 	
 	/**
