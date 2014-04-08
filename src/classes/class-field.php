@@ -66,12 +66,6 @@ class Cuztom_Field
 
 		// Localize field
 		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
-
-		// Return field
-		$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
-
-		if( class_exists( $class ) )
-			return new $class( $field );
 	}
 	
 	/**
@@ -235,7 +229,7 @@ class Cuztom_Field
 	 */
 	function output_name( $overwrite = null )
 	{
-		return apply_filters( 'cuztom_field_output_name', ( $overwrite ? 'name="' . $overwrite . '"' : 'name="cuztom' . $this->pre . '[' . $this->id . ']' . $this->after . '"' ), $overwrite, $this );
+		return apply_filters( 'cuztom_field_output_name', ( $overwrite ? 'name="' . $overwrite . '"' : 'name="cuztom' . $this->before_name . '[' . $this->id . ']' . $this->after_name . '"' ), $overwrite, $this );
 	}
 
 	/**
@@ -247,7 +241,7 @@ class Cuztom_Field
 	 */
 	function output_id( $overwrite = null )
 	{
-		return apply_filters( 'cuztom_field_output_id', ( $overwrite ? 'id="' . $overwrite . '"' : 'id="' . $this->pre_id . $this->id . $this->after_id . '"' ), $overwrite, $this );
+		return apply_filters( 'cuztom_field_output_id', ( $overwrite ? 'id="' . $overwrite . '"' : 'id="' . $this->before_id . $this->id . $this->after_id . '"' ), $overwrite, $this );
 	}
 
 	/**
