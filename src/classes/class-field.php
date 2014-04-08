@@ -50,14 +50,13 @@ class Cuztom_Field
 	 * Constructs a Cuztom_Field
 	 * 
 	 * @param 	array 			$field
-	 * @param 	string 			$parent
 	 * @param   string 			$meta_type
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	0.3.3
 	 * 
 	 */
-	function __construct( $field, $parent )
+	function __construct( $field )
 	{
 		$properties = array_keys( get_class_vars( __CLASS__ ) );
 		
@@ -65,11 +64,14 @@ class Cuztom_Field
 		foreach ( $properties as $property )
 			$this->$property = isset( $field[ $property ] ) ? $field[ $property ] : $this->$property;
 
-		// Set ID
-		$this->id 	= isset( $field['name'] ) ? '_' . Cuztom::uglify( $field['name'] ) : Cuztom::uglify( $this->id );
-
 		// Localize field
 		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
+
+		// Return field
+		$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
+
+		if( class_exists( $class ) )
+			return new $class( $field );
 	}
 	
 	/**
