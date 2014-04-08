@@ -7,9 +7,9 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 	var $_supports_ajax			= true;
 	var $_supports_bundle		= true;
 	
-	function __construct( $field, $parent )
+	function __construct( $field )
 	{
-		parent::__construct( $field, $parent );
+		parent::__construct( $field );
 
 		$this->args = array_merge( 
 			array(

@@ -9,9 +9,9 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 	var $css_classes 			= array( 'cuztom-input' );
 	var $terms;
 
-	function __construct( $field, $parent )
+	function __construct( $field )
 	{
-		parent::__construct( $field, $parent );
+		parent::__construct( $field );
 
 		$this->args = array_merge(
 			array(

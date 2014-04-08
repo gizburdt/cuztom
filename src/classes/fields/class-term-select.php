@@ -10,9 +10,9 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 	
 	var $dropdown;
 
-	function __construct( $field, $parent )
+	function __construct( $field )
 	{
-		parent::__construct( $field, $parent );
+		parent::__construct( $field );
 
 		$this->args = array_merge(
 			array(

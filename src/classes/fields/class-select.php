@@ -11,9 +11,9 @@ class Cuztom_Field_Select extends Cuztom_Field
 	var $css_classes 			= array( 'cuztom-input cuztom-select' );
 	var $data_attributes 		= array( 'default-value' => null );
 
-	function __construct( $field, $parent )
+	function __construct( $field )
 	{
-		parent::__construct( $field, $parent );
+		parent::__construct( $field );
 		
 		$this->data_attributes['default-value'] = $this->default_value;
 	}

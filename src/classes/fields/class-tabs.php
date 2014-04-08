@@ -16,13 +16,10 @@ class Cuztom_Tabs
 	var $underscore 		= true;
 	var $limit 				= null;
 
-	function __construct( $args, $parent )
+	function __construct( $args )
 	{
 		// Tabs args
 		$this->underscore		= isset( $args['underscore'] ) 		? 	$args['underscore'] 	: $this->underscore;
-
-		// Tabs id
-		$this->id  		= $this->build_id( $args['id'], $parent );;
 
 		// Localize tabs
 		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );

@@ -10,9 +10,9 @@ class Cuztom_Field_Datetime extends Cuztom_Field
 	var $css_classes			= array( 'js-cuztom-datetimepicker', 'cuztom-datetimepicker', 'datetimepicker', 'cuztom-input' );
 	var $data_attributes		= array( 'time-format' => null, 'date-format' => null );
 
-	function __construct( $field, $parent )
+	function __construct( $field )
 	{
-		parent::__construct( $field, $parent );
+		parent::__construct( $field );
 
 		$this->data_attributes['date-format'] = $this->parse_date_format( isset( $this->args['date_format'] ) ? $this->args['date_format'] : 'm/d/Y' );
 		$this->data_attributes['time-format'] = $this->parse_date_format( isset( $this->args['time_format'] ) ? $this->args['time_format'] : 'H:i' );

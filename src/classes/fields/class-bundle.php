@@ -26,14 +26,11 @@ class Cuztom_Bundle
 	 * @since 	2.8.4
 	 * 
 	 */
-	function __construct( $args, $parent )
+	function __construct( $args )
 	{
 		// Bundle args
 		$this->underscore		= isset( $args['underscore'] ) 		? 	$args['underscore'] 	: $this->underscore;
 		$this->limit			= isset( $args['limit'] ) 			? 	$args['limit'] 			: $this->limit;
-		
-		// Bundle id
-		$this->id  				= $this->build_id( $args['id'], $parent );
 
 		// Localize bundle
 		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
@@ -246,19 +243,5 @@ class Cuztom_Bundle
 	function localize()
 	{
 		wp_localize_script( 'cuztom', 'Cuztom_' . $this->id, (array) $this );
-	}
-
-	/**
-	 * Build the id for the bundle
-	 *
-	 * @return  string
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	2.7
-	 * 
-	 */
-	function build_id( $id, $parent )
-	{
-		return ( $this->underscore ? '_' : '' ) . $parent . '_' . $id;
 	}
 }

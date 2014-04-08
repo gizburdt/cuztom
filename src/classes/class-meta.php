@@ -292,7 +292,7 @@ class Cuztom_Meta
 				// Tabs / accordion
 				if( is_string( $type ) && ( $type == 'tabs' || $type == 'accordion' ) )
 				{
-					$tabs 				= $type == 'tabs' ? new Cuztom_Tabs( $field, $this->id ) : new Cuztom_Accordion( $field, $this->id );
+					$tabs 				= $type == 'tabs' ? new Cuztom_Tabs( $field ) : new Cuztom_Accordion( $field );
 					$tabs->meta_type 	= $this->get_meta_type();
 					$tabs->object 		= $this->object;
 
@@ -314,7 +314,7 @@ class Cuztom_Meta
 								$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 								if( class_exists( $class ) )
 								{
-									$field 						= new $class( $field, $this->id );
+									$field 						= new $class( $field );
 									$field->meta_type 			= $this->get_meta_type();
 									$field->object 				= $this->object;
 									$field->value 				= $this->get_meta_value( $field->id );
@@ -335,7 +335,7 @@ class Cuztom_Meta
 				elseif( is_string( $type ) && $type == 'bundle' )
 				{
 					$field 				= array_merge( array( 'id' => $field['id'] ), (array) $field );
-					$bundle 			= new Cuztom_Bundle( $field, $this->id );
+					$bundle 			= new Cuztom_Bundle( $field );
 					$bundle->meta_type 	= $this->get_meta_type();
 					$bundle->object 	= $this->object;
 
@@ -351,7 +351,7 @@ class Cuztom_Meta
 							$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 							if( class_exists( $class ) )
 							{
-								$field = new $class( $field, $bundle->id );
+								$field = new $class( $field );
 								$field->repeatable 		= false;
 								$field->ajax 			= false;
 								$field->in_bundle 		= true;
@@ -376,7 +376,7 @@ class Cuztom_Meta
 					$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
 					if( class_exists( $class ) )
 					{
-						$field 						= new $class( $field, $this->id );
+						$field 						= new $class( $field );
 						$field->meta_type 			= $this->get_meta_type();
 						$field->object 				= $this->object;
 						$field->value 				= $this->get_meta_value( $field->id );

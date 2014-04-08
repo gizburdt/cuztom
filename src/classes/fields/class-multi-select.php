@@ -8,9 +8,9 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 	
 	var $css_classes 			= array( 'cuztom-input cuztom-select cuztom-multi-select' );
 	
-	function __construct( $field, $parent )
+	function __construct( $field )
 	{
-		parent::__construct( $field, $parent );
+		parent::__construct( $field );
 		
 		$this->default_value 	= (array) $this->default_value;
 		$this->after 		   .= '[]';
