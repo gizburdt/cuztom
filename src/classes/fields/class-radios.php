@@ -9,9 +9,9 @@ class Cuztom_Field_Radios extends Cuztom_Field
 	var $css_classes 			= array( 'cuztom-input' );
 	var $data_attributes 		= array( 'default-value' => null );
 
-	function __construct( $field, $parent )
+	function __construct( $field )
 	{
-		parent::__construct( $field, $parent );
+		parent::__construct( $field );
 		
 		$this->data_attributes['default-value']  = $this->default_value;
 		$this->after							.= '[]';
