@@ -306,7 +306,7 @@ class Cuztom_Meta
 					if( class_exists( $class ) )
 					{
 						$field = new $class( $field, '' );
-						$field->repeatable 		= false;
+						//$field->repeatable 		= false;
 						$field->ajax 			= false;
 						$field->meta_type 		= $this->get_meta_type();
 						$field->in_bundle 		= true;
