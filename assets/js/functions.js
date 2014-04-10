@@ -37,8 +37,11 @@ jQuery( function( $ ) {
 		$('.js-cuztom-accordion', object).accordion();
 
 		// Sortable
-		$('.js-cuztom-sortable', object).sortable({
-			handle: '.cuztom-handle-sortable'
+		$('.js-cuztom-sortable', object).each(function() {
+			$(this).sortable({
+				items: $(this).find('> li'),
+				handle: $(this).find('> li > .cuztom-handle-sortable')
+			});
 		});
 
 		// Remove current attached image
@@ -179,11 +182,11 @@ jQuery( function( $ ) {
 	// Add sortable
 	$('.cuztom').on( 'click', '.js-cuztom-add-sortable', function() 
 	{
-		var that			= $( this ),
-			parent 			= that.closest( '.cuztom-td, .cuztom' ),
-			wrap 			= $( '.js-cuztom-sortable', parent ),
-			is_bundle		= wrap.data( 'cuztom-sortable-type') == 'bundle' ? true : false,
-			last 			= $( '.js-cuztom-sortable-item:last', wrap ),
+		var that			= $( this );
+		var	parent 			= that.closest( '.cuztom-td, .cuztom' ),
+			wrap 			= $( ( that.hasClass( 'js-cuztom-add-bundle' ) ? '.padding-wrap > ' : '' ) + '.js-cuztom-sortable', parent ),
+			is_bundle		= wrap.data( 'cuztom-sortable-type') == 'bundle' ? true : false;
+			last 			= $( '> .js-cuztom-sortable-item:last', wrap ),
 			handle 			= '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>',
 			remover 		= '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>',
 			new_item 		= last.clone( false, false ),
@@ -195,6 +198,9 @@ jQuery( function( $ ) {
 			new_item.find('tr').each(function() {
 
 				var cuztom_input = $(this).find('.cuztom-input');
+
+				if(cuztom_input.length > 1 && cuztom_input.first().parent().hasClass('cuztom-sortable-item'))
+					$(this).find('.cuztom-input:not(:first)').parent().remove();
 
 				// Checkboxes and radios to default value
 				if( cuztom_input.attr('type') == 'checkbox' || cuztom_input.attr('type') == 'radio' ) {
@@ -215,7 +221,7 @@ jQuery( function( $ ) {
 				}
 
 				// New name and id attributes
-				cuztom_input.attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return '[' + ( Number(n) + 1 ) + ']'; });}).attr('id', function( i, val ) { return val.replace( /\_(\d+)/, function( match, n ) { return '_' + ( Number(n) + 1 ); })}).removeClass('hasDatepicker');
+				cuztom_input.attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return '[' + ( Number(n) + 1 ) + ']'; }); }).attr('id', function( i, val ) { return val.replace( /\_(\d+)/, function( match, n ) { return '_' + ( Number(n) + 1 ); }) }).removeClass('hasDatepicker');
 
 				// Set label for new id
 				$(this).find('label').attr('for', cuztom_input.attr('id'));
@@ -278,9 +284,9 @@ jQuery( function( $ ) {
 		add_events(new_item);
 		
 		// Add new handler and remover if necessary
-		$('.js-cuztom-sortable-item', parent).each(function( index, item ) {
-			if( $('.js-cuztom-handle-sortable', item ).length == 0 ) { $(item).prepend( handle ); }
-			if( $('.js-cuztom-remove-sortable', item ).length == 0 ) { $(item).append( remover ); }
+		$('> .js-cuztom-sortable-item', wrap).each(function( index, item ) {
+			if( $('> .js-cuztom-handle-sortable', item ).length == 0 ) { $(item).prepend( handle ); }
+			if( $('> .js-cuztom-remove-sortable', item ).length == 0 ) { $(item).append( remover ); }
 		});
 
 		// Switch editors
