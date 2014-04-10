@@ -75,8 +75,21 @@ class Cuztom_Bundle
 											echo '</th>';
 											echo '<td class="cuztom-td">';
 
-												if( $field->_supports_bundle )
-													echo $field->output( $value, $post );
+												if( $field->_supports_bundle ) {
+													if( $field->repeatable && $field->_supports_repeatable )
+													{
+														echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
+															echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
+														echo '</a>';
+														echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
+															echo $field->output( $value, $post );
+														echo '</ul>';
+													}
+													else
+													{
+														echo $field->output( $value, $post );
+													}
+												}
 												else
 													echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
 
@@ -128,8 +141,21 @@ class Cuztom_Bundle
 											echo '</th>';
 											echo '<td class="cuztom-td">';
 
-												if( $field->_supports_bundle )
-													echo $field->output( $value, $post );
+												if( $field->_supports_bundle ) {
+													if( $field->repeatable && $field->_supports_repeatable )
+													{
+														echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
+															echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
+														echo '</a>';
+														echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
+															echo $field->output( $value, $post );
+														echo '</ul>';
+													}
+													else
+													{
+														echo $field->output( $value, $post );
+													}
+												}
 												else
 													echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
 
@@ -175,8 +201,21 @@ class Cuztom_Bundle
 										echo '</th>';
 										echo '<td class="cuztom-td">';
 
-											if( $field->_supports_bundle )
-												echo $field->output( $value, $post );
+											if( $field->_supports_bundle ) {
+												if( $field->repeatable && $field->_supports_repeatable )
+												{
+													echo '<a class="button-secondary cuztom-button js-cuztom-add-field js-cuztom-add-sortable" href="#">';
+														echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
+													echo '</a>';
+													echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
+														echo $field->output( $value, $post );
+													echo '</ul>';
+												}
+												else
+												{
+													echo $field->output( $value, $post );
+												}
+											}
 											else
 												echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
 
