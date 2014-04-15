@@ -45,7 +45,12 @@ function get_cuztom_term_meta( $term, $taxonomy, $key = null )
 
     $meta = get_option( 'term_meta_' . $taxonomy . '_' . $term );
     
-    if( $key ) if( ! empty( $meta[$key] ) ) return $meta[$key]; else return '';
+    if( $key ) {
+        if( ! empty( $meta[$key] ) ) 
+            return $meta[$key]; 
+        else 
+            return '';
+    }
         
     return $meta;
 }
@@ -62,7 +67,8 @@ function get_cuztom_term_meta( $term, $taxonomy, $key = null )
  */
 function the_cuztom_term_meta( $term, $taxonomy, $key = null )
 {
-    if( empty( $term ) || empty( $taxonomy ) ) return false;
+    if( empty( $term ) || empty( $taxonomy ) ) 
+        return false;
 
     echo get_cuztom_term_meta( $term, $taxonomy, $key );
 }

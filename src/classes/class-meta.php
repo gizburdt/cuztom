@@ -29,13 +29,10 @@ class Cuztom_Meta
 	 */
 	function __construct( $title )
 	{
-		if( is_array( $title ) )
-		{
+		if( is_array( $title ) ) {
 			$this->title 		= Cuztom::beautify( $title[0] );
 			$this->description 	= $title[1];
-		}
-		else
-		{
+		} else {
 			$this->title 		= Cuztom::beautify( $title );
 		}
 	}
@@ -93,11 +90,7 @@ class Cuztom_Meta
 		{
 			echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
 
-			echo '<tr class="cuztom-tr">';
-				echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $field->id . '" colspan="2">';
-					$field->output( $field->value );
-				echo '</td>';
-			echo '</tr>';
+			$field->output_row( $field->value );
 
 			echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
 		}
@@ -155,13 +148,13 @@ class Cuztom_Meta
 				{
 					$tabs->save( $object, $values );
 				}
-				elseif( $field instanceof Cuztom_Bundle )
+				elseif( $field instanceof Cuztom_Bundle && $bundle = $field )
 				{
 					// Get value from values (and apply filters)
 					$value 	= isset( $values[$id] ) ? $values[$id] : '';
 
 					// Save
-					$field->save( $object, $value );
+					$bundle->save( $object, $value );
 				}
 				else
 				{
@@ -306,19 +299,22 @@ class Cuztom_Meta
 						{
 							if( is_string( $type ) && $type == 'bundle' )
 							{
-								$bundle 		= $field;
-								$tab->fields 	= $this->build( $bundle );
+								$tab->fields 	= $this->build( $bundle = $fields );
 							}
 							else
 							{
-								$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
-								if( class_exists( $class ) )
-								{
-									$field 						= new $class( $field );
-									$field->meta_type 			= $this->get_meta_type();
-									$field->object 				= $this->object;
-									$field->value 				= $this->get_meta_value( $field->id );
+								$args = array_merge(
+									$field,
+									array(
+										'meta_type'		=> $this->get_meta_type(),
+										'object'		=> $this->object,
+										'value'			=> $this->get_meta_value( $field['id'] )
+									)
+								);
 
+								$field = create_cuztom_field( $field );
+
+								if( is_object( $field ) ) {
 									$this->fields[$field->id] 	= $field;
 									$tab->fields[$field->id] 	= $field;
 								}
@@ -343,26 +339,27 @@ class Cuztom_Meta
 					{
 						if( is_string( $type ) && $type == 'tabs' )
 						{
-							$tabs 			= $fields;
-							$tab->fields 	= $this->build( $tabs );
+							$tab->fields 	= $this->build( $tabs = $fields );
 						}
 						else
 						{
-							$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
-							if( class_exists( $class ) )
-							{
-								$field = new $class( $field );
-								$field->repeatable 		= false;
-								$field->ajax 			= false;
-								$field->in_bundle 		= true;
-								
-								$field->meta_type 		= $this->get_meta_type();
-								$field->object 			= $this->object;
-								$field->value 			= $this->get_meta_value( $field->id );
+							$args = array_merge(
+								$field,
+								array(
+									'repeatable'	=> false,
+									'ajax'			=> false,
+									'in_bundle'		=> true,
+									'meta_type'		=> $this->get_meta_type(),
+									'object'		=> $this->object,
+									'value'			=> $this->get_meta_value( $field['id'] )
+								)
+							);
 
+							$field = create_cuztom_field( $args );
+
+							if( is_object( $field ) ) {
 								$this->fields[$field->id] 	= $field;
 								$bundle->fields[$field->id] = $field;
-								$bundle->meta_type 			= $this->get_meta_type();
 							}
 						}
 					}
@@ -373,14 +370,18 @@ class Cuztom_Meta
 				// Fields
 				else
 				{
-					$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $field['type'] ) ) );
-					if( class_exists( $class ) )
-					{
-						$field 						= new $class( $field );
-						$field->meta_type 			= $this->get_meta_type();
-						$field->object 				= $this->object;
-						$field->value 				= $this->get_meta_value( $field->id );
+					$args = array_merge(
+						$field,
+						array(
+							'meta_type'		=> $this->get_meta_type(),
+							'object'		=> $this->object,
+							'value'			=> $this->get_meta_value( $field['id'] )
+						)
+					);
 
+					$field = create_cuztom_field( $args );
+
+					if( is_object( $field ) ) {
 						$this->fields[$field->id] 	= $field;
 						$return[$field->id] 		= $field;
 					}

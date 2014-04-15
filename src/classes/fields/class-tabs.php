@@ -24,6 +24,15 @@ class Cuztom_Tabs
 		// Localize tabs
 		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
 	}
+
+	function output_row( $value )
+	{
+		echo '<tr class="cuztom-tr">';
+			echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $this->id . '" colspan="2">';
+				$this->output( $value );
+			echo '</td>';
+		echo '</tr>';
+	}
 	
 	function output( $args = array() )
 	{

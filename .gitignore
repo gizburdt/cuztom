@@ -5,3 +5,6 @@
 *.tmproj
 *.sublime-project
 *.sublime-workspace
+*.idea
+.idea
+.idea/*
