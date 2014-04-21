@@ -25,7 +25,7 @@ class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 		$this->after			.= '[]';
 	}
 	
-	function _output( $value = null )
+	function _output()
 	{		
 		$output = '<div class="cuztom-checkboxes-wrap">';
 			if( is_array( $this->posts ) )

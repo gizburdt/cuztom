@@ -13,6 +13,8 @@ class Cuztom_User_Meta extends Cuztom_Meta
 {
 	var $locations;
 
+	var $meta_type 		= 'user';
+
 	/**
 	 * Constructor for User Meta
 	 *
@@ -39,7 +41,7 @@ class Cuztom_User_Meta extends Cuztom_Meta
 		}
 		else
 		{
-			$this->callback = array( &$this, 'callback' );
+			$this->callback = array( &$this, 'output' );
 
 			// Build the meta box and fields
 			$this->data = $this->build( $data );

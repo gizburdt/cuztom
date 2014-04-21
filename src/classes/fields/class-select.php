@@ -18,7 +18,7 @@ class Cuztom_Field_Select extends Cuztom_Field
 		$this->data_attributes['default-value'] = $this->default_value;
 	}
 	
-	function _output( $value = null )
+	function _output()
 	{
 		$output = '<select ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' ' . $this->output_data_attributes() . '>';
 			if( isset( $this->args['show_option_none'] ) )

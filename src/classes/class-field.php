@@ -75,14 +75,14 @@ class Cuztom_Field
 	 * @since 	0.2
 	 *
 	 */
-	function output( $value )
+	function output()
 	{
 		if( $this->is_repeatable() )
-			return $this->_repeatable_output( $value );
+			return $this->_repeatable_output();
 		elseif( $this->is_ajax() )
-			return $this->_ajax_output( $value );
+			return $this->_ajax_output();
 		else
-			return $this->_output( $value );
+			return $this->_output();
 	}
 
 	/**
@@ -95,9 +95,9 @@ class Cuztom_Field
 	 * @since 	2.4
 	 *
 	 */
-	function _output( $value = null )
+	function _output()
 	{
-		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( strlen( $value ) > 0 ? $value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
+		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( strlen( $this->value ) > 0 ? $this->value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
 	}
 
 	/**
@@ -107,7 +107,7 @@ class Cuztom_Field
 	 * @since   2.0
 	 * 
 	 */
-	function _repeatable_output( $value )
+	function _repeatable_output()
 	{
 		$this->after 	= '[]';
 		$output 		= '';
@@ -118,14 +118,14 @@ class Cuztom_Field
 			foreach( $this->value as $value )
 			{
 				$x++;
-				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '' ) . '</li>';
+				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output() . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '' ) . '</li>';
 
 				if( $x >= $this->limit ) break;
 			}
 		}
 		else
 		{
-			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . ( $this->repeatable ? '</li>' : '' );		
+			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output() . ( $this->repeatable ? '</li>' : '' );		
 		}
 
 		return $output;
@@ -138,10 +138,10 @@ class Cuztom_Field
 	 * @since   2.0
 	 * 
 	 */
-	function _ajax_output( $value )
+	function _ajax_output()
 	{
 		$output 	= $this->_output();
-		$output 	.= '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
+		$output 	.= '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary button button-small" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
 
 		return $output;
 	}
@@ -175,7 +175,7 @@ class Cuztom_Field
 		// Maybe parse it through filters
 		$value = $this->save_value( $value );
 
-		switch( $this->meta_type ):
+		switch( $this->meta_type ) :
 			case 'user' :
 				update_user_meta( $object, $this->id, $value );
 			break;

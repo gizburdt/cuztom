@@ -28,7 +28,7 @@ function register_cuztom_taxonomy( $name, $post_type, $args = array(), $labels =
  * @param   int|string 		$term     	Can be the id or the slug of the term
  * @param   string 			$taxonomy
  * @param   string 			$key
- * @return  string
+ * @return  string|array
  *
  * @author 	Gijs Jorissen
  * @since 	2.5
@@ -37,19 +37,21 @@ function get_cuztom_term_meta( $term, $taxonomy, $key = null )
 {
     if( empty( $taxonomy ) || empty( $term ) ) return false;
     
-    if( ! is_numeric( $term ) )
-    {
+    if( ! is_numeric( $term ) ) {
     	$term = get_term_by( 'slug', $term, $taxonomy );
     	$term = $term->term_id;
     }
 
-    $meta = get_option( 'term_meta_' . $taxonomy . '_' . $term );
-    
+    $meta = '';
+
     if( $key ) {
+        $meta = get_option( 'term_meta_' . $taxonomy . '_' . $term );
+
         if( ! empty( $meta[$key] ) ) 
             return $meta[$key]; 
-        else 
-            return '';
+    } else {
+        $query = $wpdb->query("SELECT FROM " . $wpdb->options . " WHERE option_name LIKE 'term_meta_%'");
+        $meta = $query;
     }
         
     return $meta;

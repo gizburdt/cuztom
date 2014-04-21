@@ -8,3 +8,7 @@
 *.idea
 .idea
 .idea/*
+
+# Codekit
+.codekit-cache
+config.codekit

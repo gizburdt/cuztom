@@ -13,10 +13,10 @@ class Cuztom_Meta
 {
 	var $id;
 	var $title;
+	var $description;
 	var $callback;
 	var $data;
 	var $fields;
-	var $description;
 
 	/**
 	 * Construct for all meta types, creates title (and description)
@@ -30,8 +30,8 @@ class Cuztom_Meta
 	function __construct( $title )
 	{
 		if( is_array( $title ) ) {
-			$this->title 		= Cuztom::beautify( $title[0] );
-			$this->description 	= $title[1];
+			$this->title 		= Cuztom::beautify( $title['title'] );
+			$this->description 	= $title['description'];
 		} else {
 			$this->title 		= Cuztom::beautify( $title );
 		}
@@ -48,29 +48,20 @@ class Cuztom_Meta
 	 * @since 	0.2
 	 *
 	 */	
-	function callback( $object, $data = array(), $args = array() )
+	function output( $object, $data = array(), $args = array() )
 	{
 		// Nonce field for validation
 		wp_nonce_field( 'cuztom_meta', 'cuztom_nonce' );
 
-		// Get useful data
-		$data 		= $this->data;
-		$meta_type 	= $this->get_meta_type();
-		$object_id 	= $this->object;
-
 		if( ! empty( $data ) )
 		{
 			echo '<input type="hidden" name="cuztom[__activate]" />';
-			echo '<div class="cuztom cuztom-' . $meta_type . '-meta cuztom-meta-' . $object_id . '" data-object-id="' . $object_id . '" data-meta-type="' . $meta_type . '">';
-				echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table cuztom-main-table">';
-					if( ! empty( $this->description ) ) 
-					{
-						echo '<tr><td colspan="2"><div class="cuztom-box-description">' . $this->description . '</div></td></tr>';
-						echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
-					}
+			echo '<div class="cuztom data-object-id="' . $this->object . '" data-meta-type="' . $this->meta_type . '">';
+				if( ! empty( $this->description ) )
+					echo '<div class="cuztom-box-description">' . $this->description . '</div>';
 
-					foreach( $data as $id => $field )
-					{
+				echo '<table class="form-table cuztom-table cuztom-main-table">';
+					foreach( $this->data as $id => $field ) {
 						$this->output_row( $field );
 					}
 				echo '</table>';
@@ -86,47 +77,35 @@ class Cuztom_Meta
 	 */
 	function output_row( $field )
 	{
-		if( ( $field instanceof Cuztom_Tabs ) || ( $field instanceof Cuztom_Accordion ) || ( $field instanceof Cuztom_Bundle ) )
+		if( ( $field instanceof Cuztom_Tabs ) || ( $field instanceof Cuztom_Bundle ) )
 		{
-			echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
-
-			$field->output_row( $field->value );
-
-			echo '<tr class="cuztom-divider"><td colspan="2"><hr /></td></tr>';
+			$field->output_row();
 		}
 		else
 		{
-			if( ! $field instanceof Cuztom_Field_Hidden )
-			{
-				echo '<tr class="cuztom-tr">';
-					echo '<th class="cuztom-th">';
+			if( ! $field instanceof Cuztom_Field_Hidden ) :
+				echo '<tr class="cuztom-row cuztom-' . $field->type . '">';
+					echo '<th>';
 						echo '<label for="' . $field->id . '" class="cuztom-label">' . $field->label . '</label>';
 						echo $field->required ? ' <span class="cuztom-required">*</span>' : '';
 						echo '<div class="cuztom-field-description">' . $field->description . '</div>';
 					echo '</th>';
-					echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $field->id . '">';
-
-						if( $field->repeatable && $field->_supports_repeatable )
-						{
+					echo '<td class="cuztom-field" id="' . $field->id . '" data-id="' . $field->id . '">';
+						if( $field->is_repeatable() ) :
 							echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
-							echo '<ul class="js-cuztom-sortable cuztom-sortable">';
+							echo '<ul class="cuztom-sortable js-cuztom-sortable">';
 								echo $field->output( $field->value );
 							echo '</ul>';
-						}
-						else
-						{
+						else :
 							echo $field->output( $field->value );
-						}
-
+						endif;
 					echo '</td>';
 				echo '</tr>';
 
 				$divider = true;
-			}
-			else
-			{
+			else :
 				echo $field->output( $field->value );
-			}
+			endif;
 		}
 	}
 
@@ -142,59 +121,24 @@ class Cuztom_Meta
 		// Loop through each meta box
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
+			echo '<pre>';
+
 			foreach( $this->data as $id => $field )
 			{
-				if( ( $field instanceof Cuztom_Tabs || $field instanceof Cuztom_Accordion ) && $tabs = $field )
-				{
+				if( ( $field instanceof Cuztom_Tabs || $field instanceof Cuztom_Accordion ) && $tabs = $field ) :
 					$tabs->save( $object, $values );
-				}
-				elseif( $field instanceof Cuztom_Bundle && $bundle = $field )
-				{
-					// Get value from values (and apply filters)
-					$value 	= isset( $values[$id] ) ? $values[$id] : '';
-
-					// Save
+				elseif( $field instanceof Cuztom_Bundle && $bundle = $field ) :
+					$value = isset( $values[$id] ) ? $values[$id] : '';
 					$bundle->save( $object, $value );
-				}
-				else
-				{
-					if( isset( $field->in_bundle ) && $field->in_bundle ) continue;
-				
-					// Get value from values (and apply filters)
-					$value 	= isset( $values[$id] ) ? $values[$id] : '';
+				else :
+					if( @$field->in_bundle ) 
+						continue;
 
-					// Save
+					$value = isset( $values[$id] ) ? $values[$id] : '';
 					$field->save( $object, $value );
-				}
+				endif;
 			}
 		}
-	}
-
-	/**
-	 * Check what kind of meta we're dealing with
-	 * 
-	 * @return  string
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	1.5
-	 * 
-	 */
-	function get_meta_type()
-	{
-		switch( get_class( $this ) ) :
-			case 'Cuztom_Meta_Box' : 
-				return 'post'; 
-				break;
-			case 'Cuztom_User_Meta' : 
-				return 'user'; 
-				break;
-			case 'Cuztom_Term_Meta' : 
-				return 'term'; 
-				break;
-			default :
-				return false; 
-				break;
-		endswitch;
 	}
 
 	/**
@@ -208,7 +152,7 @@ class Cuztom_Meta
 	 */
 	function is_meta_type( $meta_type )
 	{
-		return $this->get_meta_type() == $meta_type;
+		return $this->meta_type == $meta_type;
 	}
 
 	/**
@@ -242,24 +186,22 @@ class Cuztom_Meta
 	 * @since 	3.0
 	 * 
 	 */
-	function get_meta_value( $field, $args = array( 'taxonomy' => '' ) )
+	function get_meta_values( $field = null, $args = array( 'taxonomy' => '' ) )
 	{
-		switch( $this->get_meta_type() ) :
+		switch( $this->meta_type ) :
 			case 'post' :
-				return get_post_meta( $this->object, $field, true );
+				return get_post_meta( $this->object );
 				break;
 			case 'user' :
-				return get_user_meta( $this->object, $field, true );
+				return get_user_meta( $this->object );
 				break;
 			case 'term' :
-				return get_cuztom_term_meta( $this->object, isset( $object->taxonomy ) ? $object->taxonomy : null, $field );
+				return get_cuztom_term_meta( $this->object, isset( $object->taxonomy ) ? $object->taxonomy : null );
 				break;
 			default :
 				return false;
 				break;
 		endswitch;
-
-		// TODO: Use global getters, so we get a complete array with all values
 	}
 
 	/**
@@ -277,6 +219,7 @@ class Cuztom_Meta
 		$object 		= $this->get_object_id();
 		$this->object 	= $object;
 		$return 		= array();
+		$values			= $this->get_meta_values();
 
 		if( is_array( $data ) && ! empty( $data ) )
 		{
@@ -286,33 +229,33 @@ class Cuztom_Meta
 				if( is_string( $type ) && ( $type == 'tabs' || $type == 'accordion' ) )
 				{
 					$tabs 				= $type == 'tabs' ? new Cuztom_Tabs( $field ) : new Cuztom_Accordion( $field );
-					$tabs->meta_type 	= $this->get_meta_type();
+					$tabs->meta_type 	= $this->meta_type;
 					$tabs->object 		= $this->object;
 
 					foreach( $field['fields'] as $title => $fields )
 					{
 						$tab 				= new Cuztom_Tab( $title );
-						$tab->meta_type 	= $this->get_meta_type();
+						$tab->meta_type 	= $this->meta_type;
 						$tab->object 		= $this->object;
 
 						foreach( $fields as $type => $field )
 						{
 							if( is_string( $type ) && $type == 'bundle' )
 							{
-								$tab->fields 	= $this->build( $bundle = $fields );
+								$tab->fields 	= $this->build( $fields );
 							}
 							else
 							{
 								$args = array_merge(
 									$field,
 									array(
-										'meta_type'		=> $this->get_meta_type(),
+										'meta_type'		=> $this->meta_type,
 										'object'		=> $this->object,
-										'value'			=> $this->get_meta_value( $field['id'] )
+										'value'			=> @$values[$field['id']][0]
 									)
 								);
 
-								$field = create_cuztom_field( $field );
+								$field = create_cuztom_field( $args );
 
 								if( is_object( $field ) ) {
 									$this->fields[$field->id] 	= $field;
@@ -332,14 +275,14 @@ class Cuztom_Meta
 				{
 					$field 				= array_merge( array( 'id' => $field['id'] ), (array) $field );
 					$bundle 			= new Cuztom_Bundle( $field );
-					$bundle->meta_type 	= $this->get_meta_type();
+					$bundle->meta_type 	= $this->meta_type;
 					$bundle->object 	= $this->object;
 
 					foreach( $field['fields'] as $type => $field )
 					{
 						if( is_string( $type ) && $type == 'tabs' )
 						{
-							$tab->fields 	= $this->build( $tabs = $fields );
+							$tab->fields 	= $this->build( $fields );
 						}
 						else
 						{
@@ -349,9 +292,9 @@ class Cuztom_Meta
 									'repeatable'	=> false,
 									'ajax'			=> false,
 									'in_bundle'		=> true,
-									'meta_type'		=> $this->get_meta_type(),
+									'meta_type'		=> $this->meta_type,
 									'object'		=> $this->object,
-									'value'			=> $this->get_meta_value( $field['id'] )
+									'value'			=> @$values[$field['id']][0]
 								)
 							);
 
@@ -373,9 +316,9 @@ class Cuztom_Meta
 					$args = array_merge(
 						$field,
 						array(
-							'meta_type'		=> $this->get_meta_type(),
+							'meta_type'		=> $this->meta_type,
 							'object'		=> $this->object,
-							'value'			=> $this->get_meta_value( $field['id'] )
+							'value'			=> @$values[$field['id']][0]
 						)
 					);
 

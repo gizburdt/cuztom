@@ -6,7 +6,6 @@ class Cuztom_Tabs
 {
 	var $id;
 	var $meta_type;
-	var $type 				= 'bundle';
 	var $tabs 				= array();
 	
 	var $object 			= null;
@@ -18,18 +17,17 @@ class Cuztom_Tabs
 
 	function __construct( $args )
 	{
-		// Tabs args
-		$this->underscore		= isset( $args['underscore'] ) 		? 	$args['underscore'] 	: $this->underscore;
-
+		$this->id = $args['id'];
+		
 		// Localize tabs
 		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
 	}
 
-	function output_row( $value )
+	function output_row( )
 	{
-		echo '<tr class="cuztom-tr">';
-			echo '<td class="cuztom-td js-cuztom-field-selector" id="' . $this->id . '" colspan="2">';
-				$this->output( $value );
+		echo '<tr class="cuztom-tabs">';
+			echo '<td class="cuztom-field" id="' . $this->id . '" colspan="2">';
+				$this->output();
 			echo '</td>';
 		echo '</tr>';
 	}
@@ -39,7 +37,7 @@ class Cuztom_Tabs
 		$tabs 			= $this->tabs;
 		$args['type'] 	= 'tabs';
 				
-		echo '<div class="js-cuztom-tabs cuztom-tabs cuztom-bundles-' . $this->id . '">';
+		echo '<div class="js-cuztom-tabs">';
 			echo '<ul>';
 				foreach( $tabs as $title => $tab )
 				{
@@ -65,19 +63,5 @@ class Cuztom_Tabs
 	function localize()
 	{
 		wp_localize_script( 'cuztom', 'Cuztom_' . $this->id, (array) $this );
-	}
-
-	/**
-	 * Build the id for the tabs
-	 *
-	 * @return  string
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	3.0
-	 * 
-	 */
-	function build_id( $id, $parent )
-	{
-		return ( $this->underscore ? '_' : '' ) . $parent . '_' . $id;
 	}
 }

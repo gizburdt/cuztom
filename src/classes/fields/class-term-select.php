@@ -27,7 +27,7 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 		$this->args['echo']		= 0;
 	}
 
-	function _output( $value = null )
+	function _output()
 	{
 		$this->args['name'] 	= 'cuztom' . $this->pre . '[' . $this->id . ']' . $this->after . ( $this->repeatable ? '[]' : '' );
 		$this->args['id']		= $this->id . $this->after_id;

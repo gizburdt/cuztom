@@ -17,7 +17,7 @@ class Cuztom_Field_Radios extends Cuztom_Field
 		$this->after							.= '[]';
 	}
 
-	function _output( $value = null )
+	function _output()
 	{
 		$output = '';
 

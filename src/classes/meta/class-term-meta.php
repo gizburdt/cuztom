@@ -16,6 +16,8 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	var $fields;
 	var $locations;
 
+	var $meta_type 		= 'term';
+
 	/**
 	 * Construct the term meta
 	 * 

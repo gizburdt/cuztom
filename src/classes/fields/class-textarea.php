@@ -10,8 +10,8 @@ class Cuztom_Field_Textarea extends Cuztom_Field
 
 	var $css_classes 			= array( 'cuztom-input', 'cuztom-textarea' );
 	
-	function _output( $value = null )
+	function _output()
 	{
-		return '<textarea ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . '>' . ( strlen( $value ) > 0 ? $value : $this->default_value ) . '</textarea>' . $this->output_explanation();
+		return '<textarea ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . '>' . ( strlen( $this->value ) > 0 ? $this->value : $this->default_value ) . '</textarea>' . $this->output_explanation();
 	}
 }

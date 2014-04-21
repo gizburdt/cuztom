@@ -14,6 +14,8 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	var $context;
 	var $priority;
 	var $post_types;
+
+	var $meta_type 		= 'post';
 	
 	/**
 	 * Constructs the meta box
@@ -47,7 +49,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			}
 			else
 			{
-				$this->callback = array( &$this, 'callback' );
+				$this->callback = array( &$this, 'output' );
 
 				// Build the meta box and fields
 				$this->data = $this->build( $data );

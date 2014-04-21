@@ -10,7 +10,7 @@ class Cuztom_Field_Image extends Cuztom_Field
 
 	var $css_classes			= array( 'cuztom-hidden', 'cuztom-input' );
 	
-	function _output( $value = null )
+	function _output()
 	{
 		$output = '';
 		$image 	= '';
