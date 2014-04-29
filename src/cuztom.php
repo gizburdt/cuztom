@@ -14,6 +14,7 @@ if( ! class_exists( 'Cuztom' ) ) :
 class Cuztom
 {
 	private static $instance;
+	private static $ajax;
 
 	static $reserved = array( 'attachment', 'attachment_id', 'author', 'author_name', 
 		'calendar', 'cat', 'category','category__and', 'category__in', 'category__not_in', 'category_name', 'comments_per_page', 'comments_popup', 'cpage', 
@@ -38,6 +39,7 @@ class Cuztom
 			self::$instance = new Cuztom;
 			self::$instance->setup_constants();
 			self::$instance->includes();
+			self::$instance->execute();
 			self::$instance->add_hooks();
 		}
 		
@@ -74,6 +76,7 @@ class Cuztom
 	{
 		// General
 		include( CUZTOM_DIR . 'classes/class-notice.php' );
+		include( CUZTOM_DIR . 'classes/class-ajax.php' );
 		include( CUZTOM_DIR . 'classes/class-post-type.php' );
 		include( CUZTOM_DIR . 'classes/class-taxonomy.php' );
 		include( CUZTOM_DIR . 'classes/class-sidebar.php' );
@@ -117,6 +120,19 @@ class Cuztom
 		include( CUZTOM_DIR . 'functions/field.php' );
 	}
 
+	private function execute()
+	{
+		global $cuztom;
+		
+		$cuztom = array(
+			'version'	=> CUZTOM_VERSION,
+			'fields' 	=> array()
+		);
+
+		// Setup ajax
+		self::$ajax = new Cuztom_Ajax;
+	}
+
 	/**
 	 * Add hooks
 	 * 
@@ -134,8 +150,7 @@ class Cuztom
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 		
 		// Ajax
-		add_action( 'wp_ajax_cuztom_field_ajax_save', array( 'Cuztom_Field', 'ajax_save' ) );
-		add_action( 'wp_ajax_nopriv_cuztom_field_ajax_save', array( 'Cuztom_Field', 'ajax_save' ) );
+		self::$ajax->add_hooks();
 	}
 
 	/**
@@ -176,7 +191,7 @@ class Cuztom
 	function register_scripts()
 	{
 		wp_register_script( 'jquery-timepicker', CUZTOM_URL . 'assets/js/jquery.timepicker.min.js', array( 'jquery' ), CUZTOM_VERSION, true );
-		wp_register_script( 'cuztom', CUZTOM_URL . 'assets/js/cuztom.min.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-timepicker', 'jquery-ui-slider' ), CUZTOM_VERSION, true );
+		wp_register_script( 'cuztom', CUZTOM_URL . 'assets/js/cuztom.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-timepicker', 'jquery-ui-slider' ), CUZTOM_VERSION, true );
 	}
 	
 	/**

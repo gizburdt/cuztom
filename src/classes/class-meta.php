@@ -84,21 +84,14 @@ class Cuztom_Meta
 		else
 		{
 			if( ! $field instanceof Cuztom_Field_Hidden ) :
-				echo '<tr class="cuztom-row cuztom-' . $field->type . '">';
+				echo '<tr>';
 					echo '<th>';
 						echo '<label for="' . $field->id . '" class="cuztom-label">' . $field->label . '</label>';
 						echo $field->required ? ' <span class="cuztom-required">*</span>' : '';
 						echo '<div class="cuztom-field-description">' . $field->description . '</div>';
 					echo '</th>';
 					echo '<td class="cuztom-field" id="' . $field->id . '" data-id="' . $field->id . '">';
-						if( $field->is_repeatable() ) :
-							echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
-							echo '<ul class="cuztom-sortable js-cuztom-sortable">';
-								echo $field->output( $field->value );
-							echo '</ul>';
-						else :
-							echo $field->output( $field->value );
-						endif;
+						echo $field->output( $field->value );
 					echo '</td>';
 				echo '</tr>';
 
@@ -251,7 +244,7 @@ class Cuztom_Meta
 									array(
 										'meta_type'		=> $this->meta_type,
 										'object'		=> $this->object,
-										'value'			=> @$values[$field['id']][0]
+										'value'			=> maybe_unserialize( @$values[$field['id']][0] )
 									)
 								);
 
@@ -273,10 +266,13 @@ class Cuztom_Meta
 				// Bundle
 				elseif( is_string( $type ) && $type == 'bundle' )
 				{
-					$field 				= array_merge( array( 'id' => $field['id'] ), (array) $field );
-					$bundle 			= new Cuztom_Bundle( $field );
-					$bundle->meta_type 	= $this->meta_type;
-					$bundle->object 	= $this->object;
+					$bundle = new Cuztom_Bundle( array_merge( 
+						$field,
+						array(
+							'meta_type' => $this->meta_type,
+							'object'	=> $this->object
+						)
+					) );
 
 					foreach( $field['fields'] as $type => $field )
 					{
@@ -294,7 +290,7 @@ class Cuztom_Meta
 									'in_bundle'		=> true,
 									'meta_type'		=> $this->meta_type,
 									'object'		=> $this->object,
-									'value'			=> @$values[$field['id']][0]
+									'value'			=> maybe_unserialize( @$values[$field['id']][0] )
 								)
 							);
 
@@ -307,6 +303,7 @@ class Cuztom_Meta
 						}
 					}
 
+					$this->fields[$bundle->id] = $bundle;
 					$return[$bundle->id] = $bundle;
 				}
 
@@ -318,7 +315,7 @@ class Cuztom_Meta
 						array(
 							'meta_type'		=> $this->meta_type,
 							'object'		=> $this->object,
-							'value'			=> @$values[$field['id']][0]
+							'value'			=> maybe_unserialize( @$values[$field['id']][0] )
 						)
 					);
 

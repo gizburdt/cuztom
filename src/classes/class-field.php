@@ -26,16 +26,15 @@ class Cuztom_Field
 
 	var $object 				= null;
 	var $value 					= null;
-	
 	var $meta_type				= '';
 	var $in_bundle				= false;
+
+	var $data_attributes 		= array();
+	var $css_classes			= array();
 	
 	var $show_admin_column 		= false;
 	var $admin_column_sortable	= false;
 	var $admin_column_filter	= false;
-
-	var $data_attributes 		= array();
-	var $css_classes			= array();
 	
 	var $before_name			= '';
 	var $after_name				= '';
@@ -64,8 +63,8 @@ class Cuztom_Field
 		foreach ( $properties as $property )
 			$this->$property = isset( $field[ $property ] ) ? $field[ $property ] : $this->$property;
 
-		// Localize field
-		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
+		if( $this->is_repeatable() )
+			$this->after_name = '[]';
 	}
 	
 	/**
@@ -75,14 +74,16 @@ class Cuztom_Field
 	 * @since 	0.2
 	 *
 	 */
-	function output()
+	function output( $value = null )
 	{
+		$value = $value ? $value : $this->value;
+
 		if( $this->is_repeatable() )
-			return $this->_repeatable_output();
+			return $this->_output_repeatable( $value );
 		elseif( $this->is_ajax() )
-			return $this->_ajax_output();
+			return $this->_output_ajax( $value );
 		else
-			return $this->_output();
+			return $this->_output( $value );
 	}
 
 	/**
@@ -95,9 +96,9 @@ class Cuztom_Field
 	 * @since 	2.4
 	 *
 	 */
-	function _output()
+	function _output( $value = null )
 	{
-		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( strlen( $this->value ) > 0 ? $this->value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
+		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( strlen( $value ) > 0 ? $value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
 	}
 
 	/**
@@ -107,28 +108,46 @@ class Cuztom_Field
 	 * @since   2.0
 	 * 
 	 */
-	function _repeatable_output()
+	function _output_repeatable( $value = null )
 	{
-		$this->after 	= '[]';
-		$output 		= '';
-		$x 				= 0;
+		$values 	= $value;
+		$x 			= 0;
 
-		if( is_array( $this->value ) )
-		{
-			foreach( $this->value as $value )
-			{
-				$x++;
-				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output() . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '' ) . '</li>';
+		$output = '<div class="cuztom-repeatable">';
+			$output .= '<div class="cuztom-control">';
+				$output .= '<a class="button-secondary button button-small cuztom-button js-cuztom-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . sprintf( '+ %s', __( 'Add item', 'cuztom' ) ) . '</a>';
+			$output .= '</div>';
+			$output .= '<ul class="cuztom-sortable js-cuztom-sortable">';
+				if( is_array( $value ) )
+				{
+					foreach( $values as $value )
+					{
+						$x++;
+						$output .= $this->_output_repeatable_item( $value );
 
-				if( $x >= $this->limit ) break;
-			}
-		}
-		else
-		{
-			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output() . ( $this->repeatable ? '</li>' : '' );		
-		}
+						if( $x >= $this->limit ) break;
+					}
+				}
+				else
+				{
+					$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . '</li>';		
+				}
+			$output .= '</ul>';
+		$output .= '</div>';
 
 		return $output;
+	}
+
+	/**
+	 * Outputs repeatable item
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
+	function _output_repeatable_item( $value = null )
+	{
+		return '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '' ) . '</li>';
 	}
 
 	/**
@@ -138,12 +157,21 @@ class Cuztom_Field
 	 * @since   2.0
 	 * 
 	 */
-	function _ajax_output()
+	function _output_ajax( $value = null )
 	{
-		$output 	= $this->_output();
-		$output 	.= '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary button button-small" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
+		return $this->_output( $value ) . $this->_output_ajax_button();
+	}
 
-		return $output;
+	/**
+	 * Outputs ajax save button
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
+	function _output_ajax_button()
+	{
+		return '<a class="cuztom-ajax-save js-cuztom-ajax-save button button-secondary button-small" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
 	}
 
 	/**
@@ -192,35 +220,6 @@ class Cuztom_Field
 	}
 
 	/**
-	 * Saves an ajax field
-	 * 
-	 * @author  Gijs Jorissen
-	 * @since  	2.0
-	 * 
-	 */
-	function ajax_save()
-	{
-		if( $_POST['cuztom'] )
-		{
-			$object_id	= $_POST['cuztom']['object_id'];
-			$id			= $_POST['cuztom']['id'];
-			$value 		= $_POST['cuztom']['value'];
-			$meta_type 	= $_POST['cuztom']['meta_type'];
-
-			if( empty( $object_id ) ) 
-				die();
-
-			if( $meta_type == 'user' )
-				update_user_meta( $object_id, $id, $value );
-			elseif( $meta_type == 'post' )
-				update_post_meta( $object_id, $id, $value );
-		}
-
-		// For Wordpress
-		die();
-	}
-
-	/**
 	 * Outputs the fields name attribute
 	 * 
 	 * @author  Gijs Jorissen
@@ -255,9 +254,7 @@ class Cuztom_Field
 	 */
 	function output_css_class( $extra = array() )
 	{
-		$classes = array_merge( $this->css_classes, $extra );
-
-		return apply_filters( 'cuztom_field_output_css_classes', ( 'class="' . implode( ' ', $classes ) . '"' ), $extra, $this );
+		return apply_filters( 'cuztom_field_output_css_classes', ( 'class="' . implode( ' ', array_merge( $this->css_classes, $extra ) ) . '"' ), $extra, $this );
 	}
 
 	/**
@@ -271,17 +268,15 @@ class Cuztom_Field
 	 */
 	function output_data_attributes( $extra = array() )
 	{
-		$output = '';
-
 		foreach( array_merge( $this->data_attributes, $extra ) as $attribute => $value )
 		{
 			if( ! is_null( $value ) )
-				$output .= 'data-' . $attribute . '="' . $value . '"';
+				$output = 'data-' . $attribute . '="' . $value . '"';
 			elseif( ! $value && isset( $this->args[Cuztom::uglify( $attribute )] ) )
-				$output .= 'data-' . $attribute . '="' . $this->args[Cuztom::uglify( $attribute )] . '"';
+				$output = 'data-' . $attribute . '="' . $this->args[Cuztom::uglify( $attribute )] . '"';
 		}
 
-		return apply_filters( 'cuztom_field_output_data_attributes', $output, $extra, $this );
+		return apply_filters( 'cuztom_field_output_data_attributes', @$output, $extra, $this );
 	}
 
 	/**
@@ -344,17 +339,5 @@ class Cuztom_Field
 	function is_repeatable()
 	{
 		return $this->repeatable && $this->_supports_repeatable;
-	}
-
-	/**
-	 * Localize the field object
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	3.0
-	 * 
-	 */
-	function localize()
-	{
-		wp_localize_script( 'cuztom', 'Cuztom_' . $this->id, (array) $this );
 	}
 }

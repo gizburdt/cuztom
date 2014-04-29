@@ -9,7 +9,7 @@ class Cuztom_Field_File extends Cuztom_Field
 
 	var $css_classes 			= array( 'cuztom-hidden', 'cuztom-input' );
 	
-	function _output()
+	function _output( $value = null )
 	{
 		$output = '';
 

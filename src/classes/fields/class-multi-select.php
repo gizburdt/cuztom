@@ -16,7 +16,7 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 		$this->after 		   .= '[]';
 	}
 
-	function _output()
+	function _output( $value = null )
 	{
 		$output = '<select ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' multiple="true">';
 			if( isset( $this->args['show_option_none'] ) )

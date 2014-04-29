@@ -4,12 +4,12 @@
   /* General */
   /* Tabs */
   /* Accordion */
+  /* Repeatable */
   /* Sortable */
   /* Bundle */
   /* Media */
   /* Misc */
   /* Responsive wysiwyg editor */
-  /* Post meta */
 }
 .cuztom .cuztom-main-table {
   border: 1px solid #dfdfdf !important;
@@ -32,20 +32,21 @@
   border: none;
   padding: 10px;
 }
+.cuztom .cuztom-table tr.cuztom-control > td {
+  background: #f1f1f1;
+  padding: 6px 10px;
+  border: 1px solid #dfdfdf;
+}
+.cuztom .cuztom-table tr.cuztom-control.cuztom-control-top > td {
+  border-bottom: none;
+}
+.cuztom .cuztom-table tr.cuztom-control.cuztom-control-bottom > td {
+  border-top: none;
+}
 .cuztom .cuztom-table td,
 .cuztom .cuztom-table th {
   position: relative;
   padding: 15px 10px;
-}
-.cuztom .cuztom-table .cuztom-control {
-  background: #f1f1f1;
-  padding: 6px 10px;
-}
-.cuztom .cuztom-table .cuztom-control.cuztom-control-top > td {
-  border-bottom: none;
-}
-.cuztom .cuztom-table .cuztom-control.cuztom-control-bottom > td {
-  border-top: none;
 }
 .cuztom .cuztom-box-description {
   font-style: italic;
@@ -125,10 +126,10 @@
 .cuztom .cuztom-tabs .ui-tabs-panel {
   background: #f5f5f5;
   border: 1px solid #ddd;
-  -webkit-border-radius: 0 3px 3px 3px;
   border-radius: 0 3px 3px 3px;
+  -webkit-border-radius: 0 3px 3px 3px;
   font-size: 12px;
-  padding: 10px;
+  padding: 0;
 }
 .cuztom .cuztom-accordion .ui-widget {
   border: 1px solid #ddd;
@@ -139,6 +140,7 @@
 .cuztom .cuztom-accordion .ui-accordion-header {
   color: #444;
   background: #f1f1f1;
+  font-size: 12px !important;
   border: none;
   border-bottom: 1px solid #ddd;
   -webkit-box-shadow: none;
@@ -148,10 +150,27 @@
   cursor: move;
 }
 .cuztom .cuztom-accordion .ui-accordion-content {
-  padding: 10px;
+  padding: 0;
   border-radius: 0;
   -webkit-border-radius: 0;
   border: none;
+}
+.cuztom .cuztom-repeatable {
+  border: 1px solid #dfdfdf;
+}
+.cuztom .cuztom-repeatable .cuztom-control {
+  background: #f1f1f1;
+  padding: 6px 10px;
+}
+.cuztom .cuztom-repeatable .cuztom-sortable {
+  margin: 0;
+}
+.cuztom .cuztom-repeatable .cuztom-sortable-item {
+  margin: 0;
+  padding: 6px 10px;
+}
+.cuztom .cuztom-repeatable .cuztom-sortable-item + .cuztom-sortable-item {
+  border-top: 1px solid #dfdfdf;
 }
 .cuztom .cuztom-sortable-item .cuztom-handle-sortable,
 .cuztom .cuztom-sortable-item .cuztom-remove-sortable {
@@ -267,19 +286,6 @@
 .cuztom table.mceToolbar td {
   display: inline-block;
   white-space: normal;
-}
-.cuztom.cuztom-post-meta {
-  margin-left: -10px;
-  margin-right: -12px;
-}
-.cuztom.cuztom-post-meta .cuztom-tabs .ui-tabs-nav li.ui-state-active {
-  background: #fff;
-}
-.cuztom.cuztom-post-meta .cuztom-tabs .ui-tabs-panel {
-  background: #fff;
-}
-.cuztom.cuztom-post-meta .cuztom-bundle {
-  background: #fff;
 }
 /* Term meta */
 #addtag .cuztom {

@@ -33,6 +33,8 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 */
 	function __construct( $id, $title, $post_type, $data = array(), $context = 'normal', $priority = 'default' )
 	{
+		global $cuztom;
+
 		if( ! empty( $title ) )
 		{
 			parent::__construct( $title );
@@ -53,6 +55,9 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 
 				// Build the meta box and fields
 				$this->data = $this->build( $data );
+
+				// Add fields to global
+				$cuztom['fields'] = $this->fields;
 
 				foreach( $this->post_types as $post_type )
 				{
@@ -197,7 +202,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		if( $this->fields )
 		{
 			foreach( $this->fields as $id_name => $field )
-				if( $field->admin_column_sortable ) $columns[$id_name] = $field->label;
+				if( @$field->admin_column_sortable ) $columns[$id_name] = $field->label;
 		}
 
 		return $columns;

@@ -136,11 +136,12 @@ jQuery( function( $ ) {
 	});		
 	
 	// Add sortable
-	$(document).on( 'click', '.js-cuztom-add-sortable', function() {
+	$(document).on( 'click', '.js-cuztom-add-sortable', function() 
+	{
 		var that 			= $(this),
 			isBundle		= that.data('sortable-type') == 'bundle',
-			fieldID 		= that.data('field-id'),
-			field 			= isBundle ? $('.cuztom-field#' + fieldID) : that.closest('.cuztom-field')
+			fieldID 		= that.data('entity-id'),
+			field 			= that.closest('.cuztom-field')
 			sortable 		= field.find('.js-cuztom-sortable'),
 			count 			= sortable.find('.js-cuztom-sortable-item').length,
 			data 			= {
