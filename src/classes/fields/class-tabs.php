@@ -18,9 +18,6 @@ class Cuztom_Tabs
 	function __construct( $args )
 	{
 		$this->id = $args['id'];
-		
-		// Localize tabs
-		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
 	}
 
 	function output_row( )
@@ -58,10 +55,5 @@ class Cuztom_Tabs
 		{
 			$tab->save( $object, $values );
 		}
-	}
-	
-	function localize()
-	{
-		wp_localize_script( 'cuztom', 'Cuztom_' . $this->id, (array) $this );
 	}
 }
