@@ -70,7 +70,7 @@ class Cuztom_Ajax
 			return;
 
 		if( !$field->limit || ( $field->limit > $_POST['cuztom']['count'] ) )
-			echo json_encode( array( 'status' => true, 'item' => $field->output_item() ) );
+			echo json_encode( array( 'status' => true, 'item' => $field->output_item( $_POST['cuztom']['index'] ) ) );
 		else
 			echo json_encode( array( 'status' => false, 'message' => __('Limit reached!') ) );
 

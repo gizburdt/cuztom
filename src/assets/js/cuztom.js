@@ -136,148 +136,43 @@ jQuery( function( $ ) {
 	});		
 	
 	// Add sortable
-	$(document).on( 'click', '.js-cuztom-add-sortable', function() {
+	$(document).on( 'click', '.js-cuztom-add-sortable', function(event) {
 		var that 			= $(this),
 			isBundle		= that.data('sortable-type') == 'bundle',
 			fieldID 		= that.data('field-id'),
 			field 			= isBundle ? $('.cuztom-field#' + fieldID) : that.closest('.cuztom-field')
 			sortable 		= field.find('.js-cuztom-sortable'),
-			count 			= sortable.find('.js-cuztom-sortable-item').length,
+			count 			= sortable.find('.cuztom-sortable-item').length,
+			index 			= count,
 			data 			= {
 				action: 	isBundle ? 'cuztom_add_bundle_item' : 'cuztom_add_repeatable_item',
 				cuztom: 	{
 					field_id: 	fieldID,
-					count: 		count
+					count: 		count,
+					index: 		index
 				}
 			};
 
+		// Call
 		$.post(
 			Cuztom.ajax_url,
 			data, 
 			function(response) {
 				var response = $.parseJSON(response);
 
-				if( response.status )
+				if( response.status ) {
 					sortable.append(response.item);
-				else
+				} else {
 					alert(response.message);
+				}
 			}
 		);
 
-		// // Dealing with bundles
-		// if( isBundle )
-		// {
-		// 	newItem.find('.cuztom-tr').each(function() {
+		// Re-init events
+		cuztomEvents(document);
 
-		// 		var row				= $(this),
-		// 			selector 		= row.find('.js-cuztom-field-selector'),
-		// 			cuztomInput 	= $('.cuztom-input', selector),
-		// 			fieldID 		= selector.attr('id'),
-		// 			fieldObject 	= window['Cuztom_' + fieldID];
-
-		// 		// Checkboxes and radios to default value
-		// 		if( fieldObject.type == 'checkbox' || fieldObject.type == 'radio' ) 
-		// 		{
-		// 			cuztomInput.each(function() {
-		// 				$(this).removeAttr('checked').prop('checked', false);
-
-		// 				var default_value = $(this).closest('.cuztom-checkboxes-wrap').data('default-value');
-		// 				if( default_value != undefined && (default_value + '').length && default_value == $(this).val() )
-		// 					$(this).attr('checked', 'checked').prop('checked', true);
-		// 			});
-		// 		}
-
-		// 		// Wysiwyg
-		// 		if( fieldObject.type == 'wysiwyg' ) 
-		// 		{
-		// 			var last_id = cuztomInput.attr('id'), last_name = cuztomInput.attr('name');
-		// 			$(this).find('span.mceEditor').remove();
-		// 			cuztomInput.show();
-		// 		}
-
-		// 		// New name and id attributes
-		// 		cuztomInput.attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return '[' + ( Number(n) + 1 ) + ']'; });}).attr('id', function( i, val ) { return val.replace( /\_(\d+)/, function( match, n ) { return '_' + ( Number(n) + 1 ); })}).removeClass('hasDatepicker');
-
-		// 		// Set label for new id
-		// 		$(this).find('label').attr('for', cuztomInput.attr('id'));
-
-		// 		// Color
-		// 		if( fieldObject.type == 'color' ) 
-		// 		{
-		// 			cuztomInput.attr('value', '');
-		// 			$(this).find('.cuztom-td').html(cuztomInput.clone( false ));
-		// 		}
-
-		// 		// Select
-		// 		if( cuztomInput.hasClass('cuztom-select') ) 
-		// 		{
-		// 			cuztomInput.each(function() {
-		// 				var default_value = $(this).data('default-value');
-		// 				$(this).find('option').removeAttr('selected').prop('selected', false);
-		// 				if( default_value != undefined && (default_value + '').length ) {
-		// 					$(this).find('option').each(function() {
-		// 						if( $(this).val() == default_value )
-		// 							$(this).attr('selected', 'selected').prop('selected', true);
-		// 					});
-		// 				}
-		// 			});
-		// 		}
-
-		// 		// Add new wysiwyg
-		// 		if( fieldObject.type == 'wysiwyg' ) 
-		// 		{
-		// 			var new_id = cuztomInput.attr('id'), new_name = cuztomInput.attr('name'), last_id_regexp = new RegExp(last_id, 'g'), last_name_regexp = new RegExp(last_name, 'g');
-		// 			$(this).html( $(this).html().replace( last_name_regexp, new_name ).replace( last_id_regexp, new_id ) );
-
-		// 			// Clone tinyMCEPreInit.mceInit object
-		// 			tinyMCEPreInit.mceInit[new_id] = tinyMCEPreInit.mceInit[last_id];
-		// 			tinyMCEPreInit.mceInit[new_id].body_class = tinyMCEPreInit.mceInit[new_id].body_class.replace( last_id_regexp, new_id );
-		// 			tinyMCEPreInit.mceInit[new_id].elements = tinyMCEPreInit.mceInit[new_id].elements.replace( last_id_regexp, new_id );
-
-		// 			// Clone QTags instance
-		// 			QTags.instances[new_id] = QTags.instances[last_id];
-		// 			QTags.instances[new_id].canvas = cuztomInput[0];
-		// 			QTags.instances[new_id].id = new_id;
-		// 			QTags.instances[new_id].settings.id = new_id;
-		// 			QTags.instances[new_id].name = 'qt_' + new_id;
-		// 			QTags.instances[new_id].toolbar = $(this).find('.quicktags-toolbar')[0];
-
-		// 			var mode = 'html';
-		// 			if( $(this).find('.wp-editor-wrap').hasClass('tmce-active') )
-		// 				mode = 'tmce';
-		// 			switchEditors.push({'id': new_id, 'mode': mode});
-		// 		}
-		// 	});
-		// }
-		
-		// // Dealing with repeatable
-		// else
-		// {
-
-		// }
-		
-		// Reset data
-		// newItem.find('.cuztom-input, select, textarea').val('').removeAttr('selected');
-		// newItem.find('.js-cuztom-remove-media').remove();
-		// newItem.find('.cuztom-preview').html('');
-
-		// // Add the new item
-		// newItem.appendTo( wrap );
-
-		// // Add events to the new item
-		// cuztomEvents(newItem);
-		
-		// // Add new handler and remover if necessary
-		// $('.js-cuztom-sortable-item', parent).each(function( index, item ) {
-		// 	if( $('.js-cuztom-handle-sortable', item ).length == 0 ) { $(item).prepend( handle ); }
-		// 	if( $('.js-cuztom-remove-sortable', item ).length == 0 ) { $(item).append( remover ); }
-		// });
-
-		// // Switch editors
-		// for( var i = 0; i < switchEditors.length; i++ )
-		// 	switchEditors.go( switchEditors[i]['id'], switchEditors[i]['mode'] );
-		
-		return false;
+		// Prevent click
+		event.preventDefault();
 	});
 
 	// Ajax save

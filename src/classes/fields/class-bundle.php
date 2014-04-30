@@ -19,8 +19,6 @@ class Cuztom_Bundle extends Cuztom_Field
 	function __construct( $bundle )
 	{
 		parent::__construct( $bundle );
-
-
 	}
 
 	/**
@@ -63,104 +61,22 @@ class Cuztom_Bundle extends Cuztom_Field
 			$i = 0;
 			foreach( $this->value as $bundle )
 			{
-				echo $this->output_item( $index );
+				echo $this->output_item( $i );
 				$i++;
 			}
-			
 		}
 		elseif( ! empty( $this->default_value ) )
 		{
 			$i = 0;
 			foreach( $this->default_value as $default )
 			{
-				echo '<li class="cuztom-sortable-item js-cuztom-sortable-item cuztom-bundle">';
-					echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"><a href="#"></a></div>';
-					echo '<fieldset class="cuztom-fieldset">';
-					echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
-						
-						$fields = $this->fields;
-						$y 		= 0;
-						
-						foreach( $fields as $id => $field )
-						{
-							$field->pre 			= '[' . $this->id . '][' . $i . ']';
-							$field->after_id 		= '_' . $i;
-							$field->default_value 	= $this->default_value[$i][$y];
-							$value 					= '';
-
-							if( ! $field instanceof Cuztom_Field_Hidden )
-							{
-								echo '<tr>';
-									echo '<th class="cuztom-th">';
-										echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
-										echo '<div class="cuztom-field-description">' . $field->description . '</div>';
-									echo '</th>';
-									echo '<td class="cuztom-td">';
-
-										if( $field->_supports_bundle )
-											echo $field->output();
-										else
-											echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
-
-									echo '</td>';
-								echo '</tr>';
-							}
-							else
-							{
-								echo $field->output();
-							}
-
-							$y++;
-						}
-
-					echo '</table>';
-					echo '</fieldset>';
-				echo '</li>';
-
+				echo $this->output_item( $i );
 				$i++;
 			}
 		}
 		else
 		{
-			echo '<li class="cuztom-sortable-item js-cuztom-sortable-item cuztom-bundle">';
-				echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"><a href="#"></a></div>';
-				echo '<fieldset class="cuztom-fieldset">';
-				echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
-					
-					$fields = $this->fields;
-					
-					foreach( $fields as $id => $field )
-					{
-						$field->pre 		= '[' . $this->id . '][0]';
-						$field->after_id	= '_0';
-						$value 				= '';
-
-						if( ! $field instanceof Cuztom_Field_Hidden )
-						{
-							echo '<tr>';
-								echo '<th class="cuztom-th">';
-									echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
-									echo '<div class="cuztom-field-description">' . $field->description . '</div>';
-								echo '</th>';
-								echo '<td class="cuztom-td">';
-
-									if( $field->_supports_bundle )
-										echo $field->output();
-									else
-										echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
-
-								echo '</td>';
-							echo '</tr>';
-						}
-						else
-						{
-							echo $field->output();
-						}
-					}
-
-				echo '</table>';
-				echo '</fieldset>';
-			echo '</li>';
+			echo $this->output_item();
 		}
 	}
 
@@ -173,18 +89,18 @@ class Cuztom_Bundle extends Cuztom_Field
 	 * @since 	2.8.4
 	 * 
 	 */
-	function output_item( $i = 0 )
+	function output_item( $index = 0 )
 	{
-		$output = '<li class="cuztom-sortable-item js-cuztom-sortable-item">';
+		$output = '<li class="cuztom-sortable-item">';
 			$output .= '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#"></a></div>';
 			$output .= '<fieldset class="cuztom-fieldset">';
 				$output .= '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
-					
 					foreach( $this->fields as $id => $field )
 					{
-						$field->pre 		= '[' . $this->id . '][' . $i . ']';
-						$field->after_id 	= '_' . $i;
-						$value 				= isset( $this->value[$i][$id] ) ? $this->value[$i][$id] : '';
+						$field->before_name 	= '[' . $this->id . '][' . $index. ']';
+						$field->after_id 		= '_' . $index;
+						$field->default_value 	= isset( $this->default_value[$index][$id] ) ? $this->default_value[$index][$id] : $field->default_value;
+						$value 					= isset( $this->value[$index][$id] ) ? $this->value[$index][$id] : '';
 						
 						if( ! $field instanceof Cuztom_Field_Hidden )
 						{
@@ -208,7 +124,6 @@ class Cuztom_Bundle extends Cuztom_Field
 							$output .= $field->output();
 						}
 					}
-
 				$output .= '</table>';
 			$output .= '</fieldset>';
 			$output .= count( $this->value ) > 1 ? '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"><a href="#"></a></div>' : '';
@@ -224,6 +139,14 @@ class Cuztom_Bundle extends Cuztom_Field
 				echo '<a class="button-secondary cuztom-button button button-small js-cuztom-add-sortable js-cuztom-add-bundle" data-sortable-type="bundle" data-field-id="' . $this->id . '" href="#">';
 					echo sprintf( '+ %s', __( 'Add item', 'cuztom' ) );
 				echo '</a>';
+
+				if( $this->limit ) {
+					echo '<div class="cuztom-counter">';
+						echo '<span class="current"></span>';
+						echo '<span class="divider"> / </span>';
+						echo '<span class="max">' . $this->limit . '</span>';
+					echo '</div>';
+				}
 			echo '</td>';
 		echo '</tr>';
 	}

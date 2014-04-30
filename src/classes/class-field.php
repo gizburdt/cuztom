@@ -116,6 +116,13 @@ class Cuztom_Field
 		$output = '<div class="cuztom-repeatable">';
 			$output .= '<div class="cuztom-control">';
 				$output .= '<a class="button-secondary button button-small cuztom-button js-cuztom-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . sprintf( '+ %s', __( 'Add item', 'cuztom' ) ) . '</a>';
+				if( $this->limit ) {
+					$output .= '<div class="cuztom-counter">';
+						$output .= '<span class="current">' . count( $values ) . '</span>';
+						$output .= '<span class="divider"> / </span>';
+						$output .= '<span class="max">' . $this->limit . '</span>';
+					$output .= '</div>';
+				}
 			$output .= '</div>';
 			$output .= '<ul class="cuztom-sortable js-cuztom-sortable">';
 				if( is_array( $value ) )
