@@ -117,7 +117,6 @@ class Cuztom
 		// Functions
 		include( CUZTOM_DIR . 'functions/post-type.php' );
 		include( CUZTOM_DIR . 'functions/taxonomy.php' );
-		include( CUZTOM_DIR . 'functions/field.php' );
 	}
 
 	private function execute()

@@ -2,17 +2,17 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-class Cuztom_Tab
+class Cuztom_Tab extends Cuztom_Field
 {
-	var $id;
 	var $title;
-	var $meta_type;
 	var $fields = array();
 
-	function __construct( $title )
+	function __construct( $args )
 	{
-		$this->id 		= Cuztom::uglify( $title );
-		$this->title 	= Cuztom::beautify( $title );
+		parent::__construct( $args );
+
+		if( ! $this->id )
+			$this->id = Cuztom::uglify( $this->title );
 	}
 
 	function output( $args = array() )
@@ -80,6 +80,24 @@ class Cuztom_Tab
 
 			// Save
 			$field->save( $object, $value );
+		}
+	}
+
+	function build( $data, $value )
+	{
+		foreach( $data as $type => $field )
+		{
+			if( is_string( $type ) && $type == 'bundle' ) 
+			{
+				// $tab->fields = $this->build( $fields );
+			} 
+			else 
+			{
+				$args = array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value'	=> maybe_unserialize( @$value[$field['id']][0] ) ) );
+				$field = Cuztom_Field::create( $args );
+
+				$this->fields[$field->id] = $field;
+			}
 		}
 	}
 }

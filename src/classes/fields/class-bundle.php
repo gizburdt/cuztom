@@ -177,4 +177,26 @@ class Cuztom_Bundle extends Cuztom_Field
 
 		// TODO: Term meta
 	}
+
+	function build( $data, $value )
+	{
+		foreach( $data as $type => $field )
+		{
+			if( is_string( $type ) && $type == 'tabs' )
+			{
+				$tab->fields = $this->build( $fields );
+			}
+			else
+			{
+				$args = array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value'	=> maybe_unserialize( @$value[$field['id']][0] ) ) );
+				
+				$field = Cuztom_Field::create( $args );
+				$field->repeatable 	= false;
+				$field->ajax 		= false;
+				$field->in_bundle 	= true;
+
+				$this->fields[$field->id] = $field;
+			}
+		}
+	}
 }

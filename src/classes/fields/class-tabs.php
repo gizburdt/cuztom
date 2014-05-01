@@ -2,18 +2,9 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-class Cuztom_Tabs
+class Cuztom_Tabs extends Cuztom_Field
 {
-	var $id;
-	var $meta_type;
-	var $tabs 				= array();
-	
-	var $object 			= null;
-	var $value 				= null;
-
-	var $args 				= true;
-	var $underscore 		= true;
-	var $limit 				= null;
+	var $tabs = array();
 
 	function __construct( $args )
 	{
@@ -54,6 +45,18 @@ class Cuztom_Tabs
 		foreach( $this->tabs as $tab )
 		{
 			$tab->save( $object, $values );
+		}
+	}
+
+	function build( $data, $value )
+	{
+		foreach( $data as $title => $field )
+		{
+			$args	= array_merge( array( 'title' => $title, 'meta_type' => $this->meta_type, 'object' => $this->object ) );
+			$tab 	= new Cuztom_Tab( $args );
+			$tab->build( $field['fields'], $value );
+
+			$this->tabs[$title] = $tab;
 		}
 	}
 }

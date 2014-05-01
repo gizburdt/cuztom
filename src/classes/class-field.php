@@ -48,20 +48,19 @@ class Cuztom_Field
 	/**
 	 * Constructs a Cuztom_Field
 	 * 
-	 * @param 	array 			$field
-	 * @param   string 			$meta_type
+	 * @param 	array 			$args
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	0.3.3
 	 * 
 	 */
-	function __construct( $field )
+	function __construct( $args )
 	{
-		$properties = array_keys( get_class_vars( __CLASS__ ) );
+		$properties = array_keys( get_class_vars( get_called_class() ) );
 		
 		// Set all properties
 		foreach ( $properties as $property )
-			$this->$property = isset( $field[ $property ] ) ? $field[ $property ] : $this->$property;
+			$this->$property = isset( $args[ $property ] ) ? $args[ $property ] : $this->$property;
 
 		if( $this->is_repeatable() )
 			$this->after_name = '[]';
@@ -346,5 +345,15 @@ class Cuztom_Field
 	function is_repeatable()
 	{
 		return $this->repeatable && $this->_supports_repeatable;
+	}
+
+	static function create( $args )
+	{
+		$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $args['type'] ) ) );
+
+		if( class_exists( $class ) )
+			return new $class( $args );
+		else
+			return false;
 	}
 }

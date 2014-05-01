@@ -35,6 +35,8 @@ class Cuztom_Meta
 		} else {
 			$this->title 		= Cuztom::beautify( $title );
 		}
+
+		$this->object 	= $this->get_object_id();
 	}
 
 	/**
@@ -53,7 +55,7 @@ class Cuztom_Meta
 		// Nonce field for validation
 		wp_nonce_field( 'cuztom_meta', 'cuztom_nonce' );
 
-		if( ! empty( $data ) )
+		if( ! empty( $this->data ) )
 		{
 			echo '<input type="hidden" name="cuztom[__activate]" />';
 			echo '<div class="cuztom data-object-id="' . $this->object . '" data-meta-type="' . $this->meta_type . '">';
@@ -209,8 +211,6 @@ class Cuztom_Meta
 	 */
 	function build( $data, $parent = null )
 	{
-		$object 		= $this->get_object_id();
-		$this->object 	= $object;
 		$return 		= array();
 		$values			= $this->get_meta_values();
 
@@ -221,44 +221,9 @@ class Cuztom_Meta
 				// Tabs / accordion
 				if( is_string( $type ) && ( $type == 'tabs' || $type == 'accordion' ) )
 				{
-					$tabs 				= $type == 'tabs' ? new Cuztom_Tabs( $field ) : new Cuztom_Accordion( $field );
-					$tabs->meta_type 	= $this->meta_type;
-					$tabs->object 		= $this->object;
-
-					foreach( $field['fields'] as $title => $fields )
-					{
-						$tab 				= new Cuztom_Tab( $title );
-						$tab->meta_type 	= $this->meta_type;
-						$tab->object 		= $this->object;
-
-						foreach( $fields as $type => $field )
-						{
-							if( is_string( $type ) && $type == 'bundle' )
-							{
-								$tab->fields 	= $this->build( $fields );
-							}
-							else
-							{
-								$args = array_merge(
-									$field,
-									array(
-										'meta_type'		=> $this->meta_type,
-										'object'		=> $this->object,
-										'value'			=> maybe_unserialize( @$values[$field['id']][0] )
-									)
-								);
-
-								$field = create_cuztom_field( $args );
-
-								if( is_object( $field ) ) {
-									$this->fields[$field->id] 	= $field;
-									$tab->fields[$field->id] 	= $field;
-								}
-							}
-						}
-
-						$tabs->tabs[$title] = $tab;
-					}
+					$args = array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object ) );
+					$tabs = $type == 'tabs' ? new Cuztom_Tabs( $field ) : new Cuztom_Accordion( $field );
+					$tabs->build( $field['fields'], $values );
 
 					$return[$tabs->id] = $tabs;
 				}
@@ -266,65 +231,21 @@ class Cuztom_Meta
 				// Bundle
 				elseif( is_string( $type ) && $type == 'bundle' )
 				{
-					$bundle = new Cuztom_Bundle( array_merge( 
-						$field,
-						array(
-							'meta_type' => $this->meta_type,
-							'object'	=> $this->object
-						)
-					) );
+					$args 	=  array_merge( $field, array( 'meta_type' => $this->meta_type, 'object'	=> $this->object ) );
+					$bundle = new Cuztom_Bundle( $args );
+					$bundle->build( $field['fields'], $values );
 
-					foreach( $field['fields'] as $type => $field )
-					{
-						if( is_string( $type ) && $type == 'tabs' )
-						{
-							$tab->fields 	= $this->build( $fields );
-						}
-						else
-						{
-							$args = array_merge(
-								$field,
-								array(
-									'repeatable'	=> false,
-									'ajax'			=> false,
-									'in_bundle'		=> true,
-									'meta_type'		=> $this->meta_type,
-									'object'		=> $this->object,
-									'value'			=> maybe_unserialize( @$values[$field['id']][0] )
-								)
-							);
-
-							$field = create_cuztom_field( $args );
-
-							if( is_object( $field ) ) {
-								$this->fields[$field->id] 	= $field;
-								$bundle->fields[$field->id] = $field;
-							}
-						}
-					}
-
-					$this->fields[$bundle->id] = $bundle;
 					$return[$bundle->id] = $bundle;
 				}
 
 				// Fields
 				else
 				{
-					$args = array_merge(
-						$field,
-						array(
-							'meta_type'		=> $this->meta_type,
-							'object'		=> $this->object,
-							'value'			=> maybe_unserialize( @$values[$field['id']][0] )
-						)
-					);
+					$args 	= array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => maybe_unserialize( @$value[$field['id']][0] ) ) );
+					$field 	= Cuztom_Field::create( $args );
 
-					$field = create_cuztom_field( $args );
-
-					if( is_object( $field ) ) {
-						$this->fields[$field->id] 	= $field;
-						$return[$field->id] 		= $field;
-					}
+					$this->fields[$field->id] 	= $field;
+					$return[$field->id] 		= $field;
 				}
 			}
 		}
