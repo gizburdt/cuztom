@@ -12,7 +12,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Field
 {
 	var $id						= '';
-	var $type					= '';
+	var $type					= null;
     var $label 					= '';
     var $description 			= '';
     var $explanation			= '';
@@ -26,7 +26,7 @@ class Cuztom_Field
 
 	var $object 				= null;
 	var $value 					= null;
-	var $meta_type				= '';
+	var $meta_type				= null;
 	var $in_bundle				= false;
 
 	var $data_attributes 		= array();

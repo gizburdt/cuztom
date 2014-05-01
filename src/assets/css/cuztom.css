@@ -1,15 +1,5 @@
 .cuztom {
   margin: 0;
-  /* Table */
-  /* General */
-  /* Tabs */
-  /* Accordion */
-  /* Repeatable */
-  /* Sortable */
-  /* Bundle */
-  /* Media */
-  /* Misc */
-  /* Responsive wysiwyg editor */
 }
 .cuztom .cuztom-main-table {
   border: 1px solid #dfdfdf !important;
@@ -87,6 +77,13 @@
 .cuztom .cuztom-ajax-save {
   display: inline-block;
   vertical-align: middle;
+}
+.cuztom .cuztom-counter {
+  float: right;
+  font-size: 12px;
+  color: #999;
+  padding-top: 3px;
+  paddin-bottom: 3px;
 }
 .cuztom .cuztom-tabs .ui-widget {
   padding: 0;
@@ -287,12 +284,10 @@
   display: inline-block;
   white-space: normal;
 }
-/* Term meta */
 #addtag .cuztom {
   margin-left: -10px;
   margin-right: -10px;
 }
-/* Side meta box */
 #side-sortables .cuztom-table .cuztom-th {
   padding: 0 0 10px 0;
   width: 30%;

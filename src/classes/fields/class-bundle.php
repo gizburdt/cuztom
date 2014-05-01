@@ -56,28 +56,21 @@ class Cuztom_Bundle extends Cuztom_Field
 	 */
 	function output( $value = null )
 	{
-		if( ! empty( $this->value ) && isset( $this->value[0] ) )
-		{
-			$i = 0;
-			foreach( $this->value as $bundle )
-			{
+		$i = 0;
+
+		if( ! empty( $this->value ) && isset( $this->value[0] ) ) :
+			foreach( $this->value as $bundle ) {
 				echo $this->output_item( $i );
 				$i++;
 			}
-		}
-		elseif( ! empty( $this->default_value ) )
-		{
-			$i = 0;
-			foreach( $this->default_value as $default )
-			{
+		elseif( ! empty( $this->default_value ) ) :
+			foreach( $this->default_value as $default ) {
 				echo $this->output_item( $i );
 				$i++;
 			}
-		}
-		else
-		{
+		else :
 			echo $this->output_item();
-		}
+		endif;
 	}
 
 	/**
@@ -142,7 +135,7 @@ class Cuztom_Bundle extends Cuztom_Field
 
 				if( $this->limit ) {
 					echo '<div class="cuztom-counter">';
-						echo '<span class="current"></span>';
+						echo '<span class="current">' . count( $this->value ) . '</span>';
 						echo '<span class="divider"> / </span>';
 						echo '<span class="max">' . $this->limit . '</span>';
 					echo '</div>';
