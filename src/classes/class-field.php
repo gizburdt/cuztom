@@ -347,6 +347,16 @@ class Cuztom_Field
 		return $this->repeatable && $this->_supports_repeatable;
 	}
 
+	/**
+	 * Creates and returns a field object
+	 *
+	 * @param 	array 			$args
+	 * @return 	object|bool
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
 	static function create( $args )
 	{
 		$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $args['type'] ) ) );

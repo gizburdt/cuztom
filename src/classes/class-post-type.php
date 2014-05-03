@@ -138,9 +138,9 @@ class Cuztom_Post_Type
 	 * @since 	0.1
 	 *
 	 */
-	function add_meta_box( $id, $title, $fields = array(), $context = 'normal', $priority = 'default' )
+	function add_meta_box( $args )
 	{
-		$meta_box = new Cuztom_Meta_Box( $id, $title, $this->name, $fields, $context, $priority );
+		$box = new Cuztom_Meta_Box( $args, $this->name );
 		
 		return $this;
 	}

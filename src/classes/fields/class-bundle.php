@@ -79,7 +79,7 @@ class Cuztom_Bundle extends Cuztom_Field
 	 * @param   int  		$index
 	 *
 	 * @author  Gijs Jorissen
-	 * @since 	2.8.4
+	 * @since 	3.0
 	 * 
 	 */
 	function output_item( $index = 0 )
@@ -105,7 +105,7 @@ class Cuztom_Bundle extends Cuztom_Field
 								$output .= '<td class="cuztom-td">';
 
 									if( $field->_supports_bundle )
-										$output .= $field->output();
+										$output .= $field->output( $value );
 									else
 										$output .= '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
 
@@ -114,7 +114,7 @@ class Cuztom_Bundle extends Cuztom_Field
 						}
 						else
 						{
-							$output .= $field->output();
+							$output .= $field->output( $value );
 						}
 					}
 				$output .= '</table>';
@@ -125,6 +125,15 @@ class Cuztom_Bundle extends Cuztom_Field
 		return $output;
 	}
 
+	/**
+	 * Output a control row for a bundle
+	 *
+	 * @return 	void
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
 	function output_control()
 	{
 		echo '<tr class="cuztom-control cuztom-control-top">';
@@ -164,31 +173,41 @@ class Cuztom_Bundle extends Cuztom_Field
 				$values[$row][$id] = $this->fields[$id]->save_value( $value );
 		}
 
-		switch( $this->meta_type ) :
-			case 'user' :
-				delete_user_meta( $object, $this->id );		
-				update_user_meta( $object, $this->id, $values );
-			break;
-			default :
-				delete_post_meta( $object, $this->id );
-				update_post_meta( $object, $this->id, $values );
-			break;
-		endswitch;
-
-		// TODO: Term meta
+		parent::save( $object, $values );
 	}
 
-	function build( $data, $value )
+	/**
+	 * This method builds the complete array for a bundle
+	 *
+	 * @param 	array 		$data
+	 * @param 	array 		$values
+	 * @return 	void
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function build( $data, $values = null )
 	{
+		// Unset fields with array
+		$this->fields = array();
+
+		// Build fields with objects
 		foreach( $data as $type => $field )
 		{
 			if( is_string( $type ) && $type == 'tabs' )
 			{
-				$tab->fields = $this->build( $fields );
+				// $tab->fields = $this->build( $fields );
 			}
 			else
 			{
-				$args = array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value'	=> maybe_unserialize( @$value[$field['id']][0] ) ) );
+				$args 	= array_merge( 
+					$field, 
+					array( 
+						'meta_type' => $this->meta_type, 
+						'object' 	=> $this->object
+					) 
+				);
 				
 				$field = Cuztom_Field::create( $args );
 				$field->repeatable 	= false;

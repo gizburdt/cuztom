@@ -11,68 +11,49 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 class Cuztom_Meta_Box extends Cuztom_Meta
 {
-	var $context;
-	var $priority;
+	var $context	= 'normal';
+	var $priority	= 'default';
+	var $meta_type 	= 'post';
 	var $post_types;
-
-	var $meta_type 		= 'post';
 	
 	/**
 	 * Constructs the meta box
 	 *
-	 * @param   string 			$id
-	 * @param 	string|array	$title
-	 * @param 	array|string	$fields
-	 * @param 	string 			$post_type_name
-	 * @param 	string 			$context
-	 * @param 	string 			$priority
+	 * @param   array 			$args
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	0.2
 	 *
 	 */
-	function __construct( $id, $title, $post_type, $data = array(), $context = 'normal', $priority = 'default' )
+	function __construct( $args, $post_type )
 	{
-		global $cuztom;
+		// Build all properties
+		parent::__construct( $args );
 
-		if( ! empty( $title ) )
+		// Set post types
+		$this->post_types 	= (array) $post_type;
+
+		// Build
+		if( ! $this->callback )
 		{
-			parent::__construct( $title );
+			$this->callback = array( &$this, 'output' );
 
-			$this->id 			= $id;
-			$this->post_types 	= (array) $post_type;
-			$this->context		= $context;
-			$this->priority		= $priority;
+			// Build the meta box and fields
+			$this->data = $this->build( $this->fields );
 
-			// Check if the class, function or method exist, otherwise use cuztom callback
-			if( Cuztom::is_wp_callback( $data ) )
+			foreach( $this->post_types as $post_type )
 			{
-				$this->callback = $data;
+				add_filter( 'manage_' . $post_type . '_posts_columns', array( &$this, 'add_column' ) );
+				add_action( 'manage_' . $post_type . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
+				add_action( 'manage_edit-' . $post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
 			}
-			else
-			{
-				$this->callback = array( &$this, 'output' );
 
-				// Build the meta box and fields
-				$this->data = $this->build( $data );
-
-				// Add fields to global
-				$cuztom['fields'] = $this->fields;
-
-				foreach( $this->post_types as $post_type )
-				{
-					add_filter( 'manage_' . $post_type . '_posts_columns', array( &$this, 'add_column' ) );
-					add_action( 'manage_' . $post_type . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
-					add_action( 'manage_edit-' . $post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
-				}
-
-				add_action( 'save_post', array( &$this, 'save_post' ) );
-				add_action( 'post_edit_form_tag', array( &$this, 'edit_form_tag' ) );
-			}
+			add_action( 'save_post', array( &$this, 'save_post' ) );
+			add_action( 'post_edit_form_tag', array( &$this, 'edit_form_tag' ) );
 			
 			// Add the meta box
-			add_action( 'add_meta_boxes', array( &$this, 'add_meta_box' ) );
-		}	
+			add_action( 'add_meta_boxes', array( &$this, 'add_meta_box' ) );				
+		}
 	}
 	
 	/**

@@ -14,9 +14,9 @@ class Cuztom_Meta
 	var $id;
 	var $title;
 	var $description;
-	var $callback;
-	var $data;
 	var $fields;
+	var $data;
+	var $callback;
 
 	/**
 	 * Construct for all meta types, creates title (and description)
@@ -27,14 +27,15 @@ class Cuztom_Meta
 	 * @since 	1.6.4
 	 * 
 	 */
-	function __construct( $title )
+	function __construct( $args )
 	{
-		if( is_array( $title ) ) {
-			$this->title 		= Cuztom::beautify( $title['title'] );
-			$this->description 	= $title['description'];
-		} else {
-			$this->title 		= Cuztom::beautify( $title );
-		}
+		global $cuztom;
+
+		$properties = array_keys( get_class_vars( get_called_class() ) );
+		
+		// Set all properties
+		foreach ( $properties as $property )
+			$this->$property = isset( $args[ $property ] ) ? $args[ $property ] : $this->$property;
 
 		$this->object 	= $this->get_object_id();
 	}
@@ -50,7 +51,7 @@ class Cuztom_Meta
 	 * @since 	0.2
 	 *
 	 */	
-	function output( $object, $data = array(), $args = array() )
+	function output()
 	{
 		// Nonce field for validation
 		wp_nonce_field( 'cuztom_meta', 'cuztom_nonce' );
@@ -123,13 +124,13 @@ class Cuztom_Meta
 				if( ( $field instanceof Cuztom_Tabs || $field instanceof Cuztom_Accordion ) && $tabs = $field ) :
 					$tabs->save( $object, $values );
 				elseif( $field instanceof Cuztom_Bundle && $bundle = $field ) :
-					$value = isset( $values[$id] ) ? $values[$id] : '';
+					$value = @$values[$id];
 					$bundle->save( $object, $value );
 				else :
 					if( @$field->in_bundle ) 
 						continue;
 
-					$value = isset( $values[$id] ) ? $values[$id] : '';
+					$value = @$values[$id];
 					$field->save( $object, $value );
 				endif;
 			}
@@ -169,7 +170,7 @@ class Cuztom_Meta
 			return null;
 		endif;
 
-		// TODO: Use get_current_screen()
+		// @TODO: Use get_current_screen()
 	}
 
 	/**
@@ -200,7 +201,7 @@ class Cuztom_Meta
 	}
 
 	/**
-	 * This array builds the complete array with the right key => value pairs
+	 * This method builds the complete array with the right key => value pairs
 	 *
 	 * @param 	array 			$data
 	 * @return 	array
@@ -209,8 +210,10 @@ class Cuztom_Meta
 	 * @since 	1.1
 	 *
 	 */
-	function build( $data, $parent = null )
+	function build( $data )
 	{
+		global $cuztom;
+
 		$return 		= array();
 		$values			= $this->get_meta_values();
 
@@ -218,39 +221,47 @@ class Cuztom_Meta
 		{
 			foreach( $data as $type => $field )
 			{
+				$values = @$values[$field['id']][0];
+				$values = maybe_unserialize( $values );
+
 				// Tabs / accordion
 				if( is_string( $type ) && ( $type == 'tabs' || $type == 'accordion' ) )
 				{
 					$args = array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object ) );
 					$tabs = $type == 'tabs' ? new Cuztom_Tabs( $field ) : new Cuztom_Accordion( $field );
-					$tabs->build( $field['fields'], $values );
+					$tabs->build( $field['fields'], $values[0] );
 
-					$return[$tabs->id] = $tabs;
+					$cuztom['data'][$this->id][$tabs->id] = $tabs;
+					$cuztom['fields'][$tabs->id] = $tabs;
 				}
 
 				// Bundle
 				elseif( is_string( $type ) && $type == 'bundle' )
 				{
-					$args 	=  array_merge( $field, array( 'meta_type' => $this->meta_type, 'object'	=> $this->object ) );
+					$args 	=  array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => $values ) );
 					$bundle = new Cuztom_Bundle( $args );
 					$bundle->build( $field['fields'], $values );
-
-					$return[$bundle->id] = $bundle;
+					
+					$cuztom['data'][$this->id][$bundle->id] = $bundle;
+					$cuztom['fields'][$bundle->id] = $bundle;
 				}
 
 				// Fields
 				else
 				{
-					$args 	= array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => maybe_unserialize( @$value[$field['id']][0] ) ) );
+					$args 	= array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => $values[0] ) );
 					$field 	= Cuztom_Field::create( $args );
 
-					$this->fields[$field->id] 	= $field;
-					$return[$field->id] 		= $field;
+					$cuztom['data'][$this->id][$field->id] = $field;
+					$cuztom['fields'][$field->id] = $field;
 				}
 			}
+
+			// Set flat array of fields
+			$this->fields = $cuztom['fields'];
 		}
 
-		return $return;
+		return $cuztom['data'][$this->id];
 	}
 
 	/**

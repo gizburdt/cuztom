@@ -119,13 +119,21 @@ class Cuztom
 		include( CUZTOM_DIR . 'functions/taxonomy.php' );
 	}
 
+	/**
+	 * Sets globals
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
 	private function execute()
 	{
 		global $cuztom;
 		
 		$cuztom = array(
 			'version'	=> CUZTOM_VERSION,
-			'fields' 	=> array()
+			'fields' 	=> array(),
+			'data'		=> array()		
 		);
 
 		// Setup ajax
@@ -372,23 +380,6 @@ class Cuztom
 		
 		// Return if noting found
 		return apply_filters( 'cuztom_pluralize', $string, null );
-	}
-
-	/**
-	 * Checks if the callback is a Wordpress callback
-	 * So, if the class, method and/or function exists. If so, call it.
-	 * If it doesn't use the data array (cuztom).
-	 * 
-	 * @param	string|array   	$callback
-	 * @return 	boolean
-	 *
-	 * @author  Gijs Jorissen
-	 * @since 	1.5
-	 * 
-	 */
-	static function is_wp_callback( $callback )
-	{
-		return ! is_array( array_values( $callback )[0] );
 	}
 
 	/**
