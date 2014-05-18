@@ -4,7 +4,7 @@ jQuery( function( $ ) {
 
 	var add_events;
 
-	(add_events = function( object, init_editors ) 
+	(add_events = function( object ) 
 	{
 		// Datepicker
 		$('.js-cuztom-datepicker', object).map(function(){
