@@ -98,7 +98,6 @@ jQuery( function( $ ) {
 	            	// Send an id or url to the field and set the preview
 	            	if( type == 'image' )
 					{
-						console.log( attachment );
 						var thumbnail = preview_size && !$.isArray(preview_size) && attachment.sizes[preview_size] ? attachment.sizes[preview_size] : ( attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full );
 						if( $.isArray( preview_size ) ) {
 							if( parseInt( preview_size[0] ) > 0 )
@@ -167,6 +166,55 @@ jQuery( function( $ ) {
 		});
 	})( $('body') );
 
+	function init_editors( object, settings ) {
+		var editors = $('.wp-editor-wrap', object);
+		
+		if( Cuztom.wp_version >= '3.9' && editors.length )
+		{
+			editors.each(function() {
+				$('.mce-tinymce, .quicktags-toolbar', this).remove();
+				var new_id = $('.cuztom-input', this).attr('id');
+
+				var settings = $.extend( true, { tmce: {}, quicktags: { id: new_id, buttons: 'strong,em,link,block,del,ins,img,ul,ol,li,code,more,close' } }, settings );
+
+				// Clone tinyMCEPreInit.mceInit object
+				tinyMCEPreInit.mceInit[new_id] = settings.tmce;
+
+				// Clone QTags instance
+				new QTags(settings.quicktags);
+				QTags._buttonsInit();
+
+				// Switch to Visual/Text mode
+				var mode = 'html';
+				if( $(this).hasClass('tmce-active') )
+					mode = 'tmce';
+				switchEditors.go(new_id, mode);
+
+				$(this).on( 'click', '.insert-media', function( event ) {
+					var elem = $( event.currentTarget ),
+						editor = elem.data('editor'),
+						options = {
+							frame:    'post',
+							state:    'insert',
+							title:    wp.media.view.l10n.addMedia,
+							multiple: true
+						};
+
+					event.preventDefault();
+
+					elem.blur();
+
+					if ( elem.hasClass( 'gallery' ) ) {
+						options.state = 'gallery';
+						options.title = wp.media.view.l10n.createGalleryTitle;
+					}
+
+					wp.media.editor.open( editor, options );
+				});
+			});
+		}
+	}
+
 	// Remove sortable
 	$('.cuztom').on( 'click', '.js-cuztom-remove-sortable', function() 
 	{
@@ -191,6 +239,10 @@ jQuery( function( $ ) {
 			remover 		= '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>',
 			new_item 		= last.clone( false, false ),
 			switch_editors 	= [];
+
+		var is_editor = false;
+		var tinyMCE_options = {};
+		var QTags_options = {};
 		
 		// Set new bundle array key
 		if( is_bundle )
@@ -248,26 +300,41 @@ jQuery( function( $ ) {
 
 				// Add new wysiwyg
 				if( cuztom_input.hasClass('wp-editor-area' )) {
+					is_editor = true;
 					var new_id = cuztom_input.attr('id'), new_name = cuztom_input.attr('name'), last_id_regexp = new RegExp(last_id, 'g'), last_name_regexp = new RegExp(last_name, 'g');
 					$(this).html( $(this).html().replace( last_name_regexp, new_name ).replace( last_id_regexp, new_id ) );
 
-					// Clone tinyMCEPreInit.mceInit object
-					tinyMCEPreInit.mceInit[new_id] = tinyMCEPreInit.mceInit[last_id];
-					tinyMCEPreInit.mceInit[new_id].body_class = tinyMCEPreInit.mceInit[new_id].body_class.replace( last_id_regexp, new_id );
-					tinyMCEPreInit.mceInit[new_id].elements = tinyMCEPreInit.mceInit[new_id].elements.replace( last_id_regexp, new_id );
+					if( Cuztom.wp_version >= '3.9' )
+					{
+						tinyMCE_options = tinyMCEPreInit.mceInit[last_id];
+						var QTags_last = QTags.getInstance(last_id);
+						$.each( tinyMCE_options, function( key, value ) {
+							if( $.type( value ) == 'string' )
+							tinyMCE_options[key] = value.replace(last_id_regexp, new_id);
+						} );
 
-					// Clone QTags instance
-					QTags.instances[new_id] = QTags.instances[last_id];
-					QTags.instances[new_id].canvas = cuztom_input[0];
-					QTags.instances[new_id].id = new_id;
-					QTags.instances[new_id].settings.id = new_id;
-					QTags.instances[new_id].name = 'qt_' + new_id;
-					QTags.instances[new_id].toolbar = $(this).find('.quicktags-toolbar')[0];
+						QTags_options = { id: new_id, buttons: QTags_last.settings.buttons };
+					}
+					else
+					{
+						// Clone tinyMCEPreInit.mceInit object
+						tinyMCEPreInit.mceInit[new_id] = tinyMCEPreInit.mceInit[last_id];
+						tinyMCEPreInit.mceInit[new_id].body_class = tinyMCEPreInit.mceInit[new_id].body_class.replace( last_id_regexp, new_id );
+						tinyMCEPreInit.mceInit[new_id].elements = tinyMCEPreInit.mceInit[new_id].elements.replace( last_id_regexp, new_id );
 
-					var mode = 'html';
-					if( $(this).find('.wp-editor-wrap').hasClass('tmce-active') )
-						mode = 'tmce';
-					switch_editors.push({'id': new_id, 'mode': mode});
+						// Clone QTags instance
+						QTags.instances[new_id] = QTags.instances[last_id];
+						QTags.instances[new_id].canvas = cuztom_input[0];
+						QTags.instances[new_id].id = new_id;
+						QTags.instances[new_id].settings.id = new_id;
+						QTags.instances[new_id].name = 'qt_' + new_id;
+						QTags.instances[new_id].toolbar = $(this).find('.quicktags-toolbar')[0];
+
+						var mode = 'html';
+						if( $(this).find('.wp-editor-wrap').hasClass('tmce-active') )
+							mode = 'tmce';
+						switch_editors.push({'id': new_id, 'mode': mode});
+					}
 				}
 			});
 		}
@@ -282,16 +349,16 @@ jQuery( function( $ ) {
 
 		// Add events to the new item
 		add_events(new_item);
+
+		// Init Editors
+		if( Cuztom.wp_version >= '3.9' && is_editor )
+			init_editors( new_item, {tmce: tinyMCE_options, quicktags: QTags_options} );
 		
 		// Add new handler and remover if necessary
 		$('> .js-cuztom-sortable-item', wrap).each(function( index, item ) {
 			if( $('> .js-cuztom-handle-sortable', item ).length == 0 ) { $(item).prepend( handle ); }
 			if( $('> .js-cuztom-remove-sortable', item ).length == 0 ) { $(item).append( remover ); }
 		});
-
-		// Switch editors
-		for( var i = 0; i < switch_editors.length; i++ )
-			switchEditors.go( switch_editors[i]['id'], switch_editors[i]['mode'] );
 		
 		return false;
 	});
