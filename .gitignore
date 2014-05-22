@@ -1,5 +1,11 @@
+# Crap
 .DS_Store
+
+# Editors
 .idea
 *.tmproj
 *.sublime-project
 *.sublime-workspace
+
+# Codekit
+config.codekit
