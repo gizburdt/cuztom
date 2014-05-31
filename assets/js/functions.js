@@ -200,6 +200,8 @@ jQuery( function( $ ) {
 							multiple: true
 						};
 
+					wpActiveEditor = editor;
+					
 					event.preventDefault();
 
 					elem.blur();
