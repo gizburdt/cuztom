@@ -78,7 +78,7 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Fixed: #281: Repeatable bundle with WYSIWYG
 
 ###2.9.7
-* Added: It is now possible to add repeatable fields to bundles. Props @anteprimorachr
+* Added: It is now possible to add repeatable fields to bundles. Props @anteprimorac
 
 ###2.9.6
 * Fixed: #276: Adding a sidebar shows a blank white box
@@ -122,8 +122,8 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Changed: Default image preview size
 
 ###2.8
-* Added: Image preview size for image field. props @anteprimorachr
-* Added: Bundle support for all fields. props @anteprimorachr
+* Added: Image preview size for image field. props @anteprimorac
+* Added: Bundle support for all fields. props @anteprimorac
 * Fixed: Small fixes & improvements
 
 ###2.7
