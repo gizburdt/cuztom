@@ -85,8 +85,7 @@ class Cuztom_Tab extends Cuztom_Field
 
 	function build( $data, $value )
 	{
-		foreach( $data as $type => $field )
-		{
+		foreach( $data as $type => $field ) {
 			if( is_string( $type ) && $type == 'bundle' ) 
 			{
 				// $tab->fields = $this->build( $fields );

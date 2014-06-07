@@ -125,12 +125,16 @@ jQuery( function( $ ) {
 	$(document).on( 'click', '.js-cuztom-remove-sortable', function()
 	{
 		var that 		= $(this),
-			field 		= that.closest('.js-cuztom-sortable-item'),
-			wrap 		= that.closest('.js-cuztom-sortable'),
-			fields 		= wrap.find('.js-cuztom-sortable-item').length;
-		
-		if( fields > 1 ) { field.remove(); }
-		if( fields == 2 ){ wrap.find('.js-cuztom-sortable-item').find('.js-cuztom-remove-sortable').remove(); }
+			item 		= that.closest('.cuztom-sortable-item'),
+			sortable 	= item.closest('.cuztom-sortable'),
+			fields 		= sortable.find('.cuztom-sortable-item').length,
+			field 		= sortable.closest('.field'),
+			fieldID 	= field.data('id'),
+			control		= $('.cuztom-control[data-control-for="' + fieldID + '"]');
+
+		console.log(control);
+
+		item.remove();
 
 		return false;
 	});		
@@ -141,7 +145,7 @@ jQuery( function( $ ) {
 			isBundle		= that.data('sortable-type') == 'bundle',
 			fieldID 		= that.data('field-id'),
 			field 			= isBundle ? $('.cuztom-field#' + fieldID) : that.closest('.cuztom-field')
-			sortable 		= field.find('.js-cuztom-sortable'),
+			sortable 		= field.find('.cuztom-sortable'),
 			count 			= sortable.find('.cuztom-sortable-item').length,
 			index 			= count,
 			data 			= {
@@ -160,11 +164,8 @@ jQuery( function( $ ) {
 			function(response) {
 				var response = $.parseJSON(response);
 
-				if( response.status ) {
+				if( response.status )
 					sortable.append(response.item);
-				} else {
-					alert(response.message);
-				}
 			}
 		);
 
@@ -176,38 +177,37 @@ jQuery( function( $ ) {
 	});
 
 	// Ajax save
-	$(document).on( 'click', '.js-cuztom-ajax-save', function()
-	{
-		var that			= $(this),
-			selector		= that.closest('.js-cuztom-field-selector'),
-			fieldID 		= selector.attr('id'),
-			fieldObject 	= window['Cuztom_' + fieldID],
-			parent 			= selector,
-			cuztom 			= parent.closest('.cuztom'),
-			objectID		= cuztom.data('object-id'),
-			input 			= parent.find('.cuztom-input'),
-			value			= input.val();
-
-		var data = {
-			action: 	'cuztom_field_ajax_save',
-			cuztom: 	{
-				value: 		value,
-				id: 		fieldObject.id,
-				meta_type: 	fieldObject.meta_type,
-				object_id: 	objectID,
-			}
-		};
+	$(document).on( 'click', '.js-cuztom-ajax-save', function(event) {
+		var that 			= $(this),
+			fieldID 		= that.data('button-for'),
+			object 			= that.data('object'),
+			meta_type 		= that.data('meta-type'),
+			input 			= $('.cuztom-input[id="' + fieldID + '"]'),
+			value 			= input.val(),
+			data = {
+				action: 	'cuztom_field_ajax_save',
+				cuztom: {
+					value: 		value,
+					id: 		fieldID,
+					meta_type: 	meta_type,
+					object_id: 	object,
+				}
+			};
 
 		$.post( 
 			Cuztom.ajax_url, 
 			data, 
-			function(r) {
-				var border_color = input.css('border-color');
-				input.animate({ borderColor: '#60b334' }, 200, function(){ input.animate({ borderColor: border_color }); });
+			function(response) {
+				var response 		= $.parseJSON(response),
+					border_color 	= input.css('border-color');
+
+				if( response.status )
+					input.animate({ borderColor: '#60b334' }, 200, function(){ input.animate({ borderColor: border_color }); });
 			}
 		);
 
-		return false;
+		// Prevent click
+		event.preventDefault();
 	});
 
 });

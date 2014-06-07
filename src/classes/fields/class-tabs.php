@@ -11,7 +11,7 @@ class Cuztom_Tabs extends Cuztom_Field
 		$this->id = $args['id'];
 	}
 
-	function output_row( )
+	function output_row( $value = null )
 	{
 		echo '<tr class="cuztom-tabs">';
 			echo '<td class="cuztom-field" id="' . $this->id . '" colspan="2">';
@@ -50,8 +50,7 @@ class Cuztom_Tabs extends Cuztom_Field
 
 	function build( $data, $value )
 	{
-		foreach( $data as $title => $field )
-		{
+		foreach( $data as $title => $field ) {
 			$args	= array_merge( array( 'title' => $title, 'meta_type' => $this->meta_type, 'object' => $this->object ) );
 			$tab 	= new Cuztom_Tab( $args );
 			$tab->build( $field['fields'], $value );

@@ -34,16 +34,12 @@ class Cuztom_Taxonomy
 	function __construct( $name, $post_type = null, $args = array(), $labels = array() )
 	{
 		// Build name
-		if( ! empty( $name ) )
-		{
-			if( is_array( $name ) )
-			{
+		if( ! empty( $name ) ) {
+			if( is_array( $name ) ) {
 				$this->name		= Cuztom::uglify( $name[0] );
 				$this->title	= Cuztom::beautify( $name[0] );
 				$this->plural 	= Cuztom::beautify( $name[1] );
-			}
-			else
-			{
+			} else {
 				$this->name		= Cuztom::uglify( $name );
 				$this->title	= Cuztom::beautify( $name );
 				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
@@ -56,10 +52,11 @@ class Cuztom_Taxonomy
 		$this->args			= $args;
         
         // Register taxonomy
-        if( ! taxonomy_exists( $this->name ) )
+        if( ! taxonomy_exists( $this->name ) ) {
         	add_action( 'init', array( &$this, 'register_taxonomy' ) );
-		else
+        } else {
 			add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
+        }
 
 		// Sortable columns
 		if( @$args['admin_column_sortable'] ) {
@@ -82,10 +79,9 @@ class Cuztom_Taxonomy
 	 */
 	function register_taxonomy()
 	{
-		if ( $reserved = Cuztom::is_reserved_term( $this->name ) )
+		if( $reserved = Cuztom::is_reserved_term( $this->name ) ) {
 			new Cuztom_Notice( $reserved->get_error_message(), 'error' );
-		else
-		{
+		} else {
 			$labels = array_merge(
 				array(
 					'name' 					=> sprintf( _x( '%s', 'taxonomy general name', 'cuztom' ), $this->plural ),
@@ -182,10 +178,8 @@ class Cuztom_Taxonomy
 	 */
 	function add_column_content( $column, $post_id )
 	{
-		if ( $column === $this->name ) 
-		{
+		if ( $column === $this->name ) {
 			$terms = wp_get_post_terms( $post_id, $this->name, array( 'fields' => 'names' ) );
-
 			echo implode( $terms, ', ' );
 		}
 	}
@@ -218,8 +212,7 @@ class Cuztom_Taxonomy
 	{
 		global $typenow, $wp_query;
 
-		if( $typenow == $this->post_type ) 
-		{
+		if( $typenow == $this->post_type ) {
 			wp_dropdown_categories( array(
 				'show_option_all'	=> sprintf( __( 'Show all %s', 'cuztom' ), $this->plural ),
 				'taxonomy'       	=> $this->name,
@@ -247,8 +240,7 @@ class Cuztom_Taxonomy
     	global $pagenow;
     	$vars = &$query->query_vars;
 
-		if( $pagenow == 'edit.php' && isset( $vars[$this->name] ) && is_numeric( $vars[$this->name] ) && $vars[$this->name] ) 
-    	{
+		if( $pagenow == 'edit.php' && isset( $vars[$this->name] ) && is_numeric( $vars[$this->name] ) && $vars[$this->name] ) {
     		$term = get_term_by( 'id', $vars[$this->name], $this->name );
         	$vars[$this->name] = $term->slug;
     	}

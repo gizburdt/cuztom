@@ -32,4 +32,17 @@ class Cuztom_Field_Image extends Cuztom_Field
 
 		return $output;
 	}
+
+	/**
+	 * Outputs the fields column content
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	3.0
+	 * 
+	 */
+	function output_column_content( $post_id )
+	{
+		$meta = get_post_meta( $post_id, $this->id, true );
+		echo wp_get_attachment_image( $meta, array( 100, 100 ) );
+	}
 }

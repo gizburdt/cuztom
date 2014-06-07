@@ -59,11 +59,13 @@ class Cuztom_Field
 		$properties = array_keys( get_class_vars( get_called_class() ) );
 		
 		// Set all properties
-		foreach ( $properties as $property )
+		foreach ( $properties as $property ) {
 			$this->$property = isset( $args[ $property ] ) ? $args[ $property ] : $this->$property;
+		}
 
-		if( $this->is_repeatable() )
+		if( $this->is_repeatable() ) {
 			$this->after_name = '[]';
+		}
 	}
 	
 	/**
@@ -77,12 +79,34 @@ class Cuztom_Field
 	{
 		$value = $value ? $value : $this->value;
 
-		if( $this->is_repeatable() )
+		if( $this->is_repeatable() ) {
 			return $this->_output_repeatable( $value );
-		elseif( $this->is_ajax() )
+		} elseif( $this->is_ajax() ) {
 			return $this->_output_ajax( $value );
-		else
+		} else {
 			return $this->_output( $value );
+		}
+	}
+
+	/**
+	 * Outputs a field row
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
+	 *
+	 */
+	function output_row( $value = null )
+	{
+		echo '<tr>';
+			echo '<th>';
+				echo '<label for="' . $this->id . '" class="cuztom-label">' . $this->label . '</label>';
+				echo $this->required ? ' <span class="cuztom-required">*</span>' : '';
+				echo '<div class="cuztom-field-description">' . $this->description . '</div>';
+			echo '</th>';
+			echo '<td class="cuztom-field" id="' . $this->id . '" data-id="' . $this->id . '">';
+				echo $this->output( $this->value );
+			echo '</td>';
+		echo '</tr>';
 	}
 
 	/**
@@ -113,29 +137,18 @@ class Cuztom_Field
 		$x 			= 0;
 
 		$output = '<div class="cuztom-repeatable">';
-			$output .= '<div class="cuztom-control">';
-				$output .= '<a class="button-secondary button button-small cuztom-button js-cuztom-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . sprintf( '+ %s', __( 'Add item', 'cuztom' ) ) . '</a>';
-				if( $this->limit ) {
-					$output .= '<div class="cuztom-counter">';
-						$output .= '<span class="current">' . count( $values ) . '</span>';
-						$output .= '<span class="divider"> / </span>';
-						$output .= '<span class="max">' . $this->limit . '</span>';
-					$output .= '</div>';
-				}
-			$output .= '</div>';
+			$output .= $this->_output_repeatable_control( $value );
 			$output .= '<ul class="cuztom-sortable js-cuztom-sortable">';
-				if( is_array( $value ) )
-				{
-					foreach( $values as $value )
-					{
+				if( is_array( $value ) ) {
+					foreach( $values as $value ) {
 						$x++;
 						$output .= $this->_output_repeatable_item( $value );
 
-						if( $x >= $this->limit ) break;
+						if( $x >= $this->limit ) {
+							break;
+						}
 					}
-				}
-				else
-				{
+				} else {
 					$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . '</li>';		
 				}
 			$output .= '</ul>';
@@ -154,6 +167,29 @@ class Cuztom_Field
 	function _output_repeatable_item( $value = null )
 	{
 		return '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '' ) . '</li>';
+	}
+
+	/**
+	 * Outputs repeatable control
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
+	function _output_repeatable_control( $value )
+	{
+		$output = '<div class="cuztom-control">';
+			$output .= '<a class="button-secondary button button-small cuztom-button js-cuztom-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . sprintf( '+ %s', __( 'Add item', 'cuztom' ) ) . '</a>';
+			if( $this->limit ) {
+				$output .= '<div class="cuztom-counter">';
+					$output .= '<span class="current">' . count( $value ) . '</span>';
+					$output .= '<span class="divider"> / </span>';
+					$output .= '<span class="max">' . $this->limit . '</span>';
+				$output .= '</div>';
+			}
+		$output .= '</div>';
+
+		return $output;
 	}
 
 	/**
@@ -177,7 +213,7 @@ class Cuztom_Field
 	 */
 	function _output_ajax_button()
 	{
-		return '<a class="cuztom-ajax-save js-cuztom-ajax-save button button-secondary button-small" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
+		return '<a class="cuztom-ajax-save js-cuztom-ajax-save button button-secondary button-small" href="#" data-button-for="' . $this->id . '" data-object="' . $this->object . '" data-meta-type="' . $this->meta_type . '">' . __( 'Save', 'cuztom' ) . '</a>';
 	}
 
 	/**
@@ -212,15 +248,17 @@ class Cuztom_Field
 		switch( $this->meta_type ) :
 			case 'user' :
 				update_user_meta( $object, $this->id, $value );
+				return true;
 			break;
 			case 'post' : default :
 				update_post_meta( $object, $this->id, $value );
+				return true;
 			break;
 			case 'term' :
 				// Because we need an array
 				return $value;
 			break;
-		endswitch;			
+		endswitch;
 
 		return false;
 	}
@@ -276,10 +314,11 @@ class Cuztom_Field
 	{
 		foreach( array_merge( $this->data_attributes, $extra ) as $attribute => $value )
 		{
-			if( ! is_null( $value ) )
+			if( ! is_null( $value ) ) {
 				$output = 'data-' . $attribute . '="' . $value . '"';
-			elseif( ! $value && isset( $this->args[Cuztom::uglify( $attribute )] ) )
+			} elseif( ! $value && isset( $this->args[Cuztom::uglify( $attribute )] ) ) {
 				$output = 'data-' . $attribute . '="' . $this->args[Cuztom::uglify( $attribute )] . '"';
+			}
 		}
 
 		return apply_filters( 'cuztom_field_output_data_attributes', @$output, $extra, $this );
@@ -307,6 +346,24 @@ class Cuztom_Field
 	function output_explanation()
 	{
 		return apply_filters( 'cuztom_field_output_explanation', ( ! $this->is_repeatable() && $this->explanation ? '<em class="cuztom-field-explanation">' . $this->explanation . '</em>' : '' ), $this );
+	}
+
+	/**
+	 * Outputs the fields column content
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	3.0
+	 * 
+	 */
+	function output_column_content( $post_id )
+	{
+		$meta = get_post_meta( $post_id, $this->id, true );
+
+		if( $this->is_repeatable() ) {
+			echo implode( $meta, ', ' );
+		} else {
+			echo $meta;
+		}
 	}
 
 	/**
@@ -361,9 +418,10 @@ class Cuztom_Field
 	{
 		$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $args['type'] ) ) );
 
-		if( class_exists( $class ) )
+		if( class_exists( $class ) ) {
 			return new $class( $args );
-		else
+		} else {
 			return false;
+		}
 	}
 }

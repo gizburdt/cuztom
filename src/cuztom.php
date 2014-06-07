@@ -34,8 +34,7 @@ class Cuztom
 	 */
 	public static function run()
 	{
-		if ( ! isset( self::$instance ) ) 
-		{
+		if ( ! isset( self::$instance ) ) {
 			self::$instance = new Cuztom;
 			self::$instance->setup_constants();
 			self::$instance->includes();
@@ -55,14 +54,17 @@ class Cuztom
 	 */
 	private function setup_constants()
 	{
-		if( ! defined( 'CUZTOM_VERSION' ) ) 
+		if( ! defined( 'CUZTOM_VERSION' ) ) {
 			define( 'CUZTOM_VERSION', '3.0' );
+		}
 
-		if( ! defined( 'CUZTOM_DIR' ) ) 
+		if( ! defined( 'CUZTOM_DIR' ) ) {
 			define( 'CUZTOM_DIR', plugin_dir_path( __FILE__ ) );
+		}
 
-		if( ! defined( 'CUZTOM_URL' ) ) 
+		if( ! defined( 'CUZTOM_URL' ) ) {
 			define( 'CUZTOM_URL', $this->get_cuztom_url( __FILE__ ) );
+		}
 	}
 
 	/**
@@ -210,8 +212,9 @@ class Cuztom
 	 */
 	function enqueue_scripts()
 	{
-		if( function_exists( 'wp_enqueue_media' ) ) 
+		if( function_exists( 'wp_enqueue_media' ) ) {
 			wp_enqueue_media();
+		}
 		
 		wp_enqueue_script( 'thickbox' );
 		wp_enqueue_script( 'media-upload' );
@@ -259,21 +262,16 @@ class Cuztom
 
 		array_push( $url, $current );
 		
-		if( preg_match( '/content/', $current ) )
-		{
-			// Build new paths
+		if( preg_match( '/content/', $current ) ) {
 			$path = '';
 			$directories = array_reverse( $url );
 			
-			foreach( $directories as $dir )
-			{
+			foreach( $directories as $dir ) {
 				$path = $path . '/' . $dir;
 			}
 
 			return apply_filters( 'cuztom_url', $path );
-		}
-		else
-		{
+		} else {
 			return $this->get_cuztom_url( $path, $url );
 		}
 	}
@@ -361,21 +359,21 @@ class Cuztom
         ) );
 
         // Save time if string in uncountable
-        if ( in_array( strtolower( $string ), $uncountable ) )
+        if ( in_array( strtolower( $string ), $uncountable ) ) {
         	return apply_filters( 'cuztom_pluralize', $string, 'uncountable' );
+        }
 
         // Check for irregular words
-        foreach ( $irregular as $noun )
-        {
+        foreach ( $irregular as $noun ) {
         	if ( strtolower( $string ) == $noun[0] )
             	return apply_filters( 'cuztom_pluralize', $noun[1], 'irregular' );
         }
 
         // Check for plural forms
-        foreach ( $specials as $pattern )
-        {
-        	if ( preg_match( $pattern[0], $string ) )
+        foreach ( $specials as $pattern ) {
+        	if ( preg_match( $pattern[0], $string ) ) {
         		return apply_filters( 'cuztom_pluralize', preg_replace( $pattern[0], $pattern[1], $string ), 'special' );
+        	}
         }
 		
 		// Return if noting found
@@ -394,8 +392,9 @@ class Cuztom
 	 */
 	static function is_reserved_term( $term )
 	{
-		if( ! in_array( $term, apply_filters( 'cuztom_reserved_terms', self::$reserved ) ) ) 
+		if( ! in_array( $term, apply_filters( 'cuztom_reserved_terms', self::$reserved ) ) ) {
 			return false;
+		}
 	    
 	    return new WP_Error( 'reserved_term_used', __( 'Use of a reserved term.', 'cuztom' ) );
 	}

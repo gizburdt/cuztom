@@ -25,24 +25,22 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 * @since 	0.2
 	 *
 	 */
-	function __construct( $args, $post_type )
+	function __construct( $id, $args, $post_type )
 	{
 		// Build all properties
-		parent::__construct( $args );
+		parent::__construct( $id, $args );
 
 		// Set post types
 		$this->post_types 	= (array) $post_type;
 
 		// Build
-		if( ! $this->callback )
-		{
+		if( ! $this->callback ) {
 			$this->callback = array( &$this, 'output' );
 
 			// Build the meta box and fields
 			$this->data = $this->build( $this->fields );
 
-			foreach( $this->post_types as $post_type )
-			{
+			foreach( $this->post_types as $post_type ) {
 				add_filter( 'manage_' . $post_type . '_posts_columns', array( &$this, 'add_column' ) );
 				add_action( 'manage_' . $post_type . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
 				add_action( 'manage_edit-' . $post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
@@ -65,8 +63,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 */
 	function add_meta_box()
 	{
-		foreach( $this->post_types as $post_type )
-		{
+		foreach( $this->post_types as $post_type ) {
 			add_meta_box(
 				$this->id,
 				$this->title,
@@ -97,13 +94,15 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		if( ! in_array( get_post_type( $post_id ), array_merge( $this->post_types, array( 'revision' ) ) ) ) return;
 
 		// Is the current user capable to edit this post
-		foreach( $this->post_types as $post_type )
+		foreach( $this->post_types as $post_type ) {
 			if( ! current_user_can( get_post_type_object( $post_type )->cap->edit_post, $post_id ) ) return;
+		}
 
 		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : array();
 
-		if( ! empty( $values ) )
+		if( ! empty( $values ) ) {
 			parent::save( $post_id, $values );
+		}
 	}
 	
 	/**
@@ -120,9 +119,10 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	{
 		unset( $columns['date'] );
 
-		foreach( $this->fields as $id_name => $field )
-		{
-			if( $field->show_admin_column ) $columns[$id_name] = $field->label;
+		foreach( $this->fields as $id => $field ) {
+			if( $field->show_admin_column ) {
+				$columns[$id] = $field->label;
+			}
 		}
 
 		$columns['date'] = __( 'Date', 'cuztom' );
@@ -142,30 +142,10 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 */
 	function add_column_content( $column, $post_id )
 	{
-		$meta = get_post_meta( $post_id, $column, true );
-		
-		if( $this->fields )
-		{
-			foreach( $this->fields as $id => $field )
-			{
-				if( $column == $id )
-				{
-					if( $field->repeatable && $field->_supports_repeatable )
-					{
-						echo implode( $meta, ', ' );
-					}
-					else
-					{
-						if( $field instanceof Cuztom_Field_Image )
-							echo wp_get_attachment_image( $meta, array( 100, 100 ) );
-						else
-							echo $meta;
-					}
+		global $cuztom;
+		$field = $cuztom['fields'][$column];
 
-					break;
-				}
-			}
-		}
+		echo $field->output_column_content( $post_id );
 	}
 
 	/**
@@ -180,10 +160,12 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 */
 	function add_sortable_column( $columns )
 	{
-		if( $this->fields )
-		{
-			foreach( $this->fields as $id_name => $field )
-				if( @$field->admin_column_sortable ) $columns[$id_name] = $field->label;
+		if( $this->fields ) {
+			foreach( $this->fields as $id => $field ) {
+				if( @$field->admin_column_sortable ) {
+					$columns[$id] = $field->label;
+				}
+			}
 		}
 
 		return $columns;

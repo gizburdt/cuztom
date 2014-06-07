@@ -28,12 +28,12 @@ class Cuztom_Bundle extends Cuztom_Field
 	 * @since 	3.0
 	 * 
 	 */
-	function output_row()
+	function output_row( $value = null )
 	{
 		echo $this->output_control();
 
 		echo '<tr class="cuztom-bundle">';
-			echo '<td class="cuztom-field" id="' . $this->id . '" colspan="2">';
+			echo '<td class="cuztom-field" id="' . $this->id . '" dataid="' . $this->id . '" colspan="2">';
 				echo '<div class="cuztom-bundles cuztom-bundles-' . $this->id . '">';
 					echo '<ul class="js-cuztom-sortable cuztom-sortable" data-cuztom-sortable-type="bundle">';
 						$this->output();
@@ -136,7 +136,7 @@ class Cuztom_Bundle extends Cuztom_Field
 	 */
 	function output_control()
 	{
-		echo '<tr class="cuztom-control cuztom-control-top">';
+		echo '<tr class="cuztom-control cuztom-control-top" data-control-for="' . $this->id . '">';
 			echo '<td colspan="2">';
 				echo '<a class="button-secondary cuztom-button button button-small js-cuztom-add-sortable js-cuztom-add-bundle" data-sortable-type="bundle" data-field-id="' . $this->id . '" href="#">';
 					echo sprintf( '+ %s', __( 'Add item', 'cuztom' ) );

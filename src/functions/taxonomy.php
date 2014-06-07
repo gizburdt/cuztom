@@ -17,9 +17,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 function register_cuztom_taxonomy( $name, $post_type, $args = array(), $labels = array() )
 {
-	$taxonomy = new Cuztom_Taxonomy( $name, $post_type, $args, $labels );
-	
-	return $taxonomy;
+	return new Cuztom_Taxonomy( $name, $post_type, $args, $labels );
 }
 
 /**
@@ -35,7 +33,9 @@ function register_cuztom_taxonomy( $name, $post_type, $args = array(), $labels =
  */
 function get_cuztom_term_meta( $term, $taxonomy, $key = null )
 {
-    if( empty( $taxonomy ) || empty( $term ) ) return false;
+    if( empty( $taxonomy ) || empty( $term ) ) {
+        return false;
+    }
     
     if( ! is_numeric( $term ) ) {
     	$term = get_term_by( 'slug', $term, $taxonomy );
@@ -47,8 +47,9 @@ function get_cuztom_term_meta( $term, $taxonomy, $key = null )
     if( $key ) {
         $meta = get_option( 'term_meta_' . $taxonomy . '_' . $term );
 
-        if( ! empty( $meta[$key] ) ) 
+        if( ! empty( $meta[$key] ) ) {
             return $meta[$key]; 
+        }
     } else {
         $query = $wpdb->query("SELECT FROM " . $wpdb->options . " WHERE option_name LIKE 'term_meta_%'");
         $meta = $query;
@@ -69,8 +70,9 @@ function get_cuztom_term_meta( $term, $taxonomy, $key = null )
  */
 function the_cuztom_term_meta( $term, $taxonomy, $key = null )
 {
-    if( empty( $term ) || empty( $taxonomy ) ) 
+    if( empty( $term ) || empty( $taxonomy ) ) {
         return false;
+    }
 
     echo get_cuztom_term_meta( $term, $taxonomy, $key );
 }

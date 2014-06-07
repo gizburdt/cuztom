@@ -4,7 +4,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Accordion extends Cuztom_Tabs
 {
-	function output_row( )
+	function output_row( $value = null )
 	{
 		echo '<tr class="cuztom-accordion">';
 			echo '<td class="cuztom-field" id="' . $this->id . '" colspan="2">';
