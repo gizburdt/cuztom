@@ -4,6 +4,13 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Accordion extends Cuztom_Tabs
 {
+	/**
+	 * Ouput accordion row
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
 	function output_row( $value = null )
 	{
 		echo '<tr class="cuztom-accordion">';
@@ -13,6 +20,13 @@ class Cuztom_Accordion extends Cuztom_Tabs
 		echo '</tr>';
 	}
 
+	/**
+	 * Output accordion
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
 	function output( $args = array() )
 	{
 		$tabs 			= $this->tabs;

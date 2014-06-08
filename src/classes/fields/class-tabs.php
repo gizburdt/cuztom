@@ -6,11 +6,25 @@ class Cuztom_Tabs extends Cuztom_Field
 {
 	var $tabs = array();
 
+	/**
+	 * Tabs constructor
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
 	function __construct( $args )
 	{
 		$this->id = $args['id'];
 	}
 
+	/**
+	 * Output tabs row
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
 	function output_row( $value = null )
 	{
 		echo '<tr class="cuztom-tabs">';
@@ -20,6 +34,13 @@ class Cuztom_Tabs extends Cuztom_Field
 		echo '</tr>';
 	}
 	
+	/**
+	 * Output tabs
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
 	function output( $args = array() )
 	{
 		$tabs 			= $this->tabs;
@@ -40,6 +61,13 @@ class Cuztom_Tabs extends Cuztom_Field
 		echo '</div>';
 	}
 
+	/**
+	 * Save tabs
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
 	function save( $object, $values )
 	{
 		foreach( $this->tabs as $tab )
@@ -48,6 +76,13 @@ class Cuztom_Tabs extends Cuztom_Field
 		}
 	}
 
+	/**
+	 * Buidl tabs with child tabs and fields
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
 	function build( $data, $value )
 	{
 		foreach( $data as $title => $field ) {
