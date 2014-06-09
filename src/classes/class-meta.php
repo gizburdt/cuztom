@@ -234,7 +234,7 @@ class Cuztom_Meta
 				// Fields
 				else
 				{
-					$args 	= array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => $values[0] ) );
+					$args 	= array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => $values ) );
 					$field 	= Cuztom_Field::create( $args );
 
 					$cuztom['data'][$this->id][$field->id] = $field;

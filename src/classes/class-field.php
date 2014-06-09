@@ -65,6 +65,9 @@ class Cuztom_Field
 
 		if( $this->is_repeatable() ) {
 			$this->after_name = '[]';
+			$this->value = @$args['value'];
+		} else {
+			$this->value = @$args['value'][0];
 		}
 	}
 	
@@ -250,13 +253,13 @@ class Cuztom_Field
 				update_user_meta( $object, $this->id, $value );
 				return true;
 			break;
-			case 'post' : default :
-				update_post_meta( $object, $this->id, $value );
-				return true;
-			break;
 			case 'term' :
 				// Because we need an array
 				return $value;
+			break;
+			case 'post' : default :
+				update_post_meta( $object, $this->id, $value );
+				return true;
 			break;
 		endswitch;
 
