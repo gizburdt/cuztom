@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.9.8  
+**Version:** 2.9.9  
 **Requires:** 3.5 / 3.0+
 
 ## Basic usage
@@ -74,11 +74,14 @@ See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki<
 ## Changelog
 You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
 
+###2.9.9
+* Fixed: #283: Repeatable file upload. Props @anteprimorac
+
 ###2.9.8
 * Fixed: #281: Repeatable bundle with WYSIWYG
 
 ###2.9.7
-* Added: It is now possible to add repeatable fields to bundles. Props @anteprimorachr
+* Added: It is now possible to add repeatable fields to bundles. Props @anteprimorac
 
 ###2.9.6
 * Fixed: #276: Adding a sidebar shows a blank white box
@@ -122,8 +125,8 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Changed: Default image preview size
 
 ###2.8
-* Added: Image preview size for image field. props @anteprimorachr
-* Added: Bundle support for all fields. props @anteprimorachr
+* Added: Image preview size for image field. props @anteprimorac
+* Added: Bundle support for all fields. props @anteprimorac
 * Fixed: Small fixes & improvements
 
 ###2.7
