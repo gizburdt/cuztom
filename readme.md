@@ -69,10 +69,10 @@ To register a sidebar, just call this.
 	) );
 	
 ## Advanced usage
-See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for the full and advanced guides.
+See the <a href="https://github.com/gizburdt/wp-cuztom/wiki">wiki</a> for the full and advanced guides.
 
 ## Changelog
-You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+You can see the full changelog <a href="https://github.com/gizburdt/wp-cuztom/wiki/Changelog">here</a>.
 
 ###2.9.9
 * Fixed: #283: Repeatable file upload. Props @anteprimorac
