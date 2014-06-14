@@ -110,27 +110,3 @@ You can see the full changelog <a href="https://github.com/gizburdt/wp-cuztom/wi
 * Fixed: Strict standards
 * Fixed: Date fields were sometimes displaying in a weird way
 * Fixed: Many small fixes
-
-###2.8.4
-* Fixed: Fixed bug with bundle default value
-
-###2.8.3
-* Added: Default values for bundles, so you can preset some bundles
-
-###2.8.2
-* Improvement: Javasscript preview size set to medium (and some extra checks)
-
-###2.8.1
-* Fixed: Issue #221: Data attribute
-* Changed: Default image preview size
-
-###2.8
-* Added: Image preview size for image field. props @anteprimorac
-* Added: Bundle support for all fields. props @anteprimorac
-* Fixed: Small fixes & improvements
-
-###2.7
-* Improvement: Tables now get a unique class
-* Improvement: Bundles are now saved hidden, starting with _
-* Improvement: Responsive WYSIWYG editor within cuztom
-* Fixed: #205: Image upload for user/term meta
