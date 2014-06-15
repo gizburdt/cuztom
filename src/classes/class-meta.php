@@ -85,10 +85,10 @@ class Cuztom_Meta
 		if( ( $field instanceof Cuztom_Tabs ) || ( $field instanceof Cuztom_Bundle ) ) {
 			$field->output_row();
 		} else {
-			if( ! $field instanceof Cuztom_Field_Hidden ) :
-				$field->output_row( $field->value );
-			else :
+			if( $field instanceof Cuztom_Field_Hidden ) :
 				echo $field->output( $field->value );
+			else :
+				$field->output_row( $field->value );
 			endif;
 		}
 	}
@@ -206,15 +206,12 @@ class Cuztom_Meta
 		{
 			foreach( $data as $type => $field )
 			{
-				$values = @$values[$field['id']][0];
-				$values = maybe_unserialize( $values );
-
 				// Tabs / accordion
 				if( is_string( $type ) && ( $type == 'tabs' || $type == 'accordion' ) )
 				{
 					$args = array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object ) );
 					$tabs = $type == 'tabs' ? new Cuztom_Tabs( $field ) : new Cuztom_Accordion( $field );
-					$tabs->build( $field['panels'], $values[0] );
+					$tabs->build( $field['panels'], $values );
 
 					$cuztom['data'][$this->id][$tabs->id] = $tabs;
 					$cuztom['fields'][$tabs->id] = $tabs;
@@ -223,7 +220,7 @@ class Cuztom_Meta
 				// Bundle
 				elseif( is_string( $type ) && $type == 'bundle' )
 				{
-					$args 	=  array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => $values ) );
+					$args 	=  array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => @$values[$field['id']][0] ) );
 					$bundle = new Cuztom_Bundle( $args );
 					$bundle->build( $field['fields'], $values );
 					
@@ -234,7 +231,7 @@ class Cuztom_Meta
 				// Fields
 				else
 				{
-					$args 	= array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => $values ) );
+					$args 	= array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => @$values[$field['id']][0] ) );
 					$field 	= Cuztom_Field::create( $args );
 
 					$cuztom['data'][$this->id][$field->id] = $field;

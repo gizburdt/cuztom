@@ -1,8 +1,8 @@
 jQuery.noConflict();
 jQuery( function( $ ) {
 
-	var cuztomEvents;
-	(cuztomEvents = function(object) {
+	var cuztomUI;
+	(cuztomUI = function(object) {
 		object = $(object);
 
 		// Datepicker
@@ -164,13 +164,18 @@ jQuery( function( $ ) {
 			function(response) {
 				var response = $.parseJSON(response);
 
-				if( response.status )
+				console.log(response);
+
+				if( response.status ) {
 					sortable.append(response.item);
+				} else {
+					alert( response.message );
+				}
 			}
 		);
 
 		// Re-init events
-		cuztomEvents(document);
+		cuztomUI(document);
 
 		// Prevent click
 		event.preventDefault();

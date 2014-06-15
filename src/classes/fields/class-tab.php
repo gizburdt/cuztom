@@ -86,13 +86,10 @@ class Cuztom_Tab extends Cuztom_Field
 	function build( $data, $value )
 	{
 		foreach( $data as $type => $field ) {
-			if( is_string( $type ) && $type == 'bundle' ) 
-			{
+			if( is_string( $type ) && $type == 'bundle' ) {
 				// $tab->fields = $this->build( $fields );
-			} 
-			else 
-			{
-				$args = array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value'	=> maybe_unserialize( @$value[$field['id']][0] ) ) );
+			} else {
+				$args = array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value'	=> @$value[$field['id']][0] ) );
 				$field = Cuztom_Field::create( $args );
 
 				$this->fields[$field->id] = $field;

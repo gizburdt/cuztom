@@ -65,10 +65,9 @@ class Cuztom_Field
 
 		if( $this->is_repeatable() ) {
 			$this->after_name = '[]';
-			$this->value = @$args['value'];
-		} else {
-			$this->value = @$args['value'][0];
 		}
+
+		$this->value = maybe_unserialize( @$args['value'] );
 	}
 	
 	/**
