@@ -1,6 +1,9 @@
 # Crap
 .DS_Store
 
+# Node
+node_modules
+
 # Editor
 *.tmproj
 *.sublime-project
