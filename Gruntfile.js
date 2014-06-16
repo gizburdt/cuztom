@@ -19,15 +19,20 @@ module.exports = function(grunt) {
         },
         replace: {
             prefix: {
-                src: ['src/*.php'],
+                src: ['src/**/*.php'],
                 overwrite: true,
-                replacements: [{
-                    from: 'class Cuztom',
-                    to: "class <%= cuztom.prefix %>Cuztom"
-                }, {
-                    from: 'Cuztom::',
-                    to: "<%= cuztom.prefix %>Cuztom::"
-                }]
+                replacements: [
+                    { from: 'class Cuztom',                 to: "class <%= cuztom.prefix %>Cuztom" }, 
+                    { from: 'new Cuztom',                   to: "new <%= cuztom.prefix %>Cuztom" }, 
+                    { from: 'extends Cuztom',               to: "extends <%= cuztom.prefix %>Cuztom" }, 
+                    { from: 'instanceof Cuztom',            to: "instanceof <%= cuztom.prefix %>Cuztom" }, 
+                    { from: 'Cuztom::',                     to: "<%= cuztom.prefix %>Cuztom::" }, 
+                    { from: 'Cuztom_Field::',               to: "<%= cuztom.prefix %>Cuztom_Field::" }, 
+                    { from: "$class = 'Cuztom_Field_'",     to: "$class = '<%= cuztom.prefix %>Cuztom_Field_'" }, 
+                    { from: "register_cuztom_post_type",    to: "register_<%= cuztom.prefix.toLowerCase() %>cuztom_post_type" }, 
+                    { from: "get_cuztom_term_meta",         to: "get_<%= cuztom.prefix.toLowerCase() %>cuztom_term_meta" }, 
+                    { from: "the_cuztom_term_meta",         to: "the_<%= cuztom.prefix.toLowerCase() %>cuztom_term_meta" }
+                ]                
             }
         }
     };
