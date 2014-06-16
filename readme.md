@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.9.9  
+**Version:** 2.9.10  
 **Requires:** 3.5 / 3.0+
 
 ## Basic usage
@@ -73,6 +73,9 @@ See the <a href="https://github.com/gizburdt/wp-cuztom/wiki">wiki</a> for the fu
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/gizburdt/wp-cuztom/wiki/Changelog">here</a>.
+
+###2.9.10
+* Fixed: Rare bug when saving a concept post (non-object error showed)
 
 ###2.9.9
 * Fixed: #283: Repeatable file upload. Props @anteprimorac
