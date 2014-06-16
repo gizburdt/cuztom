@@ -100,22 +100,30 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	function save_post( $post_id )
 	{
 		// Deny the wordpress autosave function
-		if( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) return;
+		if( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			return;
+		}
 
 		// Verify nonce
-		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], 'cuztom_meta' ) ) ) return;
+		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], 'cuztom_meta' ) ) ) {
+			return;
+		}
 
 		// Is the post from the given post type?
-		if( ! in_array( get_post_type( $post_id ), array_merge( $this->post_types, array( 'revision' ) ) ) ) return;
+		if( ! in_array( get_post_type( $post_id ), array_merge( $this->post_types, array( 'revision' ) ) ) ) {
+			return;
+		}
 
 		// Is the current user capable to edit this post
-		foreach( $this->post_types as $post_type )
-			if( ! current_user_can( get_post_type_object( $post_type )->cap->edit_post, $post_id ) ) return;
+		if( ! current_user_can( get_post_type_object( get_post_type( $post_id ) )->cap->edit_post, $post_id ) ) {
+			return;
+		}
 
 		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : array();
 
-		if( ! empty( $values ) )
+		if( ! empty( $values ) ) {
 			parent::save( $post_id, $values );
+		}
 	}
 
 	/**
