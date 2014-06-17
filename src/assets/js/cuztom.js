@@ -45,24 +45,18 @@ jQuery( function( $ ) {
 	$(document).on( 'click', '.js-cuztom-upload', function()
 	{
 		var that			= $(this),
-			selector		= that.closest('.js-cuztom-field-selector'),
-			fieldID 		= selector.attr('id'),
-			fieldObject 	= window['Cuztom_' + fieldID],
-			type 			= fieldObject.type,
+			type 			= that.data('media-type'),
+			fieldID 		= that.data('id'),
 			parent 			= that.parent(),
 			hidden 			= $( '.cuztom-hidden', parent ),
 			preview 		= $( '.cuztom-preview', parent ),
 			_cuztom_uploader;
 
 		// Set preview size
-		if( fieldObject.args.preview_size )
-			previewSize  	= fieldObject.args.preview_size;
-		else
-			previewSize 	= 'medium';
+		previewSize 		= 'medium';
 
 		// Fire!
-		if( _cuztom_uploader ) 
-		{
+		if( _cuztom_uploader ) {
 			_cuztom_uploader.open();
         	return;
     	}
@@ -132,8 +126,6 @@ jQuery( function( $ ) {
 			fieldID 	= field.data('id'),
 			control		= $('.cuztom-control[data-control-for="' + fieldID + '"]');
 
-		console.log(control);
-
 		item.remove();
 
 		return false;
@@ -163,8 +155,6 @@ jQuery( function( $ ) {
 			data, 
 			function(response) {
 				var response = $.parseJSON(response);
-
-				console.log(response);
 
 				if( response.status ) {
 					sortable.append(response.item);
@@ -206,8 +196,9 @@ jQuery( function( $ ) {
 				var response 		= $.parseJSON(response),
 					border_color 	= input.css('border-color');
 
-				if( response.status )
+				if( response.status ) {
 					input.animate({ borderColor: '#60b334' }, 200, function(){ input.animate({ borderColor: border_color }); });
+				}
 			}
 		);
 

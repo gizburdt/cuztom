@@ -9,6 +9,7 @@ class Cuztom_Field_Image extends Cuztom_Field
 	var $_supports_bundle		= true;
 
 	var $css_classes			= array( 'cuztom-hidden', 'cuztom-input' );
+	var $data_attributes 		= array( 'media-type' => 'image' );
 	
 	function _output( $value = null )
 	{
@@ -22,8 +23,8 @@ class Cuztom_Field_Image extends Cuztom_Field
 			$image  = '<img src="' . $url . '" />';
 		}
 	
-		$output .= '<input type="hidden" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $value ) ? $value : '' ) . '" />';
-		$output .= sprintf( '<input id="upload-image-button" type="button" class="button button-small js-cuztom-upload" value="%s" />', __( 'Select image', 'cuztom' ) );
+		$output .= '<input type="hidden" ' . $this->output_name() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $value ) ? $value : '' ) . '" />';
+		$output .= '<input ' . $this->output_id() . ' ' . $this->output_data_attributes() . ' type="button" class="button button-small js-cuztom-upload" value="' . __( 'Select image', 'cuztom' ) . '" />';
 		$output .= ( ! empty( $this->value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media" title="%s" tabindex="-1"></a>', __( 'Remove current file', 'cuztom' ) ) : '' );
 
 		$output .= '<span class="cuztom-preview">' . $image . '</span>';
