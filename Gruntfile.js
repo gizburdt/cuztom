@@ -29,6 +29,7 @@ module.exports = function(grunt) {
                     { from: 'Cuztom::',                     to: "<%= cuztom.prefix %>Cuztom::" }, 
                     { from: 'Cuztom_Field::',               to: "<%= cuztom.prefix %>Cuztom_Field::" }, 
                     { from: "$class = 'Cuztom_Field_'",     to: "$class = '<%= cuztom.prefix %>Cuztom_Field_'" }, 
+                    { from: "class_exists( 'Cuztom' )",     to: "class_exists( '<%= cuztom.prefix %>Cuztom' )" }, 
                     { from: "register_cuztom_post_type",    to: "register_<%= cuztom.prefix.toLowerCase() %>cuztom_post_type" },
                     { from: "register_cuztom_taxonomy",     to: "register_<%= cuztom.prefix.toLowerCase() %>cuztom_taxonomy" }, 
                     { from: "get_cuztom_term_meta",         to: "get_<%= cuztom.prefix.toLowerCase() %>cuztom_term_meta" }, 
