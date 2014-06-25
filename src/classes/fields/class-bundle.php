@@ -138,7 +138,7 @@ class Cuztom_Bundle extends Cuztom_Field
 	{
 		echo '<tr class="cuztom-control cuztom-control-top" data-control-for="' . $this->id . '">';
 			echo '<td colspan="2">';
-				echo '<a class="button-secondary cuztom-button button button-small js-cuztom-add-sortable js-cuztom-add-bundle" data-sortable-type="bundle" data-field-id="' . $this->id . '" href="#">';
+				echo '<a class="button-secondary button button-small cuztom-button js-cuztom-add-sortable" data-sortable-type="bundle" data-field-id="' . $this->id . '" href="#">';
 					echo sprintf( '+ %s', __( 'Add item', 'cuztom' ) );
 				echo '</a>';
 

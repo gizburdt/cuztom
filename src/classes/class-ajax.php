@@ -24,7 +24,7 @@ class Cuztom_Ajax
 		add_action( 'wp_ajax_cuztom_add_bundle_item', array( &$this, 'add_bundle_item' ) );
 
 		// Field - save
-		add_action( 'wp_ajax_cuztom_field_ajax_save', array( &$this, 'field_ajax_save' ) );
+		add_action( 'wp_ajax_cuztom_save_field', array( &$this, 'save_field' ) );
 	}
 
 	/**
@@ -38,20 +38,25 @@ class Cuztom_Ajax
 	 */
 	function add_repeatable_item()
 	{
-		global $cuztom;
-		$field = $cuztom['fields'][$_POST['cuztom']['field_id']];
+		$field = self::get_field();
 
 		if( ! $field ) {
 			return;
 		}
 
 		if( !$field->limit || ( $field->limit > $_POST['cuztom']['count'] ) ) {
-			echo json_encode( array( 'status' => true, 'item' => $field->_output_repeatable_item() ) );
+			echo json_encode( array( 
+				'status' 	=> true, 
+				'item' 		=> $field->_output_repeatable_item( null, 10 ) 
+			) );
 		} else {
-			echo json_encode( array( 'status' => false, 'message' => __('Limit reached!') ) );
+			echo json_encode( array( 
+				'status' 	=> false, 
+				'message' 	=> __('Limit reached!') 
+			) );
 		}
 
-		// For Wordpress
+		// wp
 		die();
 	}
 
@@ -66,20 +71,25 @@ class Cuztom_Ajax
 	 */
 	function add_bundle_item()
 	{
-		global $cuztom;
-		$field = $cuztom['fields'][$_POST['cuztom']['field_id']];
+		$field = self::get_field();
 
 		if( ! $field ) {
 			return;
 		}
 
 		if( !$field->limit || ( $field->limit > $_POST['cuztom']['count'] ) ) {
-			echo json_encode( array( 'status' => true, 'item' => $field->output_item( $_POST['cuztom']['index'] ) ) );
+			echo json_encode( array( 
+				'status' 	=> true, 
+				'item' 		=> $field->output_item( $_POST['cuztom']['index'] ) 
+			) );
 		} else {
-			echo json_encode( array( 'status' => false, 'message' => __('Limit reached!') ) );
+			echo json_encode( array( 
+				'status' 	=> false, 
+				'message' 	=> __('Limit reached!') 
+			) );
 		}
 
-		// For Wordpress
+		// wp
 		die();
 	}
 
@@ -90,12 +100,11 @@ class Cuztom_Ajax
 	 * @since   3.0
 	 * 
 	 */
-	function field_ajax_save()
+	function save_field()
 	{
 		global $cuztom;
 		
-		if( $_POST['cuztom'] && ( empty( $object_id ) || empty( $id ) ) )
-		{
+		if( $_POST['cuztom'] ) {
 			$object		= $_POST['cuztom']['object_id'];
 			$id			= $_POST['cuztom']['id'];
 			$value 		= $_POST['cuztom']['value'];
@@ -109,7 +118,20 @@ class Cuztom_Ajax
 			}
 		}
 
-		// For Wordpress
+		// wp
 		die();
+	}
+
+	/**
+	 * Get field object from cuztom global
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
+	static function get_field()
+	{
+		global $cuztom;
+		return $cuztom['fields'][$_POST['cuztom']['field_id']];
 	}
 }

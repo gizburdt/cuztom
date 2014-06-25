@@ -41,6 +41,63 @@ jQuery( function( $ ) {
 		});
 	})(document);
 
+	// Add sortable
+	$(document).on( 'click', '.js-cuztom-add-sortable', function(event) {
+		var that 		= $(this),
+			isBundle	= that.data('sortable-type') == 'bundle',
+			fieldID 	= that.data('field-id'),
+			field 		= $('.cuztom-field#' + fieldID),
+			sortable 	= field.find('.cuztom-sortable'),
+			count 		= sortable.find('.cuztom-sortable-item').length,
+			index 		= count,
+			data 		= {
+				action: isBundle ? 'cuztom_add_bundle_item' : 'cuztom_add_repeatable_item',
+				cuztom: {
+					field_id: 	fieldID,
+					count: 		count,
+					index: 		index
+				}
+			};
+
+		// Call
+		$.post(
+			Cuztom.ajax_url,
+			data, 
+			function(response) {
+				var response = $.parseJSON(response);
+
+				if( response.status ) {
+					sortable.append(response.item);
+				} else {
+					alert( response.message );
+				}
+			}
+		);
+
+		// Re-init events
+		cuztomUI(document);
+
+		// Prevent click
+		event.preventDefault();
+	});
+
+	// Remove sortable
+	$(document).on( 'click', '.js-cuztom-remove-sortable', function()
+	{
+		var that 		= $(this),
+			item 		= that.closest('.cuztom-sortable-item'),
+			sortable 	= item.closest('.cuztom-sortable'),
+			fields 		= sortable.find('.cuztom-sortable-item').length,
+			field 		= sortable.closest('.cuztom-field'),
+			fieldID 	= field.data('id'),
+			control		= $('.cuztom-control[data-control-for="' + fieldID + '"]');
+
+		// Check if last
+		item.remove();
+
+		return false;
+	});
+
 	// Upload image
 	$(document).on( 'click', '.js-cuztom-upload', function()
 	{
@@ -115,62 +172,6 @@ jQuery( function( $ ) {
 		return false;
 	});
 
-	// Remove sortable
-	$(document).on( 'click', '.js-cuztom-remove-sortable', function()
-	{
-		var that 		= $(this),
-			item 		= that.closest('.cuztom-sortable-item'),
-			sortable 	= item.closest('.cuztom-sortable'),
-			fields 		= sortable.find('.cuztom-sortable-item').length,
-			field 		= sortable.closest('.field'),
-			fieldID 	= field.data('id'),
-			control		= $('.cuztom-control[data-control-for="' + fieldID + '"]');
-
-		item.remove();
-
-		return false;
-	});		
-	
-	// Add sortable
-	$(document).on( 'click', '.js-cuztom-add-sortable', function(event) {
-		var that 			= $(this),
-			isBundle		= that.data('sortable-type') == 'bundle',
-			fieldID 		= that.data('field-id'),
-			field 			= isBundle ? $('.cuztom-field#' + fieldID) : that.closest('.cuztom-field')
-			sortable 		= field.find('.cuztom-sortable'),
-			count 			= sortable.find('.cuztom-sortable-item').length,
-			index 			= count,
-			data 			= {
-				action: 	isBundle ? 'cuztom_add_bundle_item' : 'cuztom_add_repeatable_item',
-				cuztom: 	{
-					field_id: 	fieldID,
-					count: 		count,
-					index: 		index
-				}
-			};
-
-		// Call
-		$.post(
-			Cuztom.ajax_url,
-			data, 
-			function(response) {
-				var response = $.parseJSON(response);
-
-				if( response.status ) {
-					sortable.append(response.item);
-				} else {
-					alert( response.message );
-				}
-			}
-		);
-
-		// Re-init events
-		cuztomUI(document);
-
-		// Prevent click
-		event.preventDefault();
-	});
-
 	// Ajax save
 	$(document).on( 'click', '.js-cuztom-ajax-save', function(event) {
 		var that 			= $(this),
@@ -180,7 +181,7 @@ jQuery( function( $ ) {
 			input 			= $('.cuztom-input[id="' + fieldID + '"]'),
 			value 			= input.val(),
 			data = {
-				action: 	'cuztom_field_ajax_save',
+				action: 	'cuztom_save_field',
 				cuztom: {
 					value: 		value,
 					id: 		fieldID,

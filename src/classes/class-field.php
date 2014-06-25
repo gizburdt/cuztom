@@ -140,18 +140,17 @@ class Cuztom_Field
 
 		$output = '<div class="cuztom-repeatable">';
 			$output .= $this->_output_repeatable_control( $value );
-			$output .= '<ul class="cuztom-sortable js-cuztom-sortable">';
+			$output .= '<ul class="cuztom-sortable">';
 				if( is_array( $value ) ) {
 					foreach( $values as $value ) {
-						$x++;
-						$output .= $this->_output_repeatable_item( $value );
+						$output .= $this->_output_repeatable_item( $value, $values );
 
-						if( $x >= $this->limit ) {
+						if( $x++ >= $this->limit ) {
 							break;
 						}
 					}
 				} else {
-					$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . '</li>';		
+					$output .= $this->_output_repeatable_item( $value, $values );
 				}
 			$output .= '</ul>';
 		$output .= '</div>';
@@ -166,9 +165,9 @@ class Cuztom_Field
 	 * @since   3.0
 	 * 
 	 */
-	function _output_repeatable_item( $value = null )
+	function _output_repeatable_item( $value = null, $values = 0 )
 	{
-		return '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '' ) . '</li>';
+		return '<li class="cuztom-field cuztom-sortable-item"><div class="cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . ( count( $values ) > 1 ? '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '' ) . '</li>';
 	}
 
 	/**
