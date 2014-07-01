@@ -165,7 +165,7 @@ class Cuztom_Bundle extends Cuztom_Field
 	 */
 	function save( $object, $values )
 	{
-		$values 	= array_values( $values );
+		$values = is_array( $values ) ? array_values( $values ) : $values;
 
 		foreach( $values as $row => $fields ) 
 		{
