@@ -6,17 +6,17 @@ jQuery( function( $ ) {
 		object = $(object);
 
 		// Datepicker
-		$('.js-cuztom-datepicker', object).map(function(){
+		$('.js-cz-datepicker', object).map(function(){
 			return $(this).datepicker({ dateFormat: $(this).data('date-format') });
 		});
 
 		// Timepicker
-		$('.js-cuztom-timepicker', object).map(function(){
+		$('.js-cz-timepicker', object).map(function(){
 			return $(this).timepicker({ timeFormat: $(this).data('time-format') });
 		});
 
 		// Datetime
-		$('.js-cuztom-datetimepicker', object).map(function(){
+		$('.js-cz-datetimepicker', object).map(function(){
 			return $(this).datetimepicker({ 
 				timeFormat: $(this).data('time-format'),
 				dateFormat: $(this).data('date-format')
@@ -24,25 +24,25 @@ jQuery( function( $ ) {
 		});
 		
 		// Colorpicker
-		$('.js-cuztom-colorpicker', object).wpColorPicker();
+		$('.js-cz-colorpicker', object).wpColorPicker();
 
 		// Tabs
-		$('.js-cuztom-tabs', object).tabs();
+		$('.js-cz-tabs', object).tabs();
 
 		// Slider
-		$('.js-slider', object ).slider();
+		$('.js-cz-slider', object ).slider();
 
 		// Accordion
-		$('.js-cuztom-accordion', object).accordion();
+		$('.js-cz-accordion', object).accordion();
 
 		// Sortable
-		$('.js-cuztom-sortable', object).sortable({
+		$('.js-cz-sortable', object).sortable({
 			handle: '.cuztom-handle-sortable a'
 		});
 	})(document);
 
 	// Add sortable
-	$(document).on( 'click', '.js-cuztom-add-sortable', function(event) {
+	$(document).on( 'click', '.js-cz-add-sortable', function(event) {
 		var that 		= $(this),
 			isBundle	= that.data('sortable-type') == 'bundle',
 			fieldID 	= that.data('field-id'),
@@ -82,7 +82,7 @@ jQuery( function( $ ) {
 	});
 
 	// Remove sortable
-	$(document).on( 'click', '.js-cuztom-remove-sortable', function()
+	$(document).on( 'click', '.js-cz-remove-sortable', function()
 	{
 		var that 		= $(this),
 			item 		= that.closest('.cuztom-sortable-item'),
@@ -99,7 +99,7 @@ jQuery( function( $ ) {
 	});
 
 	// Upload image
-	$(document).on( 'click', '.js-cuztom-upload', function()
+	$(document).on( 'click', '.js-cz-upload', function()
 	{
 		var that			= $(this),
 			type 			= that.data('media-type'),
@@ -129,8 +129,8 @@ jQuery( function( $ ) {
         	attachment = _cuztom_uploader.state().get('selection').first().toJSON();
 
         	// (Re)set the remove button
-        	parent.find('.js-cuztom-remove-media').remove();
-        	that.after('<a href="#" class="js-cuztom-remove-media cuztom-remove-media"></a>');
+        	parent.find('.js-cz-remove-media').remove();
+        	that.after('<a href="#" class="js-cz-remove-media cuztom-remove-media"></a>');
 
         	// Send an id or url to the field and set the preview
         	if( type == 'image' )
@@ -158,10 +158,10 @@ jQuery( function( $ ) {
 	});
 
 	// Remove current attached image
-	$(document).on( 'click', '.js-cuztom-remove-media', function()
+	$(document).on( 'click', '.js-cz-remove-media', function()
 	{
 		var that 		= $(this),
-			selector 	= that.closest('.js-cuztom-field-selector'),
+			selector 	= that.closest(''),
 			parent 		= selector;
 
 		parent.find( '.cuztom-preview').html('');
@@ -173,7 +173,7 @@ jQuery( function( $ ) {
 	});
 
 	// Ajax save
-	$(document).on( 'click', '.js-cuztom-ajax-save', function(event) {
+	$(document).on( 'click', '.js-cz-ajax-save', function(event) {
 		var that 			= $(this),
 			fieldID 		= that.data('button-for'),
 			object 			= that.data('object'),

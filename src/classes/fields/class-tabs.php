@@ -4,6 +4,9 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Tabs extends Cuztom_Field
 {
+	/**
+	 * Tabs
+	 */
 	var $tabs = array();
 
 	/**
@@ -46,7 +49,7 @@ class Cuztom_Tabs extends Cuztom_Field
 		$tabs 			= $this->tabs;
 		$args['type'] 	= 'tabs';
 				
-		echo '<div class="js-cuztom-tabs">';
+		echo '<div class="js-cz-tabs">';
 			echo '<ul>';
 				foreach( $tabs as $title => $tab )
 				{

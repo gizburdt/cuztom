@@ -101,9 +101,9 @@ class Cuztom
 		include( self::$dir . '/classes/fields/class-wysiwyg.php' );
 		include( self::$dir . '/classes/fields/class-image.php' );
 		include( self::$dir . '/classes/fields/class-file.php' );
+		include( self::$dir . '/classes/fields/class-datetime.php' );
 		include( self::$dir . '/classes/fields/class-date.php' );
 		include( self::$dir . '/classes/fields/class-time.php' );
-		include( self::$dir . '/classes/fields/class-datetime.php' );
 		include( self::$dir . '/classes/fields/class-color.php' );
 		include( self::$dir . '/classes/fields/class-post-select.php' );
 		include( self::$dir . '/classes/fields/class-post-checkboxes.php' );

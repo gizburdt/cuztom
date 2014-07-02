@@ -32,7 +32,7 @@ class Cuztom_Accordion extends Cuztom_Tabs
 		$tabs 			= $this->tabs;
 		$args['type'] 	= 'accordion';
 
-		echo '<div class="js-cuztom-accordion">';
+		echo '<div class="js-cz-accordion">';
 			foreach( $tabs as $title => $tab )
 			{
 				$tab->output( $args );

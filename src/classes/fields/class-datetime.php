@@ -7,7 +7,7 @@ class Cuztom_Field_Datetime extends Cuztom_Field
 	var $_supports_ajax			= true;
 	var $_supports_bundle		= true;
 
-	var $css_classes			= array( 'js-cuztom-datetimepicker', 'cuztom-datetimepicker', 'datetimepicker', 'cuztom-input' );
+	var $css_classes			= array( 'js-cz-datetimepicker', 'cuztom-datetimepicker', 'datetimepicker', 'cuztom-input' );
 	var $data_attributes		= array( 'time-format' => null, 'date-format' => null );
 
 	function __construct( $field )

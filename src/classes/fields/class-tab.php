@@ -4,17 +4,39 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Tab extends Cuztom_Field
 {
+	/**
+	 * Title
+	 */
 	var $title;
+
+	/**
+	 * Fields
+	 */
 	var $fields = array();
 
+	/**
+	 * Tab constructor
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
 	function __construct( $args )
 	{
 		parent::__construct( $args );
 
-		if( ! $this->id )
+		if( ! $this->id ) {
 			$this->id = Cuztom::uglify( $this->title );
+		}
 	}
 
+	/**
+	 * Outputs a tab
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
 	function output( $args = array() )
 	{
 		$fields 	= $this->fields;
@@ -46,8 +68,8 @@ class Cuztom_Tab extends Cuztom_Field
 
 									if( $field->repeatable && $field->_supports_repeatable )
 									{
-										echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
-										echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
+										echo '<a class="button-secondary cuztom-button js-cz-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
+										echo '<ul class="js-cz-sortable cuztom-sortable cuztom_repeatable_wrap">';
 											echo $field->output( $field->value );
 										echo '</ul>';
 									}
@@ -71,6 +93,16 @@ class Cuztom_Tab extends Cuztom_Field
 		echo '</div>';
 	}
 
+	/**
+	 * Save meta
+	 * 
+	 * @param  	int 		$object_id
+	 * @param  	string 		$value
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since  	3.0
+	 * 
+	 */
 	function save( $object, $values )
 	{
 		foreach( $this->fields as $id => $field )
@@ -83,6 +115,16 @@ class Cuztom_Tab extends Cuztom_Field
 		}
 	}
 
+	/**
+	 * Builds a tab
+	 *
+	 * @param 	array 	$data
+	 * @param 	array 	$value
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
 	function build( $data, $value )
 	{
 		foreach( $data as $type => $field ) {

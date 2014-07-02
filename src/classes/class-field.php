@@ -167,7 +167,7 @@ class Cuztom_Field
 	 */
 	function _output_repeatable_item( $value = null, $values = 0 )
 	{
-		return '<li class="cuztom-field cuztom-sortable-item"><div class="cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . ( count( $values ) > 1 ? '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '' ) . '</li>';
+		return '<li class="cuztom-field cuztom-sortable-item"><div class="cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . ( count( $values ) > 1 ? '<div class="cuztom-remove-sortable js-cz-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '' ) . '</li>';
 	}
 
 	/**
@@ -180,7 +180,7 @@ class Cuztom_Field
 	function _output_repeatable_control( $value )
 	{
 		$output = '<div class="cuztom-control">';
-			$output .= '<a class="button-secondary button button-small cuztom-button js-cuztom-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . sprintf( '+ %s', __( 'Add item', 'cuztom' ) ) . '</a>';
+			$output .= '<a class="button-secondary button button-small cuztom-button js-cz-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . sprintf( '+ %s', __( 'Add item', 'cuztom' ) ) . '</a>';
 			if( $this->limit ) {
 				$output .= '<div class="cuztom-counter">';
 					$output .= '<span class="current">' . count( $value ) . '</span>';
@@ -214,11 +214,11 @@ class Cuztom_Field
 	 */
 	function _output_ajax_button()
 	{
-		return '<a class="cuztom-ajax-save js-cuztom-ajax-save button button-secondary button-small" href="#" data-button-for="' . $this->id . '" data-object="' . $this->object . '" data-meta-type="' . $this->meta_type . '">' . __( 'Save', 'cuztom' ) . '</a>';
+		return '<a class="cuztom-ajax-save js-cz-ajax-save button button-secondary button-small" href="#" data-button-for="' . $this->id . '" data-object="' . $this->object . '" data-meta-type="' . $this->meta_type . '">' . __( 'Save', 'cuztom' ) . '</a>';
 	}
 
 	/**
-	 * Output save value
+	 * Parse value
 	 * 
 	 * @param  	string 			$value
 	 *

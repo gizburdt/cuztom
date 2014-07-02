@@ -94,8 +94,8 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		if( ! in_array( get_post_type( $post_id ), array_merge( $this->post_types, array( 'revision' ) ) ) ) return;
 
 		// Is the current user capable to edit this post
-		foreach( $this->post_types as $post_type ) {
-			if( ! current_user_can( get_post_type_object( $post_type )->cap->edit_post, $post_id ) ) return;
+		if( ! current_user_can( get_post_type_object( get_post_type( $post_id ) )->cap->edit_post, $post_id ) ) {
+			return;
 		}
 
 		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : array();
