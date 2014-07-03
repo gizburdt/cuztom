@@ -42,14 +42,15 @@ class Cuztom_Field_Radios extends Cuztom_Field
 	function _output( $value = null )
 	{
 		$output = '';
+		$i 		= 0;
 
 		$output .= '<div class="cuztom-checkboxes cuztom-radios" ' . $this->output_data_attributes() . '>';
-			if( is_array( $this->options ) )
-			{
+			if( is_array( $this->options ) ) {
 				foreach( $this->options as $slug => $name ) {
-					$output .= '<input type="radio" ' . $this->output_name() . ' ' . $this->output_id( $this->id . $this->after_id . '_' . Cuztom::uglify( $slug ) ) . ' ' . $this->output_css_class() . ' value="' . $slug . '" ' . checked( $this->value, $slug, false ) . ' /> ';
+					$output .= '<input type="radio" ' . $this->output_name() . ' ' . $this->output_id( $this->id . $this->after_id . '_' . Cuztom::uglify( $slug ) ) . ' ' . $this->output_css_class() . ' value="' . $slug . '" ' . checked( @$this->value[$i], $slug, false ) . ' /> ';
 					$output .= '<label ' . $this->output_for_attribute( $this->id . $this->after_id . '_' . Cuztom::uglify( $slug ) ) . '">' . Cuztom::beautify( $name ) . '</label>';
 					$output .= '<br />';
+					$i++;
 				}
 			}
 		$output .= '</div>';
