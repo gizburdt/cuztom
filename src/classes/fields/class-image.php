@@ -4,20 +4,34 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Image extends Cuztom_Field
 {
+	/**
+	 * Feature support
+	 */
 	var $_supports_repeatable	= true;
 	var $_supports_ajax			= true;
 	var $_supports_bundle		= true;
 
+	/**
+	 * Attributes
+	 */
 	var $css_classes			= array( 'cuztom-hidden', 'cuztom-input' );
 	var $data_attributes 		= array( 'media-type' => 'image' );
 	
+	/**
+	 * Output method
+	 *
+	 * @return  string
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.4
+	 *
+	 */
 	function _output( $value = null )
 	{
 		$output = '';
 		$image 	= '';
 
-		if( ! empty( $this->value ) )
-		{
+		if( ! empty( $this->value ) ) {
 			$url 	= wp_get_attachment_image_src( $this->value, ( ! empty( $this->args["preview_size"] ) ? $this->args["preview_size"] : apply_filters( 'cuztom_preview_size', 'medium' ) ) );
 			$url 	= $url[0];
 			$image  = '<img src="' . $url . '" />';
@@ -28,7 +42,6 @@ class Cuztom_Field_Image extends Cuztom_Field
 		$output .= ( ! empty( $this->value ) ? sprintf( '<a href="#" class="js-cz-remove-media cuztom-remove-media" title="%s" tabindex="-1"></a>', __( 'Remove current file', 'cuztom' ) ) : '' );
 
 		$output .= '<span class="cuztom-preview">' . $image . '</span>';
-
 		$output .= $this->output_explanation();
 
 		return $output;

@@ -4,10 +4,23 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_Checkboxes extends Cuztom_Field
 {
+	/**
+	 * Feature support
+	 */
 	var $_supports_bundle			= true;
 	
+	/**
+	 * Attributes
+	 */
 	var $css_classes				= array( 'cuztom-input' );
 
+	/**
+	 * Constructs Cuztom_Field_Checkboxes
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	0.3.3
+	 *
+	 */
 	function __construct( $field )
 	{
 		parent::__construct( $field );
@@ -16,6 +29,15 @@ class Cuztom_Field_Checkboxes extends Cuztom_Field
 		$this->after 		.= '[]';
 	}
 
+	/**
+	 * Output method
+	 *
+	 * @return  string
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.4
+	 *
+	 */
 	function _output( $value = null )
 	{
 		$output = '<div class="cuztom-checkboxes-wrap">';
@@ -35,6 +57,15 @@ class Cuztom_Field_Checkboxes extends Cuztom_Field
 		return $output;
 	}
 
+	/**
+	 * Parse value
+	 * 
+	 * @param 	string 		$value
+	 *
+	 * @author  Gijs Jorissen
+	 * @since 	2.8
+	 * 
+	 */
 	function save_value( $value )
 	{
 		return empty( $value ) ? '-1' : $value;
