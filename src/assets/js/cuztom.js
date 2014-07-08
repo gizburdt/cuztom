@@ -74,7 +74,7 @@ jQuery( function( $ ) {
 			}
 		);
 
-		// Re-init events
+		// Re-init ui
 		cuztomUI(document);
 
 		// Prevent click
@@ -87,26 +87,44 @@ jQuery( function( $ ) {
 		var that 		= $(this),
 			item 		= that.closest('.cuztom-sortable-item'),
 			sortable 	= item.closest('.cuztom-sortable'),
-			fields 		= sortable.find('.cuztom-sortable-item').length,
 			field 		= sortable.closest('.cuztom-field'),
 			fieldID 	= field.data('id'),
 			control		= $('.cuztom-control[data-control-for="' + fieldID + '"]');
 
-		// Check if last
+		// Remove
 		item.remove();
 
+		// Remove remove-button
+		if( sortable.find('.cuztom-sortable-item').length == 1 ) {
+			sortable.find('.cuztom-sortable-item').last().find('.js-cz-remove-sortable').remove();
+		}
+
+		return false;
+	});
+
+	// Remove current attached image
+	$(document).on( 'click', '.js-cz-remove-media', function()
+	{
+		var that 		= $(this),
+			parent 		= that.closest('.cuztom-field');
+
+		parent.find( '.cuztom-preview').html('');
+		parent.find( '.cuztom-hidden').val('');
+		
+		that.hide();
+		
 		return false;
 	});
 
 	// Upload image
 	$(document).on( 'click', '.js-cz-upload', function()
 	{
-		var that			= $(this),
-			type 			= that.data('media-type'),
-			fieldID 		= that.data('id'),
-			parent 			= that.parent(),
-			hidden 			= $( '.cuztom-hidden', parent ),
-			preview 		= $( '.cuztom-preview', parent ),
+		var that		= $(this),
+			type 		= that.data('media-type'),
+			fieldID 	= that.data('id'),
+			parent 		= that.parent(),
+			hidden 		= $( '.cuztom-hidden', parent ),
+			preview 	= $( '.cuztom-preview', parent ),
 			_cuztom_uploader;
 
 		// Set preview size
@@ -154,21 +172,6 @@ jQuery( function( $ ) {
     	});
 
     	_cuztom_uploader.open();
-		return false;
-	});
-
-	// Remove current attached image
-	$(document).on( 'click', '.js-cz-remove-media', function()
-	{
-		var that 		= $(this),
-			selector 	= that.closest(''),
-			parent 		= selector;
-
-		parent.find( '.cuztom-preview').html('');
-		parent.find( '.cuztom-hidden').val('');
-		
-		that.hide();
-		
 		return false;
 	});
 

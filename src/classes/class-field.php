@@ -140,7 +140,7 @@ class Cuztom_Field
 
 		$output = '<div class="cuztom-repeatable">';
 			$output .= $this->_output_repeatable_control( $value );
-			$output .= '<ul class="cuztom-sortable">';
+			$output .= '<ul class="cuztom-sortable js-cz-sortable">';
 				if( is_array( $value ) ) {
 					foreach( $values as $value ) {
 						$output .= $this->_output_repeatable_item( $value, $values );
