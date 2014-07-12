@@ -85,3 +85,35 @@ if( ! function_exists( 'the_cuztom_term_meta' ) ) {
         echo get_cuztom_term_meta( $term, $taxonomy, $key );
     }
 }
+
+if( ! function_exists( 'update_cuztom_term_meta' ) ) {
+
+    /**
+     * Update term meta
+     *
+     * @author  Gijs Jorissen
+     * @since   3.0
+     */
+    function update_cuztom_term_meta( $term, $taxonomy, $key, $value )
+    {
+        if( empty( $taxonomy ) || empty( $term ) ) {
+            return false;
+        }
+        
+        if( ! is_numeric( $term ) ) {
+            $term = get_term_by( 'slug', $term, $taxonomy );
+            $term = $term->term_id;
+        }
+
+        $option     = 'term_meta_' . $taxonomy . '_' . $term;
+        $meta       = get_option( $option_name );
+
+        if( $key ) {
+            $meta[$key] = $value;
+            update_option( $option, $meta );
+        } else {
+            update_option( $option, $value );
+        }
+    }
+}
+
