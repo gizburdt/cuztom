@@ -27,7 +27,7 @@ class Cuztom_Meta
 	 * @since 	1.6.4
 	 * 
 	 */
-	function __construct( $id, $args )
+	function __construct( $id, $data )
 	{
 		global $cuztom;
 
@@ -35,7 +35,7 @@ class Cuztom_Meta
 		
 		// Set all properties
 		foreach ( $properties as $property ) {
-			$this->$property = isset( $args[ $property ] ) ? $args[ $property ] : $this->$property;
+			$this->$property = isset( $data[ $property ] ) ? $data[ $property ] : $this->$property;
 		}
 
 		$this->id 		= $id;
@@ -199,8 +199,8 @@ class Cuztom_Meta
 	{
 		global $cuztom;
 
-		$return 		= array();
-		$values			= $this->get_meta_values();
+		$return 	= array();
+		$values		= $this->get_meta_values();
 
 		if( is_array( $data ) && ! empty( $data ) )
 		{

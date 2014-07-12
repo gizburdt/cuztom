@@ -19,16 +19,16 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	/**
 	 * Constructs the meta box
 	 *
-	 * @param   array 			$args
+	 * @param   array 			$data
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	0.2
 	 *
 	 */
-	function __construct( $id, $args = array(), $post_type )
+	function __construct( $id, $data = array(), $post_type )
 	{
 		// Build all properties
-		parent::__construct( $id, $args );
+		parent::__construct( $id, $data );
 
 		// Set post types
 		$this->post_types 	= (array) $post_type;
@@ -48,10 +48,10 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 
 			add_action( 'save_post', array( &$this, 'save_post' ) );
 			add_action( 'post_edit_form_tag', array( &$this, 'edit_form_tag' ) );
-			
-			// Add the meta box
-			add_action( 'add_meta_boxes', array( &$this, 'add_meta_box' ) );				
 		}
+
+		// Add the meta box
+		add_action( 'add_meta_boxes', array( &$this, 'add_meta_box' ) );
 	}
 	
 	/**
