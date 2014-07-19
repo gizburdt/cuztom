@@ -17,12 +17,12 @@ jQuery( function( $ ) {
 
 		// Datetime
 		$('.js-cz-datetimepicker', object).map(function(){
-			return $(this).datetimepicker({ 
+			return $(this).datetimepicker({
 				timeFormat: $(this).data('time-format'),
 				dateFormat: $(this).data('date-format')
 			});
 		});
-		
+
 		// Colorpicker
 		$('.js-cz-colorpicker', object).wpColorPicker();
 
@@ -62,7 +62,7 @@ jQuery( function( $ ) {
 		// Call
 		$.post(
 			Cuztom.ajax_url,
-			data, 
+			data,
 			function(response) {
 				var response = $.parseJSON(response);
 
@@ -71,11 +71,11 @@ jQuery( function( $ ) {
 				} else {
 					alert( response.message );
 				}
+
+				// Re-init ui
+				cuztomUI(document);
 			}
 		);
-
-		// Re-init ui
-		cuztomUI(document);
 
 		// Prevent click
 		event.preventDefault();
@@ -110,9 +110,9 @@ jQuery( function( $ ) {
 
 		parent.find( '.cuztom-preview').html('');
 		parent.find( '.cuztom-hidden').val('');
-		
+
 		that.hide();
-		
+
 		return false;
 	});
 
@@ -193,9 +193,9 @@ jQuery( function( $ ) {
 				}
 			};
 
-		$.post( 
-			Cuztom.ajax_url, 
-			data, 
+		$.post(
+			Cuztom.ajax_url,
+			data,
 			function(response) {
 				var response 		= $.parseJSON(response),
 					border_color 	= input.css('border-color');

@@ -135,6 +135,7 @@
   -webkit-border-radius: 0;
 }
 .cuztom .cuztom-accordion .ui-accordion-header {
+  padding-left: 2em !important;
   color: #444;
   background: #f1f1f1;
   font-size: 12px !important;
