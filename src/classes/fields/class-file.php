@@ -4,39 +4,50 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Field_File extends Cuztom_Field
 {
+	/**
+	 * Feature support
+	 */
 	var $_supports_ajax			= true;
 	var $_supports_bundle		= true;
 
+	/**
+	 * Attributes
+	 */
 	var $css_classes 			= array( 'cuztom-hidden', 'cuztom-input' );
+	var $data_attributes 		= array( 'media-type' => 'file' );
 	
+	/**
+	 * Output method
+	 *
+	 * @return  string
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	2.4
+	 *
+	 */
 	function _output( $value = null )
 	{
 		$output = '';
 
-		if( ! empty( $this->value ) )
-		{
+		if( ! empty( $this->value ) ) {
 			$attachment = self::get_attachment_by_url( $this->value );
 			$mime = '';
 
-			if( is_object( $attachment ) )
-			{
+			if( is_object( $attachment ) ) {
 				$mime = str_replace( '/', '_', $attachment->post_mime_type );
 				$name = $attachment->post_title;
 			}
 
 			$file = '<span class="cuztom-mime mime-' . $mime . '"><a target="_blank" href="' . $this->value . '">' . $name . '</a></span>';
-		}
-		else 
-		{
+		} else {
 			$file = '';
 		}
 	
-		$output .= '<input type="hidden" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' ' . $this->output_value( $value ) . ' ' . '" />';
-		$output .= sprintf( '<input id="upload-file-button" type="button" class="button js-cuztom-upload" data-cuztom-media-type="file" value="%s" />', __( 'Select file', 'cuztom' ) );
-		$output .= ( ! empty( $this->value ) ? sprintf( '<a href="#" class="js-cuztom-remove-media cuztom-remove-media">%s</a>', __( 'Remove current file', 'cuztom' ) ) : '' );
+		$output .= '<input type="hidden" ' . $this->output_name() . ' ' . $this->output_css_class() . ' ' . $this->output_value( $value ) . ' ' . '" />';
+		$output .= '<input ' . $this->output_id() . ' ' . $this->output_data_attributes() . ' type="button" class="button js-cz-upload" value="' . __( 'Select file', 'cuztom' ) . '" />';
+		$output .= ( ! empty( $this->value ) ? sprintf( '<a href="#" class="js-cz-remove-media cuztom-remove-media">%s</a>', __( 'Remove current file', 'cuztom' ) ) : '' );
 
 		$output .= '<span class="cuztom-preview">' . $file . '</span>';
-
 		$output .= $this->output_explanation();
 
 		return $output;

@@ -33,16 +33,12 @@ class Cuztom_Post_Type
 	function __construct( $name, $args = array(), $labels = array() )
 	{
 		// Build name
-		if( ! empty( $name ) )
-		{
-			if( is_array( $name ) )
-			{
+		if( ! empty( $name ) ) {
+			if( is_array( $name ) ) {
 				$this->name		= Cuztom::uglify( $name[0] );
 				$this->title	= Cuztom::beautify( $name[0] );
 				$this->plural 	= Cuztom::beautify( $name[1] );
-			}
-			else
-			{
+			} else {
 				$this->name		= Cuztom::uglify( $name );
 				$this->title	= Cuztom::beautify( $name );
 				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
@@ -55,8 +51,9 @@ class Cuztom_Post_Type
 		$this->add_features	= $this->remove_features = array();
 
 		// Register
-		if( ! post_type_exists( $this->name ) )
+		if( ! post_type_exists( $this->name ) ) {
 			add_action( 'init', array( &$this, 'register_post_type' ) );
+		}
 	}
 	
 	/**
@@ -68,41 +65,44 @@ class Cuztom_Post_Type
 	 */
 	function register_post_type()
 	{
-		// Set labels
-		$labels = array_merge(
-			array(
-				'name' 					=> sprintf( _x( '%s', 'post type general name', 'cuztom' ), $this->plural ),
-				'singular_name' 		=> sprintf( _x( '%s', 'post type singular title', 'cuztom' ), $this->title ),
-				'menu_name' 			=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
-				'all_items' 			=> sprintf( __( 'All %s', 'cuztom' ), $this->plural ),
-				'add_new' 				=> sprintf( _x( 'Add New', '%s', 'cuztom' ), $this->title ),
-				'add_new_item' 			=> sprintf( __( 'Add New %s', 'cuztom' ), $this->title ),
-				'edit_item' 			=> sprintf( __( 'Edit %s', 'cuztom' ), $this->title ),
-				'new_item' 				=> sprintf( __( 'New %s', 'cuztom' ), $this->title ),
-				'view_item' 			=> sprintf( __( 'View %s', 'cuztom' ), $this->title ),
-				'items_archive'			=> sprintf( __( '%s Archive', 'cuztom' ), $this->title ),
-				'search_items' 			=> sprintf( __( 'Search %s', 'cuztom' ), $this->plural ),
-				'not_found' 			=> sprintf( __( 'No %s found', 'cuztom' ), $this->plural ),
-				'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', 'cuztom' ), $this->plural ),
-				'parent_item_colon'		=> sprintf( __( '%s Parent', 'cuztom' ), $this->title ),
-			),
-			$this->labels
-		);
+		if( $reserved = Cuztom::is_reserved_term( $this->name ) ) {
+			new Cuztom_Notice( $reserved->get_error_message(), 'error' );
+		} else {
+			$labels = array_merge(
+				array(
+					'name' 					=> sprintf( _x( '%s', 'post type general name', 'cuztom' ), $this->plural ),
+					'singular_name' 		=> sprintf( _x( '%s', 'post type singular title', 'cuztom' ), $this->title ),
+					'menu_name' 			=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
+					'all_items' 			=> sprintf( __( 'All %s', 'cuztom' ), $this->plural ),
+					'add_new' 				=> sprintf( _x( 'Add New', '%s', 'cuztom' ), $this->title ),
+					'add_new_item' 			=> sprintf( __( 'Add New %s', 'cuztom' ), $this->title ),
+					'edit_item' 			=> sprintf( __( 'Edit %s', 'cuztom' ), $this->title ),
+					'new_item' 				=> sprintf( __( 'New %s', 'cuztom' ), $this->title ),
+					'view_item' 			=> sprintf( __( 'View %s', 'cuztom' ), $this->title ),
+					'items_archive'			=> sprintf( __( '%s Archive', 'cuztom' ), $this->title ),
+					'search_items' 			=> sprintf( __( 'Search %s', 'cuztom' ), $this->plural ),
+					'not_found' 			=> sprintf( __( 'No %s found', 'cuztom' ), $this->plural ),
+					'not_found_in_trash' 	=> sprintf( __( 'No %s found in trash', 'cuztom' ), $this->plural ),
+					'parent_item_colon'		=> sprintf( __( '%s Parent', 'cuztom' ), $this->title ),
+				),
+				$this->labels
+			);
 
-		// Post type arguments
-		$args = array_merge( 
-			array(
-				'label' 				=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
-				'labels' 				=> $labels,
-				'public' 				=> true,
-				'supports' 				=> array( 'title', 'editor' ),
-				'has_archive'           => sanitize_title( $this->plural )
-			),
-			$this->args
-		);
+			// Post type arguments
+			$args = array_merge( 
+				array(
+					'label' 				=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
+					'labels' 				=> $labels,
+					'public' 				=> true,
+					'supports' 				=> array( 'title', 'editor' ),
+					'has_archive'           => sanitize_title( $this->plural )
+				),
+				$this->args
+			);
 
-		// Register the post type
-		register_post_type( $this->name, $args );
+			// Register the post type
+			register_post_type( $this->name, $args );
+		}
 	}
 	
 	/**
@@ -138,9 +138,9 @@ class Cuztom_Post_Type
 	 * @since 	0.1
 	 *
 	 */
-	function add_meta_box( $id, $title, $fields = array(), $context = 'normal', $priority = 'default' )
+	function add_meta_box( $id, $args )
 	{
-		$meta_box = new Cuztom_Meta_Box( $id, $title, $this->name, $fields, $context, $priority );
+		$box = new Cuztom_Meta_Box( $id, $args, $this->name );
 		
 		return $this;
 	}
@@ -204,8 +204,9 @@ class Cuztom_Post_Type
 	 */
 	function _remove_post_type_support()
 	{
-		foreach( $this->remove_features as $feature )
+		foreach( $this->remove_features as $feature ) {
 			remove_post_type_support( $this->name, $feature );
+		}
 	}
 	
 	/**

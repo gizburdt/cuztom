@@ -2,19 +2,41 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-class Cuztom_Tab
+class Cuztom_Tab extends Cuztom_Field
 {
-	var $id;
+	/**
+	 * Title
+	 */
 	var $title;
-	var $meta_type;
+
+	/**
+	 * Fields
+	 */
 	var $fields = array();
 
-	function __construct( $title )
+	/**
+	 * Tab constructor
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
+	function __construct( $args )
 	{
-		$this->id 		= Cuztom::uglify( $title );
-		$this->title 	= Cuztom::beautify( $title );
+		parent::__construct( $args );
+
+		if( ! $this->id ) {
+			$this->id = Cuztom::uglify( $this->title );
+		}
 	}
 
+	/**
+	 * Outputs a tab
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
 	function output( $args = array() )
 	{
 		$fields 	= $this->fields;
@@ -46,8 +68,8 @@ class Cuztom_Tab
 
 									if( $field->repeatable && $field->_supports_repeatable )
 									{
-										echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
-										echo '<ul class="js-cuztom-sortable cuztom-sortable cuztom_repeatable_wrap">';
+										echo '<a class="button-secondary cuztom-button js-cz-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
+										echo '<ul class="js-cz-sortable cuztom-sortable cuztom_repeatable_wrap">';
 											echo $field->output( $field->value );
 										echo '</ul>';
 									}
@@ -71,6 +93,16 @@ class Cuztom_Tab
 		echo '</div>';
 	}
 
+	/**
+	 * Save meta
+	 * 
+	 * @param  	int 		$object_id
+	 * @param  	string 		$value
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since  	3.0
+	 * 
+	 */
 	function save( $object, $values )
 	{
 		foreach( $this->fields as $id => $field )
@@ -80,6 +112,30 @@ class Cuztom_Tab
 
 			// Save
 			$field->save( $object, $value );
+		}
+	}
+
+	/**
+	 * Builds a tab
+	 *
+	 * @param 	array 	$data
+	 * @param 	array 	$value
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function build( $data, $value )
+	{
+		foreach( $data as $type => $field ) {
+			if( is_string( $type ) && $type == 'bundle' ) {
+				// $tab->fields = $this->build( $fields );
+			} else {
+				$args = array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value'	=> @$value[$field['id']][0] ) );
+				$field = Cuztom_Field::create( $args );
+
+				$this->fields[$field->id] = $field;
+			}
 		}
 	}
 }

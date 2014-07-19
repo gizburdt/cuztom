@@ -1,0 +1,15 @@
+{
+    "name": "gizburdt/cuztom",
+    "description": "Wordpress Cuztom Helper. Easy meta data.",
+    "authors": [
+        {
+            "name": "Gizburdt",
+            "email": "lol@gizburdt.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "files": ["cuztom.php"]
+    }
+}

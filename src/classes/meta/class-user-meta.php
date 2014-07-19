@@ -13,6 +13,8 @@ class Cuztom_User_Meta extends Cuztom_Meta
 {
 	var $locations;
 
+	var $meta_type 		= 'user';
+
 	/**
 	 * Constructor for User Meta
 	 *
@@ -25,32 +27,28 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	 * @since   1.5
 	 * 
 	 */
-	function __construct( $id, $title, $data = array(), $locations = array( 'show_user_profile', 'edit_user_profile' ) )
+	function __construct( $id, $data = array(), $locations = array( 'show_user_profile', 'edit_user_profile' ) )
 	{
-		parent::__construct( $title );
+		parent::__construct( $id, $data );
 
-		$this->id 			= $id;
-		$this->locations 	= $locations;
+		// Set locations
+		$this->locations 	= (array) $locations;
 
 		// Chack if the class, function or method exist, otherwise use cuztom callback
-		if( Cuztom::is_wp_callback( $data ) )
-		{
-			$this->callback = $data;
-		}
-		else
-		{
-			$this->callback = array( &$this, 'callback' );
+		if( ! $this->callback ) {
+			$this->callback = array( &$this, 'output' );
 
 			// Build the meta box and fields
-			$this->data = $this->build( $data );
+			$this->data = $this->build( $this->fields );
 
 			add_action( 'personal_options_update', array( &$this, 'save_user' ) );
 			add_action( 'edit_user_profile_update', array( &$this, 'save_user' ) );
 			add_action( 'user_edit_form_tag', array( &$this, 'edit_form_tag' ) );
 		}
 
-		foreach( $this->locations as $location )
+		foreach( $this->locations as $location ) {
 			add_action( $location, $this->callback );
+		}
 	}
 
 	/**
@@ -80,11 +78,14 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	function save_user( $user_id )
 	{
 		// Verify nonce
-		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], 'cuztom_meta' ) ) ) return;
+		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], 'cuztom_meta' ) ) ) {
+			return;
+		}
 
 		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : array();
 
-		if( ! empty( $values ) )
-			parent::save( $object, $values );
+		if( ! empty( $values ) ) {
+			parent::save( $user_id, $values );
+		}
 	}
 }

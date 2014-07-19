@@ -12,7 +12,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Field
 {
 	var $id						= '';
-	var $type					= '';
+	var $type					= null;
     var $label 					= '';
     var $description 			= '';
     var $explanation			= '';
@@ -26,16 +26,15 @@ class Cuztom_Field
 
 	var $object 				= null;
 	var $value 					= null;
-	
-	var $meta_type				= '';
+	var $meta_type				= null;
 	var $in_bundle				= false;
+
+	var $data_attributes 		= array();
+	var $css_classes			= array();
 	
 	var $show_admin_column 		= false;
 	var $admin_column_sortable	= false;
 	var $admin_column_filter	= false;
-
-	var $data_attributes 		= array();
-	var $css_classes			= array();
 	
 	var $before_name			= '';
 	var $after_name				= '';
@@ -49,23 +48,26 @@ class Cuztom_Field
 	/**
 	 * Constructs a Cuztom_Field
 	 * 
-	 * @param 	array 			$field
-	 * @param   string 			$meta_type
+	 * @param 	array 			$args
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	0.3.3
 	 * 
 	 */
-	function __construct( $field )
+	function __construct( $args )
 	{
-		$properties = array_keys( get_class_vars( __CLASS__ ) );
+		$properties = array_keys( get_class_vars( get_called_class() ) );
 		
 		// Set all properties
-		foreach ( $properties as $property )
-			$this->$property = isset( $field[ $property ] ) ? $field[ $property ] : $this->$property;
+		foreach ( $properties as $property ) {
+			$this->$property = isset( $args[ $property ] ) ? $args[ $property ] : $this->$property;
+		}
 
-		// Localize field
-		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
+		if( $this->is_repeatable() ) {
+			$this->after_name = '[]';
+		}
+
+		$this->value = maybe_unserialize( @$args['value'] );
 	}
 	
 	/**
@@ -75,14 +77,38 @@ class Cuztom_Field
 	 * @since 	0.2
 	 *
 	 */
-	function output( $value )
+	function output( $value = null )
 	{
-		if( $this->is_repeatable() )
-			return $this->_repeatable_output( $value );
-		elseif( $this->is_ajax() )
-			return $this->_ajax_output( $value );
-		else
+		$value = $value ? $value : $this->value;
+
+		if( $this->is_repeatable() ) {
+			return $this->_output_repeatable( $value );
+		} elseif( $this->is_ajax() ) {
+			return $this->_output_ajax( $value );
+		} else {
 			return $this->_output( $value );
+		}
+	}
+
+	/**
+	 * Outputs a field row
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
+	 *
+	 */
+	function output_row( $value = null )
+	{
+		echo '<tr>';
+			echo '<th>';
+				echo '<label for="' . $this->id . '" class="cuztom-label">' . $this->label . '</label>';
+				echo $this->required ? ' <span class="cuztom-required">*</span>' : '';
+				echo '<div class="cuztom-field-description">' . $this->description . '</div>';
+			echo '</th>';
+			echo '<td class="cuztom-field" id="' . $this->id . '" data-id="' . $this->id . '">';
+				echo $this->output( $this->value );
+			echo '</td>';
+		echo '</tr>';
 	}
 
 	/**
@@ -107,26 +133,62 @@ class Cuztom_Field
 	 * @since   2.0
 	 * 
 	 */
-	function _repeatable_output( $value )
+	function _output_repeatable( $value = null )
 	{
-		$this->after 	= '[]';
-		$output 		= '';
-		$x 				= 0;
+		$values 	= $value;
+		$x 			= 0;
 
-		if( is_array( $this->value ) )
-		{
-			foreach( $this->value as $value )
-			{
-				$x++;
-				$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . ( count( $value ) > 1 ? '<div class="js-cuztom-remove-sortable cuztom-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '' ) . '</li>';
+		$output = '<div class="cuztom-repeatable">';
+			$output .= $this->_output_repeatable_control( $value );
+			$output .= '<ul class="cuztom-sortable js-cz-sortable">';
+				if( is_array( $value ) ) {
+					foreach( $values as $value ) {
+						$output .= $this->_output_repeatable_item( $value, $values );
 
-				if( $x >= $this->limit ) break;
+						if( $x++ >= $this->limit ) {
+							break;
+						}
+					}
+				} else {
+					$output .= $this->_output_repeatable_item( $value, $values );
+				}
+			$output .= '</ul>';
+		$output .= '</div>';
+
+		return $output;
+	}
+
+	/**
+	 * Outputs repeatable item
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
+	function _output_repeatable_item( $value = null, $values = 0 )
+	{
+		return '<li class="cuztom-field cuztom-sortable-item"><div class="cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . ( count( $values ) > 1 ? '<div class="cuztom-remove-sortable js-cz-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '' ) . '</li>';
+	}
+
+	/**
+	 * Outputs repeatable control
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
+	function _output_repeatable_control( $value )
+	{
+		$output = '<div class="cuztom-control">';
+			$output .= '<a class="button-secondary button button-small cuztom-button js-cz-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . sprintf( '+ %s', __( 'Add item', 'cuztom' ) ) . '</a>';
+			if( $this->limit ) {
+				$output .= '<div class="cuztom-counter">';
+					$output .= '<span class="current">' . count( $value ) . '</span>';
+					$output .= '<span class="divider"> / </span>';
+					$output .= '<span class="max">' . $this->limit . '</span>';
+				$output .= '</div>';
 			}
-		}
-		else
-		{
-			$output .= '<li class="cuztom-field cuztom-sortable-item js-cuztom-sortable-item"><div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output( $value ) . ( $this->repeatable ? '</li>' : '' );		
-		}
+		$output .= '</div>';
 
 		return $output;
 	}
@@ -138,16 +200,25 @@ class Cuztom_Field
 	 * @since   2.0
 	 * 
 	 */
-	function _ajax_output( $value )
+	function _output_ajax( $value = null )
 	{
-		$output 	= $this->_output();
-		$output 	.= '<a class="cuztom-ajax-save js-cuztom-ajax-save button-secondary" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
-
-		return $output;
+		return $this->_output( $value ) . $this->_output_ajax_button();
 	}
 
 	/**
-	 * Output save value
+	 * Outputs ajax save button
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
+	function _output_ajax_button()
+	{
+		return '<a class="cuztom-ajax-save js-cz-ajax-save button button-secondary button-small" href="#" data-button-for="' . $this->id . '" data-object="' . $this->object . '" data-meta-type="' . $this->meta_type . '">' . __( 'Save', 'cuztom' ) . '</a>';
+	}
+
+	/**
+	 * Parse value
 	 * 
 	 * @param  	string 			$value
 	 *
@@ -175,49 +246,22 @@ class Cuztom_Field
 		// Maybe parse it through filters
 		$value = $this->save_value( $value );
 
-		switch( $this->meta_type ):
+		switch( $this->meta_type ) :
 			case 'user' :
 				update_user_meta( $object, $this->id, $value );
-			break;
-			case 'post' : default :
-				update_post_meta( $object, $this->id, $value );
+				return true;
 			break;
 			case 'term' :
 				// Because we need an array
 				return $value;
 			break;
-		endswitch;			
+			case 'post' : default :
+				update_post_meta( $object, $this->id, $value );
+				return true;
+			break;
+		endswitch;
 
 		return false;
-	}
-
-	/**
-	 * Saves an ajax field
-	 * 
-	 * @author  Gijs Jorissen
-	 * @since  	2.0
-	 * 
-	 */
-	function ajax_save()
-	{
-		if( $_POST['cuztom'] )
-		{
-			$object_id	= $_POST['cuztom']['object_id'];
-			$id			= $_POST['cuztom']['id'];
-			$value 		= $_POST['cuztom']['value'];
-			$meta_type 	= $_POST['cuztom']['meta_type'];
-
-			if( empty( $object_id ) ) 
-				die();
-
-			if( $meta_type == 'user' )
-				update_user_meta( $object_id, $id, $value );
-			elseif( $meta_type == 'post' )
-				update_post_meta( $object_id, $id, $value );
-		}
-
-		// For Wordpress
-		die();
 	}
 
 	/**
@@ -255,9 +299,7 @@ class Cuztom_Field
 	 */
 	function output_css_class( $extra = array() )
 	{
-		$classes = array_merge( $this->css_classes, $extra );
-
-		return apply_filters( 'cuztom_field_output_css_classes', ( 'class="' . implode( ' ', $classes ) . '"' ), $extra, $this );
+		return apply_filters( 'cuztom_field_output_css_classes', ( 'class="' . implode( ' ', array_merge( $this->css_classes, $extra ) ) . '"' ), $extra, $this );
 	}
 
 	/**
@@ -271,17 +313,16 @@ class Cuztom_Field
 	 */
 	function output_data_attributes( $extra = array() )
 	{
-		$output = '';
-
 		foreach( array_merge( $this->data_attributes, $extra ) as $attribute => $value )
 		{
-			if( ! is_null( $value ) )
-				$output .= 'data-' . $attribute . '="' . $value . '"';
-			elseif( ! $value && isset( $this->args[Cuztom::uglify( $attribute )] ) )
-				$output .= 'data-' . $attribute . '="' . $this->args[Cuztom::uglify( $attribute )] . '"';
+			if( ! is_null( $value ) ) {
+				$output = 'data-' . $attribute . '="' . $value . '"';
+			} elseif( ! $value && isset( $this->args[Cuztom::uglify( $attribute )] ) ) {
+				$output = 'data-' . $attribute . '="' . $this->args[Cuztom::uglify( $attribute )] . '"';
+			}
 		}
 
-		return apply_filters( 'cuztom_field_output_data_attributes', $output, $extra, $this );
+		return apply_filters( 'cuztom_field_output_data_attributes', @$output, $extra, $this );
 	}
 
 	/**
@@ -306,6 +347,24 @@ class Cuztom_Field
 	function output_explanation()
 	{
 		return apply_filters( 'cuztom_field_output_explanation', ( ! $this->is_repeatable() && $this->explanation ? '<em class="cuztom-field-explanation">' . $this->explanation . '</em>' : '' ), $this );
+	}
+
+	/**
+	 * Outputs the fields column content
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	3.0
+	 * 
+	 */
+	function output_column_content( $post_id )
+	{
+		$meta = get_post_meta( $post_id, $this->id, true );
+
+		if( $this->is_repeatable() ) {
+			echo implode( $meta, ', ' );
+		} else {
+			echo $meta;
+		}
 	}
 
 	/**
@@ -347,14 +406,23 @@ class Cuztom_Field
 	}
 
 	/**
-	 * Localize the field object
+	 * Creates and returns a field object
+	 *
+	 * @param 	array 			$args
+	 * @return 	object|bool
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	3.0
-	 * 
+	 *
 	 */
-	function localize()
+	static function create( $args )
 	{
-		wp_localize_script( 'cuztom', 'Cuztom_' . $this->id, (array) $this );
+		$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $args['type'] ) ) );
+
+		if( class_exists( $class ) ) {
+			return new $class( $args );
+		} else {
+			return false;
+		}
 	}
 }

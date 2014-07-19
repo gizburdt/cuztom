@@ -2,38 +2,47 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-class Cuztom_Bundle
+class Cuztom_Bundle extends Cuztom_Field
 {
-	var $id;
-	var $meta_type;
-	var $type 					= 'bundle';
-	var $fields 				= array();
-	
-	var $object 				= null;
-	var $value 					= null;
-
-	var $args 					= true;
-	var $underscore 			= true;
-	var $limit 					= null;
+	var $type 		= 'bundle';
+	var $fields 	= array();
 
 	/**
 	 * Construct for bundle
 	 *
-	 * @param   int  		$id
-	 * @param 	array 		$args
+	 * @param   array  		$bundle
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	2.8.4
 	 * 
 	 */
-	function __construct( $args )
+	function __construct( $bundle )
 	{
-		// Bundle args
-		$this->underscore		= isset( $args['underscore'] ) 		? 	$args['underscore'] 	: $this->underscore;
-		$this->limit			= isset( $args['limit'] ) 			? 	$args['limit'] 			: $this->limit;
+		parent::__construct( $bundle );
+	}
 
-		// Localize bundle
-		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
+	/**
+	 * Output a row
+	 *
+	 * @author  Gijs Jorissen
+	 * @since 	3.0
+	 * 
+	 */
+	function output_row( $value = null )
+	{
+		echo $this->output_control();
+
+		echo '<tr class="cuztom-bundle">';
+			echo '<td class="cuztom-field" id="' . $this->id . '" dataid="' . $this->id . '" colspan="2">';
+				echo '<div class="cuztom-bundles cuztom-bundles-' . $this->id . '">';
+					echo '<ul class="js-cz-sortable cuztom-sortable" data-cuztom-sortable-type="bundle">';
+						$this->output();
+					echo '</ul>';
+				echo '</div>';
+			echo '</td>';
+		echo '</tr>';
+		
+		echo $this->output_control( 'bottom' );
 	}
 
 	/**
@@ -45,165 +54,100 @@ class Cuztom_Bundle
 	 * @since   1.6.5
 	 *
 	 */
-	function output( $object, $args = array() )
+	function output( $value = null )
 	{
-		$object_id = $this->object;
+		$i = 0;
 
-		echo '<div class="cuztom-bundles cuztom-bundles-' . $this->id . '">';
-			echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable js-cuztom-add-bundle cuztom-add-sortable" href="#">';
-				echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
-			echo '</a>';
+		if( ! empty( $this->value ) && isset( $this->value[0] ) ) :
+			foreach( $this->value as $bundle ) {
+				echo $this->output_item( $i );
+				$i++;
+			}
+		elseif( ! empty( $this->default_value ) ) :
+			foreach( $this->default_value as $default ) {
+				echo $this->output_item( $i );
+				$i++;
+			}
+		else :
+			echo $this->output_item();
+		endif;
+	}
 
-			echo '<ul class="js-cuztom-sortable cuztom-sortable" data-cuztom-sortable-type="bundle">';
-
-				if( ! empty( $this->value ) && isset( $this->value[0] ) )
-				{
-					$i = 0;
-					foreach( $this->value as $bundle )
-					{
-						echo '<li class="cuztom-sortable-item js-cuztom-sortable-item cuztom-bundle cuztom-bundle-' . $this->id . '-' . $i . '">';
-							echo '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#"></a></div>';
-							echo '<fieldset class="cuztom-fieldset">';
-								echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
-									
-									foreach( $this->fields as $id => $field )
-									{
-										$field->pre 		= '[' . $this->id . '][' . $i . ']';
-										$field->after_id 	= '_' . $i;
-										$value 				= isset( $this->value[$i][$id] ) ? $this->value[$i][$id] : '';
-										
-										if( ! $field instanceof Cuztom_Field_Hidden )
-										{
-											echo '<tr>';
-												echo '<th class="cuztom-th">';
-													echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
-													echo '<div class="cuztom-field-description">' . $field->description . '</div>';
-												echo '</th>';
-												echo '<td class="cuztom-td">';
-
-													if( $field->_supports_bundle )
-														echo $field->output( $field->value, $object );
-													else
-														echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
-
-												echo '</td>';
-											echo '</tr>';
-										}
-										else
-										{
-											echo $field->output( $field->value, $object );
-										}
-									}
-
-								echo '</table>';
-							echo '</fieldset>';
-							echo count( $this->value ) > 1 ? '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"><a href="#"></a></div>' : '';
-						echo '</li>';
+	/**
+	 * Outputs bundle item
+	 *
+	 * @param   int  		$index
+	 *
+	 * @author  Gijs Jorissen
+	 * @since 	3.0
+	 * 
+	 */
+	function output_item( $index = 0 )
+	{
+		$output = '<li class="cuztom-sortable-item">';
+			$output .= '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"><a href="#"></a></div>';
+			$output .= '<fieldset class="cuztom-fieldset">';
+				$output .= '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
+					foreach( $this->fields as $id => $field ) {
+						$field->before_name 	= '[' . $this->id . '][' . $index. ']';
+						$field->after_id 		= '_' . $index;
+						$field->default_value 	= isset( $this->default_value[$index][$id] ) ? $this->default_value[$index][$id] : $field->default_value;
+						$value 					= isset( $this->value[$index][$id] ) ? $this->value[$index][$id] : '';
 						
-						$i++;
-					}
-					
-				}
-				elseif( ! empty( $this->default_value ) )
-				{
-					$i = 0;
-					foreach( $this->default_value as $default )
-					{
-						echo '<li class="cuztom-sortable-item js-cuztom-sortable-item cuztom-bundle">';
-							echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"><a href="#"></a></div>';
-							echo '<fieldset class="cuztom-fieldset">';
-							echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
-								
-								$fields = $this->fields;
-								$y 		= 0;
-								
-								foreach( $fields as $id => $field )
-								{
-									$field->pre 			= '[' . $this->id . '][' . $i . ']';
-									$field->after_id 		= '_' . $i;
-									$field->default_value 	= $this->default_value[$i][$y];
-									$value 					= '';
+						if( ! $field instanceof Cuztom_Field_Hidden ) {
+							$output .= '<tr>';
+								$output .= '<th class="cuztom-th">';
+									$output .= '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
+									$output .= '<div class="cuztom-field-description">' . $field->description . '</div>';
+								$output .= '</th>';
+								$output .= '<td class="cuztom-td">';
 
-									if( ! $field instanceof Cuztom_Field_Hidden )
-									{
-										echo '<tr>';
-											echo '<th class="cuztom-th">';
-												echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
-												echo '<div class="cuztom-description">' . $field->description . '</div>';
-											echo '</th>';
-											echo '<td class="cuztom-td">';
-
-												if( $field->_supports_bundle )
-													echo $field->output( $field->value, $object );
-												else
-													echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
-
-											echo '</td>';
-										echo '</tr>';
-									}
-									else
-									{
-										echo $field->output( $field->value, $object );
+									if( $field->_supports_bundle ) {
+										$output .= $field->output( $value );
+									} else {
+										$output .= '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
 									}
 
-									$y++;
-								}
-
-							echo '</table>';
-							echo '</fieldset>';
-						echo '</li>';
-
-						$i++;
+								$output .= '</td>';
+							$output .= '</tr>';
+						} else {
+							$output .= $field->output( $value );
+						}
 					}
+				$output .= '</table>';
+			$output .= '</fieldset>';
+			$output .= count( $this->value ) > 1 ? '<div class="cuztom-remove-sortable js-cz-remove-sortable"><a href="#"></a></div>' : '';
+		$output .= '</li>';
+
+		return $output;
+	}
+
+	/**
+	 * Output a control row for a bundle
+	 *
+	 * @return 	void
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function output_control( $class = 'top' )
+	{
+		echo '<tr class="cuztom-control cuztom-control-' . $class . '" data-control-for="' . $this->id . '">';
+			echo '<td colspan="2">';
+				echo '<a class="button-secondary button button-small cuztom-button js-cz-add-sortable" data-sortable-type="bundle" data-field-id="' . $this->id . '" href="#">';
+					echo sprintf( '+ %s', __( 'Add item', 'cuztom' ) );
+				echo '</a>';
+
+				if( $this->limit ) {
+					echo '<div class="cuztom-counter">';
+						echo '<span class="current">' . count( $this->value ) . '</span>';
+						echo '<span class="divider"> / </span>';
+						echo '<span class="max">' . $this->limit . '</span>';
+					echo '</div>';
 				}
-				else
-				{
-					echo '<li class="cuztom-sortable-item js-cuztom-sortable-item cuztom-bundle">';
-						echo '<div class="cuztom-handle-sortable cuztom-handle-bundle js-cuztom-handle-sortable"><a href="#"></a></div>';
-						echo '<fieldset class="cuztom-fieldset">';
-						echo '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
-							
-							$fields = $this->fields;
-							
-							foreach( $fields as $id => $field )
-							{
-								$field->pre 		= '[' . $this->id . '][0]';
-								$field->after_id	= '_0';
-								$value 				= '';
-
-								if( ! $field instanceof Cuztom_Field_Hidden )
-								{
-									echo '<tr>';
-										echo '<th class="cuztom-th">';
-											echo '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
-											echo '<div class="cuztom-description">' . $field->description . '</div>';
-										echo '</th>';
-										echo '<td class="cuztom-td">';
-
-											if( $field->_supports_bundle )
-												echo $field->output( $field->value, $object );
-											else
-												echo '<em>' . __( 'This input type doesn\'t support the bundle functionality (yet).', 'cuztom' ) . '</em>';
-
-										echo '</td>';
-									echo '</tr>';
-								}
-								else
-								{
-									echo $field->output( $field->value, $object );
-								}
-							}
-
-						echo '</table>';
-						echo '</fieldset>';
-					echo '</li>';
-				}
-			echo '</ul>';
-
-			echo '<a class="button-secondary cuztom-button js-cuztom-add-sortable js-cuztom-add-bundle cuztom-add-sortable" href="#">';
-				echo sprintf( '+ %s', __( 'Add', 'cuztom' ) );
-			echo '</a>';
-		echo '</div>';
+			echo '</td>';
+		echo '</tr>';
 	}
 
 	/**
@@ -218,30 +162,53 @@ class Cuztom_Bundle
 	 */
 	function save( $object, $values )
 	{
-		$values 	= array_values( $values );
+		$values = is_array( $values ) ? array_values( $values ) : array();
 
-		foreach( $values as $row => $fields ) 
-		{
-			foreach( $fields as $id => $value )
+		foreach( $values as $row => $fields ) {
+			foreach( $fields as $id => $value ) {
 				$values[$row][$id] = $this->fields[$id]->save_value( $value );
+			}
 		}
 
-		switch( $this->meta_type ) :
-			case 'user' :
-				delete_user_meta( $object_id, $this->id );		
-				update_user_meta( $object_id, $this->id, $values );
-			break;
-			default :
-				delete_post_meta( $object_id, $this->id );
-				update_post_meta( $object_id, $this->id, $values );
-			break;
-		endswitch;
-
-		// TODO: Term meta
+		parent::save( $object, $values );
 	}
 
-	function localize()
+	/**
+	 * This method builds the complete array for a bundle
+	 *
+	 * @param 	array 		$data
+	 * @param 	array 		$values
+	 * @return 	void
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function build( $data, $values = null )
 	{
-		wp_localize_script( 'cuztom', 'Cuztom_' . $this->id, (array) $this );
+		// Unset fields with array
+		$this->fields = array();
+
+		// Build fields with objects
+		foreach( $data as $type => $field ) {
+			if( is_string( $type ) && $type == 'tabs' ) {
+				// $tab->fields = $this->build( $fields );
+			} else {
+				$args 	= array_merge( 
+					$field, 
+					array( 
+						'meta_type' => $this->meta_type, 
+						'object' 	=> $this->object
+					) 
+				);
+				
+				$field = Cuztom_Field::create( $args );
+				$field->repeatable 	= false;
+				$field->ajax 		= false;
+				$field->in_bundle 	= true;
+
+				$this->fields[$field->id] = $field;
+			}
+		}
 	}
 }

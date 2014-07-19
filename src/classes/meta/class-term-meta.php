@@ -11,9 +11,8 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 class Cuztom_Term_Meta extends Cuztom_Meta
 {
+	var $meta_type 		= 'term';
 	var $taxonomies;
-	var $data;
-	var $fields;
 	var $locations;
 
 	/**
@@ -30,25 +29,27 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 		$this->taxonomies 	= (array) $taxonomy;
 		$this->locations 	= (array) $locations;
 		
-		// Build the meta box and fields
-		$this->data = $this->build( $data );
+		// Build fields
+		if( ! $this->callback ) {
+			$this->callback = array( &$this, 'output' );
 
-		foreach( $this->taxonomies as $taxonomy )
-		{
-			if( in_array( 'add_form', $this->locations ) )
-			{
-				add_action( $taxonomy . '_add_form_fields', array( &$this, 'add_form_fields' ) );
-				add_action( 'created_' . $taxonomy, array( &$this, 'save_term' ) );
+			// Build the meta box and fields
+			$this->data = $this->build( $this->fields );
+
+			foreach( $this->taxonomies as $taxonomy ) {
+				if( in_array( 'add_form', $this->locations ) ) {
+					add_action( $taxonomy . '_add_form_fields', array( &$this, 'add_form_fields' ) );
+					add_action( 'created_' . $taxonomy, array( &$this, 'save_term' ) );
+				}
+
+				if( in_array( 'edit_form', $this->locations ) ) {
+					add_action( $taxonomy . '_edit_form_fields', array( &$this, 'edit_form_fields' ) );
+					add_action( 'edited_' . $taxonomy, array( &$this, 'save_term' ) );
+				}
+
+				add_filter( 'manage_edit-' . $taxonomy . '_columns', array( &$this, 'add_column' ) );
+				add_filter( 'manage_' . $taxonomy . '_custom_column', array( &$this, 'add_column_content' ), 10, 3 );
 			}
-
-			if( in_array( 'edit_form', $this->locations ) )
-			{
-				add_action( $taxonomy . '_edit_form_fields', array( &$this, 'edit_form_fields' ) );
-				add_action( 'edited_' . $taxonomy, array( &$this, 'save_term' ) );
-			}
-
-			add_filter( 'manage_edit-' . $taxonomy . '_columns', array( &$this, 'add_column' ) );
-			add_filter( 'manage_' . $taxonomy . '_custom_column', array( &$this, 'add_column_content' ), 10, 3 );
 		}
 	}
 
@@ -62,9 +63,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 */
 	function add_form_fields( $taxonomy )
 	{
-		$term = null;
-
-		parent::callback( $term, $this->data, array( 'taxonomy' => $taxonomy ) );
+		return parent::output( null, $this->data, array( 'taxonomy' => $taxonomy ) );
 	}
 
 	/**
@@ -79,7 +78,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	{
 		echo '</table>';
 		
-		parent::callback( $term, $this->data, array( 'taxonomy' => $term->taxonomy ) );
+		parent::output( $term, $this->data, array( 'taxonomy' => $term->taxonomy ) );
 	}
 
 	/**
@@ -93,15 +92,13 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	function save_term( $term_id )
 	{
 		// Loop through each meta box
-		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
-		{
+		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) ) {
 			$data 		= array();
 			$values 	= isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
 			$taxonomy 	= $_POST['taxonomy'];
 
-			foreach( $this->fields as $id => $field )
-			{				
-				$data[$id] = $field->save_value( $values[$field->id] );			
+			foreach( $this->fields as $id => $field ) {				
+				$data[$id] = $field->save_value( $values[$field->id] );
 			}
 
 			update_option( 'term_meta_' . $taxonomy . '_' . $term_id, $data );
@@ -120,8 +117,9 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 */
 	function add_column( $columns )
 	{
-		foreach( $this->fields as $id => $field )
+		foreach( $this->fields as $id => $field ) {
 			if( $field->show_admin_column ) $columns[$id] = $field->label;
+		}
 
 		return $columns;
 	}

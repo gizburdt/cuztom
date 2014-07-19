@@ -2,35 +2,54 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-class Cuztom_Tabs
+class Cuztom_Tabs extends Cuztom_Field
 {
-	var $id;
-	var $meta_type;
-	var $type 				= 'bundle';
-	var $tabs 				= array();
-	
-	var $object 			= null;
-	var $value 				= null;
+	/**
+	 * Tabs
+	 */
+	var $tabs = array();
 
-	var $args 				= true;
-	var $underscore 		= true;
-	var $limit 				= null;
-
+	/**
+	 * Tabs constructor
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
 	function __construct( $args )
 	{
-		// Tabs args
-		$this->underscore		= isset( $args['underscore'] ) 		? 	$args['underscore'] 	: $this->underscore;
+		$this->id = $args['id'];
+	}
 
-		// Localize tabs
-		add_action( 'admin_enqueue_scripts', array( &$this, 'localize' ) );
+	/**
+	 * Output tabs row
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
+	function output_row( $value = null )
+	{
+		echo '<tr class="cuztom-tabs">';
+			echo '<td class="cuztom-field" id="' . $this->id . '" colspan="2">';
+				$this->output();
+			echo '</td>';
+		echo '</tr>';
 	}
 	
+	/**
+	 * Output tabs
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
 	function output( $args = array() )
 	{
 		$tabs 			= $this->tabs;
 		$args['type'] 	= 'tabs';
 				
-		echo '<div class="js-cuztom-tabs cuztom-tabs cuztom-bundles-' . $this->id . '">';
+		echo '<div class="js-cz-tabs">';
 			echo '<ul>';
 				foreach( $tabs as $title => $tab )
 				{
@@ -45,6 +64,13 @@ class Cuztom_Tabs
 		echo '</div>';
 	}
 
+	/**
+	 * Save tabs
+	 * 
+	 * @author 	Gijs Jorissen
+	 * @since   3.0
+	 * 
+	 */
 	function save( $object, $values )
 	{
 		foreach( $this->tabs as $tab )
@@ -52,23 +78,22 @@ class Cuztom_Tabs
 			$tab->save( $object, $values );
 		}
 	}
-	
-	function localize()
-	{
-		wp_localize_script( 'cuztom', 'Cuztom_' . $this->id, (array) $this );
-	}
 
 	/**
-	 * Build the id for the tabs
-	 *
-	 * @return  string
-	 *
+	 * Buidl tabs with child tabs and fields
+	 * 
 	 * @author 	Gijs Jorissen
-	 * @since 	3.0
+	 * @since   3.0
 	 * 
 	 */
-	function build_id( $id, $parent )
+	function build( $data, $value )
 	{
-		return ( $this->underscore ? '_' : '' ) . $parent . '_' . $id;
+		foreach( $data as $title => $field ) {
+			$args	= array_merge( array( 'title' => $title, 'meta_type' => $this->meta_type, 'object' => $this->object ) );
+			$tab 	= new Cuztom_Tab( $args );
+			$tab->build( $field['fields'], $value );
+
+			$this->tabs[$title] = $tab;
+		}
 	}
 }

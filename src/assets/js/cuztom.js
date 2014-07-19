@@ -1,23 +1,22 @@
 jQuery.noConflict();
 jQuery( function( $ ) {
 
-	var cuztomEvents;
-	(cuztomEvents = function(object)
-	{
+	var cuztomUI;
+	(cuztomUI = function(object) {
 		object = $(object);
 
 		// Datepicker
-		$('.js-cuztom-datepicker', object).map(function(){
+		$('.js-cz-datepicker', object).map(function(){
 			return $(this).datepicker({ dateFormat: $(this).data('date-format') });
 		});
 
 		// Timepicker
-		$('.js-cuztom-timepicker', object).map(function(){
+		$('.js-cz-timepicker', object).map(function(){
 			return $(this).timepicker({ timeFormat: $(this).data('time-format') });
 		});
 
 		// Datetime
-		$('.js-cuztom-datetimepicker', object).map(function(){
+		$('.js-cz-datetimepicker', object).map(function(){
 			return $(this).datetimepicker({ 
 				timeFormat: $(this).data('time-format'),
 				dateFormat: $(this).data('date-format')
@@ -25,45 +24,114 @@ jQuery( function( $ ) {
 		});
 		
 		// Colorpicker
-		$('.js-cuztom-colorpicker', object).wpColorPicker();
+		$('.js-cz-colorpicker', object).wpColorPicker();
 
 		// Tabs
-		$('.js-cuztom-tabs', object).tabs();
+		$('.js-cz-tabs', object).tabs();
 
 		// Slider
-		$('.js-slider', object ).slider();
+		$('.js-cz-slider', object ).slider();
 
 		// Accordion
-		$('.js-cuztom-accordion', object).accordion();
+		$('.js-cz-accordion', object).accordion();
 
 		// Sortable
-		$('.js-cuztom-sortable', object).sortable({
+		$('.js-cz-sortable', object).sortable({
 			handle: '.cuztom-handle-sortable a'
 		});
 	})(document);
 
-	// Upload image
-	$(document).on( 'click', '.js-cuztom-upload', function()
+	// Add sortable
+	$(document).on( 'click', '.js-cz-add-sortable', function(event) {
+		var that 		= $(this),
+			isBundle	= that.data('sortable-type') == 'bundle',
+			fieldID 	= that.data('field-id'),
+			field 		= $('.cuztom-field#' + fieldID),
+			sortable 	= field.find('.cuztom-sortable'),
+			count 		= sortable.find('.cuztom-sortable-item').length,
+			index 		= count,
+			data 		= {
+				action: isBundle ? 'cuztom_add_bundle_item' : 'cuztom_add_repeatable_item',
+				cuztom: {
+					field_id: 	fieldID,
+					count: 		count,
+					index: 		index
+				}
+			};
+
+		// Call
+		$.post(
+			Cuztom.ajax_url,
+			data, 
+			function(response) {
+				var response = $.parseJSON(response);
+
+				if( response.status ) {
+					sortable.append(response.item);
+				} else {
+					alert( response.message );
+				}
+			}
+		);
+
+		// Re-init ui
+		cuztomUI(document);
+
+		// Prevent click
+		event.preventDefault();
+	});
+
+	// Remove sortable
+	$(document).on( 'click', '.js-cz-remove-sortable', function()
 	{
-		var that			= $(this),
-			selector		= that.closest('.js-cuztom-field-selector'),
-			fieldID 		= selector.attr('id'),
-			fieldObject 	= window['Cuztom_' + fieldID],
-			type 			= fieldObject.type,
-			parent 			= that.parent(),
-			hidden 			= $( '.cuztom-hidden', parent ),
-			preview 		= $( '.cuztom-preview', parent ),
+		var that 		= $(this),
+			item 		= that.closest('.cuztom-sortable-item'),
+			sortable 	= item.closest('.cuztom-sortable'),
+			field 		= sortable.closest('.cuztom-field'),
+			fieldID 	= field.data('id'),
+			control		= $('.cuztom-control[data-control-for="' + fieldID + '"]');
+
+		// Remove
+		item.remove();
+
+		// Remove remove-button
+		if( sortable.find('.cuztom-sortable-item').length == 1 ) {
+			sortable.find('.cuztom-sortable-item').last().find('.js-cz-remove-sortable').remove();
+		}
+
+		return false;
+	});
+
+	// Remove current attached image
+	$(document).on( 'click', '.js-cz-remove-media', function()
+	{
+		var that 		= $(this),
+			parent 		= that.closest('.cuztom-field');
+
+		parent.find( '.cuztom-preview').html('');
+		parent.find( '.cuztom-hidden').val('');
+		
+		that.hide();
+		
+		return false;
+	});
+
+	// Upload image
+	$(document).on( 'click', '.js-cz-upload', function()
+	{
+		var that		= $(this),
+			type 		= that.data('media-type'),
+			fieldID 	= that.data('id'),
+			parent 		= that.parent(),
+			hidden 		= $( '.cuztom-hidden', parent ),
+			preview 	= $( '.cuztom-preview', parent ),
 			_cuztom_uploader;
 
 		// Set preview size
-		if( fieldObject.args.preview_size )
-			previewSize  	= fieldObject.args.preview_size;
-		else
-			previewSize 	= 'medium';
+		previewSize 		= 'medium';
 
 		// Fire!
-		if( _cuztom_uploader ) 
-		{
+		if( _cuztom_uploader ) {
 			_cuztom_uploader.open();
         	return;
     	}
@@ -79,8 +147,8 @@ jQuery( function( $ ) {
         	attachment = _cuztom_uploader.state().get('selection').first().toJSON();
 
         	// (Re)set the remove button
-        	parent.find('.js-cuztom-remove-media').remove();
-        	that.after('<a href="#" class="js-cuztom-remove-media cuztom-remove-media"></a>');
+        	parent.find('.js-cz-remove-media').remove();
+        	that.after('<a href="#" class="js-cz-remove-media cuztom-remove-media"></a>');
 
         	// Send an id or url to the field and set the preview
         	if( type == 'image' )
@@ -107,203 +175,39 @@ jQuery( function( $ ) {
 		return false;
 	});
 
-	// Remove current attached image
-	$(document).on( 'click', '.js-cuztom-remove-media', function()
-	{
-		var that 		= $(this),
-			selector 	= that.closest('.js-cuztom-field-selector'),
-			parent 		= selector;
-
-		parent.find( '.cuztom-preview').html('');
-		parent.find( '.cuztom-hidden').val('');
-		
-		that.hide();
-		
-		return false;
-	});
-
-	// Remove sortable
-	$(document).on( 'click', '.js-cuztom-remove-sortable', function()
-	{
-		var that 		= $(this),
-			field 		= that.closest('.js-cuztom-sortable-item'),
-			wrap 		= that.closest('.js-cuztom-sortable'),
-			fields 		= wrap.find('.js-cuztom-sortable-item').length;
-		
-		if( fields > 1 ) { field.remove(); }
-		if( fields == 2 ){ wrap.find('.js-cuztom-sortable-item').find('.js-cuztom-remove-sortable').remove(); }
-
-		return false;
-	});		
-	
-	// Add sortable
-	$(document).on( 'click', '.js-cuztom-add-sortable', function() 
-	{
-		var that			= $(this),
-			selector		= that.closest('.js-cuztom-field-selector'),
-			fieldID 		= selector.attr('id'),
-			fieldObject 	= window['Cuztom_' + fieldID],
-			wrap 			= $( '.js-cuztom-sortable', selector ),
-			isBundle		= fieldObject.type == 'bundle',
-			handle 			= '<div class="cuztom-handle-sortable js-cuztom-handle-sortable"></div>',
-			remover 		= '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"></div>',
-			lastItem 		= $( '.js-cuztom-sortable-item:last', wrap ),
-			newItem 		= lastItem.clone( false, false ),
-			countItems 		= $( '.js-cuztom-sortable-item', wrap ).length,
-			switchEditors 	= [];
-
-		// Check limit
-		if( countItems >= fieldObject.limit )
-		{
-			alert( Cuztom.translations.limit_reached );
-			return false;
-		}
-
-		// Dealing with bundles
-		if( isBundle )
-		{
-			newItem.find('.cuztom-tr').each(function() {
-
-				var row				= $(this),
-					selector 		= row.find('.js-cuztom-field-selector'),
-					cuztomInput 	= $('.cuztom-input', selector),
-					fieldID 		= selector.attr('id'),
-					fieldObject 	= window['Cuztom_' + fieldID];
-
-				// Checkboxes and radios to default value
-				if( fieldObject.type == 'checkbox' || fieldObject.type == 'radio' ) 
-				{
-					cuztomInput.each(function() {
-						$(this).removeAttr('checked').prop('checked', false);
-
-						var default_value = $(this).closest('.cuztom-checkboxes-wrap').data('default-value');
-						if( default_value != undefined && (default_value + '').length && default_value == $(this).val() )
-							$(this).attr('checked', 'checked').prop('checked', true);
-					});
-				}
-
-				// Wysiwyg
-				if( fieldObject.type == 'wysiwyg' ) 
-				{
-					var last_id = cuztomInput.attr('id'), last_name = cuztomInput.attr('name');
-					$(this).find('span.mceEditor').remove();
-					cuztomInput.show();
-				}
-
-				// New name and id attributes
-				cuztomInput.attr('name', function( i, val ) { return val.replace( /\[(\d+)\]/, function( match, n ) { return '[' + ( Number(n) + 1 ) + ']'; });}).attr('id', function( i, val ) { return val.replace( /\_(\d+)/, function( match, n ) { return '_' + ( Number(n) + 1 ); })}).removeClass('hasDatepicker');
-
-				// Set label for new id
-				$(this).find('label').attr('for', cuztomInput.attr('id'));
-
-				// Color
-				if( fieldObject.type == 'color' ) 
-				{
-					cuztomInput.attr('value', '');
-					$(this).find('.cuztom-td').html(cuztomInput.clone( false ));
-				}
-
-				// Select
-				if( cuztomInput.hasClass('cuztom-select') ) 
-				{
-					cuztomInput.each(function() {
-						var default_value = $(this).data('default-value');
-						$(this).find('option').removeAttr('selected').prop('selected', false);
-						if( default_value != undefined && (default_value + '').length ) {
-							$(this).find('option').each(function() {
-								if( $(this).val() == default_value )
-									$(this).attr('selected', 'selected').prop('selected', true);
-							});
-						}
-					});
-				}
-
-				// Add new wysiwyg
-				if( fieldObject.type == 'wysiwyg' ) 
-				{
-					var new_id = cuztomInput.attr('id'), new_name = cuztomInput.attr('name'), last_id_regexp = new RegExp(last_id, 'g'), last_name_regexp = new RegExp(last_name, 'g');
-					$(this).html( $(this).html().replace( last_name_regexp, new_name ).replace( last_id_regexp, new_id ) );
-
-					// Clone tinyMCEPreInit.mceInit object
-					tinyMCEPreInit.mceInit[new_id] = tinyMCEPreInit.mceInit[last_id];
-					tinyMCEPreInit.mceInit[new_id].body_class = tinyMCEPreInit.mceInit[new_id].body_class.replace( last_id_regexp, new_id );
-					tinyMCEPreInit.mceInit[new_id].elements = tinyMCEPreInit.mceInit[new_id].elements.replace( last_id_regexp, new_id );
-
-					// Clone QTags instance
-					QTags.instances[new_id] = QTags.instances[last_id];
-					QTags.instances[new_id].canvas = cuztomInput[0];
-					QTags.instances[new_id].id = new_id;
-					QTags.instances[new_id].settings.id = new_id;
-					QTags.instances[new_id].name = 'qt_' + new_id;
-					QTags.instances[new_id].toolbar = $(this).find('.quicktags-toolbar')[0];
-
-					var mode = 'html';
-					if( $(this).find('.wp-editor-wrap').hasClass('tmce-active') )
-						mode = 'tmce';
-					switchEditors.push({'id': new_id, 'mode': mode});
-				}
-			});
-		}
-		
-		// Dealing with repeatable
-		else
-		{
-
-		}
-		
-		// Reset data
-		newItem.find('.cuztom-input, select, textarea').val('').removeAttr('selected');
-		newItem.find('.js-cuztom-remove-media').remove();
-		newItem.find('.cuztom-preview').html('');
-
-		// Add the new item
-		newItem.appendTo( wrap );
-
-		// Add events to the new item
-		cuztomEvents(newItem);
-		
-		// Add new handler and remover if necessary
-		$('.js-cuztom-sortable-item', parent).each(function( index, item ) {
-			if( $('.js-cuztom-handle-sortable', item ).length == 0 ) { $(item).prepend( handle ); }
-			if( $('.js-cuztom-remove-sortable', item ).length == 0 ) { $(item).append( remover ); }
-		});
-
-		// Switch editors
-		for( var i = 0; i < switchEditors.length; i++ )
-			switchEditors.go( switchEditors[i]['id'], switchEditors[i]['mode'] );
-		
-		return false;
-	});
-
 	// Ajax save
-	$(document).on( 'click', '.js-cuztom-ajax-save', function()
-	{
-		var that			= $(this),
-			selector		= that.closest('.js-cuztom-field-selector'),
-			fieldID 		= selector.attr('id'),
-			fieldObject 	= window['Cuztom_' + fieldID],
-			parent 			= selector,
-			cuztom 			= parent.closest('.cuztom'),
-			objectID		= cuztom.data('object-id'),
-			input 			= parent.find('.cuztom-input'),
-			value			= input.val();
+	$(document).on( 'click', '.js-cz-ajax-save', function(event) {
+		var that 			= $(this),
+			fieldID 		= that.data('button-for'),
+			object 			= that.data('object'),
+			meta_type 		= that.data('meta-type'),
+			input 			= $('.cuztom-input[id="' + fieldID + '"]'),
+			value 			= input.val(),
+			data = {
+				action: 	'cuztom_save_field',
+				cuztom: {
+					value: 		value,
+					id: 		fieldID,
+					meta_type: 	meta_type,
+					object_id: 	object,
+				}
+			};
 
-		var data = {
-			action: 	'cuztom_field_ajax_save',
-			cuztom: 	{
-				value: 		value,
-				id: 		fieldObject.id,
-				meta_type: 	fieldObject.meta_type,
-				object_id: 	objectID,
+		$.post( 
+			Cuztom.ajax_url, 
+			data, 
+			function(response) {
+				var response 		= $.parseJSON(response),
+					border_color 	= input.css('border-color');
+
+				if( response.status ) {
+					input.animate({ borderColor: '#60b334' }, 200, function(){ input.animate({ borderColor: border_color }); });
+				}
 			}
-		};
+		);
 
-		$.post( Cuztom.ajax_url, data, function(r) {
-			var border_color = input.css('border-color');
-			input.animate({ borderColor: '#60b334' }, 200, function(){ input.animate({ borderColor: border_color }); });
-		});
-
-		return false;
+		// Prevent click
+		event.preventDefault();
 	});
 
 });
