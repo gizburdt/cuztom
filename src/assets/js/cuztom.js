@@ -71,11 +71,11 @@ jQuery( function( $ ) {
 				} else {
 					alert( response.message );
 				}
+
+				// Re-init ui
+				cuztomUI(document);
 			}
 		);
-
-		// Re-init ui
-		cuztomUI(document);
 
 		// Prevent click
 		event.preventDefault();
