@@ -145,6 +145,7 @@
   border-radius: 0;
   -webkit-border-radius: 0;
   cursor: move;
+  padding-left: 25px !important;
 }
 .cuztom .cuztom-accordion .ui-accordion-content {
   padding: 0;
