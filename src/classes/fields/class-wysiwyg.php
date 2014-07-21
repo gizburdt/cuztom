@@ -39,18 +39,4 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 	{
 		return wp_editor( ( ! empty( $this->value ) ? $this->value : $this->default_value ), $this->before_id . $this->id . $this->after_id, $this->args ) . $this->output_explanation();
 	}
-
-	/**
-	 * Parse value
-	 *
-	 * @return  string
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	2.8
-	 *
-	 */
-	function save_value( $value ) 
-	{
-		return wpautop( $value );
-	}
 }
