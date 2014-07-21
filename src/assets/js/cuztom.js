@@ -17,12 +17,12 @@ jQuery( function( $ ) {
 
 		// Datetime
 		$('.js-cz-datetimepicker', object).map(function(){
-			return $(this).datetimepicker({ 
+			return $(this).datetimepicker({
 				timeFormat: $(this).data('time-format'),
 				dateFormat: $(this).data('date-format')
 			});
 		});
-		
+
 		// Colorpicker
 		$('.js-cz-colorpicker', object).wpColorPicker();
 
@@ -38,6 +38,57 @@ jQuery( function( $ ) {
 		// Sortable
 		$('.js-cz-sortable', object).sortable({
 			handle: '.cuztom-handle-sortable a'
+		});
+
+		// Location
+		$('.cuztom-location-map').each(function() {
+			if( $(this).hasClass('loaded') ) return;
+
+			var td = $(this).closest('.cuztom-td');
+			var Lat_element = $('.cuztom-location-latitude', td),
+				Lng_element = $('.cuztom-location-longitude', td);
+
+			var Lat = parseFloat(Lat_element.val()),
+				Lng = parseFloat(Lng_element.val()),
+				Lat_default = parseFloat(Lat_element.data('default-value')),
+				Lng_default = parseFloat(Lng_element.data('default-value'));
+
+			if( Lat < -90 || Lat > 90 || isNaN(Lat) )
+				Lat = Lat_default;
+
+			if( Lng < -180 || Lng > 180 || isNaN(Lng) )
+				Lng = Lng_default;
+
+			Lat = Lat.toFixed(6);
+			Lng =Lng.toFixed(6);
+
+			var latLng = new google.maps.LatLng(Lat, Lng);
+
+			var map = new google.maps.Map(this, {
+				zoom: 12,
+				center: latLng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+
+			// creates a draggable marker to the given coords
+			var mapMarker = new google.maps.Marker({
+				position: latLng,
+				draggable: true
+			});
+
+			$(this).data('map', map).data('map-marker', mapMarker).addClass('loaded');
+
+			// adds a listener to the marker
+			// gets the coords when drag event ends
+			// then updates the input with the new coords
+			google.maps.event.addListener(mapMarker, 'dragend', function(evt) {
+				var td = $(this.map.j).closest('.cuztom-td');
+				$('.cuztom-location-latitude', td).val(evt.latLng.lat().toFixed(6));
+				$('.cuztom-location-longitude', td).val(evt.latLng.lng().toFixed(6));
+			});
+
+			// adds the marker on the map
+			mapMarker.setMap(map);
 		});
 	})(document);
 
@@ -62,7 +113,7 @@ jQuery( function( $ ) {
 		// Call
 		$.post(
 			Cuztom.ajax_url,
-			data, 
+			data,
 			function(response) {
 				var response = $.parseJSON(response);
 
@@ -110,9 +161,9 @@ jQuery( function( $ ) {
 
 		parent.find( '.cuztom-preview').html('');
 		parent.find( '.cuztom-hidden').val('');
-		
+
 		that.hide();
-		
+
 		return false;
 	});
 
@@ -193,9 +244,9 @@ jQuery( function( $ ) {
 				}
 			};
 
-		$.post( 
-			Cuztom.ajax_url, 
-			data, 
+		$.post(
+			Cuztom.ajax_url,
+			data,
 			function(response) {
 				var response 		= $.parseJSON(response),
 					border_color 	= input.css('border-color');
@@ -208,6 +259,46 @@ jQuery( function( $ ) {
 
 		// Prevent click
 		event.preventDefault();
+	});
+
+	// Set location default
+	$(document).on( 'click', '.js-cz-default-location', function(event) {
+		var td = $(this).closest('.cuztom-td');
+
+		$('.cuztom-location-latitude, .cuztom-location-longitude', td).each( function() {
+			$( this ).val( $(this).data('default-value') );
+		});
+
+		// Prevent click
+		event.preventDefault();
+	});
+
+	$(document).on( 'keyup blur', '.cuztom-location-latitude, .cuztom-location-longitude', function(event) {
+		var td = $(this).closest('.cuztom-td');
+		var map_element = $('.cuztom-location-map', td),
+			Lat_element = $('.cuztom-location-latitude', td),
+			Lng_element = $('.cuztom-location-longitude', td);
+
+		var map = map_element.data('map'),
+			marker = map_element.data('map-marker'),
+			Lat = parseFloat(Lat_element.val()),
+			Lng = parseFloat(Lng_element.val()),
+			Lat_default = parseFloat(Lat_element.data('default-value')),
+			Lng_default = parseFloat(Lng_element.data('default-value'));
+
+		if( Lat < -90 || Lat > 90 || isNaN(Lat) )
+			Lat = Lat_default;
+
+		if( Lng < -180 || Lng > 180 || isNaN(Lng) )
+			Lng = Lng_default;
+
+		Lat = Lat.toFixed(6);
+		Lng =Lng.toFixed(6);
+
+		var latLng = new google.maps.LatLng(Lat, Lng);
+
+		map.setCenter(latLng);
+		marker.setPosition(latLng);
 	});
 
 });

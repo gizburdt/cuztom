@@ -9,7 +9,7 @@ if( ! class_exists( 'Cuztom' ) ) :
  *
  * @author 	Gijs Jorissen
  * @since  	2.3
- * 
+ *
  */
 class Cuztom
 {
@@ -19,21 +19,21 @@ class Cuztom
 	private static $instance;
 	private static $ajax;
 
-	static $reserved = array( 'attachment', 'attachment_id', 'author', 'author_name', 
-		'calendar', 'cat', 'category','category__and', 'category__in', 'category__not_in', 'category_name', 'comments_per_page', 'comments_popup', 'cpage', 
-		'day', 'debug', 'error', 'exact', 'feed', 'hour', 'link_category', 'm', 'minute', 'monthnum', 'more', 
-		'name', 'nav_menu', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 
-		'perm', 'post', 'post__in', 'post__not_in', 'post_format', 'post_mime_type', 'post_status', 'post_tag', 'post_type', 
-		'posts', 'posts_per_archive_page', 'posts_per_page', 'preview', 'robots', 's', 'search', 'second', 'sentence', 'showposts', 
-		'static', 'subpost', 'subpost_id', 'tag', 'tag__and', 'tag__in','tag__not_in', 'tag_id', 'tag_slug__and', 'tag_slug__in', 'taxonomy', 
+	static $reserved = array( 'attachment', 'attachment_id', 'author', 'author_name',
+		'calendar', 'cat', 'category','category__and', 'category__in', 'category__not_in', 'category_name', 'comments_per_page', 'comments_popup', 'cpage',
+		'day', 'debug', 'error', 'exact', 'feed', 'hour', 'link_category', 'm', 'minute', 'monthnum', 'more',
+		'name', 'nav_menu', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb',
+		'perm', 'post', 'post__in', 'post__not_in', 'post_format', 'post_mime_type', 'post_status', 'post_tag', 'post_type',
+		'posts', 'posts_per_archive_page', 'posts_per_page', 'preview', 'robots', 's', 'search', 'second', 'sentence', 'showposts',
+		'static', 'subpost', 'subpost_id', 'tag', 'tag__and', 'tag__in','tag__not_in', 'tag_id', 'tag_slug__and', 'tag_slug__in', 'taxonomy',
 		'tb', 'term', 'type', 'w', 'withcomments', 'withoutcomments', 'year' );
 
 	/**
 	 * Public function to set the instance
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since  	2.3
-	 * 
+	 *
 	 */
 	public static function run()
 	{
@@ -44,16 +44,16 @@ class Cuztom
 			self::$instance->execute();
 			self::$instance->add_hooks();
 		}
-		
+
 		return self::$instance;
 	}
 
 	/**
 	 * Setup all the constants
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since   2.3
-	 * 
+	 *
 	 */
 	private function setup()
 	{
@@ -64,10 +64,10 @@ class Cuztom
 
 	/**
 	 * Include the necessary files
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since   2.3
-	 * 
+	 *
 	 */
 	private function includes()
 	{
@@ -83,7 +83,7 @@ class Cuztom
 		include( self::$dir . '/classes/meta/class-meta-box.php' );
 		include( self::$dir . '/classes/meta/class-user-meta.php' );
 		include( self::$dir . '/classes/meta/class-term-meta.php' );
-		
+
 		// Fields
 		include( self::$dir . '/classes/class-field.php' );
 		include( self::$dir . '/classes/fields/class-bundle.php' );
@@ -110,6 +110,7 @@ class Cuztom
 		include( self::$dir . '/classes/fields/class-term-select.php' );
 		include( self::$dir . '/classes/fields/class-term-checkboxes.php' );
 		include( self::$dir . '/classes/fields/class-hidden.php' );
+		include( self::$dir . '/classes/fields/class-location.php' );
 
 		// Functions
 		include( self::$dir . '/functions/post-type.php' );
@@ -132,7 +133,7 @@ class Cuztom
 		$cuztom = array(
 			'version'	=> self::$version,
 			'fields' 	=> array(),
-			'data'		=> array()		
+			'data'		=> array()
 		);
 
 		// Setup ajax
@@ -141,20 +142,20 @@ class Cuztom
 
 	/**
 	 * Add hooks
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since   2.3
-	 * 
+	 *
 	 */
 	private function add_hooks()
 	{
 		// Assets
 		add_action( 'admin_init', array( &$this, 'register_styles' ) );
 		add_action( 'admin_print_styles', array( &$this, 'enqueue_styles' ) );
-		
+
 		add_action( 'admin_init', array( &$this, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
-		
+
 		// Ajax
 		self::$ajax->add_hooks();
 	}
@@ -167,7 +168,7 @@ class Cuztom
 	 *
 	 */
 	function register_styles()
-	{		
+	{
 		wp_register_style( 'cuztom-jquery-ui', self::$url . '/assets/css/jquery-ui.css', false, self::$version, 'screen' );
 		wp_register_style( 'cuztom', self::$url . '/assets/css/cuztom.css', false, self::$version, 'screen' );
 	}
@@ -196,10 +197,11 @@ class Cuztom
 	 */
 	function register_scripts()
 	{
+		wp_register_script( 'google-maps', 'http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places', array(), self::$version, true );
 		wp_register_script( 'jquery-timepicker', self::$url . '/assets/js/jquery.timepicker.min.js', array( 'jquery' ), self::$version, true );
-		wp_register_script( 'cuztom', self::$url . '/assets/js/cuztom.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-timepicker', 'jquery-ui-slider' ), self::$version, true );
+		wp_register_script( 'cuztom', self::$url . '/assets/js/cuztom.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-timepicker', 'jquery-ui-slider', 'google-maps' ), self::$version, true );
 	}
-	
+
 	/**
 	 * Enqueues scripts
 	 *
@@ -212,17 +214,17 @@ class Cuztom
 		if( function_exists( 'wp_enqueue_media' ) ) {
 			wp_enqueue_media();
 		}
-		
+
 		wp_enqueue_script( 'thickbox' );
 		wp_enqueue_script( 'media-upload' );
 		wp_enqueue_script( 'cuztom' );
-		
+
 		self::localize_scripts();
 	}
 
 	/**
 	 * Localizes scripts
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	1.1.1
 	 *
@@ -258,11 +260,11 @@ class Cuztom
 		$current 	= $expath[count( $expath ) - 1];
 
 		array_push( $url, $current );
-		
+
 		if( preg_match( '/content/', $current ) ) {
 			$path = '';
 			$directories = array_reverse( $url );
-			
+
 			foreach( $directories as $dir ) {
 				if( ! preg_match( '/content/', $dir ) ) {
 					$path = $path . '/' . $dir;
@@ -289,7 +291,7 @@ class Cuztom
 	{
 		return apply_filters( 'cuztom_beautify', ucwords( str_replace( '_', ' ', $string ) ) );
 	}
-	
+
 	/**
 	 * Uglifies a string. Remove strange characters and lower strings
 	 *
@@ -304,7 +306,7 @@ class Cuztom
 	{
 		return apply_filters( 'cuztom_uglify', str_replace( '-', '_', sanitize_title( $string ) ) );
 	}
-	
+
 	/**
 	 * Makes a word plural
 	 *
@@ -346,8 +348,8 @@ class Cuztom
 	        array( 'person', 'people'   )
         ) );
 
-        $uncountable = apply_filters( 'cuztom_uncountable', array( 
-	        'sheep', 
+        $uncountable = apply_filters( 'cuztom_uncountable', array(
+	        'sheep',
 	        'fish',
 	        'series',
 	        'species',
@@ -374,27 +376,27 @@ class Cuztom
         		return apply_filters( 'cuztom_pluralize', preg_replace( $pattern[0], $pattern[1], $string ), 'special' );
         	}
         }
-		
+
 		// Return if noting found
 		return apply_filters( 'cuztom_pluralize', $string, null );
 	}
 
 	/**
 	 * Check if the term is reserved by Wordpress
-	 * 
+	 *
 	 * @param  	string  		$term
 	 * @return 	boolean
 	 *
 	 * @author  Gijs Jorissen
 	 * @since  	1.6
-	 * 
+	 *
 	 */
 	static function is_reserved_term( $term )
 	{
 		if( ! in_array( $term, apply_filters( 'cuztom_reserved_terms', self::$reserved ) ) ) {
 			return false;
 		}
-	    
+
 	    return new WP_Error( 'reserved_term_used', __( 'Use of a reserved term.', 'cuztom' ) );
 	}
 }
