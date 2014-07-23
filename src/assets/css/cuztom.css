@@ -327,3 +327,10 @@
 .cuztom .button.js-cz-default-location {
   vertical-align: middle;
 }
+.cuztom .cuztom-gallery-preview ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
+.cuztom .cuztom-gallery-preview ul li:last-of-type {
+  margin-right: 0;
+}
