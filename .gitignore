@@ -9,3 +9,6 @@
 
 # Codekit
 config.codekit
+
+# Node
+node_modules
