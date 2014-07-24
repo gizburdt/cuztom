@@ -12,3 +12,6 @@ node_modules
 
 # Codekit
 config.codekit
+
+# Node
+node_modules
