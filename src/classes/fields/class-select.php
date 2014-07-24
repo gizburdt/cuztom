@@ -49,7 +49,7 @@ class Cuztom_Field_Select extends Cuztom_Field
 
 			if( is_array( $this->options ) ) {
 				foreach( $this->options as $slug => $name ) {
-					$output .= '<option value="' . $slug . '" ' . ( ! empty( $this->value ) ? selected( $slug, $this->value, false ) : selected( $this->default_value, $slug, false ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
+					$output .= '<option value="' . $slug . '" ' . ( ( isset( $value ) && strlen( $value ) > 0 ) ? selected( $slug, $this->value, false ) : selected( $this->default_value, $slug, false ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
 				}
 			}
 		$output .= '</select></div>';
