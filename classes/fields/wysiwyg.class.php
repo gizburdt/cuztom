@@ -27,8 +27,4 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 		$this->args['textarea_name'] = 'cuztom' . $this->pre . '[' . $this->id . ']' . $this->after;
 		return wp_editor( ( ! empty( $value ) ? $value : $this->default_value ), $this->pre_id . $this->id . $this->after_id, $this->args ) . $this->output_explanation();
 	}
-
-	function save_value( $value ) {
-		return wpautop( $value );
-	}
 }
