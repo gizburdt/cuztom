@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.9.9  
+**Version:** 2.9.11  
 **Requires:** 3.5 / 3.0+
 
 ## Basic usage
@@ -69,10 +69,17 @@ To register a sidebar, just call this.
 	) );
 	
 ## Advanced usage
-See the <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki">wiki</a> for the full and advanced guides.
+See the <a href="https://github.com/gizburdt/wp-cuztom/wiki">wiki</a> for the full and advanced guides.
 
 ## Changelog
-You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cuztom-Helper/wiki/Changelog">here</a>.
+You can see the full changelog <a href="https://github.com/gizburdt/wp-cuztom/wiki/Changelog">here</a>.
+
+###2.9.11
+* Fixed: #278: Select with stored value 0 was not selected
+* Fixed: #280: Radio buttons and checkboxes value in repeatable/bundle items
+
+###2.9.10
+* Fixed: Rare bug when saving a concept post (non-object error showed)
 
 ###2.9.9
 * Fixed: #283: Repeatable file upload. Props @anteprimorac
@@ -110,27 +117,3 @@ You can see the full changelog <a href="https://github.com/Gizburdt/Wordpress-Cu
 * Fixed: Strict standards
 * Fixed: Date fields were sometimes displaying in a weird way
 * Fixed: Many small fixes
-
-###2.8.4
-* Fixed: Fixed bug with bundle default value
-
-###2.8.3
-* Added: Default values for bundles, so you can preset some bundles
-
-###2.8.2
-* Improvement: Javasscript preview size set to medium (and some extra checks)
-
-###2.8.1
-* Fixed: Issue #221: Data attribute
-* Changed: Default image preview size
-
-###2.8
-* Added: Image preview size for image field. props @anteprimorac
-* Added: Bundle support for all fields. props @anteprimorac
-* Fixed: Small fixes & improvements
-
-###2.7
-* Improvement: Tables now get a unique class
-* Improvement: Bundles are now saved hidden, starting with _
-* Improvement: Responsive WYSIWYG editor within cuztom
-* Fixed: #205: Image upload for user/term meta
