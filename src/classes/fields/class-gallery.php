@@ -25,7 +25,8 @@ class Cuztom_Field_Gallery extends Cuztom_Field
      * @since   3.0
      *
      */
-    function _output( $value = null ) {
+    function _output( $value = null ) 
+    {
         $output = '';
 
         $output .= '<div class="cuztom-gallery" data-name="cuztom' . $this->before_name . '[' . $this->id . ']' . $this->after_name . '">';
