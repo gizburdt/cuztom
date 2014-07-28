@@ -122,10 +122,12 @@ jQuery( function( $ ) {
 
 		// Location
 		$('.cuztom-location-map').each(function() {
-			if( $(this).hasClass('loaded') ) return;
+			if( $(this).hasClass('loaded') ) {
+				return;
+			}
 
-			var td = $(this).closest('.cuztom-td');
-			var Lat_element = $('.cuztom-location-latitude', td),
+			var td 			= $(this).closest('.cuztom-td'),
+				Lat_element = $('.cuztom-location-latitude', td),
 				Lng_element = $('.cuztom-location-longitude', td);
 
 			var Lat = parseFloat(Lat_element.val()),
@@ -172,7 +174,6 @@ jQuery( function( $ ) {
 		});
 
 		// Gallery
-
 		$('.cuztom-gallery').each( function() {
 
 			var selection;
