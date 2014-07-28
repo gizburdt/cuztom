@@ -15,7 +15,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 	 * Attributes
 	 */
 	var $css_classes 			= array( 'cuztom-input cuztom-select cuztom-post-select' );
-	
+
 	/**
 	 * Constructs Cuztom_Field_Post_Select
 	 *
@@ -31,7 +31,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 			array(
 				'post_type'			=> 'post',
 				'posts_per_page'	=> -1,
-				'cache_results' 	=> false, 
+				'cache_results' 	=> false,
 				'no_found_rows' 	=> true,
 			),
 			$this->args
@@ -39,7 +39,7 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 
 		$this->posts = get_posts( $this->args );
 	}
-	
+
 	/**
 	 * Output method
 	 *
@@ -53,12 +53,12 @@ class Cuztom_Field_Post_Select extends Cuztom_Field
 	{
 		$output = '<select ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . '>';
 			if( isset( $this->args['show_option_none'] ) ) {
-				$output .= '<option value="0" ' . ( empty( $this->value ) ? 'selected="selected"' : '' ) . '>' . $this->args['show_option_none'] . '</option>';
+				$output .= '<option value="0" ' . ( empty( $value ) ? 'selected="selected"' : '' ) . '>' . $this->args['show_option_none'] . '</option>';
 			}
 
 			if( is_array( $this->posts ) ) {
 				foreach( $posts = $this->posts as $post ) {
-					$output .= '<option value="' . $post->ID . '" ' . ( ! empty( $this->value ) ? selected( $post->ID, $this->value, false ) : selected( $this->default_value, $post->ID, false ) ) . '>' . $post->post_title . '</option>';
+					$output .= '<option value="' . $post->ID . '" ' . ( ! empty( $value ) ? selected( $post->ID, $value, false ) : selected( $this->default_value, $post->ID, false ) ) . '>' . $post->post_title . '</option>';
 				}
 			}
 		$output .= '</select>';

@@ -25,17 +25,17 @@ class Cuztom_Field_Checkbox extends Cuztom_Field
 	 */
 	function _output( $value = null )
 	{
-		return '<div class="cuztom-checkbox"><input type="checkbox" ' . $this->output_name() . ' ' . $this->output_id() . '" ' . $this->output_css_class() . ' ' . ( ! empty( $this->value ) ? checked( $this->value, 'on', false ) : checked( $this->default_value, 'on', false ) ) . ' /></div>' . $this->output_explanation();
+		return '<div class="cuztom-checkbox"><input type="checkbox" ' . $this->output_name() . ' ' . $this->output_id() . '" ' . $this->output_css_class() . ' ' . ( ! empty( $value ) ? checked( $value, 'on', false ) : checked( $this->default_value, 'on', false ) ) . ' /></div>' . $this->output_explanation();
 	}
 
 	/**
 	 * Parse value
-	 * 
+	 *
 	 * @param 	string 		$value
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	2.8
-	 * 
+	 *
 	 */
 	function save_value( $value )
 	{

@@ -8,7 +8,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 	 * Feature support
 	 */
 	var $_supports_bundle		= true;
-	
+
 	/**
 	 * Attributes
 	 */
@@ -42,7 +42,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 
 		add_action( 'init', array( &$this, 'get_taxonomy_terms' ) );
 	}
-	
+
 	/**
 	 * Output method
 	 *
@@ -57,7 +57,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 		$output = '<div class="cuztom-checkboxes">';
 			if( is_array( $this->terms ) ) {
 				foreach( $this->terms as $term ) {
-					$output .= '<input type="checkbox" ' . $this->output_name() . ' ' . $this->output_id( $this->id . $this->after_id . '_' . Cuztom::uglify( $term->name ) ) . ' ' . $this->output_css_class() . ' value="' . $term->term_id . '" ' . ( is_array( $this->value ) ? ( in_array( $term->term_id, $this->value ) ? 'checked="checked"' : '' ) : ( ( $this->value == '-1' ) ? '' : in_array( $term->term_id, $this->default_value ) ? 'checked="checked"' : '' ) ) . ' /> ';
+					$output .= '<input type="checkbox" ' . $this->output_name() . ' ' . $this->output_id( $this->id . $this->after_id . '_' . Cuztom::uglify( $term->name ) ) . ' ' . $this->output_css_class() . ' value="' . $term->term_id . '" ' . ( is_array( $value ) ? ( in_array( $term->term_id, $value ) ? 'checked="checked"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $term->term_id, $this->default_value ) ? 'checked="checked"' : '' ) ) . ' /> ';
 					$output .= '<label for="' . $this->id . $this->after_id . '_' . Cuztom::uglify( $term->name ) . '">' . $term->name . '</label>';
 					$output .= '<br />';
 				}
@@ -70,24 +70,24 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 
 	/**
 	 * Parse value
-	 * 
+	 *
 	 * @param 	string 		$value
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	2.8
-	 * 
+	 *
 	 */
 	function save_value( $value )
 	{
 		return empty( $value ) ? '-1' : $value;
 	}
-	
+
 	/**
 	 * Gets taxonomy terms for use in the output
-	 * 
+	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.6.1
-	 * 
+	 *
 	 */
 	function get_taxonomy_terms()
     {

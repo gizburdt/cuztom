@@ -9,7 +9,7 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 	 */
 	var $_supports_ajax			= true;
 	var $_supports_bundle		= true;
-	
+
 	/**
 	 * Constructs Cuztom_Field_Wysiwyg
 	 *
@@ -20,7 +20,7 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 	function __construct( $field )
 	{
 		parent::__construct( $field );
-		
+
 		// Set necessary args
 		$this->args['editor_class'] .= ' cuztom-input';
 		$this->args['textarea_name'] = 'cuztom' . $this->before_name . '[' . $this->id . ']' . $this->after_name;
@@ -37,6 +37,6 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 	 */
 	function _output( $value = null )
 	{
-		return wp_editor( ( ! empty( $this->value ) ? $this->value : $this->default_value ), $this->before_id . $this->id . $this->after_id, $this->args ) . $this->output_explanation();
+		return wp_editor( ( ! empty( $value ) ? $value : $this->default_value ), $this->before_id . $this->id . $this->after_id, $this->args ) . $this->output_explanation();
 	}
 }

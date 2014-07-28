@@ -42,17 +42,17 @@ class Cuztom_Field_Datetime extends Cuztom_Field
 	 */
 	function _output( $value = null )
 	{
-		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $this->value ) ? ( isset( $this->args['date_format'] ) && isset( $this->args['time_format'] ) ? date( $this->args['date_format'] . ' ' .  $this->args['time_format'], $this->value ) : date( 'm/d/Y H:i', $this->value ) ) : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation(); 
+		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( ! empty( $value ) ? ( isset( $this->args['date_format'] ) && isset( $this->args['time_format'] ) ? date( $this->args['date_format'] . ' ' .  $this->args['time_format'], $value ) : date( 'm/d/Y H:i', $value ) ) : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
 	}
 
 	/**
 	 * Parse value
-	 * 
+	 *
 	 * @param 	string 		$value
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	2.8
-	 * 
+	 *
 	 */
 	function save_value( $value )
 	{
@@ -62,14 +62,14 @@ class Cuztom_Field_Datetime extends Cuztom_Field
 	/**
 	 * Matches each symbol of PHP date format standard
 	 * with jQuery equivalent codeword
-	 * 
+	 *
 	 * @param 	string 			$php_format
 	 *
 	 * @author 	Tristan Jahier
 	 * @since 	2.9
-	 * 
+	 *
 	 */
-	function parse_date_format( $php_format ) 
+	function parse_date_format( $php_format )
 	{
 		$matching = array(
 			// Day
@@ -112,32 +112,32 @@ class Cuztom_Field_Datetime extends Cuztom_Field
 		$jqueryui_format 	= '';
 		$escaping 			= false;
 
-		for( $i = 0; $i < strlen( $php_format ); $i++ ) 
+		for( $i = 0; $i < strlen( $php_format ); $i++ )
 		{
 			$char 	= $php_format[$i];
-			if( $char === '\\' ) 
+			if( $char === '\\' )
 			{
 				$i++;
 				if( $escaping ) $jqueryui_format 	.= $php_format[$i];
 				else $jqueryui_format 				.= '\'' . $php_format[$i];
-				
+
 				$escaping = true;
 			}
-			else 
+			else
 			{
-				if( $escaping ) 
+				if( $escaping )
 				{
-					$jqueryui_format .= "'"; 
-					$escaping = false; 
+					$jqueryui_format .= "'";
+					$escaping = false;
 				}
-				
+
 				if( isset( $matching[$char] ) )
 					$jqueryui_format .= $matching[$char];
 				else
 					$jqueryui_format .= $char;
 			}
 		}
-		
+
 		return $jqueryui_format;
 	}
 }

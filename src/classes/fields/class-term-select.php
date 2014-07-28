@@ -29,12 +29,12 @@ class Cuztom_Field_Term_Select extends Cuztom_Field
 			),
 			$this->args
 		);
-		
+
 		$this->args['class'] 	.= ' cuztom-input cuztom-select cuztom-term-select';
 		$this->args['echo']		= 0;
 		$this->args['name'] 	= 'cuztom' . $this->before_name . '[' . $this->id . ']' . $this->after_name . ( $this->is_repeatable() ? '[]' : '' );
 		$this->args['id']		= $this->before_id . $this->id . $this->after_id;
-		$this->args['selected'] = ( ! empty( $this->value ) ? $this->value : $this->default_value );
+		$this->args['selected'] = ( ! empty( $value ) ? $value : $this->default_value );
 	}
 
 	/**

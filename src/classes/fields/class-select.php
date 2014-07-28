@@ -44,12 +44,12 @@ class Cuztom_Field_Select extends Cuztom_Field
 	{
 		$output = '<div class="cuztom-select-wrap"><select ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' ' . $this->output_data_attributes() . '>';
 			if( isset( $this->args['show_option_none'] ) ) {
-				$output .= '<option value="0" ' . ( empty( $this->value ) ? 'selected="selected"' : '' ) . '>' . $this->args['show_option_none'] . '</option>';
+				$output .= '<option value="0" ' . ( empty( $value ) ? 'selected="selected"' : '' ) . '>' . $this->args['show_option_none'] . '</option>';
 			}
 
 			if( is_array( $this->options ) ) {
 				foreach( $this->options as $slug => $name ) {
-					$output .= '<option value="' . $slug . '" ' . ( ( isset( $value ) && strlen( $value ) > 0 ) ? selected( $slug, $this->value, false ) : selected( $this->default_value, $slug, false ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
+					$output .= '<option value="' . $slug . '" ' . ( ( isset( $value ) && strlen( $value ) > 0 ) ? selected( $slug, $value, false ) : selected( $this->default_value, $slug, false ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
 				}
 			}
 		$output .= '</select></div>';
