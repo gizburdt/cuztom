@@ -63,6 +63,7 @@
   display: block;
   float: left;
   margin-top: 2px;
+  width: 100%;
 }
 .cuztom .cuztom-input {
   margin-right: 3px;
@@ -318,19 +319,4 @@
 }
 #side-sortables .cuztom-table .cuztom-remove-media {
   margin-left: 0;
-}
-.cuztom .cuztom-location-map {
-  width: 100%;
-  height: 400px;
-  margin-top: 15px;
-}
-.cuztom .button.js-cz-default-location {
-  vertical-align: middle;
-}
-.cuztom .cuztom-gallery-preview ul li {
-  display: inline-block;
-  margin-right: 10px;
-}
-.cuztom .cuztom-gallery-preview ul li:last-of-type {
-  margin-right: 0;
 }
