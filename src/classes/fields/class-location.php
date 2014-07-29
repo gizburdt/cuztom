@@ -57,11 +57,11 @@ class Cuztom_Field_Location extends Cuztom_Field {
             $this->after_name .= '[' . $scale . ']';
             $value = $scale == 'latitude' ? $latitude : $longitude;
 
-            $output .= '<input type="text" value="' . $latitude . '" ' . $this->output_name() . ' data-field-id="' . $this->before_id . $this->id . $this->after_id . '" data-default-value="' . $this->default_value['latitude'] . '" ' . $this->output_css_class( array( 'cuztom-location-latitude' ) ) . ' placeholder="Latitude" /> ';
+            $output .= '<input type="text" value="' . $latitude . '" ' . $this->output_name() . ' data-field-id="' . $this->get_id() . '" data-default-value="' . $this->default_value['latitude'] . '" ' . $this->output_css_class( array( 'cuztom-location-latitude' ) ) . ' placeholder="Latitude" /> ';
         }
 
-        $output .= '<a class="button-secondary button button-small cuztom-button js-cz-location-default" href="#" data-field-id="' . $this->before_id . $this->id . $this->after_id . '" >' . __( 'Default', 'cuztom' ) . ' </a>';
-        $output .= '<div class="js-cz-location-map cuztom-location-map" data-field-id="' . $this->before_id . $this->id . $this->after_id . '"></div>';
+        $output .= '<a class="button-secondary button button-small cuztom-button js-cz-location-default" href="#" data-field-id="' . $this->get_id() . '" >' . __( 'Default', 'cuztom' ) . ' </a>';
+        $output .= '<div class="js-cz-location-map cuztom-location-map" data-field-id="' . $this->get_id() . '"></div>';
         $output .= $this->output_explanation();
 
         return $output;

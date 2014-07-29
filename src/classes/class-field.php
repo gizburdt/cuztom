@@ -265,6 +265,30 @@ class Cuztom_Field
 	}
 
 	/**
+	 * Get the complete id
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	3.0
+	 *
+	 */
+	function get_id()
+	{
+		return $this->before_id . $this->id . $this->after_id;
+	}
+
+	/**
+	 * Get the complete name
+	 * 
+	 * @author  Gijs Jorissen
+	 * @since  	3.0
+	 *
+	 */
+	function get_name()
+	{
+		return $this->before_name . '[' . $this->id . ']' . $this->after_name;
+	}
+
+	/**
 	 * Outputs the fields name attribute
 	 * 
 	 * @author  Gijs Jorissen
@@ -273,7 +297,7 @@ class Cuztom_Field
 	 */
 	function output_name( $overwrite = null )
 	{
-		return apply_filters( 'cuztom_field_output_name', ( $overwrite ? 'name="' . $overwrite . '"' : 'name="cuztom' . $this->before_name . '[' . $this->id . ']' . $this->after_name . '"' ), $overwrite, $this );
+		return apply_filters( 'cuztom_field_output_name', ( $overwrite ? 'name="' . $overwrite . '"' : 'name="cuztom' . $this->get_name() . '"' ), $overwrite, $this );
 	}
 
 	/**
@@ -285,7 +309,7 @@ class Cuztom_Field
 	 */
 	function output_id( $overwrite = null )
 	{
-		return apply_filters( 'cuztom_field_output_id', ( $overwrite ? 'id="' . $overwrite . '"' : 'id="' . $this->before_id . $this->id . $this->after_id . '"' ), $overwrite, $this );
+		return apply_filters( 'cuztom_field_output_id', ( $overwrite ? 'id="' . $overwrite . '"' : 'id="' . $this->get_id() . '"' ), $overwrite, $this );
 	}
 
 	/**
