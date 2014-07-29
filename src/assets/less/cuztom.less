@@ -7,21 +7,19 @@
 	.cuztom-main-table{ border: 1px solid #dfdfdf !important; background-color: #f9f9f9; }
 	.cuztom-table{ 
 		&{ margin: 0; width: 100%; border-spacing: 0; }
-		tr{
-			&.cuztom-tabs,
-			&.cuztom-accordion{
-				& > th,
-				& > td{ border-top: 1px solid #dfdfdf; border-bottom: 1px solid #dfdfdf; }
-			}
-			&.cuztom-bundle{
-				& > th,
-				& > td{ border: none; padding: 10px; }
-			}
-			&.cuztom-control{ 
-				& > td{ background: #f1f1f1; padding: 6px 10px; border: 1px solid #dfdfdf; }
-				&.cuztom-control-top > td{ border-bottom: none; }
-				&.cuztom-control-bottom > td{ border-top: none; }
-			}
+		tr.cuztom-tabs,
+		tr.cuztom-accordion{
+			& > th,
+			& > td{ border-top: 1px solid #dfdfdf; border-bottom: 1px solid #dfdfdf; }
+		}
+		tr.cuztom-bundle{
+			& > th,
+			& > td{ border: none; padding: 10px; }
+		}
+		tr.cuztom-control{ 
+			& > td{ background: #f1f1f1; padding: 6px 10px; border: 1px solid #dfdfdf; }
+			&.cuztom-control-top > td{ border-bottom: none; }
+			&.cuztom-control-bottom > td{ border-top: none; }
 		}
 		td,
 		th{ position: relative; padding: 15px 10px; }
