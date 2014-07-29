@@ -52,7 +52,7 @@ class Cuztom_Ajax
 		} else {
 			echo json_encode( array( 
 				'status' 	=> false, 
-				'message' 	=> __('Limit reached!') 
+				'message' 	=> __('Limit reached!', 'cuztom') 
 			) );
 		}
 
@@ -85,7 +85,7 @@ class Cuztom_Ajax
 		} else {
 			echo json_encode( array( 
 				'status' 	=> false, 
-				'message' 	=> __('Limit reached!') 
+				'message' 	=> __('Limit reached!', 'cuztom') 
 			) );
 		}
 
