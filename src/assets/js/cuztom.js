@@ -86,17 +86,17 @@ jQuery( function( $ ) {
 		object = $(object);
 
 		// Datepicker
-		$('.js-cz-datepicker', object).map(function(){
+		$('.js-cz-datepicker', object).map(function() {
 			return $(this).datepicker({ dateFormat: $(this).data('date-format') });
 		});
 
 		// Timepicker
-		$('.js-cz-timepicker', object).map(function(){
+		$('.js-cz-timepicker', object).map(function() {
 			return $(this).timepicker({ timeFormat: $(this).data('time-format') });
 		});
 
 		// Datetime
-		$('.js-cz-datetimepicker', object).map(function(){
+		$('.js-cz-datetimepicker', object).map(function() {
 			return $(this).datetimepicker({
 				timeFormat: $(this).data('time-format'),
 				dateFormat: $(this).data('date-format')
@@ -121,36 +121,38 @@ jQuery( function( $ ) {
 		});
 
 		// Location
-		$('.cuztom-location-map').each(function() {
-			if( $(this).hasClass('loaded') ) return;
+		$('.js-cz-location-map').each(function() {
+			if( $(this).hasClass('loaded') ) {
+				return;
+			}
 
-			var td = $(this).closest('.cuztom-td');
-			var Lat_element = $('.cuztom-location-latitude', td),
-				Lng_element = $('.cuztom-location-longitude', td);
+			var td 			= $(this).closest('.cuztom-td'),
+				latField 	= $('.cuztom-location-latitude', td),
+				lngField 	= $('.cuztom-location-longitude', td);
+				latitude	= parseFloat( latField.val() ),
+				longitude	= parseFloat( lngField.val() ),
+				latDefault 	= parseFloat( latField.data('default-value') ),
+				lngDefault 	= parseFloat( lngField.data('default-value') );
 
-			var Lat = parseFloat(Lat_element.val()),
-				Lng = parseFloat(Lng_element.val()),
-				Lat_default = parseFloat(Lat_element.data('default-value')),
-				Lng_default = parseFloat(Lng_element.data('default-value'));
+			if( latitude < -90 || latitude > 90 || isNaN(latitude) ) {
+				latitude = latDefault;
+			}
 
-			if( Lat < -90 || Lat > 90 || isNaN(Lat) )
-				Lat = Lat_default;
+			if( longitude < -180 || longitude > 180 || isNaN(longitude) ) {
+				longitude = lngDefault;
+			}
 
-			if( Lng < -180 || Lng > 180 || isNaN(Lng) )
-				Lng = Lng_default;
+			latitude 	= latitude.toFixed(6);
+			longitude 	= longitude.toFixed(6);
+			latLng 		= new google.maps.LatLng( latitude, longitude );
 
-			Lat = Lat.toFixed(6);
-			Lng =Lng.toFixed(6);
+			var map = new google.maps.Map( this, {
+					zoom: 12,
+					center: latLng,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				});
 
-			var latLng = new google.maps.LatLng(Lat, Lng);
-
-			var map = new google.maps.Map(this, {
-				zoom: 12,
-				center: latLng,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			});
-
-			// creates a draggable marker to the given coords
+			// Creates a draggable marker
 			var mapMarker = new google.maps.Marker({
 				position: latLng,
 				draggable: true
@@ -158,23 +160,19 @@ jQuery( function( $ ) {
 
 			$(this).data('map', map).data('map-marker', mapMarker).addClass('loaded');
 
-			// adds a listener to the marker
-			// gets the coords when drag event ends
-			// then updates the input with the new coords
-			google.maps.event.addListener(mapMarker, 'dragend', function(evt) {
+			// Adds a listener to the marker, to update fields
+			google.maps.event.addListener(mapMarker, 'dragend', function(event) {
 				var td = $(this.map.j).closest('.cuztom-td');
-				$('.cuztom-location-latitude', td).val(evt.latLng.lat().toFixed(6));
-				$('.cuztom-location-longitude', td).val(evt.latLng.lng().toFixed(6));
+				latField.val(event.latLng.lat().toFixed(6));
+				lngField.val(event.latLng.lng().toFixed(6));
 			});
 
-			// adds the marker on the map
+			// Adds the marker on the map
 			mapMarker.setMap(map);
 		});
 
 		// Gallery
-
 		$('.cuztom-gallery').each( function() {
-
 			var selection;
 			selection = get_Selection( this );
 
@@ -227,7 +225,8 @@ jQuery( function( $ ) {
 	})(document);
 
 	// Add sortable
-	$(document).on( 'click', '.js-cz-add-sortable', function(event) {
+	$(document).on( 'click', '.js-cz-add-sortable', function(event) 
+	{
 		var that 		= $(this),
 			isBundle	= that.data('sortable-type') == 'bundle',
 			fieldID 	= that.data('field-id'),
@@ -318,8 +317,8 @@ jQuery( function( $ ) {
 		// Fire!
 		if( _cuztom_uploader ) {
 			_cuztom_uploader.open();
-					return;
-			}
+			return;
+		}
 
 		// Extend the wp.media object
 		_cuztom_uploader = wp.media.frames.file_frame = wp.media({
@@ -396,40 +395,42 @@ jQuery( function( $ ) {
 	});
 
 	// Set location default
-	$(document).on( 'click', '.js-cz-default-location', function(event) {
+	$(document).on( 'click', '.js-cz-location-default', function(event) {
 		var td = $(this).closest('.cuztom-td');
 
 		$('.cuztom-location-latitude, .cuztom-location-longitude', td).each( function() {
-			$( this ).val( $(this).data('default-value') );
+			$(this).val( $(this).data('default-value') );
 		});
 
 		// Prevent click
 		event.preventDefault();
 	});
 
+	// Update marker
 	$(document).on( 'keyup blur', '.cuztom-location-latitude, .cuztom-location-longitude', function(event) {
-		var td = $(this).closest('.cuztom-td');
-		var map_element = $('.cuztom-location-map', td),
-			Lat_element = $('.cuztom-location-latitude', td),
-			Lng_element = $('.cuztom-location-longitude', td);
+		var td 			= $(this).closest('.cuztom-td'),
+			mapElement 	= $('.cuztom-location-map', td),
+			latField 	= $('.cuztom-location-latitude', td),
+			lngField 	= $('.cuztom-location-longitude', td);
 
-		var map = map_element.data('map'),
-			marker = map_element.data('map-marker'),
-			Lat = parseFloat(Lat_element.val()),
-			Lng = parseFloat(Lng_element.val()),
-			Lat_default = parseFloat(Lat_element.data('default-value')),
-			Lng_default = parseFloat(Lng_element.data('default-value'));
+		var map 		= mapElement.data('map'),
+			marker 		= mapElement.data('map-marker'),
+			latitude 	= parseFloat( latField.val() ),
+			longitude	= parseFloat( lngField.val() ),
+			latDefault 	= parseFloat( latField.data('default-value') ),
+			lngDefault 	= parseFloat( lngField.data('default-value') );
 
-		if( Lat < -90 || Lat > 90 || isNaN(Lat) )
-			Lat = Lat_default;
+		if( latitude < -90 || latitude > 90 || isNaN(latitude) ) {
+			latitude = latDefault;
+		}
 
-		if( Lng < -180 || Lng > 180 || isNaN(Lng) )
-			Lng = Lng_default;
+		if( longitude < -180 || longitude > 180 || isNaN(longitude) ) {
+			longitude = lngDefault;
+		}
 
-		Lat = Lat.toFixed(6);
-		Lng =Lng.toFixed(6);
-
-		var latLng = new google.maps.LatLng(Lat, Lng);
+		latitude 	= latitude.toFixed(6);
+		longitude 	= longitude.toFixed(6);
+		latLng 		= new google.maps.LatLng(latitude, longitude);
 
 		map.setCenter(latLng);
 		marker.setPosition(latLng);
@@ -439,6 +440,7 @@ jQuery( function( $ ) {
 	$(document).on( 'click', '.js-cz-edit-gallery', function( event ) {
 		cuztomGalleries[ $( this ).closest( '.cuztom-gallery' ).data( 'name' ) ].open();
 
+		// Prevent click
 		event.preventDefault();
 	} );
 
