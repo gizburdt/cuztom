@@ -35,7 +35,7 @@ class Cuztom_Bundle extends Cuztom_Field
 		echo '<tr class="cuztom-bundle">';
 			echo '<td class="cuztom-field" id="' . $this->id . '" dataid="' . $this->id . '" colspan="2">';
 				echo '<div class="cuztom-bundles cuztom-bundles-' . $this->id . '">';
-					echo '<ul class="js-cz-sortable cuztom-sortable" data-cuztom-sortable-type="bundle">';
+					echo '<ul class="js-cztm-sortable cuztom-sortable" data-cuztom-sortable-type="bundle">';
 						$this->output();
 					echo '</ul>';
 				echo '</div>';
@@ -116,7 +116,7 @@ class Cuztom_Bundle extends Cuztom_Field
 					}
 				$output .= '</table>';
 			$output .= '</fieldset>';
-			$output .= count( $this->value ) > 1 ? '<div class="cuztom-remove-sortable js-cz-remove-sortable"><a href="#"></a></div>' : '';
+			$output .= count( $this->value ) > 1 ? '<div class="cuztom-remove-sortable js-cztm-remove-sortable"><a href="#"></a></div>' : '';
 		$output .= '</li>';
 
 		return $output;
@@ -135,7 +135,7 @@ class Cuztom_Bundle extends Cuztom_Field
 	{
 		echo '<tr class="cuztom-control cuztom-control-' . $class . '" data-control-for="' . $this->id . '">';
 			echo '<td colspan="2">';
-				echo '<a class="button-secondary button button-small cuztom-button js-cz-add-sortable" data-sortable-type="bundle" data-field-id="' . $this->id . '" href="#">';
+				echo '<a class="button-secondary button button-small cuztom-button js-cztm-add-sortable" data-sortable-type="bundle" data-field-id="' . $this->id . '" href="#">';
 					echo sprintf( '+ %s', __( 'Add item', 'cuztom' ) );
 				echo '</a>';
 

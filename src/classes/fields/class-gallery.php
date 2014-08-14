@@ -31,7 +31,7 @@ class Cuztom_Field_Gallery extends Cuztom_Field
 
         $output .= '<div class="cuztom-gallery" data-name="cuztom' . $this->before_name . '[' . $this->id . ']' . $this->after_name . '">';
 
-        $output .= '<a href="javascript:void(null)" class="button-secondary button button-small cuztom-button js-cz-edit-gallery">' . __( 'Edit Gallery', 'cuztom' ) . '</a>';
+        $output .= '<a href="javascript:void(null)" class="button-secondary button button-small cuztom-button js-cztm-edit-gallery">' . __( 'Edit Gallery', 'cuztom' ) . '</a>';
         $output .= '<div class="dropzone"></div>';
         $output .= '<div class="cuztom-gallery-preview"><ul class="list"></li></div>';
 

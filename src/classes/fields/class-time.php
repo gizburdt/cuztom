@@ -13,7 +13,7 @@ class Cuztom_Field_Time extends Cuztom_Field_Datetime
 	/**
 	 * Attributes
 	 */
-	var $css_classes			= array( 'js-cz-timepicker', 'cuztom-timepicker', 'timepicker', 'cuztom-input' );
+	var $css_classes			= array( 'js-cztm-timepicker', 'cuztom-timepicker', 'timepicker', 'cuztom-input' );
 	var $data_attributes		= array( 'time-format' => null );
 
 	/**

@@ -68,8 +68,8 @@ class Cuztom_Tab extends Cuztom_Field
 
 									if( $field->repeatable && $field->_supports_repeatable )
 									{
-										echo '<a class="button-secondary cuztom-button js-cz-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
-										echo '<ul class="js-cz-sortable cuztom-sortable cuztom_repeatable_wrap">';
+										echo '<a class="button-secondary cuztom-button js-cztm-add-sortable" href="#">' . sprintf( '+ %s', __( 'Add', 'cuztom' ) ) . '</a>';
+										echo '<ul class="js-cztm-sortable cuztom-sortable cuztom_repeatable_wrap">';
 											echo $field->output( $field->value );
 										echo '</ul>';
 									}

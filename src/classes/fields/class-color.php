@@ -13,5 +13,5 @@ class Cuztom_Field_Color extends Cuztom_Field
 	/**
 	 * Attributes
 	 */
-	var $css_classes			= array( 'js-cz-colorpicker', 'cuztom-colorpicker', 'colorpicker', 'cuztom-input' );
+	var $css_classes			= array( 'js-cztm-colorpicker', 'cuztom-colorpicker', 'colorpicker', 'cuztom-input' );
 }

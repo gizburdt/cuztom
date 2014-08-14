@@ -170,8 +170,8 @@ class Cuztom
 	 */
 	function register_styles()
 	{
-		wp_register_style( 'cuztom-jquery-ui', self::$url . '/assets/css/jquery-ui.css', false, self::$version, 'screen' );
-		wp_register_style( 'cuztom', self::$url . '/assets/css/cuztom.css', false, self::$version, 'screen' );
+		wp_register_style( 'cztm-jquery-ui', self::$url . '/assets/css/jquery-ui.css', false, self::$version, 'screen' );
+		wp_register_style( 'cztm', self::$url . '/assets/css/cuztom.css', false, self::$version, 'screen' );
 	}
 
 	/**
@@ -185,8 +185,8 @@ class Cuztom
 	{
 		wp_enqueue_style( 'thickbox' );
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'cuztom-jquery-ui' );
-		wp_enqueue_style( 'cuztom' );
+		wp_enqueue_style( 'cztm-jquery-ui' );
+		wp_enqueue_style( 'cztm' );
 	}
 
 	/**
@@ -200,7 +200,7 @@ class Cuztom
 	{
 		wp_register_script( 'google-maps', 'http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places', array(), self::$version, true );
 		wp_register_script( 'jquery-timepicker', self::$url . '/assets/js/jquery.timepicker.min.js', array( 'jquery' ), self::$version, true );
-		wp_register_script( 'cuztom', self::$url . '/assets/js/cuztom.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-timepicker', 'jquery-ui-slider', 'google-maps' ), self::$version, true );
+		wp_register_script( 'cztm', self::$url . '/assets/js/cuztom.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-timepicker', 'jquery-ui-slider', 'google-maps' ), self::$version, true );
 	}
 
 	/**
@@ -218,7 +218,7 @@ class Cuztom
 
 		wp_enqueue_script( 'thickbox' );
 		wp_enqueue_script( 'media-upload' );
-		wp_enqueue_script( 'cuztom' );
+		wp_enqueue_script( 'cztm' );
 
 		self::localize_scripts();
 	}
@@ -232,14 +232,12 @@ class Cuztom
 	 */
 	function localize_scripts()
 	{
-		wp_localize_script( 'cuztom', 'Cuztom', array(
+		wp_localize_script( 'cztm', 'Cztm', array(
+			'wp_version'		=> get_bloginfo( 'version' ),
 			'home_url'			=> get_home_url(),
 			'ajax_url'			=> admin_url( 'admin-ajax.php' ),
 			'date_format'		=> get_option( 'date_format' ),
-			'wp_version'		=> get_bloginfo( 'version' ),
-			'translations'		=> array(
-				'limit_reached'		=> __( 'Limit reached!', 'cuztom' )
-			)
+			'translations'		=> array()
 		) );
 	}
 
@@ -367,8 +365,9 @@ class Cuztom
 
         // Check for irregular words
         foreach ( $irregular as $noun ) {
-        	if ( strtolower( $string ) == $noun[0] )
+        	if ( strtolower( $string ) == $noun[0] ) {
             	return apply_filters( 'cuztom_pluralize', $noun[1], 'irregular' );
+        	}
         }
 
         // Check for plural forms

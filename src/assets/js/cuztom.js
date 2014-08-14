@@ -86,17 +86,17 @@ jQuery( function( $ ) {
 		object = $(object);
 
 		// Datepicker
-		$('.js-cz-datepicker', object).map(function() {
+		$('.js-cztm-datepicker', object).map(function() {
 			return $(this).datepicker({ dateFormat: $(this).data('date-format') });
 		});
 
 		// Timepicker
-		$('.js-cz-timepicker', object).map(function() {
+		$('.js-cztm-timepicker', object).map(function() {
 			return $(this).timepicker({ timeFormat: $(this).data('time-format') });
 		});
 
 		// Datetime
-		$('.js-cz-datetimepicker', object).map(function() {
+		$('.js-cztm-datetimepicker', object).map(function() {
 			return $(this).datetimepicker({
 				timeFormat: $(this).data('time-format'),
 				dateFormat: $(this).data('date-format')
@@ -104,24 +104,24 @@ jQuery( function( $ ) {
 		});
 
 		// Colorpicker
-		$('.js-cz-colorpicker', object).wpColorPicker();
+		$('.js-cztm-colorpicker', object).wpColorPicker();
 
 		// Tabs
-		$('.js-cz-tabs', object).tabs();
+		$('.js-cztm-tabs', object).tabs();
 
 		// Slider
-		$('.js-cz-slider', object ).slider();
+		$('.js-cztm-slider', object ).slider();
 
 		// Accordion
-		$('.js-cz-accordion', object).accordion();
+		$('.js-cztm-accordion', object).accordion();
 
 		// Sortable
-		$('.js-cz-sortable', object).sortable({
+		$('.js-cztm-sortable', object).sortable({
 			handle: '.cuztom-handle-sortable a'
 		});
 
 		// Location
-		$('.js-cz-location-map').each(function() {
+		$('.js-cztm-location-map').each(function() {
 			if( $(this).hasClass('loaded') ) {
 				return;
 			}
@@ -225,7 +225,7 @@ jQuery( function( $ ) {
 	})(document);
 
 	// Add sortable
-	$(document).on( 'click', '.js-cz-add-sortable', function(event) 
+	$(document).on( 'click', '.js-cztm-add-sortable', function(event) 
 	{
 		var that 		= $(this),
 			isBundle	= that.data('sortable-type') == 'bundle',
@@ -266,7 +266,7 @@ jQuery( function( $ ) {
 	});
 
 	// Remove sortable
-	$(document).on( 'click', '.js-cz-remove-sortable', function()
+	$(document).on( 'click', '.js-cztm-remove-sortable', function()
 	{
 		var that 		= $(this),
 			item 		= that.closest('.cuztom-sortable-item'),
@@ -280,14 +280,14 @@ jQuery( function( $ ) {
 
 		// Remove remove-button
 		if( sortable.find('.cuztom-sortable-item').length == 1 ) {
-			sortable.find('.cuztom-sortable-item').last().find('.js-cz-remove-sortable').remove();
+			sortable.find('.cuztom-sortable-item').last().find('.js-cztm-remove-sortable').remove();
 		}
 
 		return false;
 	});
 
 	// Remove current attached image
-	$(document).on( 'click', '.js-cz-remove-media', function()
+	$(document).on( 'click', '.js-cztm-remove-media', function()
 	{
 		var that 		= $(this),
 			parent 		= that.closest('.cuztom-field');
@@ -301,7 +301,7 @@ jQuery( function( $ ) {
 	});
 
 	// Upload image
-	$(document).on( 'click', '.js-cz-upload', function()
+	$(document).on( 'click', '.js-cztm-upload', function()
 	{
 		var that		= $(this),
 			type 		= that.data('media-type'),
@@ -331,8 +331,8 @@ jQuery( function( $ ) {
 			attachment = _cuztom_uploader.state().get('selection').first().toJSON();
 
 			// (Re)set the remove button
-			parent.find('.js-cz-remove-media').remove();
-			that.after('<a href="#" class="js-cz-remove-media cuztom-remove-media"></a>');
+			parent.find('.js-cztm-remove-media').remove();
+			that.after('<a href="#" class="js-cztm-remove-media cuztom-remove-media"></a>');
 
 			// Send an id or url to the field and set the preview
 			if( type == 'image' )
@@ -360,7 +360,7 @@ jQuery( function( $ ) {
 	});
 
 	// Ajax save
-	$(document).on( 'click', '.js-cz-ajax-save', function(event) {
+	$(document).on( 'click', '.js-cztm-ajax-save', function(event) {
 		var that 			= $(this),
 			fieldID 		= that.data('button-for'),
 			object 			= that.data('object'),
@@ -395,7 +395,7 @@ jQuery( function( $ ) {
 	});
 
 	// Set location default
-	$(document).on( 'click', '.js-cz-location-default', function(event) {
+	$(document).on( 'click', '.js-cztm-location-default', function(event) {
 		var td = $(this).closest('.cuztom-td');
 
 		$('.cuztom-location-latitude, .cuztom-location-longitude', td).each( function() {
@@ -437,7 +437,7 @@ jQuery( function( $ ) {
 	});
 
 	// Gallery edit button
-	$(document).on( 'click', '.js-cz-edit-gallery', function( event ) {
+	$(document).on( 'click', '.js-cztm-edit-gallery', function( event ) {
 		cuztomGalleries[ $( this ).closest( '.cuztom-gallery' ).data( 'name' ) ].open();
 
 		// Prevent click

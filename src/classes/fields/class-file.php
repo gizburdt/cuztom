@@ -44,8 +44,8 @@ class Cuztom_Field_File extends Cuztom_Field
 		}
 
 		$output .= '<input type="hidden" ' . $this->output_name() . ' ' . $this->output_css_class() . ' ' . $this->output_value( $value ) . ' ' . '" />';
-		$output .= '<input ' . $this->output_id() . ' ' . $this->output_data_attributes() . ' type="button" class="button js-cz-upload" value="' . __( 'Select file', 'cuztom' ) . '" />';
-		$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="js-cz-remove-media cuztom-remove-media">%s</a>', __( 'Remove current file', 'cuztom' ) ) : '' );
+		$output .= '<input ' . $this->output_id() . ' ' . $this->output_data_attributes() . ' type="button" class="button js-cztm-upload" value="' . __( 'Select file', 'cuztom' ) . '" />';
+		$output .= ( ! empty( $value ) ? sprintf( '<a href="#" class="js-cztm-remove-media cuztom-remove-media">%s</a>', __( 'Remove current file', 'cuztom' ) ) : '' );
 
 		$output .= '<span class="cuztom-preview">' . $file . '</span>';
 		$output .= $this->output_explanation();
