@@ -1,86 +1,6 @@
 jQuery.noConflict();
 jQuery( function( $ ) {
 
-	var cuztomGalleries = {};
-
-	function get_Selection( element ) {
-		var images_name = $( element ).data( 'name' ) + '[images][]';
-
-		var text = '[gallery';
-		var images = $( 'input[name="' + images_name + '"]', element );
-		if( ! images.length ) {
-			return null;
-		}
-		else {
-			text += ' ids="';
-			var first = true;
-			images.each( function() {
-				if( first == true )
-					first = false;
-				else
-					text += ',';
-
-				text += $( this ).val();
-			} );
-			text += '"';
-		}
-
-		text += ']';
-
-		var shortcode = wp.shortcode.next( 'gallery', text );
-
-		if ( ! shortcode )
-			return;
-
-		shortcode = shortcode.shortcode;
-
-		if ( _.isUndefined( shortcode.get('id') ) && ! _.isUndefined( wp.media.gallery.defaults.id ) )
-			shortcode.set( 'id', wp.media.gallery.defaults.id );
-
-		var attachments = wp.media.gallery.attachments( shortcode );
-		var selection = new wp.media.model.Selection( attachments.models, {
-			props: attachments.props.toJSON(),
-			multiple: true
-		});
-
-		selection.gallery = attachments.gallery;
-
-		selection.more().done( function() {
-			selection.props.set({ query: false });
-			selection.unmirror();
-			selection.props.unset('orderby');
-		});
-
-		//selection.on( 'add remove reset', generatePreview, selection );
-
-		return selection;
-	}
-
-	function handleSelectionChange( model, selection ) {
-		var element = this.cuztomElement;
-		generatePreview( selection, element );
-	}
-
-	function handleSelectionReset( selection ) {
-		var element = this.cuztomElement;
-		generatePreview( selection, element );
-	}
-
-	function generatePreview( selection, element ) {
-		var previewElement = $( '.cuztom-gallery-preview > ul.list', element );
-		previewElement.empty();
-
-		var html = '<!--';
-
-		selection.forEach( function( image ) {
-			html +='--><li><img src="' + image.attributes.sizes.thumbnail.url + '" width="' + image.attributes.sizes.thumbnail.width + '" height="' + image.attributes.sizes.thumbnail.height + '" /></li><!--';
-		} );
-
-		html += '-->';
-
-		previewElement.html( html );
-	}
-
 	var cuztomUI;
 	(cuztomUI = function(object) {
 		object = $(object);
@@ -169,58 +89,6 @@ jQuery( function( $ ) {
 
 			// Adds the marker on the map
 			mapMarker.setMap(map);
-		});
-
-		// Gallery
-		$('.cuztom-gallery').each( function() {
-			var selection;
-			selection = get_Selection( this );
-
-			var args = {
-				multiple: true,
-				type: 'image',
-				modal: true,
-				frame: 'post',
-				state: 'gallery-library',
-				editing: true
-			};
-
-			if( selection != null ) {
-				args.state = 'gallery-edit';
-				args.selection = selection;
-			}
-
-			_cuztom_gallery = wp.media( args );
-
-			_cuztom_gallery.cuztomElement = this;
-
-			_cuztom_gallery.options.selection.on( 'add remove sort', handleSelectionChange, _cuztom_gallery );
-			_cuztom_gallery.options.selection.on( 'reset', handleSelectionReset, _cuztom_gallery );
-
-			_cuztom_gallery.on( 'update', function( library ) {
-				var ids = library.pluck( 'id' );
-				var cuztomElement = $( this.cuztomElement );
-				var images_name = cuztomElement.data( 'name' ) + '[images][]';
-
-				$( 'input[name="' + cuztomElement.data( 'name' ) + '[link]"], input[name="' + cuztomElement.data( 'name' ) + '[columns]"], input[name="' + cuztomElement.data( 'name' ) + '[random]"], input[name="' + images_name + '"]', cuztomElement ).remove();
-
-				if( library.gallery.has( 'link' ) ) {
-					cuztomElement.append( '<input type="hidden" name="' + cuztomElement.data( 'name' ) + '[link]" value="' + library.gallery.get( 'link' ) + '" />' );
-				}
-				if( library.gallery.has( 'columns' ) ) {
-					cuztomElement.append( '<input type="hidden" name="' + cuztomElement.data( 'name' ) + '[columns]" value="' + library.gallery.get( 'columns' ) + '" />' );
-				}
-				if( library.gallery.attributes._orderbyRandom ) {
-					cuztomElement.append( '<input type="hidden" name="' + cuztomElement.data( 'name' ) + '[random]" value="' + library.gallery.attributes._orderbyRandom + '" />' );
-				}
-				ids.forEach( function( value ) {
-					cuztomElement.append( '<input type="hidden" name="' + images_name + '" value="' + value + '" />' );
-				} );
-			}, _cuztom_gallery );
-
-
-			cuztomGalleries[ $( this ).data( 'name' ) ] = _cuztom_gallery;
-
 		});
 	})(document);
 
@@ -320,22 +188,22 @@ jQuery( function( $ ) {
 			return;
 		}
 
-		// Extend the wp.media object
-		_cuztom_uploader = wp.media.frames.file_frame = wp.media({
-			multiple: 	false,
-			type:  		type
-		});
+    	// Extend the wp.media object
+        _cuztom_uploader = wp.media.frames.file_frame = wp.media({
+            multiple: 	false,
+            type:  		type
+        });
 
-		// Send the data to the fields
-		_cuztom_uploader.on('select', function() {
-			attachment = _cuztom_uploader.state().get('selection').first().toJSON();
+        // Send the data to the fields
+        _cuztom_uploader.on('select', function() {
+        	attachment = _cuztom_uploader.state().get('selection').first().toJSON();
 
 			// (Re)set the remove button
 			parent.find('.js-cztm-remove-media').remove();
 			that.after('<a href="#" class="js-cztm-remove-media cuztom-remove-media"></a>');
 
-			// Send an id or url to the field and set the preview
-			if( type == 'image' )
+        	// Send an id or url to the field and set the preview
+        	if( type == 'image' )
 			{
 				var thumbnail = previewSize && !$.isArray(previewSize) && attachment.sizes[previewSize] ? attachment.sizes[previewSize] : ( attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full );
 				if( $.isArray( previewSize ) ) {
@@ -353,9 +221,9 @@ jQuery( function( $ ) {
 				preview.html('<span class="cuztom-mime"><a href="' + attachment.url + '" target="_blank">' + attachment.name + '</a></span>' );
 				hidden.val( attachment.url );
 			}
-		});
+    	});
 
-		_cuztom_uploader.open();
+    	_cuztom_uploader.open();
 		return false;
 	});
 
@@ -435,13 +303,4 @@ jQuery( function( $ ) {
 		map.setCenter(latLng);
 		marker.setPosition(latLng);
 	});
-
-	// Gallery edit button
-	$(document).on( 'click', '.js-cztm-edit-gallery', function( event ) {
-		cuztomGalleries[ $( this ).closest( '.cuztom-gallery' ).data( 'name' ) ].open();
-
-		// Prevent click
-		event.preventDefault();
-	} );
-
 });

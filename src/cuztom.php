@@ -90,7 +90,6 @@ class Cuztom
 		include( self::$dir . '/classes/fields/class-tabs.php' );
 		include( self::$dir . '/classes/fields/class-accordion.php' );
 		include( self::$dir . '/classes/fields/class-tab.php' );
-		include( self::$dir . '/classes/fields/class-hidden.php' );
 		include( self::$dir . '/classes/fields/class-text.php' );
 		include( self::$dir . '/classes/fields/class-textarea.php' );
 		include( self::$dir . '/classes/fields/class-checkbox.php' );
@@ -110,8 +109,7 @@ class Cuztom
 		include( self::$dir . '/classes/fields/class-post-checkboxes.php' );
 		include( self::$dir . '/classes/fields/class-term-select.php' );
 		include( self::$dir . '/classes/fields/class-term-checkboxes.php' );
-		include( self::$dir . '/classes/fields/class-location.php' );
-		include( self::$dir . '/classes/fields/class-gallery.php' );
+		include( self::$dir . '/classes/fields/class-hidden.php' );
 
 		// Functions
 		include( self::$dir . '/functions/post-type.php' );
