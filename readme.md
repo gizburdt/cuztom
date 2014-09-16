@@ -1,4 +1,4 @@
-## Cuztom Helper
+## Cuztom
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
