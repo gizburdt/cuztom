@@ -395,7 +395,7 @@ class Cuztom
 			return false;
 		}
 
-	    return new WP_Error( 'reserved_term_used', __( 'Use of a reserved term.', 'cuztom' ) );
+	    return new WP_Error( 'cuztom_reserved_term_used', __( 'Use of a reserved term.', 'cuztom' ) );
 	}
 }
 

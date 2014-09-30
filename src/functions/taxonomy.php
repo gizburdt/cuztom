@@ -3,15 +3,14 @@
 if( ! defined( 'ABSPATH' ) ) exit;
 
 if( ! function_exists( 'register_cuztom_taxonomy' ) ) {
-
     /**
      * Registers a Taxonomy for a Post Type
      *
-     * @param 	string 			$name
-     * @param 	string 			$post_type
-     * @param 	array 			$args
-     * @param 	array 			$labels
-     * @return 	object 			Cuztom_Taxonomy
+     * @param 	string 	$name
+     * @param 	string 	$post_type
+     * @param 	array 	$args
+     * @param 	array 	$labels
+     * @return 	object 	Cuztom_Taxonomy
      *
      * @author 	Gijs Jorissen
      * @since 	0.8
@@ -24,7 +23,6 @@ if( ! function_exists( 'register_cuztom_taxonomy' ) ) {
 }
 
 if( ! function_exists( 'get_cuztom_term_meta' ) ) {
-
     /**
      * Get term meta
      * 
@@ -38,7 +36,7 @@ if( ! function_exists( 'get_cuztom_term_meta' ) ) {
      */
     function get_cuztom_term_meta( $term, $taxonomy, $key = null )
     {
-        if( empty( $taxonomy ) || empty( $term ) ) {
+        if( empty( $term ) || empty( $taxonomy ) ) {
             return false;
         }
         
@@ -46,8 +44,6 @@ if( ! function_exists( 'get_cuztom_term_meta' ) ) {
         	$term = get_term_by( 'slug', $term, $taxonomy );
         	$term = $term->term_id;
         }
-
-        $meta = '';
 
         if( $key ) {
             $meta = get_option( 'term_meta_' . $taxonomy . '_' . $term );
@@ -65,7 +61,6 @@ if( ! function_exists( 'get_cuztom_term_meta' ) ) {
 }
 
 if( ! function_exists( 'the_cuztom_term_meta' ) ) {
-
     /**
      * Get term meta
      * 
@@ -87,7 +82,6 @@ if( ! function_exists( 'the_cuztom_term_meta' ) ) {
 }
 
 if( ! function_exists( 'update_cuztom_term_meta' ) ) {
-
     /**
      * Update term meta
      *
@@ -96,7 +90,7 @@ if( ! function_exists( 'update_cuztom_term_meta' ) ) {
      */
     function update_cuztom_term_meta( $term, $taxonomy, $key, $value )
     {
-        if( empty( $taxonomy ) || empty( $term ) ) {
+        if( empty( $term ) || empty( $taxonomy ) ) {
             return false;
         }
         
@@ -105,8 +99,8 @@ if( ! function_exists( 'update_cuztom_term_meta' ) ) {
             $term = $term->term_id;
         }
 
-        $option     = 'term_meta_' . $taxonomy . '_' . $term;
-        $meta       = get_option( $option_name );
+        $option = 'term_meta_' . $taxonomy . '_' . $term;
+        $meta   = get_option( $option );
 
         if( $key ) {
             $meta[$key] = $value;

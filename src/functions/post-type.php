@@ -3,7 +3,6 @@
 if( ! defined( 'ABSPATH' ) ) exit;
 
 if( ! function_exists( 'register_cuztom_post_type' ) ) {
-
 	/**
 	 * Registers a Post Type
 	 *

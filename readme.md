@@ -1,6 +1,6 @@
 ## Cuztom Helper
 
-This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
+This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Term Meta, User Meta and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
 **Version:** 3.0  
 **Requires:** 3.5
