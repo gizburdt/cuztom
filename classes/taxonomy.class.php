@@ -151,9 +151,9 @@ class Cuztom_Taxonomy
 	 * @since 	2.5
 	 *
 	 */
-	function add_term_meta( $data = array() )
+	function add_term_meta( $data = array(), $locations = array( 'add_form', 'edit_form' ) )
 	{
-		$term_meta = new Cuztom_Term_Meta( $this->name, $data );
+		$meta = new Cuztom_Term_Meta( $this->name, $data, $locations );
 
 		return $this;
 	}
