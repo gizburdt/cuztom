@@ -22,7 +22,7 @@ class Cuztom_Tab
 		// Show header
 		if( $type == 'accordion' ) echo '<h3>' . $this->title . '</h3>';
 		
-		echo '<div id="' . $this->id . '">';
+		echo '<div id="cuztom-' . $this->id . '">';
 
 			if( $fields instanceof Cuztom_Bundle )
 			{

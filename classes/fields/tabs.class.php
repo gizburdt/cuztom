@@ -21,7 +21,7 @@ class Cuztom_Tabs
 			echo '<ul>';
 				foreach( $tabs as $title => $tab )
 				{
-					echo '<li><a href="#' . $tab->id . '">' . $tab->title . '</a></li>';
+					echo '<li><a href="#cuztom-' . $tab->id . '">' . $tab->title . '</a></li>';
 				}
 			echo '</ul>';
 	
