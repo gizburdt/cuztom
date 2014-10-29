@@ -55,7 +55,7 @@ class Cuztom_Post_Type
 			// Add action to register the post type, if the post type doesnt exist
 			if( ! post_type_exists( $this->name ) )
 			{
-				add_action( 'init', array( &$this, 'register_post_type' ) );
+				$this->register_post_type();
 			}
 		}
 	}
@@ -162,59 +162,30 @@ class Cuztom_Post_Type
 	 */
 	function add_post_type_support( $feature )
 	{
-		$this->add_features	= (array) $feature;
-		
-		add_action( 'init', array( &$this, '_add_post_type_support' ) );
+		add_post_type_support( $this->name, $feature );
 		
 		// For method chaining
 		return $this;
 	}
 
 	/**
-	 * Register support of certain features for a post type.
-	 * 
-	 * @author 	Abhinav Sood
-	 * @since 	1.4.3
-	 * 
-	 */
-	function _add_post_type_support() 
-	{
-		add_post_type_support( $this->name, $this->add_features );
-	}
-
-	/**
 	 * Add action to remove support of certain features for a post type.
 	 *
-	 * @param 	string|array 	$feature 			The feature being removed, can be an array of feature strings or a single string
+	 * @param 	string|array 	$features 			The feature being removed, can be an array of feature strings or a single string
 	 * @return 	object 			Cuztom_Post_Type
 	 * 
 	 * @author 	Abhinav Sood
 	 * @since 	1.4.3
 	 * 
 	 */
-	function remove_post_type_support( $feature )
+	function remove_post_type_support( $features )
 	{
-		$this->remove_features	= (array) $feature;
-		
-		add_action( 'init', array( &$this, '_remove_post_type_support' ) );
+		foreach( (array) $features as $feature ) {
+			remove_post_type_support( $this->name, $feature );
+		}
 		
 		// For method chaining
 		return $this;
-	}
-
-	/**
-	 * Remove support of certain features for a post type.
-	 * 
-	 * @author 	Abhinav Sood
-	 * @since 	1.4.3
-	 * 
-	 */
-	function _remove_post_type_support()
-	{
-		foreach( $this->remove_features as $feature )
-		{
-			remove_post_type_support( $this->name, $feature );
-		}
 	}
 	
 	/**

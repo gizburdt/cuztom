@@ -58,11 +58,11 @@ class Cuztom_Taxonomy
 				if ( $is_reserved_term = Cuztom::is_reserved_term( $this->name ) )
 	            	new Cuztom_Notice( $is_reserved_term->get_error_message(), 'error' );
 				else
-					add_action( 'init', array( &$this, 'register_taxonomy' ) );
+					$this->register_taxonomy();
 			}
 			else
 			{
-				add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
+				$this->register_taxonomy_for_object_type();
 			}
 
 			if( isset( $args['show_admin_column'] ) && $args['show_admin_column'] )
