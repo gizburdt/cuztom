@@ -45,7 +45,7 @@ class Cuztom_Initializer
 	private function setup_constants()
 	{
 		if( ! defined( 'CUZTOM_VERSION' ) ) 
-			define( 'CUZTOM_VERSION', '2.9.13' );
+			define( 'CUZTOM_VERSION', '2.9.14' );
 
 		if( ! defined( 'CUZTOM_DIR' ) ) 
 			define( 'CUZTOM_DIR', plugin_dir_path( __FILE__ ) );

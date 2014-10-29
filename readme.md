@@ -2,7 +2,7 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.9.13  
+**Version:** 2.9.14  
 **Requires:** 3.5 / 3.0+
 
 ## Basic usage
@@ -73,6 +73,9 @@ See the <a href="https://github.com/gizburdt/wp-cuztom/wiki">wiki</a> for the fu
 
 ## Changelog
 You can see the full changelog <a href="https://github.com/gizburdt/wp-cuztom/wiki/Changelog">here</a>.
+
+###2.9.14
+* Improvement: Remove add_action('init', '*') form the code. Now use your own wrapper function and add_action.
 
 ###2.9.13
 * Fixed #305: Term meta location fix
