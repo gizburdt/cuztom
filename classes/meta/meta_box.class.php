@@ -197,6 +197,9 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 					{
 						if( $field instanceof Cuztom_Field_Image )
 							echo wp_get_attachment_image( $meta, array( 100, 100 ) );
+						elseif( $field instanceof Cuztom_Field_Radios ) {
+							echo isset( $field->options[$meta[0]] ) ? $field->options[$meta[0]] : '';
+						}
 						else
 							echo $meta;
 					}
