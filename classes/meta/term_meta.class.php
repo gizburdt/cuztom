@@ -18,7 +18,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 
 	/**
 	 * Construct the term meta
-	 * 
+	 *
 	 * @param 	string|array 	$taxonomy
 	 * @param 	array  			$data
 	 *
@@ -29,7 +29,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	{
 		$this->taxonomies 	= (array) $taxonomy;
 		$this->locations 	= (array) $locations;
-		
+
 		// Build the meta box and fields
 		$this->data = $this->build( $data );
 
@@ -54,7 +54,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 
 	/**
 	 * Add fields to the add term form
-	 * 
+	 *
 	 * @param 	string 		$taxonomy
 	 *
 	 * @author 	Gijs Jorissen
@@ -87,7 +87,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 
 	/**
 	 * Add fields to the edit term form
-	 * 
+	 *
 	 * @param 	string 		$term
 	 *
 	 * @author 	Gijs Jorissen
@@ -125,7 +125,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 
 	/**
 	 * Save the term
-	 * 
+	 *
 	 * @param 	int 		$term_id
 	 *
 	 * @author 	Gijs Jorissen
@@ -137,12 +137,12 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) )
 		{
 			$data 		= array();
-			$values 	= isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
+			$values 	= isset( $_POST['cuztom'] ) ? wp_unslash( $_POST['cuztom'] ) : '';
 			$taxonomy 	= $_POST['taxonomy'];
 
 			foreach( $this->fields as $id_name => $field )
-			{				
-				$data[$id_name] = $field->save_value( $values[$field->id] );			
+			{
+				$data[$id_name] = $field->save_value( $values[$field->id] );
 			}
 
 			update_option( 'term_meta_' . $taxonomy . '_' . $term_id, $data );
@@ -188,7 +188,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 			$taxonomy 	= $screen->taxonomy;
 
 			$meta = get_cuztom_term_meta( $term_id, $taxonomy, $column );
-			
+
 			foreach( $this->fields as $id_name => $field )
 			{
 				if( $column == $id_name )
