@@ -76,6 +76,7 @@ You can see the full changelog <a href="https://github.com/gizburdt/wp-cuztom/wi
 
 ###2.9.15
 * Fixed: Show admin column for radios showed "Array" as value
+* Fixed #321: Saving fields without slashes (using wp_unslash). props @vitornogueira
 
 ###2.9.14
 * Improvement: Remove add_action('init', '*') form the code. Now use your own wrapper function and add_action.
