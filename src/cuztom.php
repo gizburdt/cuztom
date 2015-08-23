@@ -40,7 +40,7 @@ class Cuztom
 	 */
 	public static function run()
 	{
-		if ( ! isset( self::$instance ) ) {
+		if( ! isset( self::$instance ) ) {
 			self::$instance = new Cuztom;
 			self::$instance->setup();
 			self::$instance->includes();
@@ -184,7 +184,6 @@ class Cuztom
 	 */
 	function enqueue_styles()
 	{
-		wp_enqueue_style( 'thickbox' );
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'cztm-jquery-ui' );
 		wp_enqueue_style( 'cztm' );
@@ -199,9 +198,19 @@ class Cuztom
 	 */
 	function register_scripts()
 	{
-		wp_register_script( 'google-maps', 'http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places', array(), self::$version, true );
 		wp_register_script( 'jquery-timepicker', self::$url . '/assets/js/jquery.timepicker.min.js', array( 'jquery' ), self::$version, true );
-		wp_register_script( 'cztm', self::$url . '/assets/js/cuztom.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-timepicker', 'jquery-ui-slider', 'google-maps' ), self::$version, true );
+		wp_register_script( 'cztm', self::$url . '/assets/js/cuztom.js', array(
+			'jquery',
+            'jquery-timepicker',
+			'jquery-ui-core',
+            // @TODO: Check if necessary
+			// 'jquery-ui-datepicker',
+			// 'jquery-ui-tabs',
+			// 'jquery-ui-accordion',
+			// 'jquery-ui-sortable',
+			// 'jquery-ui-slider',
+            'wp-color-picker'
+		), self::$version, true );
 	}
 
 	/**
@@ -213,11 +222,7 @@ class Cuztom
 	 */
 	function enqueue_scripts()
 	{
-		if( function_exists( 'wp_enqueue_media' ) ) {
-			wp_enqueue_media();
-		}
-
-		wp_enqueue_script( 'thickbox' );
+		wp_enqueue_media();
 		wp_enqueue_script( 'media-upload' );
 		wp_enqueue_script( 'cztm' );
 
@@ -360,20 +365,20 @@ class Cuztom
         ) );
 
         // Save time if string in uncountable
-        if ( in_array( strtolower( $string ), $uncountable ) ) {
+        if( in_array( strtolower( $string ), $uncountable ) ) {
         	return apply_filters( 'cuztom_pluralize', $string, 'uncountable' );
         }
 
         // Check for irregular words
         foreach ( $irregular as $noun ) {
-        	if ( strtolower( $string ) == $noun[0] ) {
+        	if( strtolower( $string ) == $noun[0] ) {
             	return apply_filters( 'cuztom_pluralize', $noun[1], 'irregular' );
         	}
         }
 
         // Check for plural forms
         foreach ( $specials as $pattern ) {
-        	if ( preg_match( $pattern[0], $string ) ) {
+        	if( preg_match( $pattern[0], $string ) ) {
         		return apply_filters( 'cuztom_pluralize', preg_replace( $pattern[0], $pattern[1], $string ), 'special' );
         	}
         }
