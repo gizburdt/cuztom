@@ -1,6 +1,5 @@
 {
     "name": "gizburdt/cuztom",
-    "version": "3.0",
     "description": "Cuztom. Easy meta data.",
     "authors": [
         {
@@ -10,6 +9,6 @@
     ],
     "require": {},
     "autoload": {
-        "files": ["cuztom.php"]
+        "files": ["src/cuztom.php"]
     }
 }
