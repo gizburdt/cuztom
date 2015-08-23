@@ -171,7 +171,7 @@ class Cuztom
 	 */
 	function register_styles()
 	{
-		wp_register_style( 'cztm-jquery-ui', self::$url . '/assets/css/jquery-ui.css', false, self::$version, 'screen' );
+		wp_register_style( 'cztm-jquery-ui', self::$url . '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, self::$version, 'screen' );
 		wp_register_style( 'cztm', self::$url . '/assets/css/cuztom.css', false, self::$version, 'screen' );
 	}
 
