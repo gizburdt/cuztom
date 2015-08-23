@@ -171,8 +171,8 @@ class Cuztom
 	 */
 	function register_styles()
 	{
-		wp_register_style( 'cztm-jquery-ui', self::$url . '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, self::$version, 'screen' );
-		wp_register_style( 'cztm', self::$url . '/assets/css/cuztom.css', false, self::$version, 'screen' );
+		wp_register_style( 'cztm-jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, self::$version, 'screen' );
+		wp_register_style( 'cztm', self::$url . '/assets/dist/css/cuztom.min.css', false, self::$version, 'screen' );
 	}
 
 	/**
@@ -189,29 +189,26 @@ class Cuztom
 		wp_enqueue_style( 'cztm' );
 	}
 
-	/**
-	 * Registers scripts
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.3
-	 *
-	 */
-	function register_scripts()
-	{
-		wp_register_script( 'jquery-timepicker', self::$url . '/assets/js/jquery.timepicker.min.js', array( 'jquery' ), self::$version, true );
-		wp_register_script( 'cztm', self::$url . '/assets/js/cuztom.js', array(
-			'jquery',
-            'jquery-timepicker',
-			'jquery-ui-core',
-            // @TODO: Check if necessary
-			// 'jquery-ui-datepicker',
-			// 'jquery-ui-tabs',
-			// 'jquery-ui-accordion',
-			// 'jquery-ui-sortable',
-			// 'jquery-ui-slider',
+    /**
+     * Registers scripts
+     *
+     * @author 	Gijs Jorissen
+     * @since 	0.3
+     *
+     */
+    function register_scripts()
+    {
+        wp_register_script( 'cztm', self::$url . '/assets/dist/js/cuztom.min.js', array(
+            'jquery',
+            'jquery-ui-core',
+            'jquery-ui-datepicker',
+            'jquery-ui-tabs',
+            'jquery-ui-accordion',
+            'jquery-ui-sortable',
+            'jquery-ui-slider',
             'wp-color-picker'
-		), self::$version, true );
-	}
+        ), self::$version, true );
+    }
 
 	/**
 	 * Enqueues scripts

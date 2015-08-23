@@ -11,7 +11,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 class Cuztom_Field
 {
-	var $id						= '';
+	var $id						= null;
 	var $type					= null;
     var $label 					= '';
     var $description 			= '';
@@ -31,11 +31,11 @@ class Cuztom_Field
 
 	var $data_attributes 		= array();
 	var $css_classes			= array();
-	
+
 	var $show_admin_column 		= false;
 	var $admin_column_sortable	= false;
 	var $admin_column_filter	= false;
-	
+
 	var $before_name			= '';
 	var $after_name				= '';
 	var $before_id				= '';
@@ -47,17 +47,17 @@ class Cuztom_Field
 
 	/**
 	 * Constructs a Cuztom_Field
-	 * 
+	 *
 	 * @param 	array 			$args
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	0.3.3
-	 * 
+	 *
 	 */
 	function __construct( $args )
 	{
 		$properties = array_keys( get_class_vars( get_called_class() ) );
-		
+
 		// Set all properties
 		foreach ( $properties as $property ) {
 			$this->$property = isset( $args[ $property ] ) ? $args[ $property ] : $this->$property;
@@ -69,7 +69,7 @@ class Cuztom_Field
 
 		$this->value = maybe_unserialize( @$args['value'] );
 	}
-	
+
 	/**
 	 * Outputs a field based on its type
 	 *
@@ -79,7 +79,7 @@ class Cuztom_Field
 	 */
 	function output( $value = null )
 	{
-		$value = $value ? $value : $this->value;
+		$value = (!is_null($value)) ? $value : $this->value;
 
 		if( $this->is_repeatable() ) {
 			return $this->_output_repeatable( $value );
@@ -131,7 +131,7 @@ class Cuztom_Field
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   2.0
-	 * 
+	 *
 	 */
 	function _output_repeatable( $value = null )
 	{
@@ -163,7 +163,7 @@ class Cuztom_Field
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   3.0
-	 * 
+	 *
 	 */
 	function _output_repeatable_item( $value = null, $values = 0 )
 	{
@@ -175,12 +175,12 @@ class Cuztom_Field
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   3.0
-	 * 
+	 *
 	 */
 	function _output_repeatable_control( $value )
 	{
 		$output = '<div class="cuztom-control">';
-			$output .= '<a class="button-secondary button button-small cuztom-button js-cztm-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . sprintf( '+ %s', __( 'Add item', 'cuztom' ) ) . '</a>';
+			$output .= '<a class="button-secondary button button-small cuztom-button js-cztm-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . __( 'Add item', 'cuztom' ) . '</a>';
 			if( $this->limit ) {
 				$output .= '<div class="cuztom-counter">';
 					$output .= '<span class="current">' . count( $value ) . '</span>';
@@ -198,7 +198,7 @@ class Cuztom_Field
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   2.0
-	 * 
+	 *
 	 */
 	function _output_ajax( $value = null )
 	{
@@ -210,7 +210,7 @@ class Cuztom_Field
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   3.0
-	 * 
+	 *
 	 */
 	function _output_ajax_button()
 	{
@@ -219,12 +219,12 @@ class Cuztom_Field
 
 	/**
 	 * Parse value
-	 * 
+	 *
 	 * @param  	string 			$value
 	 *
 	 * @author 	Ante Primorac
 	 * @since  	2.8
-	 * 
+	 *
 	 */
 	function save_value( $value )
 	{
@@ -233,13 +233,13 @@ class Cuztom_Field
 
 	/**
 	 * Save meta
-	 * 
+	 *
 	 * @param  	int 			$object_id
 	 * @param  	string 			$value
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since  	1.6.2
-	 * 
+	 *
 	 */
 	function save( $object, $value )
 	{
@@ -266,7 +266,7 @@ class Cuztom_Field
 
 	/**
 	 * Get the complete id
-	 * 
+	 *
 	 * @author  Gijs Jorissen
 	 * @since  	3.0
 	 *
@@ -278,7 +278,7 @@ class Cuztom_Field
 
 	/**
 	 * Get the complete name
-	 * 
+	 *
 	 * @author  Gijs Jorissen
 	 * @since  	3.0
 	 *
@@ -290,10 +290,10 @@ class Cuztom_Field
 
 	/**
 	 * Outputs the fields name attribute
-	 * 
+	 *
 	 * @author  Gijs Jorissen
 	 * @since  	2.4
-	 * 
+	 *
 	 */
 	function output_name( $overwrite = null )
 	{
@@ -302,10 +302,10 @@ class Cuztom_Field
 
 	/**
 	 * Outputs the fields id attribute
-	 * 
+	 *
 	 * @author  Gijs Jorissen
 	 * @since  	2.4
-	 * 
+	 *
 	 */
 	function output_id( $overwrite = null )
 	{
@@ -316,10 +316,10 @@ class Cuztom_Field
 	 * Outputs the fields css classes
 	 *
 	 * @param 	array 			$extra
-	 * 
+	 *
 	 * @author  Gijs Jorissen
 	 * @since  	2.4
-	 * 
+	 *
 	 */
 	function output_css_class( $extra = array() )
 	{
@@ -330,10 +330,10 @@ class Cuztom_Field
 	 * Outputs the fields data attributes
 	 *
 	 * @param 	array 			$extra
-	 * 
+	 *
 	 * @author  Gijs Jorissen
 	 * @since  	2.4
-	 * 
+	 *
 	 */
 	function output_data_attributes( $extra = array() )
 	{
@@ -351,10 +351,10 @@ class Cuztom_Field
 
 	/**
 	 * Outputs the for attribute
-	 * 
+	 *
 	 * @author  Gijs Jorissen
 	 * @since  	2.4
-	 * 
+	 *
 	 */
 	function output_for_attribute( $for = null )
 	{
@@ -363,10 +363,10 @@ class Cuztom_Field
 
 	/**
 	 * Outputs the fields explanation
-	 * 
+	 *
 	 * @author  Gijs Jorissen
 	 * @since  	2.4
-	 * 
+	 *
 	 */
 	function output_explanation()
 	{
@@ -375,10 +375,10 @@ class Cuztom_Field
 
 	/**
 	 * Outputs the fields column content
-	 * 
+	 *
 	 * @author  Gijs Jorissen
 	 * @since  	3.0
-	 * 
+	 *
 	 */
 	function output_column_content( $post_id )
 	{
@@ -393,12 +393,12 @@ class Cuztom_Field
 
 	/**
 	 * Check what kind of meta we're dealing with
-	 * 
+	 *
 	 * @return  string
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	3.0
-	 * 
+	 *
 	 */
 	function is_meta_type( $meta_type )
 	{
@@ -410,7 +410,7 @@ class Cuztom_Field
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	3.0
-	 * 
+	 *
 	 */
 	function is_ajax()
 	{
@@ -422,7 +422,7 @@ class Cuztom_Field
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	3.0
-	 * 
+	 *
 	 */
 	function is_repeatable()
 	{

@@ -1,0 +1,8 @@
+{
+    "name": "gizburdt/cuztom",
+    "private": true,
+    "dependencies": {
+        "angular":                  "latest",
+        "jquery-datetimepicker":    "latest"
+    }
+}

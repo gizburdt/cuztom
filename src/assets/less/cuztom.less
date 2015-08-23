@@ -1,11 +1,19 @@
+
+// Import
+// ----------------------------------------
+
 @import url('mixins.less');
 
-.cuztom{ 
+
+// Cuztom
+// ----------------------------------------
+
+.cuztom{
 	&{ margin: 0; }
 
 	// Table
 	.cuztom-main-table{ border: 1px solid #dfdfdf !important; background-color: #f9f9f9; }
-	.cuztom-table{ 
+	.cuztom-table{
 		&{ margin: 0; width: 100%; border-spacing: 0; }
 		tr.cuztom-tabs,
 		tr.cuztom-accordion{
@@ -16,7 +24,7 @@
 			& > th,
 			& > td{ border: none; padding: 10px; }
 		}
-		tr.cuztom-control{ 
+		tr.cuztom-control{
 			& > td{ background: #f1f1f1; padding: 6px 10px; border: 1px solid #dfdfdf; }
 			&.cuztom-control-top > td{ border-bottom: none; }
 			&.cuztom-control-bottom > td{ border-top: none; }
@@ -39,7 +47,7 @@
 	.cuztom-counter{ float: right; font-size: 12px; color: #999; padding-top: 3px; paddin-bottom: 3px; }
 
 	// Tabs
-	.cuztom-tabs{ 
+	.cuztom-tabs{
 		.ui-widget{ padding: 0; border: none; background: none; font-family: sans-serif; box-shadow: 0 1px 0 #fff; }
 		.ui-tabs-nav{ padding: 0; background: none; border: 0; margin-bottom: -1px; font-size: 12px; }
 		.ui-tabs-nav li{ margin: 0; padding: 0; background: none; border: none; padding-top: 1px; }
@@ -50,7 +58,7 @@
 	}
 
 	// Accordion
-	.cuztom-accordion{ 
+	.cuztom-accordion{
 		.ui-widget{ border: 1px solid #ddd; box-shadow: 0 1px 0 #fff; .border-radius(0) }
 		.ui-accordion-header{ color: #444; background: #f1f1f1; font-size: 12px !important; border: none; border-bottom: 1px solid #ddd; .box-shadow(none); .border-radius(0); cursor: move; padding-left: 25px !important; }
 		.ui-accordion-content{ padding: 0; border-radius: 0; -webkit-border-radius: 0; border: none; }
@@ -73,8 +81,8 @@
 	.cuztom-sortable-item .cuztom-handle-sortable a{ background-position: -132px -48px; cursor: move; margin-right: 10px; }
 	.cuztom-sortable-item .cuztom-remove-sortable a{ background-position: -85px -128px; cursor: pointer; margin-left: 10px; }
 
-	 // Bundle 
-	.cuztom-bundle{ 
+	 // Bundle
+	.cuztom-bundle{
 		.cuztom-sortable{ margin: 0; }
 		.cuztom-sortable-item{ border: 1px solid #dfdfdf; position: relative; padding: 10px 0; margin: 0; -webkit-border-radius: 3px; border-radius: 3px; box-shadow: 0 1px 0 #fff; background: #f1f1f1; }
 		.cuztom-sortable-item + .cuztom-sortable-item{ margin-top: 10px; }
@@ -86,18 +94,18 @@
 		.cuztom-remove-sortable a{ top: 50%; margin: 0; margin-top: -8px; position: absolute; }
 	}
 
-	 // Media 
+	 // Media
 	.cuztom-preview{ display: block; margin: 10px 0 5px 0; }
 	.cuztom-remove-media{ height: 8px; width: 8px; background: url('../images/jquery-ui/ui-icons_454545_256x240.png') -85px -133px no-repeat; display: inline-block; vertical-align: middle; outline: none; margin-left: 10px; }
 	.cuztom-mime{ padding: 5px 0 5px 25px; display: block; background: url('../images/mime/file.png') 0 2px no-repeat; }
 
-	 // Misc 
+	 // Misc
 	.wp-picker-container{ width: 100%; }
 	input[type="text"].wp-color-picker,
 	.wp-picker-clear{ width: auto; }
 	.iris-picker .iris-slider-offset{ position: absolute; top: 0px; left: 0; width: 100%; height: 100%; }
 
-	 // Responsive wysiwyg editor 
+	 // Responsive wysiwyg editor
 	.tmce-active table { max-width: none; }
 	.tmce-active table.mceLayout, table.mceToolbar { width: 100% !important; height: auto !important; }
 	.tmce-active span.mceEditor { display: block !important; }
@@ -105,10 +113,10 @@
 	table.mceToolbar td { display: inline-block; white-space: normal; }
 }
 
- // Term meta 
+ // Term meta
 #addtag .cuztom{ margin-left: -10px; margin-right: -10px; }
 
- // Side meta box 
+ // Side meta box
 #side-sortables .cuztom-table{}
 #side-sortables .cuztom-table .cuztom-th{ padding: 0 0 10px 0; width: 30%; }
 #side-sortables .cuztom-table .cuztom-td{ padding: 0 0 10px 0; width: 70%; }
