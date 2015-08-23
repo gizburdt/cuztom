@@ -9,7 +9,7 @@ if( ! class_exists( 'Cuztom_Initializer' ) ) :
  *
  * @author 	Gijs Jorissen
  * @since  	2.3
- * 
+ *
  */
 class Cuztom_Initializer
 {
@@ -17,49 +17,49 @@ class Cuztom_Initializer
 
 	/**
 	 * Public function to set the instance
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since  	2.3
-	 * 
+	 *
 	 */
 	public static function instance()
 	{
-		if ( ! isset( self::$instance ) ) 
+		if ( ! isset( self::$instance ) )
 		{
 			self::$instance = new Cuztom_Initializer;
 			self::$instance->setup_constants();
 			self::$instance->includes();
 			self::$instance->add_hooks();
 		}
-		
+
 		return self::$instance;
 	}
 
 	/**
 	 * Setup all the constants
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since   2.3
-	 * 
+	 *
 	 */
 	private function setup_constants()
 	{
-		if( ! defined( 'CUZTOM_VERSION' ) ) 
-			define( 'CUZTOM_VERSION', '2.9.16' );
+		if( ! defined( 'CUZTOM_VERSION' ) )
+			define( 'CUZTOM_VERSION', '2.9.17' );
 
-		if( ! defined( 'CUZTOM_DIR' ) ) 
+		if( ! defined( 'CUZTOM_DIR' ) )
 			define( 'CUZTOM_DIR', plugin_dir_path( __FILE__ ) );
 
-		if( ! defined( 'CUZTOM_URL' ) ) 
+		if( ! defined( 'CUZTOM_URL' ) )
 			define( 'CUZTOM_URL', self::get_cuztom_url( __FILE__ ) );
 	}
 
 	/**
 	 * Include the necessary files
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since   2.3
-	 * 
+	 *
 	 */
 	private function includes()
 	{
@@ -73,7 +73,7 @@ class Cuztom_Initializer
 		include( CUZTOM_DIR . 'classes/meta/meta_box.class.php' );
 		include( CUZTOM_DIR . 'classes/meta/user_meta.class.php' );
 		include( CUZTOM_DIR . 'classes/meta/term_meta.class.php' );
-		
+
 		include( CUZTOM_DIR . 'classes/field.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/bundle.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/tabs.class.php' );
@@ -106,20 +106,20 @@ class Cuztom_Initializer
 
 	/**
 	 * Add hooks
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since   2.3
-	 * 
+	 *
 	 */
 	private function add_hooks()
 	{
 		// Add actions
 		add_action( 'admin_init', array( &$this, 'register_styles' ) );
 		add_action( 'admin_print_styles', array( &$this, 'enqueue_styles' ) );
-		
+
 		add_action( 'admin_init', array( &$this, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
-		
+
 		// Ajax
 		add_action( 'wp_ajax_cuztom_field_ajax_save', array( 'Cuztom_Field', 'ajax_save' ) );
 		add_action( 'wp_ajax_nopriv_cuztom_field_ajax_save', array( 'Cuztom_Field', 'ajax_save' ) );
@@ -133,7 +133,7 @@ class Cuztom_Initializer
 	 *
 	 */
 	function register_styles()
-	{		
+	{
 		wp_register_style( 'cuztom-jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, CUZTOM_VERSION, 'screen' );
 		wp_register_style( 'cuztom', CUZTOM_URL . '/assets/css/style.css', false, CUZTOM_VERSION, 'screen' );
 	}
@@ -165,7 +165,7 @@ class Cuztom_Initializer
 		wp_register_script( 'jquery-timepicker', 	CUZTOM_URL . '/assets/js/jquery.timepicker.js', 	array( 'jquery' ), CUZTOM_VERSION, true );
 		wp_register_script( 'cuztom', 				CUZTOM_URL . '/assets/js/functions.js', 			array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-timepicker', 'jquery-ui-slider' ), CUZTOM_VERSION, true );
 	}
-	
+
 	/**
 	 * Enqueues scripts
 	 *
@@ -176,17 +176,17 @@ class Cuztom_Initializer
 	function enqueue_scripts()
 	{
 		if( function_exists( 'wp_enqueue_media' ) ) wp_enqueue_media();
-		
+
 		wp_enqueue_script( 'thickbox' );
 		wp_enqueue_script( 'cuztom' );
 		wp_enqueue_script( 'media-upload' );
-		
+
 		self::localize_scripts();
 	}
 
 	/**
 	 * Localizes scripts
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	1.1.1
 	 *
@@ -218,16 +218,16 @@ class Cuztom_Initializer
 		$path = dirname( $path );
 		$path = str_replace( '\\', '/', $path );
 		$explode_path = explode( '/', $path );
-		
+
 		$current_dir = $explode_path[count( $explode_path ) - 1];
 		array_push( $url, $current_dir );
-		
+
 		if( $current_dir == 'wp-content' )
 		{
 			// Build new paths
 			$path = '';
 			$directories = array_reverse( $url );
-			
+
 			foreach( $directories as $dir )
 			{
 				$path = $path . '/' . $dir;
