@@ -211,7 +211,7 @@ class Cuztom_Taxonomy
 	{
 		global $typenow, $wp_query;
 
-		if( $typenow == $this->post_type ) {
+		if( in_array($typenow, $this->post_type) ) {
 			wp_dropdown_categories( array(
 				'show_option_all'	=> sprintf( __( 'Show all %s', 'cuztom' ), $this->plural ),
 				'taxonomy'       	=> $this->name,
