@@ -1,3 +1,9 @@
+/*!
+ * Cuztom
+ * UI
+ * Made by Gizburdt
+ */
+
 jQuery(function($) {
 
 	var cuztomUI,

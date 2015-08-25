@@ -1,3 +1,9 @@
+/*!
+ * Cuztom
+ * AJAX
+ * Made by Gizburdt
+ */
+
 jQuery(function($) {
 
     var doc = $(document);
@@ -21,7 +27,7 @@ jQuery(function($) {
             };
 
         $.post(
-            Cuztom.ajax_url,
+            Cztm.ajax_url,
             data,
             function(response) {
                 var response        = $.parseJSON(response),

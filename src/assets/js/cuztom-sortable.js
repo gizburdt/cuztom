@@ -1,3 +1,9 @@
+/*!
+ * Cuztom
+ * Sortable
+ * Made by Gizburdt
+ */
+
 jQuery(function($) {
 
     var doc = $(document);

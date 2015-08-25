@@ -1,3 +1,9 @@
+/*!
+ * Cuztom
+ * Images
+ * Made by Gizburdt
+ */
+
 jQuery(function($) {
 
     var doc = $(document);
