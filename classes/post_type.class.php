@@ -52,7 +52,7 @@ class Cuztom_Post_Type
 			$this->labels 		= $labels;
 			$this->add_features	= $this->remove_features = array();
 
-			$this->register_post_type();
+			add_action( 'init', array( $this, 'register_post_type' ) );
 		}
 	}
 	
