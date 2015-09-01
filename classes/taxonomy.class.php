@@ -39,13 +39,21 @@ class Cuztom_Taxonomy
 
 			if( is_array( $name ) )
 			{
-				$this->name		= Cuztom::uglify( $name[0] );
-				$this->title	= Cuztom::beautify( $name[0] );
-				$this->plural 	= Cuztom::beautify( $name[1] );
+				if(count($name) > 2)
+				{
+					$this->name	= Cuztom::uglify( $name[0] );
+					$this->title	= Cuztom::beautify( $name[1] );
+					$this->plural 	= Cuztom::beautify( $name[2] );
+				}
+				else {
+					$this->name	= Cuztom::uglify( $name[0] );
+					$this->title	= Cuztom::beautify( $name[0] );
+					$this->plural 	= Cuztom::beautify( $name[1] );
+				}
 			}
 			else
 			{
-				$this->name		= Cuztom::uglify( $name );
+				$this->name	= Cuztom::uglify( $name );
 				$this->title	= Cuztom::beautify( $name );
 				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
 			}
