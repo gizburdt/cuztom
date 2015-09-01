@@ -232,7 +232,7 @@ class Cuztom_Taxonomy
 		if( in_array( $typenow, $this->post_type ) )
 		{
 			wp_dropdown_categories( array(
-				'show_option_all'	=> sprintf( __( 'Show all %s', 'cuztom' ), $this->plural ),
+				'show_option_all'	=> $this->labels['all_items'],
 				'taxonomy'       	=> $this->name,
 				'name'            	=> $this->name,
 				'orderby'         	=> 'name',
