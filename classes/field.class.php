@@ -22,6 +22,7 @@ class Cuztom_Field
 	var $args					= array(); // Specific args for the field
 	var $underscore 			= true;
 	var $required 				= false;
+	var $overwrite 				= null;
 	var $repeatable 			= false;
 	var $ajax 					= false;
 	
@@ -68,7 +69,8 @@ class Cuztom_Field
 		$this->args				= isset( $field['args'] ) 				? $field['args'] 											: $this->args;
 		$this->underscore		= isset( $field['underscore'] ) 		? $field['underscore'] 										: $this->underscore;
 		$this->required			= isset( $field['required'] ) 			? $field['required'] 										: $this->required;	
-		$this->repeatable		= isset( $field['repeatable'] ) 		? $field['repeatable'] 										: $this->repeatable ;
+		$this->overwrite		= isset( $field['overwrite'] ) 			? $field['overwrite'] 										: $this->overwrite;
+		$this->repeatable		= isset( $field['repeatable'] ) 		? $field['repeatable'] 										: $this->repeatable;
 		$this->ajax				= isset( $field['ajax'] ) 				? $field['ajax'] 											: $this->ajax ;
 		$this->css_classes		= isset( $field['css_classes'] )		? array_merge($this->css_classes, $field['css_classes'])	: $this->css_classes;
 		
@@ -242,6 +244,8 @@ class Cuztom_Field
 	 */
 	function output_name( $overwrite = null )
 	{
+		if ( !is_null( $this->overwrite ) ) $overwrite = $this->overwrite;
+
 		return $overwrite ? 'name="' . $overwrite . '"' : 'name="cuztom' . $this->pre . '[' . $this->id . ']' . $this->after . '"';
 	}
 
@@ -254,6 +258,7 @@ class Cuztom_Field
 	 */
 	function output_id( $overwrite = null )
 	{
+		if ( !is_null( $this->overwrite ) ) $overwrite = $this->overwrite;
 		return $overwrite ? 'id="' . $overwrite . '"' : 'id="' . $this->pre_id . $this->id . $this->after_id . '"';
 	}
 
