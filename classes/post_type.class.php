@@ -3,7 +3,7 @@
 if( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Post Type class used to register post types
+ * Menu page class used to create menu page
  *
  * @author 	Gijs Jorissen
  * @since 	0.1
@@ -11,16 +11,16 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 class Cuztom_Post_Type
 {
-	var $name;
-	var $title;
-	var $plural;
-	var $args;
-	var $labels;
-	var $add_features;
-	var $remove_features;
+	var $page_title;
+	var $menu_title;
+	var $capability;
+	var $menu_slug;
+	var $function;
+	var $icon_url;
+	var $position;
 	
 	/**
-	 * Construct a new Cuztom Post Type
+	 * Construct a new Cuztom Menu Page
 	 *
 	 * @param 	string|array 	$name
 	 * @param 	array 			$args
@@ -104,102 +104,5 @@ class Cuztom_Post_Type
 
 		// Register the post type
 		register_post_type( $this->name, $args );
-	}
-	
-	/**
-	 * Add a taxonomy to the Post Type
-	 *
-	 * @param 	string|array 	$name
-	 * @param 	array 			$args
-	 * @param 	array 			$labels
-	 * @return  object 			Cuztom_Post_Type
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.1
-	 *
-	 */
-	function add_taxonomy( $name, $args = array(), $labels = array() )
-	{
-		// Call Cuztom_Taxonomy with this post type name as second parameter
-		$taxonomy = new Cuztom_Taxonomy( $name, $this->name, $args, $labels );
-		
-		// For method chaining
-		return $this;
-	}
-	
-	/**
-	 * Add post meta box to the Post Type
-	 *
-	 * @param   integer 		$id
-	 * @param 	string 			$title
-	 * @param 	array 			$fields
-	 * @param 	string 			$context
-	 * @param 	string 			$priority
-	 * @return  object 			Cuztom_Post_Type
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.1
-	 *
-	 */
-	function add_meta_box( $id, $title, $fields = array(), $context = 'normal', $priority = 'default' )
-	{
-		// Call Cuztom_Meta_Box with this post type name as second parameter
-		$meta_box = new Cuztom_Meta_Box( $id, $title, $this->name, $fields, $context, $priority );
-		
-		// For method chaining
-		return $this;
-	}
-
-	/**
-	 * Add action to register support of certain features for a post type.
-	 *
-	 * @param 	string|array 	$feature 			The feature being added, can be an array of feature strings or a single string
-	 * @return 	object 			Cuztom_Post_Type
-	 *
-	 * @author 	Abhinav Sood
-	 * @since 	1.4.3
-	 * 
-	 */
-	function add_post_type_support( $feature )
-	{
-		add_post_type_support( $this->name, $feature );
-		
-		// For method chaining
-		return $this;
-	}
-
-	/**
-	 * Add action to remove support of certain features for a post type.
-	 *
-	 * @param 	string|array 	$features 			The feature being removed, can be an array of feature strings or a single string
-	 * @return 	object 			Cuztom_Post_Type
-	 * 
-	 * @author 	Abhinav Sood
-	 * @since 	1.4.3
-	 * 
-	 */
-	function remove_post_type_support( $features )
-	{
-		foreach( (array) $features as $feature ) {
-			remove_post_type_support( $this->name, $feature );
-		}
-		
-		// For method chaining
-		return $this;
-	}
-	
-	/**
-	 * Check if post type supports a certain feature
-	 *
-	 * @param 	string  		$feature    		The feature to check support for
-	 * @return  boolean 
-	 * 
-	 * @author 	Abhinav Sood
-	 * @since 	1.5.3
-	 * 
-	 */
-	function post_type_supports( $feature )
-	{
-	    return post_type_supports( $this->name, $feature );
 	}
 }
