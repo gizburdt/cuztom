@@ -13,7 +13,7 @@ class Cuztom_User_Meta extends Cuztom_Meta
 {
 	var $locations;
 
-	var $meta_type 		= 'user';
+	var $meta_type = 'user';
 
 	/**
 	 * Constructor for User Meta
@@ -25,10 +25,11 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   1.5
-	 * 
+	 *
 	 */
 	function __construct( $id, $data = array(), $locations = array( 'show_user_profile', 'edit_user_profile' ) )
 	{
+		// Build all properties
 		parent::__construct( $id, $data );
 
 		// Set locations
@@ -53,13 +54,13 @@ class Cuztom_User_Meta extends Cuztom_Meta
 
 	/**
 	 * Callback for user meta, adds a title
-	 * 
+	 *
 	 * @param  	int     			$user [description]
 	 * @param  	array    	$data [description]
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   1.5
-	 * 
+	 *
 	 */
 	function callback( $user, $data = array(), $args = array() )
 	{
@@ -87,5 +88,35 @@ class Cuztom_User_Meta extends Cuztom_Meta
 		if( ! empty( $values ) ) {
 			parent::save( $user_id, $values );
 		}
+	}
+
+	/**
+	 * Get object ID
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function get_object_id()
+	{
+		if( isset( $_GET['user_id'] ) ) {
+			return $_GET['user_id']; // @TODO: Use get_current_screen()
+		}
+
+		return null;
+	}
+
+	/**
+	 * Get value bases on field id
+	 *
+	 * @return  field
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function get_meta_values()
+	{
+		return get_user_meta( $this->object );
 	}
 }

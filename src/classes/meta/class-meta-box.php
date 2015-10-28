@@ -15,7 +15,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	var $priority	= 'default';
 	var $meta_type 	= 'post';
 	var $post_types;
-	
+
 	/**
 	 * Constructs the meta box
 	 *
@@ -31,7 +31,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		parent::__construct( $id, $data );
 
 		// Set post types
-		$this->post_types 	= (array) $post_type;
+		$this->post_types = (array) $post_type;
 
 		// Build
 		if( ! $this->callback ) {
@@ -53,7 +53,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		// Add the meta box
 		add_action( 'add_meta_boxes', array( &$this, 'add_meta_box' ) );
 	}
-	
+
 	/**
 	 * Method that calls the add_meta_box function
 	 *
@@ -74,7 +74,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			);
 		}
 	}
-	
+
 	/**
 	 * Hooks into the save hook for the newly registered Post Type
 	 *
@@ -104,7 +104,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			parent::save( $post_id, $values );
 		}
 	}
-	
+
 	/**
 	 * Used to add a column head to the Post Type's List Table
 	 *
@@ -128,7 +128,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		$columns['date'] = __( 'Date', 'cuztom' );
 		return $columns;
 	}
-	
+
 	/**
 	 * Used to add the column content to the column head
 	 *
@@ -150,13 +150,13 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 
 	/**
 	 * Used to make all columns sortable
-	 * 
+	 *
 	 * @param 	array 			$columns
 	 * @return  array
 	 *
 	 * @author  Gijs Jorissen
 	 * @since   1.4.8
-	 * 
+	 *
 	 */
 	function add_sortable_column( $columns )
 	{
@@ -169,5 +169,35 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 		}
 
 		return $columns;
+	}
+
+	/**
+	 * Get object ID
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function get_object_id()
+	{
+		if( isset( $_GET['post'] ) ) {
+			return $_GET['post']; // @TODO: Use get_current_screen()
+		}
+
+		return null;
+	}
+
+	/**
+	 * Get value bases on field id
+	 *
+	 * @return  array
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function get_meta_values()
+	{
+		return get_post_meta( $this->object );
 	}
 }

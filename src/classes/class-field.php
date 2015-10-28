@@ -63,31 +63,13 @@ class Cuztom_Field
 			$this->$property = isset( $args[ $property ] ) ? $args[ $property ] : $this->$property;
 		}
 
+		// Repeatable?
 		if( $this->is_repeatable() ) {
 			$this->after_name = '[]';
 		}
 
+		// Value
 		$this->value = maybe_unserialize( @$args['value'] );
-	}
-
-	/**
-	 * Outputs a field based on its type
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.2
-	 *
-	 */
-	function output( $value = null )
-	{
-		$value = (!is_null($value)) ? $value : $this->value;
-
-		if( $this->is_repeatable() ) {
-			return $this->_output_repeatable( $value );
-		} elseif( $this->is_ajax() ) {
-			return $this->_output_ajax( $value );
-		} else {
-			return $this->_output( $value );
-		}
 	}
 
 	/**
@@ -109,6 +91,26 @@ class Cuztom_Field
 				echo $this->output( $this->value );
 			echo '</td>';
 		echo '</tr>';
+	}
+
+	/**
+	 * Outputs a field based on its type
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
+	 *
+	 */
+	function output( $value = null )
+	{
+		$value = (!is_null($value)) ? $value : $this->value;
+
+		if( $this->is_repeatable() ) {
+			return $this->_output_repeatable( $value );
+		} elseif( $this->is_ajax() ) {
+			return $this->_output_ajax( $value );
+		} else {
+			return $this->_output( $value );
+		}
 	}
 
 	/**
@@ -179,6 +181,7 @@ class Cuztom_Field
 	 */
 	function _output_repeatable_control( $value )
 	{
+		// @TODO: Convert to echo?
 		$output = '<div class="cuztom-control">';
 			$output .= '<a class="button-secondary button button-small cuztom-button js-cztm-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . __( 'Add item', 'cuztom' ) . '</a>';
 			if( $this->limit ) {
@@ -250,11 +253,11 @@ class Cuztom_Field
 			case 'user' :
 				update_user_meta( $object, $this->id, $value );
 				return true;
-			break;
+				break;
 			case 'term' :
-				// Because we need an array
-				return $value;
-			break;
+				update_term_meta( $object, $this->id, $value );
+				return true;
+				break;
 			case 'post' : default :
 				update_post_meta( $object, $this->id, $value );
 				return true;
@@ -430,6 +433,42 @@ class Cuztom_Field
 	}
 
 	/**
+	 * Check if the field is tabs or accordion
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function is_tabs()
+	{
+		return ($this instanceof Cuztom_Tabs || $this instanceof Cuztom_Accordion);
+	}
+
+	/**
+	 * Check if the field is tabs or accordion
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function is_bundle()
+	{
+		return ($this instanceof Cuztom_Bundle);
+	}
+
+	/**
+	 * Check if the field is in a bundle
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function in_bundle()
+	{
+		return $this->in_bundle;
+	}
+
+	/**
 	 * Creates and returns a field object
 	 *
 	 * @param 	array 			$args
@@ -443,8 +482,8 @@ class Cuztom_Field
 	{
 		$class = 'Cuztom_Field_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $args['type'] ) ) );
 
-		if( class_exists( $class ) ) {
-			return new $class( $args );
+		if( class_exists($class) ) {
+			return new $class($args);
 		} else {
 			return false;
 		}

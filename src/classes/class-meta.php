@@ -2,40 +2,31 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * Cuztom Meta for handling meta data
- *
- * @author 	Gijs Jorissen
- * @since 	1.5
- *
- */
 class Cuztom_Meta
 {
 	var $id;
+	var $object;
+	var $callback;
+
 	var $title;
 	var $description;
+
 	var $fields;
 	var $data;
-	var $callback;
 
 	/**
 	 * Construct for all meta types, creates title (and description)
-	 * 
-	 * @param 	string|array 	$title
-	 *
-	 * @author  Gijs Jorissen
-	 * @since 	1.6.4
-	 * 
+	 * @param int 	$id   Object id
+	 * @param array $data Array of fields
+	 * @since 1.6.4
 	 */
 	function __construct( $id, $data )
 	{
-		global $cuztom;
-
 		$properties = array_keys( get_class_vars( get_called_class() ) );
-		
+
 		// Set all properties
-		foreach ( $properties as $property ) {
-			$this->$property = isset( $data[ $property ] ) ? $data[ $property ] : $this->$property;
+		foreach($properties as $property) {
+			$this->$property = isset( $data[$property] ) ? $data[$property] : $this->$property;
 		}
 
 		$this->id 		= $id;
@@ -44,21 +35,14 @@ class Cuztom_Meta
 
 	/**
 	 * Main callback for meta
-	 *
-	 * @param 	object 			$post
-	 * @param 	object 			$data
-	 * @return 	mixed
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.2
-	 *
-	 */	
+	 * @since 0.2
+	 */
 	function output()
 	{
 		// Nonce field for validation
 		wp_nonce_field( 'cuztom_meta', 'cuztom_nonce' );
 
-		if( ! empty( $this->data ) ) {
+		if( !empty($this->data) ) {
 			echo '<input type="hidden" name="cuztom[__activate]" />';
 			echo '<div class="cuztom data-object-id="' . $this->object . '" data-meta-type="' . $this->meta_type . '">';
 				if( ! empty( $this->description ) ) {
@@ -67,7 +51,7 @@ class Cuztom_Meta
 
 				echo '<table class="form-table cuztom-table cuztom-main-table">';
 					foreach( $this->data as $id => $field ) {
-						$this->output_row( $field );
+						echo $field->output_row();
 					}
 				echo '</table>';
 			echo '</div>';
@@ -75,61 +59,41 @@ class Cuztom_Meta
 	}
 
 	/**
-	 * Outputs a row in a meta table
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	3.0
+	 * Normal save method to save all the fields in a metabox
+	 * @param int 	$object Object id
+	 * @param array $values Array of values
+	 * @since 2.6
 	 */
-	function output_row( $field )
+	function save( $object, $values )
 	{
-		if( ( $field instanceof Cuztom_Tabs ) || ( $field instanceof Cuztom_Bundle ) ) {
-			$field->output_row();
-		} else {
-			if( $field instanceof Cuztom_Field_Hidden ) :
-				echo $field->output( $field->value );
-			else :
-				$field->output_row( $field->value );
+		// Return when empty
+		if( !isset($_POST['cuztom']) ) {
+			return;
+		}
+
+		// Loop through each meta box
+		foreach( $this->data as $id => $field )
+		{
+			// Tabs / accordion
+			if( $field->is_tabs() ) :
+				$field->save( $object, $values );
+
+			// Bundle
+			elseif( $field->is_bundle() ) :
+				$field->save( $object, @$values[$id] );
+
+			// Normal
+			elseif( !$field->in_bundle() ) :
+				$field->save( $object, @$values[$id] );
 			endif;
 		}
 	}
 
 	/**
-	 * Normal save method to save all the fields in a metabox
-	 * Metabox and User Meta rely on this method
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	2.6
-	 */
-	function save( $object, $values )
-	{
-		// Loop through each meta box
-		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) ) {
-			foreach( $this->data as $id => $field ) {
-				if( ( $field instanceof Cuztom_Tabs || $field instanceof Cuztom_Accordion ) && $tabs = $field ) :
-					$tabs->save( $object, $values );
-				elseif( $field instanceof Cuztom_Bundle && $bundle = $field ) :
-					$value = @$values[$id];
-					$bundle->save( $object, $value );
-				else :
-					if( @$field->in_bundle ) {
-						continue;
-					}
-
-					$value = @$values[$id];
-					$field->save( $object, $value );
-				endif;
-			}
-		}
-	}
-
-	/**
 	 * Check what kind of meta we're dealing with
-	 * 
-	 * @return  string
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	2.3
-	 * 
+	 * @param  string  $meta_type
+	 * @return boolean
+	 * @since  2.3
 	 */
 	function is_meta_type( $meta_type )
 	{
@@ -137,70 +101,16 @@ class Cuztom_Meta
 	}
 
 	/**
-	 * Get object ID
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	3.0
-	 * 
-	 */
-	function get_object_id()
-	{
-		if( isset( $_GET['post'] ) ) :
-			return $_GET['post'];
-		elseif( isset( $_GET['user_id'] ) ) :
-			return $_GET['user_id'];
-		elseif( isset( $_GET['tag_ID'] ) ) :
-			return $_GET['tag_ID'];
-		else :
-			return null;
-		endif;
-
-		// @TODO: Use get_current_screen()
-	}
-
-	/**
-	 * Get value bases on field id
-	 * 
-	 * @return  field
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	3.0
-	 * 
-	 */
-	function get_meta_values( $field = null, $args = array( 'taxonomy' => '' ) )
-	{
-		switch( $this->meta_type ) :
-			case 'post' :
-				return get_post_meta( $this->object );
-				break;
-			case 'user' :
-				return get_user_meta( $this->object );
-				break;
-			case 'term' :
-				return get_cuztom_term_meta( $this->object, isset( $object->taxonomy ) ? $object->taxonomy : null );
-				break;
-			default :
-				return false;
-				break;
-		endswitch;
-	}
-
-	/**
 	 * This method builds the complete array with the right key => value pairs
-	 *
-	 * @param 	array 			$data
-	 * @return 	array
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	1.1
-	 *
+	 * @param  array $data
+	 * @return array
+	 * @since 1.1
 	 */
 	function build( $data )
 	{
 		global $cuztom;
 
-		$return 	= array();
-		$values		= $this->get_meta_values();
+		$values	= $this->get_meta_values();
 
 		if( is_array( $data ) && ! empty( $data ) )
 		{
@@ -220,10 +130,10 @@ class Cuztom_Meta
 				// Bundle
 				elseif( is_string( $type ) && $type == 'bundle' )
 				{
-					$args 	=  array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => @$values[$field['id']][0] ) );
+					$args 	= array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => @$values[$field['id']][0] ) );
 					$bundle = new Cuztom_Bundle( $args );
 					$bundle->build( $field['fields'], $values );
-					
+
 					$cuztom['data'][$this->id][$bundle->id] = $bundle;
 					$cuztom['fields'][$bundle->id] = $bundle;
 				}
@@ -248,12 +158,7 @@ class Cuztom_Meta
 
 	/**
 	 * Adds multipart support to form
-	 *
-	 * @return 	mixed
-	 *
-	 * @author 	Gijs Jorissen
-	 * @since 	0.2
-	 *
+	 * @since 0.2
 	 */
 	static function edit_form_tag()
 	{

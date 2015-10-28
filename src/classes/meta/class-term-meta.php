@@ -17,18 +17,22 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 
 	/**
 	 * Construct the term meta
-	 * 
+	 *
 	 * @param 	string|array 	$taxonomy
 	 * @param 	array  			$data
 	 *
 	 * @author 	Gijs Jorissen
  	 * @since 	2.5
 	 */
-	function __construct( $taxonomy, $data = array(), $locations = array( 'add_form', 'edit_form' ) )
+	function __construct( $id, $data = array(), $taxonomy, $locations = array( 'add_form', 'edit_form' ) )
 	{
+		// Build all properties
+		parent::__construct( $id, $data );
+
+		// Set taxonomy/locations
 		$this->taxonomies 	= (array) $taxonomy;
 		$this->locations 	= (array) $locations;
-		
+
 		// Build fields
 		if( ! $this->callback ) {
 			$this->callback = array( &$this, 'output' );
@@ -55,7 +59,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 
 	/**
 	 * Add fields to the add term form
-	 * 
+	 *
 	 * @param 	string 		$taxonomy
 	 *
 	 * @author 	Gijs Jorissen
@@ -63,12 +67,12 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 */
 	function add_form_fields( $taxonomy )
 	{
-		return parent::output( null, $this->data, array( 'taxonomy' => $taxonomy ) );
+		return $this->output();
 	}
 
 	/**
 	 * Add fields to the edit term form
-	 * 
+	 *
 	 * @param 	string 		$term
 	 *
 	 * @author 	Gijs Jorissen
@@ -77,13 +81,13 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	function edit_form_fields( $term )
 	{
 		echo '</table>';
-		
-		parent::output( $term, $this->data, array( 'taxonomy' => $term->taxonomy ) );
+
+		return $this->output();
 	}
 
 	/**
 	 * Save the term
-	 * 
+	 *
 	 * @param 	int 		$term_id
 	 *
 	 * @author 	Gijs Jorissen
@@ -91,17 +95,15 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 */
 	function save_term( $term_id )
 	{
-		// Loop through each meta box
-		if( ! empty( $this->data ) && isset( $_POST['cuztom'] ) ) {
-			$data 		= array();
-			$values 	= isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : '';
-			$taxonomy 	= $_POST['taxonomy'];
+		// Verify nonce
+		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], 'cuztom_meta' ) ) ) {
+			return;
+		}
 
-			foreach( $this->fields as $id => $field ) {				
-				$data[$id] = $field->save_value( $values[$field->id] );
-			}
+		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : array();
 
-			update_option( 'term_meta_' . $taxonomy . '_' . $term_id, $data );
+		if( ! empty( $values ) ) {
+			parent::save( $term_id, $values );
 		}
 	}
 
@@ -138,14 +140,14 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 	 */
 	function add_column_content( $row, $column, $term_id )
 	{
-		$screen 	= get_current_screen();
+		$screen = get_current_screen();
 
 		if( $screen )
 		{
-			$taxonomy 	= $screen->taxonomy;
+			$taxonomy = $screen->taxonomy;
 
 			$meta = get_cuztom_term_meta( $term_id, $taxonomy, $column );
-			
+
 			foreach( $this->fields as $id => $field )
 			{
 				if( $column == $id )
@@ -166,5 +168,35 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 				}
 			}
 		}
+	}
+
+	/**
+	 * Get object ID
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function get_object_id()
+	{
+		if( isset( $_GET['tag_ID'] ) ) {
+			return $_GET['tag_ID']; // @TODO: Use get_current_screen()
+		}
+
+		return null;
+	}
+
+	/**
+	 * Get value bases on field id
+	 *
+	 * @return  array
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	3.0
+	 *
+	 */
+	function get_meta_values()
+	{
+		return get_term_meta( $this->object );
 	}
 }

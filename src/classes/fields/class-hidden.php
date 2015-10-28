@@ -10,6 +10,19 @@ class Cuztom_Field_Hidden extends Cuztom_Field
 	var $css_classes			= array( 'cuztom-input' );
 
 	/**
+	 * Outputs a field row
+	 * Overwrite to output the hidden field without a row.
+	 *
+	 * @author 	Gijs Jorissen
+	 * @since 	0.2
+	 *
+	 */
+	function output_row( $value = null )
+	{
+		$this->output($value);
+	}
+
+	/**
 	 * Output method
 	 *
 	 * @return  string

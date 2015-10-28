@@ -18,7 +18,7 @@ class Cuztom_Post_Type
 	var $labels;
 	var $add_features;
 	var $remove_features;
-	
+
 	/**
 	 * Construct a new Cuztom Post Type
 	 *
@@ -32,17 +32,14 @@ class Cuztom_Post_Type
 	 */
 	function __construct( $name, $args = array(), $labels = array() )
 	{
-		// Build name
-		if( ! empty( $name ) ) {
-			if( is_array( $name ) ) {
-				$this->name		= Cuztom::uglify( $name[0] );
-				$this->title	= Cuztom::beautify( $name[0] );
-				$this->plural 	= Cuztom::beautify( $name[1] );
-			} else {
-				$this->name		= Cuztom::uglify( $name );
-				$this->title	= Cuztom::beautify( $name );
-				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
-			}
+		if( is_array( $name ) ) {
+			$this->name		= Cuztom::uglify( $name[0] );
+			$this->title	= Cuztom::beautify( $name[0] );
+			$this->plural 	= Cuztom::beautify( $name[1] );
+		} else {
+			$this->name		= Cuztom::uglify( $name );
+			$this->title	= Cuztom::beautify( $name );
+			$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
 		}
 
 		// Set properties
@@ -55,10 +52,10 @@ class Cuztom_Post_Type
 			add_action( 'init', array( &$this, 'register_post_type' ) );
 		}
 	}
-	
+
 	/**
 	 * Register Post Type
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	0.1
 	 *
@@ -89,7 +86,7 @@ class Cuztom_Post_Type
 			);
 
 			// Post type arguments
-			$args = array_merge( 
+			$args = array_merge(
 				array(
 					'label' 				=> sprintf( __( '%s', 'cuztom' ), $this->plural ),
 					'labels' 				=> $labels,
@@ -104,7 +101,7 @@ class Cuztom_Post_Type
 			register_post_type( $this->name, $args );
 		}
 	}
-	
+
 	/**
 	 * Add a taxonomy to the Post Type
 	 *
@@ -120,10 +117,10 @@ class Cuztom_Post_Type
 	function add_taxonomy( $name, $args = array(), $labels = array() )
 	{
 		$taxonomy = new Cuztom_Taxonomy( $name, $this->name, $args, $labels );
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Add post meta box to the Post Type
 	 *
@@ -141,7 +138,7 @@ class Cuztom_Post_Type
 	function add_meta_box( $id, $args )
 	{
 		$box = new Cuztom_Meta_Box( $id, $args, $this->name );
-		
+
 		return $this;
 	}
 
@@ -153,25 +150,25 @@ class Cuztom_Post_Type
 	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.4.3
-	 * 
+	 *
 	 */
 	function add_post_type_support( $feature )
 	{
 		$this->add_features	= (array) $feature;
-		
+
 		add_action( 'init', array( &$this, '_add_post_type_support' ) );
-		
+
 		return $this;
 	}
 
 	/**
 	 * Register support of certain features for a post type.
-	 * 
+	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.4.3
-	 * 
+	 *
 	 */
-	function _add_post_type_support() 
+	function _add_post_type_support()
 	{
 		add_post_type_support( $this->name, $this->add_features );
 	}
@@ -181,26 +178,26 @@ class Cuztom_Post_Type
 	 *
 	 * @param 	string|array 	$feature 			The feature being removed, can be an array of feature strings or a single string
 	 * @return 	object 			Cuztom_Post_Type
-	 * 
+	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.4.3
-	 * 
+	 *
 	 */
 	function remove_post_type_support( $feature )
 	{
 		$this->remove_features	= (array) $feature;
-		
+
 		add_action( 'init', array( &$this, '_remove_post_type_support' ) );
-		
+
 		return $this;
 	}
 
 	/**
 	 * Remove support of certain features for a post type.
-	 * 
+	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.4.3
-	 * 
+	 *
 	 */
 	function _remove_post_type_support()
 	{
@@ -208,16 +205,16 @@ class Cuztom_Post_Type
 			remove_post_type_support( $this->name, $feature );
 		}
 	}
-	
+
 	/**
 	 * Check if post type supports a certain feature
 	 *
-	 * @param 	string  		$feature    		The feature to check support for
-	 * @return  boolean 
-	 * 
+	 * @param 	string   $feature 	The feature to check support for
+	 * @return  boolean
+	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.5.3
-	 * 
+	 *
 	 */
 	function post_type_supports( $feature )
 	{

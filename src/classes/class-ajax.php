@@ -45,15 +45,15 @@ class Cuztom_Ajax
 		}
 
 		if( !$field->limit || ($field->limit > $_POST['cuztom']['count']) ) {
-			echo json_encode( array(
+			echo json_encode(array(
 				'status' 	=> true,
 				'item' 		=> $field->_output_repeatable_item( null, 10 )
-			) );
+			));
 		} else {
-			echo json_encode( array(
+			echo json_encode(array(
 				'status' 	=> false,
 				'message' 	=> __('Limit reached!', 'cuztom')
-			) );
+			));
 		}
 
 		// wp
