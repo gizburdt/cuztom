@@ -11,6 +11,7 @@ jQuery(function($) {
     // Add sortable
     doc.on( 'click', '.js-cztm-add-sortable', function(event) {
         var that        = $(this),
+            boxID       = $('.js-cztm').attr('data-box-id'),
             isBundle    = that.attr('data-sortable-type') == 'bundle',
             fieldID     = that.attr('data-field-id'),
             field       = $('.cuztom-field#' + fieldID),
@@ -20,6 +21,7 @@ jQuery(function($) {
             data        = {
                 action: isBundle ? 'cuztom_add_bundle_item' : 'cuztom_add_repeatable_item',
                 cuztom: {
+                    box_id:     boxID,
                     field_id:   fieldID,
                     count:      count,
                     index:      index

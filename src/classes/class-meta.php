@@ -2,166 +2,175 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-class Cuztom_Meta
+abstract class Cuztom_Meta
 {
-	var $id;
-	var $object;
-	var $callback;
+    var $id;
+    var $object;
+    var $callback;
+    var $title;
+    var $description;
+    var $fields;
+    var $data;
 
-	var $title;
-	var $description;
+    /**
+     * Get object id
+     * @return int
+     */
+    abstract function get_object_id();
 
-	var $fields;
-	var $data;
+    /**
+     * Get meta values
+     * @return array
+     */
+    abstract function get_meta_values();
 
-	/**
-	 * Construct for all meta types, creates title (and description)
-	 * @param int 	$id   Object id
-	 * @param array $data Array of fields
-	 * @since 1.6.4
-	 */
-	function __construct( $id, $data )
-	{
-		$properties = array_keys( get_class_vars( get_called_class() ) );
+    /**
+     * Construct for all meta types, creates title (and description)
+     * @param int   $id   Object id
+     * @param array $data Array of fields
+     * @since 1.6.4
+     */
+    function __construct( $id, $data )
+    {
+        $properties = array_keys( get_class_vars( get_called_class() ) );
 
-		// Set all properties
-		foreach($properties as $property) {
-			$this->$property = isset( $data[$property] ) ? $data[$property] : $this->$property;
-		}
+        // Set all properties
+        foreach($properties as $property) {
+            $this->$property = isset( $data[$property] ) ? $data[$property] : $this->$property;
+        }
 
-		$this->id 		= $id;
-		$this->object 	= $this->get_object_id();
-	}
+        $this->id       = $id;
+        $this->object   = $this->get_object_id();
+    }
 
-	/**
-	 * Main callback for meta
-	 * @since 0.2
-	 */
-	function output()
-	{
-		// Nonce field for validation
-		wp_nonce_field( 'cuztom_meta', 'cuztom_nonce' );
+    /**
+     * Main callback for meta
+     * @since 0.2
+     */
+    function output()
+    {
+        // Nonce field for validation
+        wp_nonce_field( 'cuztom_meta', 'cuztom_nonce' );
 
-		if( !empty($this->data) ) {
-			echo '<input type="hidden" name="cuztom[__activate]" />';
-			echo '<div class="cuztom data-object-id="' . $this->object . '" data-meta-type="' . $this->meta_type . '">';
-				if( ! empty( $this->description ) ) {
-					echo '<div class="cuztom-box-description">' . $this->description . '</div>';
-				}
+        if( !empty($this->data) ) {
+            echo '<input type="hidden" name="cuztom[__activate]" />';
+            echo '<div class="cuztom js-cztm" data-box-id="' . $this->id . '" data-object-id="' . $this->object . '" data-meta-type="' . $this->meta_type . '">';
+                if( ! empty( $this->description ) ) {
+                    echo '<div class="cuztom-box-description">' . $this->description . '</div>';
+                }
 
-				echo '<table class="form-table cuztom-table cuztom-main-table">';
-					foreach( $this->data as $id => $field ) {
-						echo $field->output_row();
-					}
-				echo '</table>';
-			echo '</div>';
-		}
-	}
+                echo '<table class="form-table cuztom-table cuztom-main-table">';
+                    foreach( $this->data as $id => $field ) {
+                        echo $field->output_row();
+                    }
+                echo '</table>';
+            echo '</div>';
+        }
+    }
 
-	/**
-	 * Normal save method to save all the fields in a metabox
-	 * @param int 	$object Object id
-	 * @param array $values Array of values
-	 * @since 2.6
-	 */
-	function save( $object, $values )
-	{
-		// Return when empty
-		if( !isset($_POST['cuztom']) ) {
-			return;
-		}
+    /**
+     * Normal save method to save all the fields in a metabox
+     * @param int   $object Object id
+     * @param array $values Array of values
+     * @since 2.6
+     */
+    function save( $object, $values )
+    {
+        // Return when empty
+        if( empty($values) ) {
+            return;
+        }
 
-		// Loop through each meta box
-		foreach( $this->data as $id => $field )
-		{
-			// Tabs / accordion
-			if( $field->is_tabs() ) :
-				$field->save( $object, $values );
+        // Loop through each meta box
+        foreach( $this->data as $id => $field )
+        {
+            // Tabs / accordion
+            if( $field->is_tabs() ) :
+                $field->save( $object, $values );
 
-			// Bundle
-			elseif( $field->is_bundle() ) :
-				$field->save( $object, @$values[$id] );
+            // Bundle
+            elseif( $field->is_bundle() ) :
+                $field->save( $object, @$values[$id] );
 
-			// Normal
-			elseif( !$field->in_bundle() ) :
-				$field->save( $object, @$values[$id] );
-			endif;
-		}
-	}
+            // Normal
+            elseif( !$field->in_bundle() ) :
+                $field->save( $object, @$values[$id] );
+            endif;
+        }
+    }
 
-	/**
-	 * Check what kind of meta we're dealing with
-	 * @param  string  $meta_type
-	 * @return boolean
-	 * @since  2.3
-	 */
-	function is_meta_type( $meta_type )
-	{
-		return $this->meta_type == $meta_type;
-	}
+    /**
+     * This method builds the complete array with the right key => value pairs
+     * @param  array $data
+     * @return array
+     * @since 1.1
+     */
+    function build( $data )
+    {
+        global $cuztom;
 
-	/**
-	 * This method builds the complete array with the right key => value pairs
-	 * @param  array $data
-	 * @return array
-	 * @since 1.1
-	 */
-	function build( $data )
-	{
-		global $cuztom;
+        $values = $this->get_meta_values();
 
-		$values	= $this->get_meta_values();
+        if( is_array($data) && !empty($data) )
+        {
+            foreach( $data as $type => $field )
+            {
+                // General stuff
+                $field['meta_type'] = $this->meta_type;
+                $field['object']    = $this->object;
 
-		if( is_array( $data ) && ! empty( $data ) )
-		{
-			foreach( $data as $type => $field )
-			{
-				// Tabs / accordion
-				if( is_string( $type ) && ( $type == 'tabs' || $type == 'accordion' ) )
-				{
-					$args = array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object ) );
-					$tabs = $type == 'tabs' ? new Cuztom_Tabs( $field ) : new Cuztom_Accordion( $field );
-					$tabs->build( $field['panels'], $values );
+                // Tabs / accordion
+                if( is_string($type) && ($type == 'tabs' || $type == 'accordion') )
+                {
+                    $tabs = ($type == 'tabs' ? new Cuztom_Tabs($field) : new Cuztom_Accordion($field));
 
-					$cuztom['data'][$this->id][$tabs->id] = $tabs;
-					$cuztom['fields'][$tabs->id] = $tabs;
-				}
+                    // Build and add
+                    $tabs->build($field['panels'], $values);
+                    $cuztom->data[$this->id][$tabs->id] = $tabs;
+                }
 
-				// Bundle
-				elseif( is_string( $type ) && $type == 'bundle' )
-				{
-					$args 	= array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => @$values[$field['id']][0] ) );
-					$bundle = new Cuztom_Bundle( $args );
-					$bundle->build( $field['fields'], $values );
+                // Bundle
+                elseif( is_string($type) && $type == 'bundle' )
+                {
+                    $field['value'] = @$values[$field['id']][0];
+                    $bundle         = new Cuztom_Bundle($field);
 
-					$cuztom['data'][$this->id][$bundle->id] = $bundle;
-					$cuztom['fields'][$bundle->id] = $bundle;
-				}
+                    // Build and add
+                    $bundle->build($field['fields'], $values);
+                    $cuztom->data[$this->id][$bundle->id] = $bundle;
+                }
 
-				// Fields
-				else
-				{
-					$args 	= array_merge( $field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value' => @$values[$field['id']][0] ) );
-					$field 	= Cuztom_Field::create( $args );
+                // Fields
+                else
+                {
+                    $field['value'] = @$values[$field['id']][0];
+                    $field = Cuztom_Field::create($field);
 
-					$cuztom['data'][$this->id][$field->id] = $field;
-					$cuztom['fields'][$field->id] = $field;
-				}
-			}
+                    $cuztom->data[$this->id][$field->id] = $field;
+                }
+            }
+        }
 
-			// Set flat array of fields
-			$this->fields = $cuztom['fields'];
-		}
+        return $cuztom->data[$this->id];
+    }
 
-		return $cuztom['data'][$this->id];
-	}
+    /**
+     * Check what kind of meta we're dealing with
+     * @param  string  $meta_type
+     * @return boolean
+     * @since  2.3
+     */
+    function is_meta_type( $meta_type )
+    {
+        return $this->meta_type == $meta_type;
+    }
 
-	/**
-	 * Adds multipart support to form
-	 * @since 0.2
-	 */
-	static function edit_form_tag()
-	{
-		echo ' enctype="multipart/form-data"';
-	}
+    /**
+     * Adds multipart support to form
+     * @since 0.2
+     */
+    static function edit_form_tag()
+    {
+        echo ' enctype="multipart/form-data"';
+    }
 }

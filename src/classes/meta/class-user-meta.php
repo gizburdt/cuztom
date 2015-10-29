@@ -79,13 +79,13 @@ class Cuztom_User_Meta extends Cuztom_Meta
 	function save_user( $user_id )
 	{
 		// Verify nonce
-		if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], 'cuztom_meta' ) ) ) {
+		if( ! (isset( $_POST['cuztom_nonce']) && wp_verify_nonce($_POST['cuztom_nonce'], 'cuztom_meta')) ) {
 			return;
 		}
 
-		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : array();
+		$values = isset($_POST['cuztom']) ? $_POST['cuztom'] : array();
 
-		if( ! empty( $values ) ) {
+		if( !empty($values) ) {
 			parent::save( $user_id, $values );
 		}
 	}

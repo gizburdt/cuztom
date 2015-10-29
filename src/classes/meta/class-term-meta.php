@@ -146,7 +146,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 		{
 			$taxonomy = $screen->taxonomy;
 
-			$meta = get_cuztom_term_meta( $term_id, $taxonomy, $column );
+			$meta = get_term_meta( $term_id, $column );
 
 			foreach( $this->fields as $id => $field )
 			{
