@@ -65,7 +65,7 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 	 * @since 	2.8
 	 *
 	 */
-	function save_value( $value )
+	function parse_value( $value )
 	{
 		return empty( $value ) ? '-1' : $value;
 	}

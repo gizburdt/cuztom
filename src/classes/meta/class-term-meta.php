@@ -100,7 +100,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
 			return;
 		}
 
-		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : array();
+		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : null;
 
 		if( ! empty( $values ) ) {
 			parent::save( $term_id, $values );

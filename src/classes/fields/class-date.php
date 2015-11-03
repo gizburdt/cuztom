@@ -53,7 +53,7 @@ class Cuztom_Field_Date extends Cuztom_Field_Datetime
 	 * @since 	2.8
 	 *
 	 */
-	function save_value( $value )
+	function parse_value( $value )
 	{
 		return strtotime( $value );
 	}

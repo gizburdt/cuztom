@@ -83,7 +83,7 @@ class Cuztom_User_Meta extends Cuztom_Meta
 			return;
 		}
 
-		$values = isset($_POST['cuztom']) ? $_POST['cuztom'] : array();
+		$values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
 
 		if( !empty($values) ) {
 			parent::save( $user_id, $values );

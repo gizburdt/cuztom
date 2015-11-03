@@ -63,7 +63,7 @@ class Cuztom_Field_Post_Checkboxes extends Cuztom_Field
 		return $output;
 	}
 
-	function save_value( $value )
+	function parse_value( $value )
 	{
 		return empty( $value ) ? '-1' : $value;
 	}

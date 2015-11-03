@@ -98,7 +98,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 			return;
 		}
 
-		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : array();
+		$values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : null;
 
 		if( ! empty( $values ) ) {
 			parent::save( $post_id, $values );
@@ -142,8 +142,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 	 */
 	function add_column_content( $column, $post_id )
 	{
-		global $cuztom;
-		$field = $cuztom['fields'][$column];
+		$field = $this->fields[$column];
 
 		echo $field->output_column_content( $post_id );
 	}

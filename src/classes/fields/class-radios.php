@@ -8,7 +8,7 @@ class Cuztom_Field_Radios extends Cuztom_Field
 	 * Feature support
 	 */
 	var $_supports_bundle		= true;
-	
+
 	/**
 	 * Attributes
 	 */
@@ -25,7 +25,7 @@ class Cuztom_Field_Radios extends Cuztom_Field
 	function __construct( $field )
 	{
 		parent::__construct( $field );
-		
+
 		$this->data_attributes['default-value']  = $this->default_value;
 		$this->after_name						.= '[]';
 	}
@@ -61,14 +61,14 @@ class Cuztom_Field_Radios extends Cuztom_Field
 
 	/**
 	 * Parse value
-	 * 
+	 *
 	 * @param 	string 		$value
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	2.8
-	 * 
+	 *
 	 */
-	function save_value( $value )
+	function parse_value( $value )
 	{
 		return @$value[0];
 	}

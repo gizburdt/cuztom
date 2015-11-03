@@ -16,10 +16,10 @@ class Cuztom_Tab extends Cuztom_Field
 
 	/**
 	 * Tab constructor
-	 * 
+	 *
 	 * @author 	Gijs Jorissen
 	 * @since   3.0
-	 * 
+	 *
 	 */
 	function __construct( $args )
 	{
@@ -41,10 +41,10 @@ class Cuztom_Tab extends Cuztom_Field
 	{
 		$fields 	= $this->fields;
 		$object_id 	= $this->object;
-				
+
 		// Show header
 		if( $args['type'] == 'accordion' ) echo '<h3>' . $this->title . '</h3>';
-		
+
 		echo '<div id="' . $this->id . '">';
 
 			if( $fields instanceof Cuztom_Bundle )
@@ -95,20 +95,20 @@ class Cuztom_Tab extends Cuztom_Field
 
 	/**
 	 * Save meta
-	 * 
+	 *
 	 * @param  	int 		$object_id
 	 * @param  	string 		$value
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since  	3.0
-	 * 
+	 *
 	 */
 	function save( $object, $values )
 	{
 		foreach( $this->fields as $id => $field )
 		{
-			// Get value from values (and apply filters)
-			$value 	= isset( $values[$id] ) ? $values[$id] : '';
+			// Get value from values
+			$value = @$values[$id];
 
 			// Save
 			$field->save( $object, $value );

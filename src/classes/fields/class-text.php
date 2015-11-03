@@ -18,14 +18,14 @@ class Cuztom_Field_Text extends Cuztom_Field
 
 	/**
 	 * Parse value
-	 * 
+	 *
 	 * @param 	string 		$value
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	2.8
-	 * 
+	 *
 	 */
-	function save_value( $value )
+	function parse_value( $value )
 	{
 		if( is_array( $value ) ) {
 			array_walk_recursive( $value, array( &$this, 'do_htmlspecialchars' ) );
@@ -38,12 +38,12 @@ class Cuztom_Field_Text extends Cuztom_Field
 
 	/**
 	 * Applies htmlspecialchars to $value
-	 * 
+	 *
 	 * @param 	string 		$value
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	3.0
-	 * 
+	 *
 	 */
 	function do_htmlspecialchars( &$value )
 	{
