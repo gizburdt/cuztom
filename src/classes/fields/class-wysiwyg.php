@@ -22,7 +22,7 @@ class Cuztom_Field_Wysiwyg extends Cuztom_Field
 		parent::__construct( $field );
 
 		// Set necessary args
-		$this->args['editor_class'] .= ' cuztom-input';
+		@$this->args['editor_class'] .= ' cuztom-input';
 		$this->args['textarea_name'] = 'cuztom' . $this->before_name . '[' . $this->id . ']' . $this->after_name;
 	}
 
