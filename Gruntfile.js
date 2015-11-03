@@ -52,10 +52,12 @@ module.exports = function(grunt) {
                 src: [
                     'src/assets/vendor/angular/angular.min.js',
                     'src/assets/js/cuztom.js',
+                    'src/assets/js/cuztom-open.js',
                     'src/assets/js/cuztom-ui.js',
                     'src/assets/js/cuztom-sortable.js',
                     'src/assets/js/cuztom-image.js',
-                    'src/assets/js/cuztom-ajax.js'
+                    'src/assets/js/cuztom-ajax.js',
+                    'src/assets/js/cuztom-close.js',
                 ],
                 dest: 'src/assets/dist/js/cuztom.min.js',
             }
