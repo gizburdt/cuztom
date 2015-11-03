@@ -86,18 +86,14 @@ class Cuztom_Ajax
     {
         global $cuztom;
 
-        if( $_POST['cuztom'] && isset($_POST['cuztom']['id']) ) {
-            $field = self::get_field( $_POST['cuztom']['id'] );
-
-            echo '<pre>';
-            var_dump($field);
-            die();
+        if( $_POST['cuztom'] && isset($_POST['cuztom']['field_id']) ) {
+            $box        = $_POST['cuztom']['box_id'];
+            $field      = $_POST['cuztom']['field_id'];
+            $field      = self::get_field($field, $box);
 
             $object     = $_POST['cuztom']['object_id'];
-            $id         = $_POST['cuztom']['id'];
             $value      = $_POST['cuztom']['value'];
             $meta_type  = $_POST['cuztom']['meta_type'];
-            $field      = $cuztom['fields'][$id];
 
             if( $field->save( $object, $value ) ) {
                 echo json_encode( array( 'status' => true ) );

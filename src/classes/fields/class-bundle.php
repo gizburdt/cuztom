@@ -14,7 +14,7 @@ class Cuztom_Bundle extends Cuztom_Field
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	2.8.4
-	 * 
+	 *
 	 */
 	function __construct( $bundle )
 	{
@@ -26,7 +26,7 @@ class Cuztom_Bundle extends Cuztom_Field
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	3.0
-	 * 
+	 *
 	 */
 	function output_row( $value = null )
 	{
@@ -41,13 +41,13 @@ class Cuztom_Bundle extends Cuztom_Field
 				echo '</div>';
 			echo '</td>';
 		echo '</tr>';
-		
+
 		echo $this->output_control( 'bottom' );
 	}
 
 	/**
 	 * Outputs a bundle
-	 * 
+	 *
 	 * @param  	object 			$object
 	 *
 	 * @author  Gijs Jorissen
@@ -80,7 +80,7 @@ class Cuztom_Bundle extends Cuztom_Field
 	 *
 	 * @author  Gijs Jorissen
 	 * @since 	3.0
-	 * 
+	 *
 	 */
 	function output_item( $index = 0 )
 	{
@@ -93,7 +93,7 @@ class Cuztom_Bundle extends Cuztom_Field
 						$field->after_id 		= '_' . $index;
 						$field->default_value 	= isset( $this->default_value[$index][$id] ) ? $this->default_value[$index][$id] : $field->default_value;
 						$value 					= isset( $this->value[$index][$id] ) ? $this->value[$index][$id] : '';
-						
+
 						if( ! $field instanceof Cuztom_Field_Hidden ) {
 							$output .= '<tr>';
 								$output .= '<th class="cuztom-th">';
@@ -140,10 +140,10 @@ class Cuztom_Bundle extends Cuztom_Field
 				echo '</a>';
 
 				if( $this->limit ) {
-					echo '<div class="cuztom-counter">';
-						echo '<span class="current">' . count( $this->value ) . '</span>';
+					echo '<div class="cuztom-counter js-cztm-counter">';
+						echo '<span class="current js-current">' . count( $this->value ) . '</span>';
 						echo '<span class="divider"> / </span>';
-						echo '<span class="max">' . $this->limit . '</span>';
+						echo '<span class="max js-max">' . $this->limit . '</span>';
 					echo '</div>';
 				}
 			echo '</td>';
@@ -152,21 +152,22 @@ class Cuztom_Bundle extends Cuztom_Field
 
 	/**
 	 * Save bundle meta
-	 * 
+	 *
 	 * @param  	int 			$post_id
 	 * @param  	string 			$value
 	 *
 	 * @author 	Gijs Jorissen
 	 * @since 	1.6.2
-	 * 
+	 *
 	 */
 	function save( $object, $values )
 	{
-		$values = is_array( $values ) ? array_values( $values ) : array();
+		$values = $values[$this->id];
+		$values = is_array($values) ? array_values($values) : array();
 
 		foreach( $values as $row => $fields ) {
 			foreach( $fields as $id => $value ) {
-				$values[$row][$id] = $this->fields[$id]->save_value( $value );
+				$values[$row][$id] = $this->fields[$id]->parse_value( $value );
 			}
 		}
 
@@ -194,18 +195,12 @@ class Cuztom_Bundle extends Cuztom_Field
 			if( is_string( $type ) && $type == 'tabs' ) {
 				// $tab->fields = $this->build( $fields );
 			} else {
-				$args 	= array_merge( 
-					$field, 
-					array( 
-						'meta_type' => $this->meta_type, 
-						'object' 	=> $this->object
-					) 
-				);
-				
-				$field = Cuztom_Field::create( $args );
+				$field['meta_type'] = $this->meta_type;
+				$field['object'] 	= $this->object;
+
+				$field = Cuztom_Field::create( $field );
 				$field->repeatable 	= false;
 				$field->ajax 		= false;
-				$field->in_bundle 	= true;
 
 				$this->fields[$field->id] = $field;
 			}

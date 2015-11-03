@@ -53,7 +53,6 @@ abstract class Cuztom_Meta
         wp_nonce_field( 'cuztom_meta', 'cuztom_nonce' );
 
         if( !empty($this->data) ) {
-            echo '<input type="hidden" name="cuztom[__activate]" />';
             echo '<div class="cuztom js-cztm" data-box-id="' . $this->id . '" data-object-id="' . $this->object . '" data-meta-type="' . $this->meta_type . '">';
                 if( ! empty( $this->description ) ) {
                     echo '<div class="cuztom-box-description">' . $this->description . '</div>';
@@ -77,25 +76,13 @@ abstract class Cuztom_Meta
     function save( $object, $values )
     {
         // Return when empty
-        if( empty($values) ) {
+        if( Cuztom::is_empty($values) ) {
             return;
         }
 
-        // Loop through each meta box
-        foreach( $this->data as $id => $field )
-        {
-            // Tabs / accordion
-            if( $field->is_tabs() ) :
-                $field->save( $object, $values );
-
-            // Bundle
-            elseif( $field->is_bundle() ) :
-                $field->save( $object, @$values[$id] );
-
-            // Normal
-            elseif( !$field->in_bundle() ) :
-                $field->save( $object, @$values[$id] );
-            endif;
+        // Loop through each field
+        foreach( $this->data as $id => $field ) {
+            $field->save( $object, $values );
         }
     }
 
@@ -149,6 +136,8 @@ abstract class Cuztom_Meta
                     $cuztom->data[$this->id][$field->id] = $field;
                 }
             }
+
+            $this->fields = $cuztom->data[$this->id];
         }
 
         return $cuztom->data[$this->id];

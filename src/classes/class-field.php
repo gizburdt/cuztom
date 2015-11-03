@@ -20,7 +20,6 @@ class Cuztom_Field
     var $object                 = null;
     var $value                  = null;
     var $meta_type              = null;
-    var $in_bundle              = false;
 
     var $data_attributes        = array();
     var $css_classes            = array();
@@ -49,7 +48,7 @@ class Cuztom_Field
 
         // Set all properties
         foreach ( $properties as $property ) {
-            $this->$property = isset( $args[ $property ] ) ? $args[ $property ] : $this->$property;
+            $this->$property = isset($args[$property]) ? $args[$property] : $this->$property;
         }
 
         // Repeatable?
@@ -73,7 +72,7 @@ class Cuztom_Field
                 echo $this->required ? ' <span class="cuztom-required">*</span>' : '';
                 echo '<div class="cuztom-field-description">' . $this->description . '</div>';
             echo '</th>';
-            echo '<td class="cuztom-field" id="' . $this->id . '" data-id="' . $this->id . '">';
+            echo '<td class="cuztom-field js-cztm-field ' . ($this->is_ajax() ? 'cuztom-field-ajax' : '') . '" id="' . $this->id . '" data-id="' . $this->id . '">';
                 echo $this->output( $this->value );
             echo '</td>';
         echo '</tr>';
@@ -97,7 +96,7 @@ class Cuztom_Field
     }
 
     /**
-     * [_output description]
+     * Output field
      * @param  mixed $value
      * @return string
      * @since  2.4
@@ -139,14 +138,6 @@ class Cuztom_Field
     }
 
     /**
-     *
-     *
-     * @author  Gijs Jorissen
-     * @since   3.0
-     *
-     */
-
-    /**
      * Outputs repeatable item
      * @param  mixed   $value  Default value
      * @param  integer $values Total count of fields
@@ -169,10 +160,10 @@ class Cuztom_Field
         $output = '<div class="cuztom-control">';
             $output .= '<a class="button-secondary button button-small cuztom-button js-cztm-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . __( 'Add item', 'cuztom' ) . '</a>';
             if( $this->limit ) {
-                $output .= '<div class="cuztom-counter">';
-                    $output .= '<span class="current">' . count( $value ) . '</span>';
+                $output .= '<div class="cuztom-counter js-cztm-counter">';
+                    $output .= '<span class="current js-current">' . count( $value ) . '</span>';
                     $output .= '<span class="divider"> / </span>';
-                    $output .= '<span class="max">' . $this->limit . '</span>';
+                    $output .= '<span class="max js-max">' . $this->limit . '</span>';
                 $output .= '</div>';
             }
         $output .= '</div>';
@@ -198,7 +189,7 @@ class Cuztom_Field
      */
     function _output_ajax_button()
     {
-        return '<a class="cuztom-ajax-save js-cztm-ajax-save button button-secondary button-small" href="#" data-button-for="' . $this->id . '" data-object="' . $this->object . '" data-meta-type="' . $this->meta_type . '">' . __( 'Save', 'cuztom' ) . '</a>';
+        return '<a class="cuztom-ajax-save js-cztm-ajax-save button button-secondary button-small" href="#">' . __( 'Save', 'cuztom' ) . '</a>';
     }
 
     /**
@@ -207,9 +198,27 @@ class Cuztom_Field
      * @return mixed
      * @since  2.8
      */
-    function save_value( $value )
+    function parse_value( $value )
     {
         return $value;
+    }
+
+    /**
+     * Get value
+     * @param  string|array $values
+     * @return mixed
+     */
+    function get_value( $values = null )
+    {
+        if( is_null($values) ) {
+            $value = $this->value;
+        } elseif( is_array($values) && isset($values[$this->id]) ) {
+            $value = $values[$this->id];
+        } else {
+            $value = $values;
+        }
+
+        return $this->parse_value($value);
     }
 
     /**
@@ -219,13 +228,12 @@ class Cuztom_Field
      * @return boolean
      * @since  1.6.2
      */
-    function save( $object, $value )
+    function save( $object, $values )
     {
-        // Maybe parse it through filters
-        $value = $this->save_value( $value );
+        $value = $this->get_value($values);
 
         // Don't save when empty
-        if( empty($value) ) {
+        if( Cuztom::is_empty($value) ) {
             return;
         }
 
@@ -352,22 +360,12 @@ class Cuztom_Field
     {
         $meta = get_post_meta( $post_id, $this->id, true );
 
-        if( $this->is_repeatable() ) {
+        if( !empty($meta) && $this->is_repeatable() ) {
             echo implode( $meta, ', ' );
         } else {
             echo $meta;
         }
     }
-
-    /**
-     *
-     *
-     * @return  string
-     *
-     * @author  Gijs Jorissen
-     * @since   3.0
-     *
-     */
 
     /**
      * Check what kind of meta we're dealing with
@@ -418,16 +416,6 @@ class Cuztom_Field
     function is_bundle()
     {
         return ($this instanceof Cuztom_Bundle);
-    }
-
-    /**
-     * Check if the field is in a bundle
-     * @return boolean
-     * @since  3.0
-     */
-    function in_bundle()
-    {
-        return $this->in_bundle;
     }
 
     /**
