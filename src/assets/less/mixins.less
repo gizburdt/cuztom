@@ -1,11 +1,23 @@
+// Clearfix
+.clearfix() {
+    &:before,
+    &:after {
+        content: " "; // 1
+        display: table; // 2
+    }
+    &:after {
+        clear: both;
+    }
+}
+
 // Border radius
-.border-radius(@radius: @border-radius-base) {
-	border-radius: @radius;
-	-webkit-border-radius: @radius;
+.border-radius(@radius: 0) {
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
 }
 
 // Box shadow
-.box-shadow(@shadow) {
-	-webkit-box-shadow: @shadow;
-	box-shadow: @shadow;
+.box-shadow(@shadow: none) {
+    -webkit-box-shadow: @shadow;
+    box-shadow: @shadow;
 }

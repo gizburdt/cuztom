@@ -1,0 +1,49 @@
+.cuztom-tabs{
+
+    .ui-widget{
+        .box-shadow(0 1px 0 #fff);
+        padding: 0;
+        border: none;
+        background: none;
+        font-family: sans-serif;
+    }
+
+    .ui-tabs-nav{
+        padding: 0;
+        margin-bottom: -1px;
+        background: none;
+        border: 0;
+        font-size: 12px;
+    }
+
+    .ui-tabs-nav li{
+        margin: 0;
+        padding: 0;
+        padding-top: 1px;
+        background: none;
+        border: none;
+
+        &.ui-state-active{
+            padding-top: 0;
+            background: @tabs-bg;
+            border: 1px solid @tabs-border-color;
+            border-bottom: none;
+        }
+    }
+
+    .ui-tabs-nav a{
+        padding: 5px 10px;
+        color: #21759b;
+        outline: none;
+
+        &:hover{ color: @tabs-hover-color; }
+    }
+
+    .ui-tabs-panel{
+        background: @tabs-bg;
+        border: 1px solid @tabs-border-color;
+        .border-radius(0 3px 3px 3px);
+        font-size: 12px;
+        padding: 0;
+    }
+}
