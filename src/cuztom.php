@@ -117,6 +117,7 @@ class Cuztom
         // Functions
         include( self::$dir . '/functions/post-type.php' );
         include( self::$dir . '/functions/taxonomy.php' );
+        include( self::$dir . '/functions/user.php' );
     }
 
     /**
@@ -380,6 +381,26 @@ class Cuztom
 
         // Return if noting found
         return apply_filters( 'cuztom_pluralize', $string, null );
+    }
+
+    /**
+     * Check if variable is empty
+     * @param  string|array $input
+     * @param  boolean      $result
+     * @return boolean
+     * @since  3.0
+     */
+    static function is_empty($input, $result = true)
+    {
+       if(is_array($input) && count($input)) {
+          foreach ($input as $value) {
+             $result = $result && self::is_empty($value);
+          }
+       } else {
+          $result = empty($input);
+       }
+
+       return $result;
     }
 
     /**
