@@ -39,8 +39,8 @@ abstract class Cuztom_Meta
             $this->$property = isset( $data[$property] ) ? $data[$property] : $this->$property;
         }
 
-        $this->id       = $id;
-        $this->object   = $this->get_object_id();
+        $this->id     = $id;
+        $this->object = $this->get_object_id();
     }
 
     /**
