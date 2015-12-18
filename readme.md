@@ -2,8 +2,8 @@
 
 This helper can be used to quickly register Custom Post Types, Taxonomies, Meta Boxes, Menu Pages and Sidebars within your Wordpress projects. Please comment, review, watch, fork and report bugs.
 
-**Version:** 2.9.17
-**Requires:** 3.5 - 4.3
+**Version:** 2.9.17 <br/>
+**Supports:** 3.5 - 4.3
 
 ## Basic usage
 
