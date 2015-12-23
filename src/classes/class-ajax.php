@@ -6,6 +6,7 @@ class Cuztom_Ajax
 {
     /**
      * Add hooks
+     *
      * @since 3.0
      */
     function add_hooks()
@@ -20,6 +21,7 @@ class Cuztom_Ajax
 
     /**
      * Add (return) repeatable item
+     *
      * @since 3.0
      */
     function add_repeatable_item()
@@ -50,6 +52,7 @@ class Cuztom_Ajax
 
     /**
      * Add (return) bundle item
+     *
      * @since 3.0
      */
     function add_bundle_item()
@@ -80,6 +83,7 @@ class Cuztom_Ajax
 
     /**
      * Saves a field
+     *
      * @since 3.0
      */
     function save_field()
@@ -108,6 +112,7 @@ class Cuztom_Ajax
 
     /**
      * Get field object from cuztom global
+     *
      * @since 3.0
      */
     static function get_field($field, $box)
