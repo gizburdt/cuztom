@@ -106,6 +106,7 @@ class Cuztom
         include( self::$dir . '/functions/post-type.php' );
         include( self::$dir . '/functions/taxonomy.php' );
         include( self::$dir . '/functions/user.php' );
+        include( self::$dir . '/functions/sidebar.php' );
     }
 
     /**

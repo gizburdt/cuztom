@@ -3,8 +3,9 @@
 if( ! defined( 'ABSPATH' ) ) exit;
 
 if( ! function_exists( 'register_cuztom_user_meta' ) ) {
-   /**
+    /**
     * Register term meta fields
+    *
     * @param  string        $id
     * @param  array         $data
     * @param  string        $taxonomy

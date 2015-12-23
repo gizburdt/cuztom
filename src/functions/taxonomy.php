@@ -5,6 +5,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 if( ! function_exists( 'register_cuztom_taxonomy' ) ) {
     /**
      * Registers a Taxonomy for a Post Type
+     *
      * @param  string|array $name
      * @param  string|array $post_type
      * @param  array        $args
@@ -18,8 +19,9 @@ if( ! function_exists( 'register_cuztom_taxonomy' ) ) {
 }
 
 if( ! function_exists( 'register_cuztom_term_meta' ) ) {
-   /**
+    /**
     * Register term meta fields
+    *
     * @param  string        $id
     * @param  array         $data
     * @param  string        $taxonomy
