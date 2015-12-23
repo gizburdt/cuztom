@@ -39,6 +39,7 @@ class Cuztom_Field
 
     /**
      * Constructs a Cuztom_Field
+     *
      * @param array $args
      * @since 0.3.3
      */
@@ -62,6 +63,7 @@ class Cuztom_Field
 
     /**
      * Outputs a field row
+     *
      * @since 0.2
      */
     function output_row( $value = null )
@@ -80,6 +82,7 @@ class Cuztom_Field
 
     /**
      * Outputs a field based on its type
+     *
      * @since 0.2
      */
     function output( $value = null )
@@ -97,6 +100,7 @@ class Cuztom_Field
 
     /**
      * Output field
+     *
      * @param  mixed $value
      * @return string
      * @since  2.4
@@ -108,6 +112,7 @@ class Cuztom_Field
 
     /**
      * Outputs the field, ready for repeatable functionality
+     *
      * @param  mixed $value
      * @return string
      * @since  2.0
@@ -139,6 +144,7 @@ class Cuztom_Field
 
     /**
      * Outputs repeatable item
+     *
      * @param  mixed   $value  Default value
      * @param  integer $values Total count of fields
      * @return string
@@ -150,6 +156,7 @@ class Cuztom_Field
 
     /**
      * Outputs repeatable control
+     *
      * @param  mixed $value
      * @return string
      * @since  3.0
@@ -173,6 +180,7 @@ class Cuztom_Field
 
     /**
      * Outputs the field, ready for ajax save
+     *
      * @param  mixed $value
      * @return string
      * @since  2.0
@@ -184,6 +192,7 @@ class Cuztom_Field
 
     /**
      * Outputs ajax save button
+     *
      * @return string
      * @since  3.0
      */
@@ -194,6 +203,7 @@ class Cuztom_Field
 
     /**
      * Parse value
+     *
      * @param  mixed $value
      * @return mixed
      * @since  2.8
@@ -205,6 +215,7 @@ class Cuztom_Field
 
     /**
      * Get value
+     *
      * @param  string|array $values
      * @return mixed
      */
@@ -223,6 +234,7 @@ class Cuztom_Field
 
     /**
      * Save meta
+     *
      * @param  integer $object
      * @param  mixed   $value
      * @return boolean
@@ -259,6 +271,7 @@ class Cuztom_Field
 
     /**
      * Get the complete id
+     *
      * @return string
      * @since  3.0
      */
@@ -269,6 +282,7 @@ class Cuztom_Field
 
     /**
      * Get the complete name
+     *
      * @return string
      * @since  3.0
      */
@@ -279,6 +293,7 @@ class Cuztom_Field
 
     /**
      * Outputs the fields name attribute
+     *
      * @param  string $overwrite
      * @return string
      * @since  2.4
@@ -290,6 +305,7 @@ class Cuztom_Field
 
     /**
      * Outputs the fields id attribute
+     *
      * @param  string $overwrite
      * @return string
      * @since  2.4
@@ -301,6 +317,7 @@ class Cuztom_Field
 
     /**
      * Outputs the fields css classes
+     *
      * @param  array  $extra
      * @return string
      * @since  2.4
@@ -312,6 +329,7 @@ class Cuztom_Field
 
     /**
      * Outputs the fields data attributes
+     *
      * @param  array  $extra
      * @return string
      * @since  2.4
@@ -332,6 +350,7 @@ class Cuztom_Field
 
     /**
      * Outputs the for attribute
+     *
      * @param  string $for
      * @return string
      * @since  2.4
@@ -343,6 +362,7 @@ class Cuztom_Field
 
     /**
      * Outputs the fields explanation
+     *
      * @return string
      * @since  2.4
      */
@@ -353,6 +373,7 @@ class Cuztom_Field
 
     /**
      * Outputs the fields column content
+     *
      * @param integer $post_id
      * @since 3.0
      */
@@ -369,6 +390,7 @@ class Cuztom_Field
 
     /**
      * Check what kind of meta we're dealing with
+     *
      * @param  string  $meta_type
      * @return boolean
      * @since  3.0
@@ -380,6 +402,7 @@ class Cuztom_Field
 
     /**
      * check if the field is in ajax mode
+     *
      * @return boolean
      * @since  3.0
      */
@@ -390,6 +413,7 @@ class Cuztom_Field
 
     /**
      * Check if the field is in repeatable mode
+     *
      * @return boolean
      * @since  3.0
      */
@@ -400,6 +424,7 @@ class Cuztom_Field
 
     /**
      * Check if the field is tabs or accordion
+     *
      * @return boolean
      * @since  3.0
      */
@@ -410,6 +435,7 @@ class Cuztom_Field
 
     /**
      * Check if the field is tabs or accordion
+     *
      * @return boolean
      * @since  3.0
      */
@@ -420,6 +446,7 @@ class Cuztom_Field
 
     /**
      * Creates and returns a field object
+     *
      * @param  array $args
      * @return object|boolean
      * @since  3.0
