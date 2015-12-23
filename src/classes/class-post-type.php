@@ -176,7 +176,7 @@ class Cuztom_Post_Type
     /**
      * Check if post type supports a certain feature
      *
-     * @param  string|array $feature [description]
+     * @param  string|array $feature
      * @return boolean
      * @since  1.5.3
      */
