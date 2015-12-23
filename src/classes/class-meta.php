@@ -14,18 +14,21 @@ abstract class Cuztom_Meta
 
     /**
      * Get object id
+     *
      * @return int
      */
     abstract function get_object_id();
 
     /**
      * Get meta values
+     *
      * @return array
      */
     abstract function get_meta_values();
 
     /**
      * Construct for all meta types, creates title (and description)
+     *
      * @param int   $id   Object id
      * @param array $data Array of fields
      * @since 1.6.4
@@ -36,7 +39,7 @@ abstract class Cuztom_Meta
 
         // Set all properties
         foreach($properties as $property) {
-            $this->$property = isset( $data[$property] ) ? $data[$property] : $this->$property;
+            $this->$property = isset($data[$property]) ? $data[$property] : $this->$property;
         }
 
         $this->id     = $id;
@@ -45,6 +48,7 @@ abstract class Cuztom_Meta
 
     /**
      * Main callback for meta
+     *
      * @since 0.2
      */
     function output()
@@ -69,6 +73,7 @@ abstract class Cuztom_Meta
 
     /**
      * Normal save method to save all the fields in a metabox
+     *
      * @param int   $object Object id
      * @param array $values Array of values
      * @since 2.6
@@ -88,6 +93,7 @@ abstract class Cuztom_Meta
 
     /**
      * This method builds the complete array with the right key => value pairs
+     *
      * @param  array $data
      * @return array
      * @since 1.1
@@ -145,6 +151,7 @@ abstract class Cuztom_Meta
 
     /**
      * Check what kind of meta we're dealing with
+     *
      * @param  string  $meta_type
      * @return boolean
      * @since  2.3
@@ -156,6 +163,7 @@ abstract class Cuztom_Meta
 
     /**
      * Adds multipart support to form
+     *
      * @since 0.2
      */
     static function edit_form_tag()
