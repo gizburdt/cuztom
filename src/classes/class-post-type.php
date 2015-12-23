@@ -2,13 +2,6 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * Post Type class used to register post types
- *
- * @author  Gijs Jorissen
- * @since   0.1
- *
- */
 class Cuztom_Post_Type
 {
     var $name;
@@ -21,6 +14,7 @@ class Cuztom_Post_Type
 
     /**
      * Construct a new Cuztom Post Type
+     *
      * @param string|array $name
      * @param array        $args
      * @param array        $labels
@@ -51,6 +45,7 @@ class Cuztom_Post_Type
 
     /**
      * Register Post Type
+     *
      * @since 0.1
      */
     function register_post_type()
@@ -97,6 +92,7 @@ class Cuztom_Post_Type
 
     /**
      * Add a taxonomy to the Post Type
+     *
      * @param string|array $name
      * @param array        $args
      * @param array        $labels
@@ -111,6 +107,7 @@ class Cuztom_Post_Type
 
     /**
      * Add post meta box to the Post Type
+     *
      * @param integer $id
      * @param array   $args
      * @since 0.1
@@ -124,6 +121,7 @@ class Cuztom_Post_Type
 
     /**
      * Add action to register support of certain features for a post type.
+     *
      * @param  string|array $feature
      * @return object
      * @since  1.4.3
@@ -139,6 +137,7 @@ class Cuztom_Post_Type
 
     /**
      * Register support of certain features for a post type.
+     *
      * @since 1.4.3
      */
     function _add_post_type_support()
@@ -148,6 +147,7 @@ class Cuztom_Post_Type
 
     /**
      * Add action to remove support of certain features for a post type.
+     *
      * @param  string|array $feature
      * @return object
      * @since  1.4.3
@@ -163,6 +163,7 @@ class Cuztom_Post_Type
 
     /**
      * Remove support of certain features for a post type.
+     *
      * @since 1.4.3
      */
     function _remove_post_type_support()
@@ -174,6 +175,7 @@ class Cuztom_Post_Type
 
     /**
      * Check if post type supports a certain feature
+     *
      * @param  string|array $feature [description]
      * @return boolean
      * @since  1.5.3

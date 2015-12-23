@@ -6,15 +6,13 @@ class Cuztom_Accordion extends Cuztom_Tabs
 {
     /**
      * Ouput accordion row
-     *
-     * @author  Gijs Jorissen
-     * @since   3.0
-     *
+     * @param mixed $value
+     * @since 3.0
      */
     function output_row( $value = null )
     {
         echo '<tr class="cuztom-accordion">';
-            echo '<td class="cuztom-field" id="' . $this->get_id() . '" colspan="2">';
+            echo '<td class="cuztom-field" colspan="2" ' . $this->output_id() . '>';
                 $this->output();
             echo '</td>';
         echo '</tr>';
@@ -22,20 +20,17 @@ class Cuztom_Accordion extends Cuztom_Tabs
 
     /**
      * Output accordion
-     *
-     * @author  Gijs Jorissen
-     * @since   3.0
-     *
+     * @param array  $args
+     * @since 3.0
      */
     function output( $args = array() )
     {
-        $tabs           = $this->tabs;
-        $args['type']   = 'accordion';
+        $tabs         = $this->tabs;
+        $args['type'] = 'accordion';
 
         echo '<div class="js-cztm-accordion">';
-            foreach( $tabs as $title => $tab )
-            {
-                $tab->output( $args );
+            foreach( $tabs as $title => $tab ) {
+                $tab->output($args);
             }
         echo '</div>';
     }

@@ -122,7 +122,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
         {
             $taxonomy = $screen->taxonomy;
 
-            $meta = get_term_meta( $term_id, $column );
+            $meta = get_term_meta( $term_id, $column, true );
 
             foreach( $this->fields as $id => $field )
             {
@@ -134,10 +134,11 @@ class Cuztom_Term_Meta extends Cuztom_Meta
                     }
                     else
                     {
-                        if( $field instanceof Cuztom_Field_Image )
+                        if( $field instanceof Cuztom_Field_Image ) {
                             echo wp_get_attachment_image( $meta, array( 100, 100 ) );
-                        else
+                        } else {
                             echo $meta;
+                        }
                     }
 
                     break;

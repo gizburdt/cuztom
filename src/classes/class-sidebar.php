@@ -2,19 +2,13 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * Registers sidebars
- *
- * @author  Gijs Jorissen
- * @since   0.5
- *
- */
 class Cuztom_Sidebar
 {
     var $sidebar;
 
     /**
      * Constructor
+     *
      * @param array $args
      * @since 0.5
      */
@@ -36,6 +30,7 @@ class Cuztom_Sidebar
 
     /**
      * Register the sidebar
+     *
      * @since 0.1
      */
     function register_sidebar()

@@ -4,13 +4,6 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 if( ! class_exists( 'Cuztom' ) ) :
 
-/**
- * Cuztom handles init of Cuztom
- *
- * @author  Gijs Jorissen
- * @since   2.3
- *
- */
 class Cuztom
 {
     private static $version;
@@ -34,9 +27,8 @@ class Cuztom
     /**
      * Public function to set the instance
      *
-     * @author  Gijs Jorissen
-     * @since   2.3
-     *
+     * @return object
+     * @since  2.3
      */
     public static function run()
     {
@@ -54,9 +46,7 @@ class Cuztom
     /**
      * Setup all the constants
      *
-     * @author  Gijs Jorissen
-     * @since   2.3
-     *
+     * @since 2.3
      */
     private function setup()
     {
@@ -68,9 +58,7 @@ class Cuztom
     /**
      * Include the necessary files
      *
-     * @author  Gijs Jorissen
-     * @since   2.3
-     *
+     * @since 2.3
      */
     private function includes()
     {
@@ -123,9 +111,7 @@ class Cuztom
     /**
      * Sets globals
      *
-     * @author  Gijs Jorissen
-     * @since   3.0
-     *
+     * @since 3.0
      */
     private function execute()
     {
@@ -144,9 +130,7 @@ class Cuztom
     /**
      * Add hooks
      *
-     * @author  Gijs Jorissen
-     * @since   2.3
-     *
+     * @since 2.3
      */
     private function add_hooks()
     {
@@ -164,9 +148,7 @@ class Cuztom
     /**
      * Registers styles
      *
-     * @author  Gijs Jorissen
-     * @since   0.3
-     *
+     * @since 0.3
      */
     function register_styles()
     {
@@ -177,9 +159,7 @@ class Cuztom
     /**
      * Enqueues styles
      *
-     * @author  Gijs Jorissen
-     * @since   0.3
-     *
+     * @since 0.3
      */
     function enqueue_styles()
     {
@@ -191,9 +171,7 @@ class Cuztom
     /**
      * Registers scripts
      *
-     * @author  Gijs Jorissen
-     * @since   0.3
-     *
+     * @since 0.3
      */
     function register_scripts()
     {
@@ -212,9 +190,7 @@ class Cuztom
     /**
      * Enqueues scripts
      *
-     * @author  Gijs Jorissen
-     * @since   0.3
-     *
+     * @since 0.3
      */
     function enqueue_scripts()
     {
@@ -228,9 +204,7 @@ class Cuztom
     /**
      * Localizes scripts
      *
-     * @author  Gijs Jorissen
-     * @since   1.1.1
-     *
+     * @since 1.1.1
      */
     function localize_scripts()
     {
@@ -246,12 +220,10 @@ class Cuztom
     /**
      * Recursive method to determine the path to the Cuztom folder
      *
-     * @param   string          $path
-     * @return  string
-     *
-     * @author  Gijs Jorissen
-     * @since   0.4.1
-     *
+     * @param  string $path
+     * @param  array  $url
+     * @return string
+     * @since  0.4.1
      */
     function get_cuztom_url( $path = __FILE__, $url = array() )
     {
@@ -281,12 +253,9 @@ class Cuztom
     /**
      * Beautifies a string. Capitalize words and remove underscores
      *
-     * @param   string          $string
-     * @return  string
-     *
-     * @author  Gijs Jorissen
-     * @since   0.1
-     *
+     * @param  string $string
+     * @return string
+     * @since  0.1
      */
     static function beautify( $string )
     {
@@ -296,12 +265,9 @@ class Cuztom
     /**
      * Uglifies a string. Remove strange characters and lower strings
      *
-     * @param   string          $string
-     * @return  string
-     *
-     * @author  Gijs Jorissen
-     * @since   0.1
-     *
+     * @param  string $string
+     * @return string
+     * @since  0.1
      */
     static function uglify( $string )
     {
@@ -311,12 +277,9 @@ class Cuztom
     /**
      * Makes a word plural
      *
-     * @param   string          $string
-     * @return  string
-     *
-     * @author  Gijs Jorissen
-     * @since   0.1
-     *
+     * @param  string $string
+     * @return string
+     * @since  0.1
      */
     static function pluralize( $string )
     {
@@ -385,6 +348,7 @@ class Cuztom
 
     /**
      * Check if variable is empty
+     *
      * @param  string|array $input
      * @param  boolean      $result
      * @return boolean
@@ -392,26 +356,23 @@ class Cuztom
      */
     static function is_empty($input, $result = true)
     {
-       if(is_array($input) && count($input)) {
-          foreach ($input as $value) {
-             $result = $result && self::is_empty($value);
-          }
-       } else {
-          $result = empty($input);
-       }
+        if(is_array($input) && count($input)) {
+            foreach ($input as $value) {
+                $result = $result && self::is_empty($value);
+            }
+        } else {
+            $result = empty($input);
+        }
 
-       return $result;
+        return $result;
     }
 
     /**
      * Check if the term is reserved by Wordpress
      *
-     * @param   string          $term
-     * @return  boolean
-     *
-     * @author  Gijs Jorissen
-     * @since   1.6
-     *
+     * @param  string  $term
+     * @return boolean
+     * @since  1.6
      */
     static function is_reserved_term( $term )
     {
