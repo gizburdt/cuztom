@@ -10,6 +10,7 @@ class Cuztom_Notice
 
     /**
      * Constructor
+     *
      * @param string  $notice
      * @param string  $type
      * @param boolean $dismissible
@@ -26,6 +27,7 @@ class Cuztom_Notice
 
     /**
      * Adds the admin notice
+     *
      * @since 2.3
      */
     function add_admin_notice()
@@ -37,6 +39,7 @@ class Cuztom_Notice
 
     /**
      * Returns the complete css class for the notice
+     *
      * @return string
      * @since  2.3
      */
