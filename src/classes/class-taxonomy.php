@@ -2,13 +2,6 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * Creates custom taxonomies
- *
- * @author  Gijs Jorissen
- * @since   0.2
- *
- */
 class Cuztom_Taxonomy
 {
     var $name;
@@ -21,6 +14,7 @@ class Cuztom_Taxonomy
     /**
      * Constructs the class with important vars and method calls
      * If the taxonomy exists, it will be attached to the post type
+     *
      * @param string|array $name
      * @param string       $post_type
      * @param array        $args
@@ -53,9 +47,9 @@ class Cuztom_Taxonomy
 
         // Sortable columns
         if( @$args['admin_column_sortable'] ) {
-            foreach($this->post_type as $post_type) :
+            foreach($this->post_type as $post_type) {
                 add_action( "manage_edit-{$post_type}_sortable_columns", array( &$this, 'add_sortable_column' ) );
-            endforeach;
+            }
         }
 
         // Column filter
@@ -67,6 +61,7 @@ class Cuztom_Taxonomy
 
     /**
      * Registers the custom taxonomy with the given arguments
+     *
      * @since 0.2
      */
     function register_taxonomy()
@@ -111,6 +106,7 @@ class Cuztom_Taxonomy
 
     /**
      * Used to attach the existing taxonomy to the post type
+     *
      * @since 0.2
      */
     function register_taxonomy_for_object_type()
@@ -120,6 +116,7 @@ class Cuztom_Taxonomy
 
     /**
      * Add term meta to this taxonomy
+     *
      * @param integer $id
      * @param array   $data
      * @param array   $locations
@@ -133,36 +130,8 @@ class Cuztom_Taxonomy
     }
 
     /**
-     * Used to add a column head to the Post Type's List Table
-     * @param array $columns
-     * @since 1.6
-     */
-    function add_column( $columns )
-    {
-        unset( $columns['date'] );
-
-        $columns[$this->name] = $this->title;
-        $columns['date'] = __( 'Date', 'cuztom' );
-
-        return $columns;
-    }
-
-    /**
-     * Used to add the column content to the column head
-     * @param string  $column
-     * @param integer $post_id
-     * @since 1.6
-     */
-    function add_column_content( $column, $post_id )
-    {
-        if ( $column === $this->name ) {
-            $terms = wp_get_post_terms( $post_id, $this->name, array( 'fields' => 'names' ) );
-            echo implode( $terms, ', ' );
-        }
-    }
-
-    /**
      * Used to make all columns sortable
+     *
      * @param array $columns
      * @since 1.6
      */
@@ -175,6 +144,7 @@ class Cuztom_Taxonomy
 
     /**
      * Adds a filter to the post table filters
+     *
      * @since 1.6
      */
     function admin_column_filter()
@@ -197,11 +167,12 @@ class Cuztom_Taxonomy
 
     /**
      * Applies the selected filter to the query
+     *
      * @param  object $query
      * @return array
      * @since  1.6
      */
-    function _post_filter_query( $query )
+    function _post_filter_query($query)
     {
         global $pagenow;
         $vars = &$query->query_vars;
