@@ -128,21 +128,9 @@ class Cuztom_Post_Type
      */
     function add_post_type_support( $feature )
     {
-        $this->add_features = (array) $feature;
-
-        add_action( 'init', array( &$this, '_add_post_type_support' ) );
+        add_post_type_support( $this->name, $feature );
 
         return $this;
-    }
-
-    /**
-     * Register support of certain features for a post type.
-     *
-     * @since 1.4.3
-     */
-    function _add_post_type_support()
-    {
-        add_post_type_support( $this->name, $this->add_features );
     }
 
     /**
@@ -152,25 +140,13 @@ class Cuztom_Post_Type
      * @return object
      * @since  1.4.3
      */
-    function remove_post_type_support( $feature )
+    function remove_post_type_support( $features )
     {
-        $this->remove_features  = (array) $feature;
-
-        add_action( 'init', array( &$this, '_remove_post_type_support' ) );
-
-        return $this;
-    }
-
-    /**
-     * Remove support of certain features for a post type.
-     *
-     * @since 1.4.3
-     */
-    function _remove_post_type_support()
-    {
-        foreach( $this->remove_features as $feature ) {
+        foreach( (array) $features as $feature ) {
             remove_post_type_support( $this->name, $feature );
         }
+
+        return $this;
     }
 
     /**
