@@ -7,10 +7,6 @@ This helper can be used to quickly register Custom Post Types, Taxonomies, Meta 
 
 ## Basic usage
 
-Include the main file.
-
-	include( 'cuztom/cuztom.php' );
-
 ### Add Custom Post Types
 
 	$book = register_cuztom_post_type( 'Book' );
@@ -43,30 +39,6 @@ Add Meta Boxes.
 			)
 		)
 	);
-
-Meta Boxes can be added with their own class too. The second parameter is the Post Type name.
-
-	$box = add_cuztom_meta_box(
-		'meta_box_id',
-		'Book Info',
-		'book',
-		array(
-			'name' 			=> 'author',
-			'label' 		=> 'Author',
-			'description'	=> 'Just a little description',
-			'type'			=> 'text'
-		)
-	)
-
-### Add Sidebars
-
-To register a sidebar, just call this.
-
-	$sidebar = new Cuztom_Sidebar( array(
-		'name'				=> 'Sidebar Twee',
-		'id'				=> 'sidebar_twee',
-		'description'		=> 'Build with an array',
-	) );
 
 ## Documentation
 See the [documentation](https://cuztom.readme.io/) for advanced guides.
