@@ -69,4 +69,4 @@ To register a sidebar, just call this.
 	) );
 
 ## Documentation
-See the [Documentation](https://cuztom.readme.io/) for advanced guides.
+See the [documentation](https://cuztom.readme.io/) for advanced guides.
