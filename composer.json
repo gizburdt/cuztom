@@ -1,14 +1,19 @@
 {
     "name": "gizburdt/cuztom",
     "description": "Cuztom. Easy meta data.",
+    "keywords": ["wordpress", "meta"],
     "authors": [
         {
             "name": "Gijs Jorissen",
             "email": "lol@gizburdt.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php": ">=5.3.0",
+    },
     "autoload": {
-        "files": ["src/cuztom.php"]
+        "psr-4": {
+            "Gizburdt\\Cuztom\\": "src"
+        }
     }
 }

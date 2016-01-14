@@ -2,8 +2,6 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-if( ! class_exists( 'Cuztom' ) ) :
-
 class Cuztom
 {
     private static $version;
@@ -385,7 +383,5 @@ class Cuztom
         return new WP_Error( 'cuztom_reserved_term_used', __( 'Use of a reserved term.', 'cuztom' ) );
     }
 }
-
-endif; // End class_exists check
 
 Cuztom::run();
