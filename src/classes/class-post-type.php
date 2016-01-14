@@ -1,16 +1,22 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit;
+if( ! defined('ABSPATH') ) exit;
 
-class Cuztom_Post_Type
+class Cuztom_Post_Type extends Cuztom_Entity
 {
-    var $name;
-    var $title;
-    var $plural;
+    /**
+     * The arguments for the post type
+     *
+     * @var array
+     */
     var $args;
+
+    /**
+     * The post type's labels
+     *
+     * @var array
+     */
     var $labels;
-    var $add_features;
-    var $remove_features;
 
     /**
      * Construct a new Cuztom Post Type
@@ -20,25 +26,17 @@ class Cuztom_Post_Type
      * @param array        $labels
      * @since 0.1
      */
-    function __construct( $name, $args = array(), $labels = array() )
+    function __construct($name, $args = array(), $labels = array())
     {
-        if( is_array( $name ) ) {
-            $this->name     = Cuztom::uglify( $name[0] );
-            $this->title    = Cuztom::beautify( $name[0] );
-            $this->plural   = Cuztom::beautify( $name[1] );
-        } else {
-            $this->name     = Cuztom::uglify( $name );
-            $this->title    = Cuztom::beautify( $name );
-            $this->plural   = Cuztom::pluralize( Cuztom::beautify( $name ) );
-        }
+        // Entity construct
+        parent::__construct($name);
 
         // Set properties
-        $this->args         = $args;
-        $this->labels       = $labels;
-        $this->add_features = $this->remove_features = array();
+        $this->args   = $args;
+        $this->labels = $labels;
 
         // Register
-        if( ! post_type_exists( $this->name ) ) {
+        if( ! post_type_exists($this->name) ) {
             add_action( 'init', array( &$this, 'register_post_type' ) );
         }
     }
@@ -50,8 +48,8 @@ class Cuztom_Post_Type
      */
     function register_post_type()
     {
-        if( $reserved = Cuztom::is_reserved_term( $this->name ) ) {
-            new Cuztom_Notice( $reserved->get_error_message(), 'error' );
+        if( $reserved = Cuztom::is_reserved_term($this->name) ) {
+            new Cuztom_Notice($reserved->get_error_message(), 'error');
         } else {
             $labels = array_merge(
                 array(
@@ -114,7 +112,7 @@ class Cuztom_Post_Type
      */
     function add_meta_box( $id, $args )
     {
-        $box = new Cuztom_Meta_Box( $id, $args, $this->name );
+        $box = new Cuztom_Meta_Box( $id, $this->name, $args );
 
         return $this;
     }

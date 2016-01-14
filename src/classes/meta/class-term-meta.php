@@ -16,7 +16,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
      * @param array        $locations
      * @since 2.5
      */
-    function __construct( $id, $data = array(), $taxonomy, $locations = array( 'add_form', 'edit_form' ) )
+    function __construct( $id, $taxonomy, $data = array(), $locations = array( 'add_form', 'edit_form' ) )
     {
         // Build all properties
         parent::__construct( $id, $data );

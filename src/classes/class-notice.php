@@ -1,11 +1,25 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit;
+if( ! defined('ABSPATH') ) exit;
 
 class Cuztom_Notice
 {
+    /**
+     * Notice itself
+     * @var string
+     */
     var $notice;
+
+    /**
+     * Notice type
+     * @var string
+     */
     var $type;
+
+    /**
+     * Dismissible?
+     * @var boolean
+     */
     var $dismissible;
 
     /**
@@ -16,13 +30,13 @@ class Cuztom_Notice
      * @param boolean $dismissible
      * @since 2.3
      */
-    function __construct( $notice, $type = 'updated', $dismissible )
+    function __construct($notice, $type = 'updated', $dismissible)
     {
         $this->notice       = $notice;
         $this->type         = $type;
         $this->dismissible  = $dismissible;
 
-        add_action( 'admin_notices', array( &$this, 'add_admin_notice' ) );
+        add_action('admin_notices', array(&$this, 'add_admin_notice'));
     }
 
     /**
@@ -45,12 +59,6 @@ class Cuztom_Notice
      */
     function get_css_class()
     {
-        $class = $this->type;
-
-        if($this->dismissible) {
-            $class .= ' is-dismissible';
-        }
-
-        return $class;
+        return $this->type . ($this->dismissible ? ' is-dismissible' : '');
     }
 }

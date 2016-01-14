@@ -1,8 +1,8 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit;
+if( ! defined('ABSPATH') ) exit;
 
-if( ! function_exists( 'register_cuztom_taxonomy' ) ) {
+if( ! function_exists('register_cuztom_taxonomy') ) {
     /**
      * Registers a Taxonomy for a Post Type
      *
@@ -12,13 +12,13 @@ if( ! function_exists( 'register_cuztom_taxonomy' ) ) {
      * @param  array        $labels
      * @return object
      */
-    function register_cuztom_taxonomy( $name, $post_type, $args = array(), $labels = array() )
+    function register_cuztom_taxonomy($name, $post_type, $args = array(), $labels = array())
     {
-    	return new Cuztom_Taxonomy( $name, $post_type, $args, $labels );
+    	return new Cuztom_Taxonomy($name, $post_type, $args, $labels);
     }
 }
 
-if( ! function_exists( 'register_cuztom_term_meta' ) ) {
+if( ! function_exists('register_cuztom_term_meta') ) {
     /**
     * Register term meta fields
     *
@@ -28,8 +28,8 @@ if( ! function_exists( 'register_cuztom_term_meta' ) ) {
     * @param  array|string  $locations
     * @return object
     */
-    function register_cuztom_term_meta( $id, $data = array(), $taxonomy, $locations = array( 'add_form', 'edit_form' ) )
+    function register_cuztom_term_meta($id, $taxonomy, $data = array(), $locations = array('add_form', 'edit_form'))
     {
-        return new Cuztom_Term_Meta( $id, $data, $taxonomy, $locations );
+        return new Cuztom_Term_Meta($id, $taxonomy, $data = array(), $locations);
     }
 }

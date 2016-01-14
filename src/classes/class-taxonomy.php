@@ -2,13 +2,24 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-class Cuztom_Taxonomy
+class Cuztom_Taxonomy extends Cuztom_Entity
 {
-    var $name;
-    var $title;
-    var $plural;
-    var $labels;
+    /**
+     * Taxonomy's args
+     * @var array
+     */
     var $args;
+
+    /**
+     * Labels
+     * @var array
+     */
+    var $labels;
+
+    /**
+     * Attached post type
+     * @var string|array
+     */
     var $post_type;
 
     /**
@@ -23,15 +34,8 @@ class Cuztom_Taxonomy
      */
     function __construct( $name, $post_type = null, $args = array(), $labels = array() )
     {
-        if( is_array( $name ) ) {
-            $this->name     = Cuztom::uglify( $name[0] );
-            $this->title    = Cuztom::beautify( $name[0] );
-            $this->plural   = Cuztom::beautify( $name[1] );
-        } else {
-            $this->name     = Cuztom::uglify( $name );
-            $this->title    = Cuztom::beautify( $name );
-            $this->plural   = Cuztom::pluralize( Cuztom::beautify( $name ) );
-        }
+        // Entity construct
+        parent::__construct($name);
 
         // Set properties
         $this->post_type    = (array) $post_type;

@@ -16,7 +16,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
      * @param string|array $post_type
      * @since 0.2
      */
-    function __construct( $id, $data = array(), $post_type )
+    function __construct( $id, $post_type, $data = array() )
     {
         // Build all properties
         parent::__construct( $id, $data );

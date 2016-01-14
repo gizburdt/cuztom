@@ -240,7 +240,7 @@ class Cuztom_Field
      * @return boolean
      * @since  1.6.2
      */
-    function save( $object, $values )
+    function save($object, $values)
     {
         $value = $this->get_value($values);
 
@@ -265,7 +265,7 @@ class Cuztom_Field
             break;
         endswitch;
 
-        // Fallback
+        // Default
         return false;
     }
 

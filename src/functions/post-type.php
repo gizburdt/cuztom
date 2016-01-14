@@ -26,8 +26,8 @@ if( ! function_exists( 'register_cuztom_meta_box' ) ) {
      * @param  string|array $post_type
      * @return object
      */
-    function register_cuztom_meta_box( $id, $data = array(), $post_type )
+    function register_cuztom_meta_box( $id, $post_type, $data = array() )
     {
-        return new Cuztom_Meta_Box( $id, $data, $post_type );
+        return new Cuztom_Meta_Box( $id, $post_type, $data );
     }
 }

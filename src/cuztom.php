@@ -63,6 +63,7 @@ class Cuztom
     private function includes()
     {
         // General
+        include( self::$dir . '/classes/class-entity.php' );
         include( self::$dir . '/classes/class-notice.php' );
         include( self::$dir . '/classes/class-ajax.php' );
         include( self::$dir . '/classes/class-post-type.php' );
