@@ -44,31 +44,31 @@ module.exports = function(grunt) {
                     yuicompress: true,
                     optimization: 2
                 },
-                files: { "src/assets/dist/css/cuztom.min.css": "src/assets/less/cuztom.less" }
+                files: { "src/Gizburdt/Cuztom/assets/dist/css/cuztom.min.css": "src/Gizburdt/Cuztom/assets/less/cuztom.less" }
             }
         },
         concat: {
             dev: {
                 src: [
-                    'src/assets/vendor/angular/angular.min.js',
-                    'src/assets/js/cuztom.js',
-                    'src/assets/js/cuztom-open.js',
-                    'src/assets/js/cuztom-ui.js',
-                    'src/assets/js/cuztom-sortable.js',
-                    'src/assets/js/cuztom-image.js',
-                    'src/assets/js/cuztom-ajax.js',
-                    'src/assets/js/cuztom-close.js',
+                    'src/Gizburdt/Cuztom/assets/vendor/angular/angular.min.js',
+                    'src/Gizburdt/Cuztom/assets/js/cuztom.js',
+                    'src/Gizburdt/Cuztom/assets/js/cuztom-open.js',
+                    'src/Gizburdt/Cuztom/assets/js/cuztom-ui.js',
+                    'src/Gizburdt/Cuztom/assets/js/cuztom-sortable.js',
+                    'src/Gizburdt/Cuztom/assets/js/cuztom-image.js',
+                    'src/Gizburdt/Cuztom/assets/js/cuztom-ajax.js',
+                    'src/Gizburdt/Cuztom/assets/js/cuztom-close.js',
                 ],
-                dest: 'src/assets/dist/js/cuztom.min.js',
+                dest: 'src/Gizburdt/Cuztom/assets/dist/js/cuztom.min.js',
             }
         },
         watch: {
             less: {
-                files: ['src/assets/less/**.less'],
+                files: ['src/Gizburdt/Cuztom/assets/less/**.less'],
                 tasks: ['less:dev'],
             },
             scripts: {
-                files: ['src/assets/js/**.js'],
+                files: ['src/Gizburdt/Cuztom/assets/js/**.js'],
                 tasks: ['concat:dev'],
             }
         }

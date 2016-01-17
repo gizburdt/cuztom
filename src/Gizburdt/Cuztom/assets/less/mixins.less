@@ -1,15 +1,3 @@
-// Clearfix
-.clearfix() {
-    &:before,
-    &:after {
-        content: " "; // 1
-        display: table; // 2
-    }
-    &:after {
-        clear: both;
-    }
-}
-
 // Border radius
 .border-radius(@radius: 0) {
     border-radius: @radius;

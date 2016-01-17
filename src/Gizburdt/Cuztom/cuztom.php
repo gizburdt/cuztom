@@ -227,13 +227,16 @@ class Cuztom
      */
     function get_cuztom_url( $path = __FILE__, $url = array() )
     {
-        $path       = dirname( $path );
-        $path       = str_replace( '\\', '/', $path );
-        $expath     = explode( '/', $path );
-        $current    = $expath[count( $expath ) - 1];
+        // Base vars
+        $path    = dirname( $path );
+        $path    = str_replace( '\\', '/', $path );
+        $expath  = explode( '/', $path );
+        $current = $expath[count( $expath ) - 1];
 
+        // Push to path array
         array_push( $url, $current );
 
+        // Check for current
         if( preg_match( '/content/', $current ) ) {
             $path = '';
             $directories = array_reverse( $url );
