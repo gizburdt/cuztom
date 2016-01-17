@@ -227,6 +227,11 @@ class Cuztom
      */
     function get_cuztom_url( $path = __FILE__, $url = array() )
     {
+        // Retun URL if defined
+        if( defined('CUZTOM_URL') ) {
+            return CUZTOM_URL;
+        }
+
         // Base vars
         $path    = dirname( $path );
         $path    = str_replace( '\\', '/', $path );
