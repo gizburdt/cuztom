@@ -1,8 +1,8 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit;
+if( ! defined('ABSPATH') ) exit;
 
-if( ! function_exists( 'register_cuztom_post_type' ) ) {
+if( ! function_exists('register_cuztom_post_type') ) {
     /**
      * Register a Post Type
      *
@@ -11,13 +11,13 @@ if( ! function_exists( 'register_cuztom_post_type' ) ) {
      * @param  array  $labels
      * @return object
      */
-    function register_cuztom_post_type( $name, $args = array(), $labels = array() )
+    function register_cuztom_post_type($name, $args = array(), $labels = array())
     {
-        return new Cuztom_Post_Type( $name, $args, $labels );
+        return new Cuztom_Post_Type($name, $args, $labels);
     }
 }
 
-if( ! function_exists( 'register_cuztom_meta_box' ) ) {
+if( ! function_exists('register_cuztom_meta_box') ) {
     /**
      * Register met box
      *
@@ -26,8 +26,8 @@ if( ! function_exists( 'register_cuztom_meta_box' ) ) {
      * @param  string|array $post_type
      * @return object
      */
-    function register_cuztom_meta_box( $id, $post_type, $data = array() )
+    function register_cuztom_meta_box($id, $post_type, $data = array())
     {
-        return new Cuztom_Meta_Box( $id, $post_type, $data );
+        return new Cuztom_Meta_Box($id, $post_type, $data);
     }
 }
