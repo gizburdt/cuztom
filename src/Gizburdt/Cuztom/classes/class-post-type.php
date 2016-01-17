@@ -37,7 +37,7 @@ class Cuztom_Post_Type extends Cuztom_Entity
 
         // Register
         if( ! post_type_exists($this->name) ) {
-            add_action( 'init', array( &$this, 'register_post_type' ) );
+            $this->register_post_type();
         }
     }
 

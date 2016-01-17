@@ -40,7 +40,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 		$this->default_value = (array) $this->default_value;
 		$this->after_name 	.= '[]';
 
-		add_action( 'init', array( &$this, 'get_taxonomy_terms' ) );
+		$this->get_taxonomy_terms();
 	}
 
 	/**

@@ -44,9 +44,9 @@ class Cuztom_Taxonomy extends Cuztom_Entity
 
         // Register taxonomy
         if( ! taxonomy_exists( $this->name ) ) {
-            add_action( 'init', array( &$this, 'register_taxonomy' ) );
+            $this->register_taxonomy();
         } else {
-            add_action( 'init', array( &$this, 'register_taxonomy_for_object_type' ) );
+            $this->register_taxonomy_for_object_type();
         }
 
         // Sortable columns
