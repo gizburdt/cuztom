@@ -3,6 +3,7 @@
 
 # Node
 node_modules/
+npm-debug.log
 
 # Editor
 *.tmproj
