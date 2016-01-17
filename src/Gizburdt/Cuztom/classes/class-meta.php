@@ -1,6 +1,6 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit;
+if( ! defined('ABSPATH') ) exit;
 
 abstract class Cuztom_Meta
 {
@@ -33,9 +33,9 @@ abstract class Cuztom_Meta
      * @param array $data Array of fields
      * @since 1.6.4
      */
-    function __construct( $id, $data )
+    function __construct($id, $data)
     {
-        $properties = array_keys( get_class_vars( get_called_class() ) );
+        $properties = array_keys(get_class_vars(get_called_class()));
 
         // Set all properties
         foreach($properties as $property) {
@@ -56,14 +56,14 @@ abstract class Cuztom_Meta
         // Nonce field for validation
         wp_nonce_field( 'cuztom_meta', 'cuztom_nonce' );
 
-        if( !empty($this->data) ) {
+        if( ! empty($this->data) ) {
             echo '<div class="cuztom js-cztm" data-box-id="' . $this->id . '" data-object-id="' . $this->object . '" data-meta-type="' . $this->meta_type . '">';
-                if( ! empty( $this->description ) ) {
+                if( ! empty($this->description) ) {
                     echo '<div class="cuztom-box-description">' . $this->description . '</div>';
                 }
 
                 echo '<table class="form-table cuztom-table cuztom-main-table">';
-                    foreach( $this->data as $id => $field ) {
+                    foreach($this->data as $id => $field) {
                         echo $field->output_row();
                     }
                 echo '</table>';
@@ -78,7 +78,7 @@ abstract class Cuztom_Meta
      * @param array $values Array of values
      * @since 2.6
      */
-    function save( $object, $values )
+    function save($object, $values)
     {
         // Return when empty
         if( Cuztom::is_empty($values) ) {
@@ -86,8 +86,8 @@ abstract class Cuztom_Meta
         }
 
         // Loop through each field
-        foreach( $this->data as $id => $field ) {
-            $field->save( $object, $values );
+        foreach($this->data as $id => $field) {
+            $field->save($object, $values);
         }
     }
 
@@ -98,15 +98,15 @@ abstract class Cuztom_Meta
      * @return array
      * @since 1.1
      */
-    function build( $data )
+    function build($data)
     {
         global $cuztom;
 
         $values = $this->get_meta_values();
 
-        if( is_array($data) && !empty($data) )
+        if( is_array($data) && ! empty($data) )
         {
-            foreach( $data as $type => $field )
+            foreach($data as $type => $field)
             {
                 // General stuff
                 $field['meta_type'] = $this->meta_type;
@@ -156,7 +156,7 @@ abstract class Cuztom_Meta
      * @return boolean
      * @since  2.3
      */
-    function is_meta_type( $meta_type )
+    function is_meta_type($meta_type)
     {
         return $this->meta_type == $meta_type;
     }
