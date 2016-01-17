@@ -1,8 +1,10 @@
 <?php
 
-if( ! defined('ABSPATH') ) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
 
-if( ! function_exists('register_cuztom_sidebar') ) {
+if (! function_exists('register_cuztom_sidebar')) {
     /**
      * Register Cuztom sidebar
      *

@@ -1,8 +1,10 @@
 <?php
 
-if( ! defined('ABSPATH') ) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
 
-if( ! function_exists('register_cuztom_post_type') ) {
+if (! function_exists('register_cuztom_post_type')) {
     /**
      * Register a Post Type
      *
@@ -17,7 +19,7 @@ if( ! function_exists('register_cuztom_post_type') ) {
     }
 }
 
-if( ! function_exists('register_cuztom_meta_box') ) {
+if (! function_exists('register_cuztom_meta_box')) {
     /**
      * Register met box
      *

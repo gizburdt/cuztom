@@ -1,6 +1,8 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 class Cuztom_Taxonomy extends Cuztom_Entity
 {
@@ -8,19 +10,19 @@ class Cuztom_Taxonomy extends Cuztom_Entity
      * Taxonomy's args
      * @var array
      */
-    var $args;
+    public $args;
 
     /**
      * Labels
      * @var array
      */
-    var $labels;
+    public $labels;
 
     /**
      * Attached post type
      * @var string|array
      */
-    var $post_type;
+    public $post_type;
 
     /**
      * Constructs the class with important vars and method calls
@@ -32,7 +34,7 @@ class Cuztom_Taxonomy extends Cuztom_Entity
      * @param array        $labels
      * @since 0.2
      */
-    function __construct( $name, $post_type = null, $args = array(), $labels = array() )
+    public function __construct($name, $post_type = null, $args = array(), $labels = array())
     {
         // Entity construct
         parent::__construct($name);
@@ -43,23 +45,23 @@ class Cuztom_Taxonomy extends Cuztom_Entity
         $this->args         = $args;
 
         // Register taxonomy
-        if( ! taxonomy_exists( $this->name ) ) {
+        if (! taxonomy_exists($this->name)) {
             $this->register_taxonomy();
         } else {
             $this->register_taxonomy_for_object_type();
         }
 
         // Sortable columns
-        if( @$args['admin_column_sortable'] ) {
-            foreach($this->post_type as $post_type) {
-                add_action( "manage_edit-{$post_type}_sortable_columns", array( &$this, 'add_sortable_column' ) );
+        if (@$args['admin_column_sortable']) {
+            foreach ($this->post_type as $post_type) {
+                add_action("manage_edit-{$post_type}_sortable_columns", array( &$this, 'add_sortable_column' ));
             }
         }
 
         // Column filter
-        if( @$args['admin_column_filter'] ) {
-            add_action( 'restrict_manage_posts', array( &$this, 'admin_column_filter' ) );
-            add_filter( 'parse_query', array( &$this, '_post_filter_query') );
+        if (@$args['admin_column_filter']) {
+            add_action('restrict_manage_posts', array( &$this, 'admin_column_filter' ));
+            add_filter('parse_query', array( &$this, '_post_filter_query'));
         }
     }
 
@@ -68,31 +70,31 @@ class Cuztom_Taxonomy extends Cuztom_Entity
      *
      * @since 0.2
      */
-    function register_taxonomy()
+    public function register_taxonomy()
     {
-        if( $reserved = Cuztom::is_reserved_term( $this->name ) ) {
-            new Cuztom_Notice( $reserved->get_error_message(), 'error' );
+        if ($reserved = Cuztom::is_reserved_term($this->name)) {
+            new Cuztom_Notice($reserved->get_error_message(), 'error');
         } else {
             $labels = array_merge(
                 array(
-                    'name'                  => sprintf( _x( '%s', 'taxonomy general name', 'cuztom' ), $this->plural ),
-                    'singular_name'         => sprintf( _x( '%s', 'taxonomy singular name', 'cuztom' ), $this->title ),
-                    'search_items'          => sprintf( __( 'Search %s', 'cuztom' ), $this->plural ),
-                    'all_items'             => sprintf( __( 'All %s', 'cuztom' ), $this->plural ),
-                    'parent_item'           => sprintf( __( 'Parent %s', 'cuztom' ), $this->title ),
-                    'parent_item_colon'     => sprintf( __( 'Parent %s:', 'cuztom' ), $this->title ),
-                    'edit_item'             => sprintf( __( 'Edit %s', 'cuztom' ), $this->title ),
-                    'update_item'           => sprintf( __( 'Update %s', 'cuztom' ), $this->title ),
-                    'add_new_item'          => sprintf( __( 'Add New %s', 'cuztom' ), $this->title ),
-                    'new_item_name'         => sprintf( __( 'New %s Name', 'cuztom' ), $this->title ),
-                    'menu_name'             => sprintf( __( '%s', 'cuztom' ), $this->plural )
+                    'name'                  => sprintf(_x('%s', 'taxonomy general name', 'cuztom'), $this->plural),
+                    'singular_name'         => sprintf(_x('%s', 'taxonomy singular name', 'cuztom'), $this->title),
+                    'search_items'          => sprintf(__('Search %s', 'cuztom'), $this->plural),
+                    'all_items'             => sprintf(__('All %s', 'cuztom'), $this->plural),
+                    'parent_item'           => sprintf(__('Parent %s', 'cuztom'), $this->title),
+                    'parent_item_colon'     => sprintf(__('Parent %s:', 'cuztom'), $this->title),
+                    'edit_item'             => sprintf(__('Edit %s', 'cuztom'), $this->title),
+                    'update_item'           => sprintf(__('Update %s', 'cuztom'), $this->title),
+                    'add_new_item'          => sprintf(__('Add New %s', 'cuztom'), $this->title),
+                    'new_item_name'         => sprintf(__('New %s Name', 'cuztom'), $this->title),
+                    'menu_name'             => sprintf(__('%s', 'cuztom'), $this->plural)
                 ),
                 $this->labels
             );
 
             $args = array_merge(
                 array(
-                    'label'                 => sprintf( __( '%s', 'cuztom' ), $this->plural ),
+                    'label'                 => sprintf(__('%s', 'cuztom'), $this->plural),
                     'labels'                => $labels,
                     'hierarchical'          => true,
                     'public'                => true,
@@ -104,7 +106,7 @@ class Cuztom_Taxonomy extends Cuztom_Entity
                 $this->args
             );
 
-            register_taxonomy( $this->name, $this->post_type, $args );
+            register_taxonomy($this->name, $this->post_type, $args);
         }
     }
 
@@ -113,9 +115,9 @@ class Cuztom_Taxonomy extends Cuztom_Entity
      *
      * @since 0.2
      */
-    function register_taxonomy_for_object_type()
+    public function register_taxonomy_for_object_type()
     {
-        register_taxonomy_for_object_type( $this->name, $this->post_type );
+        register_taxonomy_for_object_type($this->name, $this->post_type);
     }
 
     /**
@@ -126,9 +128,9 @@ class Cuztom_Taxonomy extends Cuztom_Entity
      * @param array   $locations
      * @since 2.5
      */
-    function add_term_meta( $id, $data = array(), $locations = array( 'add_form', 'edit_form' ) )
+    public function add_term_meta($id, $data = array(), $locations = array( 'add_form', 'edit_form' ))
     {
-        $term_meta = new Cuztom_Term_Meta( $id, $data, $this->name, $locations );
+        $term_meta = new Cuztom_Term_Meta($id, $data, $this->name, $locations);
 
         return $this;
     }
@@ -139,7 +141,7 @@ class Cuztom_Taxonomy extends Cuztom_Entity
      * @param array $columns
      * @since 1.6
      */
-    function add_sortable_column( $columns )
+    public function add_sortable_column($columns)
     {
         $columns["taxonomy-{$this->name}"] = $this->title;
 
@@ -151,21 +153,21 @@ class Cuztom_Taxonomy extends Cuztom_Entity
      *
      * @since 1.6
      */
-    function admin_column_filter()
+    public function admin_column_filter()
     {
         global $typenow, $wp_query;
 
-        if( in_array($typenow, $this->post_type) ) {
-            wp_dropdown_categories( array(
-                'show_option_all'   => sprintf( __( 'Show all %s', 'cuztom' ), $this->plural ),
+        if (in_array($typenow, $this->post_type)) {
+            wp_dropdown_categories(array(
+                'show_option_all'   => sprintf(__('Show all %s', 'cuztom'), $this->plural),
                 'taxonomy'          => $this->name,
                 'name'              => $this->name,
                 'orderby'           => 'name',
-                'selected'          => isset( $wp_query->query[$this->name] ) ? $wp_query->query[$this->name] : '',
+                'selected'          => isset($wp_query->query[$this->name]) ? $wp_query->query[$this->name] : '',
                 'hierarchical'      => true,
                 'show_count'        => true,
                 'hide_empty'        => true,
-            ) );
+            ));
         }
     }
 
@@ -176,14 +178,14 @@ class Cuztom_Taxonomy extends Cuztom_Entity
      * @return array
      * @since  1.6
      */
-    function _post_filter_query($query)
+    public function _post_filter_query($query)
     {
         // @TODO: Is this still right?
         global $pagenow;
         $vars = &$query->query_vars;
 
-        if( $pagenow == 'edit.php' && isset( $vars[$this->name] ) && is_numeric( $vars[$this->name] ) && $vars[$this->name] ) {
-            $term = get_term_by( 'id', $vars[$this->name], $this->name );
+        if ($pagenow == 'edit.php' && isset($vars[$this->name]) && is_numeric($vars[$this->name]) && $vars[$this->name]) {
+            $term = get_term_by('id', $vars[$this->name], $this->name);
             $vars[$this->name] = $term->slug;
         }
 

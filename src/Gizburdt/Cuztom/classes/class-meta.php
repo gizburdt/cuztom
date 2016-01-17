@@ -1,30 +1,32 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 abstract class Cuztom_Meta
 {
-    var $id;
-    var $object;
-    var $callback;
-    var $title;
-    var $description;
-    var $fields;
-    var $data;
+    public $id;
+    public $object;
+    public $callback;
+    public $title;
+    public $description;
+    public $fields;
+    public $data;
 
     /**
      * Get object id
      *
      * @return int
      */
-    abstract function get_object_id();
+    abstract public function get_object_id();
 
     /**
      * Get meta values
      *
      * @return array
      */
-    abstract function get_meta_values();
+    abstract public function get_meta_values();
 
     /**
      * Construct for all meta types, creates title (and description)
@@ -33,12 +35,12 @@ abstract class Cuztom_Meta
      * @param array $data Array of fields
      * @since 1.6.4
      */
-    function __construct( $id, $data )
+    public function __construct($id, $data)
     {
-        $properties = array_keys( get_class_vars( get_called_class() ) );
+        $properties = array_keys(get_class_vars(get_called_class()));
 
         // Set all properties
-        foreach($properties as $property) {
+        foreach ($properties as $property) {
             $this->$property = isset($data[$property]) ? $data[$property] : $this->$property;
         }
 
@@ -51,22 +53,22 @@ abstract class Cuztom_Meta
      *
      * @since 0.2
      */
-    function output()
+    public function output()
     {
         // Nonce field for validation
-        wp_nonce_field( 'cuztom_meta', 'cuztom_nonce' );
+        wp_nonce_field('cuztom_meta', 'cuztom_nonce');
 
-        if( !empty($this->data) ) {
+        if (!empty($this->data)) {
             echo '<div class="cuztom js-cztm" data-box-id="' . $this->id . '" data-object-id="' . $this->object . '" data-meta-type="' . $this->meta_type . '">';
-                if( ! empty( $this->description ) ) {
-                    echo '<div class="cuztom-box-description">' . $this->description . '</div>';
-                }
+            if (! empty($this->description)) {
+                echo '<div class="cuztom-box-description">' . $this->description . '</div>';
+            }
 
-                echo '<table class="form-table cuztom-table cuztom-main-table">';
-                    foreach( $this->data as $id => $field ) {
-                        echo $field->output_row();
-                    }
-                echo '</table>';
+            echo '<table class="form-table cuztom-table cuztom-main-table">';
+            foreach ($this->data as $id => $field) {
+                echo $field->output_row();
+            }
+            echo '</table>';
             echo '</div>';
         }
     }
@@ -78,16 +80,16 @@ abstract class Cuztom_Meta
      * @param array $values Array of values
      * @since 2.6
      */
-    function save( $object, $values )
+    public function save($object, $values)
     {
         // Return when empty
-        if( Cuztom::is_empty($values) ) {
+        if (Cuztom::is_empty($values)) {
             return;
         }
 
         // Loop through each field
-        foreach( $this->data as $id => $field ) {
-            $field->save( $object, $values );
+        foreach ($this->data as $id => $field) {
+            $field->save($object, $values);
         }
     }
 
@@ -98,23 +100,20 @@ abstract class Cuztom_Meta
      * @return array
      * @since 1.1
      */
-    function build( $data )
+    public function build($data)
     {
         global $cuztom;
 
         $values = $this->get_meta_values();
 
-        if( is_array($data) && !empty($data) )
-        {
-            foreach( $data as $type => $field )
-            {
+        if (is_array($data) && !empty($data)) {
+            foreach ($data as $type => $field) {
                 // General stuff
                 $field['meta_type'] = $this->meta_type;
                 $field['object']    = $this->object;
 
                 // Tabs / accordion
-                if( is_string($type) && ($type == 'tabs' || $type == 'accordion') )
-                {
+                if (is_string($type) && ($type == 'tabs' || $type == 'accordion')) {
                     $tabs = ($type == 'tabs' ? new Cuztom_Tabs($field) : new Cuztom_Accordion($field));
 
                     // Build and add
@@ -123,8 +122,7 @@ abstract class Cuztom_Meta
                 }
 
                 // Bundle
-                elseif( is_string($type) && $type == 'bundle' )
-                {
+                elseif (is_string($type) && $type == 'bundle') {
                     $field['value'] = @$values[$field['id']][0];
                     $bundle         = new Cuztom_Bundle($field);
 
@@ -134,8 +132,7 @@ abstract class Cuztom_Meta
                 }
 
                 // Fields
-                else
-                {
+                else {
                     $field['value'] = @$values[$field['id']][0];
                     $field = Cuztom_Field::create($field);
 
@@ -156,7 +153,7 @@ abstract class Cuztom_Meta
      * @return boolean
      * @since  2.3
      */
-    function is_meta_type( $meta_type )
+    public function is_meta_type($meta_type)
     {
         return $this->meta_type == $meta_type;
     }
@@ -166,7 +163,7 @@ abstract class Cuztom_Meta
      *
      * @since 0.2
      */
-    static function edit_form_tag()
+    public static function edit_form_tag()
     {
         echo ' enctype="multipart/form-data"';
     }

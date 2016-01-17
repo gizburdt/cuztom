@@ -1,12 +1,14 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 class Cuztom_Term_Meta extends Cuztom_Meta
 {
-    var $meta_type      = 'term';
-    var $taxonomies;
-    var $locations;
+    public $meta_type      = 'term';
+    public $taxonomies;
+    public $locations;
 
     /**
      * Construct the term meta
@@ -16,35 +18,35 @@ class Cuztom_Term_Meta extends Cuztom_Meta
      * @param array        $locations
      * @since 2.5
      */
-    function __construct( $id, $taxonomy, $data = array(), $locations = array( 'add_form', 'edit_form' ) )
+    public function __construct($id, $taxonomy, $data = array(), $locations = array( 'add_form', 'edit_form' ))
     {
         // Build all properties
-        parent::__construct( $id, $data );
+        parent::__construct($id, $data);
 
         // Set taxonomy/locations
         $this->taxonomies   = (array) $taxonomy;
         $this->locations    = (array) $locations;
 
         // Build fields
-        if( ! $this->callback ) {
+        if (! $this->callback) {
             $this->callback = array( &$this, 'output' );
 
             // Build the meta box and fields
-            $this->data = $this->build( $this->fields );
+            $this->data = $this->build($this->fields);
 
-            foreach( $this->taxonomies as $taxonomy ) {
-                if( in_array( 'add_form', $this->locations ) ) {
-                    add_action( $taxonomy . '_add_form_fields', array( &$this, 'add_form_fields' ) );
-                    add_action( 'created_' . $taxonomy, array( &$this, 'save_term' ) );
+            foreach ($this->taxonomies as $taxonomy) {
+                if (in_array('add_form', $this->locations)) {
+                    add_action($taxonomy . '_add_form_fields', array( &$this, 'add_form_fields' ));
+                    add_action('created_' . $taxonomy, array( &$this, 'save_term' ));
                 }
 
-                if( in_array( 'edit_form', $this->locations ) ) {
-                    add_action( $taxonomy . '_edit_form_fields', array( &$this, 'edit_form_fields' ) );
-                    add_action( 'edited_' . $taxonomy, array( &$this, 'save_term' ) );
+                if (in_array('edit_form', $this->locations)) {
+                    add_action($taxonomy . '_edit_form_fields', array( &$this, 'edit_form_fields' ));
+                    add_action('edited_' . $taxonomy, array( &$this, 'save_term' ));
                 }
 
-                add_filter( 'manage_edit-' . $taxonomy . '_columns', array( &$this, 'add_column' ) );
-                add_filter( 'manage_' . $taxonomy . '_custom_column', array( &$this, 'add_column_content' ), 10, 3 );
+                add_filter('manage_edit-' . $taxonomy . '_columns', array( &$this, 'add_column' ));
+                add_filter('manage_' . $taxonomy . '_custom_column', array( &$this, 'add_column_content' ), 10, 3);
             }
         }
     }
@@ -55,7 +57,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
      * @return mixed
      * @since  2.5
      */
-    function add_form_fields( $taxonomy )
+    public function add_form_fields($taxonomy)
     {
         return $this->output();
     }
@@ -66,7 +68,7 @@ class Cuztom_Term_Meta extends Cuztom_Meta
      * @return mixed
      * @since  2.5
      */
-    function edit_form_fields( $taxonomy )
+    public function edit_form_fields($taxonomy)
     {
         echo '</table>';
 
@@ -78,17 +80,17 @@ class Cuztom_Term_Meta extends Cuztom_Meta
      * @param integer $term_id [description]
      * @since 2.5
      */
-    function save_term( $term_id )
+    public function save_term($term_id)
     {
         // Verify nonce
-        if( ! ( isset( $_POST['cuztom_nonce'] ) && wp_verify_nonce( $_POST['cuztom_nonce'], 'cuztom_meta' ) ) ) {
+        if (! (isset($_POST['cuztom_nonce']) && wp_verify_nonce($_POST['cuztom_nonce'], 'cuztom_meta'))) {
             return;
         }
 
-        $values = isset( $_POST['cuztom'] ) ? $_POST['cuztom'] : null;
+        $values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
 
-        if( ! empty( $values ) ) {
-            parent::save( $term_id, $values );
+        if (! empty($values)) {
+            parent::save($term_id, $values);
         }
     }
 
@@ -98,10 +100,12 @@ class Cuztom_Term_Meta extends Cuztom_Meta
      * @return array
      * @since  1.1
      */
-    function add_column( $columns )
+    public function add_column($columns)
     {
-        foreach( $this->fields as $id => $field ) {
-            if( $field->show_admin_column ) $columns[$id] = $field->label;
+        foreach ($this->fields as $id => $field) {
+            if ($field->show_admin_column) {
+                $columns[$id] = $field->label;
+            }
         }
 
         return $columns;
@@ -114,28 +118,22 @@ class Cuztom_Term_Meta extends Cuztom_Meta
      * @param integer $term_id
      * @since 1.1
      */
-    function add_column_content( $row, $column, $term_id )
+    public function add_column_content($row, $column, $term_id)
     {
         $screen = get_current_screen();
 
-        if( $screen )
-        {
+        if ($screen) {
             $taxonomy = $screen->taxonomy;
 
-            $meta = get_term_meta( $term_id, $column, true );
+            $meta = get_term_meta($term_id, $column, true);
 
-            foreach( $this->fields as $id => $field )
-            {
-                if( $column == $id )
-                {
-                    if( $field->repeatable && $field->_supports_repeatable )
-                    {
-                        echo implode( $meta, ', ' );
-                    }
-                    else
-                    {
-                        if( $field instanceof Cuztom_Field_Image ) {
-                            echo wp_get_attachment_image( $meta, array( 100, 100 ) );
+            foreach ($this->fields as $id => $field) {
+                if ($column == $id) {
+                    if ($field->repeatable && $field->_supports_repeatable) {
+                        echo implode($meta, ', ');
+                    } else {
+                        if ($field instanceof Cuztom_Field_Image) {
+                            echo wp_get_attachment_image($meta, array( 100, 100 ));
                         } else {
                             echo $meta;
                         }
@@ -152,9 +150,9 @@ class Cuztom_Term_Meta extends Cuztom_Meta
      * @return integer|null
      * @since  3.0
      */
-    function get_object_id()
+    public function get_object_id()
     {
-        if( isset( $_GET['tag_ID'] ) ) {
+        if (isset($_GET['tag_ID'])) {
             return $_GET['tag_ID']; // @TODO: Use get_current_screen()
         }
 
@@ -166,8 +164,8 @@ class Cuztom_Term_Meta extends Cuztom_Meta
      * @return mixed
      * @since  3.0
      */
-    function get_meta_values()
+    public function get_meta_values()
     {
-        return get_term_meta( $this->object );
+        return get_term_meta($this->object);
     }
 }

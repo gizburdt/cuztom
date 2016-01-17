@@ -1,6 +1,8 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 class Cuztom_Ajax
 {
@@ -9,14 +11,14 @@ class Cuztom_Ajax
      *
      * @since 3.0
      */
-    function add_hooks()
+    public function add_hooks()
     {
         // Sortable
-        add_action( 'wp_ajax_cuztom_add_repeatable_item', array( &$this, 'add_repeatable_item' ) );
-        add_action( 'wp_ajax_cuztom_add_bundle_item', array( &$this, 'add_bundle_item' ) );
+        add_action('wp_ajax_cuztom_add_repeatable_item', array( &$this, 'add_repeatable_item' ));
+        add_action('wp_ajax_cuztom_add_bundle_item', array( &$this, 'add_bundle_item' ));
 
         // Save
-        add_action( 'wp_ajax_cuztom_save_field', array( &$this, 'save_field' ) );
+        add_action('wp_ajax_cuztom_save_field', array( &$this, 'save_field' ));
     }
 
     /**
@@ -24,20 +26,20 @@ class Cuztom_Ajax
      *
      * @since 3.0
      */
-    function add_repeatable_item()
+    public function add_repeatable_item()
     {
         $box    = $_POST['cuztom']['box_id'];
         $field  = $_POST['cuztom']['field_id'];
         $field  = self::get_field($field, $box);
 
-        if( ! $field ) {
+        if (! $field) {
             return;
         }
 
-        if( !$field->limit || ($field->limit > $_POST['cuztom']['count']) ) {
+        if (!$field->limit || ($field->limit > $_POST['cuztom']['count'])) {
             echo json_encode(array(
                 'status'    => true,
-                'item'      => $field->_output_repeatable_item( null, 10 )
+                'item'      => $field->_output_repeatable_item(null, 10)
             ));
         } else {
             echo json_encode(array(
@@ -55,26 +57,26 @@ class Cuztom_Ajax
      *
      * @since 3.0
      */
-    function add_bundle_item()
+    public function add_bundle_item()
     {
         $box    = $_POST['cuztom']['box_id'];
         $field  = $_POST['cuztom']['field_id'];
         $field  = self::get_field($field, $box);
 
-        if( ! $field ) {
+        if (! $field) {
             return;
         }
 
-        if( !$field->limit || ( $field->limit > $_POST['cuztom']['count'] ) ) {
-            echo json_encode( array(
+        if (!$field->limit || ($field->limit > $_POST['cuztom']['count'])) {
+            echo json_encode(array(
                 'status'    => true,
-                'item'      => $field->output_item( $_POST['cuztom']['index'] )
-            ) );
+                'item'      => $field->output_item($_POST['cuztom']['index'])
+            ));
         } else {
-            echo json_encode( array(
+            echo json_encode(array(
                 'status'    => false,
                 'message'   => __('Limit reached!', 'cuztom')
-            ) );
+            ));
         }
 
         // wp
@@ -86,11 +88,11 @@ class Cuztom_Ajax
      *
      * @since 3.0
      */
-    function save_field()
+    public function save_field()
     {
         global $cuztom;
 
-        if( $_POST['cuztom'] && isset($_POST['cuztom']['field_id']) ) {
+        if ($_POST['cuztom'] && isset($_POST['cuztom']['field_id'])) {
             $box        = $_POST['cuztom']['box_id'];
             $field      = $_POST['cuztom']['field_id'];
             $field      = self::get_field($field, $box);
@@ -99,10 +101,10 @@ class Cuztom_Ajax
             $value      = $_POST['cuztom']['value'];
             $meta_type  = $_POST['cuztom']['meta_type'];
 
-            if( $field->save( $object, $value ) ) {
-                echo json_encode( array( 'status' => true ) );
+            if ($field->save($object, $value)) {
+                echo json_encode(array( 'status' => true ));
             } else {
-                echo json_encode( array( 'status' => false ) );
+                echo json_encode(array( 'status' => false ));
             }
         }
 
@@ -115,7 +117,7 @@ class Cuztom_Ajax
      *
      * @since 3.0
      */
-    static function get_field($field, $box)
+    public static function get_field($field, $box)
     {
         global $cuztom;
 

@@ -1,6 +1,8 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 class Cuztom_Sidebar
 {
@@ -9,7 +11,7 @@ class Cuztom_Sidebar
      *
      * @var array
      */
-    var $sidebar;
+    public $sidebar;
 
     /**
      * Constructor
@@ -17,7 +19,7 @@ class Cuztom_Sidebar
      * @param array $args
      * @since 0.5
      */
-    function __construct($args = array())
+    public function __construct($args = array())
     {
         $this->sidebar = array(
             'name'          => @$args['name'],

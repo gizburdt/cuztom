@@ -1,8 +1,10 @@
 <?php
 
-if( ! defined('ABSPATH') ) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
 
-if( ! function_exists('register_cuztom_taxonomy') ) {
+if (! function_exists('register_cuztom_taxonomy')) {
     /**
      * Registers a Taxonomy for a Post Type
      *
@@ -14,11 +16,11 @@ if( ! function_exists('register_cuztom_taxonomy') ) {
      */
     function register_cuztom_taxonomy($name, $post_type, $args = array(), $labels = array())
     {
-    	return new Cuztom_Taxonomy($name, $post_type, $args, $labels);
+        return new Cuztom_Taxonomy($name, $post_type, $args, $labels);
     }
 }
 
-if( ! function_exists('register_cuztom_term_meta') ) {
+if (! function_exists('register_cuztom_term_meta')) {
     /**
     * Register term meta fields
     *
