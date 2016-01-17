@@ -142,6 +142,7 @@ class Cuztom
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 
         // Ajax
+        // @TODO: Huh?
         self::$ajax->add_hooks();
     }
 
@@ -364,8 +365,8 @@ class Cuztom
      */
     static function is_empty($input, $result = true)
     {
-        if(is_array($input) && count($input)) {
-            foreach ($input as $value) {
+        if( is_array($input) && count($input) ) {
+            foreach($input as $value) {
                 $result = $result && self::is_empty($value);
             }
         } else {
@@ -382,13 +383,13 @@ class Cuztom
      * @return boolean
      * @since  1.6
      */
-    static function is_reserved_term( $term )
+    static function is_reserved_term($term)
     {
-        if( ! in_array( $term, apply_filters( 'cuztom_reserved_terms', self::$reserved ) ) ) {
+        if( ! in_array($term, apply_filters('cuztom_reserved_terms', self::$reserved)) ) {
             return false;
         }
 
-        return new WP_Error( 'cuztom_reserved_term_used', __( 'Use of a reserved term.', 'cuztom' ) );
+        return new WP_Error('cuztom_reserved_term_used', __('Use of a reserved term.', 'cuztom'));
     }
 }
 

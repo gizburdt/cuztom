@@ -178,6 +178,7 @@ class Cuztom_Taxonomy extends Cuztom_Entity
      */
     function _post_filter_query($query)
     {
+        // @TODO: Is this still right?
         global $pagenow;
         $vars = &$query->query_vars;
 
