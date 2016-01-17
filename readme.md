@@ -4,10 +4,39 @@ Cuztom is a Wordpress library, which can be used to easily register Post Types, 
 
 **Version:** 3.0
 **Requires:** 4.4
-**Collaborators**: @gizburdt ([and others](https://github.com/gizburdt/cuztom/graphs/contributors))
 
-## Usage
-See the [wiki](https://github.com/gizburdt/cuztom/wiki) for the full and documentation.
+## Basic usage
 
-## Changelog
-You can see the full changelog [here](https://github.com/gizburdt/cuztom/wiki/%5Bv3%5D-Changelog).
+### Add Custom Post Types
+
+    $book = register_cuztom_post_type('Book');
+
+### Add Custom Taxonomies
+
+To add Custom Taxonomies to the newly created Post Type, simply call this method.
+
+    $book->add_taxonomy('Author');
+
+You can also call this as a seperate class like this. The second parameter is the Post Type name.
+
+    $taxonomy = register_cuztom_taxonomy('Author', 'book');
+
+### Add Meta Boxes
+
+Add Meta Boxes.
+
+    $book->add_meta_box(
+        'meta_box_id',
+        array(
+            'title'     => 'Book Info',
+            'fields'    => array(
+                'name'          => 'author',
+                'label'         => 'Author',
+                'description'   => 'Just a little description',
+                'type'          => 'text'
+            )
+        )
+    );
+
+## Documentation
+See the [documentation](https://cuztom.readme.io/) for advanced guides, changelog.
