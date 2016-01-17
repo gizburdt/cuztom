@@ -1,6 +1,6 @@
 <?php
 
-if( ! defined('ABSPATH') ) exit;
+if( ! defined( 'ABSPATH' ) ) exit;
 
 class Cuztom_Ajax
 {
@@ -12,11 +12,11 @@ class Cuztom_Ajax
     function add_hooks()
     {
         // Sortable
-        add_action('wp_ajax_cuztom_add_repeatable_item', array(&$this, 'add_repeatable_item'));
-        add_action('wp_ajax_cuztom_add_bundle_item', array(&$this, 'add_bundle_item'));
+        add_action( 'wp_ajax_cuztom_add_repeatable_item', array( &$this, 'add_repeatable_item' ) );
+        add_action( 'wp_ajax_cuztom_add_bundle_item', array( &$this, 'add_bundle_item' ) );
 
         // Save
-        add_action('wp_ajax_cuztom_save_field', array(&$this, 'save_field'));
+        add_action( 'wp_ajax_cuztom_save_field', array( &$this, 'save_field' ) );
     }
 
     /**
@@ -34,10 +34,10 @@ class Cuztom_Ajax
             return;
         }
 
-        if( ! $field->limit || ($field->limit > $_POST['cuztom']['count']) ) {
+        if( !$field->limit || ($field->limit > $_POST['cuztom']['count']) ) {
             echo json_encode(array(
                 'status'    => true,
-                'item'      => $field->_output_repeatable_item(null, 10)
+                'item'      => $field->_output_repeatable_item( null, 10 )
             ));
         } else {
             echo json_encode(array(
@@ -65,7 +65,7 @@ class Cuztom_Ajax
             return;
         }
 
-        if( ! $field->limit || ($field->limit > $_POST['cuztom']['count']) ) {
+        if( !$field->limit || ( $field->limit > $_POST['cuztom']['count'] ) ) {
             echo json_encode( array(
                 'status'    => true,
                 'item'      => $field->output_item( $_POST['cuztom']['index'] )
@@ -100,9 +100,9 @@ class Cuztom_Ajax
             $meta_type  = $_POST['cuztom']['meta_type'];
 
             if( $field->save( $object, $value ) ) {
-                echo json_encode(array('status' => true));
+                echo json_encode( array( 'status' => true ) );
             } else {
-                echo json_encode(array('status' => false));
+                echo json_encode( array( 'status' => false ) );
             }
         }
 
