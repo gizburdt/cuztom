@@ -2,9 +2,11 @@
 
 namespace Gizburdt\Cuztom\Support;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Support\Request;
+use Gizburdt\Cuztom\Support\Response;
+
+Guard::directAccess();
 
 class Ajax
 {

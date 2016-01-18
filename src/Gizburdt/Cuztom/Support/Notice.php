@@ -2,9 +2,9 @@
 
 namespace Gizburdt\Cuztom\Support;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+use Gizburdt\Cuztom\Support\Guard;
+
+Guard::directAccess();
 
 class Notice
 {
@@ -50,9 +50,9 @@ class Notice
      */
     public function add_admin_notice()
     {
-        echo '<div class="' . $this->get_css_class() . '">';
-        echo '<p>' . $this->notice . '</p>';
-        echo '</div>';
+        echo '<div class="' . $this->get_css_class() . '">' .
+            '<p>' . $this->notice . '</p>' .
+        '</div>';
     }
 
     /**

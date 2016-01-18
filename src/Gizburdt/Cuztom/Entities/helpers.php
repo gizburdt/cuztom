@@ -1,5 +1,7 @@
 <?php
 
+use Gizburdt\Cuztom\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Entities\PostType;
 use Gizburdt\Cuztom\Entities\Taxonomy;
 use Gizburdt\Cuztom\Entities\Sidebar;
@@ -7,9 +9,7 @@ use Gizburdt\Cuztom\Meta\Box as MetaBox;
 use Gizburdt\Cuztom\Meta\Term as TermMeta;
 use Gizburdt\Cuztom\Meta\User as UserMeta;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
 if (! function_exists('register_cuztom_post_type')) {
     /**

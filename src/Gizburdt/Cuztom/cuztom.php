@@ -66,16 +66,17 @@ class Cuztom
      */
     private function includes()
     {
+        // Support
+        include(self::$dir . '/Support/Guard.php');
+        include(self::$dir . '/Support/Notice.php');
+        include(self::$dir . '/Support/Ajax.php');
+
         // Entity
         include(self::$dir . '/Entities/Entity.php');
         include(self::$dir . '/Entities/PostType.php');
         include(self::$dir . '/Entities/Taxonomy.php');
         include(self::$dir . '/Entities/Sidebar.php');
         include(self::$dir . '/Entities/helpers.php');
-
-        // Support
-        include(self::$dir . '/Support/Ajax.php');
-        include(self::$dir . '/Support/Notice.php');
 
         // Meta
         include(self::$dir . '/Meta/Meta.php');
@@ -144,8 +145,7 @@ class Cuztom
         add_action('admin_init', array( &$this, 'register_scripts' ));
         add_action('admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ));
 
-        // Ajax
-        // @TODO: Huh?
+        // Add AJAX hooks
         self::$ajax->add_hooks();
     }
 
@@ -156,8 +156,8 @@ class Cuztom
      */
     public function register_styles()
     {
-        wp_register_style('cztm-jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, self::$version, 'screen');
-        wp_register_style('cztm', self::$url . '/assets/dist/css/cuztom.min.css', false, self::$version, 'screen');
+        wp_register_style('cuztom-jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, self::$version, 'screen');
+        wp_register_style('cuztom', self::$url . '/assets/dist/css/cuztom.min.css', false, self::$version, 'screen');
     }
 
     /**
@@ -168,8 +168,8 @@ class Cuztom
     public function enqueue_styles()
     {
         wp_enqueue_style('wp-color-picker');
-        wp_enqueue_style('cztm-jquery-ui');
-        wp_enqueue_style('cztm');
+        wp_enqueue_style('cuztom-jquery-ui');
+        wp_enqueue_style('cuztom');
     }
 
     /**
@@ -199,8 +199,7 @@ class Cuztom
     public function enqueue_scripts()
     {
         wp_enqueue_media();
-        wp_enqueue_script('media-upload');
-        wp_enqueue_script('cztm');
+        wp_enqueue_script('cuztom');
 
         self::localize_scripts();
     }
@@ -212,7 +211,7 @@ class Cuztom
      */
     public function localize_scripts()
     {
-        wp_localize_script('cztm', 'Cztm', array(
+        wp_localize_script('cuztom', 'Cuztom', array(
             'wp_version'        => get_bloginfo('version'),
             'home_url'          => get_home_url(),
             'ajax_url'          => admin_url('admin-ajax.php'),
@@ -317,11 +316,11 @@ class Cuztom
         ));
 
         $irregular = apply_filters('cuztom_irregular', array(
-            array( 'move',   'moves'    ),
-            array( 'sex',    'sexes'    ),
-            array( 'child',  'children' ),
-            array( 'man',    'men'      ),
-            array( 'person', 'people'   )
+            array('move',   'moves'   ),
+            array('sex',    'sexes'   ),
+            array('child',  'children'),
+            array('man',    'men'     ),
+            array('person', 'people'  )
         ));
 
         $uncountable = apply_filters('cuztom_uncountable', array(

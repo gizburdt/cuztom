@@ -2,12 +2,11 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
 use Gizburdt\Cuztom\Fields\Hidden;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
 class Bundle extends Field
 {
@@ -169,6 +168,8 @@ class Bundle extends Field
                 $field['object']    = $this->object;
 
                 $field = Field::create($field);
+                $field->repeatable = false;
+                $field->ajax = false;
 
                 $this->fields[$field->id] = $field;
             }

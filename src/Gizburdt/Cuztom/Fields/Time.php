@@ -2,11 +2,10 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\DateTime;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
 class Time extends DateTime
 {

@@ -3,13 +3,12 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
 use Gizburdt\Cuztom\Fields\Bundle;
 use Gizburdt\Cuztom\Fields\Hidden;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
 class Tab extends Field
 {

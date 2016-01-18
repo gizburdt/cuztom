@@ -3,10 +3,9 @@
 namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Support\Guard;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
 abstract class Entity
 {

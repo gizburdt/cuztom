@@ -2,11 +2,10 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Meta\Meta;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
 class Term extends Meta
 {

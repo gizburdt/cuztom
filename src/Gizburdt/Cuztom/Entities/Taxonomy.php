@@ -3,13 +3,12 @@
 namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Support\Notice;
 use Gizburdt\Cuztom\Entities\Entity;
 use Gizburdt\Cuztom\Meta\Term as TermMeta;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
 class Taxonomy extends Entity
 {

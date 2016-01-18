@@ -2,11 +2,15 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+use Gizburdt\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Field\Bundle;
+use Gizburdt\Cuztom\Field\Tabs;
+use Gizburdt\Cuztom\Field\Accordion;
 
-class Field
+Guard::directAccess();
+
+abstract class Field
 {
     public $id                     = null;
     public $type                   = null;
@@ -433,7 +437,7 @@ class Field
      */
     public function is_tabs()
     {
-        return ($this instanceof Cuztom_Tabs || $this instanceof Cuztom_Accordion);
+        return ($this instanceof Tabs || $this instanceof Accordion);
     }
 
     /**
@@ -444,7 +448,7 @@ class Field
      */
     public function is_bundle()
     {
-        return ($this instanceof Cuztom_Bundle);
+        return ($this instanceof Bundle);
     }
 
     /**
@@ -456,7 +460,8 @@ class Field
      */
     public static function create($args)
     {
-        $class = 'Cuztom_Field_' . str_replace(' ', '_', ucwords(str_replace('_', ' ', $args['type'])));
+        $class = str_replace(' ', '', ucwords(str_replace('_', ' ', $args['type'])));
+        $class = "Gizburdt\\Cuztom\\Fields\\$class";
 
         if (class_exists($class)) {
             return new $class($args);

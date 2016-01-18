@@ -3,14 +3,13 @@
 namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Support\Notice;
 use Gizburdt\Cuztom\Entities\Entity;
 use Gizburdt\Cuztom\Entities\Taxonomy;
 use Gizburdt\Cuztom\Meta\Box as MetaBox;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
 class PostType extends Entity
 {

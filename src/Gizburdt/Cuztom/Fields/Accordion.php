@@ -2,11 +2,10 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Tabs;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
 class Accordion extends Tabs
 {

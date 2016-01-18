@@ -2,11 +2,10 @@
 
 namespace Gizburdt\Cuztom\Entities;
 
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Entities\Entity;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
 class Sidebar
 {

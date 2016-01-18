@@ -3,14 +3,13 @@
 namespace Gizburdt\Cuztom\Meta;
 
 use Gizburdt\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
 use Gizburdt\Cuztom\Fields\Bundle;
 use Gizburdt\Cuztom\Fields\Tabs;
 use Gizburdt\Cuztom\Fields\Accordion;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
 abstract class Meta
 {

@@ -2,19 +2,11 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Meta\Meta;
 
-if (! defined('ABSPATH')) {
-    exit;
-}
+Guard::directAccess();
 
-/**
- * User Meta
- *
- * @author  Gijs Jorissen
- * @since   1.5
- *
- */
 class User extends Meta
 {
     public $locations;
