@@ -1,10 +1,14 @@
 <?php
 
+namespace Gizburdt\Cuztom;
+
+use Gizburdt\Cuztom\Support\Ajax;
+
 if (! defined('ABSPATH')) {
     exit;
 }
 
-class cuztom
+class Cuztom
 {
     private static $version;
     private static $url;
@@ -62,52 +66,50 @@ class cuztom
      */
     private function includes()
     {
-        // General
-        include(self::$dir . '/classes/class-entity.php');
-        include(self::$dir . '/classes/class-notice.php');
-        include(self::$dir . '/classes/class-ajax.php');
-        include(self::$dir . '/classes/class-post-type.php');
-        include(self::$dir . '/classes/class-taxonomy.php');
-        include(self::$dir . '/classes/class-sidebar.php');
+        // Support
+        include(self::$dir . '/Support/Guard.php');
+        include(self::$dir . '/Support/Notice.php');
+        include(self::$dir . '/Support/Ajax.php');
+
+        // Entity
+        include(self::$dir . '/Entities/Entity.php');
+        include(self::$dir . '/Entities/PostType.php');
+        include(self::$dir . '/Entities/Taxonomy.php');
+        include(self::$dir . '/Entities/Sidebar.php');
+        include(self::$dir . '/Entities/helpers.php');
 
         // Meta
-        include(self::$dir . '/classes/class-meta.php');
-        include(self::$dir . '/classes/meta/class-meta-box.php');
-        include(self::$dir . '/classes/meta/class-user-meta.php');
-        include(self::$dir . '/classes/meta/class-term-meta.php');
+        include(self::$dir . '/Meta/Meta.php');
+        include(self::$dir . '/Meta/Box.php');
+        include(self::$dir . '/Meta/User.php');
+        include(self::$dir . '/Meta/Term.php');
 
         // Fields
-        include(self::$dir . '/classes/class-field.php');
-        include(self::$dir . '/classes/fields/class-bundle.php');
-        include(self::$dir . '/classes/fields/class-tabs.php');
-        include(self::$dir . '/classes/fields/class-accordion.php');
-        include(self::$dir . '/classes/fields/class-tab.php');
-        include(self::$dir . '/classes/fields/class-text.php');
-        include(self::$dir . '/classes/fields/class-textarea.php');
-        include(self::$dir . '/classes/fields/class-checkbox.php');
-        include(self::$dir . '/classes/fields/class-yesno.php');
-        include(self::$dir . '/classes/fields/class-select.php');
-        include(self::$dir . '/classes/fields/class-multi-select.php');
-        include(self::$dir . '/classes/fields/class-checkboxes.php');
-        include(self::$dir . '/classes/fields/class-radios.php');
-        include(self::$dir . '/classes/fields/class-wysiwyg.php');
-        include(self::$dir . '/classes/fields/class-image.php');
-        include(self::$dir . '/classes/fields/class-file.php');
-        include(self::$dir . '/classes/fields/class-datetime.php');
-        include(self::$dir . '/classes/fields/class-date.php');
-        include(self::$dir . '/classes/fields/class-time.php');
-        include(self::$dir . '/classes/fields/class-color.php');
-        include(self::$dir . '/classes/fields/class-post-select.php');
-        include(self::$dir . '/classes/fields/class-post-checkboxes.php');
-        include(self::$dir . '/classes/fields/class-term-select.php');
-        include(self::$dir . '/classes/fields/class-term-checkboxes.php');
-        include(self::$dir . '/classes/fields/class-hidden.php');
-
-        // Functions
-        include(self::$dir . '/functions/post-type.php');
-        include(self::$dir . '/functions/taxonomy.php');
-        include(self::$dir . '/functions/user.php');
-        include(self::$dir . '/functions/sidebar.php');
+        include(self::$dir . '/Fields/Field.php');
+        include(self::$dir . '/Fields/Bundle.php');
+        include(self::$dir . '/Fields/Tabs.php');
+        include(self::$dir . '/Fields/Accordion.php');
+        include(self::$dir . '/Fields/Tab.php');
+        include(self::$dir . '/Fields/Text.php');
+        include(self::$dir . '/Fields/Textarea.php');
+        include(self::$dir . '/Fields/Checkbox.php');
+        include(self::$dir . '/Fields/YesNo.php');
+        include(self::$dir . '/Fields/Select.php');
+        include(self::$dir . '/Fields/MultiSelect.php');
+        include(self::$dir . '/Fields/Checkboxes.php');
+        include(self::$dir . '/Fields/Radios.php');
+        include(self::$dir . '/Fields/Wysiwyg.php');
+        include(self::$dir . '/Fields/Image.php');
+        include(self::$dir . '/Fields/File.php');
+        include(self::$dir . '/Fields/DateTime.php');
+        include(self::$dir . '/Fields/Date.php');
+        include(self::$dir . '/Fields/Time.php');
+        include(self::$dir . '/Fields/Color.php');
+        include(self::$dir . '/Fields/PostSelect.php');
+        include(self::$dir . '/Fields/PostCheckboxes.php');
+        include(self::$dir . '/Fields/TermSelect.php');
+        include(self::$dir . '/Fields/TermCheckboxes.php');
+        include(self::$dir . '/Fields/Hidden.php');
     }
 
     /**
@@ -121,12 +123,12 @@ class cuztom
         global $cuztom, $current_screen;
 
         // Cuztom
-        $cuztom          = new stdClass;
+        $cuztom          = new \stdClass;
         $cuztom->version = self::$version;
         $cuztom->data    = array();
 
         // Setup ajax
-        self::$ajax = new Cuztom_Ajax;
+        self::$ajax = new Ajax;
     }
 
     /**
@@ -143,8 +145,7 @@ class cuztom
         add_action('admin_init', array( &$this, 'register_scripts' ));
         add_action('admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ));
 
-        // Ajax
-        // @TODO: Huh?
+        // Add AJAX hooks
         self::$ajax->add_hooks();
     }
 
@@ -155,8 +156,8 @@ class cuztom
      */
     public function register_styles()
     {
-        wp_register_style('cztm-jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, self::$version, 'screen');
-        wp_register_style('cztm', self::$url . '/assets/dist/css/cuztom.min.css', false, self::$version, 'screen');
+        wp_register_style('cuztom-jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, self::$version, 'screen');
+        wp_register_style('cuztom', self::$url . '/assets/dist/css/cuztom.min.css', false, self::$version, 'screen');
     }
 
     /**
@@ -167,8 +168,8 @@ class cuztom
     public function enqueue_styles()
     {
         wp_enqueue_style('wp-color-picker');
-        wp_enqueue_style('cztm-jquery-ui');
-        wp_enqueue_style('cztm');
+        wp_enqueue_style('cuztom-jquery-ui');
+        wp_enqueue_style('cuztom');
     }
 
     /**
@@ -198,8 +199,7 @@ class cuztom
     public function enqueue_scripts()
     {
         wp_enqueue_media();
-        wp_enqueue_script('media-upload');
-        wp_enqueue_script('cztm');
+        wp_enqueue_script('cuztom');
 
         self::localize_scripts();
     }
@@ -211,7 +211,7 @@ class cuztom
      */
     public function localize_scripts()
     {
-        wp_localize_script('cztm', 'Cztm', array(
+        wp_localize_script('cuztom', 'Cuztom', array(
             'wp_version'        => get_bloginfo('version'),
             'home_url'          => get_home_url(),
             'ajax_url'          => admin_url('admin-ajax.php'),
@@ -316,11 +316,11 @@ class cuztom
         ));
 
         $irregular = apply_filters('cuztom_irregular', array(
-            array( 'move',   'moves'    ),
-            array( 'sex',    'sexes'    ),
-            array( 'child',  'children' ),
-            array( 'man',    'men'      ),
-            array( 'person', 'people'   )
+            array('move',   'moves'   ),
+            array('sex',    'sexes'   ),
+            array('child',  'children'),
+            array('man',    'men'     ),
+            array('person', 'people'  )
         ));
 
         $uncountable = apply_filters('cuztom_uncountable', array(
