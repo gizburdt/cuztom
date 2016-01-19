@@ -14,10 +14,7 @@
     },
     "autoload": {
         "files": [
-            "src/Gizburdt/Cuztom/Entities/helpers.php"
-        ],
-        "psr-4": {
-            "Gizburdt\\Cuztom\\": "src/"
-        }
+            "src/Gizburdt/Cuztom/Cuztom.php"
+        ]
     }
 }
