@@ -67,49 +67,49 @@ class Cuztom
     private function includes()
     {
         // Support
-        include(self::$dir . '/Support/Guard.php');
-        include(self::$dir . '/Support/Notice.php');
-        include(self::$dir . '/Support/Ajax.php');
+        require_once(self::$dir . '/Support/Guard.php');
+        require_once(self::$dir . '/Support/Notice.php');
+        require_once(self::$dir . '/Support/Ajax.php');
 
         // Entity
-        include(self::$dir . '/Entities/Entity.php');
-        include(self::$dir . '/Entities/PostType.php');
-        include(self::$dir . '/Entities/Taxonomy.php');
-        include(self::$dir . '/Entities/Sidebar.php');
-        include(self::$dir . '/Entities/helpers.php');
+        require_once(self::$dir . '/Entities/Entity.php');
+        require_once(self::$dir . '/Entities/PostType.php');
+        require_once(self::$dir . '/Entities/Taxonomy.php');
+        require_once(self::$dir . '/Entities/Sidebar.php');
+        require_once(self::$dir . '/Entities/helpers.php');
 
         // Meta
-        include(self::$dir . '/Meta/Meta.php');
-        include(self::$dir . '/Meta/Box.php');
-        include(self::$dir . '/Meta/User.php');
-        include(self::$dir . '/Meta/Term.php');
+        require_once(self::$dir . '/Meta/Meta.php');
+        require_once(self::$dir . '/Meta/Box.php');
+        require_once(self::$dir . '/Meta/User.php');
+        require_once(self::$dir . '/Meta/Term.php');
 
         // Fields
-        include(self::$dir . '/Fields/Field.php');
-        include(self::$dir . '/Fields/Bundle.php');
-        include(self::$dir . '/Fields/Tabs.php');
-        include(self::$dir . '/Fields/Accordion.php');
-        include(self::$dir . '/Fields/Tab.php');
-        include(self::$dir . '/Fields/Text.php');
-        include(self::$dir . '/Fields/Textarea.php');
-        include(self::$dir . '/Fields/Checkbox.php');
-        include(self::$dir . '/Fields/YesNo.php');
-        include(self::$dir . '/Fields/Select.php');
-        include(self::$dir . '/Fields/MultiSelect.php');
-        include(self::$dir . '/Fields/Checkboxes.php');
-        include(self::$dir . '/Fields/Radios.php');
-        include(self::$dir . '/Fields/Wysiwyg.php');
-        include(self::$dir . '/Fields/Image.php');
-        include(self::$dir . '/Fields/File.php');
-        include(self::$dir . '/Fields/DateTime.php');
-        include(self::$dir . '/Fields/Date.php');
-        include(self::$dir . '/Fields/Time.php');
-        include(self::$dir . '/Fields/Color.php');
-        include(self::$dir . '/Fields/PostSelect.php');
-        include(self::$dir . '/Fields/PostCheckboxes.php');
-        include(self::$dir . '/Fields/TermSelect.php');
-        include(self::$dir . '/Fields/TermCheckboxes.php');
-        include(self::$dir . '/Fields/Hidden.php');
+        require_once(self::$dir . '/Fields/Field.php');
+        require_once(self::$dir . '/Fields/Bundle.php');
+        require_once(self::$dir . '/Fields/Tabs.php');
+        require_once(self::$dir . '/Fields/Accordion.php');
+        require_once(self::$dir . '/Fields/Tab.php');
+        require_once(self::$dir . '/Fields/Text.php');
+        require_once(self::$dir . '/Fields/Textarea.php');
+        require_once(self::$dir . '/Fields/Checkbox.php');
+        require_once(self::$dir . '/Fields/YesNo.php');
+        require_once(self::$dir . '/Fields/Select.php');
+        require_once(self::$dir . '/Fields/MultiSelect.php');
+        require_once(self::$dir . '/Fields/Checkboxes.php');
+        require_once(self::$dir . '/Fields/Radios.php');
+        require_once(self::$dir . '/Fields/Wysiwyg.php');
+        require_once(self::$dir . '/Fields/Image.php');
+        require_once(self::$dir . '/Fields/File.php');
+        require_once(self::$dir . '/Fields/DateTime.php');
+        require_once(self::$dir . '/Fields/Date.php');
+        require_once(self::$dir . '/Fields/Time.php');
+        require_once(self::$dir . '/Fields/Color.php');
+        require_once(self::$dir . '/Fields/PostSelect.php');
+        require_once(self::$dir . '/Fields/PostCheckboxes.php');
+        require_once(self::$dir . '/Fields/TermSelect.php');
+        require_once(self::$dir . '/Fields/TermCheckboxes.php');
+        require_once(self::$dir . '/Fields/Hidden.php');
     }
 
     /**
