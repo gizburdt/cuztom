@@ -2,6 +2,7 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Meta\Meta;
 
@@ -9,9 +10,8 @@ Guard::directAccess();
 
 class User extends Meta
 {
-    public $locations;
-
     public $meta_type = 'user';
+    public $locations;
 
     /**
      * Constructor for User Meta
@@ -26,18 +26,18 @@ class User extends Meta
         parent::__construct($id, $data);
 
         // Set locations
-        $this->locations    = (array) $locations;
+        $this->locations = (array) $locations;
 
         // Chack if the class, function or method exist, otherwise use cuztom callback
         if (! $this->callback) {
-            $this->callback = array( &$this, 'output' );
+            $this->callback = array(&$this, 'output');
 
             // Build the meta box and fields
             $this->data = $this->build($this->fields);
 
-            add_action('personal_options_update', array( &$this, 'save_user' ));
-            add_action('edit_user_profile_update', array( &$this, 'save_user' ));
-            add_action('user_edit_form_tag', array( &$this, 'edit_form_tag' ));
+            add_action('personal_options_update', array(&$this, 'save_user'));
+            add_action('edit_user_profile_update', array(&$this, 'save_user'));
+            add_action('user_edit_form_tag', array(&$this, 'edit_form_tag'));
         }
 
         foreach ($this->locations as $location) {
@@ -52,11 +52,11 @@ class User extends Meta
      * @param array    $args
      * @since 1.5
      */
-    public function callback($user, $data = array(), $args = array())
+    public function output($user, $data = array(), $args = array())
     {
         echo '<h3>' . $this->title . '</h3>';
 
-        parent::callback($user, $this->data, $args);
+        parent::output($user, $this->data, $args);
     }
 
     /**
@@ -73,7 +73,7 @@ class User extends Meta
 
         $values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
 
-        if (!empty($values)) {
+        if (! Cuztom::is_empty($values)) {
             parent::save($user_id, $values);
         }
     }

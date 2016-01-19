@@ -2,6 +2,7 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
+use Gizbutdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Meta\Meta;
 
@@ -97,7 +98,7 @@ class Box extends Meta
 
         $values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
 
-        if (! empty($values)) {
+        if (! Cuztom::is_empty($values)) {
             parent::save($post_id, $values);
         }
     }

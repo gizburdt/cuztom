@@ -2,6 +2,7 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Meta\Meta;
 
@@ -9,7 +10,7 @@ Guard::directAccess();
 
 class Term extends Meta
 {
-    public $meta_type      = 'term';
+    public $meta_type  = 'term';
     public $taxonomies;
     public $locations;
 
@@ -32,7 +33,7 @@ class Term extends Meta
 
         // Build fields
         if (! $this->callback) {
-            $this->callback = array( &$this, 'output' );
+            $this->callback = array(&$this, 'output');
 
             // Build the meta box and fields
             $this->data = $this->build($this->fields);
@@ -92,7 +93,7 @@ class Term extends Meta
 
         $values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
 
-        if (! empty($values)) {
+        if (! Cuztom::is_empty($values)) {
             parent::save($term_id, $values);
         }
     }
@@ -123,29 +124,9 @@ class Term extends Meta
      */
     public function add_column_content($row, $column, $term_id)
     {
-        $screen = get_current_screen();
+        $field = $this->fields[$column];
 
-        if ($screen) {
-            $taxonomy = $screen->taxonomy;
-
-            $meta = get_term_meta($term_id, $column, true);
-
-            foreach ($this->fields as $id => $field) {
-                if ($column == $id) {
-                    if ($field->repeatable && $field->_supports_repeatable) {
-                        echo implode($meta, ', ');
-                    } else {
-                        if ($field instanceof Cuztom_Field_Image) {
-                            echo wp_get_attachment_image($meta, array( 100, 100 ));
-                        } else {
-                            echo $meta;
-                        }
-                    }
-
-                    break;
-                }
-            }
-        }
+        echo $field->output_column_content($term_id);
     }
 
     /**
