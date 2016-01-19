@@ -17,7 +17,7 @@
             "src/Gizburdt/Cuztom/Entities/helpers.php"
         ],
         "psr-4": {
-            "Gizburdt\\Cuztom\\": "src/Gizburdt/Cuztom/"
+            "Gizburdt\\Cuztom\\": "src/"
         }
     }
 }
