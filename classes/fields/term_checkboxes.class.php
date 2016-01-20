@@ -5,7 +5,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 {
 	var $_supports_bundle		= true;
-	
+
 	var $css_classes 			= array( 'cuztom-input' );
 	var $terms;
 
@@ -26,7 +26,7 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 
 		$this->after .= '[]';
 	}
-	
+
 	function _output( $value )
 	{
 		$output = '<div class="cuztom-checkboxes-wrap">';
@@ -50,16 +50,16 @@ class Cuztom_Field_Term_Checkboxes extends Cuztom_Field
 	{
 		return empty( $value ) ? '-1' : $value;
 	}
-	
+
 	/**
 	 * Gets taxonomy terms for use in the output
-	 * 
+	 *
 	 * @author 	Abhinav Sood
 	 * @since 	1.6.1
-	 * 
+	 *
 	 */
 	function get_taxonomy_terms()
     {
-        $this->terms = get_terms( $this->args['taxonomy'], $this->options );
+        $this->terms = get_terms( $this->args['taxonomy'], $this->args );
     }
 }

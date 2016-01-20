@@ -45,7 +45,7 @@ class Cuztom_Initializer
 	private function setup_constants()
 	{
 		if( ! defined( 'CUZTOM_VERSION' ) )
-			define( 'CUZTOM_VERSION', '2.9.17' );
+			define( 'CUZTOM_VERSION', '2.9.18' );
 
 		if( ! defined( 'CUZTOM_DIR' ) )
 			define( 'CUZTOM_DIR', plugin_dir_path( __FILE__ ) );
@@ -98,6 +98,7 @@ class Cuztom_Initializer
 		include( CUZTOM_DIR . 'classes/fields/post_checkboxes.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/term_select.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/term_checkboxes.class.php' );
+		include( CUZTOM_DIR . 'classes/fields/user_select.class.php' );
 		include( CUZTOM_DIR . 'classes/fields/hidden.class.php' );
 
 		include( CUZTOM_DIR . 'functions/post_type.php' );
