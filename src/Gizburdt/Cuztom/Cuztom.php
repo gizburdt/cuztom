@@ -179,7 +179,7 @@ class Cuztom
      */
     public function register_scripts()
     {
-        wp_register_script('cztm', self::$url . '/assets/dist/js/cuztom.min.js', array(
+        wp_register_script('cuztom', self::$url . '/Assets/dist/js/cuztom.min.js', array(
             'jquery',
             'jquery-ui-core',
             'jquery-ui-datepicker',
@@ -232,7 +232,7 @@ class Cuztom
     {
         // Retun URL if defined
         if (defined('CUZTOM_URL')) {
-            return CUZTOM_URL;
+            return CUZTOM_URL . 'src/Gizburdt/Cuztom/';
         }
 
         // Base vars
