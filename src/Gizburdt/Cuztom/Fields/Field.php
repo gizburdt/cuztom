@@ -24,13 +24,8 @@ abstract class Field
     public $repeatable             = false;
     public $limit                  = null;
     public $ajax                   = false;
-
-    public $object                 = null;
-    public $value                  = null;
-    public $meta_type              = null;
-
     public $data_attributes        = array();
-    public $css_classes            = array();
+    public $css_class              = '';
 
     public $show_admin_column      = false;
     public $admin_column_sortable  = false;
@@ -41,9 +36,14 @@ abstract class Field
     public $before_id              = '';
     public $after_id               = '';
 
-    public $_supports_repeatable   = false;
-    public $_supports_bundle       = false;
-    public $_supports_ajax         = false;
+    protected $object                 = null;
+    protected $value                  = null;
+    protected $meta_type              = null;
+
+    protected $_supports_repeatable   = true;
+    protected $_supports_bundle       = true;
+    protected $_supports_ajax         = true;
+    protected $_input_type            = 'text';
 
     /**
      * Constructs a Cuztom_Field
@@ -57,7 +57,7 @@ abstract class Field
 
         // Set all properties
         foreach ($properties as $property) {
-            $this->$property = isset($args[$property]) ? $args[$property] : $this->$property;
+            $this->$property = (isset($args[$property]) ? $args[$property] : $this->$property);
         }
 
         // Repeatable?
@@ -66,7 +66,9 @@ abstract class Field
         }
 
         // Value
-        $this->value = maybe_unserialize(@$args['value']);
+        if (isset($args['value'])) {
+            $this->value = maybe_unserialize(@$args['value']);
+        }
     }
 
     /**
@@ -76,16 +78,18 @@ abstract class Field
      */
     public function output_row($value = null)
     {
-        echo '<tr>';
-        echo '<th>';
-        echo '<label for="' . $this->id . '" class="cuztom-label">' . $this->label . '</label>';
-        echo $this->required ? ' <span class="cuztom-required">*</span>' : '';
-        echo '<div class="cuztom-field-description">' . $this->description . '</div>';
-        echo '</th>';
-        echo '<td class="cuztom-field js-cztm-field ' . ($this->is_ajax() ? 'cuztom-field-ajax' : '') . '" id="' . $this->id . '" data-id="' . $this->id . '">';
-        echo $this->output($this->value);
-        echo '</td>';
-        echo '</tr>';
+        $ob = '<tr>';
+        $ob .= '<th>';
+        $ob .= '<label for="'.$this->get_id().'" class="cuztom-label">'.$this->label.'</label>';
+        $ob .= ($this->required ? ' <span class="cuztom-required">*</span>' : '');
+        $ob .= '<div class="cuztom-field-description">'.$this->description.'</div>';
+        $ob .= '</th>';
+        $ob .= '<td class="cuztom-field js-cuztom-field '.($this->is_ajax() ? 'cuztom-field-ajax' : '').'" id="'.$this->get_id().'" data-id="'.$this->get_id().'">';
+        $ob .= $this->output($this->value);
+        $ob .= '</td>';
+        $ob .= '</tr>';
+
+        return $ob;
     }
 
     /**
@@ -115,7 +119,7 @@ abstract class Field
      */
     public function _output($value = null)
     {
-        return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . (strlen($value) > 0 ? $value : $this->default_value) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
+        return '<input type="'.$this->get_input_type().'" '.$this->output_name().' '.$this->output_id().' '.$this->output_css_class().' value="'.(strlen($value) > 0 ? $value : $this->default_value).'" '.$this->output_data_attributes().' />'.$this->output_explanation();
     }
 
     /**
@@ -128,26 +132,26 @@ abstract class Field
     public function _output_repeatable($value = null)
     {
         $values = $value;
-        $x      = 0;
+        $count  = 0;
 
-        $output = '<div class="cuztom-repeatable">';
-        $output .= $this->_output_repeatable_control($value);
-        $output .= '<ul class="cuztom-sortable js-cztm-sortable">';
+        $ob = '<div class="cuztom-repeatable">';
+        $ob .= $this->_output_repeatable_control($value);
+        $ob .= '<ul class="cuztom-sortable js-cuztom-sortable">';
         if (is_array($value)) {
             foreach ($values as $value) {
-                $output .= $this->_output_repeatable_item($value, $values);
+                $ob .= $this->_output_repeatable_item($value, $values);
 
-                if ($x++ >= $this->limit) {
+                if ($count++ >= $this->limit) {
                     break;
                 }
             }
         } else {
-            $output .= $this->_output_repeatable_item($value, $values);
+            $ob .= $this->_output_repeatable_item($value, $values);
         }
-        $output .= '</ul>';
-        $output .= '</div>';
+        $ob .= '</ul>';
+        $ob .= '</div>';
 
-        return $output;
+        return $ob;
     }
 
     /**
@@ -278,6 +282,17 @@ abstract class Field
     }
 
     /**
+     * Returns the input type
+     *
+     * @return string
+     * @since  3.0
+     */
+    public function get_input_type()
+    {
+        return $this->_input_type;
+    }
+
+    /**
      * Get the complete id
      *
      * @return string
@@ -330,9 +345,9 @@ abstract class Field
      * @return string
      * @since  2.4
      */
-    public function output_css_class($extra = array())
+    public function output_css_class($extra = '')
     {
-        return apply_filters('cuztom_field_output_css_classes', ('class="' . implode(' ', array_merge($this->css_classes, $extra)) . '"'), $extra, $this);
+        return 'class="'.apply_filters('cuztom_field_output_css_class', $this->css_class, $this, $extra).'"';
     }
 
     /**

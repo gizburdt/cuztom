@@ -110,6 +110,7 @@ class Cuztom
         require_once(self::$dir . '/Fields/TermSelect.php');
         require_once(self::$dir . '/Fields/TermCheckboxes.php');
         require_once(self::$dir . '/Fields/Hidden.php');
+        require_once(self::$dir . '/Fields/filters.php');
     }
 
     /**

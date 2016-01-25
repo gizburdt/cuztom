@@ -2,6 +2,7 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
 
@@ -9,12 +10,15 @@ Guard::directAccess();
 
 class Radios extends Field
 {
-    public $_supports_bundle   = true;
-    public $css_classes        = array( 'cuztom-input' );
-    public $data_attributes    = array( 'default-value' => null );
+    /**
+     * Css class
+     * @var string
+     */
+    public $css_classes = 'cuztom-input';
 
     /**
-     * Constructs Cuztom_Field_Radios
+     * Construct
+     *
      * @param array $field
      * @since 0.3.3
      */
@@ -22,46 +26,47 @@ class Radios extends Field
     {
         parent::__construct($field);
 
-        $this->data_attributes['default-value']  = $this->default_value;
-        $this->after_name                       .= '[]';
+        $this->after_name .= '[]';
     }
 
     /**
-     * Output method
-     * @param  mixed $value
+     * Output
+     * @param  string $value
      * @return string
      * @since  2.4
      */
     public function _output($value = null)
     {
-        $output = '';
-        $i      = 0;
+        $ob    = '';
+        $count = 0;
 
-        $output .= '<div class="cuztom-checkboxes cuztom-radios" ' . $this->output_data_attributes() . '>';
-        if (is_array($this->options)) {
-            foreach ($this->options as $slug => $name) {
-                $output .= '<label ' . $this->output_for_attribute($this->id . $this->after_id . '_' . Cuztom::uglify($slug)) . '">';
-                $output .= '<input type="radio" ' . $this->output_name() . ' ' . $this->output_id($this->id . $this->after_id . '_' . Cuztom::uglify($slug)) . ' ' . $this->output_css_class() . ' value="' . $slug . '" ' . checked(!empty($value) ? $value : $this->default_value, $slug, false) . ' /> ';
-                $output .= Cuztom::beautify($name);
-                $output .= '</label>';
-                $output .= '<br />';
-                $i++;
+        $ob .= '<div class="cuztom-checkboxes cuztom-radios" '.$this->output_data_attributes().'>';
+            if (is_array($this->options)) {
+                foreach ($this->options as $slug => $name) {
+                    $ob .= '<label for="'.$this->get_id().'_'.Cuztom::uglify($slug).'">';
+                        $ob .= '<input type="radio" '.$this->output_name().' '.$this->output_id($this->id . $this->after_id . '_' . Cuztom::uglify($slug)) . ' ' . $this->output_css_class() . ' value="' . $slug . '" ' . checked(!empty($value) ? $value : $this->default_value, $slug, false) . ' /> ';
+                        $ob .= Cuztom::beautify($name);
+                    $ob .= '</label>';
+                    $ob .= '<br />';
+
+                    $count++;
+                }
             }
-        }
-        $output .= '</div>';
-        $output .= $this->output_explanation();
+        $ob .= '</div>';
+        $ob .= $this->output_explanation();
 
-        return $output;
+        return $ob;
     }
 
     /**
      * Parse value
-     * @param  array $value
-     * @return mixed
+     *
+     * @param  string|array $value
+     * @return string
      * @since  2.8
      */
     public function parse_value($value)
     {
-        return @$value[0];
+        return is_array($value) ? @$value[0] : $value;
     }
 }

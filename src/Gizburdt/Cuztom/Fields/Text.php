@@ -10,32 +10,24 @@ Guard::directAccess();
 class Text extends Field
 {
     /**
-     * Feature support
+     * Css class
+     * @var string
      */
-    public $_supports_repeatable    = true;
-    public $_supports_bundle        = true;
-    public $_supports_ajax            = true;
-
-    /**
-     * Attributes
-     */
-    public $css_classes            = array( 'cuztom-input', 'cuztom-input-text' );
+    public $css_class = 'cuztom-input cuztom-input-text';
 
     /**
      * Parse value
      *
-     * @param 	string 		$value
-     *
-     * @author  Gijs Jorissen
-     * @since 	2.8
-     *
+     * @param  string $value
+     * @return string
+     * @since  2.8
      */
     public function parse_value($value)
     {
         if (is_array($value)) {
-            array_walk_recursive($value, array( &$this, 'do_htmlspecialchars' ));
+            array_walk_recursive($value, array(&$this, 'do_htmlspecialchars'));
         } else {
-            $value = htmlspecialchars($value);
+            $value = $this->do_htmlspecialchars($value);
         }
 
         return $value;
@@ -44,11 +36,9 @@ class Text extends Field
     /**
      * Applies htmlspecialchars to $value
      *
-     * @param 	string 		$value
-     *
-     * @author  Gijs Jorissen
-     * @since 	3.0
-     *
+     * @param  string &$value
+     * @return string
+     * @since  3.0
      */
     public function do_htmlspecialchars(&$value)
     {

@@ -1,6 +1,6 @@
 <?php
 
-use Gizburdt\Cuztom\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Entities\PostType;
 use Gizburdt\Cuztom\Entities\Taxonomy;
