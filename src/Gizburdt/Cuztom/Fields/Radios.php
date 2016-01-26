@@ -4,17 +4,26 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Fields\Traits\Checkable;
 use Gizburdt\Cuztom\Fields\Field;
 
 Guard::directAccess();
 
 class Radios extends Field
 {
+    use Checkable;
+
     /**
      * Css class
      * @var string
      */
-    public $css_classes = 'cuztom-input';
+    public $css_class = 'cuztom-input';
+
+    /**
+     * Input type
+     * @var string
+     */
+    protected $_input_type = 'radio';
 
     /**
      * Construct
@@ -40,22 +49,25 @@ class Radios extends Field
         $ob    = '';
         $count = 0;
 
-        $ob .= '<div class="cuztom-checkboxes cuztom-radios" '.$this->output_data_attributes().'>';
-            if (is_array($this->options)) {
-                foreach ($this->options as $slug => $name) {
-                    $ob .= '<label for="'.$this->get_id().'_'.Cuztom::uglify($slug).'">';
-                        $ob .= '<input type="radio" '.$this->output_name().' '.$this->output_id($this->id . $this->after_id . '_' . Cuztom::uglify($slug)) . ' ' . $this->output_css_class() . ' value="' . $slug . '" ' . checked(!empty($value) ? $value : $this->default_value, $slug, false) . ' /> ';
-                        $ob .= Cuztom::beautify($name);
-                    $ob .= '</label>';
-                    $ob .= '<br />';
+        ob_start(); ?>
 
-                    $count++;
-                }
-            }
-        $ob .= '</div>';
-        $ob .= $this->output_explanation();
+        <div class="cuztom-checkboxes cuztom-radios">
+            <?php if (is_array($this->options)) : ?>
+                <?php foreach ($this->options as $slug => $name) : ?>
+                    <label for="<?php echo $this->get_id(Cuztom::uglify($slug)); ?>">
+                        <?php echo $this->_output_option($value, $slug); ?>
+                        <?php echo Cuztom::beautify($name); ?>
+                    </label>
+                    <br />
 
-        return $ob;
+                    <?php $count++; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+
+        <?php $this->output_explanation(); ?>
+
+        <?php $ob = ob_get_clean(); return $ob;
     }
 
     /**

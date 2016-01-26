@@ -85,6 +85,7 @@ class Cuztom
         require_once(self::$dir . '/Meta/Term.php');
 
         // Fields
+        require_once(self::$dir . '/Fields/Traits/Checkable.php');
         require_once(self::$dir . '/Fields/Field.php');
         require_once(self::$dir . '/Fields/Bundle.php');
         require_once(self::$dir . '/Fields/Tabs.php');

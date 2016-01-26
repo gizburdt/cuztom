@@ -24,6 +24,12 @@ class Textarea extends Field
      */
     public function _output($value = null)
     {
-        return '<textarea '.$this->output_name().' '.$this->output_id().' '.$this->output_css_class().'>'.(strlen($value) > 0 ? $value : $this->default_value).'</textarea>'.$this->output_explanation();
+        return '<textarea
+            name="'  .$this->get_name(). '"
+            id="'    .$this->get_id(). '"
+            class="' .$this->get_css_class(). '"
+            >'       .$this->get_value($value). '</textarea>'.
+
+            $this->output_explanation();
     }
 }

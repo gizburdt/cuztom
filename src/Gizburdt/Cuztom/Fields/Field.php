@@ -25,7 +25,7 @@ abstract class Field
     public $limit                  = null;
     public $ajax                   = false;
     public $data_attributes        = array();
-    public $css_class              = '';
+    public $css_class              = 'cuztom-input';
 
     public $show_admin_column      = false;
     public $admin_column_sortable  = false;
@@ -78,18 +78,20 @@ abstract class Field
      */
     public function output_row($value = null)
     {
-        $ob = '<tr>';
-        $ob .= '<th>';
-        $ob .= '<label for="'.$this->get_id().'" class="cuztom-label">'.$this->label.'</label>';
-        $ob .= ($this->required ? ' <span class="cuztom-required">*</span>' : '');
-        $ob .= '<div class="cuztom-field-description">'.$this->description.'</div>';
-        $ob .= '</th>';
-        $ob .= '<td class="cuztom-field js-cuztom-field '.($this->is_ajax() ? 'cuztom-field-ajax' : '').'" id="'.$this->get_id().'" data-id="'.$this->get_id().'">';
-        $ob .= $this->output($this->value);
-        $ob .= '</td>';
-        $ob .= '</tr>';
+        ob_start(); ?>
 
-        return $ob;
+        <tr>
+            <th>
+                <label for="<?php echo $this->get_id(); ?>" class="cuztom-label"><?php echo $this->label; ?></label>
+                <?php echo ($this->required ? ' <span class="cuztom-required">*</span>' : ''); ?>
+                <div class="cuztom-field-description"><?php echo $this->description; ?></div>
+            </th>
+            <td class="cuztom-field js-cuztom-field <?php echo ($this->is_ajax() ? ' cuztom-field-ajax' : ''); ?>" id="<?php echo $this->get_id(); ?>" data-id="<?php echo $this->get_id(); ?>">
+                <?php echo $this->output($this->value); ?>
+            </td>
+        </tr>
+
+        <?php $ob = ob_get_clean(); return $ob;
     }
 
     /**
@@ -119,7 +121,15 @@ abstract class Field
      */
     public function _output($value = null)
     {
-        return '<input type="'.$this->get_input_type().'" '.$this->output_name().' '.$this->output_id().' '.$this->output_css_class().' value="'.(strlen($value) > 0 ? $value : $this->default_value).'" '.$this->output_data_attributes().' />'.$this->output_explanation();
+        return '<input
+            type="'  .$this->get_input_type(). '"
+            name="'  .$this->get_name(). '"
+            id="'    .$this->get_id(). '"
+            class="' .$this->get_css_class(). '"
+            value="' .$this->get_value($value). '"
+            />'.
+
+            $this->output_explanation();
     }
 
     /**
@@ -134,36 +144,46 @@ abstract class Field
         $values = $value;
         $count  = 0;
 
-        $ob = '<div class="cuztom-repeatable">';
-        $ob .= $this->_output_repeatable_control($value);
-        $ob .= '<ul class="cuztom-sortable js-cuztom-sortable">';
-        if (is_array($value)) {
-            foreach ($values as $value) {
-                $ob .= $this->_output_repeatable_item($value, $values);
+        ob_start(); ?>
 
-                if ($count++ >= $this->limit) {
-                    break;
-                }
-            }
-        } else {
-            $ob .= $this->_output_repeatable_item($value, $values);
-        }
-        $ob .= '</ul>';
-        $ob .= '</div>';
+        <div class="cuztom-repeatable">
+            <?php echo $this->_output_repeatable_control($value); ?>
+            <ul class="cuztom-sortable js-cuztom-sortable">
+                <?php if (is_array($value)) {
+                    foreach ($values as $value) {
+                        echo $this->_output_repeatable_item($value, $values);
 
-        return $ob;
+                        if ($count++ >= $this->limit) {
+                            break;
+                        }
+                    }
+                } else {
+                    echo $this->_output_repeatable_item($value, $values);
+                } ?>
+            </ul>
+        </div>
+
+        <?php $ob = ob_get_clean(); return $ob;
     }
 
     /**
      * Outputs repeatable item
      *
      * @param  mixed   $value  Default value
-     * @param  integer $values Total count of fields
+     * @param  integer $count  Total count of fields
      * @return string
      */
-    public function _output_repeatable_item($value = null, $values = 0)
+    public function _output_repeatable_item($value = null, $count = 0)
     {
-        return '<li class="cuztom-field cuztom-sortable-item"><div class="cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>' . $this->_output($value) . (count($values) > 1 ? '<div class="cuztom-remove-sortable js-cztm-remove-sortable"><a href="#" tabindex="-1"></a></div>' : '') . '</li>';
+        ob_start(); ?>
+
+        <li class="cuztom-field cuztom-sortable-item">
+            <div class="cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>
+            <?php echo $this->_output($value); ?>
+            <?php echo (count($count) > 1 ? '<div class="cuztom-remove-sortable js-cztm-remove-sortable"><a href="#" tabindex="-1"></a></div>' : ''); ?>
+        </li>
+
+        <?php $ob = ob_get_clean(); return $ob;
     }
 
     /**
@@ -175,19 +195,20 @@ abstract class Field
      */
     public function _output_repeatable_control($value)
     {
-        // @TODO: Convert to echo?
-        $output = '<div class="cuztom-control">';
-        $output .= '<a class="button-secondary button button-small cuztom-button js-cztm-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="' . $this->id . '">' . __('Add item', 'cuztom') . '</a>';
-        if ($this->limit) {
-            $output .= '<div class="cuztom-counter js-cztm-counter">';
-            $output .= '<span class="current js-current">' . count($value) . '</span>';
-            $output .= '<span class="divider"> / </span>';
-            $output .= '<span class="max js-max">' . $this->limit . '</span>';
-            $output .= '</div>';
-        }
-        $output .= '</div>';
+        ob_start(); ?>
 
-        return $output;
+        <div class="cuztom-control">
+            <a class="button-secondary button button-small cuztom-button js-cztm-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="<?php echo $this->get_id(); ?>"><?php _e('Add item', 'cuztom'); ?></a>
+            <?php if ($this->limit) : ?>
+                <div class="cuztom-counter js-cztm-counter">
+                    <span class="current js-current"><?php echo count($value); ?></span>
+                    <span class="divider"> / </span>
+                    <span class="max js-max"><?php echo $this->limit; ?></span>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <?php $ob = ob_get_clean(); return $output;
     }
 
     /**
@@ -210,7 +231,7 @@ abstract class Field
      */
     public function _output_ajax_button()
     {
-        return '<a class="cuztom-ajax-save js-cztm-ajax-save button button-secondary button-small" href="#">' . __('Save', 'cuztom') . '</a>';
+        return sprintf('<a class="cuztom-ajax-save js-cztm-ajax-save button button-secondary button-small" href="#">%s</a>', __('Save', 'cuztom'));
     }
 
     /**
@@ -235,10 +256,14 @@ abstract class Field
     {
         if (is_null($values)) {
             $value = $this->value;
-        } elseif (is_array($values) && isset($values[$this->id])) {
-            $value = $values[$this->id];
+        } elseif(strlen($value) > 0) {
+            if (is_array($values) && isset($values[$this->id])) {
+                $value = $values[$this->id];
+            } else {
+                $value = $values;
+            }
         } else {
-            $value = $values;
+            $value = $this->default_value;
         }
 
         return $this->parse_value($value);
@@ -298,9 +323,11 @@ abstract class Field
      * @return string
      * @since  3.0
      */
-    public function get_id()
+    public function get_id($extra = null)
     {
-        return $this->before_id . $this->id . $this->after_id;
+        $id = $this->before_id . $this->id . $this->after_id . ($extra ? '_'.$extra : '');
+
+        return apply_filters('cuztom_field_id', $id, $this);
     }
 
     /**
@@ -311,43 +338,19 @@ abstract class Field
      */
     public function get_name()
     {
-        return $this->before_name . '[' . $this->id . ']' . $this->after_name;
+        return apply_filters('cuztom_field_name', $this->before_name . '[' . $this->id . ']' . $this->after_name, $this);
     }
 
     /**
-     * Outputs the fields name attribute
-     *
-     * @param  string $overwrite
-     * @return string
-     * @since  2.4
-     */
-    public function output_name($overwrite = null)
-    {
-        return apply_filters('cuztom_field_output_name', ($overwrite ? 'name="' . $overwrite . '"' : 'name="cuztom' . $this->get_name() . '"'), $overwrite, $this);
-    }
-
-    /**
-     * Outputs the fields id attribute
-     *
-     * @param  string $overwrite
-     * @return string
-     * @since  2.4
-     */
-    public function output_id($overwrite = null)
-    {
-        return apply_filters('cuztom_field_output_id', ($overwrite ? 'id="' . $overwrite . '"' : 'id="' . $this->get_id() . '"'), $overwrite, $this);
-    }
-
-    /**
-     * Outputs the fields css classes
+     * Get the fields css classes
      *
      * @param  array  $extra
      * @return string
      * @since  2.4
      */
-    public function output_css_class($extra = '')
+    public function get_css_class($extra = '')
     {
-        return 'class="'.apply_filters('cuztom_field_output_css_class', $this->css_class, $this, $extra).'"';
+        return apply_filters('cuztom_field_output_css_class', $this->css_class, $this, $extra);
     }
 
     /**
@@ -368,18 +371,6 @@ abstract class Field
         }
 
         return apply_filters('cuztom_field_output_data_attributes', @$output, $extra, $this);
-    }
-
-    /**
-     * Outputs the for attribute
-     *
-     * @param  string $for
-     * @return string
-     * @since  2.4
-     */
-    public function output_for_attribute($for = null)
-    {
-        return apply_filters('cuztom_field_output_for_attribute', ($for ? 'for="' . $for . '"' : ''), $for, $this);
     }
 
     /**

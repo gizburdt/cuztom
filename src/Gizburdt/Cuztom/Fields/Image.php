@@ -14,13 +14,19 @@ class Image extends Field
      * Css classes
      * @var string
      */
-    public $css_class = 'cuztom-hidden cuztom-input';
+    public $css_class = 'cuztom-input cuztom-hidden';
 
     /**
      * Data attributes
      * @var array
      */
     public $data_attributes = array( 'media-type' => 'image' );
+
+    /**
+     * Input type
+     * @var string
+     */
+    protected $_input_type = 'hidden';
 
     /**
      * Output
@@ -33,20 +39,22 @@ class Image extends Field
     {
         $image = '';
 
+        ob_start();
+
         // Set image
         if (! Cuztom::is_empty($value)) {
             $url   = wp_get_attachment_image_src($value, $this->get_preview_size());
             $url   = $url[0];
             $image = '<img src="'.$url.'" />';
-        }
+        } ?>
 
-        $ob  = '<input type="hidden" '.$this->output_name().' '.$this->output_css_class().' value="'.(! Cuztom::is_empty($value) ? $value : '').'" />';
-        $ob .= '<input '.$this->output_id().' '.$this->output_data_attributes().' type="button" class="button button-small js-cuztom-upload" '.sprintf('value="%s"', __('Select image', 'cuztom')).'/>';
-        $ob .= (! Cuztom::is_empty($value) ? sprintf('<a href="#" class="js-cztm-remove-media cuztom-remove-media" title="%s" tabindex="-1"></a>', __('Remove current file', 'cuztom')) : '');
-        $ob .= '<span class="cuztom-preview">'.$image.'</span>';
-        $ob .= $this->output_explanation();
+        <?php echo parent::_output($value); ?>
+        <input id="<?php echo $this->get_id(); ?>" type="button" class="button button-small js-cuztom-upload" value="<?php _e('Select image', 'cuztom'); ?>" />
+        <?php echo (! Cuztom::is_empty($value) ? sprintf('<a href="#" class="js-cuztom-remove-media cuztom-remove-media" title="%s" tabindex="-1"></a>', __('Remove current file', 'cuztom')) : ''); ?>
+        <span class="cuztom-preview"><?php echo $image; ?></span>
+        <?php echo $this->output_explanation(); ?>
 
-        return $ob;
+        <?php $ob = ob_get_clean(); return $ob;
     }
 
     /**

@@ -4,17 +4,26 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Fields\Traits\Checkable;
 use Gizburdt\Cuztom\Fields\Field;
 
 Guard::directAccess();
 
 class YesNo extends Field
 {
+    use Checkable;
+
     /**
      * Css class
      * @var string
      */
     public $css_classes = 'cuztom-input';
+
+    /**
+     * Input type
+     * @var string
+     */
+    protected $_input_type = 'radio';
 
     /**
      * Output
@@ -25,15 +34,18 @@ class YesNo extends Field
      */
     public function _output($value = null)
     {
-        $ob = '<div class="cuztom-checkboxes">';
-            foreach (array('yes', 'no') as $answer) {
-                $ob .= '<input type="radio" '.$this->output_name().' id="'.$this->get_id().'_'.$answer.'" '.$this->output_css_class().' value="'.$answer.'" '.(! Cuztom::is_empty($value) ? checked($value, $answer, false) : checked($this->default_value, $answer, false)).' /> ';
-                $ob .= sprintf('<label for="%s_%s">%s</label>', $this->get_id(), $answer, ($answer == 'yes' ? __('Yes', 'cuztom') : __('No', 'cuztom')));
-                $ob .= '<br />';
-            }
-        $ob .= '</div>';
-        $ob .= $this->output_explanation();
+        ob_start(); ?>
 
-        return $ob;
+        <div class="cuztom-checkboxes">
+            <?php foreach (array('yes', 'no') as $answer) : ?>
+                <?php echo $this->_output_option($value, $answer) ?>
+                <?php $label = ($answer == 'yes' ? __('Yes', 'cuztom') : __('No', 'cuztom')); ?>
+                <?php echo sprintf('<label for="%s">%s</label>', $this->get_id($answer), $label); ?>
+                <br />
+            <?php endforeach; ?>
+        </div>
+        <?php echo $this->output_explanation(); ?>
+
+        <?php $ob = ob_get_clean(); return $ob;
     }
 }
