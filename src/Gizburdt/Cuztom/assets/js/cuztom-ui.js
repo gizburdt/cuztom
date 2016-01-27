@@ -26,7 +26,7 @@ var cuztomUI;
     });
 
     // Colorpicker
-    $('.js-cztm-colorpicker', object).wpColorPicker();
+    $('.js-cuztom-colorpicker', object).wpColorPicker();
 
     // Tabs
     $('.js-cztm-tabs', object).tabs();

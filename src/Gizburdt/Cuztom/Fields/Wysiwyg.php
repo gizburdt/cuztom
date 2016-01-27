@@ -10,12 +10,6 @@ Guard::directAccess();
 class Wysiwyg extends Field
 {
     /**
-     * Feature support
-     */
-    public $_supports_ajax            = true;
-    public $_supports_bundle        = true;
-
-    /**
      * Constructs Cuztom_Field_Wysiwyg
      *
      * @author 	Gijs Jorissen
@@ -40,8 +34,8 @@ class Wysiwyg extends Field
      * @since 	2.4
      *
      */
-    public function _output($value = null)
+    public function _output_input($value = null)
     {
-        return wp_editor((! empty($value) ? $value : $this->default_value), $this->before_id . $this->id . $this->after_id, $this->args) . $this->output_explanation();
+        return wp_editor((! empty($value) ? $value : $this->default_value), $this->before_id . $this->id . $this->after_id, $this->args);
     }
 }

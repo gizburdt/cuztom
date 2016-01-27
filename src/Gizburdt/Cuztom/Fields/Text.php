@@ -16,6 +16,18 @@ class Text extends Field
     public $css_class = 'cuztom-input cuztom-input-text';
 
     /**
+     * Output field
+     *
+     * @param  mixed $value
+     * @return string
+     * @since  2.4
+     */
+    function _output($value = null)
+    {
+        return parent::_output($value) . $this->output_explanation();
+    }
+
+    /**
      * Parse value
      *
      * @param  string $value

@@ -48,7 +48,7 @@ class Image extends Field
             $image = '<img src="'.$url.'" />';
         } ?>
 
-        <?php echo parent::_output($value); ?>
+        <?php echo parent::_output_input($value); ?>
         <input id="<?php echo $this->get_id(); ?>" type="button" class="button button-small js-cuztom-upload" value="<?php _e('Select image', 'cuztom'); ?>" />
         <?php echo (! Cuztom::is_empty($value) ? sprintf('<a href="#" class="js-cuztom-remove-media cuztom-remove-media" title="%s" tabindex="-1"></a>', __('Remove current file', 'cuztom')) : ''); ?>
         <span class="cuztom-preview"><?php echo $image; ?></span>

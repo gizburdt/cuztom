@@ -9,10 +9,7 @@ Guard::directAccess();
 
 class Date extends DateTime
 {
-    public $_supports_ajax   = true;
-    public $_supports_bundle = true;
-    public $css_classes      = array( 'js-cztm-datepicker', 'cuztom-datepicker', 'datepicker', 'cuztom-input' );
-    public $data_attributes  = array( 'date-format' => null );
+    public $css_class = 'js-cztm-datepicker cuztom-datepicker datepicker cuztom-input';
 
     /**
      * Constructs Cuztom_Field_Date

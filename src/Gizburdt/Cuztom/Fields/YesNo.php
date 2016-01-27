@@ -38,9 +38,11 @@ class YesNo extends Field
 
         <div class="cuztom-checkboxes">
             <?php foreach (array('yes', 'no') as $answer) : ?>
-                <?php echo $this->_output_option($value, $answer) ?>
-                <?php $label = ($answer == 'yes' ? __('Yes', 'cuztom') : __('No', 'cuztom')); ?>
-                <?php echo sprintf('<label for="%s">%s</label>', $this->get_id($answer), $label); ?>
+                <?php
+                    $label = ($answer == 'yes' ? __('Yes', 'cuztom') : __('No', 'cuztom'));
+                    echo $this->_output_option($value, $answer);
+                    echo sprintf('<label for="%s">%s</label>', $this->get_id($answer), $label);
+                ?>
                 <br />
             <?php endforeach; ?>
         </div>

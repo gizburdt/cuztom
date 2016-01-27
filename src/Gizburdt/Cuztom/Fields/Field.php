@@ -121,15 +121,24 @@ abstract class Field
      */
     public function _output($value = null)
     {
+        return $this->_output_input($value) . $this->output_explanation();
+    }
+
+    /**
+     * Output input field
+     *
+     * @param  string $value
+     * @return string
+     */
+    public function _output_input($value = null)
+    {
         return '<input
             type="'  .$this->get_input_type(). '"
             name="'  .$this->get_name(). '"
             id="'    .$this->get_id(). '"
             class="' .$this->get_css_class(). '"
             value="' .$this->get_value($value). '"
-            />'.
-
-            $this->output_explanation();
+            />';
     }
 
     /**
@@ -314,7 +323,7 @@ abstract class Field
      */
     public function get_input_type()
     {
-        return $this->_input_type;
+        return apply_filters('cuztom_field_input_type', $this->_input_type, $this);
     }
 
     /**
