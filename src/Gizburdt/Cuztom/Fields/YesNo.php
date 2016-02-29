@@ -14,39 +14,37 @@ class YesNo extends Field
     use Checkable;
 
     /**
-     * Css class
-     * @var string
-     */
-    public $css_classes = 'cuztom-input';
-
-    /**
      * Input type
      * @var string
      */
     protected $_input_type = 'radio';
 
     /**
-     * Output
+     * CSS class
+     * @var string
+     */
+    public $css_class = 'cuztom-input cuztom-radio';
+
+    /**
+     * Output input
      *
      * @param  string|array $value
      * @return string
      * @since  2.4
      */
-    public function _output($value = null)
+    public function _output_input($value = null)
     {
         ob_start(); ?>
 
-        <div class="cuztom-checkboxes">
+        <div class="cuztom-radios">
             <?php foreach (array('yes', 'no') as $answer) : ?>
-                <?php
-                    $label = ($answer == 'yes' ? __('Yes', 'cuztom') : __('No', 'cuztom'));
-                    echo $this->_output_option($value, $answer);
-                    echo sprintf('<label for="%s">%s</label>', $this->get_id($answer), $label);
-                ?>
+                <label for="<?php echo $this->get_id($answer); ?>">
+                    <?php echo $this->_output_option($value, $this->default_value, $answer); ?>
+                    <?php echo ($answer == 'yes' ? __('Yes', 'cuztom') : __('No', 'cuztom')); ?>
+                </label>
                 <br />
             <?php endforeach; ?>
         </div>
-        <?php echo $this->output_explanation(); ?>
 
         <?php $ob = ob_get_clean(); return $ob;
     }

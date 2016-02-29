@@ -4,29 +4,23 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
+use Gizburdt\Cuztom\Fields\Select;
 
 Guard::directAccess();
 
-class PostSelect extends Field
+class PostSelect extends Select
 {
     /**
-     * Feature support
+     * CSS class
+     * @var string
      */
-    public $_supports_repeatable    = true;
-    public $_supports_ajax            = true;
-    public $_supports_bundle        = true;
+    public $css_class = 'cuztom-input cuztom-select cuztom-post-select';
 
     /**
-     * Attributes
-     */
-    public $css_classes            = array( 'cuztom-input cuztom-select cuztom-post-select' );
-
-    /**
-     * Constructs Cuztom_Field_Post_Select
+     * Construct
      *
-     * @author 	Gijs Jorissen
-     * @since 	0.3.3
-     *
+     * @param array $field
+     * @since 0.3.3
      */
     public function __construct($field)
     {
@@ -43,32 +37,5 @@ class PostSelect extends Field
         );
 
         $this->posts = get_posts($this->args);
-    }
-
-    /**
-     * Output method
-     *
-     * @return  string
-     *
-     * @author 	Gijs Jorissen
-     * @since 	2.4
-     *
-     */
-    public function _output($value = null)
-    {
-        $output = '<select ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . '>';
-        if (isset($this->args['show_option_none'])) {
-            $output .= '<option value="0" ' . (empty($value) ? 'selected="selected"' : '') . '>' . $this->args['show_option_none'] . '</option>';
-        }
-
-        if (is_array($this->posts)) {
-            foreach ($posts = $this->posts as $post) {
-                $output .= '<option value="' . $post->ID . '" ' . (! empty($value) ? selected($post->ID, $value, false) : selected($this->default_value, $post->ID, false)) . '>' . $post->post_title . '</option>';
-            }
-        }
-        $output .= '</select>';
-        $output .= $this->output_explanation();
-
-        return $output;
     }
 }

@@ -11,7 +11,13 @@ Guard::directAccess();
 class Image extends Field
 {
     /**
-     * Css classes
+     * Input type
+     * @var string
+     */
+    protected $_input_type = 'hidden';
+
+    /**
+     * CSS class
      * @var string
      */
     public $css_class = 'cuztom-input cuztom-hidden';
@@ -23,22 +29,14 @@ class Image extends Field
     public $data_attributes = array( 'media-type' => 'image' );
 
     /**
-     * Input type
-     * @var string
-     */
-    protected $_input_type = 'hidden';
-
-    /**
-     * Output
+     * Output input(s)
      *
      * @param  string $value
      * @return string
      * @since  2.4
      */
-    public function _output($value = null)
+    public function _output_input($value = null)
     {
-        $image = '';
-
         ob_start();
 
         // Set image
@@ -46,13 +44,16 @@ class Image extends Field
             $url   = wp_get_attachment_image_src($value, $this->get_preview_size());
             $url   = $url[0];
             $image = '<img src="'.$url.'" />';
-        } ?>
+        } else {
+            $image = '';
+        }
+
+        ?>
 
         <?php echo parent::_output_input($value); ?>
         <input id="<?php echo $this->get_id(); ?>" type="button" class="button button-small js-cuztom-upload" value="<?php _e('Select image', 'cuztom'); ?>" />
-        <?php echo (! Cuztom::is_empty($value) ? sprintf('<a href="#" class="js-cuztom-remove-media cuztom-remove-media" title="%s" tabindex="-1"></a>', __('Remove current file', 'cuztom')) : ''); ?>
-        <span class="cuztom-preview"><?php echo $image; ?></span>
-        <?php echo $this->output_explanation(); ?>
+        <?php echo (! Cuztom::is_empty($value) ? sprintf('<a href="#" class="cuztom-remove-media js-cuztom-remove-media" title="%s" tabindex="-1"></a>', __('Remove current image', 'cuztom')) : ''); ?>
+        <span class="cuztom-preview cuztom-preview-image"><?php echo $image; ?></span>
 
         <?php $ob = ob_get_clean(); return $ob;
     }

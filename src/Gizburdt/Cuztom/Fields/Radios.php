@@ -14,16 +14,16 @@ class Radios extends Field
     use Checkable;
 
     /**
-     * Css class
-     * @var string
-     */
-    public $css_class = 'cuztom-input';
-
-    /**
      * Input type
      * @var string
      */
     protected $_input_type = 'radio';
+
+    /**
+     * CSS class
+     * @var string
+     */
+    public $css_class = 'cuztom-input cuztom-radio';
 
     /**
      * Construct
@@ -35,37 +35,32 @@ class Radios extends Field
     {
         parent::__construct($field);
 
-        $this->after_name .= '[]';
+        $this->default_value = (array) $this->default_value;
+        $this->after_name   .= '[]';
     }
 
     /**
-     * Output
+     * Output input
+     *
      * @param  string $value
      * @return string
      * @since  2.4
      */
-    public function _output($value = null)
+    public function _output_input($value = null)
     {
-        $ob    = '';
-        $count = 0;
-
         ob_start(); ?>
 
-        <div class="cuztom-checkboxes cuztom-radios">
+        <div class="cuztom-checkboxes-wrap cuztom-radios-wrap">
             <?php if (is_array($this->options)) : ?>
                 <?php foreach ($this->options as $slug => $name) : ?>
                     <label for="<?php echo $this->get_id(Cuztom::uglify($slug)); ?>">
-                        <?php echo $this->_output_option($value, $slug); ?>
+                        <?php echo $this->_output_option($value, $this->default_value, $slug); ?>
                         <?php echo Cuztom::beautify($name); ?>
                     </label>
-                    <br />
-
-                    <?php $count++; ?>
+                    <br/>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-
-        <?php $this->output_explanation(); ?>
 
         <?php $ob = ob_get_clean(); return $ob;
     }

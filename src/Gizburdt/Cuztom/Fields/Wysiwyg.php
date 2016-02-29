@@ -2,6 +2,7 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
 
@@ -10,11 +11,10 @@ Guard::directAccess();
 class Wysiwyg extends Field
 {
     /**
-     * Constructs Cuztom_Field_Wysiwyg
+     * Construct
      *
-     * @author 	Gijs Jorissen
-     * @since 	0.3.3
-     *
+     * @param array $field
+     * @since 0.3.3
      */
     public function __construct($field)
     {
@@ -22,20 +22,22 @@ class Wysiwyg extends Field
 
         // Set necessary args
         @$this->args['editor_class'] .= ' cuztom-input';
-        $this->args['textarea_name'] = 'cuztom' . $this->before_name . '[' . $this->id . ']' . $this->after_name;
+        $this->args['textarea_name'] = $this->get_name();
     }
 
     /**
-     * Output method
+     * Output input
      *
-     * @return  string
-     *
-     * @author 	Gijs Jorissen
-     * @since 	2.4
-     *
+     * @param  string|array $value
+     * @return string
+     * @since  2.4
      */
     public function _output_input($value = null)
     {
-        return wp_editor((! empty($value) ? $value : $this->default_value), $this->before_id . $this->id . $this->after_id, $this->args);
+        return wp_editor(
+            (! Cuztom::is_empty($value) ? $value : $this->default_value),
+            $this->get_id(),
+            $this->args
+        );
     }
 }

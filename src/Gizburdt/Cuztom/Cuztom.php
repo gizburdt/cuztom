@@ -87,6 +87,7 @@ class Cuztom
         // Fields
         require_once(self::$dir . '/Fields/Traits/Checkable.php');
         require_once(self::$dir . '/Fields/Traits/Selectable.php');
+        require_once(self::$dir . '/Fields/Traits/Arrayable.php');
         require_once(self::$dir . '/Fields/Field.php');
         require_once(self::$dir . '/Fields/Bundle.php');
         require_once(self::$dir . '/Fields/Tabs.php');
@@ -112,7 +113,7 @@ class Cuztom
         require_once(self::$dir . '/Fields/TermSelect.php');
         require_once(self::$dir . '/Fields/TermCheckboxes.php');
         require_once(self::$dir . '/Fields/Hidden.php');
-        require_once(self::$dir . '/Fields/filters.php');
+        require_once(self::$dir . '/Fields/Support/filters.php');
     }
 
     /**

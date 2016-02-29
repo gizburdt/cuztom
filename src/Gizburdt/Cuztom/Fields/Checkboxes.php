@@ -5,16 +5,25 @@ namespace Gizburdt\Cuztom\Fields;
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
+use Gizburdt\Cuztom\Fields\Traits\Checkable;
 
 Guard::directAccess();
 
 class Checkboxes extends Field
 {
+    use Checkable;
+
     /**
      * Css class
      * @var string
      */
-    public $css_classes = 'cuztom-input';
+    public $_input_type = 'checkbox';
+
+    /**
+     * Css class
+     * @var string
+     */
+    public $css_class = 'cuztom-input cuztom-checkbox';
 
     /**
      * Construct
@@ -31,39 +40,28 @@ class Checkboxes extends Field
     }
 
     /**
-     * Output
+     * Output input
      *
      * @param  string|array $value
      * @return string
      * @since  2.4
      */
-    public function _output($value = null)
+    public function _output_input($value = null)
     {
-        $ob = '<div class="cuztom-checkboxes-wrap">';
-            if (is_array($this->options)) {
-                foreach ($this->options as $slug => $name) {
-                    $ob .= '<label ' . $this->output_for_attribute($this->id . $this->after_id . '_' . Cuztom::uglify($slug)) . '>';
-                    $ob .= '<input type="checkbox" ' . $this->output_name() . ' ' . $this->output_id($this->id . $this->after_id . '_' . Cuztom::uglify($slug)) . ' ' . $this->output_css_class() . ' value="' . $slug . '" ' . (is_array($value) ? (in_array($slug, $value) ? 'checked="checked"' : '') : (($value == '-1') ? '' : in_array($slug, $this->default_value) ? 'checked="checked"' : '')) . ' /> ';
-                    $ob .= Cuztom::beautify($name);
-                    $ob .= '</label>';
-                    $ob .= '<br />';
-                }
-            }
-        $ob .= '</div>';
-        $ob .= $this->output_explanation();
+        ob_start(); ?>
 
-        return $ob;
-    }
+        <div class="cuztom-checkboxes-wrap">
+            <?php if (is_array($this->options)) : ?>
+                <?php foreach ($this->options as $slug => $name) : ?>
+                    <label for="<?php echo $this->get_id(Cuztom::uglify($slug)); ?>">
+                        <?php echo $this->_output_option($value, $this->default_value, $slug); ?>
+                        <?php echo Cuztom::beautify($name); ?>
+                    </label>
+                    <br/>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
 
-    /**
-     * Parse value
-     *
-     * @param  string $value
-     * @return string
-     * @since  2.8
-     */
-    public function parse_value($value)
-    {
-        return Cuztom::is_empty($value) ? '-1' : $value;
+        <?php $ob = ob_get_clean(); return $ob;
     }
 }

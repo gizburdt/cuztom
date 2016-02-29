@@ -14,32 +14,22 @@ class MultiSelect extends Field
     use Selectable;
 
     /**
-     * Attributes
+     * CSS class
+     * @var string
      */
-    public $css_classes            = array( 'cuztom-input', 'cuztom-select', 'cuztom-multi-select' );
+    public $css_class = 'cuztom-input cuztom-select cuztom-multi-select';
 
     /**
-     * Constructs Cuztom_Field_Multi_Select
+     * Construct
      *
-     * @author 	Gijs Jorissen
-     * @since 	0.3.3
-     *
+     * @param array $field
+     * @since 0.3.3
      */
     public function __construct($field)
     {
         parent::__construct($field);
 
-        $this->after           .= '[]';
-    }
-
-    /**
-     * Output method
-     *
-     * @param  string|array $value
-     * @return string
-     */
-    public function _output($value = null)
-    {
-        return $this->_output_input($value, null, ['multiselect' => true]) . $this->output_explanation();
+        $this->after_name          .= '[]';
+        $this->args['multiselect']  = true;
     }
 }

@@ -5,11 +5,20 @@ namespace Gizburdt\Cuztom\Fields;
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
+use Gizburdt\Cuztom\Fields\Traits\Checkable;
 
 Guard::directAccess();
 
-class Checkboc extends Field
+class Checkbox extends Field
 {
+    use Checkable;
+
+    /**
+     * Input type
+     * @var string
+     */
+    protected $_input_type = 'checkbox';
+
     /**
      * Output
      *
@@ -17,34 +26,14 @@ class Checkboc extends Field
      * @return string
      * @since  2.4
      */
-    public function _output($value = null)
+    public function _output_input($value = null)
     {
-        return '<div class="cuztom-checkbox">
-            <input type="checkbox" '.$this->output_name().' '.$this->output_id().'" '.$this->output_css_class().' '.$this->output_checked($value).' value="on" />
-        </div>'.$this->output_explanation();
-    }
+        ob_start(); ?>
 
-    /**
-     * Output checked attribute
-     *
-     * @param  mixed $value
-     * @return string
-     * @since  3.0
-     */
-    public function output_checked($value = null)
-    {
-        return (! Cuztom::is_empty($value) ? checked($value, 'on', false) : checked($this->default_value, 'on', false));
-    }
+        <div class="cuztom-checkbox">
+            <?php echo $this->_output_option($value, $this->default_value, 'on'); ?>
+        </div>
 
-    /**
-     * Parse value
-     *
-     * @param  string $value
-     * @return string
-     * @since  2.4
-     */
-    public function parse_value($value)
-    {
-        return Cuztom::is_empty($value) ? '-1' : $value;
+        <?php $ob = ob_get_clean(); return $ob;
     }
 }

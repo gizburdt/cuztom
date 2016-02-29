@@ -95,13 +95,15 @@ abstract class Field
     }
 
     /**
-     * Outputs a field based on its type
+     * Output based on type
      *
-     * @since 0.2
+     * @param  string|array $value
+     * @return string
+     * @since  0.2
      */
     public function output($value = null)
     {
-        $value = (!is_null($value)) ? $value : $this->value;
+        $value = (! is_null($value)) ? $value : $this->value;
 
         if ($this->is_repeatable()) {
             return $this->_output_repeatable($value);
@@ -115,7 +117,7 @@ abstract class Field
     /**
      * Output field
      *
-     * @param  mixed $value
+     * @param  string|array $value
      * @return string
      * @since  2.4
      */
@@ -347,7 +349,7 @@ abstract class Field
      */
     public function get_name()
     {
-        return apply_filters('cuztom_field_name', $this->before_name . '[' . $this->id . ']' . $this->after_name, $this);
+        return apply_filters('cuztom_field_name', 'cuztom' . $this->before_name . '[' . $this->id . ']' . $this->after_name, $this);
     }
 
     /**

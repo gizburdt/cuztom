@@ -2,6 +2,7 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
 
@@ -10,50 +11,49 @@ Guard::directAccess();
 class File extends Field
 {
     /**
-     * Css class
-     * @var string
-     */
-    public $css_class = 'cuztom-hidden cuztom-input';
-
-    /**
      * Input type
      * @var string
      */
     protected $_input_type = 'hidden';
 
     /**
-     * Output method
-     *
-     * @return  string
-     *
-     * @author 	Gijs Jorissen
-     * @since 	2.4
-     *
+     * CSS class
+     * @var string
      */
-    public function _output($value = null)
+    public $css_class = 'cuztom-hidden cuztom-input';
+
+    /**
+     * Output input
+     *
+     * @param  string $value
+     * @return string
+     * @since  2.4
+     */
+    public function _output_input($value = null)
     {
         ob_start();
 
-        if (! empty($value)) {
+        if (! Cuztom::is_empty($value)) {
             $attachment = self::get_attachment_by_url($value);
-            $mime = '';
 
             if (is_object($attachment)) {
                 $mime = str_replace('/', '_', $attachment->post_mime_type);
                 $name = $attachment->post_title;
+            } else {
+                $mime = '';
             }
 
             $file = '<span class="cuztom-mime mime-' . $mime . '"><a target="_blank" href="' . $value . '">' . $name . '</a></span>';
         } else {
             $file = '';
-        } ?>
+        }
+
+        ?>
 
         <?php echo parent::_output_input($value); ?>
-        <input id="<?php echo $this->get_id(); ?>" type="button" class="button js-cztm-upload" value="<?php _e('Select file', 'cuztom'); ?>" />
-        <?php echo (! empty($value) ? sprintf('<a href="#" class="js-cztm-remove-media cuztom-remove-media">%s</a>', __('Remove current file', 'cuztom')) : ''); ?>
-
+        <input type="button" id="<?php echo $this->get_id(); ?>" class="button js-cztm-upload" value="<?php _e('Select file', 'cuztom'); ?>" />
+        <?php echo (! empty($value) ? sprintf('<a href="#" class="cuztom-remove-media js-cuztom-remove-media">%s</a>', __('Remove current file', 'cuztom')) : ''); ?>
         <span class="cuztom-preview"><?php echo $file; ?></span>
-        <?php echo $this->output_explanation(); ?>
 
         <?php $ob = ob_get_clean(); return $ob;
     }
@@ -63,6 +63,7 @@ class File extends Field
      *
      * @param  string 			$url
      * @return integer
+     * @since  2.4
      */
     public function get_attachment_by_url($url)
     {
