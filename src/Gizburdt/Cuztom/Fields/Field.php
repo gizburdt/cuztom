@@ -123,7 +123,7 @@ abstract class Field
      */
     public function _output($value = null)
     {
-        return $this->_output_input($value) . $this->output_explanation();
+        return $this->_output_input($value) . $this->get_explanation();
     }
 
     /**
@@ -140,6 +140,7 @@ abstract class Field
             id="'    .$this->get_id(). '"
             class="' .$this->get_css_class(). '"
             value="' .$this->get_value($value). '"
+            '        .$this->get_data_attributes(). '
             />';
     }
 
@@ -301,16 +302,16 @@ abstract class Field
         switch ($this->meta_type) :
             case 'user' :
                 update_user_meta($object, $this->id, $value);
-        return true;
-        break;
-        case 'term' :
+                return true;
+            break;
+            case 'term' :
                 update_term_meta($object, $this->id, $value);
-        return true;
-        break;
-        case 'post' : default :
+                return true;
+            break;
+            case 'post' : default :
                 update_post_meta($object, $this->id, $value);
-        return true;
-        break;
+                return true;
+            break;
         endswitch;
 
         // Default
@@ -336,9 +337,7 @@ abstract class Field
      */
     public function get_id($extra = null)
     {
-        $id = $this->before_id . $this->id . $this->after_id . ($extra ? '_'.$extra : '');
-
-        return apply_filters('cuztom_field_id', $id, $this);
+        return apply_filters('cuztom_field_id', $this->id, $this, $extra);
     }
 
     /**
@@ -359,9 +358,20 @@ abstract class Field
      * @return string
      * @since  2.4
      */
-    public function get_css_class($extra = '')
+    public function get_css_class($extra = null)
     {
-        return apply_filters('cuztom_field_output_css_class', $this->css_class, $this, $extra);
+        return apply_filters('cuztom_field_css_class', $this->css_class, $this, $extra);
+    }
+
+    /**
+     * Outputs the fields explanation
+     *
+     * @return string
+     * @since  2.4
+     */
+    public function get_explanation()
+    {
+        return apply_filters('cuztom_field_explanation', (! $this->is_repeatable() && $this->explanation ? '<em class="cuztom-field-explanation">' . $this->explanation . '</em>' : ''), $this);
     }
 
     /**
@@ -371,28 +381,17 @@ abstract class Field
      * @return string
      * @since  2.4
      */
-    public function output_data_attributes($extra = array())
+    public function get_data_attributes($extra = array())
     {
         foreach (array_merge($this->data_attributes, $extra) as $attribute => $value) {
             if (! is_null($value)) {
-                $output = 'data-' . $attribute . '="' . $value . '"';
+                @$output .= ' data-' . $attribute . '="' . $value . '"';
             } elseif (! $value && isset($this->args[Cuztom::uglify($attribute)])) {
-                $output = 'data-' . $attribute . '="' . $this->args[Cuztom::uglify($attribute)] . '"';
+                @$output .= 'data-' . $attribute . '="' . $this->args[Cuztom::uglify($attribute)] . '"';
             }
         }
 
-        return apply_filters('cuztom_field_output_data_attributes', @$output, $extra, $this);
-    }
-
-    /**
-     * Outputs the fields explanation
-     *
-     * @return string
-     * @since  2.4
-     */
-    public function output_explanation()
-    {
-        return apply_filters('cuztom_field_output_explanation', (! $this->is_repeatable() && $this->explanation ? '<em class="cuztom-field-explanation">' . $this->explanation . '</em>' : ''), $this);
+        return apply_filters('cuztom_field_data_attributes', @$output, $this, $extra);
     }
 
     /**

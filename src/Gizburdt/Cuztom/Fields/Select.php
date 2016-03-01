@@ -32,7 +32,7 @@ class Select extends Field
         ob_start(); ?>
 
         <div class="cuztom-select-wrap">
-            <select name="<?php echo $this->get_name(); ?>" id="<?php echo $this->get_id(); ?>" class="<?php echo $this->get_css_class(); ?>">
+            <select name="<?php echo $this->get_name(); ?>" id="<?php echo $this->get_id(); ?>" class="<?php echo $this->get_css_class(); ?>" <?php echo $this->get_data_attributes(); ?>>
                 <?php echo $this->maybe_show_option_none(); ?>
 
                 <?php if (is_array($this->options)) : ?>

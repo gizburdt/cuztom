@@ -28,6 +28,7 @@ class Textarea extends Field
             name="'  .$this->get_name(). '"
             id="'    .$this->get_id(). '"
             class="' .$this->get_css_class(). '"
+            '        .$this->get_data_attributes(). '
             >'       .$this->get_value($value). '</textarea>';
     }
 }

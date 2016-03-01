@@ -11,7 +11,7 @@ Guard::directAccess();
 class Text extends Field
 {
     /**
-     * Css class
+     * CSS class
      * @var string
      */
     public $css_class = 'cuztom-input cuztom-input-text';

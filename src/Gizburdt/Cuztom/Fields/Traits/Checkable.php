@@ -27,7 +27,8 @@ trait Checkable
             id="'    .$this->get_id($option).'"
             class="' .$this->get_css_class().'"
             value="' .$option. '"
-            '        .$this->output_checked($value, $default_value, $option). '/>';
+            '        .$this->get_data_attributes(). '
+            '        .$this->maybe_checked($value, $default_value, $option). '/>';
     }
 
     /**
@@ -37,7 +38,7 @@ trait Checkable
      * @return string
      * @since  3.0
      */
-    public function output_checked($value = null, $default_value = null, $option = null)
+    public function maybe_checked($value = null, $default_value = null, $option = null)
     {
         return (! Cuztom::is_empty($value)
             ? checked($value, $option, false)
