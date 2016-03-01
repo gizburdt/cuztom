@@ -10,12 +10,27 @@ Guard::directAccess();
 
 class Term extends Meta
 {
-    public $meta_type  = 'term';
+    /**
+     * Meta Type
+     * @var string
+     */
+    public $meta_type = 'term';
+
+    /**
+     * Taxonomies
+     * @var array
+     */
     public $taxonomies;
+
+    /**
+     * Locations
+     * @var array
+     */
     public $locations;
 
     /**
      * Construct the term meta
+     *
      * @param string       $id
      * @param array        $data
      * @param string|array $taxonomy
@@ -57,6 +72,7 @@ class Term extends Meta
 
     /**
      * Add fields to the add term form
+     *
      * @param  string $taxonomy
      * @return mixed
      * @since  2.5
@@ -68,6 +84,7 @@ class Term extends Meta
 
     /**
      * Add fields to the edit term form
+     *
      * @param  string $taxonomy
      * @return mixed
      * @since  2.5
@@ -81,6 +98,7 @@ class Term extends Meta
 
     /**
      * Save the term
+     *
      * @param integer $term_id [description]
      * @since 2.5
      */
@@ -100,6 +118,7 @@ class Term extends Meta
 
     /**
      * Used to add a column head to the Taxonomy's List Table
+     *
      * @param  array $columns
      * @return array
      * @since  1.1
@@ -117,6 +136,7 @@ class Term extends Meta
 
     /**
      * Used to add the column content to the column head
+     *
      * @param string  $row
      * @param string  $column
      * @param integer $term_id
@@ -131,6 +151,7 @@ class Term extends Meta
 
     /**
      * Get object ID
+     *
      * @return integer|null
      * @since  3.0
      */
@@ -145,6 +166,7 @@ class Term extends Meta
 
     /**
      * Get value bases on field id
+     *
      * @return mixed
      * @since  3.0
      */

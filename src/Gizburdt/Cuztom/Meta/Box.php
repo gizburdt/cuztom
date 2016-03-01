@@ -10,13 +10,33 @@ Guard::directAccess();
 
 class Box extends Meta
 {
-    public $context    = 'normal';
-    public $priority   = 'default';
-    public $meta_type  = 'post';
+    /**
+     * Context
+     * @var string
+     */
+    public $context = 'normal';
+
+    /**
+     * Priority
+     * @var string
+     */
+    public $priority = 'default';
+
+    /**
+     * Meta type
+     * @var string
+     */
+    public $meta_type = 'post';
+
+    /**
+     * Post types
+     * @var string|array
+     */
     public $post_types;
 
     /**
      * Constructs the meta box
+     *
      * @param string       $id
      * @param array        $data
      * @param string|array $post_type
@@ -53,6 +73,7 @@ class Box extends Meta
 
     /**
      * Method that calls the add_meta_box function
+     *
      * @since 0.2
      */
     public function add_meta_box()
@@ -71,6 +92,7 @@ class Box extends Meta
 
     /**
      * Hooks into the save hook for the newly registered Post Type
+     *
      * @param  integer $post_id
      * @since  0.1
      */
@@ -105,6 +127,7 @@ class Box extends Meta
 
     /**
      * Used to add a column head to the Post Type's List Table
+     *
      * @param  array $columns
      * @return array
      * @since  1.1
@@ -125,6 +148,7 @@ class Box extends Meta
 
     /**
      * Used to add the column content to the column head
+     *
      * @param string  $column
      * @param integer $post_id
      * @since 1.1
@@ -138,6 +162,7 @@ class Box extends Meta
 
     /**
      * Used to make all columns sortable
+     *
      * @param  array $columns
      * @return array
      * @since  1.4.8
@@ -157,6 +182,7 @@ class Box extends Meta
 
     /**
      * Get object ID
+     *
      * @return integer|null
      * @since  3.0
      */
@@ -171,6 +197,7 @@ class Box extends Meta
 
     /**
      * Get value bases on field id
+     * 
      * @return array
      * @since  3.0
      */

@@ -70,13 +70,15 @@ class Cuztom
         require_once(self::$dir . '/Support/Guard.php');
         require_once(self::$dir . '/Support/Notice.php');
         require_once(self::$dir . '/Support/Ajax.php');
+        require_once(self::$dir . '/Support/Request.php');
+        require_once(self::$dir . '/Support/Response.php');
 
         // Entity
         require_once(self::$dir . '/Entities/Entity.php');
         require_once(self::$dir . '/Entities/PostType.php');
         require_once(self::$dir . '/Entities/Taxonomy.php');
         require_once(self::$dir . '/Entities/Sidebar.php');
-        require_once(self::$dir . '/Entities/helpers.php');
+        require_once(self::$dir . '/Entities/Support/helpers.php');
 
         // Meta
         require_once(self::$dir . '/Meta/Meta.php');

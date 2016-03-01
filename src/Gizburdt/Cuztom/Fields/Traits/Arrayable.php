@@ -17,6 +17,6 @@ trait Arrayable
      */
     public function parse_value($value)
     {
-        return Cuztom::is_empty($value) ? '-1' : $value;
+        return $value;
     }
 }

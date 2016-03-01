@@ -14,15 +14,13 @@ Guard::directAccess();
 class PostType extends Entity
 {
     /**
-     * The arguments for the post type
-     *
+     * Args
      * @var array
      */
     public $args;
 
     /**
-     * The post type's labels
-     *
+     * Labels
      * @var array
      */
     public $labels;

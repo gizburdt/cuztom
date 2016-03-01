@@ -2,6 +2,7 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
 
@@ -42,6 +43,6 @@ class Text extends Field
      */
     public function do_htmlspecialchars(&$value)
     {
-        $value = htmlspecialchars($value);
+        return htmlspecialchars($value);
     }
 }

@@ -13,7 +13,7 @@ Guard::directAccess();
 class Taxonomy extends Entity
 {
     /**
-     * Taxonomy's args
+     * Args
      * @var array
      */
     public $args;

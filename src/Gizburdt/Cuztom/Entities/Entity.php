@@ -9,8 +9,22 @@ Guard::directAccess();
 
 abstract class Entity
 {
+    /**
+     * Name
+     * @var string|array
+     */
     public $name;
+
+    /**
+     * Title
+     * @var string
+     */
     public $title;
+
+    /**
+     * Plural
+     * @var string
+     */
     public $plural;
 
     /**

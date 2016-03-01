@@ -15,7 +15,7 @@ class Notice
     public $notice;
 
     /**
-     * Notice type
+     * Type
      * @var string
      */
     public $type;
@@ -50,9 +50,9 @@ class Notice
      */
     public function add_admin_notice()
     {
-        echo '<div class="' . $this->get_css_class() . '">' .
-            '<p>' . $this->notice . '</p>' .
-        '</div>';
+        echo '<div class="' . $this->get_css_class() . '">';
+            echo '<p>' . $this->notice . '</p>';
+        echo '</div>';
     }
 
     /**

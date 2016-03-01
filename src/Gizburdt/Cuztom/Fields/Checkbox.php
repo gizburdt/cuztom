@@ -24,7 +24,7 @@ class Checkbox extends Field
      *
      * @param  string|array $value
      * @return string
-     * @since  2.4
+     * @since  3.0
      */
     public function _output_input($value = null)
     {

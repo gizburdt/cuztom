@@ -10,11 +10,21 @@ Guard::directAccess();
 
 class User extends Meta
 {
+    /**
+     * Meta type
+     * @var string
+     */
     public $meta_type = 'user';
+
+    /**
+     * Locations
+     * @var array
+     */
     public $locations;
 
     /**
      * Constructor for User Meta
+     *
      * @param string        $id
      * @param array         $data
      * @param string|array  $locations
@@ -47,6 +57,7 @@ class User extends Meta
 
     /**
      * Callback for user meta, adds a title
+     *
      * @param integer  $user
      * @param array    $data
      * @param array    $args
@@ -61,6 +72,7 @@ class User extends Meta
 
     /**
      * Hooks into the save hook for the user meta
+     *
      * @param integer $user_id
      * @since 1.5
      */
@@ -80,6 +92,7 @@ class User extends Meta
 
     /**
      * Get object ID
+     *
      * @return integer|null
      * @since  3.0
      */
@@ -94,6 +107,7 @@ class User extends Meta
 
     /**
      * Get value bases on field id
+     * 
      * @return mixed
      * @since  3.0
      */

@@ -13,12 +13,46 @@ Guard::directAccess();
 
 abstract class Meta
 {
+    /**
+     * ID
+     * @var string
+     */
     public $id;
+
+    /**
+     * Object
+     * @var integer
+     */
     public $object;
+
+    /**
+     * Callback
+     * @var string
+     */
     public $callback;
+
+    /**
+     * Title
+     * @var string
+     */
     public $title;
+
+    /**
+     * Description
+     * @var string
+     */
     public $description;
+
+    /**
+     * Fields
+     * @var array
+     */
     public $fields;
+
+    /**
+     * Data
+     * @var array
+     */
     public $data;
 
     /**

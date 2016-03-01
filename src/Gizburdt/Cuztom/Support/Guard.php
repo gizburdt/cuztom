@@ -8,6 +8,7 @@ class Guard
 {
     /**
      * Block direct access
+     * 
      * @return void
      * @since  3.0
      */

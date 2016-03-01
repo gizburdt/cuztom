@@ -267,11 +267,11 @@ abstract class Field
     {
         if (is_null($values)) {
             $value = $this->value;
-        } elseif(strlen($value) > 0) {
+        } elseif(! Cuztom::is_empty($values)) {
             if (is_array($values) && isset($values[$this->id])) {
                 $value = $values[$this->id];
             } else {
-                $value = $values;
+                // $value = $values;
             }
         } else {
             $value = $this->default_value;

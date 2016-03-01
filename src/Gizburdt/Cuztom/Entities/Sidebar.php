@@ -11,7 +11,6 @@ class Sidebar
 {
     /**
      * Sidebar
-     *
      * @var array
      */
     public $sidebar;

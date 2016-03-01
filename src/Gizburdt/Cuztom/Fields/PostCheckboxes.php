@@ -49,7 +49,7 @@ class PostCheckboxes extends Checkboxes
             <?php if (is_array($this->posts)) : ?>
                 <?php foreach ($this->posts as $post) : ?>
                     <label for="<?php echo $this->get_id($post->post_name) ?>">
-                        <?php echo $this->_output_option($post->ID, $this->default_value, $post->post_name); ?>
+                        <?php echo $this->_output_option($post->ID, $this->default_value, $post->ID); ?>
                         <?php echo $post->post_title; ?>
                     </label>
                     <br/>
