@@ -13,5 +13,11 @@ class Color extends Field
      * CSS class
      * @var string
      */
-    public $css_class = 'cuztom-input cuztom-colorpicker colorpicker js-cuztom-colorpicker';
+    public $css_class = 'cuztom-input-colorpicker colorpicker js-cuztom-colorpicker';
+
+    /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-color';
 }

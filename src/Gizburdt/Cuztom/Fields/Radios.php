@@ -23,7 +23,13 @@ class Radios extends Field
      * CSS class
      * @var string
      */
-    public $css_class = 'cuztom-input cuztom-radio';
+    public $css_class = 'cuztom-input-radio';
+
+    /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-radios';
 
     /**
      * Construct

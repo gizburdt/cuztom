@@ -19,7 +19,7 @@ trait Selectable
     protected function maybe_show_option_none()
     {
         if(! Cuztom::is_empty($this->args['show_option_none'])) {
-            return '<option value="0" '.(Cuztom::is_empty($value) ? 'selected="selected"' : '').'>'.$this->args['show_option_none'].'</option>';
+            return '<option value="-1" '.(Cuztom::is_empty($value) ? 'selected="selected"' : '').'>'.$this->args['show_option_none'].'</option>';
         }
     }
 }

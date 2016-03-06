@@ -12,6 +12,7 @@ Guard::directAccess();
 
 abstract class Field
 {
+    // Basic
     public $id                     = null;
     public $type                   = null;
     public $label                  = '';
@@ -25,25 +26,28 @@ abstract class Field
     public $limit                  = null;
     public $ajax                   = false;
     public $data_attributes        = array();
-    public $css_class              = 'cuztom-input';
+    public $css_class              = '';
+    public $row_css_class          = '';
 
+    // Admin
     public $show_admin_column      = false;
     public $admin_column_sortable  = false;
     public $admin_column_filter    = false;
 
+    // ID/name
     public $before_name            = '';
     public $after_name             = '';
     public $before_id              = '';
     public $after_id               = '';
 
+    // Protected
     protected $object                 = null;
     protected $value                  = null;
     protected $meta_type              = null;
-
+    protected $_input_type            = 'text';
     protected $_supports_repeatable   = true;
     protected $_supports_bundle       = true;
     protected $_supports_ajax         = true;
-    protected $_input_type            = 'text';
 
     /**
      * Constructs a Cuztom_Field
@@ -66,8 +70,10 @@ abstract class Field
         }
 
         // Value
-        if (isset($args['value'])) {
+        if (! Cuztom::is_empty(@$args['value'])) {
             $this->value = maybe_unserialize(@$args['value']);
+        } else {
+            $this->value = $this->default_value;
         }
     }
 
@@ -86,8 +92,8 @@ abstract class Field
                 <?php echo ($this->required ? ' <span class="cuztom-required">*</span>' : ''); ?>
                 <div class="cuztom-field-description"><?php echo $this->description; ?></div>
             </th>
-            <td class="cuztom-field js-cuztom-field <?php echo ($this->is_ajax() ? ' cuztom-field-ajax' : ''); ?>" id="<?php echo $this->get_id(); ?>" data-id="<?php echo $this->get_id(); ?>">
-                <?php echo $this->output($this->value); ?>
+            <td class="<?php echo $this->get_row_css_class(); ?>" data-id="<?php echo $this->get_id(); ?>">
+                <?php echo $this->output(); ?>
             </td>
         </tr>
 
@@ -139,7 +145,7 @@ abstract class Field
             name="'  .$this->get_name(). '"
             id="'    .$this->get_id(). '"
             class="' .$this->get_css_class(). '"
-            value="' .$this->get_value($value). '"
+            value="' .$value. '"
             '        .$this->get_data_attributes(). '
             />';
     }
@@ -259,29 +265,6 @@ abstract class Field
     }
 
     /**
-     * Get value
-     *
-     * @param  string|array $values
-     * @return mixed
-     */
-    public function get_value($values = null)
-    {
-        if (is_null($values)) {
-            $value = $this->value;
-        } elseif(! Cuztom::is_empty($values)) {
-            if (is_array($values) && isset($values[$this->id])) {
-                $value = $values[$this->id];
-            } else {
-                // $value = $values;
-            }
-        } else {
-            $value = $this->default_value;
-        }
-
-        return $this->parse_value($value);
-    }
-
-    /**
      * Save meta
      *
      * @param  integer $object
@@ -291,12 +274,7 @@ abstract class Field
      */
     public function save($object, $values)
     {
-        $value = $this->get_value($values);
-
-        // Don't save when empty
-        if (Cuztom::is_empty($value)) {
-            return;
-        }
+        $value = $this->parse_value($values[$this->id]);
 
         // Save to respective content-type
         switch ($this->meta_type) :
@@ -360,7 +338,19 @@ abstract class Field
      */
     public function get_css_class($extra = null)
     {
-        return apply_filters('cuztom_field_css_class', $this->css_class, $this, $extra);
+        return apply_filters('cuztom_field_css_class', 'cuztom-input '.$this->css_class, $this, $extra);
+    }
+
+    /**
+     * Get the fields row css classes
+     *
+     * @param  array  $extra
+     * @return string
+     * @since  3.0
+     */
+    public function get_row_css_class($extra = null)
+    {
+        return apply_filters('cuztom_field_row_css_class', 'cuztom-field js-cuztom-field '.$this->row_css_class, $this, $extra);
     }
 
     /**

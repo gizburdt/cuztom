@@ -16,10 +16,10 @@ class Hidden extends Field
     protected $_input_type = 'hidden';
 
     /**
-     * CSS class
+     * Row CSS class
      * @var string
      */
-    public $css_classes = 'cuztom-input';
+    public $row_css_class = 'cuztom-field-hidden';
 
     /**
      * Outputs a field row

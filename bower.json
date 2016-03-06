@@ -2,7 +2,8 @@
     "name": "gizburdt/cuztom",
     "private": true,
     "dependencies": {
-        "angular":                  "latest",
-        "jquery-datetimepicker":    "latest"
+        "angular":        "latest",
+        "bootstrap":      "latest",
+        "datetimepicker": "https://github.com/xdan/datetimepicker.git"
     }
 }

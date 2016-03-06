@@ -8,47 +8,53 @@ var gulp    = require('gulp'),
     wrap    = require("gulp-wrap");
 
 // Vars
-var basePath = 'src/Gizburdt/Cuztom';
+var basePath = 'src/Gizburdt/Cuztom/Assets';
 
 // Styles
 gulp.task('styles', function() {
-    gulp.src(basePath + '/assets/less/cuztom.less')
-        .pipe(less().on('error', function(){ console.log(less.logError); }))
+    cssFiles = [
+        basePath + '/vendor/datetimepicker/jquery.datetimepicker.css',
+        basePath + '/less/cuztom.less'
+    ];
+
+    gulp.src(cssFiles)
+        .pipe(less())
         .pipe(minify())
         .pipe(concat('cuztom.min.css'))
-        .pipe(gulp.dest(basePath + '/assets/dist/css'));
+        .pipe(gulp.dest(basePath + '/dist/css'));
 });
 
 // Scripts
 gulp.task('scripts', function() {
     var jsFiles = [
-        basePath + '/assets/js/cuztom.js',
-        basePath + '/assets/js/cuztom-ui.js',
-        basePath + '/assets/js/cuztom-sortable.js',
-        basePath + '/assets/js/cuztom-image.js',
-        basePath + '/assets/js/cuztom-ajax.js',
+        basePath + '/vendor/datetimepicker/build/jquery.datetimepicker.full.min.js',
+        basePath + '/js/cuztom.js',
+        basePath + '/js/cuztom-ui.js',
+        basePath + '/js/cuztom-sortable.js',
+        basePath + '/js/cuztom-image.js',
+        basePath + '/js/cuztom-ajax.js',
     ];
 
     var ngFiles = [
-        basePath + '/assets/vendor/angular/angular.min.js',
+        basePath + '/vendor/angular/angular.min.js',
     ];
 
     gulp.src(jsFiles)
         .pipe(uglify())
         .pipe(concat('cuztom.min.js'))
         .pipe(wrap(('jQuery.noConflict(); jQuery(function($) { var doc = $(document); <%= contents %> });')))
-        .pipe(gulp.dest(basePath + '/assets/dist/js'));
+        .pipe(gulp.dest(basePath + '/dist/js'));
 
     gulp.src(ngFiles)
         .pipe(uglify())
         .pipe(concat('cuztom-angular.min.js'))
-        .pipe(gulp.dest(basePath + '/assets/dist/js'));
+        .pipe(gulp.dest(basePath + '/dist/js'));
 });
 
 // Watch
 gulp.task('watch', function() {
-    gulp.watch(basePath + '/assets/less/**/*.less', ['styles']);
-    gulp.watch(basePath + '/assets/js/**/*.js', ['scripts']);
+    gulp.watch(basePath + '/less/**/*.less', ['styles']);
+    gulp.watch(basePath + '/js/**/*.js', ['scripts']);
 });
 
 // Default

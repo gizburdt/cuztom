@@ -11,6 +11,12 @@ Guard::directAccess();
 class TermSelect extends Field
 {
     /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-term-select';
+
+    /**
      * Construct field
      *
      * @param array $field
@@ -28,11 +34,11 @@ class TermSelect extends Field
             $this->args
         );
 
-        $this->args['class']    .= ' cuztom-input cuztom-select cuztom-term-select';
+        $this->args['class']   .= ' cuztom-input-select cuztom-input-term-select';
         $this->args['echo']     = 0;
-        $this->args['name']     = $this->get_name() . ($this->is_repeatable() ? '[]' : '');
+        $this->args['name']     = $this->get_name();
         $this->args['id']       = $this->get_id();;
-        $this->args['selected'] = (! Cuztom::is_empty($value) ? $value : $this->default_value);
+        $this->args['selected'] = (! Cuztom::is_empty($this->value) ? $this->value : $this->default_value);
     }
 
     /**

@@ -8,17 +8,23 @@ var cuztomUI;
     object = $(object);
 
     // Datepicker
-    $('.js-cztm-datepicker', object).map(function() {
-        return $(this).datepicker({ dateFormat: $(this).data('date-format') });
+    $('.js-cuztom-datepicker', object).map(function() {
+        return $(this).datetimepicker({
+            timepicker: false,
+            format: $(this).data('date-format')
+        });
     });
 
     // Timepicker
-    $('.js-cztm-timepicker', object).map(function() {
-        return $(this).timepicker({ timeFormat: $(this).data('time-format') });
+    $('.js-cuztom-timepicker', object).map(function() {
+        return $(this).datetimepicker({
+            datepicker: false,
+            format: $(this).attr('data-time-format')
+        });
     });
 
     // Datetime
-    $('.js-cztm-datetimepicker', object).map(function() {
+    $('.js-cuztom-datetimepicker', object).map(function() {
         return $(this).datetimepicker({
             timeFormat: $(this).data('time-format'),
             dateFormat: $(this).data('date-format')
@@ -29,16 +35,16 @@ var cuztomUI;
     $('.js-cuztom-colorpicker', object).wpColorPicker();
 
     // Tabs
-    $('.js-cztm-tabs', object).tabs();
+    $('.js-cuztom-tabs', object).tabs();
 
     // Slider
-    $('.js-cztm-slider', object ).slider();
+    $('.js-cuztom-slider', object ).slider();
 
     // Accordion
-    $('.js-cztm-accordion', object).accordion();
+    $('.js-cuztom-accordion', object).accordion();
 
     // Sortable
-    $('.js-cztm-sortable', object).sortable({
+    $('.js-cuztom-sortable', object).sortable({
         handle: '.cuztom-handle-sortable a'
     });
 })(document);

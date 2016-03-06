@@ -17,7 +17,13 @@ class Select extends Field
      * CSS class
      * @var string
      */
-    public $css_class = 'cuztom-input cuztom-select';
+    public $css_class = 'cuztom-input-select';
+
+    /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-select';
 
     /**
      * Output input

@@ -18,7 +18,13 @@ class MultiSelect extends Select
      * CSS class
      * @var string
      */
-    public $css_class = 'cuztom-input cuztom-select cuztom-multi-select';
+    public $css_class = 'cuztom-input-select cuztom-input-multi-select';
+
+    /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-multi-select';
 
     /**
      * Construct

@@ -18,6 +18,12 @@ class TermCheckboxes extends Checkboxes
     public $terms;
 
     /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-term-checkboxes';
+
+    /**
      * Construct
      *
      * @param array $field
@@ -29,14 +35,14 @@ class TermCheckboxes extends Checkboxes
 
         $this->args = array_merge(
             array(
-                'taxonomy' => 'category',
+                'taxonomy'   => 'category',
+                'hide_empty' => 0
             ),
             $this->args
         );
 
-        $this->terms          = get_terms($this->args['taxonomy'], $this->args);
+        $this->terms          = get_terms($this->args['taxonomy'], array('hide_empty' => false));
         $this->default_value  = (array) $this->default_value;
-        $this->after_name    .= '[]';
     }
 
     /**
@@ -53,8 +59,8 @@ class TermCheckboxes extends Checkboxes
         <div class="cuztom-checkboxes-wrap">
             <?php if (is_array($this->terms)) : ?>
                 <?php foreach ($this->terms as $term) : ?>
-                    <label for="<?php echo $this->get_id($term->slug) ?>">
-                        <?php echo $this->_output_option($term->ID, $this->default_value, $term->slug); ?>
+                    <label for="<?php echo $this->get_id($term->term_id) ?>">
+                        <?php echo $this->_output_option($value, $this->default_value, $term->term_id); ?>
                         <?php echo $term->name; ?>
                     </label>
                     <br/>

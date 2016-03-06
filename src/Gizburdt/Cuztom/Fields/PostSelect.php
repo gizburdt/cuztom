@@ -14,7 +14,13 @@ class PostSelect extends Select
      * CSS class
      * @var string
      */
-    public $css_class = 'cuztom-input cuztom-select cuztom-post-select';
+    public $css_class = 'cuztom-input-select cuztom-input-post-select';
+
+    /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-post-select';
 
     /**
      * Construct
@@ -48,7 +54,6 @@ class PostSelect extends Select
      */
     public function _output_input($value = null)
     {
-        $i = 0;
         ob_start(); ?>
 
         <div class="cuztom-select-wrap">
@@ -57,11 +62,9 @@ class PostSelect extends Select
 
                 <?php if (is_array($this->posts)) : ?>
                     <?php foreach ($this->posts as $post) : ?>
-                        <option value="<?php echo $post->post_name; ?>" <?php selected($post->ID, $value[$i]); ?>>
+                        <option value="<?php echo $post->ID; ?>" <?php selected($post->ID, $value); ?>>
                             <?php echo $post->post_title; ?>
                         </option>
-
-                        <?php $i++; ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </select>

@@ -12,6 +12,12 @@ Guard::directAccess();
 class PostCheckboxes extends Checkboxes
 {
     /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-post-checkboxes';
+
+    /**
      * Construct
      *
      * @param string $field
@@ -31,7 +37,6 @@ class PostCheckboxes extends Checkboxes
 
         $this->default_value  = (array) $this->default_value;
         $this->posts          = get_posts($this->args);
-        $this->after         .= '[]';
     }
 
     /**
@@ -48,8 +53,8 @@ class PostCheckboxes extends Checkboxes
         <div class="cuztom-checkboxes-wrap">
             <?php if (is_array($this->posts)) : ?>
                 <?php foreach ($this->posts as $post) : ?>
-                    <label for="<?php echo $this->get_id($post->post_name) ?>">
-                        <?php echo $this->_output_option($post->ID, $this->default_value, $post->ID); ?>
+                    <label for="<?php echo $this->get_id($post->ID) ?>">
+                        <?php echo $this->_output_option($value, $this->default_value, $post->ID); ?>
                         <?php echo $post->post_title; ?>
                     </label>
                     <br/>

@@ -20,6 +20,12 @@ class Checkbox extends Field
     protected $_input_type = 'checkbox';
 
     /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-checkbox';
+
+    /**
      * Output
      *
      * @param  string|array $value

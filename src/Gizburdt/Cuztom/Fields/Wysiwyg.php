@@ -11,6 +11,12 @@ Guard::directAccess();
 class Wysiwyg extends Field
 {
     /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-wysiwyg';
+
+    /**
      * Construct
      *
      * @param array $field
@@ -36,7 +42,7 @@ class Wysiwyg extends Field
     {
         return wp_editor(
             (! Cuztom::is_empty($value) ? $value : $this->default_value),
-            $this->get_id(),
+            strtolower($this->get_id()),
             $this->args
         );
     }

@@ -13,7 +13,13 @@ class Textarea extends Field
      * CSS class
      * @var string
      */
-    public $css_class = 'cuztom-input cuztom-textarea';
+    public $css_class = 'cuztom-input-textarea';
+
+    /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-textarea';
 
     /**
      * Output input
@@ -29,6 +35,6 @@ class Textarea extends Field
             id="'    .$this->get_id(). '"
             class="' .$this->get_css_class(). '"
             '        .$this->get_data_attributes(). '
-            >'       .$this->get_value($value). '</textarea>';
+            >'       .$value. '</textarea>';
     }
 }

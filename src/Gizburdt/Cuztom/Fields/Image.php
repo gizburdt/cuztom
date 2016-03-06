@@ -20,7 +20,13 @@ class Image extends Field
      * CSS class
      * @var string
      */
-    public $css_class = 'cuztom-input cuztom-hidden';
+    public $css_class = 'cuztom-input-hidden';
+
+    /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-image';
 
     /**
      * Data attributes

@@ -20,7 +20,13 @@ class File extends Field
      * CSS class
      * @var string
      */
-    public $css_class = 'cuztom-hidden cuztom-input';
+    public $css_class = 'cuztom-input-hidden';
+
+    /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-file';
 
     /**
      * Output input
@@ -51,7 +57,7 @@ class File extends Field
         ?>
 
         <?php echo parent::_output_input($value); ?>
-        <input type="button" id="<?php echo $this->get_id(); ?>" class="button js-cztm-upload" value="<?php _e('Select file', 'cuztom'); ?>" />
+        <input type="button" id="<?php echo $this->get_id(); ?>" class="button button-small js-cztm-upload" value="<?php _e('Select file', 'cuztom'); ?>" />
         <?php echo (! empty($value) ? sprintf('<a href="#" class="cuztom-remove-media js-cuztom-remove-media">%s</a>', __('Remove current file', 'cuztom')) : ''); ?>
         <span class="cuztom-preview"><?php echo $file; ?></span>
 

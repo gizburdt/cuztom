@@ -5,13 +5,13 @@ namespace Gizburdt\Cuztom\Fields;
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
-use Gizburdt\Cuztom\Fields\Traits\Checkable;
+use Gizburdt\Cuztom\Fields\Traits\Checkables;
 
 Guard::directAccess();
 
 class Checkboxes extends Field
 {
-    use Checkable;
+    use Checkables;
 
     /**
      * Css class
@@ -23,7 +23,13 @@ class Checkboxes extends Field
      * Css class
      * @var string
      */
-    public $css_class = 'cuztom-input cuztom-checkbox';
+    public $css_class = 'cuztom-input-checkbox';
+
+    /**
+     * Row CSS class
+     * @var string
+     */
+    public $row_css_class = 'cuztom-field-checkboxes';
 
     /**
      * Construct
@@ -48,18 +54,16 @@ class Checkboxes extends Field
      */
     public function _output_input($value = null)
     {
-        $i = 0;
         ob_start(); ?>
 
         <div class="cuztom-checkboxes-wrap">
             <?php if (is_array($this->options)) : ?>
                 <?php foreach ($this->options as $slug => $name) : ?>
                     <label for="<?php echo $this->get_id(Cuztom::uglify($slug)); ?>">
-                        <?php echo $this->_output_option($value[$i], $this->default_value, $slug); ?>
+                        <?php echo $this->_output_option($value, $this->default_value, $slug); ?>
                         <?php echo Cuztom::beautify($name); ?>
                     </label>
                     <br/>
-                    <?php $i++; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
