@@ -23,9 +23,9 @@ class Bundle extends Field
         echo $this->output_control();
 
         echo '<tr class="cuztom-bundle">';
-        echo '<td class="cuztom-field" ' . $this->output_id() . ' data-id="' . $this->get_id() . '" colspan="2">';
+        echo '<td class="cuztom-field" id="' . $this->get_id() . '" data-id="' . $this->get_id() . '" colspan="2">';
         echo '<div class="cuztom-bundles cuztom-bundles-' . $this->get_id() . '">';
-        echo '<ul class="js-cztm-sortable cuztom-sortable" data-cuztom-sortable-type="bundle">';
+        echo '<ul class="js-cuztom-sortable cuztom-sortable" data-cuztom-sortable-type="bundle">';
         $this->output();
         echo '</ul>';
         echo '</div>';
@@ -113,7 +113,7 @@ class Bundle extends Field
     {
         echo '<tr class="cuztom-control cuztom-control-' . $class . '" data-control-for="' . $this->id . '">';
         echo '<td colspan="2">';
-        echo '<a class="button-secondary button button-small cuztom-button js-cztm-add-sortable" data-sortable-type="bundle" data-field-id="' . $this->id . '" href="#">';
+        echo '<a class="button-secondary button button-small cuztom-button js-cuztom-add-sortable" data-sortable-type="bundle" data-field-id="' . $this->id . '" href="#">';
         echo sprintf('+ %s', __('Add item', 'cuztom'));
         echo '</a>';
 

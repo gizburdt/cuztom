@@ -20,4 +20,15 @@ class Time extends DateTime
      * @var string
      */
     public $row_css_class = 'cuztom-field-time';
+
+    /**
+     * UNIX time to string
+     *
+     * @param  string $string
+     * @return string
+     */
+    public function time_to_string($string)
+    {
+        return $this->value ? date(get_option('time_format'), $this->value) : null;
+    }
 }

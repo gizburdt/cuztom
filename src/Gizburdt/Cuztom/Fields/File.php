@@ -40,41 +40,21 @@ class File extends Field
         ob_start();
 
         if (! Cuztom::is_empty($value)) {
-            $attachment = self::get_attachment_by_url($value);
-
-            if (is_object($attachment)) {
-                $mime = str_replace('/', '_', $attachment->post_mime_type);
-                $name = $attachment->post_title;
-            } else {
-                $mime = '';
-            }
-
-            $file = '<span class="cuztom-mime mime-' . $mime . '"><a target="_blank" href="' . $value . '">' . $name . '</a></span>';
+            $attachment = get_attached_file($value);
+            $mime       = str_replace('/', '-', get_post_mime_type($value));
+            $name       = get_the_title($value);
+            $file       = '<span class="cuztom-mime mime-'.$mime.'"><a target="_blank" href="'.$attachment.'">'.$name.'</a></span>';
         } else {
-            $file = '';
+            $file       = '';
         }
 
         ?>
 
         <?php echo parent::_output_input($value); ?>
-        <input type="button" id="<?php echo $this->get_id(); ?>" class="button button-small js-cztm-upload" value="<?php _e('Select file', 'cuztom'); ?>" />
-        <?php echo (! empty($value) ? sprintf('<a href="#" class="cuztom-remove-media js-cuztom-remove-media">%s</a>', __('Remove current file', 'cuztom')) : ''); ?>
+        <input type="button" id="<?php echo $this->get_id(); ?>" class="button button-small js-cuztom-upload" data-media-type="file" value="<?php _e('Select file', 'cuztom'); ?>" />
+        <?php echo (! empty($value) ? sprintf('<a href="#" class="button button-small cuztom-remove-media js-cuztom-remove-media" title="%s">x</a>', __('Remove current file', 'cuztom')) : ''); ?>
         <span class="cuztom-preview"><?php echo $file; ?></span>
 
         <?php $ob = ob_get_clean(); return $ob;
-    }
-
-    /**
-     * Get attachment by given url
-     *
-     * @param  string 			$url
-     * @return integer
-     * @since  2.4
-     */
-    public function get_attachment_by_url($url)
-    {
-        global $wpdb;
-
-        return $wpdb->get_row($wpdb->prepare("SELECT ID,post_title,post_mime_type FROM " . $wpdb->prefix . "posts" . " WHERE guid=%s;", $url));
     }
 }

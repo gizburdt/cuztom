@@ -31,7 +31,7 @@ gulp.task('scripts', function() {
         basePath + '/js/cuztom.js',
         basePath + '/js/cuztom-ui.js',
         basePath + '/js/cuztom-sortable.js',
-        basePath + '/js/cuztom-image.js',
+        basePath + '/js/cuztom-media.js',
         basePath + '/js/cuztom-ajax.js',
     ];
 

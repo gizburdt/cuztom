@@ -8,7 +8,7 @@ class Guard
 {
     /**
      * Block direct access
-     * 
+     *
      * @return void
      * @since  3.0
      */
@@ -17,5 +17,25 @@ class Guard
         if (! defined('ABSPATH')) {
             exit;
         }
+    }
+
+    /**
+     * Check autosave
+     *
+     * @return boolean
+     */
+    public static function doingAutosave()
+    {
+        return defined('DOING_AUTOSAVE') && DOING_AUTOSAVE;
+    }
+
+    /**
+     * Check ajax
+     *
+     * @return boolean
+     */
+    public static function doingAjax()
+    {
+        return defined('DOING_AJAX') && DOING_AJAX;
     }
 }

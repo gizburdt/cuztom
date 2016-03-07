@@ -99,7 +99,7 @@ class Box extends Meta
     public function save_post($post_id)
     {
         // Deny the wordpress autosave function
-        if ((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || (defined('DOING_AJAX') && DOING_AJAX)) {
+        if (Guard::doingAutosave() || Guard::doingAjax()) {
             return;
         }
 
@@ -197,7 +197,7 @@ class Box extends Meta
 
     /**
      * Get value bases on field id
-     * 
+     *
      * @return array
      * @since  3.0
      */

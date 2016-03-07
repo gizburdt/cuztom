@@ -5,7 +5,7 @@
  */
 
 // Add sortable
-doc.on( 'click', '.js-cztm-add-sortable', function(event) {
+doc.on( 'click', '.js-cuztom-add-sortable', function(event) {
     var that            = $(this),
         boxID           = $('.js-cztm').attr('data-box-id'),
         isBundle        = that.attr('data-sortable-type') == 'bundle',
@@ -29,7 +29,7 @@ doc.on( 'click', '.js-cztm-add-sortable', function(event) {
 
     // Call
     $.post(
-        Cztm.ajax_url,
+        Cuztom.ajax_url,
         data,
         function(response) {
             var response = $.parseJSON(response);

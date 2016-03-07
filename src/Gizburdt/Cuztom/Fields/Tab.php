@@ -14,20 +14,21 @@ class Tab extends Field
 {
     /**
      * Title
+     * @var string
      */
     public $title;
 
     /**
      * Fields
+     * @var array
      */
     public $fields = array();
 
     /**
-     * Tab constructor
+     * Construct
      *
-     * @author 	Gijs Jorissen
-     * @since   3.0
-     *
+     * @param array $args
+     * @since 3.0
      */
     public function __construct($args)
     {
@@ -39,90 +40,66 @@ class Tab extends Field
     }
 
     /**
-     * Outputs a tab
+     * Output
      *
-     * @author 	Gijs Jorissen
-     * @since 	3.0
-     *
+     * @param  array  $args
+     * @return string
+     * @since  3.0
      */
     public function output($args = array())
     {
-        $fields    = $this->fields;
-        $object_id    = $this->object;
+        $fields = $this->fields;
 
-        // Show header
-        if ($args['type'] == 'accordion') {
-            echo '<h3>' . $this->title . '</h3>';
-        }
+        ob_start();
 
-        echo '<div id="' . $this->id . '">';
+        ?>
 
-        if ($fields instanceof Bundle) {
-            $fields->output($field->value);
-        } else {
-            echo '<table border="0" cellading="0" cellspacing="0" class="from-table cuztom-table">';
-            foreach ($fields as $id => $field) {
-                if (! $field instanceof Hidden) {
-                    echo '<tr class="cuztom-tr">';
-                    echo '<th class="cuztom-th">';
-                    echo '<label for="' . $id . '" class="cuztom-label">' . $field->label . '</label>';
-                    echo $field->required ? ' <span class="cuztom-required">*</span>' : '';
-                    echo '<div class="cuztom-field-description">' . $field->description . '</div>';
-                    echo '</th>';
-                    echo '<td class="cuztom-td">';
+        <?php if ($args['type'] == 'accordion') : ?>
+            <h3><?php echo $this->title; ?></h3>
+        <?php endif; ?>
 
-                    if ($field->repeatable && $field->_supports_repeatable) {
-                        echo '<a class="button-secondary cuztom-button js-cztm-add-sortable" href="#">' . sprintf('+ %s', __('Add', 'cuztom')) . '</a>';
-                        echo '<ul class="js-cztm-sortable cuztom-sortable cuztom_repeatable_wrap">';
-                        echo $field->output($field->value);
-                        echo '</ul>';
-                    } else {
-                        echo $field->output($field->value);
-                    }
+        <div id="<?php echo $this->get_id(); ?>">
+            <?php if ($fields instanceof Bundle) : ?>
+                <?php echo $fields->output($field->value); ?>
+            <?php else : ?>
+                <table border="0" cellading="0" cellspacing="0" class="from-table cuztom-table">
+                    <?php
+                        foreach ($fields as $id => $field) :
+                            if (! $field instanceof Hidden) :
+                                echo $field->output_row($field->value);
+                            else :
+                                echo $field->output($field->value);
+                            endif;
+                        endforeach;
+                    ?>
+                </table>
+            <?php endif; ?>
+        </div>
 
-                    echo '</td>';
-                    echo '</tr>';
-
-                    $divider = true;
-                } else {
-                    echo $field->output($field->value);
-                }
-            }
-            echo '</table>';
-        }
-        echo '</div>';
+        <?php $ob = ob_get_clean(); return $ob;
     }
 
     /**
-     * Save meta
+     * Save
      *
-     * @param  	int 		$object_id
-     * @param  	string 		$value
-     *
-     * @author 	Gijs Jorissen
-     * @since  	3.0
-     *
+     * @param  integer $object
+     * @param  string|array $values
+     * @return string
+     * @since  3.0
      */
     public function save($object, $values)
     {
         foreach ($this->fields as $id => $field) {
-            // Get value from values
-            $value = @$values[$id];
-
-            // Save
-            $field->save($object, $value);
+            $field->save($object, $values);
         }
     }
 
     /**
-     * Builds a tab
-     *
-     * @param 	array 	$data
-     * @param 	array 	$value
-     *
-     * @author 	Gijs Jorissen
-     * @since 	3.0
-     *
+     * Build
+     * @param  array $data
+     * @param  string|array $value
+     * @return void
+     * @since  3.0
      */
     public function build($data, $value)
     {

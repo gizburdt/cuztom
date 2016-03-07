@@ -2,6 +2,7 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Field;
 
@@ -26,7 +27,7 @@ class DateTime extends Field
      * @var array
      */
     public $data_attributes = array(
-        'time-format' => 'H',
+        'time-format' => null,
         'date-format' => null
     );
 
@@ -42,6 +43,9 @@ class DateTime extends Field
 
         $this->data_attributes['date-format'] = get_option('date_format');
         $this->data_attributes['time-format'] = get_option('time_format');
+
+        // Convert value
+        $this->value = $this->time_to_string($this->value);
     }
 
     /**
@@ -53,6 +57,17 @@ class DateTime extends Field
      */
     public function parse_value($value)
     {
-        return strtotime($value);
+        return Cuztom::time($value);
+    }
+
+    /**
+     * UNIX time to string
+     *
+     * @param  string $string
+     * @return string
+     */
+    public function time_to_string($string)
+    {
+        return $this->value ? date(get_option('date_format').' '.get_option('time_format'), $this->value) : null;
     }
 }

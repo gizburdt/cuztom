@@ -27,7 +27,7 @@ doc.on( 'click', '.js-cztm-ajax-save', function(event) {
         };
 
     $.post(
-        Cztm.ajax_url,
+        Cuztom.ajax_url,
         data,
         function(response) {
             var response        = $.parseJSON(response),

@@ -293,6 +293,17 @@ class Cuztom
     }
 
     /**
+     * String to time
+     *
+     * @param  string $string
+     * @return string
+     */
+    public static function time($string)
+    {
+        return strtotime(str_replace('/', '-', $string));
+    }
+
+    /**
      * Makes a word plural
      *
      * @param  string $string

@@ -10,6 +10,7 @@ var cuztomUI;
     // Datepicker
     $('.js-cuztom-datepicker', object).map(function() {
         return $(this).datetimepicker({
+            scrollInput: false,
             timepicker: false,
             format: $(this).data('date-format')
         });
@@ -18,6 +19,7 @@ var cuztomUI;
     // Timepicker
     $('.js-cuztom-timepicker', object).map(function() {
         return $(this).datetimepicker({
+            scrollInput: false,
             datepicker: false,
             format: $(this).attr('data-time-format')
         });
@@ -26,8 +28,8 @@ var cuztomUI;
     // Datetime
     $('.js-cuztom-datetimepicker', object).map(function() {
         return $(this).datetimepicker({
-            timeFormat: $(this).data('time-format'),
-            dateFormat: $(this).data('date-format')
+            scrollInput: false,
+            format: $(this).data('date-format') + ' ' + $(this).data('time-format'),
         });
     });
 
