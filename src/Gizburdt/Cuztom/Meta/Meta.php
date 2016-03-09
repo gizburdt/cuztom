@@ -3,77 +3,85 @@
 namespace Gizburdt\Cuztom\Meta;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
-use Gizburdt\Cuztom\Fields\Bundle;
-use Gizburdt\Cuztom\Fields\Tabs;
 use Gizburdt\Cuztom\Fields\Accordion;
+use Gizburdt\Cuztom\Fields\Bundle;
+use Gizburdt\Cuztom\Fields\Field;
+use Gizburdt\Cuztom\Fields\Tabs;
+use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
 
 abstract class Meta
 {
     /**
-     * ID
+     * ID.
+     *
      * @var string
      */
     public $id;
 
     /**
-     * Object
-     * @var integer
+     * Object.
+     *
+     * @var int
      */
     public $object;
 
     /**
-     * Callback
+     * Callback.
+     *
      * @var string
      */
     public $callback;
 
     /**
-     * Title
+     * Title.
+     *
      * @var string
      */
     public $title;
 
     /**
-     * Description
+     * Description.
+     *
      * @var string
      */
     public $description;
 
     /**
-     * Fields
+     * Fields.
+     *
      * @var array
      */
     public $fields;
 
     /**
-     * Data
+     * Data.
+     *
      * @var array
      */
     public $data;
 
     /**
-     * Get object id
+     * Get object id.
      *
      * @return int
      */
     abstract public function get_object_id();
 
     /**
-     * Get meta values
+     * Get meta values.
      *
      * @return array
      */
     abstract public function get_meta_values();
 
     /**
-     * Construct for all meta types, creates title (and description)
+     * Construct for all meta types, creates title (and description).
      *
      * @param int   $id   Object id
      * @param array $data Array of fields
+     *
      * @since 1.6.4
      */
     public function __construct($id, $data)
@@ -90,7 +98,7 @@ abstract class Meta
     }
 
     /**
-     * Main callback for meta
+     * Main callback for meta.
      *
      * @since 0.2
      */
@@ -100,9 +108,9 @@ abstract class Meta
         wp_nonce_field('cuztom_meta', 'cuztom_nonce');
 
         if (!empty($this->data)) {
-            echo '<div class="cuztom js-cztm" data-box-id="' . $this->id . '" data-object-id="' . $this->object . '" data-meta-type="' . $this->meta_type . '">';
-            if (! empty($this->description)) {
-                echo '<div class="cuztom-box-description">' . $this->description . '</div>';
+            echo '<div class="cuztom js-cztm" data-box-id="'.$this->id.'" data-object-id="'.$this->object.'" data-meta-type="'.$this->meta_type.'">';
+            if (!empty($this->description)) {
+                echo '<div class="cuztom-box-description">'.$this->description.'</div>';
             }
 
             echo '<table class="form-table cuztom-table cuztom-main-table">';
@@ -115,10 +123,11 @@ abstract class Meta
     }
 
     /**
-     * Normal save method to save all the fields in a metabox
+     * Normal save method to save all the fields in a metabox.
      *
      * @param int   $object Object id
      * @param array $values Array of values
+     *
      * @since 2.6
      */
     public function save($object, $values)
@@ -135,10 +144,12 @@ abstract class Meta
     }
 
     /**
-     * This method builds the complete array with the right key => value pairs
+     * This method builds the complete array with the right key => value pairs.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return array
+     *
      * @since 1.1
      */
     public function build($data)
@@ -175,7 +186,7 @@ abstract class Meta
                 // Fields
                 else {
                     $field['value'] = @$values[$field['id']][0];
-                    $field = Field::create($field);
+                    $field          = Field::create($field);
 
                     $cuztom->data[$this->id][$field->id] = $field;
                 }
@@ -188,10 +199,12 @@ abstract class Meta
     }
 
     /**
-     * Check what kind of meta we're dealing with
+     * Check what kind of meta we're dealing with.
      *
-     * @param  string  $meta_type
-     * @return boolean
+     * @param string $meta_type
+     *
+     * @return bool
+     *
      * @since  2.3
      */
     public function is_meta_type($meta_type)
@@ -200,7 +213,7 @@ abstract class Meta
     }
 
     /**
-     * Adds multipart support to form
+     * Adds multipart support to form.
      *
      * @since 0.2
      */

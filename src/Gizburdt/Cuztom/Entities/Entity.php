@@ -10,27 +10,31 @@ Guard::directAccess();
 abstract class Entity
 {
     /**
-     * Name
+     * Name.
+     *
      * @var string|array
      */
     public $name;
 
     /**
-     * Title
+     * Title.
+     *
      * @var string
      */
     public $title;
 
     /**
-     * Plural
+     * Plural.
+     *
      * @var string
      */
     public $plural;
 
     /**
-     * Entity construct
+     * Entity construct.
      *
      * @param string|array $name
+     *
      * @since 3.0
      */
     public function __construct($name)

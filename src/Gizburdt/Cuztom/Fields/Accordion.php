@@ -3,16 +3,16 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Tabs;
 
 Guard::directAccess();
 
 class Accordion extends Tabs
 {
     /**
-     * Ouput accordion row
+     * Ouput accordion row.
      *
      * @param mixed $value
+     *
      * @since 3.0
      */
     public function output_row($value = null)
@@ -22,18 +22,23 @@ class Accordion extends Tabs
         ?>
 
         <tr class="cuztom-accordion">
-            <td class="cuztom-field" colspan="2" id="<?php echo $this->get_id(); ?>">
-                <?php echo$this->output(); ?>
+            <td class="cuztom-field" colspan="2" id="<?php echo $this->get_id();
+        ?>">
+                <?php echo$this->output();
+        ?>
             </td>
         </tr>
 
-        <?php $ob = ob_get_clean(); return $ob;
+        <?php $ob = ob_get_clean();
+
+        return $ob;
     }
 
     /**
-     * Output accordion
-     * 
-     * @param array  $args
+     * Output accordion.
+     *
+     * @param array $args
+     *
      * @since 3.0
      */
     public function output($args = array())
@@ -46,10 +51,14 @@ class Accordion extends Tabs
 
         <div class="js-cuztom-accordion">
             <?php foreach ($this->tabs as $title => $tab) : ?>
-                <?php echo $tab->output($args); ?>
-            <?php endforeach; ?>
+                <?php echo $tab->output($args);
+        ?>
+            <?php endforeach;
+        ?>
         </div>
 
-        <?php $ob = ob_get_clean(); return $ob;
+        <?php $ob = ob_get_clean();
+
+        return $ob;
     }
 }

@@ -4,29 +4,30 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
-use Gizburdt\Cuztom\Fields\Checkboxes;
 
 Guard::directAccess();
 
 class TermCheckboxes extends Checkboxes
 {
     /**
-     * Terms
+     * Terms.
+     *
      * @var array
      */
     public $terms;
 
     /**
-     * Row CSS class
+     * Row CSS class.
+     *
      * @var string
      */
     public $row_css_class = 'cuztom-field-term-checkboxes';
 
     /**
-     * Construct
+     * Construct.
      *
      * @param array $field
+     *
      * @since 0.3.3
      */
     public function __construct($field)
@@ -46,28 +47,37 @@ class TermCheckboxes extends Checkboxes
     }
 
     /**
-     * Output input
+     * Output input.
      *
-     * @param  string|array $value
+     * @param string|array $value
+     *
      * @return string
+     *
      * @since  2.4
      */
     public function _output_input($value = null)
     {
-        ob_start(); ?>
+        ob_start();
+        ?>
 
         <div class="cuztom-checkboxes-wrap">
             <?php if (is_array($this->terms)) : ?>
                 <?php foreach ($this->terms as $term) : ?>
                     <label for="<?php echo $this->get_id($term->term_id) ?>">
-                        <?php echo $this->_output_option($value, $this->default_value, $term->term_id); ?>
-                        <?php echo $term->name; ?>
+                        <?php echo $this->_output_option($value, $this->default_value, $term->term_id);
+        ?>
+                        <?php echo $term->name;
+        ?>
                     </label>
                     <br/>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                <?php endforeach;
+        ?>
+            <?php endif;
+        ?>
         </div>
 
-        <?php $ob = ob_get_clean(); return $ob;
+        <?php $ob = ob_get_clean();
+
+        return $ob;
     }
 }
