@@ -3,29 +3,30 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
-use Gizburdt\Cuztom\Fields\Select;
 
 Guard::directAccess();
 
 class PostSelect extends Select
 {
     /**
-     * CSS class
+     * CSS class.
+     *
      * @var string
      */
     public $css_class = 'cuztom-input-select cuztom-input-post-select';
 
     /**
-     * Row CSS class
+     * Row CSS class.
+     *
      * @var string
      */
     public $row_css_class = 'cuztom-field-post-select';
 
     /**
-     * Construct
+     * Construct.
      *
      * @param array $field
+     *
      * @since 0.3.3
      */
     public function __construct($field)
@@ -46,30 +47,45 @@ class PostSelect extends Select
     }
 
     /**
-     * Output input
+     * Output input.
      *
-     * @param  string|array $value
+     * @param string|array $value
+     *
      * @return string
+     *
      * @since  2.4
      */
     public function _output_input($value = null)
     {
-        ob_start(); ?>
+        ob_start();
+        ?>
 
         <div class="cuztom-select-wrap">
-            <select name="<?php echo $this->get_name(); ?>" id="<?php echo $this->get_id(); ?>" class="<?php echo $this->get_css_class(); ?>" <?php echo $this->get_data_attributes(); ?>>
-                <?php echo $this->maybe_show_option_none(); ?>
+            <select name="<?php echo $this->get_name();
+        ?>" id="<?php echo $this->get_id();
+        ?>" class="<?php echo $this->get_css_class();
+        ?>" <?php echo $this->get_data_attributes();
+        ?>>
+                <?php echo $this->maybe_show_option_none();
+        ?>
 
                 <?php if (is_array($this->posts)) : ?>
                     <?php foreach ($this->posts as $post) : ?>
-                        <option value="<?php echo $post->ID; ?>" <?php selected($post->ID, $value); ?>>
-                            <?php echo $post->post_title; ?>
+                        <option value="<?php echo $post->ID;
+        ?>" <?php selected($post->ID, $value);
+        ?>>
+                            <?php echo $post->post_title;
+        ?>
                         </option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php endforeach;
+        ?>
+                <?php endif;
+        ?>
             </select>
         </div>
 
-        <?php $ob = ob_get_clean(); return $ob;
+        <?php $ob = ob_get_clean();
+
+        return $ob;
     }
 }

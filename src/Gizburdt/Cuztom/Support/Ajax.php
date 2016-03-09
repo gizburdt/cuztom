@@ -2,31 +2,27 @@
 
 namespace Gizburdt\Cuztom\Support;
 
-use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Support\Request;
-use Gizburdt\Cuztom\Support\Response;
-
 Guard::directAccess();
 
 class Ajax
 {
     /**
-     * Add hooks
+     * Add hooks.
      *
      * @since 3.0
      */
     public function add_hooks()
     {
         // Sortable
-        add_action('wp_ajax_cuztom_add_repeatable_item', array( &$this, 'add_repeatable_item' ));
-        add_action('wp_ajax_cuztom_add_bundle_item', array( &$this, 'add_bundle_item' ));
+        add_action('wp_ajax_cuztom_add_repeatable_item', array(&$this, 'add_repeatable_item'));
+        add_action('wp_ajax_cuztom_add_bundle_item', array(&$this, 'add_bundle_item'));
 
         // Save
-        add_action('wp_ajax_cuztom_save_field', array( &$this, 'save_field' ));
+        add_action('wp_ajax_cuztom_save_field', array(&$this, 'save_field'));
     }
 
     /**
-     * Add (return) repeatable item
+     * Add (return) repeatable item.
      *
      * @since 3.0
      */
@@ -36,7 +32,7 @@ class Ajax
         $field  = $_POST['cuztom']['field_id'];
         $field  = self::get_field($field, $box);
 
-        if (! $field) {
+        if (!$field) {
             return;
         }
 
@@ -57,7 +53,7 @@ class Ajax
     }
 
     /**
-     * Add (return) bundle item
+     * Add (return) bundle item.
      *
      * @since 3.0
      */
@@ -67,7 +63,7 @@ class Ajax
         $field  = $_POST['cuztom']['field_id'];
         $field  = self::get_field($field, $box);
 
-        if (! $field) {
+        if (!$field) {
             return;
         }
 
@@ -88,7 +84,7 @@ class Ajax
     }
 
     /**
-     * Saves a field
+     * Saves a field.
      *
      * @since 3.0
      */
@@ -106,9 +102,9 @@ class Ajax
             $meta_type  = $_POST['cuztom']['meta_type'];
 
             if ($field->save($object, $value)) {
-                echo json_encode(array( 'status' => true ));
+                echo json_encode(array('status' => true));
             } else {
-                echo json_encode(array( 'status' => false ));
+                echo json_encode(array('status' => false));
             }
         }
 
@@ -117,7 +113,7 @@ class Ajax
     }
 
     /**
-     * Get field object from cuztom global
+     * Get field object from cuztom global.
      *
      * @since 3.0
      */
