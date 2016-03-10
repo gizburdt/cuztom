@@ -67,56 +67,56 @@ class Cuztom
     private function includes()
     {
         // Support
-        require_once(self::$dir.'/Support/Guard.php');
-        require_once(self::$dir.'/Support/Notice.php');
-        require_once(self::$dir.'/Support/Ajax.php');
-        require_once(self::$dir.'/Support/Request.php');
-        require_once(self::$dir.'/Support/Response.php');
+        require_once self::$dir.'/Support/Guard.php';
+        require_once self::$dir.'/Support/Notice.php';
+        require_once self::$dir.'/Support/Ajax.php';
+        require_once self::$dir.'/Support/Request.php';
+        require_once self::$dir.'/Support/Response.php';
 
         // Entity
-        require_once(self::$dir.'/Entities/Entity.php');
-        require_once(self::$dir.'/Entities/PostType.php');
-        require_once(self::$dir.'/Entities/Taxonomy.php');
-        require_once(self::$dir.'/Entities/Sidebar.php');
-        require_once(self::$dir.'/Entities/Support/helpers.php');
+        require_once self::$dir.'/Entities/Entity.php';
+        require_once self::$dir.'/Entities/PostType.php';
+        require_once self::$dir.'/Entities/Taxonomy.php';
+        require_once self::$dir.'/Entities/Sidebar.php';
+        require_once self::$dir.'/Entities/Support/helpers.php';
 
         // Meta
-        require_once(self::$dir.'/Meta/Meta.php');
-        require_once(self::$dir.'/Meta/Box.php');
-        require_once(self::$dir.'/Meta/User.php');
-        require_once(self::$dir.'/Meta/Term.php');
+        require_once self::$dir.'/Meta/Meta.php';
+        require_once self::$dir.'/Meta/Box.php';
+        require_once self::$dir.'/Meta/User.php';
+        require_once self::$dir.'/Meta/Term.php';
 
         // Fields
-        require_once(self::$dir.'/Fields/Traits/Checkable.php');
-        require_once(self::$dir.'/Fields/Traits/Checkables.php');
-        require_once(self::$dir.'/Fields/Traits/Selectable.php');
-        require_once(self::$dir.'/Fields/Traits/Arrayable.php');
-        require_once(self::$dir.'/Fields/Field.php');
-        require_once(self::$dir.'/Fields/Bundle.php');
-        require_once(self::$dir.'/Fields/Tabs.php');
-        require_once(self::$dir.'/Fields/Accordion.php');
-        require_once(self::$dir.'/Fields/Tab.php');
-        require_once(self::$dir.'/Fields/Text.php');
-        require_once(self::$dir.'/Fields/Textarea.php');
-        require_once(self::$dir.'/Fields/Checkbox.php');
-        require_once(self::$dir.'/Fields/YesNo.php');
-        require_once(self::$dir.'/Fields/Select.php');
-        require_once(self::$dir.'/Fields/MultiSelect.php');
-        require_once(self::$dir.'/Fields/Checkboxes.php');
-        require_once(self::$dir.'/Fields/Radios.php');
-        require_once(self::$dir.'/Fields/Wysiwyg.php');
-        require_once(self::$dir.'/Fields/Image.php');
-        require_once(self::$dir.'/Fields/File.php');
-        require_once(self::$dir.'/Fields/DateTime.php');
-        require_once(self::$dir.'/Fields/Date.php');
-        require_once(self::$dir.'/Fields/Time.php');
-        require_once(self::$dir.'/Fields/Color.php');
-        require_once(self::$dir.'/Fields/PostSelect.php');
-        require_once(self::$dir.'/Fields/PostCheckboxes.php');
-        require_once(self::$dir.'/Fields/TermSelect.php');
-        require_once(self::$dir.'/Fields/TermCheckboxes.php');
-        require_once(self::$dir.'/Fields/Hidden.php');
-        require_once(self::$dir.'/Fields/Support/filters.php');
+        require_once self::$dir.'/Fields/Traits/Checkable.php';
+        require_once self::$dir.'/Fields/Traits/Checkables.php';
+        require_once self::$dir.'/Fields/Traits/Selectable.php';
+        require_once self::$dir.'/Fields/Traits/Arrayable.php';
+        require_once self::$dir.'/Fields/Field.php';
+        require_once self::$dir.'/Fields/Bundle.php';
+        require_once self::$dir.'/Fields/Tabs.php';
+        require_once self::$dir.'/Fields/Accordion.php';
+        require_once self::$dir.'/Fields/Tab.php';
+        require_once self::$dir.'/Fields/Text.php';
+        require_once self::$dir.'/Fields/Textarea.php';
+        require_once self::$dir.'/Fields/Checkbox.php';
+        require_once self::$dir.'/Fields/YesNo.php';
+        require_once self::$dir.'/Fields/Select.php';
+        require_once self::$dir.'/Fields/MultiSelect.php';
+        require_once self::$dir.'/Fields/Checkboxes.php';
+        require_once self::$dir.'/Fields/Radios.php';
+        require_once self::$dir.'/Fields/Wysiwyg.php';
+        require_once self::$dir.'/Fields/Image.php';
+        require_once self::$dir.'/Fields/File.php';
+        require_once self::$dir.'/Fields/DateTime.php';
+        require_once self::$dir.'/Fields/Date.php';
+        require_once self::$dir.'/Fields/Time.php';
+        require_once self::$dir.'/Fields/Color.php';
+        require_once self::$dir.'/Fields/PostSelect.php';
+        require_once self::$dir.'/Fields/PostCheckboxes.php';
+        require_once self::$dir.'/Fields/TermSelect.php';
+        require_once self::$dir.'/Fields/TermCheckboxes.php';
+        require_once self::$dir.'/Fields/Hidden.php';
+        require_once self::$dir.'/Fields/Support/filters.php';
     }
 
     /**
@@ -146,11 +146,11 @@ class Cuztom
     private function add_hooks()
     {
         // Assets
-        add_action('admin_init', array( &$this, 'register_styles'));
-        add_action('admin_print_styles', array( &$this, 'enqueue_styles'));
+        add_action('admin_init', array(&$this, 'register_styles'));
+        add_action('admin_print_styles', array(&$this, 'enqueue_styles'));
 
-        add_action('admin_init', array( &$this, 'register_scripts'));
-        add_action('admin_enqueue_scripts', array( &$this, 'enqueue_scripts'));
+        add_action('admin_init', array(&$this, 'register_scripts'));
+        add_action('admin_enqueue_scripts', array(&$this, 'enqueue_scripts'));
 
         // Add AJAX hooks
         self::$ajax->add_hooks();
@@ -258,7 +258,7 @@ class Cuztom
 
             foreach ($directories as $dir) {
                 if (! preg_match('/content/', $dir)) {
-                    $path = $path . '/' . $dir;
+                    $path = $path.'/'.$dir;
                 }
             }
 
@@ -313,24 +313,24 @@ class Cuztom
     public static function pluralize($string)
     {
         $specials = apply_filters('cuztom_plural', array(
-            array('/(quiz)$/i',               "$1zes"),
-            array('/^(ox)$/i',                "$1en"),
-            array('/([m|l])ouse$/i',          "$1ice"),
-            array('/(matr|vert|ind)ix|ex$/i', "$1ices"),
-            array('/(x|ch|ss|sh)$/i',         "$1es"),
-            array('/([^aeiouy]|qu)y$/i',      "$1ies"),
-            array('/([^aeiouy]|qu)ies$/i',    "$1y"),
-            array('/(hive)$/i',               "$1s"),
-            array('/(?:([^f])fe|([lr])f)$/i', "$1$2ves"),
-            array('/sis$/i',                  "ses"),
-            array('/([ti])um$/i',             "$1a"),
-            array('/(buffal|tomat)o$/i',      "$1oes"),
-            array('/(bu)s$/i',                "$1ses"),
-            array('/(alias|status)$/i',       "$1es"),
-            array('/(octop|vir)us$/i',        "$1i"),
-            array('/(ax|test)is$/i',          "$1es"),
-            array('/s$/i',                    "s"),
-            array('/$/',                      "s")
+            array('/(quiz)$/i',               '$1zes'),
+            array('/^(ox)$/i',                '$1en'),
+            array('/([m|l])ouse$/i',          '$1ice'),
+            array('/(matr|vert|ind)ix|ex$/i', '$1ices'),
+            array('/(x|ch|ss|sh)$/i',         '$1es'),
+            array('/([^aeiouy]|qu)y$/i',      '$1ies'),
+            array('/([^aeiouy]|qu)ies$/i',    '$1y'),
+            array('/(hive)$/i',               '$1s'),
+            array('/(?:([^f])fe|([lr])f)$/i', '$1$2ves'),
+            array('/sis$/i',                  'ses'),
+            array('/([ti])um$/i',             '$1a'),
+            array('/(buffal|tomat)o$/i',      '$1oes'),
+            array('/(bu)s$/i',                '$1ses'),
+            array('/(alias|status)$/i',       '$1es'),
+            array('/(octop|vir)us$/i',        '$1i'),
+            array('/(ax|test)is$/i',          '$1es'),
+            array('/s$/i',                    's'),
+            array('/$/',                      's')
         ));
 
         $irregular = apply_filters('cuztom_irregular', array(
@@ -379,8 +379,8 @@ class Cuztom
      * Check if variable is empty.
      *
      * @param  string|array $input
-     * @param  boolean      $result
-     * @return boolean
+     * @param  bool         $result
+     * @return bool
      * @since  3.0
      */
     public static function is_empty($input, $result = true)
@@ -399,8 +399,8 @@ class Cuztom
     /**
      * Check if the term is reserved by Wordpress.
      *
-     * @param  string  $term
-     * @return boolean
+     * @param  string $term
+     * @return bool
      * @since  1.6
      */
     public static function is_reserved_term($term)

@@ -13,26 +13,26 @@ Guard::directAccess();
 class Taxonomy extends Entity
 {
     /**
-     * Args
+     * Args.
      * @var array
      */
     public $args;
 
     /**
-     * Labels
+     * Labels.
      * @var array
      */
     public $labels;
 
     /**
-     * Attached post type
+     * Attached post type.
      * @var string|array
      */
     public $post_type;
 
     /**
-     * Constructs the class with important vars and method calls
-     * If the taxonomy exists, it will be attached to the post type
+     * Constructs the class with important vars and method calls.
+     * If the taxonomy exists, it will be attached to the post type.
      *
      * @param string|array $name
      * @param string       $post_type
@@ -60,19 +60,19 @@ class Taxonomy extends Entity
         // Sortable columns
         if (@$args['admin_column_sortable']) {
             foreach ($this->post_type as $post_type) {
-                add_action("manage_edit-{$post_type}_sortable_columns", array( &$this, 'add_sortable_column' ));
+                add_action("manage_edit-{$post_type}_sortable_columns", array( &$this, 'add_sortable_column'));
             }
         }
 
         // Column filter
         if (@$args['admin_column_filter']) {
-            add_action('restrict_manage_posts', array( &$this, 'admin_column_filter' ));
+            add_action('restrict_manage_posts', array( &$this, 'admin_column_filter'));
             add_filter('parse_query', array( &$this, '_post_filter_query'));
         }
     }
 
     /**
-     * Registers the custom taxonomy with the given arguments
+     * Registers the custom taxonomy with the given arguments.
      *
      * @since 0.2
      */
@@ -117,7 +117,7 @@ class Taxonomy extends Entity
     }
 
     /**
-     * Used to attach the existing taxonomy to the post type
+     * Used to attach the existing taxonomy to the post type.
      *
      * @since 0.2
      */
@@ -127,14 +127,14 @@ class Taxonomy extends Entity
     }
 
     /**
-     * Add term meta to this taxonomy
+     * Add term meta to this taxonomy.
      *
-     * @param integer $id
-     * @param array   $data
-     * @param array   $locations
+     * @param int   $id
+     * @param array $data
+     * @param array $locations
      * @since 2.5
      */
-    public function add_term_meta($id, $data = array(), $locations = array( 'add_form', 'edit_form' ))
+    public function add_term_meta($id, $data = array(), $locations = array( 'add_form', 'edit_form'))
     {
         $term_meta = new TermMeta($id, $data, $this->name, $locations);
 
@@ -142,7 +142,7 @@ class Taxonomy extends Entity
     }
 
     /**
-     * Used to make all columns sortable
+     * Used to make all columns sortable.
      *
      * @param array $columns
      * @since 1.6
@@ -155,7 +155,7 @@ class Taxonomy extends Entity
     }
 
     /**
-     * Adds a filter to the post table filters
+     * Adds a filter to the post table filters.
      *
      * @since 1.6
      */
@@ -178,7 +178,7 @@ class Taxonomy extends Entity
     }
 
     /**
-     * Applies the selected filter to the query
+     * Applies the selected filter to the query.
      *
      * @param  object $query
      * @return array
