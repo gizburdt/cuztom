@@ -39,7 +39,7 @@ class Tabs extends Field
     /**
      * Output.
      *
-     * @param  array $args
+     * @param  array  $args
      * @return string
      * @since  3.0
      */

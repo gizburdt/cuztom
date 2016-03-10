@@ -105,7 +105,7 @@ class Tab extends Field
             if (is_string($type) && $type == 'bundle') {
                 // $tab->fields = $this->build( $fields );
             } else {
-                $args = array_merge($field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value'    => @$value[$field['id']][0] ));
+                $args  = array_merge($field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value'    => @$value[$field['id']][0] ));
                 $field = Field::create($args);
 
                 $this->fields[$field->id] = $field;

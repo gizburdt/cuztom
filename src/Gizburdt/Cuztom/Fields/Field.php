@@ -153,7 +153,7 @@ abstract class Field
     /**
      * Outputs the field, ready for repeatable functionality.
      *
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return string
      * @since  2.0
      */
@@ -187,8 +187,8 @@ abstract class Field
     /**
      * Outputs repeatable item.
      *
-     * @param  mixed $value Default value
-     * @param  int   $count Total count of fields
+     * @param  mixed  $value Default value
+     * @param  int    $count Total count of fields
      * @return string
      */
     public function _output_repeatable_item($value = null, $count = 0)
@@ -207,7 +207,7 @@ abstract class Field
     /**
      * Outputs repeatable control.
      *
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return string
      * @since  3.0
      */
@@ -232,7 +232,7 @@ abstract class Field
     /**
      * Outputs the field, ready for ajax save.
      *
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return string
      * @since  2.0
      */
@@ -253,7 +253,7 @@ abstract class Field
     }
 
     /**
-     * Parse value
+     * Parse value.
      *
      * @param  mixed $value.
      * @return mixed
@@ -267,9 +267,9 @@ abstract class Field
     /**
      * Save meta.
      *
-     * @param  integer $object
-     * @param  mixed   $value
-     * @return boolean
+     * @param  int   $object
+     * @param  mixed $value
+     * @return bool
      * @since  1.6.2
      */
     public function save($object, $values)
@@ -387,14 +387,14 @@ abstract class Field
     /**
      * Outputs the fields column content.
      *
-     * @param integer $post_id
+     * @param int $post_id
      * @since 3.0
      */
     public function output_column_content($post_id)
     {
         $meta = get_post_meta($post_id, $this->id, true);
 
-        if (!empty($meta) && $this->is_repeatable()) {
+        if (! empty($meta) && $this->is_repeatable()) {
             echo implode($meta, ', ');
         } else {
             echo $meta;
@@ -404,8 +404,8 @@ abstract class Field
     /**
      * Check what kind of meta we're dealing with.
      *
-     * @param  string  $meta_type
-     * @return boolean
+     * @param  string $meta_type
+     * @return bool
      * @since  3.0
      */
     public function is_meta_type($meta_type)
@@ -416,7 +416,7 @@ abstract class Field
     /**
      * check if the field is in ajax mode.
      *
-     * @return boolean
+     * @return bool
      * @since  3.0
      */
     public function is_ajax()
@@ -427,7 +427,7 @@ abstract class Field
     /**
      * Check if the field is in repeatable mode.
      *
-     * @return boolean
+     * @return bool
      * @since  3.0
      */
     public function is_repeatable()
@@ -438,30 +438,30 @@ abstract class Field
     /**
      * Check if the field is tabs or accordion.
      *
-     * @return boolean
+     * @return bool
      * @since  3.0
      */
     public function is_tabs()
     {
-        return ($this instanceof Tabs || $this instanceof Accordion);
+        return $this instanceof Tabs || $this instanceof Accordion;
     }
 
     /**
      * Check if the field is tabs or accordion.
      *
-     * @return boolean
+     * @return bool
      * @since  3.0
      */
     public function is_bundle()
     {
-        return ($this instanceof Bundle);
+        return $this instanceof Bundle;
     }
 
     /**
      * Creates and returns a field object.
      *
-     * @param  array $args
-     * @return object|boolean
+     * @param  array       $args
+     * @return object|bool
      * @since  3.0
      */
     public static function create($args)

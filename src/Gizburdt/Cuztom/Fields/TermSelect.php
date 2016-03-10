@@ -36,7 +36,7 @@ class TermSelect extends Field
         $this->args['class']   .= ' cuztom-input-select cuztom-input-term-select';
         $this->args['echo']     = 0;
         $this->args['name']     = $this->get_name();
-        $this->args['id']       = $this->get_id();;
+        $this->args['id']       = $this->get_id();
         $this->args['selected'] = (! Cuztom::is_empty($this->value) ? $this->value : $this->default_value);
     }
 

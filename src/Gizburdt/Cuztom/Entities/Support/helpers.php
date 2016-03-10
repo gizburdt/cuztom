@@ -77,7 +77,7 @@ if (! function_exists('register_cuztom_sidebar')) {
     /**
      * Register Cuztom sidebar.
      *
-     * @param  array $args
+     * @param  array  $args
      * @return object
      */
     function register_cuztom_sidebar($args)

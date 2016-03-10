@@ -30,10 +30,10 @@ class Textarea extends Field
     public function _output_input($value = null)
     {
         return '<textarea
-            name="'  .$this->get_name(). '"
-            id="'    .$this->get_id(). '"
-            class="' .$this->get_css_class(). '"
-            '        .$this->get_data_attributes(). '
-            >'       .$value. '</textarea>';
+            name="'.$this->get_name().'"
+            id="'.$this->get_id().'"
+            class="'.$this->get_css_class().'"
+            '.$this->get_data_attributes().'
+            >'.$value. '</textarea>';
     }
 }

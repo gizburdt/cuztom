@@ -2,7 +2,6 @@
 
 namespace Gizburdt\Cuztom\Fields\Traits;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
@@ -10,7 +9,7 @@ Guard::directAccess();
 trait Arrayable
 {
     /**
-     * Parse value
+     * Parse value.
      *
      * @param  string $value
      * @return string

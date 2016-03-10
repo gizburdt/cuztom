@@ -31,7 +31,7 @@ class Image extends Field
      * Data attributes.
      * @var array
      */
-    public $data_attributes = array( 'media-type' => 'image' );
+    public $data_attributes = array('media-type' => 'image');
 
     /**
      * Output input(s).
@@ -73,7 +73,7 @@ class Image extends Field
     {
         $meta = get_post_meta($post_id, $this->id, true);
 
-        echo wp_get_attachment_image($meta, array( 100, 100 ));
+        echo wp_get_attachment_image($meta, array(100, 100));
     }
 
     /**
@@ -84,7 +84,7 @@ class Image extends Field
      */
     private function get_preview_size()
     {
-        $size = (! Cuztom::is_empty($this->args["preview_size"]) ? $this->args["preview_size"] : 'medium');
+        $size = (! Cuztom::is_empty($this->args['preview_size']) ? $this->args['preview_size'] : 'medium');
 
         return apply_filters('cuztom_field_image_preview_size', $size, $this);
     }

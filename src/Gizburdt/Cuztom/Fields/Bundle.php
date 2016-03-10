@@ -153,7 +153,7 @@ class Bundle extends Field
 
     /**
      * This method builds the complete array for a bundle.
-     * 
+     *
      * @param array      $data
      * @param array|null $values
      * @since 3.0
@@ -171,9 +171,9 @@ class Bundle extends Field
                 $field['meta_type'] = $this->meta_type;
                 $field['object']    = $this->object;
 
-                $field = Field::create($field);
+                $field             = Field::create($field);
                 $field->repeatable = false;
-                $field->ajax = false;
+                $field->ajax       = false;
 
                 $this->fields[$field->id] = $field;
             }

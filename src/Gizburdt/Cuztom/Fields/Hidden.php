@@ -27,7 +27,6 @@ class Hidden extends Field
      * @param  string $value
      * @return string
      * @since  0.2
-     *
      */
     public function output_row($value = null)
     {

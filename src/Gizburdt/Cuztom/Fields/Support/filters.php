@@ -6,7 +6,7 @@ use Gizburdt\Cuztom\Support\Guard;
 Guard::directAccess();
 
 /**
- * Adds extra string to field class
+ * Adds extra string to field class.
  *
  * @param  string $class
  * @param  object $field
@@ -15,7 +15,7 @@ Guard::directAccess();
  */
 function cuztom_field_css_class_extra($class, $field, $extra)
 {
-    if (!Cuztom::is_empty($extra)) {
+    if (! Cuztom::is_empty($extra)) {
         return $class.' '.$extra;
     }
 
@@ -24,7 +24,7 @@ function cuztom_field_css_class_extra($class, $field, $extra)
 add_filter('cuztom_field_css_class', 'cuztom_field_css_class_extra', 10, 3);
 
 /**
- * Adds extra string to field row class
+ * Adds extra string to field row class.
  *
  * @param  string $class
  * @param  object $field
@@ -46,7 +46,7 @@ function cuztom_field_row_css_class_extra($class, $field, $extra)
 add_filter('cuztom_field_row_css_class', 'cuztom_field_row_css_class_extra', 10, 3);
 
 /**
- * Adds extra string to field ID
+ * Adds extra string to field ID.
  *
  * @param  string $id
  * @param  object $field
