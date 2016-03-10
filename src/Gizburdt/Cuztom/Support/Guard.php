@@ -7,7 +7,7 @@ Guard::directAccess();
 class Guard
 {
     /**
-     * Block direct access
+     * Block direct access.
      *
      * @return void
      * @since  3.0
@@ -20,9 +20,9 @@ class Guard
     }
 
     /**
-     * Check autosave
+     * Check autosave.
      *
-     * @return boolean
+     * @return bool
      */
     public static function doingAutosave()
     {
@@ -30,9 +30,9 @@ class Guard
     }
 
     /**
-     * Check ajax
+     * Check ajax.
      *
-     * @return boolean
+     * @return bool
      */
     public static function doingAjax()
     {
