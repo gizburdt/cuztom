@@ -46,10 +46,10 @@ class Guard
      * @param string $name
      * @param string $value
      *
-     * @return boolean
+     * @return bool
      */
     public static function verifyNonce($name, $value)
     {
-        return (isset($_POST[$name]) && wp_verify_nonce($_POST[$name], $value));
+        return isset($_POST[$name]) && wp_verify_nonce($_POST[$name], $value);
     }
 }
