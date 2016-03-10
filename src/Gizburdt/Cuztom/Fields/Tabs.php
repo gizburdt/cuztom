@@ -10,7 +10,6 @@ class Tabs extends Field
 {
     /**
      * Tabs.
-     *
      * @var array
      */
     public $tabs = array();
@@ -19,9 +18,7 @@ class Tabs extends Field
      * Output row.
      *
      * @param string|array $value
-     *
      * @return string
-     *
      * @since  3.0
      */
     public function output_row($value = null)
@@ -43,9 +40,7 @@ class Tabs extends Field
      * Output.
      *
      * @param array $args
-     *
      * @return string
-     *
      * @since  3.0
      */
     public function output($args = array())
@@ -82,9 +77,7 @@ class Tabs extends Field
      *
      * @param int   $object
      * @param array $values
-     *
      * @return void
-     *
      * @since  3.0
      */
     public function save($object, $values)
@@ -99,9 +92,7 @@ class Tabs extends Field
      *
      * @param array        $data
      * @param string|array $value
-     *
      * @return void
-     *
      * @since  3.0
      */
     public function build($data, $value)
