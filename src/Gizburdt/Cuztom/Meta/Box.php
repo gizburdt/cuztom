@@ -109,7 +109,7 @@ class Box extends Meta
         }
 
         // Verify nonce
-        if (!(isset($_POST['cuztom_nonce']) && wp_verify_nonce($_POST['cuztom_nonce'], 'cuztom_meta'))) {
+        if (!Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
             return;
         }
 

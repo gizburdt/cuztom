@@ -39,4 +39,17 @@ class Guard
     {
         return defined('DOING_AJAX') && DOING_AJAX;
     }
+
+    /**
+     * Check nonce.
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return boolean
+     */
+    public static function verifyNonce($name, $value)
+    {
+        return (isset($_POST[$name]) && wp_verify_nonce($_POST[$name], $value));
+    }
 }
