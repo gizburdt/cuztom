@@ -4,27 +4,25 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
-use Gizburdt\Cuztom\Fields\Checkboxes;
 
 Guard::directAccess();
 
 class TermCheckboxes extends Checkboxes
 {
     /**
-     * Terms
+     * Terms.
      * @var array
      */
     public $terms;
 
     /**
-     * Row CSS class
+     * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-term-checkboxes';
 
     /**
-     * Construct
+     * Construct.
      *
      * @param array $field
      * @since 0.3.3
@@ -41,12 +39,12 @@ class TermCheckboxes extends Checkboxes
             $this->args
         );
 
-        $this->terms          = get_terms($this->args['taxonomy'], array('hide_empty' => false));
-        $this->default_value  = (array) $this->default_value;
+        $this->terms         = get_terms($this->args['taxonomy'], array('hide_empty' => false));
+        $this->default_value = (array) $this->default_value;
     }
 
     /**
-     * Output input
+     * Output input.
      *
      * @param  string|array $value
      * @return string

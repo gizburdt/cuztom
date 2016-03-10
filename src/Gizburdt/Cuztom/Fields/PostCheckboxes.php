@@ -4,21 +4,19 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
-use Gizburdt\Cuztom\Fields\Checkboxes;
 
 Guard::directAccess();
 
 class PostCheckboxes extends Checkboxes
 {
     /**
-     * Row CSS class
+     * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-post-checkboxes';
 
     /**
-     * Construct
+     * Construct.
      *
      * @param string $field
      * @since 0.3.3
@@ -29,18 +27,18 @@ class PostCheckboxes extends Checkboxes
 
         $this->args = array_merge(
             array(
-                'post_type'        => 'post',
-                'posts_per_page'   => -1
+                'post_type'      => 'post',
+                'posts_per_page' => -1
             ),
             $this->args
         );
 
-        $this->default_value  = (array) $this->default_value;
-        $this->posts          = get_posts($this->args);
+        $this->default_value = (array) $this->default_value;
+        $this->posts         = get_posts($this->args);
     }
 
     /**
-     * Output
+     * Output.
      *
      * @param  string $value
      * @return string

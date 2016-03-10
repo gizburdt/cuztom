@@ -3,8 +3,6 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
-use Gizburdt\Cuztom\Fields\Hidden;
 
 Guard::directAccess();
 
@@ -14,7 +12,8 @@ class Bundle extends Field
     public $fields     = array();
 
     /**
-     * Output a row
+     * Output a row.
+     *
      * @param mixed $value
      * @since 3.0
      */
@@ -23,8 +22,8 @@ class Bundle extends Field
         echo $this->output_control();
 
         echo '<tr class="cuztom-bundle">';
-        echo '<td class="cuztom-field" id="' . $this->get_id() . '" data-id="' . $this->get_id() . '" colspan="2">';
-        echo '<div class="cuztom-bundles cuztom-bundles-' . $this->get_id() . '">';
+        echo '<td class="cuztom-field" id="'.$this->get_id().'" data-id="'.$this->get_id().'" colspan="2">';
+        echo '<div class="cuztom-bundles cuztom-bundles-'.$this->get_id().'">';
         echo '<ul class="js-cuztom-sortable cuztom-sortable" data-cuztom-sortable-type="bundle">';
         $this->output();
         echo '</ul>';
@@ -36,7 +35,8 @@ class Bundle extends Field
     }
 
     /**
-     * Outputs a bundle
+     * Outputs a bundle.
+     *
      * @param mixed $value
      * @since 1.6.5
      */
@@ -58,8 +58,9 @@ class Bundle extends Field
     }
 
     /**
-     * Outputs bundle item
-     * @param  integer $index
+     * Outputs bundle item.
+     *
+     * @param  int    $index
      * @return string
      * @since  3.0
      */
@@ -71,23 +72,23 @@ class Bundle extends Field
         $output .= '<fieldset class="cuztom-fieldset">';
         $output .= '<table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">';
         foreach ($this->fields as $id => $field) {
-            $field->before_name     = '[' . $this->id . '][' . $index. ']';
-            $field->after_id        = '_' . $index;
-            $field->default_value   = isset($this->default_value[$index][$id]) ? $this->default_value[$index][$id] : $field->default_value;
-            $value                  = isset($this->value[$index][$id]) ? $this->value[$index][$id] : '';
+            $field->before_name   = '['.$this->id.']['.$index.']';
+            $field->after_id      = '_'.$index;
+            $field->default_value = isset($this->default_value[$index][$id]) ? $this->default_value[$index][$id] : $field->default_value;
+            $value                = isset($this->value[$index][$id]) ? $this->value[$index][$id] : '';
 
             if (! $field instanceof Hidden) {
                 $output .= '<tr>';
                 $output .= '<th class="cuztom-th">';
-                $output .= '<label for="' . $id . $field->after_id . '" class="cuztom-label">' . $field->label . '</label>';
-                $output .= '<div class="cuztom-field-description">' . $field->description . '</div>';
+                $output .= '<label for="'.$id.$field->after_id.'" class="cuztom-label">'.$field->label.'</label>';
+                $output .= '<div class="cuztom-field-description">'.$field->description.'</div>';
                 $output .= '</th>';
                 $output .= '<td class="cuztom-td">';
 
                 if ($field->_supports_bundle) {
                     $output .= $field->output($value);
                 } else {
-                    $output .= '<em>' . __('This input type doesn\'t support the bundle functionality (yet).', 'cuztom') . '</em>';
+                    $output .= '<em>'.__('This input type doesn\'t support the bundle functionality (yet).', 'cuztom').'</em>';
                 }
 
                 $output .= '</td>';
@@ -105,23 +106,24 @@ class Bundle extends Field
     }
 
     /**
-     * Output a control row for a bundle
+     * Output a control row for a bundle.
+     *
      * @param string $class
      * @since 3.0
      */
     public function output_control($class = 'top')
     {
-        echo '<tr class="cuztom-control cuztom-control-' . $class . '" data-control-for="' . $this->id . '">';
+        echo '<tr class="cuztom-control cuztom-control-'.$class.'" data-control-for="'.$this->id.'">';
         echo '<td colspan="2">';
-        echo '<a class="button-secondary button button-small cuztom-button js-cuztom-add-sortable" data-sortable-type="bundle" data-field-id="' . $this->id . '" href="#">';
+        echo '<a class="button-secondary button button-small cuztom-button js-cuztom-add-sortable" data-sortable-type="bundle" data-field-id="'.$this->id.'" href="#">';
         echo sprintf('+ %s', __('Add item', 'cuztom'));
         echo '</a>';
 
         if ($this->limit) {
             echo '<div class="cuztom-counter js-cztm-counter">';
-            echo '<span class="current js-current">' . count($this->value) . '</span>';
+            echo '<span class="current js-current">'.count($this->value).'</span>';
             echo '<span class="divider"> / </span>';
-            echo '<span class="max js-max">' . $this->limit . '</span>';
+            echo '<span class="max js-max">'.$this->limit.'</span>';
             echo '</div>';
         }
         echo '</td>';
@@ -129,9 +131,10 @@ class Bundle extends Field
     }
 
     /**
-     * Save bundle meta
-     * @param integer $object
-     * @param array   $values
+     * Save bundle meta.
+     *
+     * @param int   $object
+     * @param array $values
      * @since 1.6.2
      */
     public function save($object, $values)
@@ -149,7 +152,8 @@ class Bundle extends Field
     }
 
     /**
-     * This method builds the complete array for a bundle
+     * This method builds the complete array for a bundle.
+     * 
      * @param array      $data
      * @param array|null $values
      * @since 3.0

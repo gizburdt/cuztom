@@ -3,7 +3,6 @@
 namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Entities\Entity;
 use Gizburdt\Cuztom\Meta\Term as TermMeta;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Support\Notice;
@@ -60,14 +59,14 @@ class Taxonomy extends Entity
         // Sortable columns
         if (@$args['admin_column_sortable']) {
             foreach ($this->post_type as $post_type) {
-                add_action("manage_edit-{$post_type}_sortable_columns", array( &$this, 'add_sortable_column'));
+                add_action("manage_edit-{$post_type}_sortable_columns", array(&$this, 'add_sortable_column'));
             }
         }
 
         // Column filter
         if (@$args['admin_column_filter']) {
-            add_action('restrict_manage_posts', array( &$this, 'admin_column_filter'));
-            add_filter('parse_query', array( &$this, '_post_filter_query'));
+            add_action('restrict_manage_posts', array(&$this, 'admin_column_filter'));
+            add_filter('parse_query', array(&$this, '_post_filter_query'));
         }
     }
 
@@ -134,7 +133,7 @@ class Taxonomy extends Entity
      * @param array $locations
      * @since 2.5
      */
-    public function add_term_meta($id, $data = array(), $locations = array( 'add_form', 'edit_form'))
+    public function add_term_meta($id, $data = array(), $locations = array('add_form', 'edit_form'))
     {
         $term_meta = new TermMeta($id, $data, $this->name, $locations);
 
@@ -191,7 +190,7 @@ class Taxonomy extends Entity
         $vars = &$query->query_vars;
 
         if ($pagenow == 'edit.php' && isset($vars[$this->name]) && is_numeric($vars[$this->name]) && $vars[$this->name]) {
-            $term = get_term_by('id', $vars[$this->name], $this->name);
+            $term              = get_term_by('id', $vars[$this->name], $this->name);
             $vars[$this->name] = $term->slug;
         }
 

@@ -4,28 +4,25 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
-use Gizburdt\Cuztom\Fields\Bundle;
-use Gizburdt\Cuztom\Fields\Hidden;
 
 Guard::directAccess();
 
 class Tab extends Field
 {
     /**
-     * Title
+     * Title.
      * @var string
      */
     public $title;
 
     /**
-     * Fields
+     * Fields.
      * @var array
      */
     public $fields = array();
 
     /**
-     * Construct
+     * Construct.
      *
      * @param array $args
      * @since 3.0
@@ -40,7 +37,7 @@ class Tab extends Field
     }
 
     /**
-     * Output
+     * Output.
      *
      * @param  array  $args
      * @return string
@@ -80,9 +77,9 @@ class Tab extends Field
     }
 
     /**
-     * Save
+     * Save.
      *
-     * @param  integer $object
+     * @param  int          $object
      * @param  string|array $values
      * @return string
      * @since  3.0
@@ -95,8 +92,9 @@ class Tab extends Field
     }
 
     /**
-     * Build
-     * @param  array $data
+     * Build.
+     *
+     * @param  array        $data
      * @param  string|array $value
      * @return void
      * @since  3.0

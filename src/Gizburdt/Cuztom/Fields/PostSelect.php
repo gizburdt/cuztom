@@ -3,27 +3,25 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
-use Gizburdt\Cuztom\Fields\Select;
 
 Guard::directAccess();
 
 class PostSelect extends Select
 {
     /**
-     * CSS class
+     * CSS class.
      * @var string
      */
     public $css_class = 'cuztom-input-select cuztom-input-post-select';
 
     /**
-     * Row CSS class
+     * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-post-select';
 
     /**
-     * Construct
+     * Construct.
      *
      * @param array $field
      * @since 0.3.3
@@ -46,7 +44,7 @@ class PostSelect extends Select
     }
 
     /**
-     * Output input
+     * Output input.
      *
      * @param  string|array $value
      * @return string

@@ -4,26 +4,25 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
 
 Guard::directAccess();
 
 class DateTime extends Field
 {
     /**
-     * CSS class
+     * CSS class.
      * @var string
      */
     public $css_class = 'cuztom-input-datetime datetimepicker js-cuztom-datetimepicker';
 
     /**
-     * Row CSS class
+     * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-datetime';
 
     /**
-     * Data attributes
+     * Data attributes.
      * @var array
      */
     public $data_attributes = array(
@@ -32,7 +31,7 @@ class DateTime extends Field
     );
 
     /**
-     * Construct
+     * Construct.
      *
      * @param array $field
      * @since 0.3.3
@@ -49,7 +48,7 @@ class DateTime extends Field
     }
 
     /**
-     * Parse value
+     * Parse value.
      *
      * @param  string $value
      * @return string
@@ -61,7 +60,7 @@ class DateTime extends Field
     }
 
     /**
-     * UNIX time to string
+     * UNIX time to string.
      *
      * @param  string $string
      * @return string

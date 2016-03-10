@@ -3,14 +3,13 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Tabs;
 
 Guard::directAccess();
 
 class Accordion extends Tabs
 {
     /**
-     * Ouput accordion row
+     * Ouput accordion row.
      *
      * @param mixed $value
      * @since 3.0
@@ -31,9 +30,9 @@ class Accordion extends Tabs
     }
 
     /**
-     * Output accordion
-     * 
-     * @param array  $args
+     * Output accordion.
+     *
+     * @param array $args
      * @since 3.0
      */
     public function output($args = array())

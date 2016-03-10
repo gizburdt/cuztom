@@ -4,26 +4,25 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
 
 Guard::directAccess();
 
 class Text extends Field
 {
     /**
-     * CSS class
+     * CSS class.
      * @var string
      */
     public $css_class = 'cuztom-input-text';
 
     /**
-     * Row CSS class
+     * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-text';
 
     /**
-     * Parse value for HTML special chars
+     * Parse value for HTML special chars.
      *
      * @param  string $value
      * @return string
@@ -41,7 +40,7 @@ class Text extends Field
     }
 
     /**
-     * Applies htmlspecialchars to $value
+     * Applies htmlspecialchars to $value.
      *
      * @param  string &$value
      * @return string

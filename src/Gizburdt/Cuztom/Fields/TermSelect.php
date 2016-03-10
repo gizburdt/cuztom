@@ -4,20 +4,19 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
 
 Guard::directAccess();
 
 class TermSelect extends Field
 {
     /**
-     * Row CSS class
+     * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-term-select';
 
     /**
-     * Construct field
+     * Construct field.
      *
      * @param array $field
      * @since 0.3.3
@@ -42,7 +41,7 @@ class TermSelect extends Field
     }
 
     /**
-     * Output input
+     * Output input.
      *
      * @param  string|array $value
      * @return string

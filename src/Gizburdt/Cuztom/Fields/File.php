@@ -4,32 +4,31 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
 
 Guard::directAccess();
 
 class File extends Field
 {
     /**
-     * Input type
+     * Input type.
      * @var string
      */
     protected $_input_type = 'hidden';
 
     /**
-     * CSS class
+     * CSS class.
      * @var string
      */
     public $css_class = 'cuztom-input-hidden';
 
     /**
-     * Row CSS class
+     * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-file';
 
     /**
-     * Output input
+     * Output input.
      *
      * @param  string $value
      * @return string

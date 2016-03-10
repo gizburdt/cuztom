@@ -3,10 +3,10 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Field\Accordion;
 use Gizburdt\Cuztom\Field\Bundle;
 use Gizburdt\Cuztom\Field\Tabs;
-use Gizburdt\Cuztom\Field\Accordion;
+use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
 
@@ -50,7 +50,7 @@ abstract class Field
     protected $_supports_ajax         = true;
 
     /**
-     * Constructs a Cuztom_Field
+     * Constructs a Cuztom_Field.
      *
      * @param array $args
      * @since 0.3.3
@@ -78,7 +78,7 @@ abstract class Field
     }
 
     /**
-     * Outputs a field row
+     * Outputs a field row.
      *
      * @since 0.2
      */
@@ -101,7 +101,7 @@ abstract class Field
     }
 
     /**
-     * Output based on type
+     * Output based on type.
      *
      * @param  string|array $value
      * @return string
@@ -121,7 +121,7 @@ abstract class Field
     }
 
     /**
-     * Output field
+     * Output field.
      *
      * @param  string|array $value
      * @return string
@@ -129,11 +129,11 @@ abstract class Field
      */
     public function _output($value = null)
     {
-        return $this->_output_input($value) . $this->get_explanation();
+        return $this->_output_input($value).$this->get_explanation();
     }
 
     /**
-     * Output input field
+     * Output input field.
      *
      * @param  string $value
      * @return string
@@ -141,17 +141,17 @@ abstract class Field
     public function _output_input($value = null)
     {
         return '<input
-            type="'  .$this->get_input_type(). '"
-            name="'  .$this->get_name(). '"
-            id="'    .$this->get_id(). '"
-            class="' .$this->get_css_class(). '"
-            value="' .$value. '"
-            '        .$this->get_data_attributes(). '
+            type="'.$this->get_input_type().'"
+            name="'.$this->get_name().'"
+            id="'.$this->get_id().'"
+            class="'.$this->get_css_class().'"
+            value="'.$value.'"
+            '.$this->get_data_attributes().'
             />';
     }
 
     /**
-     * Outputs the field, ready for repeatable functionality
+     * Outputs the field, ready for repeatable functionality.
      *
      * @param  mixed $value
      * @return string
@@ -185,10 +185,10 @@ abstract class Field
     }
 
     /**
-     * Outputs repeatable item
+     * Outputs repeatable item.
      *
-     * @param  mixed   $value  Default value
-     * @param  integer $count  Total count of fields
+     * @param  mixed $value Default value
+     * @param  int   $count Total count of fields
      * @return string
      */
     public function _output_repeatable_item($value = null, $count = 0)
@@ -205,7 +205,7 @@ abstract class Field
     }
 
     /**
-     * Outputs repeatable control
+     * Outputs repeatable control.
      *
      * @param  mixed $value
      * @return string
@@ -230,7 +230,7 @@ abstract class Field
     }
 
     /**
-     * Outputs the field, ready for ajax save
+     * Outputs the field, ready for ajax save.
      *
      * @param  mixed $value
      * @return string
@@ -238,11 +238,11 @@ abstract class Field
      */
     public function _output_ajax($value = null)
     {
-        return $this->_output($value) . $this->_output_ajax_button();
+        return $this->_output($value).$this->_output_ajax_button();
     }
 
     /**
-     * Outputs ajax save button
+     * Outputs ajax save button.
      *
      * @return string
      * @since  3.0
@@ -255,7 +255,7 @@ abstract class Field
     /**
      * Parse value
      *
-     * @param  mixed $value
+     * @param  mixed $value.
      * @return mixed
      * @since  2.8
      */
@@ -265,7 +265,7 @@ abstract class Field
     }
 
     /**
-     * Save meta
+     * Save meta.
      *
      * @param  integer $object
      * @param  mixed   $value
@@ -297,7 +297,7 @@ abstract class Field
     }
 
     /**
-     * Returns the input type
+     * Returns the input type.
      *
      * @return string
      * @since  3.0
@@ -308,7 +308,7 @@ abstract class Field
     }
 
     /**
-     * Get the complete id
+     * Get the complete id.
      *
      * @return string
      * @since  3.0
@@ -319,18 +319,18 @@ abstract class Field
     }
 
     /**
-     * Get the complete name
+     * Get the complete name.
      *
      * @return string
      * @since  3.0
      */
     public function get_name()
     {
-        return apply_filters('cuztom_field_name', 'cuztom' . $this->before_name . '[' . $this->id . ']' . $this->after_name, $this);
+        return apply_filters('cuztom_field_name', 'cuztom'.$this->before_name.'['.$this->id.']'.$this->after_name, $this);
     }
 
     /**
-     * Get the fields css classes
+     * Get the fields css classes.
      *
      * @param  array  $extra
      * @return string
@@ -342,7 +342,7 @@ abstract class Field
     }
 
     /**
-     * Get the fields row css classes
+     * Get the fields row css classes.
      *
      * @param  array  $extra
      * @return string
@@ -354,18 +354,18 @@ abstract class Field
     }
 
     /**
-     * Outputs the fields explanation
+     * Outputs the fields explanation.
      *
      * @return string
      * @since  2.4
      */
     public function get_explanation()
     {
-        return apply_filters('cuztom_field_explanation', (! $this->is_repeatable() && $this->explanation ? '<em class="cuztom-field-explanation">' . $this->explanation . '</em>' : ''), $this);
+        return apply_filters('cuztom_field_explanation', (! $this->is_repeatable() && $this->explanation ? '<em class="cuztom-field-explanation">'.$this->explanation.'</em>' : ''), $this);
     }
 
     /**
-     * Outputs the fields data attributes
+     * Outputs the fields data attributes.
      *
      * @param  array  $extra
      * @return string
@@ -375,9 +375,9 @@ abstract class Field
     {
         foreach (array_merge($this->data_attributes, $extra) as $attribute => $value) {
             if (! is_null($value)) {
-                @$output .= ' data-' . $attribute . '="' . $value . '"';
+                @$output .= ' data-'.$attribute.'="'.$value.'"';
             } elseif (! $value && isset($this->args[Cuztom::uglify($attribute)])) {
-                @$output .= 'data-' . $attribute . '="' . $this->args[Cuztom::uglify($attribute)] . '"';
+                @$output .= 'data-'.$attribute.'="'.$this->args[Cuztom::uglify($attribute)].'"';
             }
         }
 
@@ -385,7 +385,7 @@ abstract class Field
     }
 
     /**
-     * Outputs the fields column content
+     * Outputs the fields column content.
      *
      * @param integer $post_id
      * @since 3.0
@@ -402,7 +402,7 @@ abstract class Field
     }
 
     /**
-     * Check what kind of meta we're dealing with
+     * Check what kind of meta we're dealing with.
      *
      * @param  string  $meta_type
      * @return boolean
@@ -414,7 +414,7 @@ abstract class Field
     }
 
     /**
-     * check if the field is in ajax mode
+     * check if the field is in ajax mode.
      *
      * @return boolean
      * @since  3.0
@@ -425,7 +425,7 @@ abstract class Field
     }
 
     /**
-     * Check if the field is in repeatable mode
+     * Check if the field is in repeatable mode.
      *
      * @return boolean
      * @since  3.0
@@ -436,7 +436,7 @@ abstract class Field
     }
 
     /**
-     * Check if the field is tabs or accordion
+     * Check if the field is tabs or accordion.
      *
      * @return boolean
      * @since  3.0
@@ -447,7 +447,7 @@ abstract class Field
     }
 
     /**
-     * Check if the field is tabs or accordion
+     * Check if the field is tabs or accordion.
      *
      * @return boolean
      * @since  3.0
@@ -458,7 +458,7 @@ abstract class Field
     }
 
     /**
-     * Creates and returns a field object
+     * Creates and returns a field object.
      *
      * @param  array $args
      * @return object|boolean

@@ -4,8 +4,6 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Traits\Selectable;
-use Gizburdt\Cuztom\Fields\Field;
 
 Guard::directAccess();
 
@@ -14,19 +12,19 @@ class Select extends Field
     use Selectable;
 
     /**
-     * CSS class
+     * CSS class.
      * @var string
      */
     public $css_class = 'cuztom-input-select';
 
     /**
-     * Row CSS class
+     * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-select';
 
     /**
-     * Output input
+     * Output input.
      *
      * @param  string|array $value
      * @return string

@@ -4,8 +4,6 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Traits\Checkable;
-use Gizburdt\Cuztom\Fields\Field;
 
 Guard::directAccess();
 
@@ -14,25 +12,25 @@ class Radios extends Field
     use Checkable;
 
     /**
-     * Input type
+     * Input type.
      * @var string
      */
     protected $_input_type = 'radio';
 
     /**
-     * CSS class
+     * CSS class.
      * @var string
      */
     public $css_class = 'cuztom-input-radio';
 
     /**
-     * Row CSS class
+     * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-radios';
 
     /**
-     * Construct
+     * Construct.
      *
      * @param array $field
      * @since 0.3.3
@@ -46,7 +44,7 @@ class Radios extends Field
     }
 
     /**
-     * Output input
+     * Output input.
      *
      * @param  string $value
      * @return string
@@ -72,7 +70,7 @@ class Radios extends Field
     }
 
     /**
-     * Parse value
+     * Parse value.
      *
      * @param  string|array $value
      * @return string

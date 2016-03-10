@@ -4,38 +4,37 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Fields\Field;
 
 Guard::directAccess();
 
 class Image extends Field
 {
     /**
-     * Input type
+     * Input type.
      * @var string
      */
     protected $_input_type = 'hidden';
 
     /**
-     * CSS class
+     * CSS class.
      * @var string
      */
     public $css_class = 'cuztom-input-hidden';
 
     /**
-     * Row CSS class
+     * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-image';
 
     /**
-     * Data attributes
+     * Data attributes.
      * @var array
      */
     public $data_attributes = array( 'media-type' => 'image' );
 
     /**
-     * Output input(s)
+     * Output input(s).
      *
      * @param  string $value
      * @return string
@@ -64,7 +63,7 @@ class Image extends Field
     }
 
     /**
-     * Output column content
+     * Output column content.
      *
      * @param  string $post_id
      * @return string
@@ -78,7 +77,7 @@ class Image extends Field
     }
 
     /**
-     * Get preview size
+     * Get preview size.
      *
      * @return string
      * @since  3.0

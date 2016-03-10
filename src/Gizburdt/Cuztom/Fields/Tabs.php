@@ -17,7 +17,7 @@ class Tabs extends Field
     /**
      * Output row.
      *
-     * @param string|array $value
+     * @param  string|array $value
      * @return string
      * @since  3.0
      */
@@ -39,7 +39,7 @@ class Tabs extends Field
     /**
      * Output.
      *
-     * @param array $args
+     * @param  array $args
      * @return string
      * @since  3.0
      */
@@ -75,8 +75,8 @@ class Tabs extends Field
     /**
      * Save.
      *
-     * @param int   $object
-     * @param array $values
+     * @param  int   $object
+     * @param  array $values
      * @return void
      * @since  3.0
      */
@@ -90,8 +90,8 @@ class Tabs extends Field
     /**
      * Build.
      *
-     * @param array        $data
-     * @param string|array $value
+     * @param  array        $data
+     * @param  string|array $value
      * @return void
      * @since  3.0
      */
