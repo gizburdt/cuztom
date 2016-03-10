@@ -7,23 +7,22 @@ Guard::directAccess();
 class Guard
 {
     /**
-     * Block direct access.
+     * Block direct access
      *
      * @return void
-     *
      * @since  3.0
      */
     public static function directAccess()
     {
-        if (!defined('ABSPATH')) {
+        if (! defined('ABSPATH')) {
             exit;
         }
     }
 
     /**
-     * Check autosave.
+     * Check autosave
      *
-     * @return bool
+     * @return boolean
      */
     public static function doingAutosave()
     {
@@ -31,9 +30,9 @@ class Guard
     }
 
     /**
-     * Check ajax.
+     * Check ajax
      *
-     * @return bool
+     * @return boolean
      */
     public static function doingAjax()
     {

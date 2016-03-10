@@ -3,35 +3,34 @@
 namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Meta\Box as MetaBox;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Support\Notice;
+use Gizburdt\Cuztom\Entities\Entity;
+use Gizburdt\Cuztom\Entities\Taxonomy;
+use Gizburdt\Cuztom\Meta\Box as MetaBox;
 
 Guard::directAccess();
 
 class PostType extends Entity
 {
     /**
-     * Args.
-     *
+     * Args
      * @var array
      */
     public $args;
 
     /**
-     * Labels.
-     *
+     * Labels
      * @var array
      */
     public $labels;
 
     /**
-     * Construct a new Cuztom Post Type.
+     * Construct a new Cuztom Post Type
      *
      * @param string|array $name
      * @param array        $args
      * @param array        $labels
-     *
      * @since 0.1
      */
     public function __construct($name, $args = array(), $labels = array())
@@ -44,13 +43,13 @@ class PostType extends Entity
         $this->labels = $labels;
 
         // Register
-        if (!post_type_exists($this->name)) {
+        if (! post_type_exists($this->name)) {
             $this->register_post_type();
         }
     }
 
     /**
-     * Register Post Type.
+     * Register Post Type
      *
      * @since 0.1
      */
@@ -85,7 +84,7 @@ class PostType extends Entity
                     'label'                 => sprintf(__('%s', 'cuztom'), $this->plural),
                     'labels'                => $labels,
                     'public'                => true,
-                    'supports'              => array('title', 'editor'),
+                    'supports'              => array( 'title', 'editor' ),
                     'has_archive'           => sanitize_title($this->plural)
                 ),
                 $this->args
@@ -97,12 +96,11 @@ class PostType extends Entity
     }
 
     /**
-     * Add a taxonomy to the Post Type.
+     * Add a taxonomy to the Post Type
      *
      * @param string|array $name
      * @param array        $args
      * @param array        $labels
-     *
      * @since 0.1
      */
     public function add_taxonomy($name, $args = array(), $labels = array())
@@ -113,11 +111,10 @@ class PostType extends Entity
     }
 
     /**
-     * Add post meta box to the Post Type.
+     * Add post meta box to the Post Type
      *
-     * @param int   $id
-     * @param array $args
-     *
+     * @param integer $id
+     * @param array   $args
      * @since 0.1
      */
     public function add_meta_box($id, $args)
@@ -130,10 +127,8 @@ class PostType extends Entity
     /**
      * Add action to register support of certain features for a post type.
      *
-     * @param string|array $feature
-     *
+     * @param  string|array $feature
      * @return object
-     *
      * @since  1.4.3
      */
     public function add_post_type_support($feature)
@@ -146,10 +141,8 @@ class PostType extends Entity
     /**
      * Add action to remove support of certain features for a post type.
      *
-     * @param string|array $feature
-     *
+     * @param  string|array $feature
      * @return object
-     *
      * @since  1.4.3
      */
     public function remove_post_type_support($features)
@@ -162,12 +155,10 @@ class PostType extends Entity
     }
 
     /**
-     * Check if post type supports a certain feature.
+     * Check if post type supports a certain feature
      *
-     * @param string|array $feature
-     *
-     * @return bool
-     *
+     * @param  string|array $feature
+     * @return boolean
      * @since  1.5.3
      */
     public function post_type_supports($feature)

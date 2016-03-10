@@ -4,43 +4,40 @@ namespace Gizburdt\Cuztom\Meta;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Meta\Meta;
 
 Guard::directAccess();
 
 class Term extends Meta
 {
     /**
-     * Meta Type.
-     *
+     * Meta Type
      * @var string
      */
     public $meta_type = 'term';
 
     /**
-     * Taxonomies.
-     *
+     * Taxonomies
      * @var array
      */
     public $taxonomies;
 
     /**
-     * Locations.
-     *
+     * Locations
      * @var array
      */
     public $locations;
 
     /**
-     * Construct the term meta.
+     * Construct the term meta
      *
      * @param string       $id
      * @param array        $data
      * @param string|array $taxonomy
      * @param array        $locations
-     *
      * @since 2.5
      */
-    public function __construct($id, $taxonomy, $data = array(), $locations = array('add_form', 'edit_form'))
+    public function __construct($id, $taxonomy, $data = array(), $locations = array( 'add_form', 'edit_form' ))
     {
         // Build all properties
         parent::__construct($id, $data);
@@ -50,7 +47,7 @@ class Term extends Meta
         $this->locations    = (array) $locations;
 
         // Build fields
-        if (!$this->callback) {
+        if (! $this->callback) {
             $this->callback = array(&$this, 'output');
 
             // Build the meta box and fields
@@ -58,28 +55,26 @@ class Term extends Meta
 
             foreach ($this->taxonomies as $taxonomy) {
                 if (in_array('add_form', $this->locations)) {
-                    add_action($taxonomy.'_add_form_fields', array(&$this, 'add_form_fields'));
-                    add_action('created_'.$taxonomy, array(&$this, 'save_term'));
+                    add_action($taxonomy . '_add_form_fields', array( &$this, 'add_form_fields' ));
+                    add_action('created_' . $taxonomy, array( &$this, 'save_term' ));
                 }
 
                 if (in_array('edit_form', $this->locations)) {
-                    add_action($taxonomy.'_edit_form_fields', array(&$this, 'edit_form_fields'));
-                    add_action('edited_'.$taxonomy, array(&$this, 'save_term'));
+                    add_action($taxonomy . '_edit_form_fields', array( &$this, 'edit_form_fields' ));
+                    add_action('edited_' . $taxonomy, array( &$this, 'save_term' ));
                 }
 
-                add_filter('manage_edit-'.$taxonomy.'_columns', array(&$this, 'add_column'));
-                add_filter('manage_'.$taxonomy.'_custom_column', array(&$this, 'add_column_content'), 10, 3);
+                add_filter('manage_edit-' . $taxonomy . '_columns', array( &$this, 'add_column' ));
+                add_filter('manage_' . $taxonomy . '_custom_column', array( &$this, 'add_column_content' ), 10, 3);
             }
         }
     }
 
     /**
-     * Add fields to the add term form.
+     * Add fields to the add term form
      *
-     * @param string $taxonomy
-     *
+     * @param  string $taxonomy
      * @return mixed
-     *
      * @since  2.5
      */
     public function add_form_fields($taxonomy)
@@ -88,12 +83,10 @@ class Term extends Meta
     }
 
     /**
-     * Add fields to the edit term form.
+     * Add fields to the edit term form
      *
-     * @param string $taxonomy
-     *
+     * @param  string $taxonomy
      * @return mixed
-     *
      * @since  2.5
      */
     public function edit_form_fields($taxonomy)
@@ -104,33 +97,30 @@ class Term extends Meta
     }
 
     /**
-     * Save the term.
+     * Save the term
      *
-     * @param int $term_id [description]
-     *
+     * @param integer $term_id [description]
      * @since 2.5
      */
     public function save_term($term_id)
     {
         // Verify nonce
-        if (!(isset($_POST['cuztom_nonce']) && wp_verify_nonce($_POST['cuztom_nonce'], 'cuztom_meta'))) {
+        if (! (isset($_POST['cuztom_nonce']) && wp_verify_nonce($_POST['cuztom_nonce'], 'cuztom_meta'))) {
             return;
         }
 
         $values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
 
-        if (!Cuztom::is_empty($values)) {
+        if (! Cuztom::is_empty($values)) {
             parent::save($term_id, $values);
         }
     }
 
     /**
-     * Used to add a column head to the Taxonomy's List Table.
+     * Used to add a column head to the Taxonomy's List Table
      *
-     * @param array $columns
-     *
+     * @param  array $columns
      * @return array
-     *
      * @since  1.1
      */
     public function add_column($columns)
@@ -145,12 +135,11 @@ class Term extends Meta
     }
 
     /**
-     * Used to add the column content to the column head.
+     * Used to add the column content to the column head
      *
-     * @param string $row
-     * @param string $column
-     * @param int    $term_id
-     *
+     * @param string  $row
+     * @param string  $column
+     * @param integer $term_id
      * @since 1.1
      */
     public function add_column_content($row, $column, $term_id)
@@ -161,10 +150,9 @@ class Term extends Meta
     }
 
     /**
-     * Get object ID.
+     * Get object ID
      *
-     * @return int|null
-     *
+     * @return integer|null
      * @since  3.0
      */
     public function get_object_id()
@@ -172,13 +160,14 @@ class Term extends Meta
         if (isset($_GET['tag_ID'])) {
             return $_GET['tag_ID']; // @TODO: Use get_current_screen()
         }
+
+        return null;
     }
 
     /**
-     * Get value bases on field id.
+     * Get value bases on field id
      *
      * @return mixed
-     *
      * @since  3.0
      */
     public function get_meta_values()

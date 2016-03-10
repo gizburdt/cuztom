@@ -4,7 +4,7 @@ namespace Gizburdt\Cuztom;
 
 use Gizburdt\Cuztom\Support\Ajax;
 
-if (!defined('ABSPATH')) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
@@ -29,16 +29,15 @@ class Cuztom
     );
 
     /**
-     * Public function to set the instance.
+     * Public function to set the instance
      *
      * @return object
-     *
      * @since  2.3
      */
     public static function run()
     {
-        if (!isset(self::$instance)) {
-            self::$instance = new self();
+        if (! isset(self::$instance)) {
+            self::$instance = new Cuztom;
             self::$instance->setup();
             self::$instance->includes();
             self::$instance->execute();
@@ -49,7 +48,7 @@ class Cuztom
     }
 
     /**
-     * Setup all the constants.
+     * Setup all the constants
      *
      * @since 2.3
      */
@@ -61,67 +60,67 @@ class Cuztom
     }
 
     /**
-     * Include the necessary files.
+     * Include the necessary files
      *
      * @since 2.3
      */
     private function includes()
     {
         // Support
-        require_once self::$dir.'/Support/Guard.php';
-        require_once self::$dir.'/Support/Notice.php';
-        require_once self::$dir.'/Support/Ajax.php';
-        require_once self::$dir.'/Support/Request.php';
-        require_once self::$dir.'/Support/Response.php';
+        require_once(self::$dir . '/Support/Guard.php');
+        require_once(self::$dir . '/Support/Notice.php');
+        require_once(self::$dir . '/Support/Ajax.php');
+        require_once(self::$dir . '/Support/Request.php');
+        require_once(self::$dir . '/Support/Response.php');
 
         // Entity
-        require_once self::$dir.'/Entities/Entity.php';
-        require_once self::$dir.'/Entities/PostType.php';
-        require_once self::$dir.'/Entities/Taxonomy.php';
-        require_once self::$dir.'/Entities/Sidebar.php';
-        require_once self::$dir.'/Entities/Support/helpers.php';
+        require_once(self::$dir . '/Entities/Entity.php');
+        require_once(self::$dir . '/Entities/PostType.php');
+        require_once(self::$dir . '/Entities/Taxonomy.php');
+        require_once(self::$dir . '/Entities/Sidebar.php');
+        require_once(self::$dir . '/Entities/Support/helpers.php');
 
         // Meta
-        require_once self::$dir.'/Meta/Meta.php';
-        require_once self::$dir.'/Meta/Box.php';
-        require_once self::$dir.'/Meta/User.php';
-        require_once self::$dir.'/Meta/Term.php';
+        require_once(self::$dir . '/Meta/Meta.php');
+        require_once(self::$dir . '/Meta/Box.php');
+        require_once(self::$dir . '/Meta/User.php');
+        require_once(self::$dir . '/Meta/Term.php');
 
         // Fields
-        require_once self::$dir.'/Fields/Traits/Checkable.php';
-        require_once self::$dir.'/Fields/Traits/Checkables.php';
-        require_once self::$dir.'/Fields/Traits/Selectable.php';
-        require_once self::$dir.'/Fields/Traits/Arrayable.php';
-        require_once self::$dir.'/Fields/Field.php';
-        require_once self::$dir.'/Fields/Bundle.php';
-        require_once self::$dir.'/Fields/Tabs.php';
-        require_once self::$dir.'/Fields/Accordion.php';
-        require_once self::$dir.'/Fields/Tab.php';
-        require_once self::$dir.'/Fields/Text.php';
-        require_once self::$dir.'/Fields/Textarea.php';
-        require_once self::$dir.'/Fields/Checkbox.php';
-        require_once self::$dir.'/Fields/YesNo.php';
-        require_once self::$dir.'/Fields/Select.php';
-        require_once self::$dir.'/Fields/MultiSelect.php';
-        require_once self::$dir.'/Fields/Checkboxes.php';
-        require_once self::$dir.'/Fields/Radios.php';
-        require_once self::$dir.'/Fields/Wysiwyg.php';
-        require_once self::$dir.'/Fields/Image.php';
-        require_once self::$dir.'/Fields/File.php';
-        require_once self::$dir.'/Fields/DateTime.php';
-        require_once self::$dir.'/Fields/Date.php';
-        require_once self::$dir.'/Fields/Time.php';
-        require_once self::$dir.'/Fields/Color.php';
-        require_once self::$dir.'/Fields/PostSelect.php';
-        require_once self::$dir.'/Fields/PostCheckboxes.php';
-        require_once self::$dir.'/Fields/TermSelect.php';
-        require_once self::$dir.'/Fields/TermCheckboxes.php';
-        require_once self::$dir.'/Fields/Hidden.php';
-        require_once self::$dir.'/Fields/Support/filters.php';
+        require_once(self::$dir . '/Fields/Traits/Checkable.php');
+        require_once(self::$dir . '/Fields/Traits/Checkables.php');
+        require_once(self::$dir . '/Fields/Traits/Selectable.php');
+        require_once(self::$dir . '/Fields/Traits/Arrayable.php');
+        require_once(self::$dir . '/Fields/Field.php');
+        require_once(self::$dir . '/Fields/Bundle.php');
+        require_once(self::$dir . '/Fields/Tabs.php');
+        require_once(self::$dir . '/Fields/Accordion.php');
+        require_once(self::$dir . '/Fields/Tab.php');
+        require_once(self::$dir . '/Fields/Text.php');
+        require_once(self::$dir . '/Fields/Textarea.php');
+        require_once(self::$dir . '/Fields/Checkbox.php');
+        require_once(self::$dir . '/Fields/YesNo.php');
+        require_once(self::$dir . '/Fields/Select.php');
+        require_once(self::$dir . '/Fields/MultiSelect.php');
+        require_once(self::$dir . '/Fields/Checkboxes.php');
+        require_once(self::$dir . '/Fields/Radios.php');
+        require_once(self::$dir . '/Fields/Wysiwyg.php');
+        require_once(self::$dir . '/Fields/Image.php');
+        require_once(self::$dir . '/Fields/File.php');
+        require_once(self::$dir . '/Fields/DateTime.php');
+        require_once(self::$dir . '/Fields/Date.php');
+        require_once(self::$dir . '/Fields/Time.php');
+        require_once(self::$dir . '/Fields/Color.php');
+        require_once(self::$dir . '/Fields/PostSelect.php');
+        require_once(self::$dir . '/Fields/PostCheckboxes.php');
+        require_once(self::$dir . '/Fields/TermSelect.php');
+        require_once(self::$dir . '/Fields/TermCheckboxes.php');
+        require_once(self::$dir . '/Fields/Hidden.php');
+        require_once(self::$dir . '/Fields/Support/filters.php');
     }
 
     /**
-     * Sets globals.
+     * Sets globals
      *
      * @since 3.0
      */
@@ -131,45 +130,45 @@ class Cuztom
         global $cuztom, $current_screen;
 
         // Cuztom
-        $cuztom          = new \stdClass();
+        $cuztom          = new \stdClass;
         $cuztom->version = self::$version;
         $cuztom->data    = array();
 
         // Setup ajax
-        self::$ajax = new Ajax();
+        self::$ajax = new Ajax;
     }
 
     /**
-     * Add hooks.
+     * Add hooks
      *
      * @since 2.3
      */
     private function add_hooks()
     {
         // Assets
-        add_action('admin_init', array(&$this, 'register_styles'));
-        add_action('admin_print_styles', array(&$this, 'enqueue_styles'));
+        add_action('admin_init', array( &$this, 'register_styles' ));
+        add_action('admin_print_styles', array( &$this, 'enqueue_styles' ));
 
-        add_action('admin_init', array(&$this, 'register_scripts'));
-        add_action('admin_enqueue_scripts', array(&$this, 'enqueue_scripts'));
+        add_action('admin_init', array( &$this, 'register_scripts' ));
+        add_action('admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ));
 
         // Add AJAX hooks
         self::$ajax->add_hooks();
     }
 
     /**
-     * Registers styles.
+     * Registers styles
      *
      * @since 0.3
      */
     public function register_styles()
     {
         wp_register_style('cuztom-jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, self::$version, 'screen');
-        wp_register_style('cuztom', self::$url.'/Assets/dist/css/cuztom.min.css', false, self::$version, 'screen');
+        wp_register_style('cuztom', self::$url . '/Assets/dist/css/cuztom.min.css', false, self::$version, 'screen');
     }
 
     /**
-     * Enqueues styles.
+     * Enqueues styles
      *
      * @since 0.3
      */
@@ -181,13 +180,13 @@ class Cuztom
     }
 
     /**
-     * Registers scripts.
+     * Registers scripts
      *
      * @since 0.3
      */
     public function register_scripts()
     {
-        wp_register_script('cuztom', self::$url.'/Assets/dist/js/cuztom.min.js', array(
+        wp_register_script('cuztom', self::$url . '/Assets/dist/js/cuztom.min.js', array(
             'jquery',
             'jquery-ui-core',
             'jquery-ui-datepicker',
@@ -200,7 +199,7 @@ class Cuztom
     }
 
     /**
-     * Enqueues scripts.
+     * Enqueues scripts
      *
      * @since 0.3
      */
@@ -213,7 +212,7 @@ class Cuztom
     }
 
     /**
-     * Localizes scripts.
+     * Localizes scripts
      *
      * @since 1.1.1
      */
@@ -229,20 +228,18 @@ class Cuztom
     }
 
     /**
-     * Recursive method to determine the path to the Cuztom folder.
+     * Recursive method to determine the path to the Cuztom folder
      *
-     * @param string $path
-     * @param array  $url
-     *
+     * @param  string $path
+     * @param  array  $url
      * @return string
-     *
      * @since  0.4.1
      */
     public function get_cuztom_url($path = __FILE__, $url = array())
     {
         // Retun URL if defined
         if (defined('CUZTOM_URL')) {
-            return CUZTOM_URL.'src/Gizburdt/Cuztom/';
+            return CUZTOM_URL . 'src/Gizburdt/Cuztom/';
         }
 
         // Base vars
@@ -256,28 +253,26 @@ class Cuztom
 
         // Check for current
         if (preg_match('/content/', $current)) {
-            $path        = '';
+            $path = '';
             $directories = array_reverse($url);
 
             foreach ($directories as $dir) {
-                if (!preg_match('/content/', $dir)) {
-                    $path = $path.'/'.$dir;
+                if (! preg_match('/content/', $dir)) {
+                    $path = $path . '/' . $dir;
                 }
             }
 
-            return apply_filters('cuztom_url', WP_CONTENT_URL.$path);
+            return apply_filters('cuztom_url', WP_CONTENT_URL . $path);
         } else {
             return $this->get_cuztom_url($path, $url);
         }
     }
 
     /**
-     * Beautifies a string. Capitalize words and remove underscores.
+     * Beautifies a string. Capitalize words and remove underscores
      *
-     * @param string $string
-     *
+     * @param  string $string
      * @return string
-     *
      * @since  0.1
      */
     public static function beautify($string)
@@ -286,12 +281,10 @@ class Cuztom
     }
 
     /**
-     * Uglifies a string. Remove strange characters and lower strings.
+     * Uglifies a string. Remove strange characters and lower strings
      *
-     * @param string $string
-     *
+     * @param  string $string
      * @return string
-     *
      * @since  0.1
      */
     public static function uglify($string)
@@ -300,10 +293,9 @@ class Cuztom
     }
 
     /**
-     * String to time.
+     * String to time
      *
-     * @param string $string
-     *
+     * @param  string $string
      * @return string
      */
     public static function time($string)
@@ -312,43 +304,41 @@ class Cuztom
     }
 
     /**
-     * Makes a word plural.
+     * Makes a word plural
      *
-     * @param string $string
-     *
+     * @param  string $string
      * @return string
-     *
      * @since  0.1
      */
     public static function pluralize($string)
     {
         $specials = apply_filters('cuztom_plural', array(
-            array('/(quiz)$/i',               '$1zes'),
-            array('/^(ox)$/i',                '$1en'),
-            array('/([m|l])ouse$/i',          '$1ice'),
-            array('/(matr|vert|ind)ix|ex$/i', '$1ices'),
-            array('/(x|ch|ss|sh)$/i',         '$1es'),
-            array('/([^aeiouy]|qu)y$/i',      '$1ies'),
-            array('/([^aeiouy]|qu)ies$/i',    '$1y'),
-            array('/(hive)$/i',               '$1s'),
-            array('/(?:([^f])fe|([lr])f)$/i', '$1$2ves'),
-            array('/sis$/i',                  'ses'),
-            array('/([ti])um$/i',             '$1a'),
-            array('/(buffal|tomat)o$/i',      '$1oes'),
-            array('/(bu)s$/i',                '$1ses'),
-            array('/(alias|status)$/i',       '$1es'),
-            array('/(octop|vir)us$/i',        '$1i'),
-            array('/(ax|test)is$/i',          '$1es'),
-            array('/s$/i',                    's'),
-            array('/$/',                      's')
+            array('/(quiz)$/i',               "$1zes"  ),
+            array('/^(ox)$/i',                "$1en"   ),
+            array('/([m|l])ouse$/i',          "$1ice"  ),
+            array('/(matr|vert|ind)ix|ex$/i', "$1ices" ),
+            array('/(x|ch|ss|sh)$/i',         "$1es"   ),
+            array('/([^aeiouy]|qu)y$/i',      "$1ies"  ),
+            array('/([^aeiouy]|qu)ies$/i',    "$1y"    ),
+            array('/(hive)$/i',               "$1s"    ),
+            array('/(?:([^f])fe|([lr])f)$/i', "$1$2ves"),
+            array('/sis$/i',                  "ses"    ),
+            array('/([ti])um$/i',             "$1a"    ),
+            array('/(buffal|tomat)o$/i',      "$1oes"  ),
+            array('/(bu)s$/i',                "$1ses"  ),
+            array('/(alias|status)$/i',       "$1es"   ),
+            array('/(octop|vir)us$/i',        "$1i"    ),
+            array('/(ax|test)is$/i',          "$1es"   ),
+            array('/s$/i',                    "s"      ),
+            array('/$/',                      "s"      )
         ));
 
         $irregular = apply_filters('cuztom_irregular', array(
-            array('move',   'moves'),
-            array('sex',    'sexes'),
+            array('move',   'moves'   ),
+            array('sex',    'sexes'   ),
             array('child',  'children'),
-            array('man',    'men'),
-            array('person', 'people')
+            array('man',    'men'     ),
+            array('person', 'people'  )
         ));
 
         $uncountable = apply_filters('cuztom_uncountable', array(
@@ -386,13 +376,11 @@ class Cuztom
     }
 
     /**
-     * Check if variable is empty.
+     * Check if variable is empty
      *
-     * @param string|array $input
-     * @param bool         $result
-     *
-     * @return bool
-     *
+     * @param  string|array $input
+     * @param  boolean      $result
+     * @return boolean
      * @since  3.0
      */
     public static function is_empty($input, $result = true)
@@ -409,17 +397,15 @@ class Cuztom
     }
 
     /**
-     * Check if the term is reserved by Wordpress.
+     * Check if the term is reserved by Wordpress
      *
-     * @param string $term
-     *
-     * @return bool
-     *
+     * @param  string  $term
+     * @return boolean
      * @since  1.6
      */
     public static function is_reserved_term($term)
     {
-        if (!in_array($term, apply_filters('cuztom_reserved_terms', self::$reserved))) {
+        if (! in_array($term, apply_filters('cuztom_reserved_terms', self::$reserved))) {
             return false;
         }
 

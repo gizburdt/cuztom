@@ -3,22 +3,22 @@
 namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Entities\Entity;
+
 Guard::directAccess();
 
 class Sidebar
 {
     /**
-     * Sidebar.
-     *
+     * Sidebar
      * @var array
      */
     public $sidebar;
 
     /**
-     * Constructor.
+     * Constructor
      *
      * @param array $args
-     *
      * @since 0.5
      */
     public function __construct($args = array())
