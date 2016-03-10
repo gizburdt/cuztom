@@ -1,19 +1,19 @@
 <?php
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Entities\PostType;
-use Gizburdt\Cuztom\Entities\Taxonomy;
 use Gizburdt\Cuztom\Entities\Sidebar;
+use Gizburdt\Cuztom\Entities\Taxonomy;
 use Gizburdt\Cuztom\Meta\Box as MetaBox;
 use Gizburdt\Cuztom\Meta\Term as TermMeta;
 use Gizburdt\Cuztom\Meta\User as UserMeta;
+use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
 
 if (! function_exists('register_cuztom_post_type')) {
     /**
-     * Register a Post Type
+     * Register a Post Type.
      *
      * @param  string $name
      * @param  array  $args
@@ -28,7 +28,7 @@ if (! function_exists('register_cuztom_post_type')) {
 
 if (! function_exists('register_cuztom_meta_box')) {
     /**
-     * Register met box
+     * Register met box.
      *
      * @param  string       $id
      * @param  array        $data
@@ -43,7 +43,7 @@ if (! function_exists('register_cuztom_meta_box')) {
 
 if (! function_exists('register_cuztom_taxonomy')) {
     /**
-     * Registers a Taxonomy for a Post Type
+     * Registers a Taxonomy for a Post Type.
      *
      * @param  string|array $name
      * @param  string|array $post_type
@@ -59,12 +59,12 @@ if (! function_exists('register_cuztom_taxonomy')) {
 
 if (! function_exists('register_cuztom_term_meta')) {
     /**
-    * Register term meta fields
+    * Register term meta fields.
     *
-    * @param  string        $id
-    * @param  array         $data
-    * @param  string        $taxonomy
-    * @param  array|string  $locations
+    * @param  string       $id
+    * @param  array        $data
+    * @param  string       $taxonomy
+    * @param  array|string $locations
     * @return object
     */
     function register_cuztom_term_meta($id, $taxonomy, $data = array(), $locations = array('add_form', 'edit_form'))
@@ -75,7 +75,7 @@ if (! function_exists('register_cuztom_term_meta')) {
 
 if (! function_exists('register_cuztom_sidebar')) {
     /**
-     * Register Cuztom sidebar
+     * Register Cuztom sidebar.
      *
      * @param  array $args
      * @return object
@@ -88,12 +88,12 @@ if (! function_exists('register_cuztom_sidebar')) {
 
 if (! function_exists('register_cuztom_user_meta')) {
     /**
-    * Register term meta fields
+    * Register term meta fields.
     *
-    * @param  string        $id
-    * @param  array         $data
-    * @param  string        $taxonomy
-    * @param  array|string  $locations
+    * @param  string       $id
+    * @param  array        $data
+    * @param  string       $taxonomy
+    * @param  array|string $locations
     * @return object
     */
     function register_cuztom_user_meta($id, $data = array(), $locations = array('show_user_profile', 'edit_user_profile'))
