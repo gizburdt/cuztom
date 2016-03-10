@@ -104,6 +104,7 @@ abstract class Meta
 
             if (!empty($this->description)) {
                 echo '<div class="cuztom-box-description">'.$this->description.'</div>';
+            }
 
             echo '<table class="form-table cuztom-table cuztom-main-table">';
 
