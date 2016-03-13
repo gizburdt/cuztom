@@ -99,22 +99,9 @@ abstract class Meta
         // Nonce field for validation
         wp_nonce_field('cuztom_meta', 'cuztom_nonce');
 
-        if (!empty($this->data)) {
-            echo '<div class="cuztom js-cuztom" data-box-id="'.$this->id.'" data-object-id="'.$this->object.'" data-meta-type="'.$this->meta_type.'">';
-
-            if (!empty($this->description)) {
-                echo '<div class="cuztom-box-description">'.$this->description.'</div>';
-            }
-
-            echo '<table class="form-table cuztom-table cuztom-main-table">';
-
-            foreach ($this->data as $id => $field) {
-                echo $field->output_row();
-            }
-
-            echo '</table>';
-            echo '</div>';
-        }
+        Cuztom::view('meta/meta', array(
+            'box' => $this
+        ));
     }
 
     /**

@@ -376,6 +376,20 @@ class Cuztom
     }
 
     /**
+     * Include view file.
+     *
+     * @param string $view
+     * @param array $variables
+     * @since 3.0
+     */
+    public function view($view, $variables = array())
+    {
+        extract($variables);
+
+        include(self::$dir.'/Views/'.$view.'.php');
+    }
+
+    /**
      * Check if variable is empty.
      *
      * @param  string|array $input

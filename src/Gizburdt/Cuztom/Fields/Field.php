@@ -84,20 +84,10 @@ abstract class Field
      */
     public function output_row($value = null)
     {
-        ob_start(); ?>
-
-        <tr>
-            <th>
-                <label for="<?php echo $this->get_id(); ?>" class="cuztom-label"><?php echo $this->label; ?></label>
-                <?php echo ($this->required ? ' <span class="cuztom-required">*</span>' : ''); ?>
-                <div class="cuztom-field-description"><?php echo $this->description; ?></div>
-            </th>
-            <td class="<?php echo $this->get_row_css_class(); ?>" data-id="<?php echo $this->get_id(); ?>">
-                <?php echo $this->output(); ?>
-            </td>
-        </tr>
-
-        <?php $ob = ob_get_clean(); return $ob;
+        Cuztom::view('fields/field/row', array(
+            'field' => $this,
+            'value' => $value
+        ));
     }
 
     /**
@@ -140,14 +130,10 @@ abstract class Field
      */
     public function _output_input($value = null)
     {
-        return '<input
-            type="'.$this->get_input_type().'"
-            name="'.$this->get_name().'"
-            id="'.$this->get_id().'"
-            class="'.$this->get_css_class().'"
-            value="'.$value.'"
-            '.$this->get_data_attributes().'
-            />';
+        Cuztom::view('fields/field/field', array(
+            'field' => $this,
+            'value' => $value
+        ));
     }
 
     /**
@@ -162,26 +148,12 @@ abstract class Field
         $values = $value;
         $count  = 0;
 
-        ob_start(); ?>
-
-        <div class="cuztom-repeatable">
-            <?php echo $this->_output_repeatable_control($value); ?>
-            <ul class="cuztom-sortable js-cuztom-sortable">
-                <?php if (is_array($value)) {
-                    foreach ($values as $value) {
-                        echo $this->_output_repeatable_item($value, $values);
-
-                        if ($count++ >= $this->limit) {
-                            break;
-                        }
-                    }
-                } else {
-                    echo $this->_output_repeatable_item($value, $values);
-                } ?>
-            </ul>
-        </div>
-
-        <?php $ob = ob_get_clean(); return $ob;
+        Cuztom::view('fields/repeatable/repeatable', array(
+            'field'  => $this,
+            'values' => $values,
+            'value'  => $value,
+            'count'  => $count
+        ));
     }
 
     /**
@@ -193,15 +165,11 @@ abstract class Field
      */
     public function _output_repeatable_item($value = null, $count = 0)
     {
-        ob_start(); ?>
-
-        <li class="cuztom-field cuztom-sortable-item">
-            <div class="cuztom-handle-sortable"><a href="#" tabindex="-1"></a></div>
-            <?php echo $this->_output($value); ?>
-            <?php echo (count($count) > 1 ? '<div class="cuztom-remove-sortable js-cztm-remove-sortable"><a href="#" tabindex="-1"></a></div>' : ''); ?>
-        </li>
-
-        <?php $ob = ob_get_clean(); return $ob;
+        Cuztom::view('fields/repeatable/item', array(
+            'field' => $field,
+            'value' => $value,
+            'count' => $count
+        ));
     }
 
     /**
@@ -213,20 +181,10 @@ abstract class Field
      */
     public function _output_repeatable_control($value)
     {
-        ob_start(); ?>
-
-        <div class="cuztom-control">
-            <a class="button-secondary button button-small cuztom-button js-cztm-add-sortable" href="#" data-sortable-type="repeatable" data-field-id="<?php echo $this->get_id(); ?>"><?php _e('Add item', 'cuztom'); ?></a>
-            <?php if ($this->limit) : ?>
-                <div class="cuztom-counter js-cztm-counter">
-                    <span class="current js-current"><?php echo count($value); ?></span>
-                    <span class="divider"> / </span>
-                    <span class="max js-max"><?php echo $this->limit; ?></span>
-                </div>
-            <?php endif; ?>
-        </div>
-
-        <?php $ob = ob_get_clean(); return $output;
+        Cuztom::view('fields/repeatable/control', array(
+            'field' => $this,
+            'value' => $value
+        ));
     }
 
     /**
@@ -249,7 +207,7 @@ abstract class Field
      */
     public function _output_ajax_button()
     {
-        return sprintf('<a class="cuztom-ajax-save js-cztm-ajax-save button button-secondary button-small" href="#">%s</a>', __('Save', 'cuztom'));
+        return sprintf('<a class="cuztom-ajax-save js-cuztom-ajax-save button button-secondary button-small" href="#">%s</a>', __('Save', 'cuztom'));
     }
 
     /**

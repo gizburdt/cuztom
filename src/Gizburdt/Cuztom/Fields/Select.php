@@ -3,6 +3,7 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Fields\Traits\Selectable;
 use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
