@@ -16,7 +16,7 @@ class Bundle extends Field
     public $type = 'bundle';
 
     /**
-     * Fields
+     * Fields.
      * @var array
      */
     public $fields = array();
