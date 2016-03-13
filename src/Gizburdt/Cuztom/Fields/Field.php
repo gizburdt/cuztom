@@ -238,14 +238,17 @@ abstract class Field
         switch ($this->meta_type) {
             case 'user':
                 update_user_meta($object, $this->id, $value);
+
                 return true;
             break;
             case 'term':
                 update_term_meta($object, $this->id, $value);
+
                 return true;
             break;
             case 'post': default:
                 update_post_meta($object, $this->id, $value);
+                
                 return true;
             break;
         }
