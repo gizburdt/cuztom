@@ -14,7 +14,7 @@ class PostSelect extends Select
      * @var string
      */
     protected $_view = 'post-select';
-    
+
     /**
      * CSS class.
      * @var string
