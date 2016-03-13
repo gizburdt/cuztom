@@ -142,6 +142,7 @@ class Box extends Meta
         }
 
         $columns['date'] = __('Date', 'cuztom');
+
         return $columns;
     }
 

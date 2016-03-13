@@ -235,7 +235,7 @@ abstract class Field
         $value = $this->parse_value($values[$this->id]);
 
         // Save to respective content-type
-        switch ($this->meta_type) :
+        switch ($this->meta_type) {
             case 'user' :
                 update_user_meta($object, $this->id, $value);
                 return true;
@@ -248,7 +248,7 @@ abstract class Field
                 update_post_meta($object, $this->id, $value);
                 return true;
             break;
-        endswitch;
+        }
 
         // Default
         return false;
