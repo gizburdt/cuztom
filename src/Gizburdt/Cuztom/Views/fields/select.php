@@ -7,8 +7,6 @@
                 <option value="<?php echo $slug; ?>" <?php selected($slug, $value); ?>>
                     <?php echo $name; ?>
                 </option>
-
-                <?php $i++; ?>
             <?php endforeach; ?>
         <?php endif; ?>
     </select>

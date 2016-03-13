@@ -13,41 +13,42 @@ Guard::directAccess();
 abstract class Field
 {
     // Basic
-    public $id                     = null;
-    public $type                   = null;
-    public $label                  = '';
-    public $description            = '';
-    public $explanation            = '';
-    public $default_value          = '';
-    public $options                = array(); // Only used for radio, checkboxes etc.
-    public $args                   = array(); // Specific args for the field
-    public $required               = false;
-    public $repeatable             = false;
-    public $limit                  = null;
-    public $ajax                   = false;
-    public $data_attributes        = array();
-    public $css_class              = '';
-    public $row_css_class          = '';
+    public $id                      = null;
+    public $type                    = null;
+    public $label                   = '';
+    public $description             = '';
+    public $explanation             = '';
+    public $default_value           = '';
+    public $options                 = array(); // Only used for radio, checkboxes etc.
+    public $args                    = array(); // Specific args for the field
+    public $required                = false;
+    public $repeatable              = false;
+    public $limit                   = null;
+    public $ajax                    = false;
+    public $data_attributes         = array();
+    public $css_class               = '';
+    public $row_css_class           = '';
 
     // Admin
-    public $show_admin_column      = false;
-    public $admin_column_sortable  = false;
-    public $admin_column_filter    = false;
+    public $show_admin_column       = false;
+    public $admin_column_sortable   = false;
+    public $admin_column_filter     = false;
 
     // ID/name
-    public $before_name            = '';
-    public $after_name             = '';
-    public $before_id              = '';
-    public $after_id               = '';
+    public $before_name             = '';
+    public $after_name              = '';
+    public $before_id               = '';
+    public $after_id                = '';
 
     // Protected
-    protected $object                 = null;
-    protected $value                  = null;
-    protected $meta_type              = null;
-    protected $_input_type            = 'text';
-    protected $_supports_repeatable   = true;
-    protected $_supports_bundle       = true;
-    protected $_supports_ajax         = true;
+    protected $object               = null;
+    protected $value                = null;
+    protected $meta_type            = null;
+    protected $_view                = 'text';
+    protected $_input_type          = 'text';
+    protected $_supports_repeatable = true;
+    protected $_supports_bundle     = true;
+    protected $_supports_ajax       = true;
 
     /**
      * Constructs a Cuztom_Field.
@@ -126,11 +127,14 @@ abstract class Field
      * Output input field.
      *
      * @param  string $value
+     * @param  string $view
      * @return string
      */
-    public function _output_input($value = null)
+    public function _output_input($value = null, $view = null)
     {
-        Cuztom::view('fields/field', array(
+        $view = $view ? $view : $this->get_view();
+
+        Cuztom::view('fields/'.$view, array(
             'field' => $this,
             'value' => $value
         ));
@@ -266,6 +270,17 @@ abstract class Field
     public function get_input_type()
     {
         return apply_filters('cuztom_field_input_type', $this->_input_type, $this);
+    }
+
+    /**
+     * Returns the view name.
+     *
+     * @return string
+     * @since  3.0
+     */
+    public function get_view()
+    {
+        return apply_filters('cuztom_field_view', $this->_view, $this);
     }
 
     /**

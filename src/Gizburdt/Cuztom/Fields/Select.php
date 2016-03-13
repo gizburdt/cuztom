@@ -13,6 +13,12 @@ class Select extends Field
     use Selectable;
 
     /**
+     * View name.
+     * @var string
+     */
+    protected $_view = 'select';
+
+    /**
      * CSS class.
      * @var string
      */
@@ -23,22 +29,4 @@ class Select extends Field
      * @var string
      */
     public $row_css_class = 'cuztom-field-select';
-
-    /**
-     * Output input.
-     *
-     * @param  string|array $value
-     * @return string
-     * @since  2.4
-     */
-    public function _output_input($value = null)
-    {
-        $i = 0;
-
-        Cuztom::view('fields/select', array(
-            'field' => $this,
-            'value' => $value,
-            'i'     => $i
-        ));
-    }
 }

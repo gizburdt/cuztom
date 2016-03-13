@@ -7,8 +7,6 @@
                 <option value="<?php echo $slug; ?>" <?php echo is_array($value) ? (in_array($slug, $value) ? 'selected="selected"' : '') : ''; ?>>
                     <?php echo $name; ?>
                 </option>
-
-                <?php $i++; ?>
             <?php endforeach; ?>
         <?php endif; ?>
     </select>

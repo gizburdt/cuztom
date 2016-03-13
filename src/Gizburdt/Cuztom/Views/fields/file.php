@@ -11,11 +11,9 @@ if (! Cuztom::is_empty($value)) {
     $file       = '';
 }
 
-$parent = get_parent_class($field);
-
 ?>
 
-<?php echo $parent::_output_input($value); ?>
+<?php echo $field->_output_input($value, 'text'); ?>
 <input type="button" id="<?php echo $field->get_id(); ?>" class="button button-small js-cuztom-upload" data-media-type="file" value="<?php _e('Select file', 'cuztom'); ?>" />
 <?php echo (! empty($value) ? sprintf('<a href="#" class="button button-small cuztom-remove-media js-cuztom-remove-media" title="%s">x</a>', __('Remove current file', 'cuztom')) : ''); ?>
 <span class="cuztom-preview"><?php echo $file; ?></span>

@@ -10,6 +10,12 @@ Guard::directAccess();
 class PostCheckboxes extends Checkboxes
 {
     /**
+     * View name.
+     * @var string
+     */
+    protected $_view = 'post-checkboxes';
+
+    /**
      * Row CSS class.
      * @var string
      */
@@ -35,20 +41,5 @@ class PostCheckboxes extends Checkboxes
 
         $this->default_value = (array) $this->default_value;
         $this->posts         = get_posts($this->args);
-    }
-
-    /**
-     * Output.
-     *
-     * @param  string $value
-     * @return string
-     * @since  2.4
-     */
-    public function _output_input($value = null)
-    {
-        Cuztom::view('fields/post-checkboxes', array(
-            'field' => $this,
-            'value' => $value
-        ));
     }
 }

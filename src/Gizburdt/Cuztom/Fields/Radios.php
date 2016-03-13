@@ -13,6 +13,12 @@ class Radios extends Field
     use Checkable;
 
     /**
+     * View name.
+     * @var string
+     */
+    protected $_view = 'radios';
+
+    /**
      * Input type.
      * @var string
      */
@@ -42,21 +48,6 @@ class Radios extends Field
 
         $this->default_value = (array) $this->default_value;
         $this->after_name   .= '[]';
-    }
-
-    /**
-     * Output input.
-     *
-     * @param  string $value
-     * @return string
-     * @since  2.4
-     */
-    public function _output_input($value = null)
-    {
-        Cuztom::view('fields/radios', array(
-            'field' => $this,
-            'value' => $value
-        ));
     }
 
     /**

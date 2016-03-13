@@ -10,6 +10,12 @@ Guard::directAccess();
 class PostSelect extends Select
 {
     /**
+     * View name.
+     * @var string
+     */
+    protected $_view = 'post-select';
+    
+    /**
      * CSS class.
      * @var string
      */
@@ -42,20 +48,5 @@ class PostSelect extends Select
         );
 
         $this->posts = get_posts($this->args);
-    }
-
-    /**
-     * Output input.
-     *
-     * @param  string|array $value
-     * @return string
-     * @since  2.4
-     */
-    public function _output_input($value = null)
-    {
-        Cuztom::view('fields/post-select', array(
-            'field' => $this,
-            'value' => $value
-        ));
     }
 }

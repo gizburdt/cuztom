@@ -21,8 +21,8 @@ class Hidden extends Field
     public $row_css_class = 'cuztom-field-hidden';
 
     /**
-     * Outputs a field row.
-     * Overwrite to output the hidden field without a row.
+     * Hidden field only needs the field.
+     * Not a row.
      *
      * @param  string $value
      * @return string
@@ -30,6 +30,6 @@ class Hidden extends Field
      */
     public function output_row($value = null)
     {
-        return $this->output($value);
+        return $this->_output_input($value);
     }
 }

@@ -16,6 +16,12 @@ class Image extends Field
     protected $_input_type = 'hidden';
 
     /**
+     * View name.
+     * @var string
+     */
+    protected $_view = 'image';
+
+    /**
      * CSS class.
      * @var string
      */
@@ -32,21 +38,6 @@ class Image extends Field
      * @var array
      */
     public $data_attributes = array('media-type' => 'image');
-
-    /**
-     * Output input(s).
-     *
-     * @param  string $value
-     * @return string
-     * @since  2.4
-     */
-    public function _output_input($value = null)
-    {
-        Cuztom::view('fields/image', array(
-            'field' => $this,
-            'value' => $value
-        ));
-    }
 
     /**
      * Output column content.

@@ -10,16 +10,22 @@ Guard::directAccess();
 class TermCheckboxes extends Checkboxes
 {
     /**
-     * Terms.
-     * @var array
+     * View name.
+     * @var string
      */
-    public $terms;
+    protected $_view = 'term-checkboxes';
 
     /**
      * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-term-checkboxes';
+
+    /**
+     * Terms.
+     * @var array
+     */
+    public $terms;
 
     /**
      * Construct.
@@ -41,20 +47,5 @@ class TermCheckboxes extends Checkboxes
 
         $this->terms         = get_terms($this->args['taxonomy'], array('hide_empty' => false));
         $this->default_value = (array) $this->default_value;
-    }
-
-    /**
-     * Output input.
-     *
-     * @param  string|array $value
-     * @return string
-     * @since  2.4
-     */
-    public function _output_input($value = null)
-    {
-        Cuztom::view('fields/term-checkboxes', array(
-            'field' => $this,
-            'value' => $value
-        ));
     }
 }

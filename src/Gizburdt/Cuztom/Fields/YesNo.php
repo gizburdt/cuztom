@@ -19,6 +19,12 @@ class YesNo extends Field
     protected $_input_type = 'radio';
 
     /**
+     * View name.
+     * @var string
+     */
+    protected $_view = 'yes-no';
+
+    /**
      * CSS class.
      * @var string
      */
@@ -29,19 +35,4 @@ class YesNo extends Field
      * @var string
      */
     public $row_css_class = 'cuztom-field-yesno';
-
-    /**
-     * Output input.
-     *
-     * @param  string|array $value
-     * @return string
-     * @since  2.4
-     */
-    public function _output_input($value = null)
-    {
-        Cuztom::view('fields/yes-no', array(
-            'field' => $this,
-            'value' => $value
-        ));
-    }
 }

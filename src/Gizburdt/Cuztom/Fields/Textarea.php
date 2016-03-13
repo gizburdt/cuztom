@@ -10,6 +10,12 @@ Guard::directAccess();
 class Textarea extends Field
 {
     /**
+     * View name.
+     * @var string
+     */
+    protected $_view = 'textarea';
+
+    /**
      * CSS class.
      * @var string
      */
@@ -20,19 +26,4 @@ class Textarea extends Field
      * @var string
      */
     public $row_css_class = 'cuztom-field-textarea';
-
-    /**
-     * Output input.
-     *
-     * @param  string $value
-     * @return string
-     * @since  2.4
-     */
-    public function _output_input($value = null)
-    {
-        Cuztom::view('fields/textarea', array(
-            'field' => $this,
-            'value' => $value
-        ));
-    }
 }

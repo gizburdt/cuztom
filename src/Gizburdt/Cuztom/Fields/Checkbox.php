@@ -19,23 +19,14 @@ class Checkbox extends Field
     protected $_input_type = 'checkbox';
 
     /**
+     * View name.
+     * @var string
+     */
+    protected $_view = 'checkbox';
+
+    /**
      * Row CSS class.
      * @var string
      */
     public $row_css_class = 'cuztom-field-checkbox';
-
-    /**
-     * Output.
-     *
-     * @param  string|array $value
-     * @return string
-     * @since  3.0
-     */
-    public function _output_input($value = null)
-    {
-        Cuztom::view('fields/checkbox', array(
-            'field' => $this,
-            'value' => $value
-        ));
-    }
 }

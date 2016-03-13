@@ -13,6 +13,12 @@ class MultiSelect extends Select
     use Selectable;
 
     /**
+     * View name.
+     * @var string
+     */
+    protected $_view = 'multi-select';
+
+    /**
      * CSS class.
      * @var string
      */
@@ -36,23 +42,5 @@ class MultiSelect extends Select
 
         $this->after_name          .= '[]';
         $this->args['multiselect']  = true;
-    }
-
-    /**
-     * Output input.
-     *
-     * @param  string|array $value
-     * @return string
-     * @since  2.4
-     */
-    public function _output_input($value = null)
-    {
-        $i = 0;
-
-        Cuztom::view('fields/multi-select', array(
-            'field' => $this,
-            'value' => $value,
-            'i'     => $i
-        ));
     }
 }

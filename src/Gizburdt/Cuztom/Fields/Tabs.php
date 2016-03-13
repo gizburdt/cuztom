@@ -23,7 +23,7 @@ class Tabs extends Field
      */
     public function output_row($value = null)
     {
-        Cuztom::view('fields/tabs', array(
+        Cuztom::view('fields/row/tabs', array(
             'tabs'  => $this,
             'value' => $value
         ));
@@ -42,7 +42,8 @@ class Tabs extends Field
 
         Cuztom::view('fields/tabs', array(
             'field' => $this,
-            'value' => $value
+            'value' => $value,
+            'args'  => $args
         ));
     }
 

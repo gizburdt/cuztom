@@ -16,6 +16,12 @@ class File extends Field
     protected $_input_type = 'hidden';
 
     /**
+     * View name.
+     * @var string
+     */
+    protected $_view = 'file';
+
+    /**
      * CSS class.
      * @var string
      */
@@ -26,19 +32,4 @@ class File extends Field
      * @var string
      */
     public $row_css_class = 'cuztom-field-file';
-
-    /**
-     * Output input.
-     *
-     * @param  string $value
-     * @return string
-     * @since  2.4
-     */
-    public function _output_input($value = null)
-    {
-        Cuztom::view('fields/file', array(
-            'field' => $this,
-            'value' => $value
-        ));
-    }
 }
