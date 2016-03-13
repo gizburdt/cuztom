@@ -1,6 +1,6 @@
-<?php if (!empty($box->data)) : ?>
+<?php if (! empty($box->data)) : ?>
     <div class="cuztom js-cuztom" data-box-id="<?php echo $box->id; ?>" data-object-id="'<?php echo $box->object; ?>" data-meta-type="<?php echo $box->meta_type; ?>">
-        <?php if (!empty($box->description)) : ?>
+        <?php if (! empty($box->description)) : ?>
             <div class="cuztom-box-description"><?php echo $box->description; ?></div>
         <?php endif; ?>
 
