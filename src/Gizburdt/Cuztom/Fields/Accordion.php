@@ -16,17 +16,10 @@ class Accordion extends Tabs
      */
     public function output_row($value = null)
     {
-        ob_start();
-
-        ?>
-
-        <tr class="cuztom-accordion">
-            <td class="cuztom-field" colspan="2" id="<?php echo $this->get_id(); ?>">
-                <?php echo$this->output(); ?>
-            </td>
-        </tr>
-
-        <?php $ob = ob_get_clean(); return $ob;
+        Cuztom::view('fields/row/accordion', array(
+            'field' => $this,
+            'value' => $value
+        ));
     }
 
     /**
@@ -39,16 +32,9 @@ class Accordion extends Tabs
     {
         $args['type'] = 'accordion';
 
-        ob_start();
-
-        ?>
-
-        <div class="js-cuztom-accordion">
-            <?php foreach ($this->tabs as $title => $tab) : ?>
-                <?php echo $tab->output($args); ?>
-            <?php endforeach; ?>
-        </div>
-
-        <?php $ob = ob_get_clean(); return $ob;
+        Cuztom::view('fields/accordion', array(
+            'field' => $this,
+            'args'  => $args
+        ));
     }
 }

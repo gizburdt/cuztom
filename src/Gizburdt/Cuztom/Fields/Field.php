@@ -84,7 +84,7 @@ abstract class Field
      */
     public function output_row($value = null)
     {
-        Cuztom::view('fields/field/row', array(
+        Cuztom::view('fields/row/field', array(
             'field' => $this,
             'value' => $value
         ));
@@ -130,7 +130,7 @@ abstract class Field
      */
     public function _output_input($value = null)
     {
-        Cuztom::view('fields/field/field', array(
+        Cuztom::view('fields/field', array(
             'field' => $this,
             'value' => $value
         ));

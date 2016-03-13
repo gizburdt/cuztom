@@ -33,12 +33,9 @@ class Checkbox extends Field
      */
     public function _output_input($value = null)
     {
-        ob_start(); ?>
-
-        <div class="cuztom-checkbox">
-            <?php echo $this->_output_option($value, $this->default_value, 'on'); ?>
-        </div>
-
-        <?php $ob = ob_get_clean(); return $ob;
+        Cuztom::view('fields/checkbox', array(
+            'field' => $this,
+            'value' => $value
+        ));
     }
 }

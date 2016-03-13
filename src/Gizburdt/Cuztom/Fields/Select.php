@@ -34,24 +34,11 @@ class Select extends Field
     public function _output_input($value = null)
     {
         $i = 0;
-        ob_start(); ?>
 
-        <div class="cuztom-select-wrap">
-            <select name="<?php echo $this->get_name(); ?>" id="<?php echo $this->get_id(); ?>" class="<?php echo $this->get_css_class(); ?>" <?php echo $this->get_data_attributes(); ?>>
-                <?php echo $this->maybe_show_option_none(); ?>
-
-                <?php if (is_array($this->options)) : ?>
-                    <?php foreach ($this->options as $slug => $name) : ?>
-                        <option value="<?php echo $slug; ?>" <?php selected($slug, $value); ?>>
-                            <?php echo $name; ?>
-                        </option>
-
-                        <?php $i++; ?>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
-        </div>
-
-        <?php $ob = ob_get_clean(); return $ob;
+        Cuztom::view('fields/select', array(
+            'field' => $this,
+            'value' => $value,
+            'i'     => $i
+        ));
     }
 }

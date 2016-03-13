@@ -39,18 +39,9 @@ class YesNo extends Field
      */
     public function _output_input($value = null)
     {
-        ob_start(); ?>
-
-        <div class="cuztom-radios">
-            <?php foreach (array('yes', 'no') as $answer) : ?>
-                <label for="<?php echo $this->get_id($answer); ?>">
-                    <?php echo $this->_output_option($value, $this->default_value, $answer); ?>
-                    <?php echo ($answer == 'yes' ? __('Yes', 'cuztom') : __('No', 'cuztom')); ?>
-                </label>
-                <br />
-            <?php endforeach; ?>
-        </div>
-
-        <?php $ob = ob_get_clean(); return $ob;
+        Cuztom::view('fields/yes-no', array(
+            'field' => $this,
+            'value' => $value
+        ));
     }
 }

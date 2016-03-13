@@ -46,20 +46,9 @@ class PostCheckboxes extends Checkboxes
      */
     public function _output_input($value = null)
     {
-        ob_start(); ?>
-
-        <div class="cuztom-checkboxes-wrap">
-            <?php if (is_array($this->posts)) : ?>
-                <?php foreach ($this->posts as $post) : ?>
-                    <label for="<?php echo $this->get_id($post->ID) ?>">
-                        <?php echo $this->_output_option($value, $this->default_value, $post->ID); ?>
-                        <?php echo $post->post_title; ?>
-                    </label>
-                    <br/>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
-
-        <?php $ob = ob_get_clean(); return $ob;
+        Cuztom::view('fields/post-checkboxes', array(
+            'field' => $this,
+            'value' => $value
+        ));
     }
 }
