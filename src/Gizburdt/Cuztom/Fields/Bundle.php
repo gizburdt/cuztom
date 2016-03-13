@@ -57,7 +57,7 @@ class Bundle extends Field
             }
         } else {
             echo $this->output_item();
-        endif;
+        }
     }
 
     /**
