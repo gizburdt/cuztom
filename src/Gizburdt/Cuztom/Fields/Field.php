@@ -248,7 +248,7 @@ abstract class Field
             break;
             case 'post': default:
                 update_post_meta($object, $this->id, $value);
-                
+
                 return true;
             break;
         }
