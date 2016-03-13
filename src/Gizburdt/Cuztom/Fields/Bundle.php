@@ -45,17 +45,17 @@ class Bundle extends Field
     {
         $i = 0;
 
-        if (! empty($this->value) && isset($this->value[0])) :
+        if (! empty($this->value) && isset($this->value[0])) {
             foreach ($this->value as $bundle) {
                 echo $this->output_item($i);
                 $i++;
             }
-        elseif (! empty($this->default_value)) :
+        } elseif (! empty($this->default_value)) {
             foreach ($this->default_value as $default) {
                 echo $this->output_item($i);
                 $i++;
             }
-        else :
+        } else {
             echo $this->output_item();
         endif;
     }
