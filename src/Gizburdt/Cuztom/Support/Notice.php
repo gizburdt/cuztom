@@ -32,10 +32,10 @@ class Notice
      * @param bool   $dismissible
      * @since 2.3
      */
-    public function __construct($notice, $type = 'updated', $dismissible)
+    public function __construct($notice, $type, $dismissible)
     {
         $this->notice      = $notice;
-        $this->type        = $type;
+        $this->type        = $type ? $type : 'updated';
         $this->dismissible = $dismissible;
 
         add_action('admin_notices', array(&$this, 'add_admin_notice'));

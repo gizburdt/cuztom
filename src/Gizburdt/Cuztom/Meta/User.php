@@ -64,7 +64,7 @@ class User extends Meta
      */
     public function output($user, $data = array(), $args = array())
     {
-        echo '<h3>' . $this->title . '</h3>';
+        echo '<h3>'.$this->title.'</h3>';
 
         parent::output($user, $this->data, $args);
     }
@@ -72,7 +72,7 @@ class User extends Meta
     /**
      * Hooks into the save hook for the user meta.
      *
-     * @param integer $user_id
+     * @param int $user_id
      * @since 1.5
      */
     public function save_user($user_id)
@@ -100,8 +100,6 @@ class User extends Meta
         if (isset($_GET['user_id'])) {
             return $_GET['user_id']; // @TODO: Use get_current_screen()
         }
-
-        return null;
     }
 
     /**

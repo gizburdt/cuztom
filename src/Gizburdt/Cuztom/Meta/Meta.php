@@ -21,7 +21,7 @@ abstract class Meta
 
     /**
      * Object.
-     * @var integer
+     * @var int
      */
     public $object;
 
@@ -137,7 +137,7 @@ abstract class Meta
 
         $values = $this->get_meta_values();
 
-        if (is_array($data) && !empty($data)) {
+        if (is_array($data) && ! empty($data)) {
             foreach ($data as $type => $field) {
                 // General stuff
                 $field['meta_type'] = $this->meta_type;
@@ -165,7 +165,7 @@ abstract class Meta
                 // Fields
                 else {
                     $field['value'] = @$values[$field['id']][0];
-                    $field = Field::create($field);
+                    $field          = Field::create($field);
 
                     $cuztom->data[$this->id][$field->id] = $field;
                 }

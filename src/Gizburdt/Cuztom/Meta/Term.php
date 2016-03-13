@@ -36,7 +36,7 @@ class Term extends Meta
      * @param array        $locations
      * @since 2.5
      */
-    public function __construct($id, $taxonomy, $data = array(), $locations = array( 'add_form', 'edit_form' ))
+    public function __construct($id, $taxonomy, $data = array(), $locations = array('add_form', 'edit_form'))
     {
         // Build all properties
         parent::__construct($id, $data);
@@ -98,7 +98,7 @@ class Term extends Meta
     /**
      * Save the term.
      *
-     * @param integer $term_id [description]
+     * @param int $term_id
      * @since 2.5
      */
     public function save_term($term_id)
@@ -136,9 +136,9 @@ class Term extends Meta
     /**
      * Used to add the column content to the column head.
      *
-     * @param string  $row
-     * @param string  $column
-     * @param integer $term_id
+     * @param string $row
+     * @param string $column
+     * @param int    $term_id
      * @since 1.1
      */
     public function add_column_content($row, $column, $term_id)
@@ -159,8 +159,6 @@ class Term extends Meta
         if (isset($_GET['tag_ID'])) {
             return $_GET['tag_ID']; // @TODO: Use get_current_screen()
         }
-
-        return null;
     }
 
     /**

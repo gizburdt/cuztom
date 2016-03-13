@@ -67,7 +67,7 @@ class Box extends Meta
         }
 
         // Add the meta box
-        add_action('add_meta_boxes', array( &$this, 'add_meta_box' ));
+        add_action('add_meta_boxes', array(&$this, 'add_meta_box'));
     }
 
     /**
@@ -92,7 +92,7 @@ class Box extends Meta
     /**
      * Hooks into the save hook for the newly registered Post Type.
      *
-     * @param integer $post_id
+     * @param int $post_id
      * @since 0.1
      */
     public function save_post($post_id)
@@ -108,7 +108,7 @@ class Box extends Meta
         }
 
         // Is the post from the given post type?
-        if (! in_array(get_post_type($post_id), array_merge($this->post_types, array( 'revision')))) {
+        if (! in_array(get_post_type($post_id), array_merge($this->post_types, array('revision')))) {
             return;
         }
 
@@ -190,8 +190,6 @@ class Box extends Meta
         if (isset($_GET['post'])) {
             return $_GET['post']; // @TODO: Use get_current_screen()
         }
-
-        return null;
     }
 
     /**
