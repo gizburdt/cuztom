@@ -85,7 +85,7 @@ abstract class Field
      */
     public function output_row($value = null)
     {
-        Cuztom::view('fields/row/field', array(
+        Cuztom::view('fields/row/text', array(
             'field' => $this,
             'value' => $value
         ));
@@ -259,6 +259,16 @@ abstract class Field
 
         // Default
         return false;
+    }
+
+    /**
+     * Return the value.
+     *
+     * @return mixed
+     */
+    public function get_value()
+    {
+        return $this->value;
     }
 
     /**

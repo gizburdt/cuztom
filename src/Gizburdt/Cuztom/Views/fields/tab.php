@@ -3,16 +3,17 @@
 <?php endif; ?>
 
 <div id="<?php echo $tab->get_id(); ?>">
-    <?php if ($fields instanceof Bundle) : ?>
-        <?php echo $fields->output($field->value); ?>
+    <?php if ($tab->fields instanceof Bundle) : ?>
+        <?php $bundle = $tab->fields; ?>
+        <?php echo $bundle->output($bundle->get_value()); ?>
     <?php else : ?>
         <table border="0" cellading="0" cellspacing="0" class="from-table cuztom-table">
             <?php
-                foreach ($fields as $id => $field) :
+                foreach ($tab->fields as $id => $field) :
                     if (! $field instanceof Hidden) :
-                        echo $field->output_row($field->value);
+                        echo $field->output_row($field->get_value());
                     else :
-                        echo $field->output($field->value);
+                        echo $field->output($field->get_value());
                     endif;
                 endforeach;
             ?>

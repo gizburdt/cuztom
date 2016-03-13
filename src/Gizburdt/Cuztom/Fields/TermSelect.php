@@ -27,8 +27,7 @@ class TermSelect extends Field
 
         $this->args = array_merge(
             array(
-                'taxonomy'   => 'category',
-                'hide_empty' => 0
+                'taxonomy' => 'category',
             ),
             $this->args
         );
