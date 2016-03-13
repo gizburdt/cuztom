@@ -45,35 +45,10 @@ class Tab extends Field
      */
     public function output($args = array())
     {
-        $fields = $this->fields;
-
-        ob_start();
-
-        ?>
-
-        <?php if ($args['type'] == 'accordion') : ?>
-            <h3><?php echo $this->title; ?></h3>
-        <?php endif; ?>
-
-        <div id="<?php echo $this->get_id(); ?>">
-            <?php if ($fields instanceof Bundle) : ?>
-                <?php echo $fields->output($field->value); ?>
-            <?php else : ?>
-                <table border="0" cellading="0" cellspacing="0" class="from-table cuztom-table">
-                    <?php
-                        foreach ($fields as $id => $field) :
-                            if (! $field instanceof Hidden) :
-                                echo $field->output_row($field->value);
-                            else :
-                                echo $field->output($field->value);
-                            endif;
-                        endforeach;
-                    ?>
-                </table>
-            <?php endif; ?>
-        </div>
-
-        <?php $ob = ob_get_clean(); return $ob;
+        Cuztom::view('fields/tab', array(
+            'tab'   => $this,
+            'args'  => $args
+        ));
     }
 
     /**
@@ -105,7 +80,7 @@ class Tab extends Field
             if (is_string($type) && $type == 'bundle') {
                 // $tab->fields = $this->build( $fields );
             } else {
-                $args  = array_merge($field, array( 'meta_type' => $this->meta_type, 'object' => $this->object, 'value'    => @$value[$field['id']][0] ));
+                $args  = array_merge($field, array('meta_type' => $this->meta_type, 'object' => $this->object, 'value' => @$value[$field['id']][0]));
                 $field = Field::create($args);
 
                 $this->fields[$field->id] = $field;

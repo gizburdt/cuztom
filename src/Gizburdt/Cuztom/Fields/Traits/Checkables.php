@@ -26,7 +26,7 @@ trait Checkables
             class="'.$this->get_css_class().'"
             value="'.$option.'"
             '.$this->get_data_attributes().'
-            '.$this->maybe_checked($value, $default_value, $option). '/>';
+            '.$this->maybe_checked($value, $default_value, $option).'/>';
     }
 
     /**

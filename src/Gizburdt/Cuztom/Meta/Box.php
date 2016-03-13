@@ -4,38 +4,37 @@ namespace Gizburdt\Cuztom\Meta;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Meta\Meta;
 
 Guard::directAccess();
 
 class Box extends Meta
 {
     /**
-     * Context
+     * Context.
      * @var string
      */
     public $context = 'normal';
 
     /**
-     * Priority
+     * Priority.
      * @var string
      */
     public $priority = 'default';
 
     /**
-     * Meta type
+     * Meta type.
      * @var string
      */
     public $meta_type = 'post';
 
     /**
-     * Post types
+     * Post types.
      * @var string|array
      */
     public $post_types;
 
     /**
-     * Constructs the meta box
+     * Constructs the meta box.
      *
      * @param string       $id
      * @param array        $data
@@ -52,19 +51,19 @@ class Box extends Meta
 
         // Build
         if (! $this->callback) {
-            $this->callback = array( &$this, 'output' );
+            $this->callback = array(&$this, 'output');
 
             // Build the meta box and fields
             $this->data = $this->build($this->fields);
 
             foreach ($this->post_types as $post_type) {
-                add_filter('manage_' . $post_type . '_posts_columns', array( &$this, 'add_column' ));
-                add_action('manage_' . $post_type . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2);
-                add_action('manage_edit-' . $post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2);
+                add_filter('manage_'.$post_type.'_posts_columns', array(&$this, 'add_column'));
+                add_action('manage_'.$post_type.'_posts_custom_column', array(&$this, 'add_column_content'), 10, 2);
+                add_action('manage_edit-'.$post_type.'_sortable_columns', array(&$this, 'add_sortable_column'), 10, 2);
             }
 
-            add_action('save_post', array( &$this, 'save_post' ));
-            add_action('post_edit_form_tag', array( &$this, 'edit_form_tag' ));
+            add_action('save_post', array(&$this, 'save_post'));
+            add_action('post_edit_form_tag', array(&$this, 'edit_form_tag'));
         }
 
         // Add the meta box
@@ -72,7 +71,7 @@ class Box extends Meta
     }
 
     /**
-     * Method that calls the add_meta_box function
+     * Method that calls the add_meta_box function.
      *
      * @since 0.2
      */
@@ -91,10 +90,10 @@ class Box extends Meta
     }
 
     /**
-     * Hooks into the save hook for the newly registered Post Type
+     * Hooks into the save hook for the newly registered Post Type.
      *
-     * @param  integer $post_id
-     * @since  0.1
+     * @param integer $post_id
+     * @since 0.1
      */
     public function save_post($post_id)
     {
@@ -104,12 +103,12 @@ class Box extends Meta
         }
 
         // Verify nonce
-        if (!Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
+        if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
             return;
         }
 
         // Is the post from the given post type?
-        if (! in_array(get_post_type($post_id), array_merge($this->post_types, array( 'revision' )))) {
+        if (! in_array(get_post_type($post_id), array_merge($this->post_types, array( 'revision')))) {
             return;
         }
 
@@ -126,7 +125,7 @@ class Box extends Meta
     }
 
     /**
-     * Used to add a column head to the Post Type's List Table
+     * Used to add a column head to the Post Type's List Table.
      *
      * @param  array $columns
      * @return array
@@ -147,10 +146,10 @@ class Box extends Meta
     }
 
     /**
-     * Used to add the column content to the column head
+     * Used to add the column content to the column head.
      *
-     * @param string  $column
-     * @param integer $post_id
+     * @param string $column
+     * @param int    $post_id
      * @since 1.1
      */
     public function add_column_content($column, $post_id)
@@ -161,7 +160,7 @@ class Box extends Meta
     }
 
     /**
-     * Used to make all columns sortable
+     * Used to make all columns sortable.
      *
      * @param  array $columns
      * @return array
@@ -181,9 +180,9 @@ class Box extends Meta
     }
 
     /**
-     * Get object ID
+     * Get object ID.
      *
-     * @return integer|null
+     * @return int|null
      * @since  3.0
      */
     public function get_object_id()
@@ -196,7 +195,7 @@ class Box extends Meta
     }
 
     /**
-     * Get value bases on field id
+     * Get value bases on field id.
      *
      * @return array
      * @since  3.0

@@ -4,32 +4,31 @@ namespace Gizburdt\Cuztom\Meta;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Meta\Meta;
 
 Guard::directAccess();
 
 class Term extends Meta
 {
     /**
-     * Meta Type
+     * Meta Type.
      * @var string
      */
     public $meta_type = 'term';
 
     /**
-     * Taxonomies
+     * Taxonomies.
      * @var array
      */
     public $taxonomies;
 
     /**
-     * Locations
+     * Locations.
      * @var array
      */
     public $locations;
 
     /**
-     * Construct the term meta
+     * Construct the term meta.
      *
      * @param string       $id
      * @param array        $data
@@ -55,23 +54,23 @@ class Term extends Meta
 
             foreach ($this->taxonomies as $taxonomy) {
                 if (in_array('add_form', $this->locations)) {
-                    add_action($taxonomy . '_add_form_fields', array( &$this, 'add_form_fields' ));
-                    add_action('created_' . $taxonomy, array( &$this, 'save_term' ));
+                    add_action($taxonomy.'_add_form_fields', array(&$this, 'add_form_fields'));
+                    add_action('created_'.$taxonomy, array(&$this, 'save_term'));
                 }
 
                 if (in_array('edit_form', $this->locations)) {
-                    add_action($taxonomy . '_edit_form_fields', array( &$this, 'edit_form_fields' ));
-                    add_action('edited_' . $taxonomy, array( &$this, 'save_term' ));
+                    add_action($taxonomy.'_edit_form_fields', array(&$this, 'edit_form_fields'));
+                    add_action('edited_'.$taxonomy, array(&$this, 'save_term'));
                 }
 
-                add_filter('manage_edit-' . $taxonomy . '_columns', array( &$this, 'add_column' ));
-                add_filter('manage_' . $taxonomy . '_custom_column', array( &$this, 'add_column_content' ), 10, 3);
+                add_filter('manage_edit-'.$taxonomy.'_columns', array(&$this, 'add_column'));
+                add_filter('manage_'.$taxonomy.'_custom_column', array(&$this, 'add_column_content'), 10, 3);
             }
         }
     }
 
     /**
-     * Add fields to the add term form
+     * Add fields to the add term form.
      *
      * @param  string $taxonomy
      * @return mixed
@@ -83,7 +82,7 @@ class Term extends Meta
     }
 
     /**
-     * Add fields to the edit term form
+     * Add fields to the edit term form.
      *
      * @param  string $taxonomy
      * @return mixed
@@ -97,7 +96,7 @@ class Term extends Meta
     }
 
     /**
-     * Save the term
+     * Save the term.
      *
      * @param integer $term_id [description]
      * @since 2.5
@@ -117,7 +116,7 @@ class Term extends Meta
     }
 
     /**
-     * Used to add a column head to the Taxonomy's List Table
+     * Used to add a column head to the Taxonomy's List Table.
      *
      * @param  array $columns
      * @return array
@@ -135,7 +134,7 @@ class Term extends Meta
     }
 
     /**
-     * Used to add the column content to the column head
+     * Used to add the column content to the column head.
      *
      * @param string  $row
      * @param string  $column
@@ -150,9 +149,9 @@ class Term extends Meta
     }
 
     /**
-     * Get object ID
+     * Get object ID.
      *
-     * @return integer|null
+     * @return int|null
      * @since  3.0
      */
     public function get_object_id()
@@ -165,7 +164,7 @@ class Term extends Meta
     }
 
     /**
-     * Get value bases on field id
+     * Get value bases on field id.
      *
      * @return mixed
      * @since  3.0

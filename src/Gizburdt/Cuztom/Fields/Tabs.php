@@ -23,17 +23,10 @@ class Tabs extends Field
      */
     public function output_row($value = null)
     {
-        ?>
-
-        <tr class="cuztom-tabs">
-            <td class="cuztom-field" id="<?php echo $this->get_id() ?>" colspan="2">
-                <?php
-                    echo $this->output();
-                ?>
-            </td>
-        </tr>
-
-        <?php
+        Cuztom::view('fields/tabs', array(
+            'tabs'  => $this,
+            'value' => $value
+        ));
     }
 
     /**
@@ -47,29 +40,10 @@ class Tabs extends Field
     {
         $args['type'] = 'tabs';
 
-        ?>
-
-        <div class="js-cuztom-tabs">
-            <ul>
-                <?php foreach ($this->tabs as $title => $tab) : ?>
-                    <li>
-                        <a href="#<?php echo $tab->get_id(); ?>">
-                            <?php
-                                echo $tab->title;
-                            ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-
-            <?php foreach ($this->tabs as $title => $tab) : ?>
-                <?php
-                    echo $tab->output($args);
-                ?>
-            <?php endforeach; ?>
-        </div>
-
-        <?php
+        Cuztom::view('fields/tabs', array(
+            'field' => $this,
+            'value' => $value
+        ));
     }
 
     /**

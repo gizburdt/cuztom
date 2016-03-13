@@ -4,33 +4,32 @@ namespace Gizburdt\Cuztom\Meta;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Meta\Meta;
 
 Guard::directAccess();
 
 class User extends Meta
 {
     /**
-     * Meta type
+     * Meta type.
      * @var string
      */
     public $meta_type = 'user';
 
     /**
-     * Locations
+     * Locations.
      * @var array
      */
     public $locations;
 
     /**
-     * Constructor for User Meta
+     * Constructor for User Meta.
      *
-     * @param string        $id
-     * @param array         $data
-     * @param string|array  $locations
+     * @param string       $id
+     * @param array        $data
+     * @param string|array $locations
      * @since 1.5
      */
-    public function __construct($id, $data = array(), $locations = array( 'show_user_profile', 'edit_user_profile' ))
+    public function __construct($id, $data = array(), $locations = array('show_user_profile', 'edit_user_profile'))
     {
         // Build all properties
         parent::__construct($id, $data);
@@ -56,11 +55,11 @@ class User extends Meta
     }
 
     /**
-     * Callback for user meta, adds a title
+     * Callback for user meta, adds a title.
      *
-     * @param integer  $user
-     * @param array    $data
-     * @param array    $args
+     * @param int   $user
+     * @param array $data
+     * @param array $args
      * @since 1.5
      */
     public function output($user, $data = array(), $args = array())
@@ -71,7 +70,7 @@ class User extends Meta
     }
 
     /**
-     * Hooks into the save hook for the user meta
+     * Hooks into the save hook for the user meta.
      *
      * @param integer $user_id
      * @since 1.5
@@ -91,9 +90,9 @@ class User extends Meta
     }
 
     /**
-     * Get object ID
+     * Get object ID.
      *
-     * @return integer|null
+     * @return int|null
      * @since  3.0
      */
     public function get_object_id()
@@ -106,8 +105,8 @@ class User extends Meta
     }
 
     /**
-     * Get value bases on field id
-     * 
+     * Get value bases on field id.
+     *
      * @return mixed
      * @since  3.0
      */

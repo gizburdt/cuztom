@@ -166,7 +166,7 @@ abstract class Field
     public function _output_repeatable_item($value = null, $count = 0)
     {
         Cuztom::view('fields/repeatable/item', array(
-            'field' => $field,
+            'field' => $this,
             'value' => $value,
             'count' => $count
         ));
