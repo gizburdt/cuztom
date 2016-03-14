@@ -65,8 +65,8 @@ class Tabs extends Field
     /**
      * Save.
      *
-     * @param  int   $object
-     * @param  array $values
+     * @param int   $object
+     * @param array $values
      * @since  3.0
      */
     public function save($object, $values)
@@ -79,8 +79,8 @@ class Tabs extends Field
     /**
      * Build.
      *
-     * @param  array        $data
-     * @param  string|array $value
+     * @param array        $data
+     * @param string|array $value
      * @since  3.0
      */
     public function build($data, $value)
