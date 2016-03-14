@@ -13,23 +13,7 @@
                     $value                = isset($bundle->value[$index][$id]) ? $bundle->value[$index][$id] : '';
                 ?>
 
-                <?php if (! $field instanceof Hidden) : ?>
-                    <tr>
-                        <th class="cuztom-th">
-                            <label for="'.$id.$field->after_id.'" class="cuztom-label">'.$field->label.'</label>
-                            <div class="cuztom-field-description">'.$field->description.'</div>
-                        </th>
-                        <td class="cuztom-td">
-                            <?php if ($field->_supports_bundle) : ?>
-                                <?php echo $field->output($value); ?>
-                            <?php else : ?>
-                                <em><?php _e('This input type doesn\'t support the bundle functionality (yet).', 'cuztom'); ?></em>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php else : ?>
-                    <?php echo $field->output($value); ?>
-                <?php endif; ?>
+                <?php echo $field->output_row($value); ?>
             <?php endforeach; ?>
         </table>
     </fieldset>

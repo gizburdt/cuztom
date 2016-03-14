@@ -10,21 +10,35 @@ Guard::directAccess();
 class Tabs extends Field
 {
     /**
+     * View name.
+     * @var string
+     */
+    protected $_view = 'tabs';
+
+    /**
+     * Tabs type.
+     * @var string
+     */
+    protected $_tabs_type = 'tabs';
+
+    /**
      * Tabs.
      * @var array
      */
     public $tabs = array();
 
     /**
-     * Output row.
+     * Outputs a field row.
      *
-     * @param  string|array $value
-     * @return string
-     * @since  3.0
+     * @param string|array $value
+     * @pram  string       $view
+     * @since 0.2
      */
-    public function output_row($value = null)
+    public function output_row($value = null, $view = null)
     {
-        Cuztom::view('fields/row/tabs', array(
+        $view = $view ? $view : $this->get_view();
+
+        Cuztom::view('fields/row/'.$view, array(
             'tabs'  => $this,
             'value' => $value
         ));
@@ -33,18 +47,18 @@ class Tabs extends Field
     /**
      * Output.
      *
-     * @param  array  $args
+     * @param  string|array $value
      * @return string
      * @since  3.0
      */
-    public function output($args = array())
+    public function output($value = null, $view = null)
     {
-        $args['type'] = 'tabs';
+        $view = $view ? $view : $this->get_view();
 
-        Cuztom::view('fields/tabs', array(
-            'field' => $this,
+        Cuztom::view('fields/'.$this->_view, array(
+            'tabs'  => $this,
             'value' => $value,
-            'args'  => $args
+            'type'  => $this->_tabs_type
         ));
     }
 
@@ -53,7 +67,6 @@ class Tabs extends Field
      *
      * @param  int   $object
      * @param  array $values
-     * @return void
      * @since  3.0
      */
     public function save($object, $values)
@@ -68,7 +81,6 @@ class Tabs extends Field
      *
      * @param  array        $data
      * @param  string|array $value
-     * @return void
      * @since  3.0
      */
     public function build($data, $value)
@@ -78,6 +90,7 @@ class Tabs extends Field
             $tab  = new Tab($args);
 
             $tab->build($field['fields'], $value);
+            $tab->set_tabs_type($this->_tabs_type);
 
             $this->tabs[$title] = $tab;
         }

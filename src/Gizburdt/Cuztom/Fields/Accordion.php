@@ -10,32 +10,14 @@ Guard::directAccess();
 class Accordion extends Tabs
 {
     /**
-     * Ouput accordion row.
-     *
-     * @param mixed $value
-     * @since 3.0
+     * View name.
+     * @var string
      */
-    public function output_row($value = null)
-    {
-        Cuztom::view('fields/row/accordion', array(
-            'field' => $this,
-            'value' => $value
-        ));
-    }
+    protected $_view = 'accordion';
 
     /**
-     * Output accordion.
-     *
-     * @param array $args
-     * @since 3.0
+     * Tabs type.
+     * @var string
      */
-    public function output($args = array())
-    {
-        $args['type'] = 'accordion';
-
-        Cuztom::view('fields/accordion', array(
-            'field' => $this,
-            'args'  => $args
-        ));
-    }
+    protected $_tabs_type = 'accordion';
 }

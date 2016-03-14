@@ -29,7 +29,7 @@ class Bundle extends Field
      */
     public function output_row($value = null)
     {
-        Cuztom::view('fields/bundle/row', array(
+        Cuztom::view('fields/row/bundle', array(
             'bundle' => $this,
             'value'  => $value
         ));
@@ -45,17 +45,24 @@ class Bundle extends Field
     {
         $i = 0;
 
-        if (! empty($this->value) && isset($this->value[0])) {
-            foreach ($this->value as $bundle) {
+        // Output with value
+        if (! Cuztom::is_empty($value) && isset($value[0])) {
+            foreach ($value as $bundle) {
                 echo $this->output_item($i);
                 $i++;
             }
-        } elseif (! empty($this->default_value)) {
+        }
+
+        // Output with default value
+        elseif (! empty($this->default_value)) {
             foreach ($this->default_value as $default) {
                 echo $this->output_item($i);
                 $i++;
             }
-        } else {
+        }
+
+        // Output when empty
+        else {
             echo $this->output_item();
         }
     }
@@ -69,7 +76,7 @@ class Bundle extends Field
      */
     public function output_item($index = 0)
     {
-        Cuztom::view('fields/bundle/control', array(
+        Cuztom::view('fields/bundle/item', array(
             'bundle' => $this,
             'index'  => $index
         ));
@@ -101,6 +108,7 @@ class Bundle extends Field
         $values = $values[$this->id];
         $values = is_array($values) ? array_values($values) : array();
 
+        // Foreach for correct array
         foreach ($values as $row => $fields) {
             foreach ($fields as $id => $value) {
                 $values[$row][$id] = $this->fields[$id]->parse_value($value);

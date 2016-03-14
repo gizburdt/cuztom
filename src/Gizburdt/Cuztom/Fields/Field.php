@@ -19,8 +19,8 @@ abstract class Field
     public $description             = '';
     public $explanation             = '';
     public $default_value           = '';
-    public $options                 = array(); // Only used for radio, checkboxes etc.
-    public $args                    = array(); // Specific args for the field
+    public $options                 = array();
+    public $args                    = array();
     public $required                = false;
     public $repeatable              = false;
     public $limit                   = null;
@@ -46,6 +46,8 @@ abstract class Field
     protected $meta_type            = null;
     protected $_view                = 'text';
     protected $_input_type          = 'text';
+
+    // Support
     protected $_supports_repeatable = true;
     protected $_supports_bundle     = true;
     protected $_supports_ajax       = true;
@@ -81,11 +83,15 @@ abstract class Field
     /**
      * Outputs a field row.
      *
+     * @param string|array $value
+     * @pram  string       $view
      * @since 0.2
      */
-    public function output_row($value = null)
+    public function output_row($value = null, $view = null)
     {
-        Cuztom::view('fields/row/text', array(
+        $view = $view ? $view : $this->get_view();
+
+        Cuztom::view('fields/row/'.$view, array(
             'field' => $this,
             'value' => $value
         ));
@@ -95,10 +101,11 @@ abstract class Field
      * Output based on type.
      *
      * @param  string|array $value
+     * @param  string       $value
      * @return string
      * @since  0.2
      */
-    public function output($value = null)
+    public function output($value = null, $view = null)
     {
         $value = (! is_null($value)) ? $value : $this->value;
 
@@ -115,10 +122,11 @@ abstract class Field
      * Output field.
      *
      * @param  string|array $value
+     * @param  string       $view
      * @return string
      * @since  2.4
      */
-    public function _output($value = null)
+    public function _output($value = null, $view = null)
     {
         return $this->_output_input($value).$this->get_explanation();
     }
@@ -144,15 +152,17 @@ abstract class Field
      * Outputs the field, ready for repeatable functionality.
      *
      * @param  mixed  $value
+     * @param  string $view
      * @return string
      * @since  2.0
      */
-    public function _output_repeatable($value = null)
+    public function _output_repeatable($value = null, $view = null)
     {
+        $view   = $view ? $view : 'repeatable';
         $values = $value;
         $count  = 0;
 
-        Cuztom::view('fields/repeatable/repeatable', array(
+        Cuztom::view('fields/repeatable/'.$view, array(
             'field'  => $this,
             'values' => $values,
             'value'  => $value,

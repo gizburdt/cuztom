@@ -10,6 +10,12 @@ Guard::directAccess();
 class Tab extends Field
 {
     /**
+     * Tabs type.
+     * @var string
+     */
+    protected $_tabs_type;
+
+    /**
      * Title.
      * @var string
      */
@@ -43,11 +49,12 @@ class Tab extends Field
      * @return string
      * @since  3.0
      */
-    public function output($args = array())
+    public function output($value = null)
     {
         Cuztom::view('fields/tab', array(
             'tab'   => $this,
-            'args'  => $args
+            'args'  => $args,
+            'type'  => $this->_tabs_type
         ));
     }
 
@@ -64,6 +71,15 @@ class Tab extends Field
         foreach ($this->fields as $id => $field) {
             $field->save($object, $values);
         }
+    }
+
+    /**
+     * Set the tabs type.
+     * @param string $type
+     */
+    public function set_tabs_type($type)
+    {
+        $this->_tabs_type = $type;
     }
 
     /**

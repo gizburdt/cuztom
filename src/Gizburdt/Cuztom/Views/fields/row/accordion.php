@@ -1,5 +1,5 @@
 <tr class="cuztom-accordion">
-    <td class="cuztom-field" colspan="2" id="<?php echo $field->get_id(); ?>">
-        <?php echo $field->output(); ?>
+    <td class="cuztom-field" id="<?php echo $tabs->get_id(); ?>" colspan="2">
+        <?php echo $tabs->output(); ?>
     </td>
 </tr>
