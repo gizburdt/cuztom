@@ -5,6 +5,6 @@
         <div class="cuztom-field-description"><?php echo $field->description; ?></div>
     </th>
     <td class="<?php echo $field->get_row_css_class(); ?>" data-id="<?php echo $field->get_id(); ?>">
-        <?php echo $field->output(); ?>
+        <?php echo $field->output($value); ?>
     </td>
 </tr>

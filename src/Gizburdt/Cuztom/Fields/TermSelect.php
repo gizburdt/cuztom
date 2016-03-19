@@ -36,7 +36,6 @@ class TermSelect extends Field
         $this->args['echo']     = 0;
         $this->args['name']     = $this->get_name();
         $this->args['id']       = $this->get_id();
-        $this->args['selected'] = (! Cuztom::is_empty($this->value) ? $this->value : $this->default_value);
     }
 
     /**
@@ -48,6 +47,8 @@ class TermSelect extends Field
      */
     public function _output_input($value = null)
     {
+        $this->args['selected'] = (! Cuztom::is_empty($value) ? $value : $this->default_value);
+
         return wp_dropdown_categories($this->args);
     }
 }

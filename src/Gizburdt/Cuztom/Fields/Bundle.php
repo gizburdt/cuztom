@@ -43,7 +43,8 @@ class Bundle extends Field
      */
     public function output($value = null)
     {
-        $i = 0;
+        $i     = 0;
+        $value = (! is_null($value)) ? $value : $this->value;
 
         // Output with value
         if (! Cuztom::is_empty($value) && isset($value[0])) {
@@ -112,6 +113,9 @@ class Bundle extends Field
         $values = $values[$this->id];
         $values = is_array($values) ? array_values($values) : array();
 
+        // var_dump($values);
+        // die();
+
         // Foreach for correct array
         foreach ($values as $row => $fields) {
             foreach ($fields as $id => $value) {
@@ -119,7 +123,7 @@ class Bundle extends Field
             }
         }
 
-        parent::save($object, $values);
+        parent::save($object, array($this->id => $values));
     }
 
     /**

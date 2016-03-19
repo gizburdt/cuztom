@@ -8,15 +8,15 @@ doc.on( 'click', '.js-cuztom-add-sortable', function(event) {
 
     // Field
     if(type == 'repeatable') {
-        var field   = that.closest('.js-cuztom-field');
-        var counter = field.find('.js-cuztom-counter');
+        var field      = that.closest('.js-cuztom-field'),
+            counter    = field.find('.js-cuztom-counter'),
+            ajaxAction = 'cuztom_add_repeatable_item';
     } else {
-        var control = that.closest('.js-cuztom-control')
-        var id      = control.data('control-for');
-        var counter = control.find('.js-cuztom-counter');
-        var field   = $('.js-cuztom-field[data-id="' + id + '"]');
-
-        console.log(counter);
+        var control    = that.closest('.js-cuztom-control'),
+            id         = control.data('control-for'),
+            counter    = control.find('.js-cuztom-counter'),
+            field      = $('.js-cuztom-field[data-id="' + id + '"]'),
+            ajaxAction = 'cuztom_add_bundle_item';
     }
 
     // Sortable
@@ -31,7 +31,7 @@ doc.on( 'click', '.js-cuztom-add-sortable', function(event) {
     // Data
     var ajaxUrl  = Cuztom.ajax_url,
         ajaxData = {
-            action: 'cuztom_add_' + type + '_item',
+            action: ajaxAction,
             cuztom: {
                 box:     box,
                 field:   that.data('field-id'),

@@ -89,7 +89,7 @@ abstract class Field
      */
     public function output_row($value = null, $view = null)
     {
-        $view = $view ? $view : $this->get_view();
+        $view = $view ? $view : 'text';
 
         Cuztom::view('fields/row/'.$view, array(
             'field' => $this,
@@ -442,7 +442,7 @@ abstract class Field
      */
     public function is_tabs()
     {
-        return $this instanceof Tabs || $this instanceof Accordion;
+        return $this instanceof \Gizburdt\Cuztom\Fields\Tabs || $this instanceof \Gizburdt\Cuztom\Fields\Accordion;
     }
 
     /**
@@ -453,7 +453,7 @@ abstract class Field
      */
     public function is_bundle()
     {
-        return $this instanceof Bundle;
+        return $this instanceof \Gizburdt\Cuztom\Fields\Bundle;
     }
 
     /**
