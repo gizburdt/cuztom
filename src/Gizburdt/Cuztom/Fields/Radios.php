@@ -47,7 +47,6 @@ class Radios extends Field
         parent::__construct($field);
 
         $this->default_value = (array) $this->default_value;
-        $this->after_name   .= '[]';
     }
 
     /**

@@ -28,23 +28,24 @@ class Ajax
      */
     public function add_repeatable_item()
     {
-        $box    = $_POST['cuztom']['box_id'];
-        $field  = $_POST['cuztom']['field_id'];
-        $field  = self::get_field($field, $box);
+        $box   = $_POST['cuztom']['box'];
+        $field = $_POST['cuztom']['field'];
+        $count = $_POST['cuztom']['count'];
+        $field = self::get_field($field, $box);
 
         if (! $field) {
             return;
         }
 
-        if (! $field->limit || ($field->limit > $_POST['cuztom']['count'])) {
+        if ((! $field->limit) || ($field->limit > $count)) {
             echo json_encode(array(
-                'status'    => true,
-                'item'      => $field->_output_repeatable_item(null, 10)
+                'status'  => true,
+                'item'    => $field->_output_repeatable_item(null, $count)
             ));
         } else {
             echo json_encode(array(
-                'status'    => false,
-                'message'   => __('Limit reached!', 'cuztom')
+                'status'  => false,
+                'message' => __('Limit reached!', 'cuztom')
             ));
         }
 
@@ -59,23 +60,25 @@ class Ajax
      */
     public function add_bundle_item()
     {
-        $box    = $_POST['cuztom']['box_id'];
-        $field  = $_POST['cuztom']['field_id'];
-        $field  = self::get_field($field, $box);
+        $box   = $_POST['cuztom']['box'];
+        $field = $_POST['cuztom']['field'];
+        $count = $_POST['cuztom']['count'];
+        $index = $_POST['cuztom']['index'];
+        $field = self::get_field($field, $box);
 
         if (! $field) {
             return;
         }
 
-        if (! $field->limit || ($field->limit > $_POST['cuztom']['count'])) {
+        if (! $field->limit || ($field->limit > $count)) {
             echo json_encode(array(
-                'status'    => true,
-                'item'      => $field->output_item($_POST['cuztom']['index'])
+                'status'  => true,
+                'item'    => $field->output_item($index)
             ));
         } else {
             echo json_encode(array(
-                'status'    => false,
-                'message'   => __('Limit reached!', 'cuztom')
+                'status'  => false,
+                'message' => __('Limit reached!', 'cuztom')
             ));
         }
 
@@ -115,7 +118,10 @@ class Ajax
     /**
      * Get field object from cuztom global.
      *
-     * @since 3.0
+     * @param  string $field
+     * @param  string $box
+     * @return object
+     * @since  3.0
      */
     public static function get_field($field, $box)
     {

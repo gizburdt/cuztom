@@ -1,15 +1,10 @@
-/*!
- * Cuztom
- * Images
- * Made by Gizburdt
- */
 
 // Remove current attached media
 doc.on('click', '.js-cuztom-remove-media', function() {
     var that  = $(this),
         field = that.closest('.js-cuztom-field');
 
-    // Clear prviews / data
+    // Clear previews / data
     field.find('.cuztom-preview').html('');
     field.find('.cuztom-input-hidden').val('');
 

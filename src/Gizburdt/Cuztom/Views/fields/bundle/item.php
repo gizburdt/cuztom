@@ -1,4 +1,4 @@
-<li class="cuztom-sortable-item">
+<li class="cuztom-sortable-item js-cuztom-sortable-item">
     <div class="cuztom-handle-sortable js-cuztom-handle-sortable">
         <a href="#"></a>
     </div>
@@ -18,5 +18,5 @@
         </table>
     </fieldset>
 
-    <?php count($bundle->get_value) > 1 ? '<div class="cuztom-remove-sortable js-cuztom-remove-sortable"><a href="#"></a></div>' : ''; ?>
+    <div class="cuztom-remove-sortable js-cuztom-remove-sortable"><a href="#"></a></div>
 </li>

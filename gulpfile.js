@@ -26,8 +26,7 @@ gulp.task('styles', function() {
 
 // Scripts
 gulp.task('scripts', function() {
-    var jsFiles = [
-        basePath + '/vendor/datetimepicker/build/jquery.datetimepicker.full.min.js',
+    var mergeFiles = [
         basePath + '/js/cuztom.js',
         basePath + '/js/cuztom-ui.js',
         basePath + '/js/cuztom-sortable.js',
@@ -35,19 +34,26 @@ gulp.task('scripts', function() {
         basePath + '/js/cuztom-ajax.js',
     ];
 
-    var ngFiles = [
-        basePath + '/vendor/angular/angular.min.js',
+    vueFiles = [
+        basePath + '/vendor/vue/dist/vue.js'
     ];
 
-    gulp.src(jsFiles)
+    gulp.src(mergeFiles)
         .pipe(uglify())
         .pipe(concat('cuztom.min.js'))
         .pipe(wrap(('jQuery.noConflict(); jQuery(function($) { var doc = $(document); <%= contents %> });')))
         .pipe(gulp.dest(basePath + '/dist/js'));
 
-    gulp.src(ngFiles)
+    // Datepicker
+    gulp.src(basePath + '/vendor/datetimepicker/build/jquery.datetimepicker.full.js')
         .pipe(uglify())
-        .pipe(concat('cuztom-angular.min.js'))
+        .pipe(concat('datetimepicker.min.js'))
+        .pipe(gulp.dest(basePath + '/dist/js'));
+
+    // Vue
+    gulp.src(vueFiles)
+        .pipe(uglify())
+        .pipe(concat('cuztom-vue.min.js'))
         .pipe(gulp.dest(basePath + '/dist/js'));
 });
 

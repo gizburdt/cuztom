@@ -1,8 +1,3 @@
-/*!
- * Cuztom
- * AJAX
- * Made by Gizburdt
- */
 
 // Ajax save
 doc.on( 'click', '.js-cztm-ajax-save', function(event) {

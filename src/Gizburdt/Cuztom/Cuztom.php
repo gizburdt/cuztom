@@ -186,10 +186,14 @@ class Cuztom
      */
     public function register_scripts()
     {
+        wp_register_script('cuztom-datetimepicker', self::$url.'/Assets/dist/js/datetimepicker.min.js', array(
+            'jquery',
+            'jquery-ui-core'
+        ), self::$version, true);
+
         wp_register_script('cuztom', self::$url.'/Assets/dist/js/cuztom.min.js', array(
             'jquery',
             'jquery-ui-core',
-            'jquery-ui-datepicker',
             'jquery-ui-tabs',
             'jquery-ui-accordion',
             'jquery-ui-sortable',
@@ -206,6 +210,7 @@ class Cuztom
     public function enqueue_scripts()
     {
         wp_enqueue_media();
+        wp_enqueue_script('cuztom-datetimepicker');
         wp_enqueue_script('cuztom');
 
         self::localize_scripts();

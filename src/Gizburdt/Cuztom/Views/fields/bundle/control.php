@@ -1,14 +1,14 @@
-<tr class="cuztom-control cuztom-control-<?php echo $class; ?>" data-control-for="<?php echo $bundle->id; ?>">
+<tr class="cuztom-control cuztom-control-<?php echo $class; ?> js-cuztom-control" data-control-for="<?php echo $bundle->id; ?>">
     <td colspan="2">
-        <a class="button-secondary button button-small cuztom-button js-cuztom-add-sortable" data-sortable-type="bundle" data-field-id="<?php $bundle->id; ?>" href="#">
-            <?php echo sprintf('+ %s', __('Add item', 'cuztom')); ?>
+        <a class="cuztom-button js-cuztom-add-sortable button button-secondary button-small" data-sortable-type="bundle" data-field-id="<?php echo $bundle->get_id(); ?>" href="#">
+            <?php _e('Add item', 'cuztom'); ?>
         </a>
 
         <?php if ($bundle->limit) : ?>
-            <div class="cuztom-counter js-cztm-counter">
-                <span class="current js-current"><?php count($bundle->get_value()); ?></span>
+            <div class="cuztom-counter js-cuztom-counter">
+                <span class="current js-current"><?php echo count($bundle->get_value()); ?></span>
                 <span class="divider"> / </span>
-                <span class="max js-max"><?php $bundle->limit; ?></span>
+                <span class="max js-max"><?php echo $bundle->limit; ?></span>
             </div>
         <?php endif; ?>
     </td>

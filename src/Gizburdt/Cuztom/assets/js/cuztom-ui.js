@@ -1,11 +1,8 @@
-/*
- * Cuztom UI
- */
 
 var cuztomUI;
 
 (cuztomUI = function(object) {
-    object = $(object);
+    var object = $(object);
 
     // Datepicker
     $('.js-cuztom-datepicker', object).map(function() {

@@ -29,7 +29,7 @@ class Bundle extends Field
      */
     public function output_row($value = null)
     {
-        Cuztom::view('fields/row/bundle', array(
+        Cuztom::view('fields/bundle/row', array(
             'bundle' => $this,
             'value'  => $value
         ));
@@ -76,10 +76,14 @@ class Bundle extends Field
      */
     public function output_item($index = 0)
     {
+        ob_start();
+
         Cuztom::view('fields/bundle/item', array(
             'bundle' => $this,
             'index'  => $index
         ));
+
+        return ob_get_clean();
     }
 
     /**

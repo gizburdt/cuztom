@@ -159,13 +159,11 @@ abstract class Field
     public function _output_repeatable($value = null, $view = null)
     {
         $view   = $view ? $view : 'repeatable';
-        $values = $value;
         $count  = 0;
 
         Cuztom::view('fields/repeatable/'.$view, array(
             'field'  => $this,
-            'values' => $values,
-            'value'  => $value,
+            'values' => $value,
             'count'  => $count
         ));
     }
@@ -179,11 +177,15 @@ abstract class Field
      */
     public function _output_repeatable_item($value = null, $count = 0)
     {
+        ob_start();
+
         Cuztom::view('fields/repeatable/item', array(
             'field' => $this,
             'value' => $value,
             'count' => $count
         ));
+
+        return ob_get_clean();
     }
 
     /**
@@ -197,7 +199,8 @@ abstract class Field
     {
         Cuztom::view('fields/repeatable/control', array(
             'field' => $this,
-            'value' => $value
+            'value' => $value,
+            'count' => count($value)
         ));
     }
 
