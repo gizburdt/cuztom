@@ -59,6 +59,6 @@ function cuztom_field_id_extra($id, $field, $extra)
         return $id.'_'.$extra;
     }
 
-    return $field->before_id . $id . $field->after_id;
+    return $id;
 }
 add_filter('cuztom_field_id', 'cuztom_field_id_extra', 10, 3);

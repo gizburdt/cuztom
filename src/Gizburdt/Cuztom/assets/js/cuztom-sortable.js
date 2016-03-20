@@ -82,5 +82,6 @@ doc.on( 'click', '.js-cuztom-remove-sortable', function(event) {
     item.remove();
     counterCurrent.text(count - 1);
 
+    // Prevent click
     event.preventDefault();
 });

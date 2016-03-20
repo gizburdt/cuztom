@@ -8,7 +8,7 @@
             <?php foreach ($bundle->fields as $id => $field) : ?>
                 <?php
                     $field->before_name   = '['.$bundle->get_id().']['.$index.']';
-                    $field->after_id     = '_'.$index;
+                    $field->after_id      = '_'.$index;
                     $field->default_value = isset($bundle->default_value[$index][$id]) ? $bundle->default_value[$index][$id] : $field->default_value;
                     $value                = isset($bundle->get_value()[$index][$id]) ? $bundle->get_value()[$index][$id] : '';
                 ?>

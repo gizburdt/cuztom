@@ -1,20 +1,19 @@
 
 // Remove current attached media
-doc.on('click', '.js-cuztom-remove-media', function() {
-    var that  = $(this),
+doc.on('click', '.js-cuztom-remove-media', function(event) {
+    var that  = $(this).hide(),
         field = that.closest('.js-cuztom-field');
 
     // Clear previews / data
     field.find('.cuztom-preview').html('');
     field.find('.cuztom-input-hidden').val('');
 
-    that.hide();
-
-    return false;
+    // Prevent click
+    event.preventDefault();
 });
 
 // Upload media
-doc.on('click', '.js-cuztom-upload', function() {
+doc.on('click', '.js-cuztom-upload', function(event) {
     var that        = $(this),
         type        = that.attr('data-media-type') || 'image',
         field       = that.closest('.js-cuztom-field'),
@@ -41,7 +40,6 @@ doc.on('click', '.js-cuztom-upload', function() {
 
         // (Re)set the remove button
         field.find('.js-cuztom-remove-media').remove();
-        that.after('<a href="#" class="button button-small cuztom-remove-media js-cuztom-remove-media" tabindex="-1">x</a>');
 
         // Send an id to the field and set the preview
         if( type == 'image' ) {
@@ -59,7 +57,11 @@ doc.on('click', '.js-cuztom-upload', function() {
                 }
             }
 
+            that.after('<a href="#" class="button button-small cuztom-remove-media js-cuztom-remove-media" tabindex="-1" title="Remove current image">x</a>');
             preview.html('<img src="' + thumbnail.url + '" height="' + thumbnail.height + '" width="' + thumbnail.width + '" />')
+        } else {
+            that.after('<a href="#" class="button button-small cuztom-remove-media js-cuztom-remove-media" tabindex="-1" title="Remove current file">x</a>');
+            preview.html('<span class="cuztom-mime mime-application-pdf"><a href="' + attachment.url + '">' + attachment.title + '</a></span>')
         }
 
         hidden.val( attachment.id );
@@ -67,5 +69,6 @@ doc.on('click', '.js-cuztom-upload', function() {
 
     _cuztom_uploader.open();
 
-    return false;
+    // Prevent click
+    event.preventDefault();
 });

@@ -314,7 +314,7 @@ abstract class Field
      */
     public function get_id($extra = null)
     {
-        return apply_filters('cuztom_field_id', $this->id, $this, $extra);
+        return apply_filters('cuztom_field_id', $this->before_id.$this->id.$this->after_id, $this, $extra);
     }
 
     /**
