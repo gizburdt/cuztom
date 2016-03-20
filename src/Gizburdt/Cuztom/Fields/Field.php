@@ -4,8 +4,6 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Field\Accordion;
-use Gizburdt\Cuztom\Field\Bundle;
-use Gizburdt\Cuztom\Field\Tabs;
 use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
