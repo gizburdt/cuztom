@@ -39,9 +39,9 @@ abstract class Field
     public $after_id                = '';
 
     // Protected
-    protected $object               = null;
-    protected $value                = null;
-    protected $meta_type            = null;
+    protected $_object              = null;
+    protected $_value               = null;
+    protected $_meta_type           = null;
     protected $_view                = 'text';
     protected $_input_type          = 'text';
 
@@ -71,10 +71,10 @@ abstract class Field
         }
 
         // Value
-        if (! Cuztom::is_empty(@$args['value'])) {
-            $this->value = maybe_unserialize(@$args['value']);
+        if (! Cuztom::is_empty(@$args['_value'])) {
+            $this->_value = maybe_unserialize(@$args['_value']);
         } else {
-            $this->value = $this->default_value;
+            $this->_value = $this->default_value;
         }
     }
 
@@ -105,7 +105,7 @@ abstract class Field
      */
     public function output($value = null, $view = null)
     {
-        $value = (! is_null($value)) ? $value : $this->value;
+        $value = (! is_null($value)) ? $value : $this->_value;
 
         if ($this->is_repeatable()) {
             return $this->_output_repeatable($value);
@@ -250,7 +250,7 @@ abstract class Field
         $value = $this->parse_value($values[$this->id]);
 
         // Save to respective content-type
-        switch ($this->meta_type) {
+        switch ($this->_meta_type) {
             case 'user':
                 update_user_meta($object, $this->id, $value);
 
@@ -279,7 +279,7 @@ abstract class Field
      */
     public function get_value()
     {
-        return $this->value;
+        return $this->_value;
     }
 
     /**
@@ -407,7 +407,7 @@ abstract class Field
      */
     public function is_meta_type($meta_type)
     {
-        return $this->meta_type == $meta_type;
+        return $this->_meta_type == $meta_type;
     }
 
     /**

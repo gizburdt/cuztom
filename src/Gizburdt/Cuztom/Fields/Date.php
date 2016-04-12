@@ -28,6 +28,6 @@ class Date extends DateTime
      */
     public function time_to_string($string)
     {
-        return $this->value ? date(get_option('date_format'), $this->value) : null;
+        return $this->_value ? date(get_option('date_format'), $this->_value) : null;
     }
 }

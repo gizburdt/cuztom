@@ -22,16 +22,16 @@ class Box extends Meta
     public $priority = 'default';
 
     /**
-     * Meta type.
-     * @var string
-     */
-    public $meta_type = 'post';
-
-    /**
      * Post types.
      * @var string|array
      */
     public $post_types;
+
+    /**
+     * Meta type.
+     * @var string
+     */
+    protected $_meta_type = 'post';
 
     /**
      * Constructs the meta box.
@@ -186,11 +186,9 @@ class Box extends Meta
      * @return int|null
      * @since  3.0
      */
-    public function get_object_id()
+    public function determine_object()
     {
-        if (isset($_GET['post'])) {
-            return $_GET['post']; // @TODO: Use get_current_screen()
-        }
+        return isset($_GET['post']) ? $_GET['post'] : null;
     }
 
     /**
@@ -201,6 +199,6 @@ class Box extends Meta
      */
     public function get_meta_values()
     {
-        return get_post_meta($this->object);
+        return get_post_meta($this->_object);
     }
 }

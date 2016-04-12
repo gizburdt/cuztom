@@ -20,12 +20,6 @@ abstract class Meta
     public $id;
 
     /**
-     * Object.
-     * @var int
-     */
-    public $object;
-
-    /**
      * Callback.
      * @var string
      */
@@ -56,11 +50,23 @@ abstract class Meta
     public $data;
 
     /**
+     * Object.
+     * @var int
+     */
+    protected $_object;
+
+    /**
+     * Meta type.
+     * @var string
+     */
+    protected $_meta_type;
+
+    /**
      * Get object id.
      *
      * @return int
      */
-    abstract public function get_object_id();
+    abstract public function determine_object();
 
     /**
      * Get meta values.
@@ -85,8 +91,8 @@ abstract class Meta
             $this->$property = isset($data[$property]) ? $data[$property] : $this->$property;
         }
 
-        $this->id     = $id;
-        $this->object = $this->get_object_id();
+        $this->id      = $id;
+        $this->_object = $this->determine_object();
     }
 
     /**
@@ -135,8 +141,8 @@ abstract class Meta
         if (is_array($data) && ! empty($data)) {
             foreach ($data as $type => $field) {
                 // General stuff
-                $field['meta_type'] = $this->meta_type;
-                $field['object']    = $this->object;
+                $field['_meta_type'] = $this->_meta_type;
+                $field['_object']    = $this->_object;
 
                 // Tabs / accordion
                 if (is_string($type) && ($type == 'tabs' || $type == 'accordion')) {
@@ -149,8 +155,8 @@ abstract class Meta
 
                 // Bundle
                 elseif (is_string($type) && $type == 'bundle') {
-                    $field['value'] = @$values[$field['id']][0];
-                    $bundle         = new Bundle($field);
+                    $field['_value'] = @$values[$field['id']][0];
+                    $bundle          = new Bundle($field);
 
                     // Build and add
                     $bundle->build($field['fields'], $values);
@@ -159,8 +165,8 @@ abstract class Meta
 
                 // Fields
                 else {
-                    $field['value'] = @$values[$field['id']][0];
-                    $field          = Field::create($field);
+                    $field['_value'] = @$values[$field['id']][0];
+                    $field           = Field::create($field);
 
                     $cuztom->data[$this->id][$field->id] = $field;
                 }
@@ -173,6 +179,26 @@ abstract class Meta
     }
 
     /**
+     * Get object.
+     *
+     * @return int
+     */
+    public function get_object()
+    {
+        return $this->_object;
+    }
+
+    /**
+     * Get meta type.
+     *
+     * @return string
+     */
+    public function get_meta_type()
+    {
+        return $this->_meta_type;
+    }
+
+    /**
      * Check what kind of meta we're dealing with.
      *
      * @param  string $meta_type
@@ -181,7 +207,7 @@ abstract class Meta
      */
     public function is_meta_type($meta_type)
     {
-        return $this->meta_type == $meta_type;
+        return $this->_meta_type == $meta_type;
     }
 
     /**

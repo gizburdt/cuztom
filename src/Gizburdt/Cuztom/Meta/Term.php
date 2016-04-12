@@ -10,12 +10,6 @@ Guard::directAccess();
 class Term extends Meta
 {
     /**
-     * Meta Type.
-     * @var string
-     */
-    public $meta_type = 'term';
-
-    /**
      * Taxonomies.
      * @var array
      */
@@ -26,6 +20,12 @@ class Term extends Meta
      * @var array
      */
     public $locations;
+
+    /**
+     * Meta Type.
+     * @var string
+     */
+    protected $_meta_type = 'term';
 
     /**
      * Construct the term meta.
@@ -154,11 +154,9 @@ class Term extends Meta
      * @return int|null
      * @since  3.0
      */
-    public function get_object_id()
+    public function determine_object()
     {
-        if (isset($_GET['tag_ID'])) {
-            return $_GET['tag_ID']; // @TODO: Use get_current_screen()
-        }
+        return isset($_GET['tag_ID']) ? $_GET['tag_ID'] : null;
     }
 
     /**
@@ -169,6 +167,6 @@ class Term extends Meta
      */
     public function get_meta_values()
     {
-        return get_term_meta($this->object);
+        return get_term_meta($this->_object);
     }
 }

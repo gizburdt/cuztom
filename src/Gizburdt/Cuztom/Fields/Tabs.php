@@ -86,7 +86,7 @@ class Tabs extends Field
     public function build($data, $value)
     {
         foreach ($data as $title => $field) {
-            $args = array_merge(array('title' => $title, 'meta_type' => $this->meta_type, 'object' => $this->object));
+            $args = array_merge(array('title' => $title, '_meta_type' => $this->_meta_type, '_object' => $this->_object));
             $tab  = new Tab($args);
 
             $tab->build($field['fields'], $value);

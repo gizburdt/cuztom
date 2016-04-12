@@ -44,7 +44,7 @@ class Bundle extends Field
     public function output($value = null)
     {
         $i     = 0;
-        $value = (! is_null($value)) ? $value : $this->value;
+        $value = (! is_null($value)) ? $value : $this->_value;
 
         // Output with value
         if (! Cuztom::is_empty($value) && isset($value[0])) {
@@ -140,8 +140,8 @@ class Bundle extends Field
             if (is_string($type) && $type == 'tabs') {
                 // $tab->fields = $this->build( $fields );
             } else {
-                $field['meta_type'] = $this->meta_type;
-                $field['object']    = $this->object;
+                $field['_meta_type'] = $this->_meta_type;
+                $field['_object']    = $this->_object;
 
                 $field             = Field::create($field);
                 $field->repeatable = false;

@@ -10,16 +10,16 @@ Guard::directAccess();
 class User extends Meta
 {
     /**
-     * Meta type.
-     * @var string
-     */
-    public $meta_type = 'user';
-
-    /**
      * Locations.
      * @var array
      */
     public $locations;
+
+    /**
+     * Meta type.
+     * @var string
+     */
+    protected $_meta_type = 'user';
 
     /**
      * Constructor for User Meta.
@@ -95,14 +95,9 @@ class User extends Meta
      * @return int|null
      * @since  3.0
      */
-    public function get_object_id()
+    public function determine_object()
     {
-        // @TODO: Use get_current_screen()
-        if (isset($_GET['user_id'])) {
-            return $_GET['user_id'];
-        } else {
-            return get_current_user_id();
-        }
+        return isset($_GET['user_id']) ? $_GET['user_id'] : get_current_user_id();
     }
 
     /**
@@ -113,9 +108,6 @@ class User extends Meta
      */
     public function get_meta_values()
     {
-        // var_dump($this->object, get_user_meta($this->object));
-        // die();
-
-        return get_user_meta($this->object);
+        return get_user_meta($this->_object);
     }
 }
