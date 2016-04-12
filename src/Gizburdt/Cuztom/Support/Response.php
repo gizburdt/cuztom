@@ -6,5 +6,4 @@ Guard::directAccess();
 
 class Response
 {
-
 }
