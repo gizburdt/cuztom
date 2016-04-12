@@ -54,9 +54,9 @@ class Cuztom
      */
     private function setup()
     {
-        self::$version  = '3.0';
-        self::$dir      = dirname(__FILE__);
-        self::$url      = $this->get_cuztom_url(__FILE__);
+        self::$version = '3.0';
+        self::$dir     = dirname(__FILE__);
+        self::$url     = $this->get_cuztom_url(__FILE__);
     }
 
     /**
@@ -90,7 +90,6 @@ class Cuztom
         require_once self::$dir.'/Fields/Traits/Checkable.php';
         require_once self::$dir.'/Fields/Traits/Checkables.php';
         require_once self::$dir.'/Fields/Traits/Selectable.php';
-        require_once self::$dir.'/Fields/Traits/Arrayable.php';
         require_once self::$dir.'/Fields/Field.php';
         require_once self::$dir.'/Fields/Bundle.php';
         require_once self::$dir.'/Fields/Tabs.php';
@@ -127,14 +126,14 @@ class Cuztom
     private function execute()
     {
         // Globals
-        global $cuztom, $current_screen;
+        global $cuztom;
 
         // Cuztom
         $cuztom          = new \stdClass();
         $cuztom->version = self::$version;
         $cuztom->data    = array();
 
-        // Setup ajax
+        // Ajax
         self::$ajax = new Ajax();
     }
 
@@ -186,11 +185,13 @@ class Cuztom
      */
     public function register_scripts()
     {
+        // Datetimepicker
         wp_register_script('cuztom-datetimepicker', self::$url.'/Assets/dist/js/datetimepicker.min.js', array(
             'jquery',
             'jquery-ui-core'
         ), self::$version, true);
 
+        // Cuztom
         wp_register_script('cuztom', self::$url.'/Assets/dist/js/cuztom.min.js', array(
             'jquery',
             'jquery-ui-core',
@@ -224,11 +225,11 @@ class Cuztom
     public function localize_scripts()
     {
         wp_localize_script('cuztom', 'Cuztom', array(
-            'wp_version'        => get_bloginfo('version'),
-            'home_url'          => get_home_url(),
-            'ajax_url'          => admin_url('admin-ajax.php'),
-            'date_format'       => get_option('date_format'),
-            'translations'      => array()
+            'wp_version'  => get_bloginfo('version'),
+            'home_url'    => get_home_url(),
+            'ajax_url'    => admin_url('admin-ajax.php'),
+            'date_format' => get_option('date_format'),
+            'translate'   => array()
         ));
     }
 
