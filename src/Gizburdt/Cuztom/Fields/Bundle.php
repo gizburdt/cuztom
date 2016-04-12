@@ -113,9 +113,6 @@ class Bundle extends Field
         $values = $values[$this->id];
         $values = is_array($values) ? array_values($values) : array();
 
-        // var_dump($values);
-        // die();
-
         // Foreach for correct array
         foreach ($values as $row => $fields) {
             foreach ($fields as $id => $value) {

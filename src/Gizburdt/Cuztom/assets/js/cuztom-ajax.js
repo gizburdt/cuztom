@@ -1,9 +1,9 @@
 
 // Ajax save
-doc.on( 'click', '.js-cztm-ajax-save', function(event) {
+doc.on( 'click', '.js-cuztom-ajax-save', function(event) {
     var that            = $(this),
-        cuztom          = that.closest('.js-cztm'),
-        field           = that.closest('.js-cztm-field'),
+        cuztom          = that.closest('.js-cuztom'),
+        field           = that.closest('.js-cuztom-field'),
         field_id        = field.attr('data-id'),
         box_id          = cuztom.attr('data-box-id'),
         object_id       = cuztom.attr('data-object-id'),
@@ -21,6 +21,8 @@ doc.on( 'click', '.js-cztm-ajax-save', function(event) {
             }
         };
 
+    console.log(input);
+
     $.post(
         Cuztom.ajax_url,
         data,
@@ -29,7 +31,7 @@ doc.on( 'click', '.js-cztm-ajax-save', function(event) {
                 border_color    = input.css('border-color');
 
             if( response.status ) {
-                input.animate({ borderColor: '#60b334' }, 400, function(){ input.animate({ borderColor: border_color }); });
+                input.animate({ borderColor: '#60b334' }, 1200, function(){ input.animate({ borderColor: border_color }); });
             }
         }
     );

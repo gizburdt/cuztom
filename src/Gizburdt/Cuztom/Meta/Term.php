@@ -36,7 +36,7 @@ class Term extends Meta
      * @param array        $locations
      * @since 2.5
      */
-    public function __construct($id, $taxonomy, $data = array(), $locations = array('add_form', 'edit_form'))
+    public function __construct($id, $taxonomy, $data = array(), $locations = array('edit_form'))
     {
         // Build all properties
         parent::__construct($id, $data);
@@ -78,7 +78,7 @@ class Term extends Meta
      */
     public function add_form_fields($taxonomy)
     {
-        return $this->output();
+        echo $this->output();
     }
 
     /**
@@ -92,7 +92,7 @@ class Term extends Meta
     {
         echo '</table>';
 
-        return $this->output();
+        echo $this->output();
     }
 
     /**
@@ -104,7 +104,7 @@ class Term extends Meta
     public function save_term($term_id)
     {
         // Verify nonce
-        if (! (isset($_POST['cuztom_nonce']) && wp_verify_nonce($_POST['cuztom_nonce'], 'cuztom_meta'))) {
+        if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
             return;
         }
 

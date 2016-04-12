@@ -1,9 +1,3 @@
-// Only top-level table
-.cuztom-main-table{
-    border: 1px solid @table-border-color;
-    background-color: @table-bg;
-}
-
 // Normal table
 .cuztom-table{
     margin: 0;
@@ -18,13 +12,7 @@
 
     // Tabs
     tr.cuztom-tabs,
-    tr.cuztom-accordion{
-        > th,
-        > td{
-            border-top: 1px solid @table-border-color;
-            border-bottom: 1px solid @table-border-color;
-        }
-    }
+    tr.cuztom-accordion{}
 
     // Bundle
     tr.cuztom-bundle{
@@ -44,6 +32,49 @@
             padding: 6px 10px;
             background: @table-control-bg;
             border: 1px solid @table-border-color;
+        }
+    }
+}
+
+// Post
+&.cuztom-post{
+    .cuztom-main-table{
+        border: 1px solid @table-border-color;
+        background-color: @table-bg;
+    }
+
+    // Tabs
+    tr.cuztom-tabs,
+    tr.cuztom-accordion{
+        > th,
+        > td{
+            border-top: 1px solid @table-border-color;
+            border-bottom: 1px solid @table-border-color;
+        }
+    }
+}
+
+// User / term
+&.cuztom-user,
+&.cuztom-term{
+    .cuztom-main-table{
+        > tbody > tr > th{ padding-left: 0; }
+    }
+
+    // Tabs
+    tr.cuztom-tabs,
+    tr.cuztom-accordion{
+        .cuztom-field{
+            padding-left: 0;
+        }
+    }
+
+    // Bundle
+    tr.cuztom-bundle{
+        > th,
+        > td{
+            border-left: 1px solid @table-border-color;
+            border-right: 1px solid @table-border-color;
         }
     }
 }

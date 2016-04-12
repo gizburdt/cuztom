@@ -135,7 +135,7 @@ class Taxonomy extends Entity
      */
     public function add_term_meta($id, $data = array(), $locations = array('add_form', 'edit_form'))
     {
-        $term_meta = new TermMeta($id, $data, $this->name, $locations);
+        $term_meta = new TermMeta($id, $this->name, $data, $locations);
 
         return $this;
     }

@@ -104,7 +104,7 @@ class Ajax
             $value     = $_POST['cuztom']['value'];
             $meta_type = $_POST['cuztom']['meta_type'];
 
-            if ($field->save($object, $value)) {
+            if ($field->save($object, array($field->id => $value))) {
                 echo json_encode(array('status' => true));
             } else {
                 echo json_encode(array('status' => false));

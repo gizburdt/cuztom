@@ -97,8 +97,11 @@ class User extends Meta
      */
     public function get_object_id()
     {
+        // @TODO: Use get_current_screen()
         if (isset($_GET['user_id'])) {
-            return $_GET['user_id']; // @TODO: Use get_current_screen()
+            return $_GET['user_id'];
+        } else {
+            return get_current_user_id();
         }
     }
 
@@ -110,6 +113,9 @@ class User extends Meta
      */
     public function get_meta_values()
     {
+        // var_dump($this->object, get_user_meta($this->object));
+        // die();
+
         return get_user_meta($this->object);
     }
 }
