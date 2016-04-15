@@ -2,10 +2,23 @@
 
 namespace Gizburdt\Cuztom\Support;
 
+use Gizburdt\Cuztom\Support\Request;
+use Gizburdt\Cuztom\Support\Response;
+
 Guard::directAccess();
 
 class Ajax
 {
+    /**
+     * Constructor.
+     *
+     * @return [type] [description]
+     */
+    public function __construct()
+    {
+        $this->add_hooks();
+    }
+
     /**
      * Add hooks.
      *
@@ -26,28 +39,24 @@ class Ajax
      *
      * @since 3.0
      */
-    public function add_repeatable_item()
+    public function add_repeatable_item($bla)
     {
-        $box   = $_POST['cuztom']['box'];
-        $field = $_POST['cuztom']['field'];
-        $count = $_POST['cuztom']['count'];
-        $field = self::get_field($field, $box);
+        $request = new Request($_POST);
+        $field   = $request->field;
+        $count   = $request->count;
+        $field   = self::get_field($field, $request->box);
 
         if (! $field) {
             return;
         }
 
         if ((! $field->limit) || ($field->limit > $count)) {
-            echo json_encode(array(
-                'status'  => true,
-                'item'    => $field->_output_repeatable_item(null, $count)
-            ));
+            $response = new Response(true, array('item' => $field->_output_repeatable_item(null, $count)));
         } else {
-            echo json_encode(array(
-                'status'  => false,
-                'message' => __('Limit reached!', 'cuztom')
-            ));
+            $response = new Response(false, array('message' => __('Limit reached!', 'cuztom')));
         }
+
+        echo $response->get();
 
         // wp
         die();
@@ -60,27 +69,23 @@ class Ajax
      */
     public function add_bundle_item()
     {
-        $box   = $_POST['cuztom']['box'];
-        $field = $_POST['cuztom']['field'];
-        $count = $_POST['cuztom']['count'];
-        $index = $_POST['cuztom']['index'];
-        $field = self::get_field($field, $box);
+        $request = new Request($_POST);
+        $field   = $request->field;
+        $count   = $request->count;
+        $index   = $request->index;
+        $field   = self::get_field($field, $request->box);
 
         if (! $field) {
             return;
         }
 
         if (! $field->limit || ($field->limit > $count)) {
-            echo json_encode(array(
-                'status'  => true,
-                'item'    => $field->output_item($index)
-            ));
+            $response = new Response(true, array('item' => $field->output_item($index)));
         } else {
-            echo json_encode(array(
-                'status'  => false,
-                'message' => __('Limit reached!', 'cuztom')
-            ));
+            $response = new Response(false, array('message' => __('Limit reached!', 'cuztom')));
         }
+
+        echo $response->get();
 
         // wp
         die();
@@ -93,22 +98,23 @@ class Ajax
      */
     public function save_field()
     {
-        global $cuztom;
+        $request = new Request($_POST);
 
-        if ($_POST['cuztom'] && isset($_POST['cuztom']['field_id'])) {
-            $box       = $_POST['cuztom']['box_id'];
-            $field     = $_POST['cuztom']['field_id'];
-            $field     = self::get_field($field, $box);
+        if (isset($request->field_id)) {
+            $field     = $request->field_id;
+            $field     = self::get_field($field, $request->box);
 
-            $object    = $_POST['cuztom']['object_id'];
-            $value     = $_POST['cuztom']['value'];
-            $meta_type = $_POST['cuztom']['meta_type'];
+            $object    = $request->object_id;
+            $value     = $request->value;
+            $meta_type = $request->meta_type;
 
             if ($field->save($object, array($field->id => $value))) {
-                echo json_encode(array('status' => true));
+                $response = new Response(true);
             } else {
-                echo json_encode(array('status' => false));
+                $response = new Response(false);
             }
+
+            echo $response->get();
         }
 
         // wp

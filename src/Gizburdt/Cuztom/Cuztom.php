@@ -132,9 +132,7 @@ class Cuztom
         $cuztom          = new \stdClass();
         $cuztom->version = self::$version;
         $cuztom->data    = array();
-
-        // Ajax
-        self::$ajax = new Ajax();
+        $cuztom->ajax    = new Ajax();
     }
 
     /**
@@ -150,9 +148,6 @@ class Cuztom
 
         add_action('admin_init', array(&$this, 'register_scripts'));
         add_action('admin_enqueue_scripts', array(&$this, 'enqueue_scripts'));
-
-        // Add AJAX hooks
-        self::$ajax->add_hooks();
     }
 
     /**
