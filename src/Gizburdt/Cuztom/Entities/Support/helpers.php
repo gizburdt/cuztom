@@ -4,9 +4,6 @@ use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Entities\PostType;
 use Gizburdt\Cuztom\Entities\Sidebar;
 use Gizburdt\Cuztom\Entities\Taxonomy;
-use Gizburdt\Cuztom\Meta\Box as MetaBox;
-use Gizburdt\Cuztom\Meta\Term as TermMeta;
-use Gizburdt\Cuztom\Meta\User as UserMeta;
 use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
