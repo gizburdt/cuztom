@@ -88,7 +88,9 @@ abstract class Meta
 
         // Set all properties
         foreach ($properties as $property) {
-            $this->$property = isset($data[$property]) ? $data[$property] : $this->$property;
+            if (! Cuztom::starts_with($property, '_')) {
+                $this->$property = isset($data[$property]) ? $data[$property] : $this->$property;
+            }
         }
 
         $this->id      = $id;

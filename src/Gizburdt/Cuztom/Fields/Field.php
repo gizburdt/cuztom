@@ -62,7 +62,9 @@ abstract class Field
 
         // Set all properties
         foreach ($properties as $property) {
-            $this->$property = (isset($args[$property]) ? $args[$property] : $this->$property);
+            if (! Cuztom::starts_with($property, '_')) {
+                $this->$property = (isset($args[$property]) ? $args[$property] : $this->$property);
+            }
         }
 
         // Repeatable?

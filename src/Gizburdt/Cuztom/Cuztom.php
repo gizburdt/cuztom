@@ -113,6 +113,7 @@ class Cuztom
         require_once self::$dir.'/Meta/Box.php';
         require_once self::$dir.'/Meta/User.php';
         require_once self::$dir.'/Meta/Term.php';
+        require_once self::$dir.'/Meta/Support/helpers.php';
 
         // Fields
         require_once self::$dir.'/Fields/Traits/Checkable.php';
@@ -437,6 +438,18 @@ class Cuztom
         }
 
         return $result;
+    }
+
+    /**
+     * Check if string starts with.
+     *
+     * @param  string $string
+     * @param  string $start
+     * @return bool
+     */
+    public static function starts_with($string, $start)
+    {
+        return substr($string, 0, 1) == $start;
     }
 
     /**
