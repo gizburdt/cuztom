@@ -9,7 +9,7 @@ class Ajax
     /**
      * Constructor.
      *
-     * @return [type] [description]
+     * @since 3.0
      */
     public function __construct()
     {
