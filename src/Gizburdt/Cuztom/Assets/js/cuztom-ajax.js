@@ -13,11 +13,11 @@ doc.on( 'click', '.js-cuztom-ajax-save', function(event) {
         data = {
             action:     'cuztom_save_field',
             cuztom: {
-                value:      value,
-                box_id:     box_id,
-                field_id:   field_id,
-                meta_type:  meta_type,
-                object_id:  object_id,
+                value:     value,
+                box:       box_id,
+                field_id:  field_id,
+                meta_type: meta_type,
+                object_id: object_id,
             }
         };
 

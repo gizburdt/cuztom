@@ -10,12 +10,40 @@ if (! defined('ABSPATH')) {
 
 class Cuztom
 {
+    /**
+     * Version.
+     * @var string
+     */
     private static $version;
+
+    /**
+     * Url.
+     * @var string
+     */
     private static $url;
+
+    /**
+     * Dir.
+     * @var string
+     */
     private static $dir;
+
+    /**
+     * Instance.
+     * @var object
+     */
     private static $instance;
+
+    /**
+     * Ajax.
+     * @var object
+     */
     private static $ajax;
 
+    /**
+     * Reserved terms.
+     * @var array
+     */
     public static $reserved = array(
         'attachment', 'attachment_id', 'author', 'author_name',
         'calendar', 'cat', 'category', 'category__and', 'category__in', 'category__not_in', 'category_name',
@@ -41,7 +69,7 @@ class Cuztom
             self::$instance->setup();
             self::$instance->includes();
             self::$instance->execute();
-            self::$instance->add_hooks();
+            self::$instance->hooks();
         }
 
         return self::$instance;
@@ -140,7 +168,7 @@ class Cuztom
      *
      * @since 2.3
      */
-    private function add_hooks()
+    private function hooks()
     {
         // Assets
         add_action('admin_init', array(&$this, 'register_styles'));

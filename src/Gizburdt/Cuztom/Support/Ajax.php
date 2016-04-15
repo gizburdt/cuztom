@@ -97,7 +97,7 @@ class Ajax
     {
         $request = new Request($_POST);
 
-        if (isset($request->field_id)) {
+        if ($request->field_id) {
             $field     = $request->field_id;
             $field     = self::get_field($field, $request->box);
 
