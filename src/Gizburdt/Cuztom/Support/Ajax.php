@@ -2,9 +2,6 @@
 
 namespace Gizburdt\Cuztom\Support;
 
-use Gizburdt\Cuztom\Support\Request;
-use Gizburdt\Cuztom\Support\Response;
-
 Guard::directAccess();
 
 class Ajax

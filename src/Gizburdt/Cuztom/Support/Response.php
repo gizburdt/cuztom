@@ -26,7 +26,7 @@ class Response
 
     /**
      * Get response.
-     * 
+     *
      * @return string
      */
     public function get()
