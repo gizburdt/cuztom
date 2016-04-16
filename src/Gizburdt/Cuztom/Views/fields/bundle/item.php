@@ -1,6 +1,10 @@
 <li class="cuztom-sortable-item js-cuztom-sortable-item">
-    <div class="cuztom-handle-sortable js-cuztom-handle-sortable">
-        <a href="#"></a>
+    <div class="bundle-control">
+        <div class="cuztom-handle-sortable js-cuztom-handle-sortable">
+            <a href="#"></a>
+        </div>
+
+        <div class="cuztom-remove-sortable js-cuztom-remove-sortable"><a href="#"></a></div>
     </div>
 
     <fieldset class="cuztom-fieldset">
@@ -17,6 +21,4 @@
             <?php endforeach; ?>
         </table>
     </fieldset>
-
-    <div class="cuztom-remove-sortable js-cuztom-remove-sortable"><a href="#"></a></div>
 </li>
