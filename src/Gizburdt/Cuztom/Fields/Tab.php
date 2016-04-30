@@ -27,13 +27,13 @@ class Tab extends Field
      */
     public $fields = array();
 
-    /**
-     * Construct.
-     *
-     * @param array $args
-     * @param array $values
-     * @since 3.0
-     */
+     /**
+      * Construct.
+      *
+      * @param array $args
+      * @param array $values
+      * @since 3.0
+      */
      public function __construct($args, $values)
      {
          parent::__construct($args, $values);
@@ -43,7 +43,7 @@ class Tab extends Field
          }
 
          $this->data = $this->build($args, $values);
-    }
+     }
 
     /**
      * Output.

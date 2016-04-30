@@ -35,7 +35,7 @@ class Bundle extends Field
     /**
      * Output a row.
      *
-     * @param mixed $value
+     * @param mixed  $value
      * @param string $view
      * @since 3.0
      */
@@ -50,7 +50,7 @@ class Bundle extends Field
     /**
      * Outputs a bundle.
      *
-     * @param mixed $value
+     * @param mixed  $value
      * @param string $view
      * @since 1.6.5
      */
@@ -59,7 +59,7 @@ class Bundle extends Field
         $i     = 0;
         $value = (! is_null($value)) ? $value : $this->value;
 
-        foreach($this->bundles as $item) {
+        foreach ($this->bundles as $item) {
             $item->output_item($i);
             $i++;
         }
@@ -111,7 +111,7 @@ class Bundle extends Field
     public function build($args, $values = null)
     {
         // Build fields
-        if(is_array($this->value)) {
+        if (is_array($this->value)) {
             foreach ($this->value as $id => $value) {
                 $data[] = new BundleItem($args, $values);
             }

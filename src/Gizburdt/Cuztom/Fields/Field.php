@@ -107,7 +107,7 @@ abstract class Field
     {
         // Set all properties
         foreach ($this->fillable as $property) {
-            if(property_exists($this, $property)) {
+            if (property_exists($this, $property)) {
                 $this->$property = (isset($args[$property]) ? $args[$property] : $this->$property);
             }
         }
