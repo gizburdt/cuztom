@@ -31,11 +31,9 @@ class Tab extends Field
      * Construct.
      *
      * @param array $args
+     * @param array $values
      * @since 3.0
      */
-     /**
-      * Constructor.
-      */
      public function __construct($args, $values)
      {
          parent::__construct($args, $values);
