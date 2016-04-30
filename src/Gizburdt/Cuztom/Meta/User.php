@@ -19,7 +19,7 @@ class User extends Meta
      * Meta type.
      * @var string
      */
-    protected $_meta_type = 'user';
+    public $_meta_type = 'user';
 
     /**
      * Constructor for User Meta.
@@ -39,11 +39,6 @@ class User extends Meta
 
         // Chack if the class, function or method exist, otherwise use cuztom callback
         if (! $this->callback) {
-            $this->callback = array(&$this, 'output');
-
-            // Build the meta box and fields
-            $this->data = $this->build($this->fields);
-
             add_action('personal_options_update', array(&$this, 'save_user'));
             add_action('edit_user_profile_update', array(&$this, 'save_user'));
             add_action('user_edit_form_tag', array(&$this, 'edit_form_tag'));
@@ -57,16 +52,13 @@ class User extends Meta
     /**
      * Callback for user meta, adds a title.
      *
-     * @param int   $user
-     * @param array $data
-     * @param array $args
      * @since 1.5
      */
-    public function output($user, $data = array(), $args = array())
+    public function output()
     {
         echo '<h3>'.$this->title.'</h3>';
 
-        parent::output($user, $this->data, $args);
+        parent::output();
     }
 
     /**

@@ -44,7 +44,7 @@ class DateTime extends Field
         $this->data_attributes['time-format'] = get_option('time_format');
 
         // Convert value
-        $this->_value = $this->time_to_string($this->_value);
+        $this->value = $this->time_to_string($this->value);
     }
 
     /**
@@ -67,6 +67,6 @@ class DateTime extends Field
      */
     public function time_to_string($string)
     {
-        return $this->_value ? date(get_option('date_format').' '.get_option('time_format'), $this->_value) : null;
+        return $this->value ? date(get_option('date_format').' '.get_option('time_format'), $this->value) : null;
     }
 }

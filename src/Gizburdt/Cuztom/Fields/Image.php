@@ -13,13 +13,13 @@ class Image extends Field
      * Input type.
      * @var string
      */
-    protected $_input_type = 'hidden';
+    public $input_type = 'hidden';
 
     /**
      * View name.
      * @var string
      */
-    protected $_view = 'image';
+    public $view = 'image';
 
     /**
      * CSS class.

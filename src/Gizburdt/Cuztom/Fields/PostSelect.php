@@ -13,7 +13,7 @@ class PostSelect extends Select
      * View name.
      * @var string
      */
-    protected $_view = 'post-select';
+    public $view = 'post-select';
 
     /**
      * CSS class.

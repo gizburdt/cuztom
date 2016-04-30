@@ -12,7 +12,7 @@ class Hidden extends Field
      * Input type.
      * @var string
      */
-    protected $_input_type = 'hidden';
+    public $input_type = 'hidden';
 
     /**
      * Row CSS class.

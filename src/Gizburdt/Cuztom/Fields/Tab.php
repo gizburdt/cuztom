@@ -13,7 +13,7 @@ class Tab extends Field
      * Tabs type.
      * @var string
      */
-    protected $_tabs_type;
+    public $tabs_type;
 
     /**
      * Title.
@@ -33,13 +33,18 @@ class Tab extends Field
      * @param array $args
      * @since 3.0
      */
-    public function __construct($args)
-    {
-        parent::__construct($args);
+     /**
+      * Constructor.
+      */
+     public function __construct($args, $values)
+     {
+         parent::__construct($args, $values);
 
-        if (! $this->id) {
-            $this->id = Cuztom::uglify($this->title);
-        }
+         if (! $this->id) {
+             $this->id = Cuztom::uglify($this->title);
+         }
+
+         $this->data = $this->build($args, $values);
     }
 
     /**
@@ -49,12 +54,11 @@ class Tab extends Field
      * @return string
      * @since  3.0
      */
-    public function output($value = null)
+    public function output_tab()
     {
         Cuztom::view('fields/tab', array(
             'tab'   => $this,
-            'args'  => $args,
-            'type'  => $this->_tabs_type
+            'type'  => $this->tabs_type
         ));
     }
 
@@ -74,15 +78,6 @@ class Tab extends Field
     }
 
     /**
-     * Set the tabs type.
-     * @param string $type
-     */
-    public function set_tabs_type($type)
-    {
-        $this->_tabs_type = $type;
-    }
-
-    /**
      * Build.
      *
      * @param  array        $data
@@ -90,22 +85,17 @@ class Tab extends Field
      * @return void
      * @since  3.0
      */
-    public function build($data, $value)
+    public function build($args, $value)
     {
-        foreach ($data as $type => $field) {
-            if (is_string($type) && $type == 'bundle') {
-                // $tab->fields = $this->build( $fields );
-            } else {
-                $args  = array_merge($field, array(
-                    '_meta_type' => $this->_meta_type,
-                    '_object'    => $this->_object,
-                    '_value'     => @$value[$field['id']][0]
-                ));
+        foreach ($this->fields as $type => $field) {
+            $field            = Field::create($field, $value);
+            $field->meta_type = $this->meta_type;
+            $field->object    = $this->object;
+            $field->value     = 'bla';
 
-                $field = Field::create($args);
-
-                $this->fields[$field->id] = $field;
-            }
+            $data[$field->id] = $field;
         }
+
+        return $data;
     }
 }

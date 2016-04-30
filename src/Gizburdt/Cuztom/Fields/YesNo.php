@@ -16,13 +16,13 @@ class YesNo extends Field
      * Input type.
      * @var string
      */
-    protected $_input_type = 'radio';
+    public $input_type = 'radio';
 
     /**
      * View name.
      * @var string
      */
-    protected $_view = 'yes-no';
+    public $view = 'yes-no';
 
     /**
      * CSS class.

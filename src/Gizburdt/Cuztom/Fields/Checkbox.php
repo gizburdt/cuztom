@@ -16,13 +16,13 @@ class Checkbox extends Field
      * Input type.
      * @var string
      */
-    protected $_input_type = 'checkbox';
+    public $input_type = 'checkbox';
 
     /**
      * View name.
      * @var string
      */
-    protected $_view = 'checkbox';
+    public $view = 'checkbox';
 
     /**
      * Row CSS class.

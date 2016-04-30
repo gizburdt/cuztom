@@ -16,30 +16,17 @@ class Wysiwyg extends Field
     public $row_css_class = 'cuztom-field-wysiwyg';
 
     /**
-     * Construct.
-     *
-     * @param array $field
-     * @since 0.3.3
-     */
-    public function __construct($field)
-    {
-        parent::__construct($field);
-
-        // Set necessary args
-        @$this->args['editor_class'] .= ' cuztom-input';
-    }
-
-    /**
      * Output input.
      *
      * @param  string|array $value
      * @return string
      * @since  2.4
      */
-    public function _output_input($value = null)
+    public function _output_input($value = null, $view = null)
     {
         // Needs to be set here, to work with sortables
         $this->args['textarea_name'] = $this->get_name();
+        $this->args['editor_class'] .= ' cuztom-input';
 
         return wp_editor(
             (! Cuztom::is_empty($value) ? $value : $this->default_value),

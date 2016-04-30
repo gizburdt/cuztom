@@ -13,13 +13,13 @@ class File extends Field
      * Input type.
      * @var string
      */
-    protected $_input_type = 'hidden';
+    public $input_type = 'hidden';
 
     /**
      * View name.
      * @var string
      */
-    protected $_view = 'file';
+    public $view = 'file';
 
     /**
      * CSS class.
@@ -32,4 +32,10 @@ class File extends Field
      * @var string
      */
     public $row_css_class = 'cuztom-field-file';
+
+    /**
+     * Data attributes.
+     * @var array
+     */
+    public $data_attributes = array('media-type' => 'file');
 }

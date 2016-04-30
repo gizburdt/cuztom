@@ -13,32 +13,45 @@ class Tabs extends Field
      * View name.
      * @var string
      */
-    protected $_view = 'tabs';
+    public $view = 'tabs';
 
     /**
      * Tabs type.
      * @var string
      */
-    protected $_tabs_type = 'tabs';
+    public $tabs_type = 'tabs';
 
     /**
      * Tabs.
      * @var array
      */
-    public $tabs = array();
+    public $panels = array();
+
+    /**
+     * Data.
+     * @var array
+     */
+    public $data = array();
+
+    /**
+     * Constructor.
+     */
+    public function __construct($args, $values)
+    {
+        parent::__construct($args, $values);
+
+        $this->data = $this->build($args, $values);
+    }
 
     /**
      * Outputs a field row.
      *
      * @param string|array $value
-     * @pram  string       $view
      * @since 0.2
      */
-    public function output_row($value = null, $view = null)
+    public function output_row($value = null)
     {
-        $view = $view ? $view : $this->get_view();
-
-        Cuztom::view('fields/row/'.$view, array(
+        Cuztom::view('fields/row/'.$this->view, array(
             'tabs'  => $this,
             'value' => $value
         ));
@@ -51,14 +64,12 @@ class Tabs extends Field
      * @return string
      * @since  3.0
      */
-    public function output($value = null, $view = null)
+    public function output($value = null)
     {
-        $view = $view ? $view : $this->get_view();
-
-        Cuztom::view('fields/'.$this->_view, array(
+        Cuztom::view('fields/'.$this->view, array(
             'tabs'  => $this,
             'value' => $value,
-            'type'  => $this->_tabs_type
+            'type'  => $this->tabs_type
         ));
     }
 
@@ -83,16 +94,23 @@ class Tabs extends Field
      * @param string|array $value
      * @since  3.0
      */
-    public function build($data, $value)
+    public function build($args, $value)
     {
-        foreach ($data as $title => $field) {
-            $args = array_merge(array('title' => $title, '_meta_type' => $this->_meta_type, '_object' => $this->_object));
-            $tab  = new Tab($args);
+        foreach ($this->panels as $title => $panel) {
+            $tab = new Tab(array_merge(
+                $panel,
+                array(
+                    'title' => $title
+                )
+            ), $value);
 
-            $tab->build($field['fields'], $value);
-            $tab->set_tabs_type($this->_tabs_type);
+            $tab->meta_type = $this->meta_type;
+            $tab->object    = $this->object;
+            $tab->tabs_type = $this->tabs_type;
 
-            $this->tabs[$title] = $tab;
+            $data[$tab->id] = $tab;
         }
+
+        return $data;
     }
 }

@@ -16,13 +16,13 @@ class Radios extends Field
      * View name.
      * @var string
      */
-    protected $_view = 'radios';
+    public $view = 'radios';
 
     /**
      * Input type.
      * @var string
      */
-    protected $_input_type = 'radio';
+    public $_input_type = 'radio';
 
     /**
      * CSS class.

@@ -10,59 +10,104 @@ Guard::directAccess();
 
 abstract class Field
 {
-    // Basic
-    public $id                      = null;
-    public $type                    = null;
-    public $label                   = '';
-    public $description             = '';
-    public $explanation             = '';
-    public $default_value           = '';
-    public $options                 = array();
-    public $args                    = array();
-    public $required                = false;
-    public $repeatable              = false;
-    public $limit                   = null;
-    public $ajax                    = false;
-    public $data_attributes         = array();
-    public $css_class               = '';
-    public $row_css_class           = '';
+    /**
+     * Fillables.
+     *
+     * @var mixed
+     */
+    public $id                    = null;
+    public $type                  = null;
+    public $label                 = '';
+    public $description           = '';
+    public $explanation           = '';
+    public $default_value         = '';
+    public $options               = array();
+    public $args                  = array();
+    public $required              = false;
+    public $repeatable            = false;
+    public $limit                 = null;
+    public $ajax                  = false;
+    public $data_attributes       = array();
+    public $css_class             = '';
+    public $row_css_class         = '';
+    public $show_admin_column     = false;
+    public $admin_column_sortable = false;
+    public $admin_column_filter   = false;
 
-    // Admin
-    public $show_admin_column       = false;
-    public $admin_column_sortable   = false;
-    public $admin_column_filter     = false;
+    /**
+     * Before/after id/name.
+     *
+     * @var mixed
+     */
+    public $before_name = '';
+    public $after_name  = '';
+    public $before_id   = '';
+    public $after_id    = '';
 
-    // ID/name
-    public $before_name             = '';
-    public $after_name              = '';
-    public $before_id               = '';
-    public $after_id                = '';
+    /**
+     * Base.
+     *
+     * @var mixed
+     */
+    public $object     = null;
+    public $value      = null;
+    public $meta_type  = null;
+    public $view       = 'text';
+    public $input_type = 'text';
 
-    // Protected
-    protected $_object              = null;
-    protected $_value               = null;
-    protected $_meta_type           = null;
-    protected $_view                = 'text';
-    protected $_input_type          = 'text';
-
-    // Support
+    /**
+     * Supports.
+     *
+     * @var mixeds
+     */
     protected $_supports_repeatable = true;
     protected $_supports_bundle     = true;
     protected $_supports_ajax       = true;
 
     /**
+     * Fillable by user.
+     *
+     * @var array
+     */
+    protected $fillable = array(
+        'id',
+        'type',
+        'label',
+        'description',
+        'explanation',
+        'default_value',
+        'options',
+        'args',
+        'required',
+        'repeatable',
+        'limit',
+        'ajax',
+        'data_attributes',
+        'css_class',
+        'row_css_class',
+        'show_admin_column',
+        'admin_column_sortable',
+        'admin_column_filter',
+
+        // Special
+        'fields',
+        'panels',
+        'bundles',
+        'title'
+    );
+
+    /**
      * Constructs a Cuztom_Field.
      *
      * @param array $args
+     * @param array $values
      * @since 0.3.3
      */
-    public function __construct($args)
+    public function __construct($args, $values)
     {
-        $properties = array_keys(get_class_vars(get_called_class()));
-
         // Set all properties
-        foreach ($properties as $property) {
-            if (! Cuztom::starts_with($property, '_')) {
+        foreach ($this->fillable as $property) {
+            if(property_exists($this, $property)) {
                 $this->$property = (isset($args[$property]) ? $args[$property] : $this->$property);
             }
         }
@@ -73,10 +118,10 @@ abstract class Field
         }
 
         // Value
-        if (! Cuztom::is_empty(@$args['_value'])) {
-            $this->_value = maybe_unserialize(@$args['_value']);
+        if (! Cuztom::is_empty($values)) {
+            $this->value = maybe_unserialize(@$values[$this->id][0]);
         } else {
-            $this->_value = $this->default_value;
+            $this->value = $this->default_value;
         }
     }
 
@@ -87,11 +132,9 @@ abstract class Field
      * @pram  string       $view
      * @since 0.2
      */
-    public function output_row($value = null, $view = null)
+    public function output_row($value = null)
     {
-        $view = $view ? $view : 'text';
-
-        Cuztom::view('fields/row/'.$view, array(
+        Cuztom::view('fields/row/text', array(
             'field' => $this,
             'value' => $value
         ));
@@ -105,9 +148,9 @@ abstract class Field
      * @return string
      * @since  0.2
      */
-    public function output($value = null, $view = null)
+    public function output($value = null)
     {
-        $value = (! is_null($value)) ? $value : $this->_value;
+        $value = (! is_null($value)) ? $value : $this->value;
 
         if ($this->is_repeatable()) {
             return $this->_output_repeatable($value);
@@ -126,7 +169,7 @@ abstract class Field
      * @return string
      * @since  2.4
      */
-    public function _output($value = null, $view = null)
+    public function _output($value = null)
     {
         return $this->_output_input($value).$this->get_explanation();
     }
@@ -156,15 +199,12 @@ abstract class Field
      * @return string
      * @since  2.0
      */
-    public function _output_repeatable($value = null, $view = null)
+    public function _output_repeatable($value = null)
     {
-        $view   = $view ? $view : 'repeatable';
-        $count  = 0;
-
-        Cuztom::view('fields/repeatable/'.$view, array(
+        Cuztom::view('fields/repeatable/repeatable', array(
             'field'  => $this,
             'values' => $value,
-            'count'  => $count
+            'count'  => 0
         ));
     }
 
@@ -177,15 +217,11 @@ abstract class Field
      */
     public function _output_repeatable_item($value = null, $count = 0)
     {
-        ob_start();
-
         Cuztom::view('fields/repeatable/item', array(
             'field' => $this,
             'value' => $value,
             'count' => $count
         ));
-
-        return ob_get_clean();
     }
 
     /**
@@ -252,7 +288,7 @@ abstract class Field
         $value = $this->parse_value($values[$this->id]);
 
         // Save to respective content-type
-        switch ($this->_meta_type) {
+        switch ($this->meta_type) {
             case 'user':
                 update_user_meta($object, $this->id, $value);
 
@@ -275,16 +311,6 @@ abstract class Field
     }
 
     /**
-     * Return the value.
-     *
-     * @return mixed
-     */
-    public function get_value()
-    {
-        return $this->_value;
-    }
-
-    /**
      * Returns the input type.
      *
      * @return string
@@ -292,7 +318,7 @@ abstract class Field
      */
     public function get_input_type()
     {
-        return apply_filters('cuztom_field_input_type', $this->_input_type, $this);
+        return apply_filters('cuztom_field_input_type', $this->input_type, $this);
     }
 
     /**
@@ -303,7 +329,7 @@ abstract class Field
      */
     public function get_view()
     {
-        return apply_filters('cuztom_field_view', $this->_view, $this);
+        return apply_filters('cuztom_field_view', $this->view, $this);
     }
 
     /**
@@ -409,7 +435,7 @@ abstract class Field
      */
     public function is_meta_type($meta_type)
     {
-        return $this->_meta_type == $meta_type;
+        return $this->meta_type == $meta_type;
     }
 
     /**
@@ -463,13 +489,14 @@ abstract class Field
      * @return object|bool
      * @since  3.0
      */
-    public static function create($args)
+    public static function create($args, $values)
     {
-        $class = str_replace(' ', '', ucwords(str_replace('_', ' ', $args['type'])));
+        $type  = is_array($args) ? $args['type'] : $args;
+        $class = str_replace(' ', '', ucwords(str_replace('_', ' ', $type)));
         $class = "Gizburdt\\Cuztom\\Fields\\$class";
 
         if (class_exists($class)) {
-            return new $class($args);
+            return new $class($args, $values);
         }
 
         return false;

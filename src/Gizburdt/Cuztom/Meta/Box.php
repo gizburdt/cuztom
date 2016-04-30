@@ -31,7 +31,22 @@ class Box extends Meta
      * Meta type.
      * @var string
      */
-    protected $_meta_type = 'post';
+    public $meta_type = 'post';
+
+    /**
+     * Fillable.
+     *
+     * @var array
+     */
+    protected $fillable = array(
+        'id',
+        'callback',
+        'title',
+        'description',
+        'fields',
+        'context',
+        'priority',
+    );
 
     /**
      * Constructs the meta box.
@@ -51,11 +66,6 @@ class Box extends Meta
 
         // Build
         if (! $this->callback) {
-            $this->callback = array(&$this, 'output');
-
-            // Build the meta box and fields
-            $this->data = $this->build($this->fields);
-
             foreach ($this->post_types as $post_type) {
                 add_filter('manage_'.$post_type.'_posts_columns', array(&$this, 'add_column'));
                 add_action('manage_'.$post_type.'_posts_custom_column', array(&$this, 'add_column_content'), 10, 2);
@@ -199,6 +209,6 @@ class Box extends Meta
      */
     public function get_meta_values()
     {
-        return get_post_meta($this->_object);
+        return get_post_meta($this->object);
     }
 }

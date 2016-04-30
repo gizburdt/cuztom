@@ -53,13 +53,26 @@ abstract class Meta
      * Object.
      * @var int
      */
-    protected $_object;
+    public $object;
 
     /**
      * Meta type.
      * @var string
      */
-    protected $_meta_type;
+    public $meta_type;
+
+    /**
+     * Fillable.
+     *
+     * @var array
+     */
+    protected $fillable = array(
+        'id',
+        'callback',
+        'title',
+        'description',
+        'fields',
+    );
 
     /**
      * Get object id.
@@ -84,17 +97,28 @@ abstract class Meta
      */
     public function __construct($id, $data)
     {
-        $properties = array_keys(get_class_vars(get_called_class()));
+        global $cuztom;
 
         // Set all properties
-        foreach ($properties as $property) {
-            if (! Cuztom::starts_with($property, '_')) {
-                $this->$property = isset($data[$property]) ? $data[$property] : $this->$property;
-            }
+        foreach ($this->fillable as $property) {
+            $this->$property = isset($data[$property]) ? $data[$property] : $this->$property;
         }
 
-        $this->id      = $id;
-        $this->_object = $this->determine_object();
+        // Set hard
+        $this->id     = $id;
+        $this->object = $this->determine_object();
+        $this->values = $this->get_meta_values();
+
+        // Callback
+        if (! $this->callback) {
+            $this->callback = array(&$this, 'output');
+
+            // Build the meta box and fields
+            $this->data = $this->build($this->fields);
+
+            // Assign global
+            $cuztom->data[$this->id] = $this->data;
+        }
     }
 
     /**
@@ -130,74 +154,23 @@ abstract class Meta
     /**
      * This method builds the complete array with the right key => value pairs.
      *
-     * @param  array $data
+     * @param  array $fields
      * @return array
      * @since  1.1
      */
-    public function build($data)
+    public function build($fields)
     {
-        global $cuztom;
+        if (is_array($fields) && ! Cuztom::is_empty($fields)) {
+            foreach ($fields as $type => $args) {
+                $field            = Field::create($args, $this->values);
+                $field->meta_type = $this->meta_type;
+                $field->object    = $this->object;
 
-        $values = $this->get_meta_values();
-
-        if (is_array($data) && ! empty($data)) {
-            foreach ($data as $type => $field) {
-                // General stuff
-                $field['_meta_type'] = $this->_meta_type;
-                $field['_object']    = $this->_object;
-
-                // Tabs / accordion
-                if (is_string($type) && ($type == 'tabs' || $type == 'accordion')) {
-                    $tabs = ($type == 'tabs' ? new Tabs($field) : new Accordion($field));
-
-                    // Build and add
-                    $tabs->build($field['panels'], $values);
-                    $cuztom->data[$this->id][$tabs->id] = $tabs;
-                }
-
-                // Bundle
-                elseif (is_string($type) && $type == 'bundle') {
-                    $field['_value'] = @$values[$field['id']][0];
-                    $bundle          = new Bundle($field);
-
-                    // Build and add
-                    $bundle->build($field['fields'], $values);
-                    $cuztom->data[$this->id][$bundle->id] = $bundle;
-                }
-
-                // Fields
-                else {
-                    $field['_value'] = @$values[$field['id']][0];
-                    $field           = Field::create($field);
-
-                    $cuztom->data[$this->id][$field->id] = $field;
-                }
+                $data[$field->id] = $field;
             }
-
-            $this->fields = $cuztom->data[$this->id];
         }
 
-        return $cuztom->data[$this->id];
-    }
-
-    /**
-     * Get object.
-     *
-     * @return int
-     */
-    public function get_object()
-    {
-        return $this->_object;
-    }
-
-    /**
-     * Get meta type.
-     *
-     * @return string
-     */
-    public function get_meta_type()
-    {
-        return $this->_meta_type;
+        return $data;
     }
 
     /**

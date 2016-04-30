@@ -1,5 +1,5 @@
 <div class="js-cuztom-accordion">
-    <?php foreach ($tabs->tabs as $title => $tab) : ?>
-        <?php echo $tab->output($args); ?>
+    <?php foreach ($tabs->data as $title => $tab) : ?>
+        <?php echo $tab->output_tab(); ?>
     <?php endforeach; ?>
 </div>

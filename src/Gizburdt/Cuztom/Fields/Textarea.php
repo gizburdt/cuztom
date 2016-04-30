@@ -13,7 +13,7 @@ class Textarea extends Field
      * View name.
      * @var string
      */
-    protected $_view = 'textarea';
+    public $view = 'textarea';
 
     /**
      * CSS class.

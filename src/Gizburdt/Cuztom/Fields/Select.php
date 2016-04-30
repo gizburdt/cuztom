@@ -16,7 +16,7 @@ class Select extends Field
      * View name.
      * @var string
      */
-    protected $_view = 'select';
+    public $view = 'select';
 
     /**
      * CSS class.

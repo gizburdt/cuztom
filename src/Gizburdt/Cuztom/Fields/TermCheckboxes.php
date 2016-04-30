@@ -13,7 +13,7 @@ class TermCheckboxes extends Checkboxes
      * View name.
      * @var string
      */
-    protected $_view = 'term-checkboxes';
+    public $view = 'term-checkboxes';
 
     /**
      * Row CSS class.
@@ -39,7 +39,7 @@ class TermCheckboxes extends Checkboxes
 
         $this->args = array_merge(
             array(
-                'taxonomy' => 'category',
+                'taxonomy' => 'category'
             ),
             $this->args
         );

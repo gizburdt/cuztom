@@ -13,7 +13,7 @@ class PostCheckboxes extends Checkboxes
      * View name.
      * @var string
      */
-    protected $_view = 'post-checkboxes';
+    public $view = 'post-checkboxes';
 
     /**
      * Row CSS class.

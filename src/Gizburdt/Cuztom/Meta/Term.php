@@ -25,7 +25,7 @@ class Term extends Meta
      * Meta Type.
      * @var string
      */
-    protected $_meta_type = 'term';
+    public $_meta_type = 'term';
 
     /**
      * Construct the term meta.
@@ -47,11 +47,6 @@ class Term extends Meta
 
         // Build fields
         if (! $this->callback) {
-            $this->callback = array(&$this, 'output');
-
-            // Build the meta box and fields
-            $this->data = $this->build($this->fields);
-
             foreach ($this->taxonomies as $taxonomy) {
                 if (in_array('add_form', $this->locations)) {
                     add_action($taxonomy.'_add_form_fields', array(&$this, 'add_form_fields'));

@@ -3,6 +3,7 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Fields\Bundle\Item as BundleItem;
 use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
@@ -10,24 +11,35 @@ Guard::directAccess();
 class Bundle extends Field
 {
     /**
-     * Type.
-     * @var string
-     */
-    public $type = 'bundle';
-
-    /**
-     * Fields.
+     * Bundle items.
      * @var array
      */
-    public $fields = array();
+    public $bundles = array();
+
+    /**
+     * Data.
+     * @var array
+     */
+    public $data = array();
+
+    /**
+     * Constructor.
+     */
+    public function __construct($args, $values)
+    {
+        parent::__construct($args, $values);
+
+        $this->data = $this->build($args, $values);
+    }
 
     /**
      * Output a row.
      *
      * @param mixed $value
+     * @param string $view
      * @since 3.0
      */
-    public function output_row($value = null)
+    public function output_row($value = null, $view = null)
     {
         Cuztom::view('fields/bundle/row', array(
             'bundle' => $this,
@@ -39,52 +51,18 @@ class Bundle extends Field
      * Outputs a bundle.
      *
      * @param mixed $value
+     * @param string $view
      * @since 1.6.5
      */
-    public function output($value = null)
+    public function output($value = null, $view = null)
     {
         $i     = 0;
-        $value = (! is_null($value)) ? $value : $this->_value;
+        $value = (! is_null($value)) ? $value : $this->value;
 
-        // Output with value
-        if (! Cuztom::is_empty($value) && isset($value[0])) {
-            foreach ($value as $bundle) {
-                echo $this->output_item($i);
-                $i++;
-            }
+        foreach($this->bundles as $item) {
+            $item->output_item($i);
+            $i++;
         }
-
-        // Output with default value
-        elseif (! empty($this->default_value)) {
-            foreach ($this->default_value as $default) {
-                echo $this->output_item($i);
-                $i++;
-            }
-        }
-
-        // Output when empty
-        else {
-            echo $this->output_item();
-        }
-    }
-
-    /**
-     * Outputs bundle item.
-     *
-     * @param  int    $index
-     * @return string
-     * @since  3.0
-     */
-    public function output_item($index = 0)
-    {
-        ob_start();
-
-        Cuztom::view('fields/bundle/item', array(
-            'bundle' => $this,
-            'index'  => $index
-        ));
-
-        return ob_get_clean();
     }
 
     /**
@@ -130,25 +108,15 @@ class Bundle extends Field
      * @param array|null $values
      * @since 3.0
      */
-    public function build($data, $values = null)
+    public function build($args, $values = null)
     {
-        // Unset fields with array
-        $this->fields = array();
-
-        // Build fields with objects
-        foreach ($data as $type => $field) {
-            if (is_string($type) && $type == 'tabs') {
-                // $tab->fields = $this->build( $fields );
-            } else {
-                $field['_meta_type'] = $this->_meta_type;
-                $field['_object']    = $this->_object;
-
-                $field             = Field::create($field);
-                $field->repeatable = false;
-                $field->ajax       = false;
-
-                $this->fields[$field->id] = $field;
+        // Build fields
+        if(is_array($this->value)) {
+            foreach ($this->value as $id => $value) {
+                $data[] = new BundleItem($args, $values);
             }
         }
+
+        return @$data;
     }
 }

@@ -6,7 +6,7 @@
 
         <?php if ($bundle->limit) : ?>
             <div class="cuztom-counter js-cuztom-counter">
-                <span class="current js-current"><?php echo count($bundle->get_value()); ?></span>
+                <span class="current js-current"><?php echo count($bundle->value); ?></span>
                 <span class="divider"> / </span>
                 <span class="max js-max"><?php echo $bundle->limit; ?></span>
             </div>

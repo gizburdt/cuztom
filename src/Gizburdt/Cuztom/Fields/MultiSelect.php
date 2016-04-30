@@ -16,7 +16,7 @@ class MultiSelect extends Select
      * View name.
      * @var string
      */
-    protected $_view = 'multi-select';
+    public $view = 'multi-select';
 
     /**
      * CSS class.
