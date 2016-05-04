@@ -11,12 +11,6 @@ Guard::directAccess();
 class Bundle extends Field
 {
     /**
-     * Bundle items.
-     * @var array
-     */
-    public $bundles = array();
-
-    /**
      * Data.
      * @var array
      */
@@ -56,12 +50,8 @@ class Bundle extends Field
      */
     public function output($value = null, $view = null)
     {
-        $i     = 0;
-        $value = (! is_null($value)) ? $value : $this->value;
-
-        foreach ($this->bundles as $item) {
-            $item->output_item($i);
-            $i++;
+        foreach ($this->data as $item) {
+            $item->output_item();
         }
     }
 
@@ -104,16 +94,26 @@ class Bundle extends Field
     /**
      * This method builds the complete array for a bundle.
      *
-     * @param array      $data
-     * @param array|null $values
+     * @param array $data
+     * @param array $values
      * @since 3.0
      */
-    public function build($args, $values = null)
+    public function build($args, $values)
     {
         // Build fields
         if (is_array($this->value)) {
-            foreach ($this->value as $id => $value) {
-                $data[] = new BundleItem($args, $values);
+            $i = 0;
+
+            foreach ($this->value as $value) {
+                $bundle = new BundleItem($args, $values);
+
+                $bundle->index     = $i;
+                $bundle->meta_type = $this->meta_type;
+                $bundle->object    = $this->object;
+
+                $data[] = $bundle;
+
+                $i++;
             }
         }
 

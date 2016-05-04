@@ -24,6 +24,9 @@ class Item extends Field
      */
     public function __construct($args, $values)
     {
+        parent::__construct($args, $values);
+
+        $this->data = $this->build($args, $values);
     }
 
     /**
@@ -39,37 +42,26 @@ class Item extends Field
             'item'  => $this,
             'index' => $index
         ));
-
-        return ob_get_clean();
     }
 
     /**
      * This method builds the complete array for a bundle.
      *
-     * @param array      $data
+     * @param array      $args
      * @param array|null $values
      * @since 3.0
      */
-    public function build($data, $values = null)
+    public function build($args, $values = null)
     {
-        // foreach($data as $type => $field) {
-        //     if (is_string($type) && $type == 'tabs') {
-        //         // $tab->fields = $this->build( $fields );
-        //     } else {
-        //         $field['_meta_type'] = $this->_meta_type;
-        //         $field['_object']    = $this->_object;
-        //         $field['_value']     = $this->_value[$field['id']];
-        //
-        //         $field                = Field::create($field);
-        //         $field->repeatable    = false;
-        //         $field->ajax          = false;
-        //         // $field->before_name   = '['.$bundle->get_id().']['.$index.']';
-        //         $field->after_id      = '_'.$index;
-        //
-        //         $this->fields[$field->id] = $field;
-        //     }
-        // }
+        foreach ($this->fields as $type => $field) {
+            $field            = Field::create($field, $values);
+            $field->meta_type = $this->meta_type;
+            $field->object    = $this->object;
+            $field->value     = @$values[$field->id][0];
 
-        return $this;
+            $data[$field->id] = $field;
+        }
+
+        return $data;
     }
 }

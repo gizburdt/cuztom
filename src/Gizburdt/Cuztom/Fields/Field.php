@@ -92,8 +92,8 @@ abstract class Field
         // Special
         'fields',
         'panels',
-        'bundles',
-        'title'
+        'title',
+        'index'
     );
 
     /**

@@ -36,9 +36,9 @@ class DateTime extends Field
      * @param array $field
      * @since 0.3.3
      */
-    public function __construct($field)
+    public function __construct($field, $values)
     {
-        parent::__construct($field);
+        parent::__construct($field, $values);
 
         $this->data_attributes['date-format'] = get_option('date_format');
         $this->data_attributes['time-format'] = get_option('time_format');

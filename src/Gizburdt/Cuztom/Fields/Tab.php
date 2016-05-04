@@ -83,13 +83,13 @@ class Tab extends Field
      * @return void
      * @since  3.0
      */
-    public function build($args, $value)
+    public function build($args, $values)
     {
         foreach ($this->fields as $type => $field) {
-            $field            = Field::create($field, $value);
+            $field            = Field::create($field, $values);
             $field->meta_type = $this->meta_type;
             $field->object    = $this->object;
-            $field->value     = 'bla';
+            $field->value     = @$values[$field->id][0];
 
             $data[$field->id] = $field;
         }
