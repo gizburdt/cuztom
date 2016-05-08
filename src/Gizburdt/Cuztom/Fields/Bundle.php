@@ -50,7 +50,7 @@ class Bundle extends Field
      */
     public function output($value = null, $view = null)
     {
-        if(is_array($this->data)) {
+        if (is_array($this->data)) {
             foreach ($this->data as $item) {
                 $item->output();
             }

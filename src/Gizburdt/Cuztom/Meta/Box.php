@@ -203,8 +203,6 @@ class Box extends Meta
         } elseif (isset($_POST['post_ID'])) {
             return $_POST['post_ID'];
         }
-
-        return null;
     }
 
     /**

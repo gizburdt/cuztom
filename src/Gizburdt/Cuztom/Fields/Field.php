@@ -483,12 +483,12 @@ abstract class Field
      * Substract value of field from values array.
      *
      * @param  [type] $values [description]
-     * @return [type]         [description]
+     * @return [type] [description]
      */
     public function substract_value($values)
     {
         if (! Cuztom::is_empty($values) && ! Cuztom::is_empty($values[$this->id])) {
-            if(is_array($values[$this->id])) {
+            if (is_array($values[$this->id])) {
                 return maybe_unserialize(@$values[$this->id][0]);
             } else {
                 return maybe_unserialize(@$values[$this->id]);

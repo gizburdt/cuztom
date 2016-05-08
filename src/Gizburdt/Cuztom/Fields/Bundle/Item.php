@@ -18,7 +18,7 @@ class Item extends Field
 
     /**
      * Index.
-     * @var integer
+     * @var int
      */
     public $index = 0;
 
