@@ -38,7 +38,7 @@ class User extends Meta
         $this->locations = (array) $locations;
 
         // Chack if the class, function or method exist, otherwise use cuztom callback
-        if (! $this->callback) {
+        if (@$this->callback[0] == $this) {
             add_action('personal_options_update', array(&$this, 'save_user'));
             add_action('edit_user_profile_update', array(&$this, 'save_user'));
             add_action('user_edit_form_tag', array(&$this, 'edit_form_tag'));
@@ -89,7 +89,7 @@ class User extends Meta
      */
     public function determine_object()
     {
-        return isset($_GET['user_id']) ? $_GET['user_id'] : get_current_user_id();
+        return isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : get_current_user_id();
     }
 
     /**
@@ -100,6 +100,6 @@ class User extends Meta
      */
     public function get_meta_values()
     {
-        return get_user_meta($this->_object);
+        return get_user_meta($this->object, true);
     }
 }

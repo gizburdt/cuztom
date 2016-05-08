@@ -39,12 +39,12 @@ class Checkboxes extends Field
     /**
      * Construct.
      *
-     * @param array $field
+     * @param array $args
      * @since 0.3.3
      */
-    public function __construct($field)
+    public function __construct($args, $values = null)
     {
-        parent::__construct($field);
+        parent::__construct($field, $values);
 
         $this->default_value = (array) $this->default_value;
         $this->after_name   .= '[]';

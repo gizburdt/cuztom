@@ -46,7 +46,7 @@ class Term extends Meta
         $this->locations    = (array) $locations;
 
         // Build fields
-        if (! $this->callback) {
+        if (@$this->callback[0] == $this) {
             foreach ($this->taxonomies as $taxonomy) {
                 if (in_array('add_form', $this->locations)) {
                     add_action($taxonomy.'_add_form_fields', array(&$this, 'add_form_fields'));
@@ -151,7 +151,7 @@ class Term extends Meta
      */
     public function determine_object()
     {
-        return isset($_GET['tag_ID']) ? $_GET['tag_ID'] : null;
+        return isset($_REQUEST['tag_ID']) ? $_REQUEST['tag_ID'] : null;
     }
 
     /**
@@ -162,6 +162,6 @@ class Term extends Meta
      */
     public function get_meta_values()
     {
-        return get_term_meta($this->_object);
+        return get_term_meta($this->object);
     }
 }

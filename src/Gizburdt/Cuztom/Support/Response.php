@@ -22,7 +22,12 @@ class Response
      */
     public function __construct($status, $data = array())
     {
-        $this->response = json_encode(array_merge(array('status' => $status), $data));
+        $this->response = json_encode(
+            array_merge(
+                array('status' => $status),
+                $data
+            )
+        );
     }
 
     /**

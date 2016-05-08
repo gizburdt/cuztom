@@ -13,10 +13,4 @@ class Accordion extends Tabs
      * @var string
      */
     public $view = 'accordion';
-
-    /**
-     * Tabs type.
-     * @var string
-     */
-    public $tabs_type = 'accordion';
 }

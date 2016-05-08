@@ -90,6 +90,7 @@ abstract class Field
         'admin_column_filter',
 
         // Special
+        'parent',
         'fields',
         'panels',
         'title',
@@ -103,7 +104,7 @@ abstract class Field
      * @param array $values
      * @since 0.3.3
      */
-    public function __construct($args, $values)
+    public function __construct($args, $values = null)
     {
         // Set all properties
         foreach ($this->fillable as $property) {
@@ -118,11 +119,7 @@ abstract class Field
         }
 
         // Value
-        if (! Cuztom::is_empty($values)) {
-            $this->value = maybe_unserialize(@$values[$this->id][0]);
-        } else {
-            $this->value = $this->default_value;
-        }
+        $this->value = $this->substract_value($values);
     }
 
     /**
@@ -480,6 +477,25 @@ abstract class Field
     public function is_bundle()
     {
         return $this instanceof \Gizburdt\Cuztom\Fields\Bundle;
+    }
+
+    /**
+     * Substract value of field from values array.
+     *
+     * @param  [type] $values [description]
+     * @return [type]         [description]
+     */
+    public function substract_value($values)
+    {
+        if (! Cuztom::is_empty($values) && ! Cuztom::is_empty($values[$this->id])) {
+            if(is_array($values[$this->id])) {
+                return maybe_unserialize(@$values[$this->id][0]);
+            } else {
+                return maybe_unserialize(@$values[$this->id]);
+            }
+        } else {
+            return $this->default_value;
+        }
     }
 
     /**

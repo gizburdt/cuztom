@@ -34,7 +34,7 @@ class Tab extends Field
       * @param array $values
       * @since 3.0
       */
-     public function __construct($args, $values)
+     public function __construct($args, $values = null)
      {
          parent::__construct($args, $values);
 
@@ -42,7 +42,7 @@ class Tab extends Field
              $this->id = Cuztom::uglify($this->title);
          }
 
-         $this->data = $this->build($args, $values);
+         $this->data  = $this->build($args, $values);
      }
 
     /**
@@ -70,9 +70,20 @@ class Tab extends Field
      */
     public function save($object, $values)
     {
-        foreach ($this->fields as $id => $field) {
+        foreach ($this->data as $field) {
             $field->save($object, $values);
         }
+    }
+
+    /**
+     * Substract value.
+     *
+     * @param  array        $values
+     * @return string|array
+     */
+    public function substract_value($values)
+    {
+        return $values;
     }
 
     /**
@@ -83,13 +94,12 @@ class Tab extends Field
      * @return void
      * @since  3.0
      */
-    public function build($args, $values)
+    public function build($args)
     {
-        foreach ($this->fields as $type => $field) {
-            $field            = Field::create($field, $values);
+        foreach ($this->fields as $field) {
+            $field            = Field::create($field, $this->value);
             $field->meta_type = $this->meta_type;
             $field->object    = $this->object;
-            $field->value     = @$values[$field->id][0];
 
             $data[$field->id] = $field;
         }

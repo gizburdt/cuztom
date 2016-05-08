@@ -27,9 +27,9 @@ class PostCheckboxes extends Checkboxes
      * @param string $field
      * @since 0.3.3
      */
-    public function __construct($field)
+    public function __construct($args, $values = null)
     {
-        parent::__construct($field);
+        parent::__construct($args, $values);
 
         $this->args = array_merge(
             array(

@@ -19,11 +19,11 @@ class Bundle extends Field
     /**
      * Constructor.
      */
-    public function __construct($args, $values)
+    public function __construct($args, $values = null)
     {
         parent::__construct($args, $values);
 
-        $this->data = $this->build($args, $values);
+        $this->data = $this->build($args);
     }
 
     /**
@@ -50,8 +50,10 @@ class Bundle extends Field
      */
     public function output($value = null, $view = null)
     {
-        foreach ($this->data as $item) {
-            $item->output_item();
+        if(is_array($this->data)) {
+            foreach ($this->data as $item) {
+                $item->output();
+            }
         }
     }
 
@@ -81,10 +83,9 @@ class Bundle extends Field
         $values = $values[$this->id];
         $values = is_array($values) ? array_values($values) : array();
 
-        // Foreach for correct array
         foreach ($values as $row => $fields) {
             foreach ($fields as $id => $value) {
-                $values[$row][$id] = $this->fields[$id]->parse_value($value);
+                $values[$row][$id] = $this->data[0]->data[$id]->parse_value($value);
             }
         }
 
@@ -98,23 +99,34 @@ class Bundle extends Field
      * @param array $values
      * @since 3.0
      */
-    public function build($args, $values)
+    public function build($args)
     {
+        $i = 0;
+
+        // @TODO: Change $args[*].
+        $args['parent'] = $this;
+
         // Build fields
         if (is_array($this->value)) {
-            $i = 0;
-
             foreach ($this->value as $value) {
-                $bundle = new BundleItem($args, $values);
+                $args['index'] = $i;
 
-                $bundle->index     = $i;
-                $bundle->meta_type = $this->meta_type;
-                $bundle->object    = $this->object;
+                $item = new BundleItem($args, @$this->value[$i]);
 
-                $data[] = $bundle;
+                $item->meta_type = $this->meta_type;
+                $item->object    = $this->object;
+
+                $data[] = $item;
 
                 $i++;
             }
+        } else {
+            $item = new BundleItem($args, null);
+
+            $item->meta_type = $this->meta_type;
+            $item->object    = $this->object;
+
+            $data[] = $item;
         }
 
         return @$data;

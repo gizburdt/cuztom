@@ -11,6 +11,18 @@ Guard::directAccess();
 class Item extends Field
 {
     /**
+     * Bundle (parent).
+     * @var object
+     */
+    public $parent;
+
+    /**
+     * Index.
+     * @var integer
+     */
+    public $index = 0;
+
+    /**
      * Fields.
      * @var array
      */
@@ -22,7 +34,7 @@ class Item extends Field
      * @param array $args
      * @param array $values
      */
-    public function __construct($args, $values)
+    public function __construct($args, $values = null)
     {
         parent::__construct($args, $values);
 
@@ -36,12 +48,23 @@ class Item extends Field
      * @return string
      * @since  3.0
      */
-    public function output_item($value = null, $index = 0)
+    public function output($value = null)
     {
         Cuztom::view('fields/bundle/item', array(
             'item'  => $this,
-            'index' => $index
+            'index' => $this->index
         ));
+    }
+
+    /**
+     * Substract value.
+     *
+     * @param  array        $values
+     * @return string|array
+     */
+    public function substract_value($values)
+    {
+        return $values;
     }
 
     /**
@@ -51,13 +74,16 @@ class Item extends Field
      * @param array|null $values
      * @since 3.0
      */
-    public function build($args, $values = null)
+    public function build($args)
     {
-        foreach ($this->fields as $type => $field) {
-            $field            = Field::create($field, $values);
+        foreach ($this->fields as $field) {
+            $field            = Field::create($field, $this->value);
             $field->meta_type = $this->meta_type;
             $field->object    = $this->object;
-            $field->value     = @$values[$field->id][0];
+
+            // Change name
+            $field->before_name = '['.$this->parent->id.']['.$this->index.']';
+            $field->before_id   = $this->parent->id.'_'.$this->index;
 
             $data[$field->id] = $field;
         }

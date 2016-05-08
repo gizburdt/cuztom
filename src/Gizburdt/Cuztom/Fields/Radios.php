@@ -42,9 +42,9 @@ class Radios extends Field
      * @param array $field
      * @since 0.3.3
      */
-    public function __construct($field)
+    public function __construct($args, $values = null)
     {
-        parent::__construct($field);
+        parent::__construct($values);
 
         $this->default_value = (array) $this->default_value;
     }

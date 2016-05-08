@@ -65,7 +65,7 @@ class Box extends Meta
         $this->post_types = (array) $post_type;
 
         // Build
-        if (! $this->callback) {
+        if (@$this->callback[0] == $this) {
             foreach ($this->post_types as $post_type) {
                 add_filter('manage_'.$post_type.'_posts_columns', array(&$this, 'add_column'));
                 add_action('manage_'.$post_type.'_posts_custom_column', array(&$this, 'add_column_content'), 10, 2);
@@ -198,7 +198,13 @@ class Box extends Meta
      */
     public function determine_object()
     {
-        return isset($_GET['post']) ? $_GET['post'] : null;
+        if (isset($_GET['post'])) {
+            return $_GET['post'];
+        } elseif (isset($_POST['post_ID'])) {
+            return $_POST['post_ID'];
+        }
+
+        return null;
     }
 
     /**

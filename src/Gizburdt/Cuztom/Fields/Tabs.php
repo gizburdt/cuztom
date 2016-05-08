@@ -16,12 +16,6 @@ class Tabs extends Field
     public $view = 'tabs';
 
     /**
-     * Tabs type.
-     * @var string
-     */
-    public $tabs_type = 'tabs';
-
-    /**
      * Tabs.
      * @var array
      */
@@ -36,11 +30,11 @@ class Tabs extends Field
     /**
      * Constructor.
      */
-    public function __construct($args, $values)
+    public function __construct($args, $values = null)
     {
         parent::__construct($args, $values);
 
-        $this->data = $this->build($args, $values);
+        $this->data = $this->build($args);
     }
 
     /**
@@ -69,7 +63,7 @@ class Tabs extends Field
         Cuztom::view('fields/'.$this->view, array(
             'tabs'  => $this,
             'value' => $value,
-            'type'  => $this->tabs_type
+            'type'  => $this->type
         ));
     }
 
@@ -82,9 +76,20 @@ class Tabs extends Field
      */
     public function save($object, $values)
     {
-        foreach ($this->tabs as $tab) {
+        foreach ($this->data as $tab) {
             $tab->save($object, $values);
         }
+    }
+
+    /**
+     * Substract value.
+     *
+     * @param  array        $values
+     * @return string|array
+     */
+    public function substract_value($values)
+    {
+        return $values;
     }
 
     /**
@@ -94,14 +99,17 @@ class Tabs extends Field
      * @param string|array $value
      * @since  3.0
      */
-    public function build($args, $value)
+    public function build($args)
     {
-        foreach ($this->panels as $title => $panel) {
-            $tab = new Tab($panel, $value);
+        foreach ($this->panels as $panel) {
+            // @TODO: Change this.
+            $panel['parent'] = $this;
+
+            $tab = new Tab($panel, $this->value);
 
             $tab->meta_type = $this->meta_type;
             $tab->object    = $this->object;
-            $tab->tabs_type = $this->tabs_type;
+            $tab->tabs_type = $this->type;
 
             $data[$tab->id] = $tab;
         }

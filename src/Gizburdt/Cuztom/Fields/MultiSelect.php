@@ -36,9 +36,9 @@ class MultiSelect extends Select
      * @param array $field
      * @since 0.3.3
      */
-    public function __construct($field)
+    public function __construct($args, $values = null)
     {
-        parent::__construct($field);
+        parent::__construct($args, $values);
 
         $this->after_name          .= '[]';
         $this->args['multiselect']  = true;

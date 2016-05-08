@@ -77,7 +77,7 @@ class Ajax
         }
 
         if (! $field->limit || ($field->limit > $count)) {
-            $response = new Response(true, array('item' => $field->output_item($index)));
+            $response = new Response(true, array('item' => $field->data[0]->output()));
         } else {
             $response = new Response(false, array('message' => __('Limit reached!', 'cuztom')));
         }
