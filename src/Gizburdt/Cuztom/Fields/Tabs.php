@@ -102,10 +102,7 @@ class Tabs extends Field
     public function build($args)
     {
         foreach ($this->panels as $panel) {
-            // @TODO: Change this.
-            $panel['parent'] = $this;
-
-            $tab = new Tab($panel, $this->value);
+            $tab = new Tab(array_merge($panel, array('parent' => $this)), $this->value);
 
             $tab->meta_type = $this->meta_type;
             $tab->object    = $this->object;

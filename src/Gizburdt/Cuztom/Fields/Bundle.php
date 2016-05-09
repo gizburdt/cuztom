@@ -103,33 +103,32 @@ class Bundle extends Field
      */
     public function build($args)
     {
-        $i = 0;
-
-        // @TODO: Change $args[*]. -> Call build last
-        $args['parent'] = $this;
-
-        // Build fields
+        // Build with value
         if (is_array($this->value)) {
+            $i = 0;
+
             foreach ($this->value as $value) {
-                $args['index'] = $i;
-
-                $item = new BundleItem($args, @$this->value[$i]);
-
-                $item->meta_type = $this->meta_type;
-                $item->object    = $this->object;
-
-                $data[] = $item;
+                $item = new BundleItem(
+                    array_merge($args, array('parent' => $this, 'index' => $i)),
+                    @$this->value[$i]
+                );
 
                 $i++;
             }
-        } else {
-            $item = new BundleItem($args, null);
-
-            $item->meta_type = $this->meta_type;
-            $item->object    = $this->object;
-
-            $data[] = $item;
         }
+
+        // Without value
+        else {
+            $item = new BundleItem(
+                array_merge($args, array('parent' => $this))
+            );
+        }
+
+        // Base
+        $item->meta_type = $this->meta_type;
+        $item->object    = $this->object;
+
+        $data[] = $item;
 
         return @$data;
     }
