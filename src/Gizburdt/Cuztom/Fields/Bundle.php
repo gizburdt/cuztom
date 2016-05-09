@@ -50,15 +50,13 @@ class Bundle extends Field
      */
     public function output($value = null, $view = null)
     {
-        ob_start();
-
         if (is_array($this->data)) {
             foreach ($this->data as $item) {
-                echo $item->output();
+                @$ob .= $item->output();
             }
         }
 
-        return ob_get_clean();
+        return $ob;
     }
 
     /**
