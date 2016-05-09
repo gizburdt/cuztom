@@ -25,8 +25,8 @@ class Wysiwyg extends Field
     public function _output_input($value = null, $view = null)
     {
         // Needs to be set here, to work with sortables
-        $this->args['textarea_name'] = $this->get_name();
-        $this->args['editor_class'] .= ' cuztom-input';
+        @$this->args['textarea_name'] = $this->get_name();
+        @$this->args['editor_class'] .= ' cuztom-input';
 
         return wp_editor(
             (! Cuztom::is_empty($value) ? $value : $this->default_value),

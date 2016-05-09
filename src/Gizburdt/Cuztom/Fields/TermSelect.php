@@ -42,11 +42,11 @@ class TermSelect extends Field
      */
     public function _output_input($value = null, $view = null)
     {
-        $this->args['class']   .= ' cuztom-input-select cuztom-input-term-select';
-        $this->args['echo']     = 0;
-        $this->args['name']     = $this->get_name();
-        $this->args['id']       = $this->get_id();
-        $this->args['selected'] = (! Cuztom::is_empty($value) ? $value : $this->default_value);
+        @$this->args['class']   .= ' cuztom-input-select cuztom-input-term-select';
+        @$this->args['echo']     = 0;
+        @$this->args['name']     = $this->get_name();
+        @$this->args['id']       = $this->get_id();
+        @$this->args['selected'] = (! Cuztom::is_empty($value) ? $value : $this->default_value);
 
         return wp_dropdown_categories($this->args);
     }

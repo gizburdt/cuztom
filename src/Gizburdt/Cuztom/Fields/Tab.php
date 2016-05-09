@@ -54,7 +54,7 @@ class Tab extends Field
      */
     public function output_tab()
     {
-        Cuztom::view('fields/tab', array(
+        return Cuztom::view('fields/tab', array(
             'tab'   => $this,
             'type'  => $this->tabs_type
         ));

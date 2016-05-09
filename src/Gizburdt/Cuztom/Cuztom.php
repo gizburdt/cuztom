@@ -417,7 +417,11 @@ class Cuztom
     {
         extract($variables);
 
+        ob_start();
+
         include self::$dir.'/Views/'.$view.'.php';
+
+        return ob_get_clean();
     }
 
     /**

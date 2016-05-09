@@ -50,7 +50,7 @@ class Item extends Field
      */
     public function output($value = null)
     {
-        Cuztom::view('fields/bundle/item', array(
+        return Cuztom::view('fields/bundle/item', array(
             'item'  => $this,
             'index' => $this->index
         ));

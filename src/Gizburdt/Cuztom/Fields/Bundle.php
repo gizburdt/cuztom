@@ -35,7 +35,7 @@ class Bundle extends Field
      */
     public function output_row($value = null, $view = null)
     {
-        Cuztom::view('fields/bundle/row', array(
+        return Cuztom::view('fields/bundle/row', array(
             'bundle' => $this,
             'value'  => $value
         ));
@@ -50,11 +50,15 @@ class Bundle extends Field
      */
     public function output($value = null, $view = null)
     {
+        ob_start();
+
         if (is_array($this->data)) {
             foreach ($this->data as $item) {
-                $item->output();
+                echo $item->output();
             }
         }
+
+        return ob_get_clean();
     }
 
     /**
@@ -65,7 +69,7 @@ class Bundle extends Field
      */
     public function output_control($class = 'top')
     {
-        Cuztom::view('fields/bundle/control', array(
+        return Cuztom::view('fields/bundle/control', array(
             'bundle' => $this,
             'class'  => $class
         ));
@@ -103,7 +107,7 @@ class Bundle extends Field
     {
         $i = 0;
 
-        // @TODO: Change $args[*].
+        // @TODO: Change $args[*]. -> Call build last
         $args['parent'] = $this;
 
         // Build fields

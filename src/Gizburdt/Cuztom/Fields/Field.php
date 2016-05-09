@@ -131,7 +131,7 @@ abstract class Field
      */
     public function output_row($value = null)
     {
-        Cuztom::view('fields/row/text', array(
+        return Cuztom::view('fields/row/text', array(
             'field' => $this,
             'value' => $value
         ));
@@ -182,7 +182,7 @@ abstract class Field
     {
         $view = $view ? $view : $this->get_view();
 
-        Cuztom::view('fields/'.$view, array(
+        return Cuztom::view('fields/'.$view, array(
             'field' => $this,
             'value' => $value
         ));
@@ -198,7 +198,7 @@ abstract class Field
      */
     public function _output_repeatable($value = null)
     {
-        Cuztom::view('fields/repeatable/repeatable', array(
+        return Cuztom::view('fields/repeatable/repeatable', array(
             'field'  => $this,
             'values' => $value,
             'count'  => 0
@@ -214,7 +214,7 @@ abstract class Field
      */
     public function _output_repeatable_item($value = null, $count = 0)
     {
-        Cuztom::view('fields/repeatable/item', array(
+        return Cuztom::view('fields/repeatable/item', array(
             'field' => $this,
             'value' => $value,
             'count' => $count
@@ -230,7 +230,7 @@ abstract class Field
      */
     public function _output_repeatable_control($value)
     {
-        Cuztom::view('fields/repeatable/control', array(
+        return Cuztom::view('fields/repeatable/control', array(
             'field' => $this,
             'value' => $value,
             'count' => count($value)
