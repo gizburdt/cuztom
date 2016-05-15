@@ -145,6 +145,7 @@ class Cuztom
         require_once self::$dir.'/Fields/TermSelect.php';
         require_once self::$dir.'/Fields/TermCheckboxes.php';
         require_once self::$dir.'/Fields/TaxonomySelect.php';
+        require_once self::$dir.'/Fields/TaxonomyCheckboxes.php';
         require_once self::$dir.'/Fields/Hidden.php';
         require_once self::$dir.'/Fields/Support/filters.php';
     }
