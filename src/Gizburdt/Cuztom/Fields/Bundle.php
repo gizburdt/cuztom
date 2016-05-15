@@ -103,10 +103,10 @@ class Bundle extends Field
      */
     public function build($args)
     {
+        $i = 0;
+        
         // Build with value
         if (is_array($this->value)) {
-            $i = 0;
-
             foreach ($this->value as $value) {
                 $item = new BundleItem(
                     array_merge($args, array('parent' => $this, 'index' => $i)),
