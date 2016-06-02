@@ -167,7 +167,7 @@ abstract class Meta
             }
         }
 
-        return $data;
+        return @$data;
     }
 
     /**

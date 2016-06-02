@@ -32,9 +32,9 @@ if (! function_exists('register_cuztom_term_meta')) {
      * @param  array|string $locations
      * @return object
      */
-    function register_cuztom_term_meta($id, $taxonomy, $data = array(), $locations = array('add_form', 'edit_form'))
+    function register_cuztom_term_meta($id, $taxonomy, $data = array(), $locations = array('edit_form'))
     {
-        return new TermMeta($id, $taxonomy, $data = array(), $locations);
+        return new TermMeta($id, $taxonomy, $data, $locations);
     }
 }
 
