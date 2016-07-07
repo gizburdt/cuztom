@@ -32,7 +32,7 @@ Add Meta Boxes.
 		'Book Info',
 		array(
 			array(
-				'name' 			=> 'author',
+				'id' 			=> '_author',
 				'label' 		=> 'Author',
 				'description'	=> 'Just a little description',
 				'type'			=> 'text'
