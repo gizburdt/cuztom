@@ -1,6 +1,8 @@
 {
     "name": "gizburdt/cuztom",
+    "type": "wordpress-muplugin",
     "description": "Wordpress Cuztom Helper. Easy meta data.",
+    "keywords": ["helper","wordpress","muplugin","cuztom"],
     "authors": [
         {
             "name": "Gizburdt",
@@ -8,8 +10,5 @@
         }
     ],
     "require": {
-    },
-    "autoload": {
-        "files": ["cuztom.php"]
     }
 }
