@@ -11,6 +11,13 @@ Guard::directAccess();
 abstract class Field
 {
     /**
+     * All original args.
+     *
+     * @var array
+     */
+    public $original;
+
+    /**
      * Fillables.
      *
      * @var mixed
@@ -106,6 +113,9 @@ abstract class Field
      */
     public function __construct($args, $values = null)
     {
+        // Original
+        $this->original = $args;
+
         // Set all properties
         foreach ($this->fillable as $property) {
             if (property_exists($this, $property)) {
