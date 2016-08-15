@@ -45,9 +45,9 @@ class Taxonomy extends Entity
         parent::__construct($name);
 
         // Set properties
-        $this->post_type    = (array) $post_type;
-        $this->labels       = $labels;
-        $this->args         = $args;
+        $this->post_type = (array) $post_type;
+        $this->labels    = $labels;
+        $this->args      = $args;
 
         // Register taxonomy
         if (! taxonomy_exists($this->name)) {
@@ -187,6 +187,7 @@ class Taxonomy extends Entity
     {
         // @TODO: Is this still right?
         global $pagenow;
+
         $vars = &$query->query_vars;
 
         if ($pagenow == 'edit.php' && isset($vars[$this->name]) && is_numeric($vars[$this->name]) && $vars[$this->name]) {
