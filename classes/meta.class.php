@@ -271,7 +271,7 @@ class Cuztom_Meta
 					$tab 			= new Cuztom_Tab( $title );
 					$tab->meta_type = $this->get_meta_type();
 
-					if( self::is_bundle( $fields[0] ) )
+					if( isset( $fields[0] ) && self::is_bundle( $fields[0] ) )
 					{
 						$tab->fields = $this->build( $fields[0] );
 					}
