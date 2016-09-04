@@ -39,7 +39,7 @@ trait Checkable
      */
     public function maybe_checked($value = null, $default_value = null, $option = null)
     {
-        return ! Cuztom::is_empty($value)
+        return ! Cuztom::isEmpty($value)
             ? checked($value, $option, false)
             : checked($default_value, $option, false);
     }

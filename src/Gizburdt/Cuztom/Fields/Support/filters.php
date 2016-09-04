@@ -15,7 +15,7 @@ Guard::directAccess();
  */
 function cuztom_field_css_class_extra($class, $field, $extra)
 {
-    if (! Cuztom::is_empty($extra)) {
+    if (! Cuztom::isEmpty($extra)) {
         return $class.' '.$extra;
     }
 
@@ -55,7 +55,7 @@ add_filter('cuztom_field_row_css_class', 'cuztom_field_row_css_class_extra', 10,
  */
 function cuztom_field_id_extra($id, $field, $extra)
 {
-    if (! Cuztom::is_empty($extra)) {
+    if (! Cuztom::isEmpty($extra)) {
         return $id.'_'.$extra;
     }
 

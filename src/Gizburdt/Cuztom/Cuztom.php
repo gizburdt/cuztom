@@ -434,11 +434,11 @@ class Cuztom
      * @return bool
      * @since  3.0
      */
-    public static function is_empty($input, $result = true)
+    public static function isEmpty($input, $result = true)
     {
         if (is_array($input) && count($input)) {
             foreach ($input as $value) {
-                $result = $result && self::is_empty($value);
+                $result = $result && self::isEmpty($value);
             }
         } else {
             $result = empty($input);
@@ -454,7 +454,7 @@ class Cuztom
      * @param  string $start
      * @return bool
      */
-    public static function starts_with($string, $start)
+    public static function startsWith($string, $start)
     {
         return substr($string, 0, 1) == $start;
     }
@@ -466,7 +466,7 @@ class Cuztom
      * @return bool
      * @since  1.6
      */
-    public static function is_reserved_term($term)
+    public static function isReservedTerm($term)
     {
         if (! in_array($term, apply_filters('cuztom_reserved_terms', self::$reserved))) {
             return false;

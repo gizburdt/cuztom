@@ -2,7 +2,7 @@
 
 use Gizburdt\Cuztom\Cuztom;
 
-if (! Cuztom::is_empty($value)) {
+if (! Cuztom::isEmpty($value)) {
     $attachment = get_attached_file($value);
     $mime       = str_replace('/', '-', get_post_mime_type($value));
     $name       = get_the_title($value);

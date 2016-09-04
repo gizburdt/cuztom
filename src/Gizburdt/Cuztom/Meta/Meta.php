@@ -157,7 +157,7 @@ abstract class Meta
      */
     public function build($fields)
     {
-        if (is_array($fields) && ! Cuztom::is_empty($fields)) {
+        if (is_array($fields) && ! Cuztom::isEmpty($fields)) {
             foreach ($fields as $type => $args) {
                 $field            = Field::create($args, $this->values);
                 $field->meta_type = $this->meta_type;

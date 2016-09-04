@@ -29,7 +29,7 @@ class Wysiwyg extends Field
         @$this->args['editor_class'] .= ' cuztom-input';
 
         return wp_editor(
-            (! Cuztom::is_empty($value) ? $value : $this->default_value),
+            (! Cuztom::isEmpty($value) ? $value : $this->default_value),
             strtolower($this->get_id()),
             $this->args
         );

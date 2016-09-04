@@ -76,7 +76,7 @@ class User extends Meta
 
         $values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
 
-        if (! Cuztom::is_empty($values)) {
+        if (! Cuztom::isEmpty($values)) {
             parent::save($user_id, $values);
         }
     }

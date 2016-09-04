@@ -36,13 +36,13 @@ abstract class Entity
     public function __construct($name)
     {
         if (is_array($name)) {
-            $this->name     = Cuztom::uglify($name[0]);
-            $this->title    = Cuztom::beautify($name[0]);
-            $this->plural   = Cuztom::beautify($name[1]);
+            $this->name   = Cuztom::uglify($name[0]);
+            $this->title  = Cuztom::beautify($name[0]);
+            $this->plural = Cuztom::beautify($name[1]);
         } else {
-            $this->name     = Cuztom::uglify($name);
-            $this->title    = Cuztom::beautify($name);
-            $this->plural   = Cuztom::pluralize(Cuztom::beautify($name));
+            $this->name   = Cuztom::uglify($name);
+            $this->title  = Cuztom::beautify($name);
+            $this->plural = Cuztom::pluralize(Cuztom::beautify($name));
         }
     }
 }

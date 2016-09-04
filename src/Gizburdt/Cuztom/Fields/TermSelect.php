@@ -46,7 +46,7 @@ class TermSelect extends Field
         @$this->args['echo']     = 0;
         @$this->args['name']     = $this->get_name();
         @$this->args['id']       = $this->get_id();
-        @$this->args['selected'] = (! Cuztom::is_empty($value) ? $value : $this->default_value);
+        @$this->args['selected'] = (! Cuztom::isEmpty($value) ? $value : $this->default_value);
 
         return wp_dropdown_categories($this->args);
     }
