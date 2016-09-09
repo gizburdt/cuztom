@@ -14,12 +14,11 @@ if (! function_exists('register_cuztom_post_type')) {
      *
      * @param  string $name
      * @param  array  $args
-     * @param  array  $labels
      * @return object
      */
-    function register_cuztom_post_type($name, $args = array(), $labels = array())
+    function register_cuztom_post_type($name, $args = array())
     {
-        return new PostType($name, $args, $labels);
+        return new PostType($name, $args);
     }
 }
 
@@ -30,12 +29,11 @@ if (! function_exists('register_cuztom_taxonomy')) {
      * @param  string|array $name
      * @param  string|array $post_type
      * @param  array        $args
-     * @param  array        $labels
      * @return object
      */
-    function register_cuztom_taxonomy($name, $post_type, $args = array(), $labels = array())
+    function register_cuztom_taxonomy($name, $post_type, $args = array())
     {
-        return new Taxonomy($name, $post_type, $args, $labels);
+        return new Taxonomy($name, $post_type, $args);
     }
 }
 

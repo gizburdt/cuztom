@@ -36,18 +36,15 @@ class Taxonomy extends Entity
      * @param string|array $name
      * @param string       $post_type
      * @param array        $args
-     * @param array        $labels
      * @since 0.2
      */
-    public function __construct($name, $post_type = null, $args = array(), $labels = array())
+    public function __construct($name, $post_type = null, $args = array())
     {
         // Entity construct
-        parent::__construct($name);
+        parent::__construct($name, $args);
 
         // Set properties
         $this->post_type = (array) $post_type;
-        $this->labels    = $labels;
-        $this->args      = $args;
 
         // Register taxonomy
         if (! taxonomy_exists($this->name)) {
@@ -78,41 +75,36 @@ class Taxonomy extends Entity
     public function register_taxonomy()
     {
         if ($reserved = Cuztom::isReservedTerm($this->name)) {
-            new Notice($reserved->get_error_message(), 'error');
-        } else {
-            $labels = array_merge(
-                array(
-                    'name'                  => sprintf(_x('%s', 'taxonomy general name', 'cuztom'), $this->plural),
-                    'singular_name'         => sprintf(_x('%s', 'taxonomy singular name', 'cuztom'), $this->title),
-                    'search_items'          => sprintf(__('Search %s', 'cuztom'), $this->plural),
-                    'all_items'             => sprintf(__('All %s', 'cuztom'), $this->plural),
-                    'parent_item'           => sprintf(__('Parent %s', 'cuztom'), $this->title),
-                    'parent_item_colon'     => sprintf(__('Parent %s:', 'cuztom'), $this->title),
-                    'edit_item'             => sprintf(__('Edit %s', 'cuztom'), $this->title),
-                    'update_item'           => sprintf(__('Update %s', 'cuztom'), $this->title),
-                    'add_new_item'          => sprintf(__('Add New %s', 'cuztom'), $this->title),
-                    'new_item_name'         => sprintf(__('New %s Name', 'cuztom'), $this->title),
-                    'menu_name'             => sprintf(__('%s', 'cuztom'), $this->plural)
-                ),
-                $this->labels
-            );
-
-            $args = array_merge(
-                array(
-                    'label'                 => sprintf(__('%s', 'cuztom'), $this->plural),
-                    'labels'                => $labels,
-                    'hierarchical'          => true,
-                    'public'                => true,
-                    'show_ui'               => true,
-                    'show_in_nav_menus'     => true,
-                    '_builtin'              => false,
-                    'show_admin_column'     => false
-                ),
-                $this->args
-            );
-
-            register_taxonomy($this->name, $this->post_type, $args);
+            new Notice($reserved->get_error_message(), 'error'); return;
         }
+
+        $args = array_merge(
+            array(
+                'label'             => sprintf(__('%s', 'cuztom'), $this->plural),
+                'hierarchical'      => true,
+                'public'            => true,
+                'show_ui'           => true,
+                'show_in_nav_menus' => true,
+                '_builtin'          => false,
+                'show_admin_column' => false,
+                'labels'            => array(
+                    'name'              => sprintf(_x('%s', 'taxonomy general name', 'cuztom'), $this->plural),
+                    'singular_name'     => sprintf(_x('%s', 'taxonomy singular name', 'cuztom'), $this->title),
+                    'search_items'      => sprintf(__('Search %s', 'cuztom'), $this->plural),
+                    'all_items'         => sprintf(__('All %s', 'cuztom'), $this->plural),
+                    'parent_item'       => sprintf(__('Parent %s', 'cuztom'), $this->title),
+                    'parent_item_colon' => sprintf(__('Parent %s:', 'cuztom'), $this->title),
+                    'edit_item'         => sprintf(__('Edit %s', 'cuztom'), $this->title),
+                    'update_item'       => sprintf(__('Update %s', 'cuztom'), $this->title),
+                    'add_new_item'      => sprintf(__('Add New %s', 'cuztom'), $this->title),
+                    'new_item_name'     => sprintf(__('New %s Name', 'cuztom'), $this->title),
+                    'menu_name'         => sprintf(__('%s', 'cuztom'), $this->plural)
+                ),
+            ),
+            $this->original
+        );
+
+        register_taxonomy($this->name, $this->post_type, $args);
     }
 
     /**

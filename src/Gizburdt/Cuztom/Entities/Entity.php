@@ -30,19 +30,17 @@ abstract class Entity
     /**
      * Entity construct.
      *
-     * @param string|array $name
+     * @param string       $name
+     * @param string|array $args
      * @since 3.0
      */
-    public function __construct($name)
+    public function __construct($name, $args)
     {
-        if (is_array($name)) {
-            $this->name   = Cuztom::uglify($name[0]);
-            $this->title  = Cuztom::beautify($name[0]);
-            $this->plural = Cuztom::beautify($name[1]);
-        } else {
-            $this->name   = Cuztom::uglify($name);
-            $this->title  = Cuztom::beautify($name);
-            $this->plural = Cuztom::pluralize(Cuztom::beautify($name));
-        }
+        $this->name     = $name;
+        $this->original = $args;
+
+        // Labels
+        $this->title  = Cuztom::beautify($name);
+        $this->plural = Cuztom::pluralize($this->title);
     }
 }

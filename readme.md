@@ -3,7 +3,7 @@
 Cuztom is a Wordpress library, which can be used to easily register Post Types, Taxonomies, Meta Boxes, Term Meta, User Meta. Please comment, review, watch, fork and report bugs.
 
 **Version:** 3.0
-**Requires:** 4.4
+**Requires:** 4.4+
 
 ## Basic usage
 

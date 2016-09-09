@@ -66,6 +66,7 @@ class Cuztom
     {
         if (! isset(self::$instance)) {
             self::$instance = new self();
+
             self::$instance->setup();
             self::$instance->includes();
             self::$instance->execute();
@@ -326,17 +327,6 @@ class Cuztom
     }
 
     /**
-     * String to time.
-     *
-     * @param  string $string
-     * @return string
-     */
-    public static function time($string)
-    {
-        return strtotime(str_replace('/', '-', $string));
-    }
-
-    /**
      * Makes a word plural.
      *
      * @param  string $string
@@ -409,6 +399,17 @@ class Cuztom
     }
 
     /**
+     * String to time.
+     *
+     * @param  string $string
+     * @return string
+     */
+    public static function time($string)
+    {
+        return strtotime(str_replace('/', '-', $string));
+    }
+
+    /**
      * Include view file.
      *
      * @param string $view
@@ -472,7 +473,7 @@ class Cuztom
             return false;
         }
 
-        return new WP_Error('cuztom_reserved_term_used', __('Use of a reserved term.', 'cuztom'));
+        return new \WP_Error('cuztom_reserved_term_used', __('Use of a reserved term.', 'cuztom'));
     }
 }
 

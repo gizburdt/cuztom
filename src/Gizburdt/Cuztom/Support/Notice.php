@@ -32,7 +32,7 @@ class Notice
      * @param bool   $dismissible
      * @since 2.3
      */
-    public function __construct($notice, $type, $dismissible)
+    public function __construct($notice, $type, $dismissible = true)
     {
         $this->notice      = $notice;
         $this->type        = $type ? $type : 'updated';
