@@ -104,7 +104,7 @@ class Bundle extends Field
     public function build($args)
     {
         $i = 0;
-        
+
         // Build with value
         if (is_array($this->value)) {
             foreach ($this->value as $value) {

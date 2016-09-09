@@ -75,7 +75,9 @@ class Taxonomy extends Entity
     public function register_taxonomy()
     {
         if ($reserved = Cuztom::isReservedTerm($this->name)) {
-            new Notice($reserved->get_error_message(), 'error'); return;
+            new Notice($reserved->get_error_message(), 'error');
+
+            return;
         }
 
         $args = array_merge(
