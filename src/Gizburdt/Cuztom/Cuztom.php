@@ -372,7 +372,8 @@ class Cuztom
             'money',
             'rice',
             'information',
-            'equipment'
+            'equipment',
+            'pokemon'
         ));
 
         // Save time if string in uncountable

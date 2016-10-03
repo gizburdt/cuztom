@@ -196,13 +196,9 @@ class Box extends Meta
      * @return int|null
      * @since  3.0
      */
-    public function determine_object()
+    public function determineObject()
     {
-        if (isset($_GET['post'])) {
-            return $_GET['post'];
-        } elseif (isset($_POST['post_ID'])) {
-            return $_POST['post_ID'];
-        }
+        $hoi = isset($_GET['post']) ? $_GET['post'] : (isset($_POST['post_ID']) ? $_POST['post_ID'] : null);
     }
 
     /**
@@ -211,7 +207,7 @@ class Box extends Meta
      * @return array
      * @since  3.0
      */
-    public function get_meta_values()
+    public function getMetaValues()
     {
         return get_post_meta($this->object);
     }

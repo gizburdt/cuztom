@@ -64,10 +64,10 @@ class User extends Meta
     /**
      * Hooks into the save hook for the user meta.
      *
-     * @param int $user_id
+     * @param int $id
      * @since 1.5
      */
-    public function save_user($user_id)
+    public function save_user($id)
     {
         // Verify nonce
         if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
@@ -77,7 +77,7 @@ class User extends Meta
         $values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
 
         if (! Cuztom::isEmpty($values)) {
-            parent::save($user_id, $values);
+            parent::save($id, $values);
         }
     }
 
@@ -87,7 +87,7 @@ class User extends Meta
      * @return int|null
      * @since  3.0
      */
-    public function determine_object()
+    public function determineObject()
     {
         return isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : get_current_user_id();
     }
@@ -98,7 +98,7 @@ class User extends Meta
      * @return mixed
      * @since  3.0
      */
-    public function get_meta_values()
+    public function getMetaValues()
     {
         return get_user_meta($this->object, true);
     }

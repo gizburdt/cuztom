@@ -76,14 +76,14 @@ abstract class Meta
      *
      * @return int
      */
-    abstract public function determine_object();
+    abstract public function determineObject();
 
     /**
      * Get meta values.
      *
      * @return array
      */
-    abstract public function get_meta_values();
+    abstract public function getMetaValues();
 
     /**
      * Construct for all meta types, creates title (and description).
@@ -103,8 +103,8 @@ abstract class Meta
 
         // Set hard
         $this->id     = $id;
-        $this->object = $this->determine_object();
-        $this->values = $this->get_meta_values();
+        $this->object = $this->determineObject();
+        $this->values = $this->getMetaValues();
 
         // Callback
         if (! $this->callback) {
@@ -142,7 +142,6 @@ abstract class Meta
      */
     public function save($object, $values)
     {
-        // Loop through each field
         foreach ($this->data as $id => $field) {
             $field->save($object, $values);
         }
@@ -159,7 +158,8 @@ abstract class Meta
     {
         if (is_array($fields) && ! Cuztom::isEmpty($fields)) {
             foreach ($fields as $type => $args) {
-                $field            = Field::create($args, $this->values);
+                $field = Field::create($args, $this->values);
+
                 $field->meta_type = $this->meta_type;
                 $field->object    = $this->object;
 
@@ -168,18 +168,6 @@ abstract class Meta
         }
 
         return @$data;
-    }
-
-    /**
-     * Check what kind of meta we're dealing with.
-     *
-     * @param  string $meta_type
-     * @return bool
-     * @since  2.3
-     */
-    public function is_meta_type($meta_type)
-    {
-        return $this->_meta_type == $meta_type;
     }
 
     /**

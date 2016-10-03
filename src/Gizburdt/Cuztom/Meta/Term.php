@@ -93,10 +93,10 @@ class Term extends Meta
     /**
      * Save the term.
      *
-     * @param int $term_id
+     * @param int $id
      * @since 2.5
      */
-    public function save_term($term_id)
+    public function save_term($id)
     {
         // Verify nonce
         if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
@@ -106,7 +106,7 @@ class Term extends Meta
         $values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
 
         if (! Cuztom::isEmpty($values)) {
-            parent::save($term_id, $values);
+            parent::save($id, $values);
         }
     }
 
@@ -140,7 +140,7 @@ class Term extends Meta
     {
         $field = $this->fields[$column];
 
-        echo $field->output_column_content($term_id);
+        echo $field->output_column_content();
     }
 
     /**
@@ -149,7 +149,7 @@ class Term extends Meta
      * @return int|null
      * @since  3.0
      */
-    public function determine_object()
+    public function determineObject()
     {
         return isset($_REQUEST['tag_ID']) ? $_REQUEST['tag_ID'] : null;
     }
@@ -160,7 +160,7 @@ class Term extends Meta
      * @return mixed
      * @since  3.0
      */
-    public function get_meta_values()
+    public function getMetaValues()
     {
         return get_term_meta($this->object);
     }
