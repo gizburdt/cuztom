@@ -113,6 +113,11 @@ class Bundle extends Field
                     @$this->value[$i]
                 );
 
+                $item->meta_type = $this->meta_type;
+                $item->object    = $this->object;
+
+                $data[] = $item;
+
                 $i++;
             }
         }
@@ -122,13 +127,12 @@ class Bundle extends Field
             $item = new BundleItem(
                 array_merge($args, array('parent' => $this))
             );
+
+            $item->meta_type = $this->meta_type;
+            $item->object    = $this->object;
+
+            $data[] = $item;
         }
-
-        // Base
-        $item->meta_type = $this->meta_type;
-        $item->object    = $this->object;
-
-        $data[] = $item;
 
         return @$data;
     }

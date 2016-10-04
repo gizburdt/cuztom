@@ -198,7 +198,7 @@ class Box extends Meta
      */
     public function determineObject()
     {
-        $hoi = isset($_GET['post']) ? $_GET['post'] : (isset($_POST['post_ID']) ? $_POST['post_ID'] : null);
+        return isset($_GET['post']) ? $_GET['post'] : (isset($_POST['post_ID']) ? $_POST['post_ID'] : null);
     }
 
     /**

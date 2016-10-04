@@ -2,6 +2,8 @@
 
 namespace Gizburdt\Cuztom\Support;
 
+use Gizburdt\Cuztom\Fields\Bundle\Item as BundleItem;
+
 Guard::directAccess();
 
 class Ajax
@@ -77,7 +79,11 @@ class Ajax
         }
 
         if (! $field->limit || ($field->limit > $count)) {
-            $response = new Response(true, array('item' => $field->data[0]->output()));
+            $item = new BundleItem(
+                array_merge($field->original, array('parent' => $field, 'index' => $index))
+            );
+
+            $response = new Response(true, array('item' => $item->output()));
         } else {
             $response = new Response(false, array('message' => __('Limit reached!', 'cuztom')));
         }
