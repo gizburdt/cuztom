@@ -47,6 +47,7 @@ class Checkboxes extends Field
         parent::__construct($args, $values);
 
         $this->default_value = (array) $this->default_value;
-        $this->after_name   .= '[]';
+
+        $this->after_name .= '[]';
     }
 }

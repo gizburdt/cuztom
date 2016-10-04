@@ -40,7 +40,8 @@ class MultiSelect extends Select
     {
         parent::__construct($args, $values);
 
-        $this->after_name          .= '[]';
+        $this->after_name .= '[]';
+
         $this->args['multiselect']  = true;
     }
 }
