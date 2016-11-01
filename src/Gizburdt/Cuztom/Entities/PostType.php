@@ -49,9 +49,7 @@ class PostType extends Entity
     public function register_post_type()
     {
         if ($reserved = Cuztom::isReservedTerm($this->name)) {
-            new Notice($reserved->get_error_message(), 'error');
-
-            return;
+            return new Notice($reserved->get_error_message(), 'error');
         }
 
         $args = array_merge(

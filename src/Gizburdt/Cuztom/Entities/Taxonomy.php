@@ -75,9 +75,7 @@ class Taxonomy extends Entity
     public function register_taxonomy()
     {
         if ($reserved = Cuztom::isReservedTerm($this->name)) {
-            new Notice($reserved->get_error_message(), 'error');
-
-            return;
+            return new Notice($reserved->get_error_message(), 'error');
         }
 
         $args = array_merge(
@@ -129,7 +127,7 @@ class Taxonomy extends Entity
      */
     public function add_term_meta($id, $data = array(), $locations = array('add_form', 'edit_form'))
     {
-        $term_meta = new TermMeta($id, $this->name, $data, $locations);
+        $meta = new TermMeta($id, $this->name, $data, $locations);
 
         return $this;
     }

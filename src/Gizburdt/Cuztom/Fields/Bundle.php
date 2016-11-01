@@ -56,7 +56,7 @@ class Bundle extends Field
             }
         }
 
-        return $ob;
+        return @$ob;
     }
 
     /**
