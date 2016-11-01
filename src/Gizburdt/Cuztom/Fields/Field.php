@@ -33,7 +33,6 @@ abstract class Field
     public $required              = false;
     public $repeatable            = false;
     public $limit                 = null;
-    public $ajax                  = false;
     public $data_attributes       = array();
     public $css_class             = '';
     public $row_css_class         = '';
@@ -69,7 +68,6 @@ abstract class Field
      */
     protected $_supports_repeatable = true;
     protected $_supports_bundle     = true;
-    protected $_supports_ajax       = true;
 
     /**
      * Fillable by user.
@@ -88,7 +86,6 @@ abstract class Field
         'required',
         'repeatable',
         'limit',
-        'ajax',
         'data_attributes',
         'css_class',
         'row_css_class',
@@ -161,8 +158,6 @@ abstract class Field
 
         if ($this->is_repeatable()) {
             return $this->_output_repeatable($value);
-        } elseif ($this->is_ajax()) {
-            return $this->_output_ajax($value);
         } else {
             return $this->_output($value);
         }
@@ -245,29 +240,6 @@ abstract class Field
             'value' => $value,
             'count' => count($value)
         ));
-    }
-
-    /**
-     * Outputs the field, ready for ajax save.
-     *
-     * @param  mixed  $value
-     * @return string
-     * @since  2.0
-     */
-    public function _output_ajax($value = null)
-    {
-        return $this->_output($value).$this->_output_ajax_button();
-    }
-
-    /**
-     * Outputs ajax save button.
-     *
-     * @return string
-     * @since  3.0
-     */
-    public function _output_ajax_button()
-    {
-        return sprintf('<a class="cuztom-ajax-save js-cuztom-ajax-save button button-secondary button-small" href="#">%s</a>', __('Save', 'cuztom'));
     }
 
     /**
@@ -445,17 +417,6 @@ abstract class Field
     public function is_meta_type($meta_type)
     {
         return $this->meta_type == $meta_type;
-    }
-
-    /**
-     * check if the field is in ajax mode.
-     *
-     * @return bool
-     * @since  3.0
-     */
-    public function is_ajax()
-    {
-        return $this->ajax && $this->_supports_ajax;
     }
 
     /**

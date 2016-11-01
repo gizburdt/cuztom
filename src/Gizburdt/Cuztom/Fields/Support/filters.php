@@ -33,14 +33,6 @@ add_filter('cuztom_field_css_class', 'cuztom_field_css_class_extra', 10, 3);
  */
 function cuztom_field_row_css_class_extra($class, $field, $extra)
 {
-    if ($field->is_ajax()) {
-        return $class.' '.'cuztom-field-ajax js-cuztom-field-ajax';
-    }
-
-    if ($field->is_ajax()) {
-        return $class.' '.$extra;
-    }
-
     return $class;
 }
 add_filter('cuztom_field_row_css_class', 'cuztom_field_row_css_class_extra', 10, 3);
