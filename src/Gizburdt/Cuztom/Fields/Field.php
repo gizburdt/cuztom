@@ -292,7 +292,9 @@ abstract class Field
      */
     public function save($object, $values)
     {
-        $value = $this->parse_value($values[$this->id]);
+        $value = isset($values[$this->id])
+            ? $this->parse_value($values[$this->id])
+            : '';
 
         // Save to respective content-type
         switch ($this->meta_type) {
