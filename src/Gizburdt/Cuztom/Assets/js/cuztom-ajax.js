@@ -12,6 +12,7 @@ doc.on( 'click', '.js-cuztom-ajax-save', function(event) {
         value           = input.val(),
         data = {
             action:     'cuztom_save_field',
+            security:   Cuztom.wp_nonce,
             cuztom: {
                 value:     value,
                 box:       box_id,

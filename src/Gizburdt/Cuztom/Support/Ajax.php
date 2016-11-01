@@ -45,7 +45,7 @@ class Ajax
         $count   = $request->count;
         $field   = self::get_field($field, $request->box);
 
-        if (! $field) {
+        if (! $field || ! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
@@ -74,7 +74,7 @@ class Ajax
         $index   = $request->index;
         $field   = self::get_field($field, $request->box);
 
-        if (! $field) {
+        if (! $field || ! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
@@ -102,6 +102,10 @@ class Ajax
     public function save_field()
     {
         $request = new Request($_POST);
+
+        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
+            return;
+        }
 
         if ($request->field_id) {
             $field     = $request->field_id;

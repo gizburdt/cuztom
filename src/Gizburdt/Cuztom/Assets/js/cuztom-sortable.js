@@ -32,6 +32,7 @@ doc.on( 'click', '.js-cuztom-add-sortable', function(event) {
     var ajaxUrl  = Cuztom.ajax_url,
         ajaxData = {
             action: ajaxAction,
+            security: Cuztom.wp_nonce,
             cuztom: {
                 box:     box,
                 field:   that.data('field-id'),
