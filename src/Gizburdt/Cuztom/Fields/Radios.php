@@ -13,16 +13,16 @@ class Radios extends Field
     use Checkable;
 
     /**
+     * Input type.
+     * @var string
+     */
+    public $input_type = 'radio';
+
+    /**
      * View name.
      * @var string
      */
     public $view = 'radios';
-
-    /**
-     * Input type.
-     * @var string
-     */
-    public $_input_type = 'radio';
 
     /**
      * CSS class.
@@ -44,7 +44,7 @@ class Radios extends Field
      */
     public function __construct($args, $values = null)
     {
-        parent::__construct($values);
+        parent::__construct($args, $values);
 
         $this->default_value = (array) $this->default_value;
     }
