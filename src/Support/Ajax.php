@@ -26,8 +26,8 @@ class Ajax
     public function add_hooks()
     {
         // Sortable
-        add_action('wp_ajax_cuztom_add_repeatable_item', array(&$this, 'add_repeatable_item'));
-        add_action('wp_ajax_cuztom_add_bundle_item', array(&$this, 'add_bundle_item'));
+        add_action('wp_ajax_cuztom_add_repeatable_item', array(&$this, 'addRepeatableItem'));
+        add_action('wp_ajax_cuztom_add_bundle_item', array(&$this, 'addBundleItem'));
     }
 
     /**
@@ -35,12 +35,12 @@ class Ajax
      *
      * @since 3.0
      */
-    public function add_repeatable_item($bla)
+    public function addRepeatableItem($bla)
     {
         $request = new Request($_POST);
         $field   = $request->field;
         $count   = $request->count;
-        $field   = self::get_field($field, $request->box);
+        $field   = self::getField($field, $request->box);
 
         if (! $field || ! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
@@ -63,13 +63,13 @@ class Ajax
      *
      * @since 3.0
      */
-    public function add_bundle_item()
+    public function addBundleItem()
     {
         $request = new Request($_POST);
         $field   = $request->field;
         $count   = $request->count;
         $index   = $request->index;
-        $field   = self::get_field($field, $request->box);
+        $field   = self::getField($field, $request->box);
 
         if (! $field || ! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
@@ -99,7 +99,7 @@ class Ajax
      * @return object
      * @since  3.0
      */
-    public static function get_field($field, $box)
+    public static function getField($field, $box)
     {
         global $cuztom;
 

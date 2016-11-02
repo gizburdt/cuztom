@@ -38,7 +38,7 @@ class Notice
         $this->type        = $type ? $type : 'updated';
         $this->dismissible = $dismissible;
 
-        add_action('admin_notices', array(&$this, 'add_admin_notice'));
+        add_action('admin_notices', array(&$this, 'addAdminNotice'));
     }
 
     /**
@@ -46,9 +46,9 @@ class Notice
      *
      * @since 2.3
      */
-    public function add_admin_notice()
+    public function addAdminNotice()
     {
-        echo '<div class="'.$this->get_css_class().'"><p>'.$this->notice.'</p></div>';
+        echo '<div class="'.$this->getCssClass().'"><p>'.$this->notice.'</p></div>';
     }
 
     /**
@@ -57,7 +57,7 @@ class Notice
      * @return string
      * @since  2.3
      */
-    public function get_css_class()
+    public function getCssClass()
     {
         return $this->type.($this->dismissible ? ' is-dismissible' : '');
     }
