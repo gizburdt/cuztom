@@ -29,6 +29,12 @@ class Cuztom
     private static $dir;
 
     /**
+     * Src.
+     * @var string
+     */
+    private static $src;
+
+    /**
      * Instance.
      * @var object
      */
@@ -84,8 +90,9 @@ class Cuztom
     private function setup()
     {
         self::$version = '3.0';
-        self::$dir     = dirname(__FILE__);
-        self::$url     = $this->get_cuztom_url(__FILE__);
+        self::$src     = dirname(__FILE__);
+        self::$dir     = dirname(dirname(__FILE__));
+        self::$url     = $this->getCuztomUrl(self::$src);
     }
 
     /**
@@ -96,59 +103,59 @@ class Cuztom
     private function includes()
     {
         // Support
-        require_once self::$dir.'/Support/Guard.php';
-        require_once self::$dir.'/Support/Notice.php';
-        require_once self::$dir.'/Support/Ajax.php';
-        require_once self::$dir.'/Support/Request.php';
-        require_once self::$dir.'/Support/Response.php';
+        require_once self::$src.'/Support/Guard.php';
+        require_once self::$src.'/Support/Notice.php';
+        require_once self::$src.'/Support/Ajax.php';
+        require_once self::$src.'/Support/Request.php';
+        require_once self::$src.'/Support/Response.php';
 
         // Entity
-        require_once self::$dir.'/Entities/Entity.php';
-        require_once self::$dir.'/Entities/PostType.php';
-        require_once self::$dir.'/Entities/Taxonomy.php';
-        require_once self::$dir.'/Entities/Sidebar.php';
-        require_once self::$dir.'/Entities/Support/helpers.php';
+        require_once self::$src.'/Entities/Entity.php';
+        require_once self::$src.'/Entities/PostType.php';
+        require_once self::$src.'/Entities/Taxonomy.php';
+        require_once self::$src.'/Entities/Sidebar.php';
+        require_once self::$src.'/Entities/Support/helpers.php';
 
         // Meta
-        require_once self::$dir.'/Meta/Meta.php';
-        require_once self::$dir.'/Meta/Box.php';
-        require_once self::$dir.'/Meta/User.php';
-        require_once self::$dir.'/Meta/Term.php';
-        require_once self::$dir.'/Meta/Support/helpers.php';
+        require_once self::$src.'/Meta/Meta.php';
+        require_once self::$src.'/Meta/Box.php';
+        require_once self::$src.'/Meta/User.php';
+        require_once self::$src.'/Meta/Term.php';
+        require_once self::$src.'/Meta/Support/helpers.php';
 
         // Fields
-        require_once self::$dir.'/Fields/Traits/Checkable.php';
-        require_once self::$dir.'/Fields/Traits/Checkables.php';
-        require_once self::$dir.'/Fields/Traits/Selectable.php';
-        require_once self::$dir.'/Fields/Field.php';
-        require_once self::$dir.'/Fields/Bundle.php';
-        require_once self::$dir.'/Fields/Bundle/Item.php';
-        require_once self::$dir.'/Fields/Tabs.php';
-        require_once self::$dir.'/Fields/Accordion.php';
-        require_once self::$dir.'/Fields/Tab.php';
-        require_once self::$dir.'/Fields/Text.php';
-        require_once self::$dir.'/Fields/Textarea.php';
-        require_once self::$dir.'/Fields/Checkbox.php';
-        require_once self::$dir.'/Fields/YesNo.php';
-        require_once self::$dir.'/Fields/Select.php';
-        require_once self::$dir.'/Fields/MultiSelect.php';
-        require_once self::$dir.'/Fields/Checkboxes.php';
-        require_once self::$dir.'/Fields/Radios.php';
-        require_once self::$dir.'/Fields/Wysiwyg.php';
-        require_once self::$dir.'/Fields/Image.php';
-        require_once self::$dir.'/Fields/File.php';
-        require_once self::$dir.'/Fields/DateTime.php';
-        require_once self::$dir.'/Fields/Date.php';
-        require_once self::$dir.'/Fields/Time.php';
-        require_once self::$dir.'/Fields/Color.php';
-        require_once self::$dir.'/Fields/PostSelect.php';
-        require_once self::$dir.'/Fields/PostCheckboxes.php';
-        require_once self::$dir.'/Fields/TermSelect.php';
-        require_once self::$dir.'/Fields/TermCheckboxes.php';
-        require_once self::$dir.'/Fields/TaxonomySelect.php';
-        require_once self::$dir.'/Fields/TaxonomyCheckboxes.php';
-        require_once self::$dir.'/Fields/Hidden.php';
-        require_once self::$dir.'/Fields/Support/filters.php';
+        require_once self::$src.'/Fields/Traits/Checkable.php';
+        require_once self::$src.'/Fields/Traits/Checkables.php';
+        require_once self::$src.'/Fields/Traits/Selectable.php';
+        require_once self::$src.'/Fields/Field.php';
+        require_once self::$src.'/Fields/Bundle.php';
+        require_once self::$src.'/Fields/Bundle/Item.php';
+        require_once self::$src.'/Fields/Tabs.php';
+        require_once self::$src.'/Fields/Accordion.php';
+        require_once self::$src.'/Fields/Tab.php';
+        require_once self::$src.'/Fields/Text.php';
+        require_once self::$src.'/Fields/Textarea.php';
+        require_once self::$src.'/Fields/Checkbox.php';
+        require_once self::$src.'/Fields/YesNo.php';
+        require_once self::$src.'/Fields/Select.php';
+        require_once self::$src.'/Fields/MultiSelect.php';
+        require_once self::$src.'/Fields/Checkboxes.php';
+        require_once self::$src.'/Fields/Radios.php';
+        require_once self::$src.'/Fields/Wysiwyg.php';
+        require_once self::$src.'/Fields/Image.php';
+        require_once self::$src.'/Fields/File.php';
+        require_once self::$src.'/Fields/DateTime.php';
+        require_once self::$src.'/Fields/Date.php';
+        require_once self::$src.'/Fields/Time.php';
+        require_once self::$src.'/Fields/Color.php';
+        require_once self::$src.'/Fields/PostSelect.php';
+        require_once self::$src.'/Fields/PostCheckboxes.php';
+        require_once self::$src.'/Fields/TermSelect.php';
+        require_once self::$src.'/Fields/TermCheckboxes.php';
+        require_once self::$src.'/Fields/TaxonomySelect.php';
+        require_once self::$src.'/Fields/TaxonomyCheckboxes.php';
+        require_once self::$src.'/Fields/Hidden.php';
+        require_once self::$src.'/Fields/Support/filters.php';
     }
 
     /**
@@ -176,11 +183,11 @@ class Cuztom
     private function hooks()
     {
         // Assets
-        add_action('admin_init', array(&$this, 'register_styles'));
-        add_action('admin_print_styles', array(&$this, 'enqueue_styles'));
+        add_action('admin_init', array(&$this, 'registerStyles'));
+        add_action('admin_print_styles', array(&$this, 'enqueueStyles'));
 
-        add_action('admin_init', array(&$this, 'register_scripts'));
-        add_action('admin_enqueue_scripts', array(&$this, 'enqueue_scripts'));
+        add_action('admin_init', array(&$this, 'registerScripts'));
+        add_action('admin_enqueue_scripts', array(&$this, 'enqueueScripts'));
     }
 
     /**
@@ -188,10 +195,23 @@ class Cuztom
      *
      * @since 0.3
      */
-    public function register_styles()
+    public function registerStyles()
     {
-        wp_register_style('cuztom-jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css', false, self::$version, 'screen');
-        wp_register_style('cuztom', self::$url.'/Assets/dist/css/cuztom.min.css', false, self::$version, 'screen');
+        wp_register_style(
+            'cuztom-jquery-ui',
+            '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css',
+            false,
+            self::$version,
+            'screen'
+        );
+
+        wp_register_style(
+            'cuztom',
+            self::$url.'/assets/dist/css/cuztom.min.css',
+            false,
+            self::$version,
+            'screen'
+        );
     }
 
     /**
@@ -199,7 +219,7 @@ class Cuztom
      *
      * @since 0.3
      */
-    public function enqueue_styles()
+    public function enqueueStyles()
     {
         wp_enqueue_style('wp-color-picker');
         wp_enqueue_style('cuztom-jquery-ui');
@@ -211,16 +231,16 @@ class Cuztom
      *
      * @since 0.3
      */
-    public function register_scripts()
+    public function registerScripts()
     {
         // Datetimepicker
-        wp_register_script('cuztom-datetimepicker', self::$url.'/Assets/dist/js/datetimepicker.min.js', array(
+        wp_register_script('cuztom-datetimepicker', self::$url.'/assets/dist/js/datetimepicker.min.js', array(
             'jquery',
             'jquery-ui-core'
         ), self::$version, true);
 
         // Cuztom
-        wp_register_script('cuztom', self::$url.'/Assets/dist/js/cuztom.min.js', array(
+        wp_register_script('cuztom', self::$url.'/assets/dist/js/cuztom.min.js', array(
             'jquery',
             'jquery-ui-core',
             'jquery-ui-tabs',
@@ -236,13 +256,13 @@ class Cuztom
      *
      * @since 0.3
      */
-    public function enqueue_scripts()
+    public function enqueueScripts()
     {
         wp_enqueue_media();
         wp_enqueue_script('cuztom-datetimepicker');
         wp_enqueue_script('cuztom');
 
-        self::localize_scripts();
+        self::localizeScripts();
     }
 
     /**
@@ -250,7 +270,7 @@ class Cuztom
      *
      * @since 1.1.1
      */
-    public function localize_scripts()
+    public function localizeScripts()
     {
         wp_localize_script('cuztom', 'Cuztom', array(
             'wp_version'  => get_bloginfo('version'),
@@ -270,11 +290,11 @@ class Cuztom
      * @return string
      * @since  0.4.1
      */
-    public function get_cuztom_url($path = __FILE__, $url = array())
+    public function getCuztomUrl($path = __FILE__, $url = array())
     {
         // Retun URL if defined
         if (defined('CUZTOM_URL')) {
-            return CUZTOM_URL.'src/Gizburdt/Cuztom/';
+            return CUZTOM_URL;
         }
 
         // Base vars
@@ -299,7 +319,7 @@ class Cuztom
 
             return apply_filters('cuztom_url', WP_CONTENT_URL.$path);
         } else {
-            return $this->get_cuztom_url($path, $url);
+            return $this->getCuztomUrl($path, $url);
         }
     }
 
