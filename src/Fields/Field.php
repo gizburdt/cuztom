@@ -321,7 +321,13 @@ abstract class Field
      */
     public function get_id($extra = null)
     {
-        return apply_filters('cuztom_field_id', $this->before_id.$this->id.$this->after_id, $this, $extra);
+        $id = $this->before_id.$this->id.$this->after_id;
+
+        if (! Cuztom::isEmpty($extra)) {
+            $id = $id.'_'.$extra;
+        }
+
+        return apply_filters('cuztom_field_id', $id, $this, $extra);
     }
 
     /**
@@ -344,7 +350,13 @@ abstract class Field
      */
     public function get_css_class($extra = null)
     {
-        return apply_filters('cuztom_field_css_class', 'cuztom-input '.$this->css_class, $this, $extra);
+        $class = 'cuztom-input '.$this->css_class;
+
+        if (! Cuztom::isEmpty($extra)) {
+            $class = $class.' '.$extra;
+        }
+
+        return apply_filters('cuztom_field_css_class', $class, $this, $extra);
     }
 
     /**
