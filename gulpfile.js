@@ -1,4 +1,5 @@
 var elixir = require('laravel-elixir');
+var replace = require('gulp-replace');
 
 elixir.config.sourcemaps = false;
 
@@ -20,6 +21,7 @@ elixir(function(mix) {
 });
 
 gulp.task('prefix', function(){
-    gulp.src('**')
-        .pipe(replace('Gizburdt', 'Gizzy');
+    gulp.src('./src/**')
+        .pipe(replace('Gizburdt', 'Gizzy'))
+        .pipe(gulp.dest('./src'));
 });
