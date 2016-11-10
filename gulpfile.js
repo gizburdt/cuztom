@@ -1,5 +1,6 @@
-var elixir = require('laravel-elixir');
-var replace = require('gulp-replace');
+var elixir = require('laravel-elixir'),
+    replace = require('gulp-replace'),
+    prompt = require('gulp-prompt');
 
 elixir.config.sourcemaps = false;
 
@@ -22,6 +23,13 @@ elixir(function(mix) {
 
 gulp.task('prefix', function(){
     gulp.src('./src/**')
-        .pipe(replace('Gizburdt', 'Gizzy'))
+        .pipe(prompt.prompt({
+            type: 'input',
+            name: 'prefix',
+            message: 'Prefix?'
+        }, function(result){
+            var prefix = result.prefix;
+        }))
+        .pipe(replace('Gizburdt', prefix))
         .pipe(gulp.dest('./src'));
 });
