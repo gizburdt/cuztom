@@ -27,9 +27,9 @@ gulp.task('prefix', function(){
             type: 'input',
             name: 'prefix',
             message: 'Prefix?'
-        }, function(result){
-            var prefix = result.prefix;
-        }))
-        .pipe(replace('Gizburdt', prefix))
-        .pipe(gulp.dest('./src'));
+        }, function(result) {
+            gulp.src('./src/**')
+                .pipe(replace('Gizburdt', result.prefix))
+                .pipe(gulp.dest('./src'));
+        }));
 });
