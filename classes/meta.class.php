@@ -180,6 +180,9 @@ class Cuztom_Meta
 			case 'Cuztom_Term_Meta' : 
 				return 'term'; 
 				break;
+			case 'Cuztom_Menu_Page' : 
+				return 'page'; 
+				break;
 			default :
 				return false; 
 				break;

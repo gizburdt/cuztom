@@ -22,6 +22,7 @@ class Cuztom_Field
 	var $args					= array(); // Specific args for the field
 	var $underscore 			= true;
 	var $required 				= false;
+	var $overwrite 				= null;
 	var $repeatable 			= false;
 	var $ajax 					= false;
 	
@@ -68,7 +69,7 @@ class Cuztom_Field
 		$this->args				= isset( $field['args'] ) 				? $field['args'] 											: $this->args;
 		$this->underscore		= isset( $field['underscore'] ) 		? $field['underscore'] 										: $this->underscore;
 		$this->required			= isset( $field['required'] ) 			? $field['required'] 										: $this->required;	
-		$this->repeatable		= isset( $field['repeatable'] ) 		? $field['repeatable'] 										: $this->repeatable ;
+		$this->repeatable		= isset( $field['repeatable'] ) 		? $field['repeatable'] 										: $this->repeatable;
 		$this->ajax				= isset( $field['ajax'] ) 				? $field['ajax'] 											: $this->ajax ;
 		$this->css_classes		= isset( $field['css_classes'] )		? array_merge($this->css_classes, $field['css_classes'])	: $this->css_classes;
 		
@@ -117,7 +118,7 @@ class Cuztom_Field
 	 */
 	function _output( $value )
 	{
-		return '<input type="text" ' . $this->output_name() . ' ' . $this->output_id() . ' ' . $this->output_css_class() . ' value="' . ( strlen( $value ) > 0 ? $value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
+		return '<input type="text" ' . $this->output_name( $this->overwrite ) . ' ' . $this->output_id( $this->overwrite ) . ' ' . $this->output_css_class() . ' value="' . ( strlen( $value ) > 0 ? $value : $this->default_value ) . '" ' . $this->output_data_attributes() . ' />' . $this->output_explanation();
 	}
 
 	/**
