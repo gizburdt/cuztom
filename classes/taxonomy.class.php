@@ -39,13 +39,21 @@ class Cuztom_Taxonomy
 
 			if( is_array( $name ) )
 			{
-				$this->name		= Cuztom::uglify( $name[0] );
-				$this->title	= Cuztom::beautify( $name[0] );
-				$this->plural 	= Cuztom::beautify( $name[1] );
+				if(count($name) > 2)
+				{
+					$this->name	= Cuztom::uglify( $name[0] );
+					$this->title	= Cuztom::beautify( $name[1] );
+					$this->plural 	= Cuztom::beautify( $name[2] );
+				}
+				else {
+					$this->name	= Cuztom::uglify( $name[0] );
+					$this->title	= Cuztom::beautify( $name[0] );
+					$this->plural 	= Cuztom::beautify( $name[1] );
+				}
 			}
 			else
 			{
-				$this->name		= Cuztom::uglify( $name );
+				$this->name	= Cuztom::uglify( $name );
 				$this->title	= Cuztom::beautify( $name );
 				$this->plural 	= Cuztom::pluralize( Cuztom::beautify( $name ) );
 			}
@@ -232,7 +240,7 @@ class Cuztom_Taxonomy
 		if( in_array( $typenow, $this->post_type ) )
 		{
 			wp_dropdown_categories( array(
-				'show_option_all'	=> sprintf( __( 'Show all %s', 'cuztom' ), $this->plural ),
+				'show_option_all'	=> $this->labels['all_items'],
 				'taxonomy'       	=> $this->name,
 				'name'            	=> $this->name,
 				'orderby'         	=> 'name',
