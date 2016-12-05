@@ -11,7 +11,6 @@ elixir(function(mix) {
     ], 'assets/dist/css/cuztom.min.css', 'assets/');
 
     mix.scripts([
-        'vendor/vue/dist/vue.js',
         'vendor/datetimepicker/build/jquery.datetimepicker.full.js',
         'js/cuztom-open.js',
         'js/cuztom-ui.js',

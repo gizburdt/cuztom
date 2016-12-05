@@ -1,9 +1,8 @@
 {
-    "name": "gizburdt/cuztom",
+    "name": "cuztom",
     "private": true,
     "dependencies": {
         "jquery":         "latest",
-        "vue":            "latest",
         "bootstrap":      "latest",
         "datetimepicker": "https://github.com/xdan/datetimepicker.git"
     }
