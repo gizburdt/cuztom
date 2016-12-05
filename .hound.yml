@@ -1,0 +1,9 @@
+fail_on_violations: true
+
+scss:
+  config_file: assets/scss/.scss.yml
+  enabled: true
+
+javascript:
+  config_file: assets/js/.js.yml
+  enabled: false
