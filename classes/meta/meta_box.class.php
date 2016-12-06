@@ -57,6 +57,7 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 					add_filter( 'manage_' . $post_type . '_posts_columns', array( &$this, 'add_column' ) );
 					add_action( 'manage_' . $post_type . '_posts_custom_column', array( &$this, 'add_column_content' ), 10, 2 );
 					add_action( 'manage_edit-' . $post_type . '_sortable_columns', array( &$this, 'add_sortable_column' ), 10, 2 );
+					add_action( 'request', array( &$this, 'add_default_sort_column' ), 10, 2 );
 				}
 
 				add_action( 'save_post', array( &$this, 'save_post' ) );
@@ -230,4 +231,28 @@ class Cuztom_Meta_Box extends Cuztom_Meta
 
 		return $columns;
 	}
+	
+
+	/**
+	 * Used to make default sort column
+	 *
+	 * @param 	array 			$vars
+	 * @return  array
+	 *
+	 * @author  Gijs Jorissen
+	 * @since   1.4.8
+	 *
+	 */
+	function add_default_sort_column( $vars )
+	{
+		if( $this->fields )
+		{
+			foreach( $this->fields as $id_name => $field )
+		        	if( $field->admin_column_default_sort ) {
+		          		$vars['orderby'] = $field->id;
+		          		$vars['order'] = 'ASC';
+		        	}
+		}
+		return $vars;
+	}	
 }

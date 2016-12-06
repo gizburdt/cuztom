@@ -31,6 +31,7 @@ class Cuztom_Field
 	
 	var $show_admin_column 		= false;
 	var $admin_column_sortable	= false;
+	var $admin_column_default_sort	= false;
 	var $admin_column_filter	= false;
 
 	var $data_attributes 		= array();
@@ -74,6 +75,7 @@ class Cuztom_Field
 		
 		$this->show_admin_column		= isset( $field['show_admin_column'] ) 		? $field['show_admin_column'] 		: $this->show_admin_column;
 		$this->admin_column_sortable	= isset( $field['admin_column_sortable'] ) 	? $field['admin_column_sortable'] 	: $this->admin_column_sortable;
+		$this->admin_column_default_sort	= isset( $field['admin_column_default_sort'] ) 	? $field['admin_column_default_sort'] 	: $this->admin_column_default_sort;
 		$this->admin_column_filter		= isset( $field['admin_column_filter'] ) 	? $field['admin_column_filter'] 	: $this->admin_column_filter;
 		
 		// Mostly the name of the meta box
