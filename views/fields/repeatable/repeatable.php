@@ -7,7 +7,7 @@
                 foreach ($values as $value) {
                     echo $field->_outputRepeatableItem($value, count($values));
 
-                    if($field->limit && ++$count >= $field->limit) {
+                    if ($field->limit && ++$count >= $field->limit) {
                         break;
                     }
                 }
