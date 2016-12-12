@@ -28,15 +28,15 @@ class Text extends Field
      * @return string
      * @since  2.8
      */
-    public function parse_value($value)
+    public function parseValue($value)
     {
         if (is_array($value)) {
-            array_walk_recursive($value, array(&$this, 'do_htmlspecialchars'));
+            array_walk_recursive($value, array(&$this, 'doHtmlspecialchars'));
         } else {
-            $value = $this->do_htmlspecialchars($value);
+            $value = $this->doHtmlspecialchars($value);
         }
 
-        return parent::parse_value($value);
+        return parent::parseValue($value);
     }
 
     /**
@@ -46,7 +46,7 @@ class Text extends Field
      * @return string
      * @since  3.0
      */
-    public function do_htmlspecialchars(&$value)
+    public function doHtmlspecialchars(&$value)
     {
         return htmlspecialchars($value);
     }

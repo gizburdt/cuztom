@@ -40,13 +40,13 @@ class TermSelect extends Field
      * @return string
      * @since  2.4
      */
-    public function _output_input($value = null, $view = null)
+    public function _outputInput($value = null, $view = null)
     {
         @$this->args['class'] .= ' cuztom-input-select cuztom-input-term-select';
 
         @$this->args['echo']     = 0;
-        @$this->args['name']     = $this->get_name();
-        @$this->args['id']       = $this->get_id();
+        @$this->args['name']     = $this->getName();
+        @$this->args['id']       = $this->getId();
         @$this->args['selected'] = (! Cuztom::isEmpty($value) ? $value : $this->default_value);
 
         return wp_dropdown_categories($this->args);

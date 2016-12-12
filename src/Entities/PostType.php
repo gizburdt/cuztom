@@ -37,7 +37,7 @@ class PostType extends Entity
 
         // Register
         if (! post_type_exists($this->name)) {
-            $this->register_post_type();
+            $this->registerPostType();
         }
     }
 
@@ -46,7 +46,7 @@ class PostType extends Entity
      *
      * @since 0.1
      */
-    public function register_post_type()
+    public function registerPostType()
     {
         if ($reserved = Cuztom::isReservedTerm($this->name)) {
             return new Notice($reserved->get_error_message(), 'error');
@@ -90,7 +90,7 @@ class PostType extends Entity
      * @param array        $labels
      * @since 0.1
      */
-    public function add_taxonomy($name, $args = array(), $labels = array())
+    public function addTaxonomy($name, $args = array(), $labels = array())
     {
         $taxonomy = new Taxonomy($name, $this->name, $args, $labels);
 
@@ -104,7 +104,7 @@ class PostType extends Entity
      * @param array $args
      * @since 0.1
      */
-    public function add_meta_box($id, $args)
+    public function addMetaBox($id, $args)
     {
         $box = new MetaBox($id, $this->name, $args);
 
@@ -118,7 +118,7 @@ class PostType extends Entity
      * @return object
      * @since  1.4.3
      */
-    public function add_post_type_support($feature)
+    public function addPostTypeSupport($feature)
     {
         add_post_type_support($this->name, $feature);
 
@@ -132,7 +132,7 @@ class PostType extends Entity
      * @return object
      * @since  1.4.3
      */
-    public function remove_post_type_support($features)
+    public function removePostTypeSupport($features)
     {
         foreach ((array) $features as $feature) {
             remove_post_type_support($this->name, $feature);
@@ -148,7 +148,7 @@ class PostType extends Entity
      * @return bool
      * @since  1.5.3
      */
-    public function post_type_supports($feature)
+    public function postTypeSupports($feature)
     {
         return post_type_supports($this->name, $feature);
     }

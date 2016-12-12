@@ -1,8 +1,8 @@
 <div class="cuztom-checkboxes-wrap">
     <?php if (is_array($field->taxonomies)) : ?>
         <?php foreach ($field->taxonomies as $taxonomy) : ?>
-            <label for="<?php echo $field->get_id($taxonomy->name) ?>">
-                <?php echo $field->_output_option($value, $field->default_value, $taxonomy->name); ?>
+            <label for="<?php echo $field->getId($taxonomy->name) ?>">
+                <?php echo $field->_outputOption($value, $field->default_value, $taxonomy->name); ?>
                 <?php echo $taxonomy->labels->singular_name; ?>
             </label>
             <br/>

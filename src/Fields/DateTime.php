@@ -44,7 +44,7 @@ class DateTime extends Field
         $this->data_attributes['time-format'] = get_option('time_format');
 
         // Convert value
-        $this->value = $this->time_to_string($this->value);
+        $this->value = $this->timeToString($this->value);
     }
 
     /**
@@ -54,7 +54,7 @@ class DateTime extends Field
      * @return string
      * @since  2.8
      */
-    public function parse_value($value)
+    public function parseValue($value)
     {
         return Cuztom::time($value);
     }
@@ -65,7 +65,7 @@ class DateTime extends Field
      * @param  string $string
      * @return string
      */
-    public function time_to_string($string)
+    public function timeToString($string)
     {
         return $this->value ? date(get_option('date_format').' '.get_option('time_format'), $this->value) : null;
     }

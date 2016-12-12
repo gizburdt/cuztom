@@ -233,15 +233,21 @@ class Cuztom
     public function registerScripts()
     {
         // Cuztom
-        wp_register_script('cuztom', self::$url.'/assets/dist/js/cuztom.min.js', array(
-            'jquery',
-            'jquery-ui-core',
-            'jquery-ui-tabs',
-            'jquery-ui-accordion',
-            'jquery-ui-sortable',
-            'jquery-ui-slider',
-            'wp-color-picker'
-        ), self::$version, true);
+        wp_register_script(
+            'cuztom',
+            self::$url.'/assets/dist/js/cuztom.min.js',
+            array(
+                'jquery',
+                'jquery-ui-core',
+                'jquery-ui-tabs',
+                'jquery-ui-accordion',
+                'jquery-ui-sortable',
+                'jquery-ui-slider',
+                'wp-color-picker'
+            ),
+            self::$version,
+            true
+        );
     }
 
     /**
@@ -299,12 +305,12 @@ class Cuztom
         array_push($url, $current);
 
         // Check for current
-        if (preg_match('/content/', $current)) {
+        if (preg_match('/content|app/', $current)) {
             $path        = '';
             $directories = array_reverse($url);
 
             foreach ($directories as $dir) {
-                if (! preg_match('/content/', $dir)) {
+                if (! preg_match('/content|app/', $dir)) {
                     $path = $path.'/'.$dir;
                 }
             }

@@ -47,7 +47,7 @@ doc.on('click', '.js-cuztom-upload', function(event) {
                 ? attachment.sizes[previewSize]
                 : (attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full);
 
-            if( $.isArray(previewSize)) {
+            if($.isArray(previewSize)) {
                 if( parseInt( previewSize[0] ) > 0 ) {
                     thumbnail.width = parseInt( previewSize[0] );
                 }
@@ -64,7 +64,7 @@ doc.on('click', '.js-cuztom-upload', function(event) {
             preview.html('<span class="cuztom-mime mime-application-pdf"><a href="' + attachment.url + '">' + attachment.title + '</a></span>')
         }
 
-        hidden.val( attachment.id );
+        hidden.val(attachment.id);
     });
 
     _cuztom_uploader.open();

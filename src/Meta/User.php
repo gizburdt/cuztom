@@ -39,9 +39,9 @@ class User extends Meta
 
         // Chack if the class, function or method exist, otherwise use cuztom callback
         if (@$this->callback[0] == $this) {
-            add_action('personal_options_update', array(&$this, 'save_user'));
-            add_action('edit_user_profile_update', array(&$this, 'save_user'));
-            add_action('user_edit_form_tag', array(&$this, 'edit_form_tag'));
+            add_action('personal_options_update', array(&$this, 'saveUser'));
+            add_action('edit_user_profile_update', array(&$this, 'saveUser'));
+            add_action('user_edit_form_tag', array(&$this, 'editFormTag'));
         }
 
         foreach ($this->locations as $location) {
@@ -67,10 +67,10 @@ class User extends Meta
      * @param int $id
      * @since 1.5
      */
-    public function save_user($id)
+    public function saveUser($id)
     {
         // Verify nonce
-        if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
+        if (! Guard::verifyNonce('cuztomNonce', 'cuztomMeta')) {
             return;
         }
 

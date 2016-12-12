@@ -28,8 +28,8 @@ class Hidden extends Field
      * @return string
      * @since  0.2
      */
-    public function output_row($value = null)
+    public function outputRow($value = null)
     {
-        return $this->_output_input($value);
+        return $this->_outputInput($value);
     }
 }

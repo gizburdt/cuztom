@@ -62,7 +62,7 @@ class Item extends Field
      * @param  array        $values
      * @return string|array
      */
-    public function substract_value($values)
+    public function substractValue($values)
     {
         return $values;
     }

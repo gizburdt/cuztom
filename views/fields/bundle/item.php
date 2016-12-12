@@ -10,7 +10,7 @@
     <fieldset class="cuztom-fieldset">
         <table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">
             <?php foreach ($item->data as $id => $field) : ?>
-                <?php echo $field->output_row(); ?>
+                <?php echo $field->outputRow(); ?>
             <?php endforeach; ?>
         </table>
     </fieldset>

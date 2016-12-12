@@ -33,8 +33,8 @@ class Taxonomy extends Entity
      * Constructs the class with important vars and method calls.
      * If the taxonomy exists, it will be attached to the post type.
      *
-     * @param string|array $name
-     * @param string       $post_type
+     * @param string       $name
+     * @param string|array $post_type
      * @param array        $args
      * @since 0.2
      */
@@ -48,22 +48,22 @@ class Taxonomy extends Entity
 
         // Register taxonomy
         if (! taxonomy_exists($this->name)) {
-            $this->register_taxonomy();
+            $this->registerTaxonomy();
         } else {
-            $this->register_taxonomy_for_object_type();
+            $this->registerTaxonomyForObjectType();
         }
 
         // Sortable columns
         if (@$args['admin_column_sortable']) {
             foreach ($this->post_type as $post_type) {
-                add_action("manage_edit-{$post_type}_sortable_columns", array(&$this, 'add_sortable_column'));
+                add_action("manage_edit-{$post_type}_sortable_columns", array(&$this, 'addSortableColumn'));
             }
         }
 
         // Column filter
         if (@$args['admin_column_filter']) {
-            add_action('restrict_manage_posts', array(&$this, 'admin_column_filter'));
-            add_filter('parse_query', array(&$this, '_post_filter_query'));
+            add_action('restrict_manage_posts', array(&$this, 'adminColumnFilter'));
+            add_filter('parse_query', array(&$this, '_postFilterQuery'));
         }
     }
 
@@ -72,7 +72,7 @@ class Taxonomy extends Entity
      *
      * @since 0.2
      */
-    public function register_taxonomy()
+    public function registerTaxonomy()
     {
         if ($reserved = Cuztom::isReservedTerm($this->name)) {
             return new Notice($reserved->get_error_message(), 'error');
@@ -112,7 +112,7 @@ class Taxonomy extends Entity
      *
      * @since 0.2
      */
-    public function register_taxonomy_for_object_type()
+    public function registerTaxonomyForObjectType()
     {
         register_taxonomy_for_object_type($this->name, $this->post_type);
     }
@@ -125,7 +125,7 @@ class Taxonomy extends Entity
      * @param array $locations
      * @since 2.5
      */
-    public function add_term_meta($id, $data = array(), $locations = array('add_form', 'edit_form'))
+    public function addTermMeta($id, $data = array(), $locations = array('add_form', 'edit_form'))
     {
         $meta = new TermMeta($id, $this->name, $data, $locations);
 
@@ -138,7 +138,7 @@ class Taxonomy extends Entity
      * @param array $columns
      * @since 1.6
      */
-    public function add_sortable_column($columns)
+    public function addSortableColumn($columns)
     {
         $columns["taxonomy-{$this->name}"] = $this->title;
 
@@ -150,7 +150,7 @@ class Taxonomy extends Entity
      *
      * @since 1.6
      */
-    public function admin_column_filter()
+    public function adminColumnFilter()
     {
         global $typenow, $wp_query;
 
@@ -175,7 +175,7 @@ class Taxonomy extends Entity
      * @return array
      * @since  1.6
      */
-    public function _post_filter_query($query)
+    public function _postFilterQuery($query)
     {
         // @TODO: Is this still right?
         global $pagenow;
@@ -183,7 +183,8 @@ class Taxonomy extends Entity
         $vars = &$query->query_vars;
 
         if ($pagenow == 'edit.php' && isset($vars[$this->name]) && is_numeric($vars[$this->name]) && $vars[$this->name]) {
-            $term              = get_term_by('id', $vars[$this->name], $this->name);
+            $term = get_term_by('id', $vars[$this->name], $this->name);
+
             $vars[$this->name] = $term->slug;
         }
 

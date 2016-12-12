@@ -1,6 +1,6 @@
 <div class="cuztom-select-wrap">
-    <select name="<?php echo $field->get_name(); ?>" id="<?php echo $field->get_id(); ?>" class="<?php echo $field->get_css_class(); ?>" <?php echo $field->get_data_attributes(); ?>>
-        <?php echo $field->maybe_show_option_none(); ?>
+    <select name="<?php echo $field->getName(); ?>" id="<?php echo $field->getId(); ?>" class="<?php echo $field->getCssClass(); ?>" <?php echo $field->getDataAttributes(); ?>>
+        <?php echo $field->maybeShowOptionNone(); ?>
 
         <?php if (is_array($field->options)) : ?>
             <?php foreach ($field->options as $slug => $name) : ?>

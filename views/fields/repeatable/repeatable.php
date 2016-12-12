@@ -1,18 +1,18 @@
 <div class="cuztom-repeatable">
-    <?php echo $field->_output_repeatable_control($values); ?>
+    <?php echo $field->_outputRepeatableControl($values); ?>
 
     <ul class="cuztom-sortable js-cuztom-sortable">
         <?php
             if (is_array($values)) {
                 foreach ($values as $value) {
-                    echo $field->_output_repeatable_item($value, count($values));
+                    echo $field->_outputRepeatableItem($value, count($values));
 
                     if($field->limit && ++$count >= $field->limit) {
                         break;
                     }
                 }
             } else {
-                echo $field->_output_repeatable_item($value, 1);
+                echo $field->_outputRepeatableItem($values, 1);
             }
         ?>
     </ul>

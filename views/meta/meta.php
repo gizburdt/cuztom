@@ -13,7 +13,7 @@
 
         <table class="form-table cuztom-table cuztom-main-table">
             <?php foreach ($box->data as $id => $field) : ?>
-                <?php echo $field->output_row(); ?>
+                <?php echo $field->outputRow(); ?>
             <?php endforeach; ?>
         </table>
     </div>

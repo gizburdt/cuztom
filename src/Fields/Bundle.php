@@ -33,7 +33,7 @@ class Bundle extends Field
      * @param string $view
      * @since 3.0
      */
-    public function output_row($value = null, $view = null)
+    public function outputRow($value = null, $view = null)
     {
         return Cuztom::view('fields/bundle/row', array(
             'bundle' => $this,
@@ -65,7 +65,7 @@ class Bundle extends Field
      * @param string $class
      * @since 3.0
      */
-    public function output_control($class = 'top')
+    public function outputControl($class = 'top')
     {
         return Cuztom::view('fields/bundle/control', array(
             'bundle' => $this,
@@ -87,7 +87,7 @@ class Bundle extends Field
 
         foreach ($values as $row => $fields) {
             foreach ($fields as $id => $value) {
-                $values[$row][$id] = $this->data[0]->data[$id]->parse_value($value);
+                $values[$row][$id] = $this->data[0]->data[$id]->parseValue($value);
             }
         }
 

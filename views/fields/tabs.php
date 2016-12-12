@@ -2,7 +2,7 @@
     <ul>
         <?php foreach ($tabs->data as $title => $tab) : ?>
             <li>
-                <a href="#<?php echo $tab->get_id(); ?>">
+                <a href="#<?php echo $tab->getId(); ?>">
                     <?php echo $tab->title; ?>
                 </a>
             </li>
@@ -10,6 +10,6 @@
     </ul>
 
     <?php foreach ($tabs->data as $title => $tab) : ?>
-        <?php echo $tab->output_tab(); ?>
+        <?php echo $tab->outputTab(); ?>
     <?php endforeach; ?>
 </div>

@@ -31,12 +31,12 @@ class Response
     }
 
     /**
-     * Get response.
+     * Get json.
      *
      * @return string
      * @since  3.0
      */
-    public function get()
+    public function toJson()
     {
         return $this->response;
     }

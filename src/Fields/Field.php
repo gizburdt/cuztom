@@ -121,12 +121,12 @@ abstract class Field
         }
 
         // Repeatable?
-        if ($this->is_repeatable()) {
+        if ($this->isRepeatable()) {
             $this->after_name = '[]';
         }
 
         // Value
-        $this->value = $this->substract_value($values);
+        $this->value = $this->substractValue($values);
     }
 
     /**
@@ -136,7 +136,7 @@ abstract class Field
      * @pram  string       $view
      * @since 0.2
      */
-    public function output_row($value = null)
+    public function outputRow($value = null)
     {
         return Cuztom::view('fields/row/text', array(
             'field' => $this,
@@ -156,8 +156,8 @@ abstract class Field
     {
         $value = (! is_null($value)) ? $value : $this->value;
 
-        if ($this->is_repeatable()) {
-            return $this->_output_repeatable($value);
+        if ($this->isRepeatable()) {
+            return $this->_outputRepeatable($value);
         } else {
             return $this->_output($value);
         }
@@ -173,7 +173,7 @@ abstract class Field
      */
     public function _output($value = null)
     {
-        return $this->_output_input($value).$this->get_explanation();
+        return $this->_outputInput($value).$this->getExplanation();
     }
 
     /**
@@ -183,9 +183,9 @@ abstract class Field
      * @param  string $view
      * @return string
      */
-    public function _output_input($value = null, $view = null)
+    public function _outputInput($value = null, $view = null)
     {
-        $view = $view ? $view : $this->get_view();
+        $view = $view ? $view : $this->getView();
 
         return Cuztom::view('fields/'.$view, array(
             'field' => $this,
@@ -201,7 +201,7 @@ abstract class Field
      * @return string
      * @since  2.0
      */
-    public function _output_repeatable($value = null)
+    public function _outputRepeatable($value = null)
     {
         return Cuztom::view('fields/repeatable/repeatable', array(
             'field'  => $this,
@@ -217,7 +217,7 @@ abstract class Field
      * @param  int    $count Total count of fields
      * @return string
      */
-    public function _output_repeatable_item($value = null, $count = 0)
+    public function _outputRepeatableItem($value = null, $count = 0)
     {
         return Cuztom::view('fields/repeatable/item', array(
             'field' => $this,
@@ -233,7 +233,7 @@ abstract class Field
      * @return string
      * @since  3.0
      */
-    public function _output_repeatable_control($value)
+    public function _outputRepeatableControl($value)
     {
         return Cuztom::view('fields/repeatable/control', array(
             'field' => $this,
@@ -249,7 +249,7 @@ abstract class Field
      * @return mixed
      * @since  2.8
      */
-    public function parse_value($value)
+    public function parseValue($value)
     {
         return $value;
     }
@@ -265,7 +265,7 @@ abstract class Field
     public function save($object, $values)
     {
         $value = isset($values[$this->id])
-            ? $this->parse_value($values[$this->id])
+            ? $this->parseValue($values[$this->id])
             : '';
 
         // Save to respective content-type
@@ -297,7 +297,7 @@ abstract class Field
      * @return string
      * @since  3.0
      */
-    public function get_input_type()
+    public function getInputType()
     {
         return apply_filters('cuztom_field_input_type', $this->input_type, $this);
     }
@@ -308,7 +308,7 @@ abstract class Field
      * @return string
      * @since  3.0
      */
-    public function get_view()
+    public function getView()
     {
         return apply_filters('cuztom_field_view', $this->view, $this);
     }
@@ -319,7 +319,7 @@ abstract class Field
      * @return string
      * @since  3.0
      */
-    public function get_id($extra = null)
+    public function getId($extra = null)
     {
         $id = $this->before_id.$this->id.$this->after_id;
 
@@ -336,7 +336,7 @@ abstract class Field
      * @return string
      * @since  3.0
      */
-    public function get_name()
+    public function getName()
     {
         return apply_filters('cuztom_field_name', 'cuztom'.$this->before_name.'['.$this->id.']'.$this->after_name, $this);
     }
@@ -348,7 +348,7 @@ abstract class Field
      * @return string
      * @since  2.4
      */
-    public function get_css_class($extra = null)
+    public function getCssClass($extra = null)
     {
         $class = 'cuztom-input '.$this->css_class;
 
@@ -366,7 +366,7 @@ abstract class Field
      * @return string
      * @since  3.0
      */
-    public function get_row_css_class($extra = null)
+    public function getRowCssClass($extra = null)
     {
         return apply_filters('cuztom_field_row_css_class', 'cuztom-field js-cuztom-field '.$this->row_css_class, $this, $extra);
     }
@@ -377,9 +377,9 @@ abstract class Field
      * @return string
      * @since  2.4
      */
-    public function get_explanation()
+    public function getExplanation()
     {
-        return apply_filters('cuztom_field_explanation', (! $this->is_repeatable() && $this->explanation ? '<em class="cuztom-field-explanation">'.$this->explanation.'</em>' : ''), $this);
+        return apply_filters('cuztom_field_explanation', (! $this->isRepeatable() && $this->explanation ? '<em class="cuztom-field-explanation">'.$this->explanation.'</em>' : ''), $this);
     }
 
     /**
@@ -389,7 +389,7 @@ abstract class Field
      * @return string
      * @since  2.4
      */
-    public function get_data_attributes($extra = array())
+    public function getDataAttributes($extra = array())
     {
         foreach (array_merge($this->data_attributes, $extra) as $attribute => $value) {
             if (! is_null($value)) {
@@ -408,11 +408,11 @@ abstract class Field
      * @param int $post_id
      * @since 3.0
      */
-    public function output_column_content($post_id)
+    public function outputColumnContent($post_id)
     {
         $meta = get_post_meta($post_id, $this->id, true);
 
-        if (! empty($meta) && $this->is_repeatable()) {
+        if (! empty($meta) && $this->isRepeatable()) {
             echo implode($meta, ', ');
         } else {
             echo $meta;
@@ -426,7 +426,7 @@ abstract class Field
      * @return bool
      * @since  3.0
      */
-    public function is_meta_type($meta_type)
+    public function isMetaType($meta_type)
     {
         return $this->meta_type == $meta_type;
     }
@@ -437,7 +437,7 @@ abstract class Field
      * @return bool
      * @since  3.0
      */
-    public function is_repeatable()
+    public function isRepeatable()
     {
         return $this->repeatable && $this->_supports_repeatable;
     }
@@ -448,7 +448,7 @@ abstract class Field
      * @return bool
      * @since  3.0
      */
-    public function is_tabs()
+    public function isTabs()
     {
         return $this instanceof \Gizburdt\Cuztom\Fields\Tabs || $this instanceof \Gizburdt\Cuztom\Fields\Accordion;
     }
@@ -459,7 +459,7 @@ abstract class Field
      * @return bool
      * @since  3.0
      */
-    public function is_bundle()
+    public function isBundle()
     {
         return $this instanceof \Gizburdt\Cuztom\Fields\Bundle;
     }
@@ -470,7 +470,7 @@ abstract class Field
      * @param  [type] $values [description]
      * @return [type] [description]
      */
-    public function substract_value($values)
+    public function substractValue($values)
     {
         if (! Cuztom::isEmpty(@$values[$this->id])) {
             if (is_array($values[$this->id])) {

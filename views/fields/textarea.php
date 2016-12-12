@@ -1,6 +1,6 @@
 <textarea
-    name="<?php echo $field->get_name(); ?>"
-    id="<?php echo $field->get_id(); ?>"
-    class="<?php echo $field->get_css_class(); ?>"
-    <?php echo $field->get_data_attributes(); ?>
+    name="<?php echo $field->getName(); ?>"
+    id="<?php echo $field->getId(); ?>"
+    class="<?php echo $field->getCssClass(); ?>"
+    <?php echo $field->getDataAttributes(); ?>
     ><?php echo $value; ?></textarea>

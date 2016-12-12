@@ -46,7 +46,7 @@ class Image extends Field
      * @return string
      * @since  3.0
      */
-    public function output_column_content($post_id)
+    public function outputColumnContent($post_id)
     {
         $meta = get_post_meta($post_id, $this->id, true);
 
@@ -59,7 +59,7 @@ class Image extends Field
      * @return string
      * @since  3.0
      */
-    public function get_preview_size()
+    public function getPreviewSize()
     {
         $size = (! Cuztom::isEmpty($this->args['preview_size']) ? $this->args['preview_size'] : 'medium');
 

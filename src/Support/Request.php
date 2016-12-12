@@ -30,7 +30,7 @@ class Request
      * @return string|null
      * @since  3.0
      */
-    public function __get($attribute)
+    public function get($attribute)
     {
         return isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : null;
     }

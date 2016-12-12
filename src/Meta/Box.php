@@ -67,17 +67,17 @@ class Box extends Meta
         // Build
         if (@$this->callback[0] == $this) {
             foreach ($this->post_types as $post_type) {
-                add_filter('manage_'.$post_type.'_posts_columns', array(&$this, 'add_column'));
-                add_action('manage_'.$post_type.'_posts_custom_column', array(&$this, 'add_column_content'), 10, 2);
-                add_action('manage_edit-'.$post_type.'_sortable_columns', array(&$this, 'add_sortable_column'), 10, 2);
+                add_filter('manage_'.$post_type.'_posts_columns', array(&$this, 'addColumn'));
+                add_action('manage_'.$post_type.'_posts_custom_column', array(&$this, 'addColumnContent'), 10, 2);
+                add_action('manage_edit-'.$post_type.'_sortable_columns', array(&$this, 'addSortableColumn'), 10, 2);
             }
 
-            add_action('save_post', array(&$this, 'save_post'));
-            add_action('post_edit_form_tag', array(&$this, 'edit_form_tag'));
+            add_action('save_post', array(&$this, 'savePost'));
+            add_action('post_edit_form_tag', array(&$this, 'editFormTag'));
         }
 
         // Add the meta box
-        add_action('add_meta_boxes', array(&$this, 'add_meta_box'));
+        add_action('add_meta_boxes', array(&$this, 'addMetaBox'));
     }
 
     /**
@@ -85,7 +85,7 @@ class Box extends Meta
      *
      * @since 0.2
      */
-    public function add_meta_box()
+    public function addMetaBox()
     {
         foreach ($this->post_types as $post_type) {
             add_meta_box(
@@ -105,7 +105,7 @@ class Box extends Meta
      * @param int $post_id
      * @since 0.1
      */
-    public function save_post($post_id)
+    public function savePost($post_id)
     {
         // Deny the wordpress autosave function
         if (Guard::doingAutosave() || Guard::doingAjax()) {
@@ -113,7 +113,7 @@ class Box extends Meta
         }
 
         // Verify nonce
-        if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
+        if (! Guard::verifyNonce('cuztomNonce', 'cuztomMeta')) {
             return;
         }
 
@@ -141,7 +141,7 @@ class Box extends Meta
      * @return array
      * @since  1.1
      */
-    public function add_column($columns)
+    public function addColumn($columns)
     {
         unset($columns['date']);
 
@@ -163,11 +163,11 @@ class Box extends Meta
      * @param int    $post_id
      * @since 1.1
      */
-    public function add_column_content($column, $post_id)
+    public function addColumnContent($column, $post_id)
     {
         $field = $this->fields[$column];
 
-        echo $field->output_column_content($post_id);
+        echo $field->outputColumnContent($post_id);
     }
 
     /**
@@ -177,7 +177,7 @@ class Box extends Meta
      * @return array
      * @since  1.4.8
      */
-    public function add_sortable_column($columns)
+    public function addSortableColumn($columns)
     {
         if ($this->fields) {
             foreach ($this->fields as $id => $field) {

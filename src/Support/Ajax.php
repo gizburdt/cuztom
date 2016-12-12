@@ -15,7 +15,7 @@ class Ajax
      */
     public function __construct()
     {
-        $this->add_hooks();
+        $this->addHooks();
     }
 
     /**
@@ -23,7 +23,7 @@ class Ajax
      *
      * @since 3.0
      */
-    public function add_hooks()
+    public function addHooks()
     {
         // Sortable
         add_action('wp_ajax_cuztom_add_repeatable_item', array(&$this, 'addRepeatableItem'));
@@ -38,21 +38,20 @@ class Ajax
     public function addRepeatableItem($bla)
     {
         $request = new Request($_POST);
-        $field   = $request->field;
-        $count   = $request->count;
-        $field   = self::getField($field, $request->box);
+        $count   = $request->get('count');
+
+        $field = $request->get('field');
+        $field = self::getField($field, $request->get('box'));
 
         if (! $field || ! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
-        if ((! $field->limit) || ($field->limit > $count)) {
-            $response = new Response(true, array('item' => $field->_output_repeatable_item(null, $count)));
-        } else {
-            $response = new Response(false, array('message' => __('Limit reached!', 'cuztom')));
-        }
+        $response = ((! $field->limit) || ($field->limit > $count))
+            ? new Response(true, array('item' => $field->_outputRepeatableItem(null, $count)))
+            : new Response(false, array('message' => __('Limit reached!', 'cuztom')));
 
-        echo $response->get();
+        echo $response->toJson();
 
         // wp
         die();
@@ -66,26 +65,26 @@ class Ajax
     public function addBundleItem()
     {
         $request = new Request($_POST);
-        $field   = $request->field;
-        $count   = $request->count;
-        $index   = $request->index;
-        $field   = self::getField($field, $request->box);
+        $count   = $request->get('count');
+        $index   = $request->get('index');
+
+        $field = $request->get('field');
+        $field = self::getField($field, $request->get('box'));
 
         if (! $field || ! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
-        if (! $field->limit || ($field->limit > $count)) {
-            $item = new BundleItem(
-                array_merge($field->original, array('parent' => $field, 'index' => $index))
-            );
+        $item = new BundleItem(array_merge(
+            $field->original,
+            array('parent' => $field, 'index' => $index)
+        ));
 
-            $response = new Response(true, array('item' => $item->output()));
-        } else {
-            $response = new Response(false, array('message' => __('Limit reached!', 'cuztom')));
-        }
+        $response = (! $field->limit || ($field->limit > $count))
+            ? new Response(true, array('item' => $item->output()))
+            : new Response(false, array('message' => __('Limit reached!', 'cuztom')));
 
-        echo $response->get();
+        echo $response->toJson();
 
         // wp
         die();

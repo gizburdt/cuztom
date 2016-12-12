@@ -52,7 +52,7 @@ class Tab extends Field
      * @return string
      * @since  3.0
      */
-    public function output_tab()
+    public function outputTab()
     {
         return Cuztom::view('fields/tab', array(
             'tab'   => $this,
@@ -81,7 +81,7 @@ class Tab extends Field
      * @param  array        $values
      * @return string|array
      */
-    public function substract_value($values)
+    public function substractValue($values)
     {
         return $values;
     }

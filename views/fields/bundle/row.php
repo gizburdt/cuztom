@@ -1,8 +1,8 @@
-<?php echo $bundle->output_control(); ?>
+<?php echo $bundle->outputControl(); ?>
 
 <tr class="cuztom-bundle">
-    <td class="cuztom-field js-cuztom-field" id="<?php echo $bundle->get_id(); ?>" data-id="<?php echo $bundle->get_id(); ?>" colspan="2">
-        <div class="cuztom-bundles cuztom-bundles-<?php echo $bundle->get_id(); ?>">
+    <td class="cuztom-field js-cuztom-field" id="<?php echo $bundle->getId(); ?>" data-id="<?php echo $bundle->getId(); ?>" colspan="2">
+        <div class="cuztom-bundles cuztom-bundles-<?php echo $bundle->getId(); ?>">
             <ul class="cuztom-sortable js-cuztom-sortable">
                 <?php echo $bundle->output(); ?>
             </ul>
@@ -10,4 +10,4 @@
     </td>
 </tr>
 
-<?php echo $bundle->output_control('bottom'); ?>
+<?php echo $bundle->outputControl('bottom'); ?>

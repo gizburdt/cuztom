@@ -43,7 +43,7 @@ class Tabs extends Field
      * @param string|array $value
      * @since 0.2
      */
-    public function output_row($value = null)
+    public function outputRow($value = null)
     {
         return Cuztom::view('fields/row/'.$this->view, array(
             'tabs'  => $this,
@@ -87,7 +87,7 @@ class Tabs extends Field
      * @param  array        $values
      * @return string|array
      */
-    public function substract_value($values)
+    public function substractValue($values)
     {
         return $values;
     }

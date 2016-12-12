@@ -49,17 +49,17 @@ class Term extends Meta
         if (@$this->callback[0] == $this) {
             foreach ($this->taxonomies as $taxonomy) {
                 if (in_array('add_form', $this->locations)) {
-                    add_action($taxonomy.'_add_form_fields', array(&$this, 'add_form_fields'));
-                    add_action('created_'.$taxonomy, array(&$this, 'save_term'));
+                    add_action($taxonomy.'_add_form_fields', array(&$this, 'addFormFields'));
+                    add_action('created_'.$taxonomy, array(&$this, 'saveTerm'));
                 }
 
                 if (in_array('edit_form', $this->locations)) {
-                    add_action($taxonomy.'_edit_form_fields', array(&$this, 'edit_form_fields'));
-                    add_action('edited_'.$taxonomy, array(&$this, 'save_term'));
+                    add_action($taxonomy.'_edit_form_fields', array(&$this, 'editFormFields'));
+                    add_action('edited_'.$taxonomy, array(&$this, 'saveTerm'));
                 }
 
-                add_filter('manage_edit-'.$taxonomy.'_columns', array(&$this, 'add_column'));
-                add_filter('manage_'.$taxonomy.'_custom_column', array(&$this, 'add_column_content'), 10, 3);
+                add_filter('manage_edit-'.$taxonomy.'_columns', array(&$this, 'addColumn'));
+                add_filter('manage_'.$taxonomy.'_custom_column', array(&$this, 'addColumnContent'), 10, 3);
             }
         }
     }
@@ -71,7 +71,7 @@ class Term extends Meta
      * @return mixed
      * @since  2.5
      */
-    public function add_form_fields($taxonomy)
+    public function addFormFields($taxonomy)
     {
         echo $this->output();
     }
@@ -83,7 +83,7 @@ class Term extends Meta
      * @return mixed
      * @since  2.5
      */
-    public function edit_form_fields($taxonomy)
+    public function editFormFields($taxonomy)
     {
         echo '</table>';
 
@@ -96,10 +96,10 @@ class Term extends Meta
      * @param int $id
      * @since 2.5
      */
-    public function save_term($id)
+    public function saveTerm($id)
     {
         // Verify nonce
-        if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
+        if (! Guard::verifyNonce('cuztomNonce', 'cuztomMeta')) {
             return;
         }
 
@@ -117,7 +117,7 @@ class Term extends Meta
      * @return array
      * @since  1.1
      */
-    public function add_column($columns)
+    public function addColumn($columns)
     {
         foreach ($this->fields as $id => $field) {
             if ($field->show_admin_column) {
@@ -136,11 +136,11 @@ class Term extends Meta
      * @param int    $term_id
      * @since 1.1
      */
-    public function add_column_content($row, $column, $term_id)
+    public function addColumnContent($row, $column, $term_id)
     {
         $field = $this->fields[$column];
 
-        echo $field->output_column_content();
+        echo $field->outputColumnContent();
     }
 
     /**

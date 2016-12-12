@@ -1,6 +1,6 @@
 <tr class="cuztom-control cuztom-control-<?php echo $class; ?> js-cuztom-control" data-control-for="<?php echo $bundle->id; ?>">
     <td colspan="2">
-        <a class="cuztom-button js-cuztom-add-sortable button button-secondary button-small" data-sortable-type="bundle" data-field-id="<?php echo $bundle->get_id(); ?>" href="#">
+        <a class="cuztom-button js-cuztom-add-sortable button button-secondary button-small" data-sortable-type="bundle" data-field-id="<?php echo $bundle->getId(); ?>" href="#">
             <?php _e('Add item', 'cuztom'); ?>
         </a>
 

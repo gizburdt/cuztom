@@ -126,7 +126,7 @@ abstract class Meta
     public function output()
     {
         // Nonce field for validation
-        wp_nonce_field('cuztom_meta', 'cuztom_nonce');
+        wp_nonce_field('cuztomMeta', 'cuztomNonce');
 
         echo Cuztom::view('meta/meta', array(
             'box' => $this
@@ -175,7 +175,7 @@ abstract class Meta
      *
      * @since 0.2
      */
-    public static function edit_form_tag()
+    public static function editFormTag()
     {
         echo ' enctype="multipart/form-data"';
     }

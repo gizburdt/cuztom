@@ -26,7 +26,7 @@ class Time extends DateTime
      * @param  string $string
      * @return string
      */
-    public function time_to_string($string)
+    public function timeToString($string)
     {
         return $string ? date(get_option('time_format'), $string) : null;
     }
