@@ -61,7 +61,9 @@ class Image extends Field
      */
     public function getPreviewSize()
     {
-        $size = (! Cuztom::isEmpty($this->args['preview_size']) ? $this->args['preview_size'] : 'medium');
+        $size = (! Cuztom::isEmpty($this->args['preview_size'])
+            ? $this->args['preview_size']
+            : 'medium');
 
         return apply_filters('cuztom_field_image_preview_size', $size, $this);
     }
