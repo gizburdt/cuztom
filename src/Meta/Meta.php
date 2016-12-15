@@ -142,6 +142,10 @@ abstract class Meta
      */
     public function save($object, $values)
     {
+        if (Cuztom::isEmpty($values)) {
+            return;
+        }
+
         foreach ($this->data as $id => $field) {
             $field->save($object, $values);
         }

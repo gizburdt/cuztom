@@ -127,11 +127,12 @@ class Box extends Meta
             return;
         }
 
-        $values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
+        // Call parent save
+        $values = isset($_POST['cuztom'])
+            ? $_POST['cuztom']
+            : null;
 
-        if (! Cuztom::isEmpty($values)) {
-            parent::save($post_id, $values);
-        }
+        parent::save($post_id, $values);
     }
 
     /**

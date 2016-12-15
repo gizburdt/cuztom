@@ -19,7 +19,7 @@ class User extends Meta
      * Meta type.
      * @var string
      */
-    public $_meta_type = 'user';
+    public $meta_type = 'user';
 
     /**
      * Constructor for User Meta.
@@ -74,11 +74,12 @@ class User extends Meta
             return;
         }
 
-        $values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
+        $values = isset($_POST['cuztom'])
+            ? $_POST['cuztom']
+            : null;
 
-        if (! Cuztom::isEmpty($values)) {
-            parent::save($id, $values);
-        }
+        // Call parent save
+        parent::save($id, $values);
     }
 
     /**

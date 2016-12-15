@@ -25,7 +25,7 @@ class Term extends Meta
      * Meta Type.
      * @var string
      */
-    public $_meta_type = 'term';
+    public $meta_type = 'term';
 
     /**
      * Construct the term meta.
@@ -103,11 +103,12 @@ class Term extends Meta
             return;
         }
 
-        $values = isset($_POST['cuztom']) ? $_POST['cuztom'] : null;
+        $values = isset($_POST['cuztom'])
+            ? $_POST['cuztom']
+            : null;
 
-        if (! Cuztom::isEmpty($values)) {
-            parent::save($id, $values);
-        }
+        // Call parent save
+        parent::save($id, $values);
     }
 
     /**
