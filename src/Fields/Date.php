@@ -12,7 +12,7 @@ class Date extends DateTime
      * CSS class.
      * @var string
      */
-    public $css_class = 'cuztom-input-date datepicker js-cuztom-datepicker';
+    public $css_class = 'cuztom-input--date datepicker js-cuztom-datepicker';
 
     /**
      * Row CSS class.

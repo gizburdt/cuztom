@@ -12,7 +12,7 @@ class Time extends DateTime
      * CSS class.
      * @var string
      */
-    public $css_class = 'cuztom-input-time timepicker js-cuztom-timepicker';
+    public $css_class = 'cuztom-input--time timepicker js-cuztom-timepicker';
 
     /**
      * Row CSS class.

@@ -379,7 +379,7 @@ abstract class Field
      */
     public function getExplanation()
     {
-        return apply_filters('cuztom_field_explanation', (! $this->isRepeatable() && $this->explanation ? '<em class="cuztom-field-explanation">'.$this->explanation.'</em>' : ''), $this);
+        return apply_filters('cuztom_field_explanation', (! $this->isRepeatable() && $this->explanation ? '<em class="cuztom-field__explanation">'.$this->explanation.'</em>' : ''), $this);
     }
 
     /**

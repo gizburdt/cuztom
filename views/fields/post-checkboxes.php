@@ -1,4 +1,4 @@
-<div class="cuztom-checkboxes-wrap">
+<div class="cuztom-checkboxes">
     <?php if (is_array($field->posts)) : ?>
         <?php foreach ($field->posts as $post) : ?>
             <label for="<?php echo $field->getId($post->ID) ?>">

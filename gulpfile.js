@@ -5,9 +5,9 @@ var elixir = require('laravel-elixir'),
 elixir.config.sourcemaps = false;
 
 elixir(function(mix) {
-    mix.less([
+    mix.sass([
         'vendor/datetimepicker/jquery.datetimepicker.css',
-        'less/cuztom.less',
+        'scss/cuztom.scss',
     ], 'assets/dist/css/cuztom.min.css', 'assets/');
 
     mix.scripts([

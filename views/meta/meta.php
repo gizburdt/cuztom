@@ -2,16 +2,16 @@
     <input type="hidden" name="cuztom[__activate]" value="activate">
 
     <div
-        class="cuztom cuztom-<?php echo $box->meta_type; ?> js-cuztom"
+        class="cuztom cuztom--<?php echo $box->meta_type; ?> js-cuztom"
         data-meta-type="<?php echo $box->meta_type; ?>"
         data-box-id="<?php echo $box->id; ?>"
         data-object-id="<?php echo $box->object; ?>"
     >
         <?php if (! empty($box->description)) : ?>
-            <div class="cuztom-box-description"><?php echo $box->description; ?></div>
+            <div class="cuztom-box__description"><?php echo $box->description; ?></div>
         <?php endif; ?>
 
-        <table class="form-table cuztom-table cuztom-main-table">
+        <table class="form-table cuztom-table cuztom-table--main">
             <?php foreach ($box->data as $id => $field) : ?>
                 <?php echo $field->outputRow(); ?>
             <?php endforeach; ?>

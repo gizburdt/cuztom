@@ -13,7 +13,7 @@ class Text extends Field
      * CSS class.
      * @var string
      */
-    public $css_class = 'cuztom-input-text';
+    public $css_class = 'cuztom-input--text';
 
     /**
      * Row CSS class.

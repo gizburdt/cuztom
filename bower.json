@@ -3,7 +3,7 @@
     "private": true,
     "dependencies": {
         "jquery":         "latest",
-        "bootstrap":      "latest",
+        "bootstrap-sass": "latest",
         "datetimepicker": "https://github.com/xdan/datetimepicker.git"
     }
 }

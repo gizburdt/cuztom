@@ -47,7 +47,10 @@ doc.on( 'click', '.js-cuztom-add-sortable', function(event) {
 
         if(response.status) {
             sortable.append(response.item);
-            counterCurrent.text(count + 1);
+
+            count = sortable.find('.js-cuztom-sortable-item').length;
+
+            counterCurrent.text(count);
         } else {
             alert(response.message);
         }
@@ -64,6 +67,7 @@ doc.on( 'click', '.js-cuztom-add-sortable', function(event) {
 doc.on( 'click', '.js-cuztom-remove-sortable', function(event) {
     var that     = $(this),
         cuztom   = that.closest('.js-cuztom'),
+        type     = that.data('sortable-type');
         box      = cuztom.data('box-id'),
         item     = that.closest('.js-cuztom-sortable-item');
 
