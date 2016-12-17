@@ -1,5 +1,6 @@
 
 .cuztom-tabs{
+
     .ui-widget{
         @include box-shadow(0 1px 0 #fff);
         padding: 0;
@@ -31,7 +32,8 @@
             border-bottom: 1px solid $tabs-bg;
         }
 
-        &:hover{
+        &:hover,
+        &:focus{
             border: 1px solid $tabs-border-color;
         }
     }
@@ -41,7 +43,10 @@
         color: #21759b;
         outline: none;
 
-        &:hover{ color: $tabs-hover-color; }
+        &:hover,
+        &:focus{
+            color: $tabs-hover-color;
+        }
     }
 
     .ui-tabs-panel{
@@ -51,4 +56,5 @@
         font-size: 12px;
         padding: 0;
     }
+
 }

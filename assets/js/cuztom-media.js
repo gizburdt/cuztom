@@ -5,7 +5,7 @@ doc.on('click', '.js-cuztom-remove-media', function(event) {
         field = that.closest('.js-cuztom-field');
 
     // Clear previews / data
-    field.find('.cuztom-preview').html('');
+    field.find('.js-cuztom-media-preview').html('');
     field.find('.cuztom-input-hidden').val('');
 
     // Prevent click
@@ -18,7 +18,7 @@ doc.on('click', '.js-cuztom-upload', function(event) {
         type        = that.attr('data-media-type') || 'image',
         field       = that.closest('.js-cuztom-field'),
         hidden      = field.find('.cuztom-input-hidden'),
-        preview     = field.find('.cuztom-preview'),
+        preview     = field.find('.js-cuztom-media-preview'),
         previewSize = 'medium',
         _cuztom_uploader;
 
@@ -61,7 +61,7 @@ doc.on('click', '.js-cuztom-upload', function(event) {
             preview.html('<img src="' + thumbnail.url + '" height="' + thumbnail.height + '" width="' + thumbnail.width + '" />')
         } else {
             that.after('<a href="#" class="button button-small cuztom-remove-media js-cuztom-remove-media" tabindex="-1" title="Remove current file">x</a>');
-            preview.html('<span class="cuztom-mime mime-application-pdf"><a href="' + attachment.url + '">' + attachment.title + '</a></span>')
+            preview.html('<span class="cuztom-media__mime mime--application-pdf"><a href="' + attachment.url + '">' + attachment.title + '</a></span>')
         }
 
         hidden.val(attachment.id);

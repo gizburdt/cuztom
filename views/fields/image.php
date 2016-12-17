@@ -14,4 +14,4 @@ if (! Cuztom::isEmpty($value)) {
 <?php echo $field->_outputInput($value, 'text'); ?>
 <input id="<?php echo $field->getId(); ?>" type="button" class="button button-small js-cuztom-upload" data-media-type="image" value="<?php _e('Select image', 'cuztom'); ?>" />
 <?php echo (! Cuztom::isEmpty($value) ? sprintf('<a href="#" class="button button-small cuztom-remove-media js-cuztom-remove-media" title="%s" tabindex="-1">x</a>', __('Remove current image', 'cuztom')) : ''); ?>
-<span class="cuztom-preview cuztom-preview-image"><?php echo $image; ?></span>
+<span class="cuztom-media__preview js-cuztom-media-preview"><?php echo $image; ?></span>

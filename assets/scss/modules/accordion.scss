@@ -1,5 +1,6 @@
 
 .cuztom-accordion{
+
     .ui-widget{
         @include border-radius(0);
         @include box-shadow(0 1px 0 #fff);
@@ -20,7 +21,10 @@
         font-size: 12px !important;
         cursor: move;
 
-        &:focus{ outline: none; }
+        &:focus,
+        &:focus{
+            outline: none;
+        }
      }
 
     .ui-accordion-content{
@@ -28,4 +32,5 @@
         padding: 0;
         border: none;
     }
+
 }
