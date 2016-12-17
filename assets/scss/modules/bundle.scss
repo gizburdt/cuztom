@@ -1,0 +1,45 @@
+.cuztom-bundle{
+    .cuztom-sortable{
+        margin: 0;
+    }
+
+    .cuztom-sortable-item{
+        @extend .clearfix;
+        @include border-radius(3px);
+        @include box-shadow(0 1px 0 #fff);
+        position: relative;
+        margin: 0;
+        border: 1px solid $bundle-border-color;
+        background: $bundle-bg;
+
+        & + .cuztom-sortable-item{
+            margin-top: 10px;
+        }
+    }
+
+    .bundle-control{
+        border-bottom: 1px solid $bundle-border-color;
+    }
+
+    .cuztom-fieldset{
+        float: left;
+        width: 90%;
+    }
+
+    .cuztom-handle-sortable,
+    .cuztom-remove-sortable{
+        padding: 10px;
+        text-align: center;
+
+        a{ margin: 0; }
+    }
+
+    .cuztom-handle-sortable{
+        border-right: 1px solid $bundle-border-color;
+    }
+
+    .cuztom-remove-sortable{
+        float: right;
+        border-left: 1px solid $bundle-border-color;
+    }
+}
