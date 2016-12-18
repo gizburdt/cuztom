@@ -1,10 +1,10 @@
 <li class="cuztom-sortable-item js-cuztom-sortable-item">
     <div class="bundle-control">
-        <div class="cuztom-handle-sortable js-cuztom-handle-sortable">
+        <div class="cuztom-sortable__handle js-cuztom-sortable-handle">
             <a href="#"></a>
         </div>
 
-        <div class="cuztom-remove-sortable js-cuztom-remove-sortable"><a href="#"></a></div>
+        <div class="cuztom-sortable__remove js-cuztom-remove-sortable"><a href="#"></a></div>
     </div>
 
     <fieldset class="cuztom-fieldset">

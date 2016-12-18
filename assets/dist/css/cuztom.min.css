@@ -510,11 +510,11 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f8fa', endColorstr='#FFF',GradientType=0 );
   /* IE6-9 */ }
 
-.clearfix:before, .clearfix:after {
+.clearfix:before, .cuztom .cuztom-bundle .cuztom-sortable-item:before, .clearfix:after, .cuztom .cuztom-bundle .cuztom-sortable-item:after {
   content: " ";
   display: table; }
 
-.clearfix:after {
+.clearfix:after, .cuztom .cuztom-bundle .cuztom-sortable-item:after {
   clear: both; }
 
 .center-block {
@@ -580,7 +580,7 @@
     background: #f1f1f1;
     border: 1px solid #dfdfdf; }
 
-.cuztom .cuztom-table--main {
+.cuztom .cuztom-main {
   background-color: transparent; }
 
 .cuztom .cuztom-field__description,
@@ -704,6 +704,86 @@
   padding: 0;
   border: none; }
 
+.cuztom .cuztom-sortable-item .cuztom-sortable__handle,
+.cuztom .cuztom-sortable-item .cuztom-sortable__remove {
+  display: inline-block;
+  vertical-align: middle; }
+
+.cuztom .cuztom-sortable-item .cuztom-sortable__handle a,
+.cuztom .cuztom-sortable-item .cuztom-sortable__remove a {
+  height: 16px;
+  width: 8px;
+  display: block;
+  background: url("../images/jquery-ui/ui-icons_454545_256x240.png") no-repeat;
+  outline: none; }
+
+.cuztom .cuztom-sortable-item .cuztom-sortable__handle a {
+  margin-right: 10px;
+  background-position: -132px -48px;
+  cursor: move; }
+
+.cuztom .cuztom-sortable-item .cuztom-sortable__remove a {
+  margin-left: 10px;
+  background-position: -85px -128px;
+  cursor: pointer; }
+
+.cuztom .cuztom-counter {
+  float: right;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 12px;
+  color: #999; }
+
+.cuztom .cuztom-repeatable {
+  border: 1px solid #dfdfdf; }
+  .cuztom .cuztom-repeatable .cuztom-control {
+    padding: 6px 10px;
+    background: #f1f1f1;
+    border-bottom: 1px solid #dfdfdf; }
+  .cuztom .cuztom-repeatable .cuztom-sortable {
+    margin: 0; }
+  .cuztom .cuztom-repeatable .cuztom-sortable-item {
+    margin: 0;
+    padding: 6px 10px; }
+    .cuztom .cuztom-repeatable .cuztom-sortable-item + .cuztom-sortable-item {
+      border-top: 1px solid #dfdfdf; }
+
+.cuztom .cuztom-bundle .cuztom-sortable {
+  margin: 0; }
+
+.cuztom .cuztom-bundle .bundle-control {
+  border-bottom: 1px solid #dfdfdf; }
+
+.cuztom .cuztom-bundle .cuztom-fieldset {
+  float: left;
+  width: 90%; }
+
+.cuztom .cuztom-bundle .cuztom-sortable-item {
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  box-shadow: 0 1px 0 #fff;
+  position: relative;
+  margin: 0;
+  border: 1px solid #dfdfdf;
+  background: #f1f1f1; }
+  .cuztom .cuztom-bundle .cuztom-sortable-item + .cuztom-sortable-item {
+    margin-top: 10px; }
+
+.cuztom .cuztom-bundle .cuztom-sortable__handle,
+.cuztom .cuztom-bundle .cuztom-sortable__remove {
+  padding: 10px;
+  text-align: center; }
+  .cuztom .cuztom-bundle .cuztom-sortable__handle a,
+  .cuztom .cuztom-bundle .cuztom-sortable__remove a {
+    margin: 0; }
+
+.cuztom .cuztom-bundle .cuztom-sortable__handle {
+  border-right: 1px solid #dfdfdf; }
+
+.cuztom .cuztom-bundle .cuztom-sortable__remove {
+  float: right;
+  border-left: 1px solid #dfdfdf; }
+
 .cuztom .cuztom-media__preview {
   display: block;
   margin: 10px 0 5px 0; }
@@ -715,6 +795,48 @@
   display: block;
   padding: 5px 0 5px 25px;
   background: url("../images/mime/file.png") 0 2px no-repeat; }
+
+.cuztom.cuztom--post .cuztom-main {
+  border: 1px solid #dfdfdf;
+  background-color: #f9f9f9; }
+
+.cuztom.cuztom--post tr.cuztom-tabs > th,
+.cuztom.cuztom--post tr.cuztom-tabs > td,
+.cuztom.cuztom--post tr.cuztom-accordion > th,
+.cuztom.cuztom--post tr.cuztom-accordion > td {
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf; }
+
+.cuztom.cuztom--post .cuztom-field__label {
+  font-size: 12px; }
+
+.cuztom.cuztom--user .cuztom-main > tbody > tr > th, .cuztom.cuztom--term .cuztom-main > tbody > tr > th {
+  padding-left: 0; }
+
+.cuztom.cuztom--user .cuztom-main > tbody > tr > td, .cuztom.cuztom--term .cuztom-main > tbody > tr > td {
+  padding-right: 0; }
+
+.cuztom.cuztom--user tr.cuztom-tabs .cuztom-field,
+.cuztom.cuztom--user tr.cuztom-accordion .cuztom-field, .cuztom.cuztom--term tr.cuztom-tabs .cuztom-field,
+.cuztom.cuztom--term tr.cuztom-accordion .cuztom-field {
+  padding-left: 0;
+  padding-right: 0; }
+
+.cuztom.cuztom--user tr.cuztom-bundle,
+.cuztom.cuztom--user .cuztom-control, .cuztom.cuztom--term tr.cuztom-bundle,
+.cuztom.cuztom--term .cuztom-control {
+  background-color: #fff; }
+
+.cuztom.cuztom--user tr.cuztom-bundle > th,
+.cuztom.cuztom--user tr.cuztom-bundle > td, .cuztom.cuztom--term tr.cuztom-bundle > th,
+.cuztom.cuztom--term tr.cuztom-bundle > td {
+  border-left: 1px solid #dfdfdf;
+  border-right: 1px solid #dfdfdf; }
+
+.cuztom.cuztom--user tr.cuztom-bundle > td,
+.cuztom.cuztom--user tr.cuztom-control > td, .cuztom.cuztom--term tr.cuztom-bundle > td,
+.cuztom.cuztom--term tr.cuztom-control > td {
+  padding-right: 10px !important; }
 
 .cuztom .tmce-active table {
   max-width: none; }

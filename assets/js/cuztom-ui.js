@@ -43,6 +43,6 @@ var cuztomUI;
 
     // Sortable
     $('.js-cuztom-sortable', object).sortable({
-        handle: '.cuztom-handle-sortable a'
+        handle: '.js-cuztom-sortable-handle a'
     });
 })(document);

@@ -3,6 +3,16 @@
         margin: 0;
     }
 
+    .bundle-control{
+        border-bottom: 1px solid $bundle-border-color;
+    }
+
+    .cuztom-fieldset{
+        float: left;
+        width: 90%;
+    }
+
+    // Item
     .cuztom-sortable-item{
         @extend .clearfix;
         @include border-radius(3px);
@@ -17,28 +27,19 @@
         }
     }
 
-    .bundle-control{
-        border-bottom: 1px solid $bundle-border-color;
-    }
-
-    .cuztom-fieldset{
-        float: left;
-        width: 90%;
-    }
-
-    .cuztom-handle-sortable,
-    .cuztom-remove-sortable{
+    .cuztom-sortable__handle,
+    .cuztom-sortable__remove{
         padding: 10px;
         text-align: center;
 
         a{ margin: 0; }
     }
 
-    .cuztom-handle-sortable{
+    .cuztom-sortable__handle{
         border-right: 1px solid $bundle-border-color;
     }
 
-    .cuztom-remove-sortable{
+    .cuztom-sortable__remove{
         float: right;
         border-left: 1px solid $bundle-border-color;
     }

@@ -1,13 +1,13 @@
 .cuztom-sortable-item{
 
-    .cuztom-handle-sortable,
-    .cuztom-remove-sortable{
+    .cuztom-sortable__handle,
+    .cuztom-sortable__remove{
         display: inline-block;
         vertical-align: middle;
     }
 
-    .cuztom-handle-sortable a,
-    .cuztom-remove-sortable a{
+    .cuztom-sortable__handle a,
+    .cuztom-sortable__remove a{
         height: 16px;
         width: 8px;
         display: block;
@@ -15,13 +15,13 @@
         outline: none;
     }
 
-    .cuztom-handle-sortable a{
+    .cuztom-sortable__handle a{
         margin-right: 10px;
         background-position: -132px -48px;
         cursor: move;
     }
 
-    .cuztom-remove-sortable a{
+    .cuztom-sortable__remove a{
         margin-left: 10px;
         background-position: -85px -128px;
         cursor: pointer;
@@ -29,7 +29,7 @@
 }
 
 // Counter
-.cuztom-sortable-counter{
+.cuztom-counter{
     float: right;
     padding-top: 3px;
     padding-bottom: 3px;

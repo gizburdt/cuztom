@@ -1,6 +1,6 @@
 // Post
 &.cuztom--post{
-    .cuztom-main-table{
+    .cuztom-main{
         border: 1px solid $table-border-color;
         background-color: $table-bg;
     }
@@ -16,7 +16,7 @@
     }
 
     // Label
-    .cuztom-label{
+    .cuztom-field__label{
         font-size: 12px;
     }
 }
@@ -24,8 +24,9 @@
 // User / term
 &.cuztom--user,
 &.cuztom--term{
-    .cuztom-main-table{
+    .cuztom-main{
         > tbody > tr > th{ padding-left: 0; }
+        > tbody > tr > td{ padding-right: 0; }
     }
 
     // Tabs
@@ -33,7 +34,14 @@
     tr.cuztom-accordion{
         .cuztom-field{
             padding-left: 0;
+            padding-right: 0;
         }
+    }
+
+    // Sortable
+    tr.cuztom-bundle,
+    .cuztom-control{
+        background-color: #fff;
     }
 
     // Bundle
@@ -44,4 +52,11 @@
             border-right: 1px solid $table-border-color;
         }
     }
+
+    // Fix (padding)
+    tr.cuztom-bundle > td,
+    tr.cuztom-control > td{
+        padding-right: 10px !important;
+    }
+
 }
