@@ -57,4 +57,10 @@
         padding: 0;
     }
 
+    // Fixes
+    tr.cuztom-control > td{
+        border-left: none;
+        border-right: none;
+    }
+
 }

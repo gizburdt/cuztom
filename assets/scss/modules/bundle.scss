@@ -7,11 +7,6 @@
         border-bottom: 1px solid $bundle-border-color;
     }
 
-    .cuztom-fieldset{
-        float: left;
-        width: 90%;
-    }
-
     // Item
     .cuztom-sortable-item{
         @extend .clearfix;

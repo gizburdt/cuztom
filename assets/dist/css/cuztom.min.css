@@ -675,6 +675,10 @@
   font-size: 12px;
   padding: 0; }
 
+.cuztom .cuztom-tabs tr.cuztom-control > td {
+  border-left: none;
+  border-right: none; }
+
 .cuztom .cuztom-accordion .ui-widget {
   border-radius: 0;
   -webkit-border-radius: 0;
@@ -753,10 +757,6 @@
 
 .cuztom .cuztom-bundle .bundle-control {
   border-bottom: 1px solid #dfdfdf; }
-
-.cuztom .cuztom-bundle .cuztom-fieldset {
-  float: left;
-  width: 90%; }
 
 .cuztom .cuztom-bundle .cuztom-sortable-item {
   border-radius: 3px;
