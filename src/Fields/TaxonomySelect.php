@@ -22,10 +22,10 @@ class TaxonomySelect extends Select
     public $css_class = 'cuztom-input-select cuztom-input-taxonomy-select';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field-taxonomy-select';
+    public $cell_css_class = 'cuztom-field-taxonomy-select';
 
     /**
      * Construct.

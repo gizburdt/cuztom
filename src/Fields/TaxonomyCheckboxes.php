@@ -16,10 +16,10 @@ class TaxonomyCheckboxes extends Checkboxes
     public $view = 'taxonomy-checkboxes';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field-taxonomy-checkboxes';
+    public $cell_css_class = 'cuztom-field-taxonomy-checkboxes';
 
     /**
      * Construct.

@@ -25,8 +25,8 @@ class Checkbox extends Field
     public $view = 'checkbox';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field-checkbox';
+    public $cell_css_class = 'cuztom-field-checkbox';
 }

@@ -16,10 +16,10 @@ class PostCheckboxes extends Checkboxes
     public $view = 'post-checkboxes';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field-post-checkboxes';
+    public $cell_css_class = 'cuztom-field-post-checkboxes';
 
     /**
      * Construct.

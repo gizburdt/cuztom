@@ -28,10 +28,10 @@ class Image extends Field
     public $css_class = 'cuztom-input-hidden';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field-image';
+    public $cell_css_class = 'cuztom-field-image';
 
     /**
      * Data attributes.

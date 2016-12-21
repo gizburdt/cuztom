@@ -22,8 +22,8 @@ class Textarea extends Field
     public $css_class = 'cuztom-input--textarea';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field--textarea';
+    public $cell_css_class = 'cuztom-field--textarea';
 }

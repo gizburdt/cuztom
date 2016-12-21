@@ -4,7 +4,7 @@
         <?php echo ($field->required ? ' <span class="cuztom-field--required">*</span>' : ''); ?>
         <div class="cuztom-field__description"><?php echo $field->description; ?></div>
     </th>
-    <td class="<?php echo $field->getRowCssClass(); ?>" data-id="<?php echo $field->getId(); ?>">
+    <td class="<?php echo $field->getCellCssClass(); ?>" data-id="<?php echo $field->getId(); ?>">
         <?php echo $field->output($value); ?>
     </td>
 </tr>

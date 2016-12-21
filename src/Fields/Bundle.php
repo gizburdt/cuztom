@@ -27,15 +27,15 @@ class Bundle extends Field
     }
 
     /**
-     * Output a row.
+     * Output field cell.
      *
      * @param mixed  $value
      * @param string $view
      * @since 3.0
      */
-    public function outputRow($value = null, $view = null)
+    public function outputCell($value = null, $view = null)
     {
-        return Cuztom::view('fields/bundle/row', array(
+        return Cuztom::view('fields/bundle/cell', array(
             'bundle' => $this,
             'value'  => $value
         ));
@@ -60,7 +60,7 @@ class Bundle extends Field
     }
 
     /**
-     * Output a control row for a bundle.
+     * Output a control cell for a bundle.
      *
      * @param string $class
      * @since 3.0
@@ -85,9 +85,9 @@ class Bundle extends Field
         $values = $values[$this->id];
         $values = is_array($values) ? array_values($values) : array();
 
-        foreach ($values as $row => $fields) {
+        foreach ($values as $cell => $fields) {
             foreach ($fields as $id => $value) {
-                $values[$row][$id] = $this->data[0]->data[$id]->parseValue($value);
+                $values[$cell][$id] = $this->data[0]->data[$id]->parseValue($value);
             }
         }
 

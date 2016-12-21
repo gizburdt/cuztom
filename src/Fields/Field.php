@@ -35,7 +35,7 @@ abstract class Field
     public $limit                 = null;
     public $data_attributes       = array();
     public $css_class             = '';
-    public $row_css_class         = '';
+    public $cell_css_class         = '';
     public $show_admin_column     = false;
     public $admin_column_sortable = false;
     public $admin_column_filter   = false;
@@ -88,7 +88,7 @@ abstract class Field
         'limit',
         'data_attributes',
         'css_class',
-        'row_css_class',
+        'cell_css_class',
         'show_admin_column',
         'admin_column_sortable',
         'admin_column_filter',
@@ -130,15 +130,15 @@ abstract class Field
     }
 
     /**
-     * Outputs a field row.
+     * Outputs a field cell.
      *
      * @param string|array $value
      * @pram  string       $view
      * @since 0.2
      */
-    public function outputRow($value = null)
+    public function outputCell($value = null)
     {
-        return Cuztom::view('fields/row/text', array(
+        return Cuztom::view('fields/cell/text', array(
             'field' => $this,
             'value' => $value
         ));
@@ -360,15 +360,15 @@ abstract class Field
     }
 
     /**
-     * Get the fields row css classes.
+     * Get the fields cell css classes.
      *
      * @param  array  $extra
      * @return string
      * @since  3.0
      */
-    public function getRowCssClass($extra = null)
+    public function getCellCssClass($extra = null)
     {
-        return apply_filters('cuztom_field_row_css_class', 'cuztom-field js-cuztom-field '.$this->row_css_class, $this, $extra);
+        return apply_filters('cuztom_field_cell_css_class', 'cuztom-field js-cuztom-field '.$this->cell_css_class, $this, $extra);
     }
 
     /**

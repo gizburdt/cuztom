@@ -15,10 +15,10 @@ class Time extends DateTime
     public $css_class = 'cuztom-input--time timepicker js-cuztom-timepicker';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field-time';
+    public $cell_css_class = 'cuztom-field-time';
 
     /**
      * UNIX time to string.

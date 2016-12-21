@@ -31,10 +31,10 @@ class Checkboxes extends Field
     public $css_class = 'cuztom-input-checkbox';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field-checkboxes';
+    public $cell_css_class = 'cuztom-field-checkboxes';
 
     /**
      * Construct.

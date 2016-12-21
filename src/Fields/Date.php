@@ -15,10 +15,10 @@ class Date extends DateTime
     public $css_class = 'cuztom-input--date datepicker js-cuztom-datepicker';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field-date';
+    public $cell_css_class = 'cuztom-field-date';
 
     /**
      * UNIX time to string.

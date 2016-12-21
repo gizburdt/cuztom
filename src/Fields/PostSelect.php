@@ -22,10 +22,10 @@ class PostSelect extends Select
     public $css_class = 'cuztom-input-select cuztom-input-post-select';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field-post-select';
+    public $cell_css_class = 'cuztom-field-post-select';
 
     /**
      * Construct.

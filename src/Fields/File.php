@@ -28,10 +28,10 @@ class File extends Field
     public $css_class = 'cuztom-input-hidden';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field-file';
+    public $cell_css_class = 'cuztom-field-file';
 
     /**
      * Data attributes.

@@ -38,14 +38,14 @@ class Tabs extends Field
     }
 
     /**
-     * Outputs a field row.
+     * Outputs a field cell.
      *
      * @param string|array $value
      * @since 0.2
      */
-    public function outputRow($value = null)
+    public function outputCell($value = null)
     {
-        return Cuztom::view('fields/row/'.$this->view, array(
+        return Cuztom::view('fields/cell/'.$this->view, array(
             'tabs'  => $this,
             'value' => $value
         ));

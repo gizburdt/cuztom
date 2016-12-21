@@ -15,20 +15,20 @@ class Hidden extends Field
     public $input_type = 'hidden';
 
     /**
-     * Row CSS class.
+     * Cell CSS class.
      * @var string
      */
-    public $row_css_class = 'cuztom-field-hidden';
+    public $cell_css_class = 'cuztom-field-hidden';
 
     /**
      * Hidden field only needs the field.
-     * Not a row.
+     * Not a cell.
      *
      * @param  string $value
      * @return string
      * @since  0.2
      */
-    public function outputRow($value = null)
+    public function outputCell($value = null)
     {
         return $this->_outputInput($value);
     }
