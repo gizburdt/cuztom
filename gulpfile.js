@@ -11,12 +11,13 @@ elixir(function(mix) {
     ], 'assets/dist/css/cuztom.min.css', 'assets/');
 
     mix.scripts([
+        'vendor/vue/dist/vue.min.js',
         'vendor/datetimepicker/build/jquery.datetimepicker.full.js',
         'js/cuztom-open.js',
         'js/cuztom-ui.js',
-        'js/cuztom-sortable.js',
         'js/cuztom-media.js',
         'js/cuztom-close.js',
+        // 'js/v-cuztom-sortable.js',
     ], 'assets/dist/js/cuztom.min.js', 'assets/');
 });
 

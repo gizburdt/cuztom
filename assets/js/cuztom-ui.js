@@ -1,5 +1,13 @@
+
+/**
+ * Variable function, so it can be called from other places
+ */
 var cuztomUI;
 
+/**
+ * Function with all UI functions
+ * @param  element object Document
+ */
 (cuztomUI = function(object) {
     var object = $(object);
 
