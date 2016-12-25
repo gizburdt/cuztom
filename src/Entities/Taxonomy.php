@@ -5,79 +5,64 @@ namespace Gizburdt\Cuztom\Entities;
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Meta\Term as TermMeta;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Support\Notice;
 
 Guard::directAccess();
 
 class Taxonomy extends Entity
 {
     /**
-     * Args.
-     * @var array
-     */
-    public $args;
-
-    /**
-     * Labels.
-     * @var array
-     */
-    public $labels;
-
-    /**
-     * Attached post type.
+     * Attached post type(s).
      * @var string|array
      */
-    public $post_type;
+    public $postType;
 
     /**
      * Constructs the class with important vars and method calls.
-     * If the taxonomy exists, it will be attached to the post type.
+     * If the Taxonomy exists, it will be attached to the Post Type.
      *
      * @param string       $name
-     * @param string|array $post_type
+     * @param string|array $postType
      * @param array        $args
-     * @since 0.2
      */
-    public function __construct($name, $post_type = null, $args = array())
+    public function __construct($name, $postType = null, $args = array())
     {
         // Entity construct
         parent::__construct($name, $args);
 
         // Set properties
-        $this->post_type = (array) $post_type;
+        $this->postType = (array) $postType;
 
         // Register taxonomy
         if (! taxonomy_exists($this->name)) {
-            $this->registerTaxonomy();
+            $this->registerEntity();
         } else {
-            $this->registerTaxonomyForObjectType();
+            $this->registerEntityForObjectType();
         }
 
         // Sortable columns
-        if (@$args['admin_column_sortable']) {
-            foreach ($this->post_type as $post_type) {
-                add_action("manage_edit-{$post_type}_sortable_columns", array(&$this, 'addSortableColumn'));
+        if (Cuztom::isTrue($args['admin_column_sortable'])) {
+            foreach ($this->postType as $postType) {
+                add_action("manage_edit-{$postType}_sortable_columns", array(&$this, 'addSortableColumn'));
             }
         }
 
         // Column filter
-        if (@$args['admin_column_filter']) {
+        if (Cuztom::isTrue($args['admin_column_filter'])) {
             add_action('restrict_manage_posts', array(&$this, 'adminColumnFilter'));
-            add_filter('parse_query', array(&$this, '_postFilterQuery'));
+            add_filter('parse_query', array(&$this, 'postFilterQuery'));
         }
     }
 
     /**
-     * Registers the custom taxonomy with the given arguments.
+     * Registers the custom Taxonomy with the given arguments.
      *
-     * @since 0.2
+     * @return void
      */
-    public function registerTaxonomy()
+    public function registerEntity()
     {
-        if ($reserved = Cuztom::isReservedTerm($this->name)) {
-            return new Notice($reserved->get_error_message(), 'error');
-        }
+        parent::registerEntity();
 
+        // Args
         $args = array_merge(
             array(
                 'label'             => sprintf(__('%s', 'cuztom'), $this->plural),
@@ -104,26 +89,25 @@ class Taxonomy extends Entity
             $this->original
         );
 
-        register_taxonomy($this->name, $this->post_type, $args);
+        register_taxonomy($this->name, $this->postType, $args);
     }
 
     /**
-     * Used to attach the existing taxonomy to the post type.
+     * Used to attach the existing Taxonomy to the Post Type.
      *
-     * @since 0.2
+     * @return void
      */
-    public function registerTaxonomyForObjectType()
+    public function registerEntityForObjectType()
     {
-        register_taxonomy_for_object_type($this->name, $this->post_type);
+        register_taxonomy_for_object_type($this->name, $this->postType);
     }
 
     /**
-     * Add term meta to this taxonomy.
+     * Add Term Meta to this Taxonomy.
      *
-     * @param int   $id
-     * @param array $data
-     * @param array $locations
-     * @since 2.5
+     * @param string $id
+     * @param array  $data
+     * @param array  $locations
      */
     public function addTermMeta($id, $data = array(), $locations = array('add_form', 'edit_form'))
     {
@@ -133,10 +117,9 @@ class Taxonomy extends Entity
     }
 
     /**
-     * Used to make all columns sortable.
+     * Add sortable column.
      *
      * @param array $columns
-     * @since 1.6
      */
     public function addSortableColumn($columns)
     {
@@ -148,22 +131,22 @@ class Taxonomy extends Entity
     /**
      * Adds a filter to the post table filters.
      *
-     * @since 1.6
+     * @return void
      */
     public function adminColumnFilter()
     {
         global $typenow, $wp_query;
 
-        if (in_array($typenow, $this->post_type)) {
+        if (in_array($typenow, $this->postType)) {
             wp_dropdown_categories(array(
-                'show_option_all'   => sprintf(__('Show all %s', 'cuztom'), $this->plural),
-                'taxonomy'          => $this->name,
-                'name'              => $this->name,
-                'orderby'           => 'name',
-                'selected'          => isset($wp_query->query[$this->name]) ? $wp_query->query[$this->name] : '',
-                'hierarchical'      => true,
-                'show_count'        => true,
-                'hide_empty'        => true,
+                'show_option_all' => sprintf(__('Show all %s', 'cuztom'), $this->plural),
+                'taxonomy'        => $this->name,
+                'name'            => $this->name,
+                'orderby'         => 'name',
+                'selected'        => isset($wp_query->query[$this->name]) ? $wp_query->query[$this->name] : '',
+                'hierarchical'    => true,
+                'show_count'      => true,
+                'hide_empty'      => true,
             ));
         }
     }
@@ -173,9 +156,8 @@ class Taxonomy extends Entity
      *
      * @param  object $query
      * @return array
-     * @since  1.6
      */
-    public function _postFilterQuery($query)
+    public function postFilterQuery($query)
     {
         // @TODO: Is this still right?
         global $pagenow;

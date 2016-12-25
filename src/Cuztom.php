@@ -448,6 +448,17 @@ class Cuztom
     }
 
     /**
+     * Check if isset and true.
+     *
+     * @param  string  $input Mostly an array element
+     * @return boolean
+     */
+    public static function isTrue($input)
+    {
+        return isset($input) && $input == true;
+    }
+
+    /**
      * Check if variable is empty.
      *
      * @param  string|array $input

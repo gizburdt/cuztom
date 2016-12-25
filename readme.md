@@ -1,9 +1,6 @@
 ## Cuztom
 
-Cuztom is a Wordpress library, which can be used to easily register Post Types, Taxonomies, Meta Boxes, Term Meta, User Meta. Please comment, review, watch, fork and report bugs.
-
-**Version:** 3.0
-**Requires:** 4.4+
+Cuztom is a Wordpress library, which can be used to easily register Post Types, Taxonomies, Meta Boxes, Term Meta, User Meta. Please comment, review, watch, fork and report bugs. Requires Wordpress 4.4+.
 
 ## Basic usage
 
@@ -15,7 +12,7 @@ Cuztom is a Wordpress library, which can be used to easily register Post Types, 
 
 To add Custom Taxonomies to the newly created Post Type, simply call this method.
 
-    $book->add_taxonomy('Author');
+    $book->addTaxonomy('Author');
 
 You can also call this as a seperate class like this. The second parameter is the Post Type name.
 

@@ -9,12 +9,6 @@ Guard::directAccess();
 class Sidebar
 {
     /**
-     * Sidebar.
-     * @var array
-     */
-    public $sidebar;
-
-    /**
      * Constructor.
      *
      * @param array $args

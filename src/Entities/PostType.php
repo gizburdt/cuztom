@@ -5,30 +5,16 @@ namespace Gizburdt\Cuztom\Entities;
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Meta\Box as MetaBox;
 use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Support\Notice;
 
 Guard::directAccess();
 
 class PostType extends Entity
 {
     /**
-     * Arguments.
-     * @var array
-     */
-    public $args;
-
-    /**
-     * Labels.
-     * @var array
-     */
-    public $labels;
-
-    /**
      * Construct a new Cuztom Post Type.
      *
      * @param string $name
      * @param array  $args
-     * @since 0.1
      */
     public function __construct($name, $args = array())
     {
@@ -37,21 +23,20 @@ class PostType extends Entity
 
         // Register
         if (! post_type_exists($this->name)) {
-            $this->registerPostType();
+            $this->registerEntity();
         }
     }
 
     /**
-     * Register Post Type.
+     * Register post Type.
      *
-     * @since 0.1
+     * @return void
      */
-    public function registerPostType()
+    public function registerEntity()
     {
-        if ($reserved = Cuztom::isReservedTerm($this->name)) {
-            return new Notice($reserved->get_error_message(), 'error');
-        }
+        parent::registerEntity();
 
+        // Args
         $args = array_merge(
             array(
                 'label'       => sprintf(__('%s', 'cuztom'), $this->plural),
@@ -88,7 +73,6 @@ class PostType extends Entity
      * @param string|array $name
      * @param array        $args
      * @param array        $labels
-     * @since 0.1
      */
     public function addTaxonomy($name, $args = array(), $labels = array())
     {
@@ -98,11 +82,10 @@ class PostType extends Entity
     }
 
     /**
-     * Add post meta box to the Post Type.
+     * Add Meta Box to the Post Type.
      *
-     * @param int   $id
-     * @param array $args
-     * @since 0.1
+     * @param string $id
+     * @param array  $args
      */
     public function addMetaBox($id, $args)
     {
@@ -112,11 +95,10 @@ class PostType extends Entity
     }
 
     /**
-     * Add action to register support of certain features for a post type.
+     * Add support to Post Type.
      *
      * @param  string|array $feature
      * @return object
-     * @since  1.4.3
      */
     public function addPostTypeSupport($feature)
     {
@@ -126,11 +108,10 @@ class PostType extends Entity
     }
 
     /**
-     * Add action to remove support of certain features for a post type.
+     * Remove support from Post Type.
      *
      * @param  string|array $feature
      * @return object
-     * @since  1.4.3
      */
     public function removePostTypeSupport($features)
     {
@@ -146,7 +127,6 @@ class PostType extends Entity
      *
      * @param  string|array $feature
      * @return bool
-     * @since  1.5.3
      */
     public function postTypeSupports($feature)
     {
