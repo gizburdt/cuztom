@@ -126,7 +126,7 @@ abstract class Meta
     public function output()
     {
         // Nonce field for validation
-        wp_nonce_field('cuztomMeta', 'cuztomNonce');
+        wp_nonce_field('cuztom_meta', 'cuztom_nonce');
 
         echo Cuztom::view('meta/meta', array(
             'box' => $this

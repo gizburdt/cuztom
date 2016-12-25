@@ -1,4 +1,4 @@
-<tr>
+<tr class="cuztom-cell">
     <th>
         <label for="<?php echo $field->getId(); ?>" class="cuztom-field__label"><?php echo $field->label; ?></label>
         <?php echo ($field->required ? ' <span class="cuztom-field--required">*</span>' : ''); ?>

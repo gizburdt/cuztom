@@ -35,7 +35,7 @@ class Bundle extends Field
      */
     public function outputCell($value = null, $view = null)
     {
-        return Cuztom::view('fields/bundle/cell', array(
+        return Cuztom::view('fields/cell/bundle', array(
             'bundle' => $this,
             'value'  => $value
         ));

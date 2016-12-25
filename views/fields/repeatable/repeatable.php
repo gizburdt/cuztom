@@ -1,7 +1,7 @@
-<div class="cuztom-repeatable">
+<div class="cuztom-repeatable v-cuztom-repeatable">
     <?php echo $field->_outputRepeatableControl($values); ?>
 
-    <ul class="cuztom-sortable js-cuztom-sortable">
+    <ul class="cuztom-sortable">
         <?php
             if (is_array($values)) {
                 foreach ($values as $value) {

@@ -2,7 +2,7 @@
     <input type="hidden" name="cuztom[__activate]" value="activate">
 
     <div
-        class="cuztom cuztom--<?php echo $box->meta_type; ?> js-cuztom"
+        class="cuztom cuztom--<?php echo $box->meta_type; ?>"
         data-meta-type="<?php echo $box->meta_type; ?>"
         data-box-id="<?php echo $box->id; ?>"
         data-object-id="<?php echo $box->object; ?>"

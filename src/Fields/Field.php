@@ -368,7 +368,7 @@ abstract class Field
      */
     public function getCellCssClass($extra = null)
     {
-        return apply_filters('cuztom_field_cell_css_class', 'cuztom-field js-cuztom-field '.$this->cell_css_class, $this, $extra);
+        return apply_filters('cuztom_field_cell_css_class', 'cuztom-field '.$this->cell_css_class, $this, $extra);
     }
 
     /**

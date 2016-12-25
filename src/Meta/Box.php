@@ -113,7 +113,7 @@ class Box extends Meta
         }
 
         // Verify nonce
-        if (! Guard::verifyNonce('cuztomNonce', 'cuztomMeta')) {
+        if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
             return;
         }
 

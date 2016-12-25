@@ -17,7 +17,7 @@ elixir(function(mix) {
         'js/cuztom-ui.js',
         'js/cuztom-media.js',
         'js/cuztom-close.js',
-        // 'js/v-cuztom-sortable.js',
+        'js/v-cuztom-sortable.js',
     ], 'assets/dist/js/cuztom.min.js', 'assets/');
 });
 

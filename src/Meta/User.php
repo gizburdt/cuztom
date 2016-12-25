@@ -70,7 +70,7 @@ class User extends Meta
     public function saveUser($id)
     {
         // Verify nonce
-        if (! Guard::verifyNonce('cuztomNonce', 'cuztomMeta')) {
+        if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
             return;
         }
 

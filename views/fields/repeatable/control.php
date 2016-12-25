@@ -1,5 +1,9 @@
 <div class="cuztom-control">
-    <a class="cuztom-button cuztom-add-sortable js-cuztom-add-sortable button button-secondary button-small" data-sortable-type="repeatable" data-field-id="<?php echo $field->getId(); ?>" href="#">
+    <a
+        class="cuztom-button button button-secondary button-small"
+        href="#"
+        @click.prevent="addField"
+    >
         <?php _e('Add item', 'cuztom'); ?>
     </a>
 
