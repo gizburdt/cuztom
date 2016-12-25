@@ -1,14 +1,12 @@
 <?php
+    use Gizburdt\Cuztom\Cuztom;
 
-use Gizburdt\Cuztom\Cuztom;
-
-if (! Cuztom::isEmpty($value)) {
-    $url   = wp_get_attachment_image_src($value, $field->getPreviewSize())[0];
-    $image = '<img src="'.$url.'" />';
-} else {
-    $image = '';
-}
-
+    if (! Cuztom::isEmpty($value)) {
+        $url   = wp_get_attachment_image_src($value, $field->getPreviewSize())[0];
+        $image = '<img src="'.$url.'" />';
+    } else {
+        $image = '';
+    }
 ?>
 
 <?php echo $field->_outputInput($value, 'text'); ?>

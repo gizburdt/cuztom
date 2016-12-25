@@ -1,6 +1,4 @@
-<v-cuztom-repeatable
-    inline-template
->
+<v-cuztom-repeatable inline-template>
     <div class="cuztom-repeatable">
         <?php echo $field->_outputRepeatableControl($values); ?>
 
