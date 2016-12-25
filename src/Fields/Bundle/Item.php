@@ -77,7 +77,7 @@ class Item extends Field
         foreach ($this->fields as $field) {
             $field           = Field::create($field, $this->value);
             $field->metaType = $this->metaType;
-            $field->object    = $this->object;
+            $field->object   = $this->object;
 
             // Change name
             $field->beforeName = '['.$this->parent->id.']['.$this->index.']';

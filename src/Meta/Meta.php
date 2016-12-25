@@ -161,7 +161,7 @@ abstract class Meta
                 $field = Field::create($args, $this->values);
 
                 $field->metaType = $this->metaType;
-                $field->object    = $this->object;
+                $field->object   = $this->object;
 
                 $data[$field->id] = $field;
             }
