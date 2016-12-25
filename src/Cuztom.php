@@ -66,7 +66,6 @@ class Cuztom
      * Public function to set the instance.
      *
      * @return object
-     * @since  2.3
      */
     public static function run()
     {
@@ -84,8 +83,6 @@ class Cuztom
 
     /**
      * Setup all the constants.
-     *
-     * @since 2.3
      */
     private function setup()
     {
@@ -97,8 +94,6 @@ class Cuztom
 
     /**
      * Include the necessary files.
-     *
-     * @since 2.3
      */
     private function includes()
     {
@@ -159,8 +154,6 @@ class Cuztom
 
     /**
      * Sets globals.
-     *
-     * @since 3.0
      */
     private function execute()
     {
@@ -176,12 +169,9 @@ class Cuztom
 
     /**
      * Add hooks.
-     *
-     * @since 2.3
      */
     private function hooks()
     {
-        // Assets
         add_action('admin_init', array(&$this, 'registerStyles'));
         add_action('admin_print_styles', array(&$this, 'enqueueStyles'));
 
@@ -191,8 +181,6 @@ class Cuztom
 
     /**
      * Registers styles.
-     *
-     * @since 0.3
      */
     public function registerStyles()
     {
@@ -215,8 +203,6 @@ class Cuztom
 
     /**
      * Enqueues styles.
-     *
-     * @since 0.3
      */
     public function enqueueStyles()
     {
@@ -227,8 +213,6 @@ class Cuztom
 
     /**
      * Registers scripts.
-     *
-     * @since 0.3
      */
     public function registerScripts()
     {
@@ -252,8 +236,6 @@ class Cuztom
 
     /**
      * Enqueues scripts.
-     *
-     * @since 0.3
      */
     public function enqueueScripts()
     {
@@ -286,7 +268,6 @@ class Cuztom
      * @param  string $path
      * @param  array  $url
      * @return string
-     * @since  0.4.1
      */
     public function getCuztomUrl($path = __FILE__, $url = array())
     {
@@ -326,7 +307,6 @@ class Cuztom
      *
      * @param  string $string
      * @return string
-     * @since  0.1
      */
     public static function beautify($string)
     {
@@ -338,7 +318,6 @@ class Cuztom
      *
      * @param  string $string
      * @return string
-     * @since  0.1
      */
     public static function uglify($string)
     {
@@ -350,7 +329,6 @@ class Cuztom
      *
      * @param  string $string
      * @return string
-     * @since  0.1
      */
     public static function pluralize($string)
     {
@@ -434,7 +412,6 @@ class Cuztom
      *
      * @param string $view
      * @param array  $variables
-     * @since 3.0
      */
     public static function view($view, $variables = array())
     {
@@ -464,7 +441,6 @@ class Cuztom
      * @param  string|array $input
      * @param  bool         $result
      * @return bool
-     * @since  3.0
      */
     public static function isEmpty($input, $result = true)
     {
@@ -496,7 +472,6 @@ class Cuztom
      *
      * @param  string $term
      * @return bool
-     * @since  1.6
      */
     public static function isReservedTerm($term)
     {

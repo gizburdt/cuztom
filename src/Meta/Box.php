@@ -25,17 +25,16 @@ class Box extends Meta
      * Post types.
      * @var string|array
      */
-    public $post_types;
+    public $postTypes;
 
     /**
      * Meta type.
      * @var string
      */
-    public $meta_type = 'post';
+    public $metaType = 'post';
 
     /**
      * Fillable.
-     *
      * @var array
      */
     protected $fillable = array(
@@ -54,22 +53,21 @@ class Box extends Meta
      * @param string       $id
      * @param array        $data
      * @param string|array $post_type
-     * @since 0.2
      */
-    public function __construct($id, $post_type, $data = array())
+    public function __construct($id, $postType, $data = array())
     {
         // Build all properties
         parent::__construct($id, $data);
 
         // Set post types
-        $this->post_types = (array) $post_type;
+        $this->postTypes = (array) $postType;
 
         // Build
-        if (@$this->callback[0] == $this) {
-            foreach ($this->post_types as $post_type) {
-                add_filter('manage_'.$post_type.'_posts_columns', array(&$this, 'addColumn'));
-                add_action('manage_'.$post_type.'_posts_custom_column', array(&$this, 'addColumnContent'), 10, 2);
-                add_action('manage_edit-'.$post_type.'_sortable_columns', array(&$this, 'addSortableColumn'), 10, 2);
+        if (isset($this->callback[0]) && $this->callback[0] == $this) {
+            foreach ($this->postTypes as $postType) {
+                add_filter('manage_'.$postType.'_posts_columns', array(&$this, 'addColumn'));
+                add_action('manage_'.$postType.'_posts_custom_column', array(&$this, 'addColumnContent'), 10, 2);
+                add_action('manage_edit-'.$postType.'_sortable_columns', array(&$this, 'addSortableColumn'), 10, 2);
             }
 
             add_action('save_post', array(&$this, 'savePost'));
@@ -82,17 +80,15 @@ class Box extends Meta
 
     /**
      * Method that calls the add_meta_box function.
-     *
-     * @since 0.2
      */
     public function addMetaBox()
     {
-        foreach ($this->post_types as $post_type) {
+        foreach ($this->postTypes as $postType) {
             add_meta_box(
                 $this->id,
                 $this->title,
                 $this->callback,
-                $post_type,
+                $postType,
                 $this->context,
                 $this->priority
             );
@@ -102,10 +98,9 @@ class Box extends Meta
     /**
      * Hooks into the save hook for the newly registered Post Type.
      *
-     * @param int $post_id
-     * @since 0.1
+     * @param int $id
      */
-    public function savePost($post_id)
+    public function savePost($id)
     {
         // Deny the wordpress autosave function
         if (Guard::doingAutosave() || Guard::doingAjax()) {
@@ -118,12 +113,12 @@ class Box extends Meta
         }
 
         // Is the post from the given post type?
-        if (! in_array(get_post_type($post_id), array_merge($this->post_types, array('revision')))) {
+        if (! in_array(get_post_type($id), array_merge($this->postTypes, array('revision')))) {
             return;
         }
 
         // Is the current user capable to edit this post
-        if (! current_user_can(get_post_type_object(get_post_type($post_id))->cap->edit_post, $post_id)) {
+        if (! current_user_can(get_post_type_object(get_post_type($id))->cap->edit_post, $id)) {
             return;
         }
 
@@ -132,7 +127,7 @@ class Box extends Meta
             ? $_POST['cuztom']
             : null;
 
-        parent::save($post_id, $values);
+        parent::save($id, $values);
     }
 
     /**
@@ -140,7 +135,6 @@ class Box extends Meta
      *
      * @param  array $columns
      * @return array
-     * @since  1.1
      */
     public function addColumn($columns)
     {
@@ -161,14 +155,13 @@ class Box extends Meta
      * Used to add the column content to the column head.
      *
      * @param string $column
-     * @param int    $post_id
-     * @since 1.1
+     * @param int    $postId
      */
-    public function addColumnContent($column, $post_id)
+    public function addColumnContent($column, $postId)
     {
         $field = $this->fields[$column];
 
-        echo $field->outputColumnContent($post_id);
+        echo $field->outputColumnContent($postId);
     }
 
     /**
@@ -176,13 +169,12 @@ class Box extends Meta
      *
      * @param  array $columns
      * @return array
-     * @since  1.4.8
      */
     public function addSortableColumn($columns)
     {
         if ($this->fields) {
             foreach ($this->fields as $id => $field) {
-                if (@$field->admin_column_sortable) {
+                if (Cuztom::isTrue($field->admin_column_sortable)) {
                     $columns[$id] = $field->label;
                 }
             }
@@ -195,18 +187,20 @@ class Box extends Meta
      * Get object ID.
      *
      * @return int|null
-     * @since  3.0
      */
     public function determineObject()
     {
-        return isset($_GET['post']) ? $_GET['post'] : (isset($_POST['post_ID']) ? $_POST['post_ID'] : null);
+        return isset($_GET['post'])
+            ? $_GET['post']
+            : (isset($_POST['post_ID'])
+                ? $_POST['post_ID']
+                : null);
     }
 
     /**
      * Get value bases on field id.
      *
      * @return array
-     * @since  3.0
      */
     public function getMetaValues()
     {

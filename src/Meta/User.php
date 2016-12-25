@@ -19,7 +19,7 @@ class User extends Meta
      * Meta type.
      * @var string
      */
-    public $meta_type = 'user';
+    public $metaType = 'user';
 
     /**
      * Constructor for User Meta.
@@ -27,7 +27,6 @@ class User extends Meta
      * @param string       $id
      * @param array        $data
      * @param string|array $locations
-     * @since 1.5
      */
     public function __construct($id, $data = array(), $locations = array('show_user_profile', 'edit_user_profile'))
     {
@@ -38,7 +37,7 @@ class User extends Meta
         $this->locations = (array) $locations;
 
         // Chack if the class, function or method exist, otherwise use cuztom callback
-        if (@$this->callback[0] == $this) {
+        if (isset($this->callback[0]) && $this->callback[0] == $this) {
             add_action('personal_options_update', array(&$this, 'saveUser'));
             add_action('edit_user_profile_update', array(&$this, 'saveUser'));
             add_action('user_edit_form_tag', array(&$this, 'editFormTag'));
@@ -52,7 +51,7 @@ class User extends Meta
     /**
      * Callback for user meta, adds a title.
      *
-     * @since 1.5
+     * @return void
      */
     public function output()
     {
@@ -65,7 +64,6 @@ class User extends Meta
      * Hooks into the save hook for the user meta.
      *
      * @param int $id
-     * @since 1.5
      */
     public function saveUser($id)
     {
@@ -86,18 +84,18 @@ class User extends Meta
      * Get object ID.
      *
      * @return int|null
-     * @since  3.0
      */
     public function determineObject()
     {
-        return isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : get_current_user_id();
+        return isset($_REQUEST['user_id'])
+            ? $_REQUEST['user_id']
+            : get_current_user_id();
     }
 
     /**
      * Get value bases on field id.
      *
      * @return mixed
-     * @since  3.0
      */
     public function getMetaValues()
     {

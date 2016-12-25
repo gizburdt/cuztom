@@ -25,16 +25,15 @@ class Term extends Meta
      * Meta Type.
      * @var string
      */
-    public $meta_type = 'term';
+    public $metaType = 'term';
 
     /**
      * Construct the term meta.
      *
      * @param string       $id
-     * @param array        $data
      * @param string|array $taxonomy
+     * @param array        $data
      * @param array        $locations
-     * @since 2.5
      */
     public function __construct($id, $taxonomy, $data = array(), $locations = array('edit_form'))
     {
@@ -42,11 +41,11 @@ class Term extends Meta
         parent::__construct($id, $data);
 
         // Set taxonomy/locations
-        $this->taxonomies   = (array) $taxonomy;
-        $this->locations    = (array) $locations;
+        $this->taxonomies = (array) $taxonomy;
+        $this->locations  = (array) $locations;
 
         // Build fields
-        if (@$this->callback[0] == $this) {
+        if (isset($this->callback[0]) && $this->callback[0] == $this) {
             foreach ($this->taxonomies as $taxonomy) {
                 if (in_array('add_form', $this->locations)) {
                     add_action($taxonomy.'_add_form_fields', array(&$this, 'addFormFields'));
@@ -69,7 +68,6 @@ class Term extends Meta
      *
      * @param  string $taxonomy
      * @return mixed
-     * @since  2.5
      */
     public function addFormFields($taxonomy)
     {
@@ -81,7 +79,6 @@ class Term extends Meta
      *
      * @param  string $taxonomy
      * @return mixed
-     * @since  2.5
      */
     public function editFormFields($taxonomy)
     {
@@ -94,7 +91,6 @@ class Term extends Meta
      * Save the term.
      *
      * @param int $id
-     * @since 2.5
      */
     public function saveTerm($id)
     {
@@ -116,7 +112,6 @@ class Term extends Meta
      *
      * @param  array $columns
      * @return array
-     * @since  1.1
      */
     public function addColumn($columns)
     {
@@ -134,10 +129,9 @@ class Term extends Meta
      *
      * @param string $row
      * @param string $column
-     * @param int    $term_id
-     * @since 1.1
+     * @param int    $termId
      */
-    public function addColumnContent($row, $column, $term_id)
+    public function addColumnContent($row, $column, $termId)
     {
         $field = $this->fields[$column];
 
@@ -148,18 +142,18 @@ class Term extends Meta
      * Get object ID.
      *
      * @return int|null
-     * @since  3.0
      */
     public function determineObject()
     {
-        return isset($_REQUEST['tag_ID']) ? $_REQUEST['tag_ID'] : null;
+        return isset($_REQUEST['tag_ID'])
+            ? $_REQUEST['tag_ID']
+            : null;
     }
 
     /**
      * Get value bases on field id.
      *
      * @return mixed
-     * @since  3.0
      */
     public function getMetaValues()
     {

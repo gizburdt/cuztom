@@ -56,11 +56,10 @@ abstract class Meta
      * Meta type.
      * @var string
      */
-    public $meta_type;
+    public $metaType;
 
     /**
      * Fillable.
-     *
      * @var array
      */
     protected $fillable = array(
@@ -88,9 +87,8 @@ abstract class Meta
     /**
      * Construct for all meta types, creates title (and description).
      *
-     * @param int   $id   Box ID
-     * @param array $data Array of fields
-     * @since 1.6.4
+     * @param string $id   ID
+     * @param array  $data Array of data
      */
     public function __construct($id, $data)
     {
@@ -121,7 +119,7 @@ abstract class Meta
     /**
      * Main callback for meta.
      *
-     * @since 0.2
+     * @return void
      */
     public function output()
     {
@@ -138,7 +136,6 @@ abstract class Meta
      *
      * @param int   $object Object ID
      * @param array $values Array of values
-     * @since 2.6
      */
     public function save($object, $values)
     {
@@ -156,7 +153,6 @@ abstract class Meta
      *
      * @param  array $fields
      * @return array
-     * @since  1.1
      */
     public function build($fields)
     {
@@ -164,7 +160,7 @@ abstract class Meta
             foreach ($fields as $type => $args) {
                 $field = Field::create($args, $this->values);
 
-                $field->meta_type = $this->meta_type;
+                $field->metaType = $this->metaType;
                 $field->object    = $this->object;
 
                 $data[$field->id] = $field;
@@ -177,7 +173,7 @@ abstract class Meta
     /**
      * Adds multipart support to form.
      *
-     * @since 0.2
+     * @return void
      */
     public static function editFormTag()
     {
