@@ -30,7 +30,6 @@ class Notice
      * @param string $notice
      * @param string $type
      * @param bool   $dismissible
-     * @since 2.3
      */
     public function __construct($notice, $type, $dismissible = true)
     {
@@ -43,8 +42,6 @@ class Notice
 
     /**
      * Adds the admin notice.
-     *
-     * @since 2.3
      */
     public function addAdminNotice()
     {
@@ -55,7 +52,6 @@ class Notice
      * Returns the complete css class for the notice.
      *
      * @return string
-     * @since  2.3
      */
     public function getCssClass()
     {

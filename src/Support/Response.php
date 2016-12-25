@@ -18,7 +18,6 @@ class Response
      * @param  array  $status
      * @param  bool   $data
      * @return string
-     * @since  3.0
      */
     public function __construct($status, $data = array())
     {
@@ -34,7 +33,6 @@ class Response
      * Get json.
      *
      * @return string
-     * @since  3.0
      */
     public function toJson()
     {

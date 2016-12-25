@@ -12,7 +12,6 @@ class Sidebar
      * Constructor.
      *
      * @param array $args
-     * @since 0.5
      */
     public function __construct($args = array())
     {

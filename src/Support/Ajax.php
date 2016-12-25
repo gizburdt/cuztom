@@ -10,8 +10,6 @@ class Ajax
 {
     /**
      * Constructor.
-     *
-     * @since 3.0
      */
     public function __construct()
     {
@@ -20,26 +18,24 @@ class Ajax
 
     /**
      * Add hooks.
-     *
-     * @since 3.0
      */
     public function addHooks()
     {
         // Sortable
         add_action('wp_ajax_cuztom_add_repeatable_item', array(&$this, 'addRepeatableItem'));
         add_action('wp_ajax_cuztom_add_bundle_item', array(&$this, 'addBundleItem'));
+
+        // More
     }
 
     /**
      * Add (return) repeatable item.
-     *
-     * @since 3.0
      */
-    public function addRepeatableItem($bla)
+    public function addRepeatableItem()
     {
         $request = new Request($_POST);
-        $count   = $request->get('count');
 
+        $count = $request->get('count');
         $field = $request->get('field');
         $field = self::getField($field, $request->get('box'));
 
@@ -59,15 +55,13 @@ class Ajax
 
     /**
      * Add (return) bundle item.
-     *
-     * @since 3.0
      */
     public function addBundleItem()
     {
         $request = new Request($_POST);
-        $count   = $request->get('count');
-        $index   = $request->get('index');
 
+        $count = $request->get('count');
+        $index = $request->get('index');
         $field = $request->get('field');
         $field = self::getField($field, $request->get('box'));
 
@@ -96,7 +90,6 @@ class Ajax
      * @param  string $field
      * @param  string $box
      * @return object
-     * @since  3.0
      */
     public static function getField($field, $box)
     {

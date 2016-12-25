@@ -16,7 +16,6 @@ class Request
      * Constructor.
      *
      * @param array $attributes
-     * @since 3.0
      */
     public function __construct($attributes)
     {
@@ -28,7 +27,6 @@ class Request
      *
      * @param  string      $attribute
      * @return string|null
-     * @since  3.0
      */
     public function get($attribute)
     {

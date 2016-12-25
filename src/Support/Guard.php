@@ -10,7 +10,6 @@ class Guard
      * Block direct access.
      *
      * @return void
-     * @since  3.0
      */
     public static function directAccess()
     {
@@ -42,9 +41,8 @@ class Guard
     /**
      * Check nonce.
      *
-     * @param string $name
-     * @param string $value
-     *
+     * @param  string $name
+     * @param  string $value
      * @return bool
      */
     public static function verifyNonce($name, $value)
@@ -55,9 +53,8 @@ class Guard
     /**
      * Check AJAX nonce.
      *
-     * @param string $action
-     * @param string $arg
-     *
+     * @param  string $action
+     * @param  string $arg
      * @return bool
      */
     public static function verifyAjaxNonce($action, $arg)
