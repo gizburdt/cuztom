@@ -10,14 +10,14 @@ Guard::directAccess();
 class Tabs extends Field
 {
     /**
-     * View name.
-     * @var string
+     * Base.
+     * @var mixed
      */
     public $view = 'tabs';
 
     /**
-     * Tabs.
-     * @var array
+     * Fillables.
+     * @var mixed
      */
     public $panels = array();
 
@@ -28,7 +28,10 @@ class Tabs extends Field
     public $data = array();
 
     /**
-     * Constructor.
+     * Construct.
+     *
+     * @param array $args
+     * @param array $values
      */
     public function __construct($args, $values = null)
     {
@@ -41,7 +44,6 @@ class Tabs extends Field
      * Outputs a field cell.
      *
      * @param string|array $value
-     * @since 0.2
      */
     public function outputCell($value = null)
     {
@@ -56,7 +58,6 @@ class Tabs extends Field
      *
      * @param  string|array $value
      * @return string
-     * @since  3.0
      */
     public function output($value = null)
     {
@@ -72,7 +73,6 @@ class Tabs extends Field
      *
      * @param int   $object
      * @param array $values
-     * @since  3.0
      */
     public function save($object, $values)
     {
@@ -97,7 +97,6 @@ class Tabs extends Field
      *
      * @param array        $data
      * @param string|array $value
-     * @since  3.0
      */
     public function build($args)
     {
@@ -107,9 +106,9 @@ class Tabs extends Field
                 $this->value
             );
 
-            $tab->meta_type = $this->meta_type;
-            $tab->object    = $this->object;
-            $tab->tabs_type = $this->type;
+            $tab->metaType = $this->metaType;
+            $tab->object   = $this->object;
+            $tab->tabsType = $this->type;
 
             $data[$tab->id] = $tab;
         }

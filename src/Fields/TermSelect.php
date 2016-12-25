@@ -10,16 +10,16 @@ Guard::directAccess();
 class TermSelect extends Field
 {
     /**
-     * Cell CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $cell_css_class = 'cuztom-field-term-select';
+    public $cell_css_class = 'cuztom-field--term-select';
 
     /**
-     * Construct field.
+     * Construct.
      *
-     * @param array $field
-     * @since 0.3.3
+     * @param array $args
+     * @param array $values
      */
     public function __construct($args, $values = null)
     {
@@ -38,12 +38,10 @@ class TermSelect extends Field
      *
      * @param  string|array $value
      * @return string
-     * @since  2.4
      */
     public function _outputInput($value = null, $view = null)
     {
-        @$this->args['class'] .= ' cuztom-input-select cuztom-input-term-select';
-
+        @$this->args['class']   .= ' cuztom-input--select cuztom-input--term-select';
         @$this->args['echo']     = 0;
         @$this->args['name']     = $this->getName();
         @$this->args['id']       = $this->getId();

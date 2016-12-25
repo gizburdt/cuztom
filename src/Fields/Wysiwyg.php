@@ -10,17 +10,16 @@ Guard::directAccess();
 class Wysiwyg extends Field
 {
     /**
-     * Cell CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $cell_css_class = 'cuztom-field-wysiwyg';
+    public $cell_css_class = 'cuztom-field--wysiwyg';
 
     /**
      * Output input.
      *
      * @param  string|array $value
      * @return string
-     * @since  2.4
      */
     public function _outputInput($value = null, $view = null)
     {

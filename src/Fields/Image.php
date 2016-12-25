@@ -10,33 +10,18 @@ Guard::directAccess();
 class Image extends Field
 {
     /**
-     * Input type.
-     * @var string
+     * Base.
+     * @var mixed
      */
-    public $input_type = 'hidden';
+    public $inputType = 'hidden';
+    public $view      = 'image';
 
     /**
-     * View name.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $view = 'image';
-
-    /**
-     * CSS class.
-     * @var string
-     */
-    public $css_class = 'cuztom-input-hidden';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-image';
-
-    /**
-     * Data attributes.
-     * @var array
-     */
+    public $css_class       = 'cuztom-input--hidden';
+    public $cell_css_class  = 'cuztom-field--image';
     public $data_attributes = array('media-type' => 'image');
 
     /**
@@ -44,7 +29,6 @@ class Image extends Field
      *
      * @param  string $post_id
      * @return string
-     * @since  3.0
      */
     public function outputColumnContent($post_id)
     {
@@ -57,7 +41,6 @@ class Image extends Field
      * Get preview size.
      *
      * @return string
-     * @since  3.0
      */
     public function getPreviewSize()
     {

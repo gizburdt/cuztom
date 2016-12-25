@@ -10,21 +10,11 @@ Guard::directAccess();
 class DateTime extends Field
 {
     /**
-     * CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $css_class = 'cuztom-input--datetime datetimepicker js-cuztom-datetimepicker';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-datetime';
-
-    /**
-     * Data attributes.
-     * @var array
-     */
+    public $css_class       = 'cuztom-input--datetime datetimepicker js-cuztom-datetimepicker';
+    public $cell_css_class  = 'cuztom-field--datetime';
     public $data_attributes = array(
         'time-format' => null,
         'date-format' => null
@@ -34,7 +24,7 @@ class DateTime extends Field
      * Construct.
      *
      * @param array $args
-     * @since 0.3.3
+     * @param array $values
      */
     public function __construct($args, $values = null)
     {
@@ -52,7 +42,6 @@ class DateTime extends Field
      *
      * @param  string $value
      * @return string
-     * @since  2.8
      */
     public function parseValue($value)
     {

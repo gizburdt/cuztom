@@ -15,7 +15,6 @@ trait Checkables
      * @param  string $default_value
      * @param  string $option
      * @return string
-     * @since  3.0
      */
     public function _outputOption($value = null, $default_value = null, $option = null)
     {
@@ -34,7 +33,6 @@ trait Checkables
      *
      * @param  mixed  $value
      * @return string
-     * @since  3.0
      */
     public function maybeChecked($value = null, $default_value = null, $option = null)
     {

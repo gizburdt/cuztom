@@ -247,8 +247,6 @@ class Cuztom
 
     /**
      * Localizes scripts.
-     *
-     * @since 1.1.1
      */
     public function localizeScripts()
     {

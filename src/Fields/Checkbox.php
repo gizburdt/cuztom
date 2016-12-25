@@ -13,20 +13,15 @@ class Checkbox extends Field
     use Checkable;
 
     /**
-     * Input type.
-     * @var string
+     * Base.
+     * @var mixed
      */
-    public $input_type = 'checkbox';
+    public $inputType = 'checkbox';
+    public $view      = 'checkbox';
 
     /**
-     * View name.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $view = 'checkbox';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-checkbox';
+    public $cell_css_class = 'cuztom-field--checkbox';
 }

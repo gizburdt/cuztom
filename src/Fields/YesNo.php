@@ -13,26 +13,16 @@ class YesNo extends Field
     use Checkable;
 
     /**
-     * Input type.
-     * @var string
+     * Base.
+     * @var mixed
      */
-    public $input_type = 'radio';
+    public $view      = 'yes-no';
+    public $inputType = 'radio';
 
     /**
-     * View name.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $view = 'yes-no';
-
-    /**
-     * CSS class.
-     * @var string
-     */
-    public $css_class = 'cuztom-input-radio';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-yesno';
+    public $css_class      = 'cuztom-input--radio';
+    public $cell_css_class = 'cuztom-field--yesno';
 }

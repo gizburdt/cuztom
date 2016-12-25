@@ -10,32 +10,17 @@ Guard::directAccess();
 class File extends Field
 {
     /**
-     * Input type.
-     * @var string
+     * Base.
+     * @var mixed
      */
-    public $input_type = 'hidden';
+    public $inputType = 'hidden';
+    public $view      = 'file';
 
     /**
-     * View name.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $view = 'file';
-
-    /**
-     * CSS class.
-     * @var string
-     */
-    public $css_class = 'cuztom-input-hidden';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-file';
-
-    /**
-     * Data attributes.
-     * @var array
-     */
+    public $css_class       = 'cuztom-input--hidden';
+    public $cell_css_class  = 'cuztom-field--file';
     public $data_attributes = array('media-type' => 'file');
 }

@@ -10,28 +10,23 @@ Guard::directAccess();
 class TaxonomySelect extends Select
 {
     /**
-     * View name.
-     * @var string
+     * Base.
+     * @var mixed
      */
     public $view = 'taxonomy-select';
 
     /**
-     * CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $css_class = 'cuztom-input-select cuztom-input-taxonomy-select';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-taxonomy-select';
+    public $css_class      = 'cuztom-input--select cuztom-input--taxonomy-select';
+    public $cell_css_class = 'cuztom-field--taxonomy-select';
 
     /**
      * Construct.
      *
-     * @param array $field
-     * @since 0.3.3
+     * @param array $args
+     * @param array $values
      */
     public function __construct($args, $values = null)
     {

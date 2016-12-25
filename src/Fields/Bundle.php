@@ -17,7 +17,10 @@ class Bundle extends Field
     public $data = array();
 
     /**
-     * Constructor.
+     * Construct.
+     *
+     * @param array $args
+     * @param array $values
      */
     public function __construct($args, $values = null)
     {
@@ -31,7 +34,6 @@ class Bundle extends Field
      *
      * @param mixed  $value
      * @param string $view
-     * @since 3.0
      */
     public function outputCell($value = null, $view = null)
     {
@@ -46,24 +48,22 @@ class Bundle extends Field
      *
      * @param mixed  $value
      * @param string $view
-     * @since 1.6.5
      */
     public function output($value = null, $view = null)
     {
         if (is_array($this->data)) {
             foreach ($this->data as $item) {
-                @$ob .= $item->output();
+                @$output .= $item->output();
             }
         }
 
-        return @$ob;
+        return @$output;
     }
 
     /**
      * Output a control cell for a bundle.
      *
      * @param string $class
-     * @since 3.0
      */
     public function outputControl($class = 'top')
     {
@@ -78,7 +78,6 @@ class Bundle extends Field
      *
      * @param int   $object
      * @param array $values
-     * @since 1.6.2
      */
     public function save($object, $values)
     {
@@ -99,7 +98,6 @@ class Bundle extends Field
      *
      * @param array $data
      * @param array $values
-     * @since 3.0
      */
     public function build($args)
     {
@@ -113,8 +111,8 @@ class Bundle extends Field
                     @$this->value[$i]
                 );
 
-                $item->meta_type = $this->meta_type;
-                $item->object    = $this->object;
+                $item->metaType = $this->metaType;
+                $item->object   = $this->object;
 
                 $data[] = $item;
 
@@ -128,8 +126,8 @@ class Bundle extends Field
                 array_merge($args, array('parent' => $this))
             );
 
-            $item->meta_type = $this->meta_type;
-            $item->object    = $this->object;
+            $item->metaType = $this->metaType;
+            $item->object   = $this->object;
 
             $data[] = $item;
         }

@@ -10,23 +10,17 @@ Guard::directAccess();
 class Text extends Field
 {
     /**
-     * CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $css_class = 'cuztom-input--text';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-text';
+    public $css_class      = 'cuztom-input--text';
+    public $cell_css_class = 'cuztom-field--text';
 
     /**
      * Parse value for HTML special chars.
      *
      * @param  string $value
      * @return string
-     * @since  2.8
      */
     public function parseValue($value)
     {
@@ -44,7 +38,6 @@ class Text extends Field
      *
      * @param  string &$value
      * @return string
-     * @since  3.0
      */
     public function doHtmlspecialchars(&$value)
     {

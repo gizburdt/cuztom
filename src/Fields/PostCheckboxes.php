@@ -10,22 +10,22 @@ Guard::directAccess();
 class PostCheckboxes extends Checkboxes
 {
     /**
-     * View name.
-     * @var string
+     * Base.
+     * @var mixed
      */
     public $view = 'post-checkboxes';
 
     /**
-     * Cell CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $cell_css_class = 'cuztom-field-post-checkboxes';
+    public $cell_css_class = 'cuztom-field--post-checkboxes';
 
     /**
      * Construct.
      *
-     * @param string $field
-     * @since 0.3.3
+     * @param array $args
+     * @param array $values
      */
     public function __construct($args, $values = null)
     {

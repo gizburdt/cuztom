@@ -13,7 +13,6 @@ trait Selectable
      * Show option none?
      *
      * @return string
-     * @since  3.0
      */
     public function maybeShowOptionNone()
     {

@@ -9,16 +9,11 @@ Guard::directAccess();
 class Date extends DateTime
 {
     /**
-     * CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $css_class = 'cuztom-input--date datepicker js-cuztom-datepicker';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-date';
+    public $css_class      = 'cuztom-input--date datepicker js-cuztom-datepicker';
+    public $cell_css_class = 'cuztom-field--date';
 
     /**
      * UNIX time to string.

@@ -9,16 +9,16 @@ Guard::directAccess();
 class Hidden extends Field
 {
     /**
-     * Input type.
-     * @var string
+     * Base.
+     * @var mixed
      */
-    public $input_type = 'hidden';
+    public $inputType = 'hidden';
 
     /**
-     * Cell CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $cell_css_class = 'cuztom-field-hidden';
+    public $cell_css_class = 'cuztom-field--hidden';
 
     /**
      * Hidden field only needs the field.
@@ -26,7 +26,6 @@ class Hidden extends Field
      *
      * @param  string $value
      * @return string
-     * @since  0.2
      */
     public function outputCell($value = null)
     {

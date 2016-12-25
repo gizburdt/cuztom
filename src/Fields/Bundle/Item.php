@@ -23,8 +23,8 @@ class Item extends Field
     public $index = 0;
 
     /**
-     * Fields.
-     * @var array
+     * Fillables.
+     * @var mixed
      */
     public $fields = array();
 
@@ -46,7 +46,6 @@ class Item extends Field
      *
      * @param  int    $index
      * @return string
-     * @since  3.0
      */
     public function output($value = null)
     {
@@ -72,18 +71,17 @@ class Item extends Field
      *
      * @param array      $args
      * @param array|null $values
-     * @since 3.0
      */
     public function build($args)
     {
         foreach ($this->fields as $field) {
-            $field            = Field::create($field, $this->value);
-            $field->meta_type = $this->meta_type;
+            $field           = Field::create($field, $this->value);
+            $field->metaType = $this->metaType;
             $field->object    = $this->object;
 
             // Change name
-            $field->before_name = '['.$this->parent->id.']['.$this->index.']';
-            $field->before_id   = $this->parent->id.'_'.$this->index;
+            $field->beforeName = '['.$this->parent->id.']['.$this->index.']';
+            $field->beforeId   = $this->parent->id.'_'.$this->index;
 
             $data[$field->id] = $field;
         }

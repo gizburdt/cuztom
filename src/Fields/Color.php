@@ -9,14 +9,9 @@ Guard::directAccess();
 class Color extends Field
 {
     /**
-     * CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $css_class = 'cuztom-input-colorpicker colorpicker js-cuztom-colorpicker';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-color';
+    public $css_class      = 'cuztom-input--colorpicker colorpicker js-cuztom-colorpicker';
+    public $cell_css_class = 'cuztom-field--color';
 }

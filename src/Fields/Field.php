@@ -12,14 +12,31 @@ abstract class Field
 {
     /**
      * All original args.
-     *
      * @var array
      */
     public $original;
 
     /**
+     * Base.
+     * @var mixed
+     */
+    public $object    = null;
+    public $value     = null;
+    public $metaType  = null;
+    public $view      = 'text';
+    public $inputType = 'text';
+
+    /**
+     * Before/after id/name.
+     * @var mixed
+     */
+    public $beforeName = '';
+    public $afterName  = '';
+    public $beforeId   = '';
+    public $afterId    = '';
+
+    /**
      * Fillables.
-     *
      * @var mixed
      */
     public $id                    = null;
@@ -41,37 +58,7 @@ abstract class Field
     public $admin_column_filter   = false;
 
     /**
-     * Before/after id/name.
-     *
-     * @var mixed
-     */
-    public $before_name = '';
-    public $after_name  = '';
-    public $before_id   = '';
-    public $after_id    = '';
-
-    /**
-     * Base.
-     *
-     * @var mixed
-     */
-    public $object     = null;
-    public $value      = null;
-    public $meta_type  = null;
-    public $view       = 'text';
-    public $input_type = 'text';
-
-    /**
-     * Supports.
-     *
-     * @var mixeds
-     */
-    protected $_supports_repeatable = true;
-    protected $_supports_bundle     = true;
-
-    /**
      * Fillable by user.
-     *
      * @var array
      */
     protected $fillable = array(
@@ -102,11 +89,10 @@ abstract class Field
     );
 
     /**
-     * Constructs a Cuztom_Field.
+     * Construct.
      *
      * @param array $args
      * @param array $values
-     * @since 0.3.3
      */
     public function __construct($args, $values = null)
     {
@@ -122,7 +108,7 @@ abstract class Field
 
         // Repeatable?
         if ($this->isRepeatable()) {
-            $this->after_name = '[]';
+            $this->afterName = '[]';
         }
 
         // Value
@@ -133,12 +119,11 @@ abstract class Field
      * Outputs a field cell.
      *
      * @param string|array $value
-     * @pram  string       $view
-     * @since 0.2
+     * @param string       $view
      */
     public function outputCell($value = null)
     {
-        return Cuztom::view('fields/cell/text', array(
+        return Cuztom::view('fields/cell/default', array(
             'field' => $this,
             'value' => $value
         ));
@@ -150,7 +135,6 @@ abstract class Field
      * @param  string|array $value
      * @param  string       $value
      * @return string
-     * @since  0.2
      */
     public function output($value = null)
     {
@@ -169,7 +153,6 @@ abstract class Field
      * @param  string|array $value
      * @param  string       $view
      * @return string
-     * @since  2.4
      */
     public function _output($value = null)
     {
@@ -199,7 +182,6 @@ abstract class Field
      * @param  mixed  $value
      * @param  string $view
      * @return string
-     * @since  2.0
      */
     public function _outputRepeatable($value = null)
     {
@@ -231,7 +213,6 @@ abstract class Field
      *
      * @param  mixed  $value
      * @return string
-     * @since  3.0
      */
     public function _outputRepeatableControl($value)
     {
@@ -247,7 +228,6 @@ abstract class Field
      *
      * @param  mixed $value.
      * @return mixed
-     * @since  2.8
      */
     public function parseValue($value)
     {
@@ -260,7 +240,6 @@ abstract class Field
      * @param  int   $object
      * @param  mixed $value
      * @return bool
-     * @since  1.6.2
      */
     public function save($object, $values)
     {
@@ -269,7 +248,7 @@ abstract class Field
             : '';
 
         // Save to respective content-type
-        switch ($this->meta_type) {
+        switch ($this->metaType) {
             case 'user':
                 update_user_meta($object, $this->id, $value);
 
@@ -295,18 +274,16 @@ abstract class Field
      * Returns the input type.
      *
      * @return string
-     * @since  3.0
      */
     public function getInputType()
     {
-        return apply_filters('cuztom_field_input_type', $this->input_type, $this);
+        return apply_filters('cuztom_field_inputType', $this->inputType, $this);
     }
 
     /**
      * Returns the view name.
      *
      * @return string
-     * @since  3.0
      */
     public function getView()
     {
@@ -317,11 +294,10 @@ abstract class Field
      * Get the complete id.
      *
      * @return string
-     * @since  3.0
      */
     public function getId($extra = null)
     {
-        $id = $this->before_id.$this->id.$this->after_id;
+        $id = $this->beforeId.$this->id.$this->afterId;
 
         if (! Cuztom::isEmpty($extra)) {
             $id = $id.'_'.$extra;
@@ -334,11 +310,10 @@ abstract class Field
      * Get the complete name.
      *
      * @return string
-     * @since  3.0
      */
     public function getName()
     {
-        return apply_filters('cuztom_field_name', 'cuztom'.$this->before_name.'['.$this->id.']'.$this->after_name, $this);
+        return apply_filters('cuztom_field_name', 'cuztom'.$this->beforeName.'['.$this->id.']'.$this->afterName, $this);
     }
 
     /**
@@ -346,7 +321,6 @@ abstract class Field
      *
      * @param  array  $extra
      * @return string
-     * @since  2.4
      */
     public function getCssClass($extra = null)
     {
@@ -364,7 +338,6 @@ abstract class Field
      *
      * @param  array  $extra
      * @return string
-     * @since  3.0
      */
     public function getCellCssClass($extra = null)
     {
@@ -375,11 +348,11 @@ abstract class Field
      * Outputs the fields explanation.
      *
      * @return string
-     * @since  2.4
      */
     public function getExplanation()
     {
-        return apply_filters('cuztom_field_explanation', (! $this->isRepeatable() && $this->explanation ? '<em class="cuztom-field__explanation">'.$this->explanation.'</em>' : ''), $this);
+        return apply_filters(
+            'cuztom_field_explanation', (! $this->isRepeatable() && $this->explanation ? '<em class="cuztom-field__explanation">'.$this->explanation.'</em>' : ''), $this);
     }
 
     /**
@@ -387,7 +360,6 @@ abstract class Field
      *
      * @param  array  $extra
      * @return string
-     * @since  2.4
      */
     public function getDataAttributes($extra = array())
     {
@@ -405,12 +377,11 @@ abstract class Field
     /**
      * Outputs the fields column content.
      *
-     * @param int $post_id
-     * @since 3.0
+     * @param int $id
      */
-    public function outputColumnContent($post_id)
+    public function outputColumnContent($id)
     {
-        $meta = get_post_meta($post_id, $this->id, true);
+        $meta = get_post_meta($id, $this->id, true);
 
         if (! empty($meta) && $this->isRepeatable()) {
             echo implode($meta, ', ');
@@ -422,31 +393,28 @@ abstract class Field
     /**
      * Check what kind of meta we're dealing with.
      *
-     * @param  string $meta_type
+     * @param  string $metaType
      * @return bool
-     * @since  3.0
      */
-    public function isMetaType($meta_type)
+    public function isMetaType($metaType)
     {
-        return $this->meta_type == $meta_type;
+        return $this->metaType == $metaType;
     }
 
     /**
      * Check if the field is in repeatable mode.
      *
      * @return bool
-     * @since  3.0
      */
     public function isRepeatable()
     {
-        return $this->repeatable && $this->_supports_repeatable;
+        return $this->repeatable;
     }
 
     /**
      * Check if the field is tabs or accordion.
      *
      * @return bool
-     * @since  3.0
      */
     public function isTabs()
     {
@@ -457,7 +425,6 @@ abstract class Field
      * Check if the field is tabs or accordion.
      *
      * @return bool
-     * @since  3.0
      */
     public function isBundle()
     {
@@ -467,8 +434,8 @@ abstract class Field
     /**
      * Substract value of field from values array.
      *
-     * @param  [type] $values [description]
-     * @return [type] [description]
+     * @param  array  $values
+     * @return string
      */
     public function substractValue($values)
     {
@@ -488,7 +455,6 @@ abstract class Field
      *
      * @param  array       $args
      * @return object|bool
-     * @since  3.0
      */
     public static function create($args, $values)
     {

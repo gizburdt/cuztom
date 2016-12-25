@@ -10,20 +10,15 @@ Guard::directAccess();
 class Textarea extends Field
 {
     /**
-     * View name.
-     * @var string
+     * Base.
+     * @var mixed
      */
     public $view = 'textarea';
 
     /**
-     * CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $css_class = 'cuztom-input--textarea';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
+    public $css_class      = 'cuztom-input--textarea';
     public $cell_css_class = 'cuztom-field--textarea';
 }

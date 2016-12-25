@@ -10,28 +10,23 @@ Guard::directAccess();
 class PostSelect extends Select
 {
     /**
-     * View name.
-     * @var string
+     * Base.
+     * @var mixed
      */
     public $view = 'post-select';
 
     /**
-     * CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $css_class = 'cuztom-input-select cuztom-input-post-select';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-post-select';
+    public $css_class      = 'cuztom-input--select cuztom-input--post-select';
+    public $cell_css_class = 'cuztom-field--post-select';
 
     /**
      * Construct.
      *
-     * @param array $field
-     * @since 0.3.3
+     * @param array $args
+     * @param array $values
      */
     public function __construct($args, $values = null)
     {

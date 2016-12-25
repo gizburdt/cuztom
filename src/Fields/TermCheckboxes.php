@@ -10,16 +10,16 @@ Guard::directAccess();
 class TermCheckboxes extends Checkboxes
 {
     /**
-     * View name.
-     * @var string
+     * Base.
+     * @var mixed
      */
     public $view = 'term-checkboxes';
 
     /**
-     * Cell CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $cell_css_class = 'cuztom-field-term-checkboxes';
+    public $cell_css_class = 'cuztom-field--term-checkboxes';
 
     /**
      * Terms.
@@ -30,8 +30,8 @@ class TermCheckboxes extends Checkboxes
     /**
      * Construct.
      *
-     * @param array $field
-     * @since 0.3.3
+     * @param array $args
+     * @param array $values
      */
     public function __construct($args, $values = null)
     {

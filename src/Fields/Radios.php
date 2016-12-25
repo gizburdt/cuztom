@@ -13,34 +13,24 @@ class Radios extends Field
     use Checkable;
 
     /**
-     * Input type.
-     * @var string
+     * Base.
+     * @var mixed
      */
-    public $input_type = 'radio';
+    public $inputType = 'radio';
+    public $view      = 'radios';
 
     /**
-     * View name.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $view = 'radios';
-
-    /**
-     * CSS class.
-     * @var string
-     */
-    public $css_class = 'cuztom-input-radio';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-radios';
+    public $css_class      = 'cuztom-input--radio';
+    public $cell_css_class = 'cuztom-field--radios';
 
     /**
      * Construct.
      *
-     * @param array $field
-     * @since 0.3.3
+     * @param array $args
+     * @param array $values
      */
     public function __construct($args, $values = null)
     {
@@ -54,7 +44,6 @@ class Radios extends Field
      *
      * @param  string|array $value
      * @return string
-     * @since  2.8
      */
     public function parseValue($value)
     {

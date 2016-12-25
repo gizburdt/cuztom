@@ -13,34 +13,24 @@ class Checkboxes extends Field
     use Checkables;
 
     /**
-     * Css class.
-     * @var string
+     * Base.
+     * @var mixed
      */
-    public $input_type = 'checkbox';
+    public $inputType = 'checkbox';
+    public $view      = 'checkboxes';
 
     /**
-     * View name.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $view = 'checkboxes';
-
-    /**
-     * Css class.
-     * @var string
-     */
-    public $css_class = 'cuztom-input-checkbox';
-
-    /**
-     * Cell CSS class.
-     * @var string
-     */
-    public $cell_css_class = 'cuztom-field-checkboxes';
+    public $css_class      = 'cuztom-input--checkbox';
+    public $cell_css_class = 'cuztom-field--checkboxes';
 
     /**
      * Construct.
      *
      * @param array $args
-     * @since 0.3.3
+     * @param array $values
      */
     public function __construct($args, $values = null)
     {
@@ -48,6 +38,6 @@ class Checkboxes extends Field
 
         $this->default_value = (array) $this->default_value;
 
-        $this->after_name .= '[]';
+        $this->afterName .= '[]';
     }
 }

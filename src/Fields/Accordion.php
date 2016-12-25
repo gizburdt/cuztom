@@ -9,8 +9,8 @@ Guard::directAccess();
 class Accordion extends Tabs
 {
     /**
-     * View name.
-     * @var string
+     * Base.
+     * @var mixed
      */
     public $view = 'accordion';
 }

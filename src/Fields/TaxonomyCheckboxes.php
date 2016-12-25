@@ -10,22 +10,22 @@ Guard::directAccess();
 class TaxonomyCheckboxes extends Checkboxes
 {
     /**
-     * View name.
-     * @var string
+     * Base.
+     * @var mixed
      */
     public $view = 'taxonomy-checkboxes';
 
     /**
-     * Cell CSS class.
-     * @var string
+     * Fillables.
+     * @var mixed
      */
-    public $cell_css_class = 'cuztom-field-taxonomy-checkboxes';
+    public $cell_css_class = 'cuztom-field--taxonomy-checkboxes';
 
     /**
      * Construct.
      *
-     * @param string $field
-     * @since 0.3.3
+     * @param array $args
+     * @param array $values
      */
     public function __construct($args, $values = null)
     {
