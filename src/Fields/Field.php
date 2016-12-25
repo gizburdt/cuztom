@@ -35,7 +35,7 @@ abstract class Field
     public $limit                 = null;
     public $data_attributes       = array();
     public $css_class             = '';
-    public $cell_css_class         = '';
+    public $cell_css_class        = '';
     public $show_admin_column     = false;
     public $admin_column_sortable = false;
     public $admin_column_filter   = false;
