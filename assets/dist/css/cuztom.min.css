@@ -554,7 +554,7 @@
   padding: 0;
   margin: 0; }
 
-.cuztom .cuztom-box__description {
+.cuztom .cuztom__description {
   margin-top: 10px;
   margin-bottom: 15px;
   line-height: 1.5; }
@@ -630,6 +630,9 @@
 
 .cuztom .cuztom-input--select {
   width: 80%; }
+
+.cuztom [v-cloak] {
+  display: none; }
 
 .cuztom .cuztom-tabs .ui-widget {
   box-shadow: 0 1px 0 #fff;

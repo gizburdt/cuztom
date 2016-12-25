@@ -1,17 +1,17 @@
 <div class="cuztom-control">
     <a
-        class="cuztom-button button button-secondary button-small"
         href="#"
-        @click.prevent="addField"
+        class="cuztom-button button button-secondary button-small"
+        @click.prevent="addItem"
     >
         <?php _e('Add item', 'cuztom'); ?>
     </a>
 
     <?php if ($field->limit) : ?>
-        <div class="cuztom-counter js-cuztom-counter">
-            <span class="current js-current"><?php echo $count; ?></span>
+        <div class="cuztom-counter" v-cloak>
+            <span class="current">{{ list.length }}</span>
             <span class="divider"> / </span>
-            <span class="max js-max"><?php echo $field->limit; ?></span>
+            <span class="max"><?php echo $field->limit; ?></span>
         </div>
     <?php endif; ?>
 </div>
