@@ -450,8 +450,8 @@ class Cuztom
     /**
      * Check if isset and true.
      *
-     * @param  string  $input Mostly an array element
-     * @return boolean
+     * @param  string $input Mostly an array element
+     * @return bool
      */
     public static function isTrue($input)
     {
