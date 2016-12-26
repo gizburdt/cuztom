@@ -471,9 +471,9 @@ class Cuztom
      * @param  mixed  $input
      * @return string
      */
-    public static function htmlSpecialJsonEncode($input)
+    public static function jsonEncode($input)
     {
-        return htmlspecialchars(json_encode($input));
+        return ! Cuztom::isEmpty($input) ? htmlspecialchars(json_encode($input)) : null;
     }
 
     /**

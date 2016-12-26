@@ -2,7 +2,7 @@
 
 <v-cuztom-media
     type="image"
-    attachment="<?php echo Cuztom::htmlSpecialJsonEncode($attachment) ?>"
+    attachment="<?php echo Cuztom::jsonEncode($attachment) ?>"
     inline-template
 >
     <?php echo $field->_outputInput($value, 'text'); ?>

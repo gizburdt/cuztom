@@ -214,12 +214,10 @@ abstract class Field
      * @param  mixed  $value
      * @return string
      */
-    public function _outputRepeatableControl($value)
+    public function _outputRepeatableControl()
     {
         return Cuztom::view('fields/repeatable/control', array(
-            'field' => $this,
-            'value' => $value,
-            'count' => count($value)
+            'field' => $this
         ));
     }
 
