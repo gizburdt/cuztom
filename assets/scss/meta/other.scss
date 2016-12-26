@@ -1,0 +1,17 @@
+&.cuztom--user,
+&.cuztom--term{
+    .cuztom__content{
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    // Bundle
+    .cuztom-bundle{
+        > th,
+        > td{
+            border-left: 1px solid $table-border-color;
+            border-right: 1px solid $table-border-color;
+        }
+    }
+
+}

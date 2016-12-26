@@ -7,7 +7,7 @@
         <?php endif; ?>
 
         <div class="cuztom__content">
-            <table class="form-table cuztom-table cuztom-meta">
+            <table class="form-table cuztom-table cuztom-main">
                 <?php foreach ($box->data as $id => $field) : ?>
                     <?php echo $field->outputCell(); ?>
                 <?php endforeach; ?>

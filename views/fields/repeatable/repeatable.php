@@ -2,7 +2,7 @@
     <div class="cuztom-repeatable">
         <?php echo $field->_outputRepeatableControl($values); ?>
 
-        <ul class="cuztom-sortable">
+        <ul class="cuztom-sortable__list">
             <?php
                 if (is_array($values)) {
                     foreach ($values as $value) {

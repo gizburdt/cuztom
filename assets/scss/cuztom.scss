@@ -37,10 +37,11 @@
     // Media
     @import "modules/media";
 
-    // Meta
-    @import "modules/meta";
-
     // Wysiwyg
     @import "modules/wysiwyg";
+
+    // Meta
+    @import "meta/post";
+    @import "meta/other";
 
 }

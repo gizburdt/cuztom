@@ -1,38 +1,50 @@
-.cuztom-sortable-item{
 
-    .cuztom-sortable__handle,
-    .cuztom-sortable__remove{
-        display: inline-block;
-        vertical-align: middle;
-    }
+.cuztom-sortable{
+    margin: 0;
+}
 
-    .cuztom-sortable__handle a,
-    .cuztom-sortable__remove a{
-        height: 16px;
-        width: 8px;
-        display: block;
-        background: url('../images/jquery-ui/ui-icons_454545_256x240.png') no-repeat;
-        outline: none;
-    }
+// Control
+.cuztom-sortable__control{
+    padding: 6px 10px;
+    background: $repeatable-control-bg;
+    border-bottom: 1px solid #dfdfdf;
+}
 
-    .cuztom-sortable__handle a{
-        margin-right: 10px;
-        background-position: -132px -48px;
-        cursor: move;
-    }
+// Item
+.cuztom-sortable__item{}
 
-    .cuztom-sortable__remove a{
-        margin-left: 10px;
-        background-position: -85px -128px;
-        cursor: pointer;
-    }
+.cuztom-sortable__item__handle,
+.cuztom-sortable__item__remove{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.cuztom-sortable__item__handle a,
+.cuztom-sortable__item__remove a{
+    height: 16px;
+    width: 8px;
+    display: block;
+    background: url('../images/jquery-ui/ui-icons_454545_256x240.png') no-repeat;
+    outline: none;
+}
+
+.cuztom-sortable__item__handle a{
+    margin-right: 10px;
+    background-position: -132px -48px;
+    cursor: move;
+}
+
+.cuztom-sortable__item__remove a{
+    margin-left: 10px;
+    background-position: -85px -128px;
+    cursor: pointer;
 }
 
 // Counter
-.cuztom-counter{
+.cuztom-sortable__counter{
     float: right;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     font-size: 12px;
     color: #999;
 }

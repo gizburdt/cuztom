@@ -13,11 +13,9 @@ elixir(function(mix) {
     mix.scripts([
         'vendor/vue/dist/vue.min.js',
         'vendor/datetimepicker/build/jquery.datetimepicker.full.js',
-
         'js/components/repeatable.js',
         'js/components/bundle.js',
         'js/components/media.js',
-
         'js/cuztom-open.js',
         'js/cuztom-ui.js',
         'js/cuztom-vue.js',

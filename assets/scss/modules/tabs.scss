@@ -29,7 +29,7 @@
         &.ui-state-active{
             background: $tabs-bg;
             border: 1px solid $tabs-border-color;
-            border-bottom: 1px solid $tabs-bg;
+            border-bottom: 1px solid $tabs-bg !important;
         }
 
         &:hover,

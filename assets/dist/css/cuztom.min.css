@@ -510,11 +510,11 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f8fa', endColorstr='#FFF',GradientType=0 );
   /* IE6-9 */ }
 
-.clearfix:before, .cuztom .cuztom-bundle .cuztom-sortable-item:before, .clearfix:after, .cuztom .cuztom-bundle .cuztom-sortable-item:after {
+.clearfix:before, .cuztom .cuztom-bundle .cuztom-sortable__item:before, .clearfix:after, .cuztom .cuztom-bundle .cuztom-sortable__item:after {
   content: " ";
   display: table; }
 
-.clearfix:after, .cuztom .cuztom-bundle .cuztom-sortable-item:after {
+.clearfix:after, .cuztom .cuztom-bundle .cuztom-sortable__item:after {
   clear: both; }
 
 .center-block {
@@ -554,6 +554,9 @@
   padding: 0;
   margin: 0; }
 
+.cuztom .cuztom__content {
+  clear: both; }
+
 .cuztom .cuztom__description {
   margin-top: 10px;
   margin-bottom: 15px;
@@ -567,18 +570,6 @@
   .cuztom .cuztom-table th {
     position: relative;
     padding: 15px 10px; }
-  .cuztom .cuztom-table tr.cuztom-bundle > th,
-  .cuztom .cuztom-table tr.cuztom-bundle > td {
-    padding: 10px;
-    border: none; }
-  .cuztom .cuztom-table tr.cuztom-control.cuztom-control--top > td {
-    border-bottom: none; }
-  .cuztom .cuztom-table tr.cuztom-control.cuztom-control--bottom > td {
-    border-top: none; }
-  .cuztom .cuztom-table tr.cuztom-control > td {
-    padding: 6px 10px;
-    background: #f1f1f1;
-    border: 1px solid #dfdfdf; }
 
 .cuztom .cuztom-main {
   background-color: transparent; }
@@ -599,11 +590,12 @@
 .cuztom .cuztom-field__label {
   margin-top: 0 !important;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 600;
   line-height: 1;
-  cursor: pointer; }
+  cursor: pointer;
+  color: #23282d; }
 
-.cuztom .cuztom-field--required {
+.cuztom .cuztom-field__required {
   color: red; }
 
 .cuztom .cuztom-checkboxes {
@@ -662,7 +654,7 @@
   .cuztom .cuztom-tabs .ui-tabs-nav li.ui-state-active {
     background: #f1f1f1;
     border: 1px solid #ddd;
-    border-bottom: 1px solid #f1f1f1; }
+    border-bottom: 1px solid #f1f1f1 !important; }
   .cuztom .cuztom-tabs .ui-tabs-nav li:hover, .cuztom .cuztom-tabs .ui-tabs-nav li:focus {
     border: 1px solid #ddd; }
 
@@ -714,57 +706,61 @@
   padding: 0;
   border: none; }
 
-.cuztom .cuztom-sortable-item .cuztom-sortable__handle,
-.cuztom .cuztom-sortable-item .cuztom-sortable__remove {
+.cuztom .cuztom-sortable {
+  margin: 0; }
+
+.cuztom .cuztom-sortable__control {
+  padding: 6px 10px;
+  background: #f1f1f1;
+  border-bottom: 1px solid #dfdfdf; }
+
+.cuztom .cuztom-sortable__item__handle,
+.cuztom .cuztom-sortable__item__remove {
   display: inline-block;
   vertical-align: middle; }
 
-.cuztom .cuztom-sortable-item .cuztom-sortable__handle a,
-.cuztom .cuztom-sortable-item .cuztom-sortable__remove a {
+.cuztom .cuztom-sortable__item__handle a,
+.cuztom .cuztom-sortable__item__remove a {
   height: 16px;
   width: 8px;
   display: block;
   background: url("../images/jquery-ui/ui-icons_454545_256x240.png") no-repeat;
   outline: none; }
 
-.cuztom .cuztom-sortable-item .cuztom-sortable__handle a {
+.cuztom .cuztom-sortable__item__handle a {
   margin-right: 10px;
   background-position: -132px -48px;
   cursor: move; }
 
-.cuztom .cuztom-sortable-item .cuztom-sortable__remove a {
+.cuztom .cuztom-sortable__item__remove a {
   margin-left: 10px;
   background-position: -85px -128px;
   cursor: pointer; }
 
-.cuztom .cuztom-counter {
+.cuztom .cuztom-sortable__counter {
   float: right;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   font-size: 12px;
   color: #999; }
 
 .cuztom .cuztom-repeatable {
   border: 1px solid #dfdfdf; }
-  .cuztom .cuztom-repeatable .cuztom-control {
-    padding: 6px 10px;
-    background: #f1f1f1;
-    border-bottom: 1px solid #dfdfdf; }
-  .cuztom .cuztom-repeatable .cuztom-sortable {
+  .cuztom .cuztom-repeatable .cuztom-sortable__list {
     margin: 0; }
-  .cuztom .cuztom-repeatable .cuztom-sortable-item {
+  .cuztom .cuztom-repeatable .cuztom-sortable__item {
     margin: 0;
     padding: 6px 10px; }
-    .cuztom .cuztom-repeatable .cuztom-sortable-item + .cuztom-sortable-item {
+    .cuztom .cuztom-repeatable .cuztom-sortable__item + .cuztom-sortable-item {
       border-top: 1px solid #dfdfdf; }
 
-.cuztom .cuztom-bundle .cuztom-sortable {
-  margin: 0; }
+.cuztom .cuztom-bundle > td {
+  padding: 0; }
 
-.cuztom .cuztom-bundle .bundle-control {
-  border-bottom: 1px solid #dfdfdf; }
+.cuztom .cuztom-bundle .control--top {
+  border-top: 1px solid #dfdfdf; }
 
-.cuztom .cuztom-bundle .cuztom-sortable-item {
+.cuztom .cuztom-bundle .cuztom-sortable__item {
   border-radius: 3px;
   -webkit-border-radius: 3px;
   box-shadow: 0 1px 0 #fff;
@@ -772,21 +768,21 @@
   margin: 0;
   border: 1px solid #dfdfdf;
   background: #f1f1f1; }
-  .cuztom .cuztom-bundle .cuztom-sortable-item + .cuztom-sortable-item {
+  .cuztom .cuztom-bundle .cuztom-sortable__item + .cuztom-sortable-item {
     margin-top: 10px; }
 
-.cuztom .cuztom-bundle .cuztom-sortable__handle,
-.cuztom .cuztom-bundle .cuztom-sortable__remove {
+.cuztom .cuztom-bundle .cuztom-sortable__item__handle,
+.cuztom .cuztom-bundle .cuztom-sortable__item__remove {
   padding: 10px;
   text-align: center; }
-  .cuztom .cuztom-bundle .cuztom-sortable__handle a,
-  .cuztom .cuztom-bundle .cuztom-sortable__remove a {
+  .cuztom .cuztom-bundle .cuztom-sortable__item__handle a,
+  .cuztom .cuztom-bundle .cuztom-sortable__item__remove a {
     margin: 0; }
 
-.cuztom .cuztom-bundle .cuztom-sortable__handle {
+.cuztom .cuztom-bundle .cuztom-sortable__item__handle {
   border-right: 1px solid #dfdfdf; }
 
-.cuztom .cuztom-bundle .cuztom-sortable__remove {
+.cuztom .cuztom-bundle .cuztom-sortable__item__remove {
   float: right;
   border-left: 1px solid #dfdfdf; }
 
@@ -801,48 +797,6 @@
   display: block;
   padding: 5px 0 5px 25px;
   background: url("../images/mime/file.png") 0 2px no-repeat; }
-
-.cuztom.cuztom--post .cuztom-main {
-  border: 1px solid #dfdfdf;
-  background-color: #f9f9f9; }
-
-.cuztom.cuztom--post tr.cuztom-tabs > th,
-.cuztom.cuztom--post tr.cuztom-tabs > td,
-.cuztom.cuztom--post tr.cuztom-accordion > th,
-.cuztom.cuztom--post tr.cuztom-accordion > td {
-  border-top: 1px solid #dfdfdf;
-  border-bottom: 1px solid #dfdfdf; }
-
-.cuztom.cuztom--post .cuztom-field__label {
-  font-size: 12px; }
-
-.cuztom.cuztom--user .cuztom-main > tbody > tr > th, .cuztom.cuztom--term .cuztom-main > tbody > tr > th {
-  padding-left: 0; }
-
-.cuztom.cuztom--user .cuztom-main > tbody > tr > td, .cuztom.cuztom--term .cuztom-main > tbody > tr > td {
-  padding-right: 0; }
-
-.cuztom.cuztom--user tr.cuztom-tabs .cuztom-field,
-.cuztom.cuztom--user tr.cuztom-accordion .cuztom-field, .cuztom.cuztom--term tr.cuztom-tabs .cuztom-field,
-.cuztom.cuztom--term tr.cuztom-accordion .cuztom-field {
-  padding-left: 0;
-  padding-right: 0; }
-
-.cuztom.cuztom--user tr.cuztom-bundle,
-.cuztom.cuztom--user .cuztom-control, .cuztom.cuztom--term tr.cuztom-bundle,
-.cuztom.cuztom--term .cuztom-control {
-  background-color: #fff; }
-
-.cuztom.cuztom--user tr.cuztom-bundle > th,
-.cuztom.cuztom--user tr.cuztom-bundle > td, .cuztom.cuztom--term tr.cuztom-bundle > th,
-.cuztom.cuztom--term tr.cuztom-bundle > td {
-  border-left: 1px solid #dfdfdf;
-  border-right: 1px solid #dfdfdf; }
-
-.cuztom.cuztom--user tr.cuztom-bundle > td,
-.cuztom.cuztom--user tr.cuztom-control > td, .cuztom.cuztom--term tr.cuztom-bundle > td,
-.cuztom.cuztom--term tr.cuztom-control > td {
-  padding-right: 10px !important; }
 
 .cuztom .tmce-active table {
   max-width: none; }
@@ -862,3 +816,29 @@
 .cuztom table.mceToolbar td {
   display: inline-block;
   white-space: normal; }
+
+.cuztom.cuztom--post .cuztom-main {
+  border: 1px solid #dfdfdf;
+  background-color: #f9f9f9; }
+
+.cuztom.cuztom--post tr.cuztom-tabs > th,
+.cuztom.cuztom--post tr.cuztom-tabs > td,
+.cuztom.cuztom--post tr.cuztom-accordion > th,
+.cuztom.cuztom--post tr.cuztom-accordion > td,
+.cuztom.cuztom--post tr.cuztom-bundle > th,
+.cuztom.cuztom--post tr.cuztom-bundle > td {
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf; }
+
+.cuztom.cuztom--post .cuztom-field__label {
+  font-size: 13px; }
+
+.cuztom.cuztom--user .cuztom__content, .cuztom.cuztom--term .cuztom__content {
+  margin-left: -10px;
+  margin-right: -10px; }
+
+.cuztom.cuztom--user .cuztom-bundle > th,
+.cuztom.cuztom--user .cuztom-bundle > td, .cuztom.cuztom--term .cuztom-bundle > th,
+.cuztom.cuztom--term .cuztom-bundle > td {
+  border-left: 1px solid #dfdfdf;
+  border-right: 1px solid #dfdfdf; }

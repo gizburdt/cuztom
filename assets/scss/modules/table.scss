@@ -10,36 +10,6 @@
         position: relative;
         padding: 15px 10px;
     }
-
-    // Tabs
-    tr.cuztom-tabs,
-    tr.cuztom-accordion{}
-
-    // Bundle
-    tr.cuztom-bundle{
-        > th,
-        > td{
-            padding: 10px;
-            border: none;
-        }
-    }
-
-    // Control (bundle)
-    tr.cuztom-control{
-        &.cuztom-control--top > td{
-            border-bottom: none;
-        }
-
-        &.cuztom-control--bottom > td{
-            border-top: none;
-        }
-
-        > td{
-            padding: 6px 10px;
-            background: $table-control-bg;
-            border: 1px solid $table-border-color;
-        }
-    }
 }
 
 // Main

@@ -2,17 +2,13 @@
 .cuztom-repeatable{
     border: 1px solid $repeatable-border-color;
 
-    .cuztom-control{
-        padding: 6px 10px;
-        background: $repeatable-control-bg;
-        border-bottom: 1px solid #dfdfdf;
-    }
-
-    .cuztom-sortable{
+    // List
+    .cuztom-sortable__list{
         margin: 0;
     }
 
-    .cuztom-sortable-item{
+    // Item
+    .cuztom-sortable__item{
         margin: 0;
         padding: 6px 10px;
 
