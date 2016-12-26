@@ -468,7 +468,7 @@ class Cuztom
     /**
      * htmlspecialchars && json_encode.
      *
-     * @param  mixed $input
+     * @param  mixed  $input
      * @return string
      */
     public static function htmlSpecialJsonEncode($input)
