@@ -13,12 +13,12 @@ if (! function_exists('register_cuztom_meta_box')) {
      *
      * @param  string       $id
      * @param  array        $data
-     * @param  string|array $post_type
+     * @param  string|array $postType
      * @return object
      */
-    function register_cuztom_meta_box($id, $post_type, $data = array())
+    function register_cuztom_meta_box($id, $postType, $data = array())
     {
-        return new MetaBox($id, $post_type, $data);
+        return new MetaBox($id, $postType, $data);
     }
 }
 
