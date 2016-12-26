@@ -3,9 +3,8 @@ new Vue({
 
     el: '.v-cuztom',
 
-
-    mounted: function() {
+    ready: function() {
         console.log('mounted');
-    }
+    },
 
 });

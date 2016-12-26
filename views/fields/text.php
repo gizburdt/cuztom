@@ -5,4 +5,5 @@
     class="<?php echo $field->getCssClass(); ?>"
     value="<?php echo $value; ?>"
     <?php echo $field->getDataAttributes(); ?>
+    v-model="value"
 />

@@ -466,6 +466,17 @@ class Cuztom
     }
 
     /**
+     * htmlspecialchars && json_encode.
+     *
+     * @param  mixed $input
+     * @return string
+     */
+    public static function htmlSpecialJsonEncode($input)
+    {
+        return htmlspecialchars(json_encode($input));
+    }
+
+    /**
      * Check if the term is reserved by Wordpress.
      *
      * @param  string $term

@@ -5,6 +5,6 @@
         "jquery":         "latest",
         "bootstrap-sass": "latest",
         "datetimepicker": "https://github.com/xdan/datetimepicker.git",
-        "vue":            "2.*"
+        "vue":            "1.*"
     }
 }

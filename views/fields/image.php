@@ -1,15 +1,33 @@
-<?php
-    use Gizburdt\Cuztom\Cuztom;
+<?php use Gizburdt\Cuztom\Cuztom; ?>
 
-    if (! Cuztom::isEmpty($value)) {
-        $url   = wp_get_attachment_image_src($value, $field->getPreviewSize())[0];
-        $image = '<img src="'.$url.'" />';
-    } else {
-        $image = '';
-    }
-?>
+<v-cuztom-media
+    type="image"
+    attachment="<?php echo Cuztom::htmlSpecialJsonEncode($attachment) ?>"
+    inline-template
+>
+    <?php echo $field->_outputInput($value, 'text'); ?>
 
-<?php echo $field->_outputInput($value, 'text'); ?>
-<input id="<?php echo $field->getId(); ?>" type="button" class="button button-small js-cuztom-upload" data-media-type="image" value="<?php _e('Select image', 'cuztom'); ?>" />
-<?php echo (! Cuztom::isEmpty($value) ? sprintf('<a href="#" class="button button-small cuztom-remove-media js-cuztom-remove-media" title="%s" tabindex="-1">x</a>', __('Remove current image', 'cuztom')) : ''); ?>
-<span class="cuztom-media__preview js-cuztom-media-preview"><?php echo $image; ?></span>
+    <input
+        id="<?php echo $field->getId(); ?>"
+        type="button"
+        class="button button-small"
+        value="<?php _e('Select image', 'cuztom'); ?>"
+        @click.prevent="chooseMedia"
+    />
+
+    <a
+        href="#"
+        class="button button-small"
+        title="<?php _e('Remove current image', 'cuztom'); ?>"
+        tabindex="-1"
+        @click.prevent="removeMedia"
+        v-if="value"
+        v-cloak
+    >x</a>
+
+    <span
+        class="cuztom-media__preview"
+        v-show="value"
+        v-cloak
+    >{{{ preview }}}</span>
+</v-cuztom-media>

@@ -25,6 +25,27 @@ class Image extends Field
     public $data_attributes = array('media-type' => 'image');
 
     /**
+     * Output input field.
+     *
+     * @param  string $value
+     * @param  string $view
+     * @return string
+     */
+    public function _outputInput($value = null, $view = null)
+    {
+        $view       = $view ? $view : $this->getView();
+        $attachment = wp_get_attachment_metadata($value);
+
+        $attachment['url'] = wp_get_attachment_image_src($value, 'medium')[0];
+
+        return Cuztom::view('fields/'.$view, array(
+            'field'      => $this,
+            'value'      => $value,
+            'attachment' => $attachment
+        ));
+    }
+
+    /**
      * Output column content.
      *
      * @param  string $post_id
@@ -35,19 +56,5 @@ class Image extends Field
         $meta = get_post_meta($post_id, $this->id, true);
 
         echo wp_get_attachment_image($meta, array(100, 100));
-    }
-
-    /**
-     * Get preview size.
-     *
-     * @return string
-     */
-    public function getPreviewSize()
-    {
-        $size = (! Cuztom::isEmpty($this->args['preview_size'])
-            ? $this->args['preview_size']
-            : 'medium');
-
-        return apply_filters('cuztom_field_image_preview_size', $size, $this);
     }
 }

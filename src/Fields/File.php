@@ -23,4 +23,27 @@ class File extends Field
     public $css_class       = 'cuztom-input--hidden';
     public $cell_css_class  = 'cuztom-field--file';
     public $data_attributes = array('media-type' => 'file');
+
+    /**
+     * Output input field.
+     *
+     * @param  string $value
+     * @param  string $view
+     * @return string
+     */
+    public function _outputInput($value = null, $view = null)
+    {
+        $view       = $view ? $view : $this->getView();
+        $attachment = wp_get_attachment_metadata($value);
+
+        $attachment['url']   = wp_get_attachment_url($value);
+        $attachment['mime']  = str_replace('/', '-', get_post_mime_type($value));
+        $attachment['title'] = get_the_title($value);
+
+        return Cuztom::view('fields/'.$view, array(
+            'field'      => $this,
+            'value'      => $value,
+            'attachment' => $attachment
+        ));
+    }
 }
