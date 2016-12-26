@@ -4,4 +4,4 @@
     class="<?php echo $field->getCssClass(); ?>"
     <?php echo $field->getDataAttributes(); ?>
     ><?php echo $value; ?>
-></textarea>
+</textarea>
