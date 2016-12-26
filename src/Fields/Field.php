@@ -142,9 +142,9 @@ abstract class Field
 
         if ($this->isRepeatable()) {
             return $this->_outputRepeatable($value);
-        } else {
-            return $this->_output($value);
         }
+
+        return $this->_output($value);
     }
 
     /**
@@ -187,8 +187,7 @@ abstract class Field
     {
         return Cuztom::view('fields/repeatable/repeatable', array(
             'field'  => $this,
-            'values' => $value,
-            'count'  => 0
+            'values' => $value
         ));
     }
 
@@ -199,12 +198,11 @@ abstract class Field
      * @param  int    $count Total count of fields
      * @return string
      */
-    public function _outputRepeatableItem($value = null, $count = 0)
+    public function _outputRepeatableItem($value = null)
     {
         return Cuztom::view('fields/repeatable/item', array(
             'field' => $this,
-            'value' => $value,
-            'count' => $count
+            'value' => $value
         ));
     }
 

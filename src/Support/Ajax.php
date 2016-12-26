@@ -37,7 +37,8 @@ class Ajax
 
         $count = $request->get('count');
         $field = $request->get('field');
-        $field = self::getField($field, $request->get('box'));
+        $box   = $request->get('box');
+        $field = self::getField($field, $box);
 
         if (! $field || ! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;

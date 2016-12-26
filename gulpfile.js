@@ -16,6 +16,7 @@ elixir(function(mix) {
         'js/cuztom-open.js',
         'js/cuztom-ui.js',
         'js/components/repeatable.js',
+        'js/components/repeatable-item.js',
         'js/components/bundle.js',
         'js/components/media.js',
         'js/cuztom-vue.js',
