@@ -45,7 +45,7 @@ class Ajax
         }
 
         $response = ((! $field->limit) || ($field->limit > $count))
-            ? new Response(true, array('item' => $field->_outputRepeatableItem(null, $count)))
+            ? new Response(true, array('item' => $field->_outputRepeatableItem(null)))
             : new Response(false, array('message' => __('Limit reached!', 'cuztom')));
 
         echo $response->toJson();

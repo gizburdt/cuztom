@@ -473,7 +473,7 @@ class Cuztom
      */
     public static function jsonEncode($input)
     {
-        return ! self::isEmpty($input) ? htmlspecialchars(json_encode($input)) : null;
+        return ! self::isEmpty($input) ? htmlspecialchars(json_encode($input)) : 0;
     }
 
     /**

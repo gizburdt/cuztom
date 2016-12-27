@@ -744,6 +744,10 @@
   font-size: 12px;
   color: #999; }
 
+.cuztom .cuztom-sortable__none {
+  display: block;
+  padding: 10px; }
+
 .cuztom .cuztom-repeatable {
   border: 1px solid #dfdfdf; }
   .cuztom .cuztom-repeatable .cuztom-sortable__list {

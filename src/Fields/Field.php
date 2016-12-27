@@ -200,10 +200,7 @@ abstract class Field
      */
     public function _outputRepeatableItem($value = null)
     {
-        return Cuztom::view('fields/repeatable/item', array(
-            'field' => $this,
-            'value' => $value
-        ));
+        return $this->_output($value);
     }
 
     /**

@@ -1,22 +1,25 @@
 
 Vue.component('v-cuztom-repeatable', {
 
-    props: [
-        'id',
-        'list'
-    ],
+    props: {
+        id: String,
+        list: {
+            type: Array,
+            default: []
+        }
+    },
 
     data: function() {
         return {
             id: null,
             list: [],
+            ajaxUrl: null,
+            ajaxPayload: null
         }
     },
 
     ready: function() {
-        this.list = this.list ? this.list : [];
-
-        this.sortableList = jQuery(this.$el).find('.js-cuztom-sortable-list');
+        this.setupList(this.list);
 
         this.ajaxUrl = Cuztom.ajax_url;
 
@@ -26,12 +29,16 @@ Vue.component('v-cuztom-repeatable', {
             cuztom: {
                 box:   'meetaa',
                 field: this.id,
-                count: this.list.length++,
+                count: this.list.length + 1,
             }
         }
     },
 
     methods: {
+
+        setupList: function() {
+            this.list = [];
+        },
 
         addItem: function() {
             var vm = this;
@@ -43,8 +50,6 @@ Vue.component('v-cuztom-repeatable', {
 
                 if(response.status) {
                     vm.list.push(response.item);
-
-                    vm.sortableList.append(response.item);
 
                     cuztomUI(document);
                 } else {

@@ -144,7 +144,9 @@ abstract class Meta
         }
 
         foreach ($this->data as $id => $field) {
-            $field->save($object, $values);
+            if(isset($values[$id])) {
+                $field->save($object, $values);
+            }
         }
     }
 
