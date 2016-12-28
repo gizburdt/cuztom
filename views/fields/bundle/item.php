@@ -1,11 +1,13 @@
 
 <li class="cuztom-sortable__item" v-for="item in list" track-by="$index">
     <div class="cuztom-sortable__item__control">
-        <div class="cuztom-sortable__item__handle">
-            <a href="#"></a>
+        <div class="cuztom-sortable__item__handle js-cuztom-sortable-item-handle">
+            <a href="#" tabindex="-1"></a>
         </div>
 
-        <div class="cuztom-sortable__item__remove"><a href="#"></a></div>
+        <div class="cuztom-sortable__item__remove">
+            <a href="#" tabindex="-1" @click.prevent="removeItem(item)"></a>
+        </div>
     </div>
 
     <fieldset class="cuztom-fieldset">

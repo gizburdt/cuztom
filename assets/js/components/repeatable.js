@@ -26,7 +26,9 @@ Vue.component('v-cuztom-repeatable', {
                 success: function(response) {
                     vm.list.push(response.content);
 
-                    cuztomUI(document);
+                    Vue.nextTick(function () {
+                        cuztomUI(document);
+                    });
                 }
             }, {
                 count: this.list.length,

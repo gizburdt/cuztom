@@ -10,7 +10,7 @@
 
     <?php if ($bundle->limit) : ?>
         <div class="cuztom-sortable__counter">
-            <span class="current"><?php echo count($bundle->value); ?></span>
+            <span class="current">{{ list.length }}</span>
             <span class="divider"> / </span>
             <span class="max"><?php echo $bundle->limit; ?></span>
         </div>

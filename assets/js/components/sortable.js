@@ -19,9 +19,9 @@ var vCuztomSortable = {
     ready: function() {
         this.setupList();
 
-        if(! this.list.length) {
-            this.addItem();
-        }
+        // if(! this.list.length) {
+        //     this.addItem();
+        // }
     },
 
     methods: {
