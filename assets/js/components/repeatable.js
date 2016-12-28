@@ -1,62 +1,43 @@
 
 Vue.component('v-cuztom-repeatable', {
 
-    props: {
-        id: String,
-        list: {
-            type: Array,
-            default: []
-        }
-    },
-
-    data: function() {
-        return {
-            id: null,
-            list: [],
-            ajaxUrl: null,
-            ajaxPayload: null
-        }
-    },
-
-    ready: function() {
-        this.setupList(this.list);
-
-        this.ajaxUrl = Cuztom.ajax_url;
-
-        this.ajaxPayload = {
-            action: null,
-            security: Cuztom.wp_nonce,
-            cuztom: {
-                box:   'meetaa',
-                field: this.id,
-                count: this.list.length + 1,
-            }
-        }
-    },
+    mixins: [vCuztomSortable],
 
     methods: {
 
         setupList: function() {
-            this.list = [];
+            var vm = this;
+
+            this.postAjax({
+                action: 'cuztom_setup_repeatable_list',
+                success: function(response) {
+                    vm.$set('list', response.content);
+                },
+                fail: function(response) {
+                    alert(response.message);
+                }
+            }, {
+                values: this.values
+            });
         },
 
         addItem: function() {
             var vm = this;
 
-            this.ajaxPayload.action = 'cuztom_add_repeatable_item';
-
-            jQuery.post(this.ajaxUrl, this.ajaxPayload, function(response) {
-                var response = JSON.parse(response);
-
-                if(response.status) {
-                    vm.list.push(response.item);
+            this.postAjax({
+                action: 'cuztom_add_repeatable_item',
+                success: function(response) {
+                    vm.list.push(response.content);
 
                     cuztomUI(document);
-                } else {
+                },
+                fail: function(response) {
                     alert(response.message);
                 }
+            }, {
+                count: this.list.length,
             });
-        }
+        },
 
     }
 

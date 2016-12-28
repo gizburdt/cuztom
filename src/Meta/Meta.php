@@ -164,6 +164,7 @@ abstract class Meta
 
                 $field->metaType = $this->metaType;
                 $field->object   = $this->object;
+                $field->parent   = $this->id;
 
                 $data[$field->id] = $field;
             }

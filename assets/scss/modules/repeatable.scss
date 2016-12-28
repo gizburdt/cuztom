@@ -10,10 +10,30 @@
     // Item
     .cuztom-sortable__item{
         margin: 0;
-        padding: 6px 10px;
+        border-bottom: 1px solid $repeatable-border-color;
+    }
 
-        & + .cuztom-sortable-item{
-            border-top: 1px solid $repeatable-border-color;
-        }
+    .cuztom-sortable__item__content,
+    .cuztom-sortable__item__handle,
+    .cuztom-sortable__item__remove{
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .cuztom-sortable__item__content{
+        width: 90%;
+        float: left;
+        padding: 5px 10px;
+    }
+
+    .cuztom-sortable__item__handle,
+    .cuztom-sortable__item__remove{
+        float: left;
+        width: 5%;
+    }
+
+    // Input
+    .cuztom-input{
+        width: 100% !important;
     }
 }

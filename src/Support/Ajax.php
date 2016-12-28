@@ -22,10 +22,37 @@ class Ajax
     public function addHooks()
     {
         // Sortable
+        add_action('wp_ajax_cuztom_setup_repeatable_list', array(&$this, 'setupRepeatableList'));
         add_action('wp_ajax_cuztom_add_repeatable_item', array(&$this, 'addRepeatableItem'));
         add_action('wp_ajax_cuztom_add_bundle_item', array(&$this, 'addBundleItem'));
 
         // More
+    }
+
+    /**
+     * Setup repeatable list on init.
+     *
+     * @return [type] [description]
+     */
+    public function setupRepeatableList()
+    {
+        $request = new Request($_POST);
+        $values  = $request->get('values');
+        $field   = $request->get('field');
+        $box     = $request->get('box');
+        $field   = self::getField($field, $box);
+        $data    = array();
+
+        foreach($values as $value) {
+            $data[] = $field->_outputRepeatableItem($value);
+        }
+
+        $response = new Response(true, array('content' => $data));
+
+        echo $response->toJson();
+
+        // wp
+        die();
     }
 
     /**
@@ -45,7 +72,7 @@ class Ajax
         }
 
         $response = ((! $field->limit) || ($field->limit > $count))
-            ? new Response(true, array('item' => $field->_outputRepeatableItem(null)))
+            ? new Response(true, array('content' => $field->_outputRepeatableItem(null)))
             : new Response(false, array('message' => __('Limit reached!', 'cuztom')));
 
         echo $response->toJson();
@@ -76,7 +103,7 @@ class Ajax
         ));
 
         $response = (! $field->limit || ($field->limit > $count))
-            ? new Response(true, array('item' => $item->output()))
+            ? new Response(true, array('content' => $item->output()))
             : new Response(false, array('message' => __('Limit reached!', 'cuztom')));
 
         echo $response->toJson();

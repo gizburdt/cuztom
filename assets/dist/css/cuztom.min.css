@@ -510,11 +510,11 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f8fa', endColorstr='#FFF',GradientType=0 );
   /* IE6-9 */ }
 
-.clearfix:before, .cuztom .cuztom-bundle .cuztom-sortable__item:before, .clearfix:after, .cuztom .cuztom-bundle .cuztom-sortable__item:after {
+.clearfix:before, .cuztom .cuztom-sortable__item:before, .cuztom .cuztom-bundle .cuztom-sortable__item:before, .clearfix:after, .cuztom .cuztom-sortable__item:after, .cuztom .cuztom-bundle .cuztom-sortable__item:after {
   content: " ";
   display: table; }
 
-.clearfix:after, .cuztom .cuztom-bundle .cuztom-sortable__item:after {
+.clearfix:after, .cuztom .cuztom-sortable__item:after, .cuztom .cuztom-bundle .cuztom-sortable__item:after {
   clear: both; }
 
 .center-block {
@@ -603,6 +603,7 @@
   width: 80%; }
 
 .cuztom .cuztom-input {
+  margin: 0;
   margin-right: 3px;
   display: inline-block;
   vertical-align: middle; }
@@ -611,7 +612,8 @@
 .cuztom .cuztom-input--textarea,
 .cuztom .cuztom-input--datetime,
 .cuztom .cuztom-input--date,
-.cuztom .cuztom-input--time {
+.cuztom .cuztom-input--time,
+.cuztom .cuztom-input--select {
   width: 80% !important;
   min-height: 24px;
   font-family: "Open Sans", sans-serif !important;
@@ -620,11 +622,11 @@
 .cuztom .cuztom-input--textarea {
   min-height: 140px; }
 
-.cuztom .cuztom-input--select {
-  width: 80%; }
-
 .cuztom .button {
   margin-bottom: 1px; }
+
+.cuztom .button[disabled] {
+  pointer-events: none; }
 
 .cuztom [v-cloak] {
   display: none; }
@@ -717,23 +719,24 @@
 .cuztom .cuztom-sortable__item__handle,
 .cuztom .cuztom-sortable__item__remove {
   display: inline-block;
-  vertical-align: middle; }
+  padding: 10px;
+  vertical-align: middle;
+  text-align: center; }
 
 .cuztom .cuztom-sortable__item__handle a,
 .cuztom .cuztom-sortable__item__remove a {
-  height: 16px;
+  height: 17px;
   width: 8px;
   display: block;
+  margin: 0;
   background: url("../images/jquery-ui/ui-icons_454545_256x240.png") no-repeat;
   outline: none; }
 
 .cuztom .cuztom-sortable__item__handle a {
-  margin-right: 10px;
   background-position: -132px -48px;
   cursor: move; }
 
 .cuztom .cuztom-sortable__item__remove a {
-  margin-left: 10px;
   background-position: -85px -128px;
   cursor: pointer; }
 
@@ -754,9 +757,21 @@
     margin: 0; }
   .cuztom .cuztom-repeatable .cuztom-sortable__item {
     margin: 0;
-    padding: 6px 10px; }
-    .cuztom .cuztom-repeatable .cuztom-sortable__item + .cuztom-sortable-item {
-      border-top: 1px solid #dfdfdf; }
+    border-bottom: 1px solid #dfdfdf; }
+  .cuztom .cuztom-repeatable .cuztom-sortable__item__content,
+  .cuztom .cuztom-repeatable .cuztom-sortable__item__handle,
+  .cuztom .cuztom-repeatable .cuztom-sortable__item__remove {
+    box-sizing: border-box; }
+  .cuztom .cuztom-repeatable .cuztom-sortable__item__content {
+    width: 90%;
+    float: left;
+    padding: 5px 10px; }
+  .cuztom .cuztom-repeatable .cuztom-sortable__item__handle,
+  .cuztom .cuztom-repeatable .cuztom-sortable__item__remove {
+    float: left;
+    width: 5%; }
+  .cuztom .cuztom-repeatable .cuztom-input {
+    width: 100% !important; }
 
 .cuztom .cuztom-bundle > td {
   padding: 0; }
@@ -774,14 +789,6 @@
   background: #f1f1f1; }
   .cuztom .cuztom-bundle .cuztom-sortable__item + .cuztom-sortable-item {
     margin-top: 10px; }
-
-.cuztom .cuztom-bundle .cuztom-sortable__item__handle,
-.cuztom .cuztom-bundle .cuztom-sortable__item__remove {
-  padding: 10px;
-  text-align: center; }
-  .cuztom .cuztom-bundle .cuztom-sortable__item__handle a,
-  .cuztom .cuztom-bundle .cuztom-sortable__item__remove a {
-    margin: 0; }
 
 .cuztom .cuztom-bundle .cuztom-sortable__item__handle {
   border-right: 1px solid #dfdfdf; }

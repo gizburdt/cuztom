@@ -2,17 +2,24 @@
 
 <v-cuztom-repeatable
     id="<?php echo $field->getId(); ?>"
-    :list="<?php echo Cuztom::jsonEncode($field->value); ?>"
+    box="<?php echo $field->parent; ?>"
+    :values="<?php echo Cuztom::jsonEncode($field->value); ?>"
     inline-template
 >
     <div class="cuztom-repeatable" v-cloak>
         <?php echo $field->_outputRepeatableControl(); ?>
 
-        <ul class="cuztom-sortable__list">
-            <li class="cuztom-field cuztom-sortable__item" v-for="item in list">
-                <div class="cuztom-sortable__item__handle js-cuztom-sortable-item-handle"><a href="#" tabindex="-1"></a></div>
-                    {{{ item }}}
-                <div class="cuztom-sortable__item__remove js-cuztom-sortable-item-remove"><a href="#" tabindex="-1"></a></div>
+        <ul class="cuztom-sortable__list js-cuztom-sortable-list">
+            <li class="cuztom-field cuztom-sortable__item" v-for="item in list" track-by="$index">
+                <div class="cuztom-sortable__item__handle js-cuztom-sortable-item-handle">
+                    <a href="#" tabindex="-1"></a>
+                </div>
+
+                <div class="cuztom-sortable__item__content">{{{ item }}}</div>
+
+                <div class="cuztom-sortable__item__remove">
+                    <a href="#" tabindex="-1" @click.prevent="removeItem(item)"></a>
+                </div>
             </li>
         </ul>
 

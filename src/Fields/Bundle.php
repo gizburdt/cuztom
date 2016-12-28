@@ -107,7 +107,10 @@ class Bundle extends Field
         if (is_array($this->value)) {
             foreach ($this->value as $value) {
                 $item = new BundleItem(
-                    array_merge($args, array('parent' => $this, 'index' => $i)),
+                    array_merge(
+                        $args,
+                        array('parent' => $this, 'index' => $i)
+                    ),
                     @$this->value[$i]
                 );
 
@@ -123,7 +126,10 @@ class Bundle extends Field
         // Without value
         else {
             $item = new BundleItem(
-                array_merge($args, array('parent' => $this))
+                array_merge(
+                    $args,
+                    array('parent' => $this)
+                )
             );
 
             $item->metaType = $this->metaType;

@@ -24,14 +24,6 @@
         }
     }
 
-    .cuztom-sortable__item__handle,
-    .cuztom-sortable__item__remove{
-        padding: 10px;
-        text-align: center;
-
-        a{ margin: 0; }
-    }
-
     .cuztom-sortable__item__handle{
         border-right: 1px solid $bundle-border-color;
     }

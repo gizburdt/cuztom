@@ -11,31 +11,34 @@
 }
 
 // Item
-.cuztom-sortable__item{}
+.cuztom-sortable__item{
+    @extend .clearfix;
+}
 
 .cuztom-sortable__item__handle,
 .cuztom-sortable__item__remove{
     display: inline-block;
+    padding: 10px;
     vertical-align: middle;
+    text-align: center;
 }
 
 .cuztom-sortable__item__handle a,
 .cuztom-sortable__item__remove a{
-    height: 16px;
+    height: 17px;
     width: 8px;
     display: block;
+    margin: 0;
     background: url('../images/jquery-ui/ui-icons_454545_256x240.png') no-repeat;
     outline: none;
 }
 
 .cuztom-sortable__item__handle a{
-    margin-right: 10px;
     background-position: -132px -48px;
     cursor: move;
 }
 
 .cuztom-sortable__item__remove a{
-    margin-left: 10px;
     background-position: -85px -128px;
     cursor: pointer;
 }

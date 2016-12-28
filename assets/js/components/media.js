@@ -8,10 +8,9 @@ Vue.component('v-cuztom-media', {
 
     data: function() {
         return {
-            type: null,
-            attachment: null,
             uploader: null,
-            value: null
+            value: null,
+            preview: null
         }
     },
 

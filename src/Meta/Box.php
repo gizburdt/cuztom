@@ -172,9 +172,9 @@ class Box extends Meta
      */
     public function addSortableColumn($columns)
     {
-        if ($this->fields) {
-            foreach ($this->fields as $id => $field) {
-                if (Cuztom::isTrue($field->admin_column_sortable)) {
+        if ($this->data) {
+            foreach ($this->data as $id => $field) {
+                if ($field->admin_column_sortable) {
                     $columns[$id] = $field->label;
                 }
             }
