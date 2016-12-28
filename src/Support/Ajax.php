@@ -46,7 +46,7 @@ class Ajax
         $field   = self::getField($field, $box);
         $data    = array();
 
-        foreach($values as $value) {
+        foreach ($values as $value) {
             $data[] = $field->_outputRepeatableItem($value);
         }
 
@@ -95,11 +95,11 @@ class Ajax
         $values  = $request->get('values');
         $field   = $request->get('field');
         $box     = $request->get('box');
-        $bundle   = self::getField($field, $box);
+        $bundle  = self::getField($field, $box);
         $data    = array();
 
-        if(is_array($values)) {
-            foreach($values as $value) {
+        if (is_array($values)) {
+            foreach ($values as $value) {
                 $data[] = ['hoi'];
 
                 // foreach ($item->data as $id => $field) :
@@ -136,7 +136,7 @@ class Ajax
             $field->original,
             array(
                 'parent' => $field,
-                'index' => $index
+                'index'  => $index
             )
         ));
 
