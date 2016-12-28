@@ -779,6 +779,10 @@
 .cuztom .cuztom-bundle .control--top {
   border-top: 1px solid #dfdfdf; }
 
+.cuztom .cuztom-bundle .cuztom-sortable__list {
+  margin: 0;
+  padding: 10px; }
+
 .cuztom .cuztom-bundle .cuztom-sortable__item {
   border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -787,8 +791,11 @@
   margin: 0;
   border: 1px solid #dfdfdf;
   background: #f1f1f1; }
-  .cuztom .cuztom-bundle .cuztom-sortable__item + .cuztom-sortable-item {
+  .cuztom .cuztom-bundle .cuztom-sortable__item + .cuztom-sortable__item {
     margin-top: 10px; }
+
+.cuztom .cuztom-bundle .cuztom-sortable__item__control {
+  border-bottom: 1px solid #dfdfdf; }
 
 .cuztom .cuztom-bundle .cuztom-sortable__item__handle {
   border-right: 1px solid #dfdfdf; }

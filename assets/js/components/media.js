@@ -1,13 +1,13 @@
 
-Vue.component('v-cuztom-media', {
+vCuztomMedia = {
 
     props: [
-        'type',
         'attachment',
     ],
 
     data: function() {
         return {
+            type: null,
             uploader: null,
             value: null,
             preview: null
@@ -17,12 +17,15 @@ Vue.component('v-cuztom-media', {
     ready: function() {
         var vm = this;
 
+        // Setup
+        this.setup();
+
         // Set preview
         this.setPreview(this._attachment);
 
         // Init wp media
         this.uploader = wp.media.frames.file_frame = wp.media({
-            type: 'image',
+            type: this.type,
             multiple: false,
         });
 
@@ -45,16 +48,6 @@ Vue.component('v-cuztom-media', {
         removeMedia: function() {
             this.$set('value', null);
             this.$set('preview', null);
-        },
-
-        setPreview: function(attachment) {
-            if(this._isImage) {
-                var thumbnail = attachment.sizes.medium ? attachment.sizes.medium : attachment.sizes.full;
-
-                this.$set('preview', '<img src="'+attachment.url+'" height="'+thumbnail.height+'" width="'+thumbnail.width+'" />');
-            } else {
-                this.$set('preview', '<a target="_blank" href="'+attachment.url+'">'+attachment.title+'</a>');
-            }
         }
 
     },
@@ -65,14 +58,6 @@ Vue.component('v-cuztom-media', {
             return JSON.parse(this.attachment);
         },
 
-        _isImage: function() {
-            return this.type == 'image';
-        },
-
-        _isFile: function() {
-            return ! this._isImage
-        },
-
     }
 
-});
+}

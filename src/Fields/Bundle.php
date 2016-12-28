@@ -37,7 +37,7 @@ class Bundle extends Field
      */
     public function outputCell($value = null, $view = null)
     {
-        return Cuztom::view('fields/cell/bundle', array(
+        return Cuztom::view('fields/bundle/bundle', array(
             'bundle' => $this,
             'value'  => $value
         ));
@@ -51,13 +51,7 @@ class Bundle extends Field
      */
     public function output($value = null, $view = null)
     {
-        if (is_array($this->data)) {
-            foreach ($this->data as $item) {
-                @$output .= $item->output();
-            }
-        }
-
-        return @$output;
+        return Cuztom::view('fields/bundle/item');
     }
 
     /**

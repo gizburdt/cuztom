@@ -1,7 +1,6 @@
 <?php use Gizburdt\Cuztom\Cuztom; ?>
 
-<v-cuztom-media
-    type="file"
+<v-cuztom-file
     attachment="<?php echo Cuztom::jsonEncode($attachment) ?>"
     inline-template
 >
@@ -33,4 +32,4 @@
         <span class="cuztom-media__mime mime--application-pdf">
         {{{ preview }}}
     </span>
-</v-cuztom-media>
+</v-cuztom-file>

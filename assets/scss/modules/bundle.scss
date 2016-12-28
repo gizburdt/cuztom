@@ -9,6 +9,12 @@
         border-top: 1px solid #dfdfdf;
     }
 
+    // List
+    .cuztom-sortable__list{
+        margin: 0;
+        padding: 10px;
+    }
+
     // Item
     .cuztom-sortable__item{
         @extend .clearfix;
@@ -19,9 +25,13 @@
         border: 1px solid $bundle-border-color;
         background: $bundle-bg;
 
-        & + .cuztom-sortable-item{
+        & + .cuztom-sortable__item{
             margin-top: 10px;
         }
+    }
+
+    .cuztom-sortable__item__control{
+        border-bottom: 1px solid $repeatable-border-color;
     }
 
     .cuztom-sortable__item__handle{

@@ -1,7 +1,6 @@
 <?php use Gizburdt\Cuztom\Cuztom; ?>
 
-<v-cuztom-media
-    type="image"
+<v-cuztom-image
     attachment="<?php echo Cuztom::jsonEncode($attachment) ?>"
     inline-template
 >
@@ -30,4 +29,4 @@
         v-show="value"
         v-cloak
     >{{{ preview }}}</span>
-</v-cuztom-media>
+</v-cuztom-image>

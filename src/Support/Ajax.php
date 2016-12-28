@@ -21,9 +21,12 @@ class Ajax
      */
     public function addHooks()
     {
-        // Sortable
+        // Repeatable
         add_action('wp_ajax_cuztom_setup_repeatable_list', array(&$this, 'setupRepeatableList'));
         add_action('wp_ajax_cuztom_add_repeatable_item', array(&$this, 'addRepeatableItem'));
+
+        // Bundle
+        add_action('wp_ajax_cuztom_setup_bundle_list', array(&$this, 'setupBundleList'));
         add_action('wp_ajax_cuztom_add_bundle_item', array(&$this, 'addBundleItem'));
 
         // More
@@ -32,7 +35,7 @@ class Ajax
     /**
      * Setup repeatable list on init.
      *
-     * @return [type] [description]
+     * @return mixed
      */
     public function setupRepeatableList()
     {
@@ -82,6 +85,38 @@ class Ajax
     }
 
     /**
+     * Setup bundle list on init.
+     *
+     * @return mixed
+     */
+    public function setupBundleList()
+    {
+        $request = new Request($_POST);
+        $values  = $request->get('values');
+        $field   = $request->get('field');
+        $box     = $request->get('box');
+        $bundle   = self::getField($field, $box);
+        $data    = array();
+
+        if(is_array($values)) {
+            foreach($values as $value) {
+                $data[] = ['hoi'];
+
+                // foreach ($item->data as $id => $field) :
+                //     echo $field->outputCell();
+                // endforeach;
+            }
+        }
+
+        $response = new Response(true, array('content' => $data));
+
+        echo $response->toJson();
+
+        // wp
+        die();
+    }
+
+    /**
      * Add (return) bundle item.
      */
     public function addBundleItem()
@@ -99,7 +134,10 @@ class Ajax
 
         $item = new BundleItem(array_merge(
             $field->original,
-            array('parent' => $field, 'index' => $index)
+            array(
+                'parent' => $field,
+                'index' => $index
+            )
         ));
 
         $response = (! $field->limit || ($field->limit > $count))

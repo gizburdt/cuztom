@@ -9,7 +9,7 @@
     <div class="cuztom-repeatable" v-cloak>
         <?php echo $field->_outputRepeatableControl(); ?>
 
-        <ul class="cuztom-sortable__list js-cuztom-sortable-list">
+        <ul class="cuztom-sortable__list js-cuztom-sortable" v-if="list.length">
             <li class="cuztom-field cuztom-sortable__item" v-for="item in list" track-by="$index">
                 <div class="cuztom-sortable__item__handle js-cuztom-sortable-item-handle">
                     <a href="#" tabindex="-1"></a>

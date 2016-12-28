@@ -1,5 +1,10 @@
 <div class="cuztom-sortable__control <?php echo isset($class) ? $class : ''; ?>">
-    <a class="button button-small" href="#">
+    <a
+        class="button button-small"
+        href="#"
+        @click.prevent="addItem"
+        :disabled="<?php echo $bundle->limit ?> && list.length >= <?php echo $bundle->limit ?>"
+    >
         <?php _e('Add item', 'cuztom'); ?>
     </a>
 

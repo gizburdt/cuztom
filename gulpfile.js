@@ -18,7 +18,10 @@ elixir(function(mix) {
         'js/components/sortable.js',
         'js/components/repeatable.js',
         'js/components/bundle.js',
+        'js/components/bundle.js',
         'js/components/media.js',
+        'js/components/file.js',
+        'js/components/image.js',
         'js/cuztom-vue.js',
         'js/cuztom-close.js',
     ], 'assets/dist/js/cuztom.min.js', 'assets/');

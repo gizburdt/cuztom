@@ -50,7 +50,7 @@ var cuztomUI;
     $('.js-cuztom-accordion', object).accordion();
 
     // Sortable
-    $('.js-cuztom-sortable-list', object).sortable({
+    $('.js-cuztom-sortable', object).sortable({
         items: '> li',
         handle: '.js-cuztom-sortable-item-handle'
     });
