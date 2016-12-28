@@ -27,6 +27,12 @@ var vCuztomSortable = {
         },
 
         postAjax: function (options, params) {
+            var options = jQuery.extend({
+                fail: function(response) {
+                    alert(response.message);
+                }
+            }, options);
+
             var params = jQuery.extend({
                 box: this.box,
                 field: this.id,

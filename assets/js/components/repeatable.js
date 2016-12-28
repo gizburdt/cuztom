@@ -12,9 +12,6 @@ Vue.component('v-cuztom-repeatable', {
                 action: 'cuztom_setup_repeatable_list',
                 success: function(response) {
                     vm.$set('list', response.content);
-                },
-                fail: function(response) {
-                    alert(response.message);
                 }
             }, {
                 values: this.values
@@ -30,9 +27,6 @@ Vue.component('v-cuztom-repeatable', {
                     vm.list.push(response.content);
 
                     cuztomUI(document);
-                },
-                fail: function(response) {
-                    alert(response.message);
                 }
             }, {
                 count: this.list.length,
