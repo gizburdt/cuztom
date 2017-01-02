@@ -23,6 +23,6 @@
             </li>
         </ul>
 
-        <em class="cuztom-sortable__none" v-if="!list.length">No items found</em>
+        <em class="cuztom-sortable__none" v-if="!list.length"><?php _e('No items found.', 'cuztom'); ?></em>
     </div>
 </v-cuztom-repeatable>
