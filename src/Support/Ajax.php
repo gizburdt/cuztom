@@ -100,11 +100,9 @@ class Ajax
 
         if (is_array($values)) {
             foreach ($values as $value) {
-                $data[] = ['hoi'];
-
-                // foreach ($item->data as $id => $field) :
-                //     echo $field->outputCell();
-                // endforeach;
+                foreach ($item->data as $id => $field) :
+                    echo $field->outputCell();
+                endforeach;
             }
         }
 

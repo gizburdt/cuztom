@@ -75,13 +75,14 @@ class Item extends Field
     public function build($args)
     {
         foreach ($this->fields as $field) {
-            $field           = Field::create($field, $this->value);
-            $field->metaType = $this->metaType;
-            $field->object   = $this->object;
+            $args = Cuztom::args($field, array(
+                'metaType'   => $this->metaType,
+                'object'     => $this->object,
+                'beforeName' => '['.$this->parent->id.']['.$this->index.']',
+                'beforeId'   => $this->parent->id.'_'.$this->index,
+            ));
 
-            // Change name
-            $field->beforeName = '['.$this->parent->id.']['.$this->index.']';
-            $field->beforeId   = $this->parent->id.'_'.$this->index;
+            $field = Field::create($args, $this->value);
 
             $data[$field->id] = $field;
         }

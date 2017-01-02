@@ -88,9 +88,12 @@ class Tab extends Field
     public function build($args)
     {
         foreach ($this->fields as $field) {
-            $field           = Field::create($field, $this->value);
-            $field->metaType = $this->metaType;
-            $field->object   = $this->object;
+            $args = Cuztom::args($field, array(
+                'metaType' => $this->metaType,
+                'object'   => $this->object,
+            ));
+
+            $field = Field::create($args, $this->value);
 
             $data[$field->id] = $field;
         }

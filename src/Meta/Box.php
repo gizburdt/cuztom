@@ -34,20 +34,6 @@ class Box extends Meta
     public $metaType = 'post';
 
     /**
-     * Fillable.
-     * @var array
-     */
-    protected $fillable = array(
-        'id',
-        'callback',
-        'title',
-        'description',
-        'fields',
-        'context',
-        'priority',
-    );
-
-    /**
      * Constructs the meta box.
      *
      * @param string       $id

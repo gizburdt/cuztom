@@ -477,6 +477,18 @@ class Cuztom
     }
 
     /**
+     * Build arguments.
+     *
+     * @param  array $args
+     * @param  array $merge
+     * @return array
+     */
+    public static function args($args, $merge)
+    {
+        return array_merge($args, $merge);
+    }
+
+    /**
      * Check if the term is reserved by Wordpress.
      *
      * @param  string $term

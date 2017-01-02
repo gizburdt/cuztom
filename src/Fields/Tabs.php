@@ -101,18 +101,18 @@ class Tabs extends Field
     public function build($args)
     {
         foreach ($this->panels as $panel) {
-            $tab = new Tab(
-                array_merge($panel, array('parent' => $this)),
-                $this->value
-            );
+            $args = Cuztom::args($panel, array(
+                'parent'   => $this,
+                'metaType' => $this->metaType,
+                'object'   => $this->object,
+                'tabsType' => $this->type,
+            ));
 
-            $tab->metaType = $this->metaType;
-            $tab->object   = $this->object;
-            $tab->tabsType = $this->type;
+            $tab = new Tab($args, $this->value);
 
             $data[$tab->id] = $tab;
         }
 
-        return $data;
+        return @$data;
     }
 }

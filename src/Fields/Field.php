@@ -36,6 +36,12 @@ abstract class Field
     public $afterId    = '';
 
     /**
+     * Special.
+     * @var mixed
+     */
+    public $parent;
+
+    /**
      * Fillables.
      * @var mixed
      */
@@ -58,37 +64,6 @@ abstract class Field
     public $admin_column_filter   = false;
 
     /**
-     * Fillable by user.
-     * @var array
-     */
-    protected $fillable = array(
-        'id',
-        'type',
-        'label',
-        'description',
-        'explanation',
-        'default_value',
-        'options',
-        'args',
-        'required',
-        'repeatable',
-        'limit',
-        'data_attributes',
-        'css_class',
-        'cell_css_class',
-        'show_admin_column',
-        'admin_column_sortable',
-        'admin_column_filter',
-
-        // Special
-        'parent',
-        'fields',
-        'panels',
-        'title',
-        'index'
-    );
-
-    /**
      * Construct.
      *
      * @param array $args
@@ -100,7 +75,7 @@ abstract class Field
         $this->original = $args;
 
         // Set all properties
-        foreach ($this->fillable as $property) {
+        foreach ($args as $property => $value) {
             if (property_exists($this, $property)) {
                 $this->$property = (isset($args[$property]) ? $args[$property] : $this->$property);
             }

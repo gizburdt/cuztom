@@ -59,18 +59,6 @@ abstract class Meta
     public $metaType;
 
     /**
-     * Fillable.
-     * @var array
-     */
-    protected $fillable = array(
-        'id',
-        'callback',
-        'title',
-        'description',
-        'fields',
-    );
-
-    /**
      * Get object id.
      *
      * @return int
@@ -95,7 +83,7 @@ abstract class Meta
         global $cuztom;
 
         // Set all properties
-        foreach ($this->fillable as $property) {
+        foreach ($data as $property => $value) {
             $this->$property = isset($data[$property]) ? $data[$property] : $this->$property;
         }
 
@@ -158,13 +146,15 @@ abstract class Meta
      */
     public function build($fields)
     {
-        if (is_array($fields) && ! Cuztom::isEmpty($fields)) {
+        if (! Cuztom::isEmpty($fields) && is_array($fields)) {
             foreach ($fields as $type => $args) {
-                $field = Field::create($args, $this->values);
+                $args = Cuztom::args($args, array(
+                    'metaType' => $this->metaType,
+                    'object'   => $this->object,
+                    'parent'   => $this->id,
+                ));
 
-                $field->metaType = $this->metaType;
-                $field->object   = $this->object;
-                $field->parent   = $this->id;
+                $field = Field::create($args, $this->values);
 
                 $data[$field->id] = $field;
             }
