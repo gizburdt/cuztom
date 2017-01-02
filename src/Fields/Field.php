@@ -131,7 +131,22 @@ abstract class Field
      */
     public function _output($value = null)
     {
-        return $this->_outputInput($value).$this->getExplanation();
+        return $this->_outputInput($value).(! $this->isRepeatable() ? $this->getExplanation() : '');
+    }
+
+    /**
+     * Outputs the field, ready for repeatable functionality.
+     *
+     * @param  mixed  $value
+     * @param  string $view
+     * @return string
+     */
+    public function _outputRepeatable($value = null)
+    {
+        return Cuztom::view('fields/repeatable/repeatable', array(
+            'field'  => $this,
+            'values' => $value
+        )).$this->getExplanation();
     }
 
     /**
@@ -148,21 +163,6 @@ abstract class Field
         return Cuztom::view('fields/'.$view, array(
             'field' => $this,
             'value' => $value
-        ));
-    }
-
-    /**
-     * Outputs the field, ready for repeatable functionality.
-     *
-     * @param  mixed  $value
-     * @param  string $view
-     * @return string
-     */
-    public function _outputRepeatable($value = null)
-    {
-        return Cuztom::view('fields/repeatable/repeatable', array(
-            'field'  => $this,
-            'values' => $value
         ));
     }
 
@@ -320,7 +320,9 @@ abstract class Field
     public function getExplanation()
     {
         return apply_filters(
-            'cuztom_field_explanation', (! $this->isRepeatable() && $this->explanation ? '<em class="cuztom-field__explanation">'.$this->explanation.'</em>' : ''), $this);
+            'cuztom_field_explanation',
+            ($this->explanation ? '<em class="cuztom-field__explanation">'.$this->explanation.'</em>' : ''), $this
+        );
     }
 
     /**
