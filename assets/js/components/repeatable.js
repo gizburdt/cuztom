@@ -12,6 +12,10 @@ Vue.component('v-cuztom-repeatable', {
                 action: 'cuztom_setup_repeatable_list',
                 success: function(response) {
                     vm.$set('list', response.content);
+
+                    vm.$set('loading', false);
+
+                    vm.cuztomUI();
                 }
             }, {
                 values: this.values
@@ -26,9 +30,9 @@ Vue.component('v-cuztom-repeatable', {
                 success: function(response) {
                     vm.list.push(response.content);
 
-                    Vue.nextTick(function () {
-                        cuztomUI(document);
-                    });
+                    vm.$set('loading', false);
+
+                    vm.cuztomUI();
                 }
             }, {
                 count: this.list.length,

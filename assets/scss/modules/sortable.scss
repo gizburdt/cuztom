@@ -52,8 +52,22 @@
     color: #999;
 }
 
+// Loading
+.cuztom-sortable__loading{
+    display: inline-block;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-left: 5px;
+
+    img{
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
 // None
 .cuztom-sortable__none{
     display: block;
     padding: 10px;
 }
+

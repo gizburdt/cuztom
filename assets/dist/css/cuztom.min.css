@@ -576,6 +576,7 @@
 
 .cuztom .cuztom-field__description,
 .cuztom .cuztom-field__explanation {
+  margin-top: 5px;
   font-size: 10px;
   font-style: italic;
   font-weight: normal;
@@ -583,7 +584,6 @@
 
 .cuztom .cuztom-field__explanation {
   width: 100%;
-  margin-top: 3px;
   display: block;
   float: left; }
 
@@ -747,6 +747,15 @@
   font-size: 12px;
   color: #999; }
 
+.cuztom .cuztom-sortable__loading {
+  display: inline-block;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-left: 5px; }
+  .cuztom .cuztom-sortable__loading img {
+    display: inline-block;
+    vertical-align: middle; }
+
 .cuztom .cuztom-sortable__none {
   display: block;
   padding: 10px; }
@@ -758,6 +767,8 @@
   .cuztom .cuztom-repeatable .cuztom-sortable__item {
     margin: 0;
     border-bottom: 1px solid #dfdfdf; }
+    .cuztom .cuztom-repeatable .cuztom-sortable__item:last-child {
+      border-bottom: 0; }
   .cuztom .cuztom-repeatable .cuztom-sortable__item__content,
   .cuztom .cuztom-repeatable .cuztom-sortable__item__handle,
   .cuztom .cuztom-repeatable .cuztom-sortable__item__remove {
@@ -837,7 +848,7 @@
 
 .cuztom.cuztom--post .cuztom-main {
   border: 1px solid #dfdfdf;
-  background-color: #f9f9f9; }
+  background-color: #fdfdfd; }
 
 .cuztom.cuztom--post tr.cuztom-tabs > th,
 .cuztom.cuztom--post tr.cuztom-tabs > td,

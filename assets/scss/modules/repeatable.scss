@@ -11,6 +11,10 @@
     .cuztom-sortable__item{
         margin: 0;
         border-bottom: 1px solid $repeatable-border-color;
+
+        &:last-child{
+            border-bottom: 0;
+        }
     }
 
     .cuztom-sortable__item__content,

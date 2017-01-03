@@ -477,15 +477,15 @@ class Cuztom
     }
 
     /**
-     * Build arguments.
+     * Merge.
      *
-     * @param  array $args
+     * @param  array $base
      * @param  array $merge
      * @return array
      */
-    public static function args($args, $merge)
+    public static function merge($base, $merge)
     {
-        return array_merge($args, $merge);
+        return array_merge($base, $merge);
     }
 
     /**

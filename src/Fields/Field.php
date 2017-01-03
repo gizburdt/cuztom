@@ -213,7 +213,7 @@ abstract class Field
     {
         $value = isset($values[$this->id])
             ? $this->parseValue($values[$this->id])
-            : '';
+            : false;
 
         // Save to respective content-type
         switch ($this->metaType) {
@@ -321,7 +321,7 @@ abstract class Field
     {
         return apply_filters(
             'cuztom_field_explanation',
-            ($this->explanation ? '<em class="cuztom-field__explanation">'.$this->explanation.'</em>' : ''), $this
+            ($this->explanation ? '<em class="cuztom-field__explanation" v-cloak>'.$this->explanation.'</em>' : ''), $this
         );
     }
 

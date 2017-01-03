@@ -98,7 +98,7 @@ class Bundle extends Field
         $i = 0;
 
         // Set arguments
-        $args = Cuztom::args($args, array(
+        $args = Cuztom::merge($args, array(
             'parent'   => $this,
             'index'    => $i,
             'metaType' => $this->metaType,

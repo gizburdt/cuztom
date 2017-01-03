@@ -5,7 +5,6 @@ var vCuztomSortable = {
         id: String,
         box: String,
         values: {
-            type: Array,
             default: []
         }
     },
@@ -13,24 +12,25 @@ var vCuztomSortable = {
     data: function() {
         return {
             list: [],
+            loading: true
         }
     },
 
     ready: function() {
         this.setupList();
-
-        // if(! this.list.length) {
-        //     this.addItem();
-        // }
     },
 
     methods: {
 
         removeItem: function(item) {
             this.list.$remove(item);
+
+            this.$set('loading', false);
         },
 
         postAjax: function (options, params) {
+            var vm = this;
+
             var options = jQuery.extend({
                 fail: function(response) {
                     alert(response.message);
@@ -58,6 +58,12 @@ var vCuztomSortable = {
                 return options.fail(response);
             });
         },
+
+        cuztomUI: function() {
+            Vue.nextTick(function () {
+                cuztomUI(document);
+            });
+        }
 
     }
 

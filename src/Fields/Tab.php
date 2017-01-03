@@ -88,7 +88,7 @@ class Tab extends Field
     public function build($args)
     {
         foreach ($this->fields as $field) {
-            $args = Cuztom::args($field, array(
+            $args = Cuztom::merge($field, array(
                 'metaType' => $this->metaType,
                 'object'   => $this->object,
             ));

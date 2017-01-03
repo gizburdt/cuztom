@@ -132,9 +132,7 @@ abstract class Meta
         }
 
         foreach ($this->data as $id => $field) {
-            if (isset($values[$id])) {
-                $field->save($object, $values);
-            }
+            $field->save($object, $values);
         }
     }
 
@@ -148,7 +146,7 @@ abstract class Meta
     {
         if (! Cuztom::isEmpty($fields) && is_array($fields)) {
             foreach ($fields as $type => $args) {
-                $args = Cuztom::args($args, array(
+                $args = Cuztom::merge($args, array(
                     'metaType' => $this->metaType,
                     'object'   => $this->object,
                     'parent'   => $this->id,
