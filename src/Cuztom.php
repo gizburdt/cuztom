@@ -469,8 +469,8 @@ class Cuztom
     /**
      * Check if array (and not empty).
      *
-     * @param  mixed   $input
-     * @return boolean
+     * @param  mixed $input
+     * @return bool
      */
     public static function isArray($input)
     {

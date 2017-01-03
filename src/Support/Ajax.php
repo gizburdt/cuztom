@@ -47,7 +47,7 @@ class Ajax
         $field   = self::getField($field, $box);
         $data    = array();
 
-        if(is_array($values)) {
+        if (is_array($values)) {
             foreach ($values as $value) {
                 $data[] = $field->_outputRepeatableItem($value);
             }

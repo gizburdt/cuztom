@@ -178,13 +178,11 @@ class Box extends Meta
     {
         if (isset($_GET['post'])) {
             return $_GET['post'];
-        } elseif(isset($_POST['post_ID'])) {
+        } elseif (isset($_POST['post_ID'])) {
             return $_POST['post_ID'];
-        } elseif(isset($_POST['cuztom']['object'])) {
+        } elseif (isset($_POST['cuztom']['object'])) {
             return $_POST['cuztom']['object'];
         }
-
-        return null;
     }
 
     /**
