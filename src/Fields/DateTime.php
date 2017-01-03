@@ -15,7 +15,7 @@ class DateTime extends Field
      */
     public $css_class       = 'cuztom-input--datetime datetimepicker js-cuztom-datetimepicker';
     public $cell_css_class  = 'cuztom-field--datetime';
-    public $data_attributes = array(
+    public $html_attributes = array(
         'time-format' => null,
         'date-format' => null
     );
@@ -30,8 +30,8 @@ class DateTime extends Field
     {
         parent::__construct($args, $values);
 
-        $this->data_attributes['date-format'] = get_option('date_format');
-        $this->data_attributes['time-format'] = get_option('time_format');
+        $this->html_attributes['date-format'] = get_option('date_format');
+        $this->html_attributes['time-format'] = get_option('time_format');
 
         // Convert value
         $this->value = $this->timeToString($this->value);

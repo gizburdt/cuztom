@@ -6,7 +6,7 @@ Vue.component('v-cuztom-image', {
     methods: {
 
         setup: function() {
-            this.type = 'file';
+            this.type = 'image';
         },
 
         setPreview: function(attachment) {

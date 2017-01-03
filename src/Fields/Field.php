@@ -56,7 +56,7 @@ abstract class Field
     public $required              = false;
     public $repeatable            = false;
     public $limit                 = null;
-    public $data_attributes       = array();
+    public $html_attributes       = array();
     public $css_class             = '';
     public $cell_css_class        = '';
     public $show_admin_column     = false;
@@ -333,15 +333,15 @@ abstract class Field
      */
     public function getDataAttributes($extra = array())
     {
-        foreach (array_merge($this->data_attributes, $extra) as $attribute => $value) {
+        foreach (array_merge($this->html_attributes, $extra) as $attribute => $value) {
             if (! is_null($value)) {
-                @$output .= ' data-'.$attribute.'="'.$value.'"';
+                @$output .= $attribute.'="'.$value.'"';
             } elseif (! $value && isset($this->args[Cuztom::uglify($attribute)])) {
-                @$output .= 'data-'.$attribute.'="'.$this->args[Cuztom::uglify($attribute)].'"';
+                @$output .= $attribute.'="'.$this->args[Cuztom::uglify($attribute)].'"';
             }
         }
 
-        return apply_filters('cuztom_field_data_attributes', @$output, $this, $extra);
+        return apply_filters('cuztom_field_html_attributes', @$output, $this, $extra);
     }
 
     /**

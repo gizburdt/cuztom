@@ -20,9 +20,23 @@ class Image extends Field
      * Fillables.
      * @var mixed
      */
-    public $css_class       = 'cuztom-input--hidden';
-    public $cell_css_class  = 'cuztom-field--image';
-    public $data_attributes = array('media-type' => 'image');
+    public $css_class      = 'cuztom-input--hidden';
+    public $cell_css_class = 'cuztom-field--image';
+
+    /**
+     * Construct.
+     *
+     * @param array $args
+     * @param array $values
+     */
+    public function __construct($args, $values = null)
+    {
+        parent::__construct($args, $values);
+
+        $this->html_attributes = array(
+            'v-model' => 'value'
+        );
+    }
 
     /**
      * Output input field.
@@ -33,7 +47,8 @@ class Image extends Field
      */
     public function _outputInput($value = null, $view = null)
     {
-        $view       = $view ? $view : $this->getView();
+        $view = $view ? $view : $this->getView();
+
         $attachment = wp_get_attachment_metadata($value);
 
         $attachment['url'] = wp_get_attachment_image_src($value, 'medium')[0];

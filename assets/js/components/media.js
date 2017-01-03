@@ -2,6 +2,7 @@
 vCuztomMedia = {
 
     props: [
+        'id',
         'attachment',
     ],
 

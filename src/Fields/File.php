@@ -20,9 +20,23 @@ class File extends Field
      * Fillables.
      * @var mixed
      */
-    public $css_class       = 'cuztom-input--hidden';
-    public $cell_css_class  = 'cuztom-field--file';
-    public $data_attributes = array('media-type' => 'file');
+    public $css_class      = 'cuztom-input--hidden';
+    public $cell_css_class = 'cuztom-field--file';
+
+    /**
+     * Construct.
+     *
+     * @param array $args
+     * @param array $values
+     */
+    public function __construct($args, $values = null)
+    {
+        parent::__construct($args, $values);
+
+        $this->html_attributes = array(
+            'v-model' => 'value'
+        );
+    }
 
     /**
      * Output input field.

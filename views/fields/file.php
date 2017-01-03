@@ -1,6 +1,7 @@
 <?php use Gizburdt\Cuztom\Cuztom; ?>
 
 <v-cuztom-file
+    id="<?php echo $field->getId(); ?>"
     attachment="<?php echo Cuztom::jsonEncode($attachment) ?>"
     inline-template
 >
