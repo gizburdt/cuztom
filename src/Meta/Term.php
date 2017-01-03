@@ -145,9 +145,13 @@ class Term extends Meta
      */
     public function determineObject()
     {
-        return isset($_REQUEST['tag_ID'])
-            ? $_REQUEST['tag_ID']
-            : null;
+        if (isset($_REQUEST['tag_ID'])) {
+            return $_REQUEST['tag_ID'];
+        } elseif(isset($_POST['cuztom']['object'])) {
+            return $_POST['cuztom']['object'];
+        }
+
+        return null;
     }
 
     /**

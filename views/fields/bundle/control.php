@@ -8,6 +8,10 @@
         <?php _e('Add item', 'cuztom'); ?>
     </a>
 
+    <em class="cuztom-sortable__loading" v-if="loading">
+        <img src="<?php echo admin_url('images/spinner.gif'); ?>" class="loading">
+    </em>
+
     <?php if ($bundle->limit) : ?>
         <div class="cuztom-sortable__counter">
             <span class="current">{{ list.length }}</span>

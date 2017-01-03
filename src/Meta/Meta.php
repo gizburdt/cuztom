@@ -100,7 +100,7 @@ abstract class Meta
             $this->data = $this->build($this->fields);
 
             // Assign global
-            $cuztom->data[$this->id] = $this->data;
+            $cuztom->data[$this->id] = $this;
         }
     }
 
@@ -134,6 +134,17 @@ abstract class Meta
         foreach ($this->data as $id => $field) {
             $field->save($object, $values);
         }
+    }
+
+    /**
+     * Get field.
+     *
+     * @param  string $field
+     * @return object
+     */
+    public function getField($field)
+    {
+        return isset($this->data[$field]) ? $this->data[$field] : null;
     }
 
     /**

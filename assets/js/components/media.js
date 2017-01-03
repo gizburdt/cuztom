@@ -21,7 +21,9 @@ vCuztomMedia = {
         this.setup();
 
         // Set preview
-        this.setPreview(this._attachment);
+        if(this._attachment) {
+            this.setPreview(this._attachment);
+        }
 
         // Init wp media
         this.uploader = wp.media.frames.file_frame = wp.media({

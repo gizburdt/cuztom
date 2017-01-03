@@ -13,6 +13,8 @@ Vue.component('v-cuztom-bundle', {
                 success: function(response) {
                     vm.$set('list', response.content);
 
+                    vm.$set('loading', false);
+
                     vm.cuztomUI();
                 }
             }, {
@@ -23,10 +25,14 @@ Vue.component('v-cuztom-bundle', {
         addItem: function() {
             var vm = this;
 
+            vm.$set('loading', true);
+
             this.postAjax({
                 action: 'cuztom_add_bundle_item',
                 success: function(response) {
                     vm.list.push(response.content);
+
+                    vm.$set('loading', false);
 
                     vm.cuztomUI();
                 }

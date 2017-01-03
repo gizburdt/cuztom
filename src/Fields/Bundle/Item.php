@@ -2,6 +2,7 @@
 
 namespace Gizburdt\Cuztom\Fields\Bundle;
 
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Fields\Field;
 use Gizburdt\Cuztom\Support\Guard;
 
@@ -49,10 +50,21 @@ class Item extends Field
     public function output($value = null)
     {
         foreach ($this->data as $id => $field) :
-            @$data[] = $field->outputCell();
+            @$data .= $field->outputCell();
         endforeach;
 
         return @$data;
+    }
+
+    /**
+     * Return field from data.
+     *
+     * @param  string $field
+     * @return object
+     */
+    public function getField($field)
+    {
+        return isset($this->data[$field]) ? $this->data[$field] : null;
     }
 
     /**

@@ -301,6 +301,19 @@ class Cuztom
     }
 
     /**
+     * Get a box from data.
+     *
+     * @param  string $box
+     * @return object
+     */
+    public static function getBox($box)
+    {
+        global $cuztom;
+
+        return isset($cuztom->data[$box]) ? $cuztom->data[$box] : null;
+    }
+
+    /**
      * Beautifies a string. Capitalize words and remove underscores.
      *
      * @param  string $string
@@ -451,6 +464,17 @@ class Cuztom
         }
 
         return $result;
+    }
+
+    /**
+     * Check if array (and not empty).
+     *
+     * @param  mixed   $input
+     * @return boolean
+     */
+    public static function isArray($input)
+    {
+        return ! self::isEmpty($input) && is_array($input);
     }
 
     /**

@@ -75,16 +75,31 @@ class Bundle extends Field
      */
     public function save($object, $values)
     {
-        $values = $values[$this->id];
-        $values = is_array($values) ? array_values($values) : array();
+        $values = isset($values[$this->id])
+            ? $values[$this->id]
+            : null;
+
+        $values[$this->id] = is_array($values)
+            ? array_values($values)
+            : array();
 
         foreach ($values as $cell => $fields) {
             foreach ($fields as $id => $value) {
-                $values[$cell][$id] = $this->data[0]->data[$id]->parseValue($value);
+                $values[$this->id][$cell][$id] = $this->getFirstItem()->getField($id)->parseValue($value);
             }
         }
 
-        parent::save($object, array($this->id => $values));
+        parent::save($object, $values);
+    }
+
+    /**
+     * Get first bundle item.
+     *
+     * @return object
+     */
+    public function getFirstItem()
+    {
+        return isset($this->data[0]) ? $this->data[0] : null;
     }
 
     /**
@@ -106,7 +121,7 @@ class Bundle extends Field
         ));
 
         // Build with value
-        if (is_array($this->value)) {
+        if (Cuztom::isArray($this->value)) {
             foreach ($this->value as $value) {
                 $data[] = new BundleItem($args, @$this->value[$i]);
 

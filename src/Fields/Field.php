@@ -116,10 +116,10 @@ abstract class Field
         $value = (! is_null($value)) ? $value : $this->value;
 
         if ($this->isRepeatable()) {
-            return $this->_outputRepeatable($value);
+            return $this->_outputRepeatable($value).$this->getExplanation();
+        } else {
+            return $this->_output($value).$this->getExplanation();
         }
-
-        return $this->_output($value);
     }
 
     /**
@@ -131,7 +131,7 @@ abstract class Field
      */
     public function _output($value = null)
     {
-        return $this->_outputInput($value).(! $this->isRepeatable() ? $this->getExplanation() : '');
+        return $this->_outputInput($value);
     }
 
     /**
@@ -146,7 +146,7 @@ abstract class Field
         return Cuztom::view('fields/repeatable/repeatable', array(
             'field'  => $this,
             'values' => $value
-        )).$this->getExplanation();
+        ));
     }
 
     /**

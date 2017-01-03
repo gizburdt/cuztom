@@ -176,11 +176,15 @@ class Box extends Meta
      */
     public function determineObject()
     {
-        return isset($_GET['post'])
-            ? $_GET['post']
-            : (isset($_POST['post_ID'])
-                ? $_POST['post_ID']
-                : null);
+        if (isset($_GET['post'])) {
+            return $_GET['post'];
+        } elseif(isset($_POST['post_ID'])) {
+            return $_POST['post_ID'];
+        } elseif(isset($_POST['cuztom']['object'])) {
+            return $_POST['cuztom']['object'];
+        }
+
+        return null;
     }
 
     /**

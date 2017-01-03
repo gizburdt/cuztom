@@ -47,7 +47,9 @@ var cuztomUI;
     $('.js-cuztom-slider', object ).slider();
 
     // Accordion
-    $('.js-cuztom-accordion', object).accordion();
+    $('.js-cuztom-accordion', object).accordion({
+        heightStyle: "content"
+    });
 
     // Sortable
     $('.js-cuztom-sortable', object).sortable({

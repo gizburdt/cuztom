@@ -2,6 +2,7 @@
 
 namespace Gizburdt\Cuztom\Support;
 
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Fields\Bundle\Item as BundleItem;
 
 Guard::directAccess();
@@ -52,9 +53,7 @@ class Ajax
             }
         }
 
-        $response = new Response(true, array('content' => $data));
-
-        echo $response->toJson();
+        echo (new Response(true, array('content' => $data)))->toJson();
 
         // wp
         die();
@@ -95,22 +94,19 @@ class Ajax
     {
         $request = new Request($_POST);
         $values  = $request->get('values');
-        $field   = $request->get('field');
-        $box     = $request->get('box');
-        $bundle  = self::getField($field, $box);
         $data    = array();
 
-        if (is_array($values)) {
-            foreach ($values as $value) {
-                foreach ($item->data as $id => $field) :
-                    echo $field->outputCell();
-                endforeach;
+        if (Cuztom::isArray($values)) {
+            $field  = $request->get('field');
+            $box    = $request->get('box');
+            $bundle = self::getField($field, $box);
+
+            foreach ($bundle->data as $item) {
+                $data[] = $item->output();
             }
         }
 
-        $response = new Response(true, array('content' => $data));
-
-        echo $response->toJson();
+        echo (new Response(true, array('content' => $data)))->toJson();
 
         // wp
         die();
@@ -132,7 +128,7 @@ class Ajax
             return;
         }
 
-        $item = new BundleItem(array_merge(
+        $item = new BundleItem(Cuztom::merge(
             $field->original,
             array(
                 'parent' => $field,
@@ -159,8 +155,6 @@ class Ajax
      */
     public static function getField($field, $box)
     {
-        global $cuztom;
-
-        return $cuztom->data[$box][$field];
+        return Cuztom::getBox($box)->getField($field);
     }
 }
