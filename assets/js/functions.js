@@ -399,4 +399,108 @@ jQuery( function( $ ) {
 		return false;
 	});
 
+
+	// table.class.php
+	
+	CuztomTable = function(table_id,inputTarget,columns){
+		var self = this;
+
+		this.table_id = table_id;
+		this.columns = columns;
+		this.inputTarget = inputTarget;
+
+		this.create = function(values){
+			if(typeof values === "undefined")var values = false;
+
+
+			var row_html = "<tr>";
+
+			for (var i = 0; i < self.columns.length; i++) {
+				row_html += "<td>" + self.buildTableInput(self.columns[i],values) + "</td>";
+			};
+			
+			row_html += "<td><div class=\"remove_row button button-small\">-</div></td>";
+			row_html += "</tr>";
+			
+			jQuery("#table_"+self.table_id+" tbody").append(row_html);
+			
+			jQuery("#table_" + self.table_id + " input").on("keyup",self.update_value)
+			.on("change",self.update_value);
+			jQuery("#table_" + self.table_id + " .remove_row").on("click",self.remove_row);
+			if(typeof jQuery.datepicker !== "undefined")jQuery("#table_" + self.table_id + " .datepicker").datepicker();
+		};
+
+		this.get_value = function(){
+			
+			var value = [];
+
+			jQuery("#table_"+self.table_id+" tbody tr").each(function(idx,item){
+				var vals = {};
+				for (var i = 0; i < self.columns.length; i++) {
+					vals[self.cleanupName(self.columns[i].name)] = jQuery(item).find("."+self.cleanupName(self.columns[i].name)).val();
+				};
+				value.push(vals);
+			});
+			return value;
+		};
+		
+		this.update_value = function(){
+			jQuery("#" + self.inputTarget).val(JSON.stringify(self.get_value()));
+		};
+
+		this.init_table = function(){
+
+			var val = jQuery("#" + self.inputTarget).val();
+			if(typeof val !== 'undefined' && val !== ''){
+				val = JSON.parse(val);
+			
+				for (var i = 0; i < val.length; i++) {
+
+					self.create(val[i]);
+				};
+			}
+
+			jQuery("#create_"+self.table_id).click(self.create);
+
+		};
+
+		this.remove_row = function(){
+			jQuery(this).parent().parent().remove();
+			self.update_value();
+		};
+
+		this.buildTableInput = function(cfg,values){
+			var text_value = "";
+			if(values){
+				if(typeof values[self.cleanupName(cfg.name)] !== "undefined"){
+					text_value = values[self.cleanupName(cfg.name)];
+				}
+			}
+
+			switch(cfg.type){
+				case "text":
+					return "<input type=\"text\" class=\""+self.cleanupName(cfg.name)+"\" value=\""+text_value+"\">";
+					break;
+				case "int":
+					return "<input type=\"number\" class=\""+self.cleanupName(cfg.name)+"\" value=\""+text_value+"\">";
+					break;
+				case "datepicker":
+					return "<input type=\"text\" class=\"js-cuztom-datepicker cuztom-datepicker datepicker "+self.cleanupName(cfg.name)+"\" value=\""+text_value+"\">";
+					break;
+			}
+		}
+
+		this.cleanupName = function(val){
+			return val.replace(/[^a-z]/gi,"");
+		}
+
+		this.init_table();	
+	};
+	var cuztomTables = [];
+	for(var i = 0;i < cuztomTableCfg.length;i++){
+		if(typeof cuztomTableCfg[i].table_id !== 'undefined'){
+			cuztomTables.push(new CuztomTable(cuztomTableCfg[i].table_id,cuztomTableCfg[i].inputTarget,cuztomTableCfg[i].columns));
+		}
+	}
+	
 });
