@@ -28,7 +28,7 @@ vCuztomMedia = {
 
         // Init wp media
         this.uploader = wp.media.frames.file_frame = wp.media({
-            type: this.type,
+            type: vm.type,
             multiple: false,
         });
 

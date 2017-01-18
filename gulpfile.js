@@ -8,7 +8,7 @@ elixir(function(mix) {
     mix.sass([
         'vendor/datetimepicker/jquery.datetimepicker.css',
         'scss/cuztom.scss',
-    ], 'assets/dist/css/cuztom.min.css', 'assets/');
+    ], 'assets/css/cuztom.min.css', 'resources/assets/');
 
     mix.scripts([
         'vendor/vue/dist/vue.js',
@@ -24,7 +24,7 @@ elixir(function(mix) {
         'js/components/image.js',
         'js/cuztom-vue.js',
         'js/cuztom-close.js',
-    ], 'assets/dist/js/cuztom.min.js', 'assets/');
+    ], 'assets/js/cuztom.min.js', 'resources/assets/');
 });
 
 gulp.task('prefix', function(){

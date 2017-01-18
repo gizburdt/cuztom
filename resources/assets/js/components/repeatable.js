@@ -15,7 +15,7 @@ Vue.component('v-cuztom-repeatable', {
 
                     vm.$set('loading', false);
 
-                    vm.cuztomUI();
+                    vm.$parent.reload();
                 }
             }, {
                 values: this.values
@@ -34,7 +34,7 @@ Vue.component('v-cuztom-repeatable', {
 
                     vm.$set('loading', false);
 
-                    vm.cuztomUI();
+                    vm.$parent.reload();
                 }
             }, {
                 count: this.list.length,

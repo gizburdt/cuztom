@@ -59,12 +59,6 @@ var vCuztomSortable = {
             });
         },
 
-        cuztomUI: function() {
-            Vue.nextTick(function () {
-                cuztomUI(document);
-            });
-        }
-
     }
 
 }

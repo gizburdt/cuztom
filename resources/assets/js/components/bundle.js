@@ -15,7 +15,7 @@ Vue.component('v-cuztom-bundle', {
 
                     vm.$set('loading', false);
 
-                    vm.cuztomUI();
+                    vm.$parent.reload();
                 }
             }, {
                 values: this.values
@@ -34,10 +34,11 @@ Vue.component('v-cuztom-bundle', {
 
                     vm.$set('loading', false);
 
-                    vm.cuztomUI();
+                    vm.$parent.reload();
                 }
             }, {
                 count: this.list.length,
+                index: this.list.length
             });
         },
 

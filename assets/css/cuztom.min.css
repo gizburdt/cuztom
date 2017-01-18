@@ -721,16 +721,18 @@
   display: inline-block;
   padding: 10px;
   vertical-align: middle;
-  text-align: center; }
+  text-align: center;
+  line-height: 1; }
 
 .cuztom .cuztom-sortable__item__handle a,
 .cuztom .cuztom-sortable__item__remove a {
   height: 17px;
   width: 8px;
-  display: block;
+  display: inline-block;
   margin: 0;
   background: url("../images/jquery-ui/ui-icons_454545_256x240.png") no-repeat;
-  outline: none; }
+  outline: none;
+  line-height: 1; }
 
 .cuztom .cuztom-sortable__item__handle a {
   background-position: -132px -48px;
@@ -776,11 +778,14 @@
   .cuztom .cuztom-repeatable .cuztom-sortable__item__content {
     width: 90%;
     float: left;
-    padding: 5px 10px; }
+    padding: 6px 10px; }
   .cuztom .cuztom-repeatable .cuztom-sortable__item__handle,
   .cuztom .cuztom-repeatable .cuztom-sortable__item__remove {
     float: left;
     width: 5%; }
+  .cuztom .cuztom-repeatable .cuztom-sortable__item__remove {
+    padding-left: 0;
+    text-align: right; }
   .cuztom .cuztom-repeatable .cuztom-input {
     width: 100% !important; }
 
@@ -798,6 +803,7 @@
   border-radius: 3px;
   -webkit-border-radius: 3px;
   box-shadow: 0 1px 0 #fff;
+  display: block;
   position: relative;
   margin: 0;
   border: 1px solid #dfdfdf;

@@ -10,9 +10,7 @@
         </div>
     </div>
 
-    <fieldset class="cuztom-fieldset">
-        <table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">
-            {{{ item }}}
-        </table>
-    </fieldset>
+    <table border="0" cellading="0" cellspacing="0" class="form-table cuztom-table">
+        {{{ item }}}
+    </table>
 </li>

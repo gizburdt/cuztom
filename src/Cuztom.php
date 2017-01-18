@@ -194,7 +194,7 @@ class Cuztom
 
         wp_register_style(
             'cuztom',
-            self::$url.'/assets/dist/css/cuztom.min.css',
+            self::$url.'/assets/css/cuztom.min.css',
             false,
             self::$version,
             'screen'
@@ -219,7 +219,7 @@ class Cuztom
         // Cuztom
         wp_register_script(
             'cuztom',
-            self::$url.'/assets/dist/js/cuztom.min.js',
+            self::$url.'/assets/js/cuztom.min.js',
             array(
                 'jquery',
                 'jquery-ui-core',
@@ -430,7 +430,7 @@ class Cuztom
 
         ob_start();
 
-        include self::$dir.'/Views/'.$view.'.php';
+        include self::$dir.'/resources/views/'.$view.'.php';
 
         return ob_get_clean();
     }

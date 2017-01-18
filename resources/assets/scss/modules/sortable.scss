@@ -21,16 +21,18 @@
     padding: 10px;
     vertical-align: middle;
     text-align: center;
+    line-height: 1;
 }
 
 .cuztom-sortable__item__handle a,
 .cuztom-sortable__item__remove a{
     height: 17px;
     width: 8px;
-    display: block;
+    display: inline-block;
     margin: 0;
     background: url('../images/jquery-ui/ui-icons_454545_256x240.png') no-repeat;
     outline: none;
+    line-height: 1;
 }
 
 .cuztom-sortable__item__handle a{
