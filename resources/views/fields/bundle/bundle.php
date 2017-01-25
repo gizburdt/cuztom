@@ -5,7 +5,6 @@
         <v-cuztom-bundle
             id="<?php echo $bundle->getId(); ?>"
             box="<?php echo $bundle->parent; ?>"
-            :values="<?php echo Cuztom::jsonEncode($bundle->value); ?>"
             inline-template
         >
             <?php echo $bundle->outputControl('control--top'); ?>

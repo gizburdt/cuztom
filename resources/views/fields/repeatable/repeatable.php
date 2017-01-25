@@ -3,7 +3,6 @@
 <v-cuztom-repeatable
     id="<?php echo $field->getId(); ?>"
     box="<?php echo $field->parent; ?>"
-    :values="<?php echo Cuztom::jsonEncode($field->value); ?>"
     inline-template
 >
     <div class="cuztom-repeatable" v-cloak>

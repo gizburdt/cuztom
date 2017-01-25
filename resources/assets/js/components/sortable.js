@@ -4,15 +4,13 @@ var vCuztomSortable = {
     props: {
         id: String,
         box: String,
-        values: {
-            default: []
-        }
     },
 
     data: function() {
         return {
             list: [],
-            loading: true
+            loading: true,
+            values: []
         }
     },
 

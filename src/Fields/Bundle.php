@@ -51,7 +51,9 @@ class Bundle extends Field
      */
     public function output($value = null, $view = null)
     {
-        return Cuztom::view('fields/bundle/item');
+        return Cuztom::view('fields/bundle/item', array(
+            'item' => null
+        ));
     }
 
     /**

@@ -41,15 +41,11 @@ class Ajax
     public function setupRepeatableList()
     {
         $request = new Request($_POST);
-        $values  = $request->get('values');
-        $field   = $request->get('field');
-        $box     = $request->get('box');
-        $field   = self::getField($field, $box);
-        $data    = array();
+        $field   = self::getField($request);
 
-        if (is_array($values)) {
-            foreach ($values as $value) {
-                $data[] = $field->_outputRepeatableItem($value);
+        if (Cuztom::isArray($field->value)) {
+            foreach ($field->value as $value) {
+                @$data[] = $field->_outputRepeatableItem($value);
             }
         }
 
@@ -65,11 +61,8 @@ class Ajax
     public function addRepeatableItem()
     {
         $request = new Request($_POST);
-
-        $count = $request->get('count');
-        $field = $request->get('field');
-        $box   = $request->get('box');
-        $field = self::getField($field, $box);
+        $count   = $request->get('count');
+        $field   = self::getField($request);
 
         if (! $field || ! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
@@ -93,16 +86,11 @@ class Ajax
     public function setupBundleList()
     {
         $request = new Request($_POST);
-        $values  = $request->get('values');
-        $data    = array();
+        $bundle  = self::getField($request);
 
-        if (Cuztom::isArray($values)) {
-            $field  = $request->get('field');
-            $box    = $request->get('box');
-            $bundle = self::getField($field, $box);
-
+        if(Cuztom::isArray($bundle->data)) {
             foreach ($bundle->data as $item) {
-                $data[] = $item->output();
+                @$data[] = $item->output();
             }
         }
 
@@ -118,26 +106,26 @@ class Ajax
     public function addBundleItem()
     {
         $request = new Request($_POST);
-
-        $count = $request->get('count');
-        $index = $request->get('index');
-        $field = $request->get('field');
-        $field = self::getField($field, $request->get('box'));
+        $count   = $request->get('count');
+        $index   = $request->get('index');
+        $field   = self::getField($request);
 
         if (! $field || ! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
-        $item = new BundleItem(Cuztom::merge(
-            $field->original,
-            array(
-                'parent' => $field,
-                'index'  => $index
-            )
+        $output = Cuztom::view('fields/bundle/item', array(
+            'item' => new BundleItem(Cuztom::merge(
+                $field->original,
+                array(
+                    'parent' => $field,
+                    'index'  => $index
+                )
+            ))
         ));
 
         $response = (! $field->limit || ($field->limit > $count))
-            ? new Response(true, array('content' => $item->output()))
+            ? new Response(true, array('content' => $output))
             : new Response(false, array('message' => __('Limit reached!', 'cuztom')));
 
         echo $response->toJson();
@@ -149,12 +137,20 @@ class Ajax
     /**
      * Get field object from cuztom global.
      *
-     * @param  string $field
-     * @param  string $box
+     * @param  string|object $field
+     * @param  string|null $box
      * @return object
      */
-    public static function getField($field, $box)
+    public static function getField($field, $box = null)
     {
+        if(is_null($box)) {
+            $request = $field;
+            $box     = $request->get('box');
+            $field   = $request->get('field');
+
+            return Cuztom::getBox($box)->getField($field);
+        }
+
         return Cuztom::getBox($box)->getField($field);
     }
 }
