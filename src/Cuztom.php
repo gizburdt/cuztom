@@ -109,14 +109,14 @@ class Cuztom
         require_once self::$src.'/Entities/PostType.php';
         require_once self::$src.'/Entities/Taxonomy.php';
         require_once self::$src.'/Entities/Sidebar.php';
-        require_once self::$src.'/Entities/Support/helpers.php';
+        require_once self::$src.'/Entities/helpers.php';
 
         // Meta
         require_once self::$src.'/Meta/Meta.php';
         require_once self::$src.'/Meta/Box.php';
         require_once self::$src.'/Meta/User.php';
         require_once self::$src.'/Meta/Term.php';
-        require_once self::$src.'/Meta/Support/helpers.php';
+        require_once self::$src.'/Meta/helpers.php';
 
         // Fields
         require_once self::$src.'/Fields/Traits/Checkable.php';

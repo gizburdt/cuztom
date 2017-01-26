@@ -37,6 +37,6 @@ class MultiSelect extends Select
 
         $this->afterName .= '[]';
 
-        $this->args['multiselect']  = true;
+        $this->args['multiselect'] = true;
     }
 }

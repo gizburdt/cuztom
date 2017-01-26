@@ -44,7 +44,15 @@ class Term extends Meta
         $this->taxonomies = (array) $taxonomy;
         $this->locations  = (array) $locations;
 
-        // Build fields
+        // Hooks
+        $this->addHooks();
+    }
+
+    /**
+     * Add hooks.
+     */
+    public function addHooks()
+    {
         if (isset($this->callback[0]) && $this->callback[0] == $this) {
             foreach ($this->taxonomies as $taxonomy) {
                 if (in_array('add_form', $this->locations)) {
@@ -94,16 +102,12 @@ class Term extends Meta
      */
     public function saveTerm($id)
     {
-        // Verify nonce
         if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
             return;
         }
 
-        $values = isset($_POST['cuztom'])
-            ? $_POST['cuztom']
-            : null;
+        $values = (new Request($_POST))->getAll();
 
-        // Call parent save
         parent::save($id, $values);
     }
 

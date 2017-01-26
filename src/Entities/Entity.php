@@ -11,6 +11,12 @@ Guard::directAccess();
 abstract class Entity
 {
     /**
+     * Original.
+     * @var array
+     */
+    public $original;
+
+    /**
      * Name.
      * @var string
      */
@@ -27,12 +33,6 @@ abstract class Entity
      * @var string
      */
     public $plural;
-
-    /**
-     * Arguments.
-     * @var array
-     */
-    public $args;
 
     /**
      * Labels.
@@ -67,6 +67,6 @@ abstract class Entity
             return new Notice($reserved->get_error_message(), 'error');
         }
 
-        // Custom
+        // ..
     }
 }

@@ -4,6 +4,7 @@ namespace Gizburdt\Cuztom\Meta;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Support\Request;
 
 Guard::directAccess();
 
@@ -48,7 +49,15 @@ class Box extends Meta
         // Set post types
         $this->postTypes = (array) $postType;
 
-        // Build
+        // Hooks
+        $this->addHooks();
+    }
+
+    /**
+     * Add all hooks.
+     */
+    public function addHooks()
+    {
         if (isset($this->callback[0]) && $this->callback[0] == $this) {
             foreach ($this->postTypes as $postType) {
                 add_filter('manage_'.$postType.'_posts_columns', array(&$this, 'addColumn'));
@@ -88,30 +97,23 @@ class Box extends Meta
      */
     public function savePost($id)
     {
-        // Deny the wordpress autosave function
         if (Guard::doingAutosave() || Guard::doingAjax()) {
             return;
         }
 
-        // Verify nonce
         if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
             return;
         }
 
-        // Is the post from the given post type?
-        if (! in_array(get_post_type($id), array_merge($this->postTypes, array('revision')))) {
+        if (! Guard::isPostType($id, $this->postTypes)) {
             return;
         }
 
-        // Is the current user capable to edit this post
-        if (! current_user_can(get_post_type_object(get_post_type($id))->cap->edit_post, $id)) {
+        if (! Guard::userCanEdit($id)) {
             return;
         }
 
-        // Call parent save
-        $values = isset($_POST['cuztom'])
-            ? $_POST['cuztom']
-            : null;
+        $values = (new Request($_POST))->getAll();
 
         parent::save($id, $values);
     }
@@ -132,7 +134,7 @@ class Box extends Meta
             }
         }
 
-        $columns['date'] = __('Date', 'cuztom');
+        $columns['date'] = __('Date');
 
         return $columns;
     }

@@ -45,11 +45,11 @@ class Ajax
 
         if (Cuztom::isArray($field->value)) {
             foreach ($field->value as $value) {
-                @$data[] = $field->_outputRepeatableItem($value);
+                $data[] = $field->_outputRepeatableItem($value);
             }
         }
 
-        echo (new Response(true, array('content' => $data)))->toJson();
+        echo (new Response(true, array('content' => @$data)))->toJson();
 
         // wp
         die();
@@ -61,10 +61,10 @@ class Ajax
     public function addRepeatableItem()
     {
         $request = new Request($_POST);
-        $count   = $request->get('count');
         $field   = self::getField($request);
+        $count   = $request->get('count');
 
-        if (! $field || ! Guard::verifyAjaxNonce('cuztom', 'security')) {
+        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
@@ -90,11 +90,11 @@ class Ajax
 
         if(Cuztom::isArray($bundle->data)) {
             foreach ($bundle->data as $item) {
-                @$data[] = $item->output();
+                $data[] = $item->output();
             }
         }
 
-        echo (new Response(true, array('content' => $data)))->toJson();
+        echo (new Response(true, array('content' => @$data)))->toJson();
 
         // wp
         die();
@@ -106,15 +106,15 @@ class Ajax
     public function addBundleItem()
     {
         $request = new Request($_POST);
+        $field   = self::getField($request);
         $count   = $request->get('count');
         $index   = $request->get('index');
-        $field   = self::getField($request);
 
-        if (! $field || ! Guard::verifyAjaxNonce('cuztom', 'security')) {
+        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
-        $output = Cuztom::view('fields/bundle/item', array(
+        $data = Cuztom::view('fields/bundle/item', array(
             'item' => new BundleItem(Cuztom::merge(
                 $field->original,
                 array(
@@ -125,7 +125,7 @@ class Ajax
         ));
 
         $response = (! $field->limit || ($field->limit > $count))
-            ? new Response(true, array('content' => $output))
+            ? new Response(true, array('content' => $data))
             : new Response(false, array('message' => __('Limit reached!', 'cuztom')));
 
         echo $response->toJson();

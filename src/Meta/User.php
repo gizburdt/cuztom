@@ -36,13 +36,22 @@ class User extends Meta
         // Set locations
         $this->locations = (array) $locations;
 
-        // Chack if the class, function or method exist, otherwise use cuztom callback
+        // Hooks
+        $this->addHooks();
+    }
+
+    /**
+     * Add hooks.
+     */
+    public function addHooks()
+    {
         if (isset($this->callback[0]) && $this->callback[0] == $this) {
             add_action('personal_options_update', array(&$this, 'saveUser'));
             add_action('edit_user_profile_update', array(&$this, 'saveUser'));
             add_action('user_edit_form_tag', array(&$this, 'editFormTag'));
         }
 
+        // Add forms to locations
         foreach ($this->locations as $location) {
             add_action($location, $this->callback);
         }
@@ -67,16 +76,12 @@ class User extends Meta
      */
     public function saveUser($id)
     {
-        // Verify nonce
         if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
             return;
         }
 
-        $values = isset($_POST['cuztom'])
-            ? $_POST['cuztom']
-            : null;
+        $values = (new Request($_POST))->getAll();
 
-        // Call parent save
         parent::save($id, $values);
     }
 

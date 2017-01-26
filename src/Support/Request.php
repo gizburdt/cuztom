@@ -32,4 +32,14 @@ class Request
     {
         return isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : null;
     }
+
+    /**
+     * Get all attributes.
+     *
+     * @return array
+     */
+    public function getAll()
+    {
+        return $this->attributes;
+    }
 }

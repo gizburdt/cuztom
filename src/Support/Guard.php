@@ -61,4 +61,27 @@ class Guard
     {
         return check_ajax_referer($action, $arg);
     }
+
+    /**
+     * Check if given id (post) is of certain type(s).
+     *
+     * @param  int  $id
+     * @param  array $postTypes
+     * @return boolean
+     */
+    public static function isPostType($id, $postTypes)
+    {
+        return in_array(get_post_type($id), array_merge($postTypes, array('revision')));
+    }
+
+    /**
+     * Check if user can edit post.
+     *
+     * @param  int $id
+     * @return boolean
+     */
+    public static function userCanEdit($id)
+    {
+        return current_user_can(get_post_type_object(get_post_type($id))->cap->edit_post, $id);
+    }
 }

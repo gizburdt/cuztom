@@ -155,7 +155,7 @@ abstract class Meta
      */
     public function build($fields)
     {
-        if (! Cuztom::isEmpty($fields) && is_array($fields)) {
+        if (Cuztom::isArray($fields)) {
             foreach ($fields as $type => $args) {
                 $args = Cuztom::merge($args, array(
                     'metaType' => $this->metaType,

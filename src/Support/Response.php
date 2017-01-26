@@ -21,11 +21,9 @@ class Response
      */
     public function __construct($status, $data = array())
     {
-        $this->response = json_encode(
-            array_merge(
-                array('status' => $status),
-                $data
-            )
+        $this->response = array_merge(
+            array('status' => $status),
+            $data
         );
     }
 
@@ -36,6 +34,6 @@ class Response
      */
     public function toJson()
     {
-        return $this->response;
+        return json_encode($this->response);
     }
 }
