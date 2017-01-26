@@ -1,6 +1,6 @@
 <?php use Gizburdt\Cuztom\Cuztom; ?>
 
-<tr class="cuztom-cell cuztom-bundle">
+<tr class="cuztom-cell cuztom-bundle" v-cloak>
     <td class="cuztom-field" colspan="2">
         <v-cuztom-bundle
             id="<?php echo $bundle->getId(); ?>"
@@ -9,7 +9,7 @@
         >
             <?php echo $bundle->outputControl('control--top'); ?>
 
-            <ul class="cuztom-sortable__list js-cuztom-sortable" v-if="list.length" v-cloak>
+            <ul class="cuztom-sortable__list js-cuztom-sortable" v-if="list.length">
                 <?php echo $bundle->output(); ?>
             </ul>
 

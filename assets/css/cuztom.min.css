@@ -792,7 +792,8 @@
 .cuztom .cuztom-bundle > td {
   padding: 0; }
 
-.cuztom .cuztom-bundle .control--top {
+.cuztom .cuztom-bundle .control--bottom {
+  border-bottom: none;
   border-top: 1px solid #dfdfdf; }
 
 .cuztom .cuztom-bundle .cuztom-sortable__list {
@@ -872,8 +873,40 @@
   margin-left: -10px;
   margin-right: -10px; }
 
-.cuztom.cuztom--user .cuztom-bundle > th,
-.cuztom.cuztom--user .cuztom-bundle > td, .cuztom.cuztom--term .cuztom-bundle > th,
-.cuztom.cuztom--term .cuztom-bundle > td {
-  border-left: 1px solid #dfdfdf;
-  border-right: 1px solid #dfdfdf; }
+.cuztom.cuztom--user .cuztom-bundle .cuztom-sortable__control,
+.cuztom.cuztom--user .cuztom-bundle .cuztom-sortable__list, .cuztom.cuztom--term .cuztom-bundle .cuztom-sortable__control,
+.cuztom.cuztom--term .cuztom-bundle .cuztom-sortable__list {
+  border-left: 1px solid #c9c9c9;
+  border-right: 1px solid #c9c9c9; }
+
+.cuztom.cuztom--user .cuztom-bundle .cuztom-sortable__control, .cuztom.cuztom--term .cuztom-bundle .cuztom-sortable__control {
+  background: #dfdfdf;
+  border-top: 1px solid #c9c9c9 !important;
+  border-bottom: 1px solid #c9c9c9 !important; }
+
+.cuztom.cuztom--user .cuztom-bundle .cuztom-sortable__list, .cuztom.cuztom--term .cuztom-bundle .cuztom-sortable__list {
+  background: #fff; }
+
+.cuztom.cuztom--user .cuztom-bundle .cuztom-field, .cuztom.cuztom--term .cuztom-bundle .cuztom-field {
+  padding: 15px 10px; }
+
+.cuztom.cuztom--user .cuztom-accordion .ui-accordion, .cuztom.cuztom--term .cuztom-accordion .ui-accordion {
+  border-color: #c9c9c9; }
+
+.cuztom.cuztom--user .cuztom-accordion .ui-accordion-header, .cuztom.cuztom--term .cuztom-accordion .ui-accordion-header {
+  background: #dfdfdf;
+  border-color: #c9c9c9; }
+
+.cuztom.cuztom--user .cuztom-tabs .ui-tabs-panel,
+.cuztom.cuztom--user .cuztom-tabs .ui-tabs-nav li.ui-state-active, .cuztom.cuztom--term .cuztom-tabs .ui-tabs-panel,
+.cuztom.cuztom--term .cuztom-tabs .ui-tabs-nav li.ui-state-active {
+  background: #fff; }
+
+.cuztom.cuztom--user .cuztom-tabs .ui-tabs-nav li,
+.cuztom.cuztom--user .cuztom-tabs .ui-tabs-panel, .cuztom.cuztom--term .cuztom-tabs .ui-tabs-nav li,
+.cuztom.cuztom--term .cuztom-tabs .ui-tabs-panel {
+  border-color: #c9c9c9;
+  border-bottom: 1px solid #c9c9c9 !important; }
+
+.cuztom.cuztom--user .cuztom-tabs .ui-tabs-nav li.ui-state-active, .cuztom.cuztom--term .cuztom-tabs .ui-tabs-nav li.ui-state-active {
+  border-bottom: 1px solid #fff !important; }
