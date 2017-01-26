@@ -88,7 +88,7 @@ class Ajax
         $request = new Request($_POST);
         $bundle  = self::getField($request);
 
-        if(Cuztom::isArray($bundle->data)) {
+        if (Cuztom::isArray($bundle->data)) {
             foreach ($bundle->data as $item) {
                 $data[] = $item->output();
             }
@@ -138,12 +138,12 @@ class Ajax
      * Get field object from cuztom global.
      *
      * @param  string|object $field
-     * @param  string|null $box
+     * @param  string|null   $box
      * @return object
      */
     public static function getField($field, $box = null)
     {
-        if(is_null($box)) {
+        if (is_null($box)) {
             $request = $field;
             $box     = $request->get('box');
             $field   = $request->get('field');

@@ -65,9 +65,9 @@ class Guard
     /**
      * Check if given id (post) is of certain type(s).
      *
-     * @param  int  $id
+     * @param  int   $id
      * @param  array $postTypes
-     * @return boolean
+     * @return bool
      */
     public static function isPostType($id, $postTypes)
     {
@@ -77,8 +77,8 @@ class Guard
     /**
      * Check if user can edit post.
      *
-     * @param  int $id
-     * @return boolean
+     * @param  int  $id
+     * @return bool
      */
     public static function userCanEdit($id)
     {
