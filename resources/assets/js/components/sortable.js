@@ -31,7 +31,7 @@ var vCuztomSortable = {
 
             var options = jQuery.extend({
                 fail: function(response) {
-                    alert(response.message);
+                    alert(response.content);
                 }
             }, options);
 
@@ -42,11 +42,11 @@ var vCuztomSortable = {
 
             var payload = {
                 action: options.action,
-                security: Cuztom.wp_nonce,
+                security: Cuztom.wpNonce,
                 cuztom: params
             };
 
-            jQuery.post(Cuztom.ajax_url, payload, function(response) {
+            jQuery.post(Cuztom.ajaxUrl, payload, function(response) {
                 var response = JSON.parse(response);
 
                 if(response.status) {

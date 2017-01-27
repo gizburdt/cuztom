@@ -4,6 +4,6 @@
             <?php echo $field->_outputOption($value, $field->default_value, $answer); ?>
             <?php echo ($answer == 'yes' ? __('Yes', 'cuztom') : __('No', 'cuztom')); ?>
         </label>
-        <br />
+        <br>
     <?php endforeach; ?>
 </div>

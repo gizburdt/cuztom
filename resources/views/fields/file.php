@@ -13,7 +13,7 @@
         class="button button-small"
         value="<?php _e('Select file', 'cuztom'); ?>"
         @click.prevent="chooseMedia"
-    />
+    >
 
     <a
         href="#"

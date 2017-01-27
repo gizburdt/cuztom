@@ -49,7 +49,7 @@ class Ajax
             }
         }
 
-        echo (new Response(true, array('content' => @$data)))->toJson();
+        echo (new Response(true, @$data))->toJson();
 
         // wp
         die();
@@ -69,8 +69,8 @@ class Ajax
         }
 
         $response = ((! $field->limit) || ($field->limit > $count))
-            ? new Response(true, array('content' => $field->_outputRepeatableItem(null)))
-            : new Response(false, array('message' => __('Limit reached!', 'cuztom')));
+            ? new Response(true, $field->_outputRepeatableItem(null))
+            : new Response(false, __('Limit reached!', 'cuztom'));
 
         echo $response->toJson();
 
@@ -94,7 +94,7 @@ class Ajax
             }
         }
 
-        echo (new Response(true, array('content' => @$data)))->toJson();
+        echo (new Response(true, @$data))->toJson();
 
         // wp
         die();
@@ -125,8 +125,8 @@ class Ajax
         ));
 
         $response = (! $field->limit || ($field->limit > $count))
-            ? new Response(true, array('content' => $data))
-            : new Response(false, array('message' => __('Limit reached!', 'cuztom')));
+            ? new Response(true, $data)
+            : new Response(false, __('Limit reached!', 'cuztom'));
 
         echo $response->toJson();
 

@@ -10,7 +10,7 @@ class Response
      * Response.
      * @var string
      */
-    protected $response;
+    public $response;
 
     /**
      * Constructor.
@@ -21,9 +21,9 @@ class Response
      */
     public function __construct($status, $data = array())
     {
-        $this->response = array_merge(
-            array('status' => $status),
-            $data
+        $this->response = array(
+            'status'  => $status,
+            'content' => $data
         );
     }
 

@@ -251,11 +251,11 @@ class Cuztom
     public function localizeScripts()
     {
         wp_localize_script('cuztom', 'Cuztom', array(
-            'wp_version'  => get_bloginfo('version'),
-            'wp_nonce'    => wp_create_nonce('cuztom'),
-            'home_url'    => get_home_url(),
-            'ajax_url'    => admin_url('admin-ajax.php'),
-            'date_format' => get_option('date_format'),
+            'wpVersion'  => get_bloginfo('version'),
+            'wpNonce'    => wp_create_nonce('cuztom'),
+            'homeUrl'    => get_home_url(),
+            'ajaxUrl'    => admin_url('admin-ajax.php'),
+            'dateFormat' => get_option('date_format'),
             'translate'   => array()
         ));
     }
