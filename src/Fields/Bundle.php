@@ -68,7 +68,7 @@ class Bundle extends Field
             ? $values[$this->id]
             : null;
 
-        $values[$this->id] = is_array($values)
+        $values = is_array($values)
             ? array_values($values)
             : array();
 
@@ -99,20 +99,19 @@ class Bundle extends Field
      */
     public function build($args)
     {
-        $i = 0;
-
-        // Set arguments
-        $args = Cuztom::merge($args, array(
-            'parent'   => $this,
-            'index'    => $i,
-            'metaType' => $this->metaType,
-            'object'   => $this->object,
-        ));
-
         // Build with value
         if (Cuztom::isArray($this->value)) {
+            $i = 0;
+
             foreach ($this->value as $value) {
-                $data[] = new BundleItem($args, @$this->value[$i]);
+                $args = Cuztom::merge($args, array(
+                    'parent'   => $this,
+                    'index'    => $i,
+                    'metaType' => $this->metaType,
+                    'object'   => $this->object,
+                ));
+
+                $data[] = new BundleItem($args, $value);
 
                 $i++;
             }
@@ -120,6 +119,13 @@ class Bundle extends Field
 
         // Without value
         else {
+            $args = Cuztom::merge($args, array(
+                'parent'   => $this,
+                'index'    => 0,
+                'metaType' => $this->metaType,
+                'object'   => $this->object,
+            ));
+
             $data[] = new BundleItem($args);
         }
 
