@@ -115,11 +115,9 @@ abstract class Field
     {
         $value = (! is_null($value)) ? $value : $this->value;
 
-        if ($this->isRepeatable()) {
-            return $this->_outputRepeatable($value).$this->getExplanation();
-        } else {
-            return $this->_output($value).$this->getExplanation();
-        }
+        return $this->isRepeatable()
+            ? $this->outputRepeatable().$this->getExplanation()
+            : $this->outputInput($value).$this->getExplanation();
     }
 
     /**
@@ -129,34 +127,7 @@ abstract class Field
      * @param  string       $view
      * @return string
      */
-    public function _output($value = null)
-    {
-        return $this->_outputInput($value);
-    }
-
-    /**
-     * Outputs the field, ready for repeatable functionality.
-     *
-     * @param  mixed  $value
-     * @param  string $view
-     * @return string
-     */
-    public function _outputRepeatable($value = null)
-    {
-        return Cuztom::view('fields/repeatable/repeatable', array(
-            'field'  => $this,
-            'values' => $value
-        ));
-    }
-
-    /**
-     * Output input field.
-     *
-     * @param  string $value
-     * @param  string $view
-     * @return string
-     */
-    public function _outputInput($value = null, $view = null)
+    public function outputInput($value = null, $view = null)
     {
         $view = $view ? $view : $this->getView();
 
@@ -167,15 +138,16 @@ abstract class Field
     }
 
     /**
-     * Outputs repeatable item.
+     * Repeatable output.
      *
-     * @param  mixed  $value Default value
-     * @param  int    $count Total count of fields
      * @return string
      */
-    public function _outputRepeatableItem($value = null)
+    function outputRepeatable($value = null)
     {
-        return $this->_output($value);
+        return Cuztom::view('fields/repeatable/repeatable', array(
+            'field'  => $this,
+            'values' => $value
+        ));
     }
 
     /**
@@ -184,7 +156,7 @@ abstract class Field
      * @param  mixed  $value
      * @return string
      */
-    public function _outputRepeatableControl()
+    public function outputRepeatableControl()
     {
         return Cuztom::view('fields/repeatable/control', array(
             'field' => $this

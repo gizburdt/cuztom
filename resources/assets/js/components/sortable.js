@@ -32,6 +32,8 @@ var vCuztomSortable = {
             var options = jQuery.extend({
                 fail: function(response) {
                     alert(response.content);
+
+                    vm.$set('loading', false);
                 }
             }, options);
 

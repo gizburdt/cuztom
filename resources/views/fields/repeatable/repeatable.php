@@ -6,7 +6,7 @@
     inline-template
 >
     <div class="cuztom-repeatable" v-cloak>
-        <?php echo $field->_outputRepeatableControl(); ?>
+        <?php echo $field->outputRepeatableControl(); ?>
 
         <ul class="cuztom-sortable__list js-cuztom-sortable" v-if="list.length">
             <li class="cuztom-field cuztom-sortable__item" v-for="item in list" track-by="$index">

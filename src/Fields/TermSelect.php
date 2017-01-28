@@ -39,7 +39,7 @@ class TermSelect extends Field
      * @param  string|array $value
      * @return string
      */
-    public function _outputInput($value = null, $view = null)
+    public function outputInput($value = null, $view = null)
     {
         @$this->args['class'] .= ' cuztom-input--select cuztom-input--term-select';
 

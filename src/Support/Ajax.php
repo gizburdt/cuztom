@@ -41,15 +41,17 @@ class Ajax
     public function setupRepeatableList()
     {
         $request = new Request($_POST);
-        $field   = self::getField($request);
+        $data    = array();
+
+        $field = self::getField($request);
 
         if (Cuztom::isArray($field->value)) {
             foreach ($field->value as $value) {
-                $data[] = $field->_outputRepeatableItem($value);
+                $data[] = $field->outputInput($value);
             }
         }
 
-        echo (new Response(true, @$data))->toJson();
+        echo (new Response(true, $data))->toJson();
 
         // wp
         die();
@@ -69,7 +71,7 @@ class Ajax
         }
 
         $response = ((! $field->limit) || ($field->limit > $count))
-            ? new Response(true, $field->_outputRepeatableItem(null))
+            ? new Response(true, $field->outputInput())
             : new Response(false, __('Limit reached!', 'cuztom'));
 
         echo $response->toJson();
@@ -86,7 +88,9 @@ class Ajax
     public function setupBundleList()
     {
         $request = new Request($_POST);
-        $bundle  = self::getField($request);
+        $data    = array();
+
+        $bundle = self::getField($request);
 
         if (Cuztom::isArray($bundle->data)) {
             foreach ($bundle->data as $item) {
@@ -94,7 +98,7 @@ class Ajax
             }
         }
 
-        echo (new Response(true, @$data))->toJson();
+        echo (new Response(true, $data))->toJson();
 
         // wp
         die();
@@ -114,15 +118,13 @@ class Ajax
             return;
         }
 
-        $data = Cuztom::view('fields/bundle/item', array(
-            'item' => new BundleItem(Cuztom::merge(
-                $field->original,
-                array(
-                    'parent' => $field,
-                    'index'  => $index
-                )
-            ))
-        ));
+        $data = (new BundleItem(Cuztom::merge(
+            $field->original,
+            array(
+                'parent' => $field,
+                'index'  => $index
+            )
+        )))->output();
 
         $response = (! $field->limit || ($field->limit > $count))
             ? new Response(true, $data)

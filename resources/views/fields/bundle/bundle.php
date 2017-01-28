@@ -10,7 +10,7 @@
             <?php echo $bundle->outputControl('control--top'); ?>
 
             <ul class="cuztom-sortable__list js-cuztom-sortable" v-if="list.length">
-                <?php echo $bundle->output(); ?>
+                <li class="cuztom-sortable__item" v-for="item in list" track-by="$index">{{{ item }}}</li>
             </ul>
 
             <em class="cuztom-sortable__none" v-if="!list.length"><?php _e('No items found.', 'cuztom'); ?></em>

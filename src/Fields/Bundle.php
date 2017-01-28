@@ -44,19 +44,6 @@ class Bundle extends Field
     }
 
     /**
-     * Outputs a bundle.
-     *
-     * @param mixed  $value
-     * @param string $view
-     */
-    public function output($value = null, $view = null)
-    {
-        return Cuztom::view('fields/bundle/item', array(
-            'item' => null
-        ));
-    }
-
-    /**
      * Output a control cell for a bundle.
      *
      * @param string $class

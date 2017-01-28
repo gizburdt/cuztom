@@ -45,7 +45,7 @@ class File extends Field
      * @param  string $view
      * @return string
      */
-    public function _outputInput($value = null, $view = null)
+    public function outputInput($value = null, $view = null)
     {
         $view       = $view ? $view : $this->getView();
         $attachment = wp_get_attachment_metadata($value);

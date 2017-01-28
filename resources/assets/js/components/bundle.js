@@ -36,6 +36,8 @@ Vue.component('v-cuztom-bundle', {
 
                     vm.list.push(response.content);
 
+                    console.log(vm.list);
+
                     vm.$set('loading', false);
 
                     vm.$parent.reload();

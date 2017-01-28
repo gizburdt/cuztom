@@ -29,6 +29,6 @@ class Hidden extends Field
      */
     public function outputCell($value = null)
     {
-        return $this->_outputInput($value);
+        return $this->outputInput($value);
     }
 }
