@@ -56,7 +56,7 @@ class Item extends Field
 
     public function outputFields()
     {
-        foreach($this->data as $field) :
+        foreach ($this->data as $field) :
             @$data .= $field->outputCell();
         endforeach;
 
