@@ -256,7 +256,7 @@ class Cuztom
             'homeUrl'    => get_home_url(),
             'ajaxUrl'    => admin_url('admin-ajax.php'),
             'dateFormat' => get_option('date_format'),
-            'translate'   => array()
+            'translate'  => array()
         ));
     }
 
