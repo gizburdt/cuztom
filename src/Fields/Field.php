@@ -142,7 +142,7 @@ abstract class Field
      *
      * @return string
      */
-    function outputRepeatable($value = null)
+    public function outputRepeatable($value = null)
     {
         return Cuztom::view('fields/repeatable/repeatable', array(
             'field'  => $this,
