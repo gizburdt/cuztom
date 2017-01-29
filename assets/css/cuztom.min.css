@@ -769,6 +769,9 @@
   .cuztom .cuztom-repeatable .cuztom-sortable__item {
     margin: 0;
     border-bottom: 1px solid #dfdfdf; }
+    .cuztom .cuztom-repeatable .cuztom-sortable__item.ui-sortable-helper {
+      border: 1px solid #dfdfdf !important;
+      background: #fff; }
     .cuztom .cuztom-repeatable .cuztom-sortable__item:last-child {
       border-bottom: 0; }
   .cuztom .cuztom-repeatable .cuztom-sortable__item__content,

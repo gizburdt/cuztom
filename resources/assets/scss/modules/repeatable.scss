@@ -12,6 +12,11 @@
         margin: 0;
         border-bottom: 1px solid $repeatable-border-color;
 
+        &.ui-sortable-helper{
+            border: 1px solid $repeatable-border-color !important;
+            background: #fff;
+        }
+
         &:last-child{
             border-bottom: 0;
         }
