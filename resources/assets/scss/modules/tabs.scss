@@ -23,8 +23,7 @@
         padding-top: 1px;
         margin-right: 10px;
         background: none;
-        border: 1px solid $tabs-bg;
-        border-bottom: 1px solid $tabs-border-color;
+        border: 1px solid $tabs-border-color;
 
         &.ui-state-active{
             background: $tabs-bg;

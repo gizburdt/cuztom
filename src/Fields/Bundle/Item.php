@@ -49,11 +49,9 @@ class Item extends Field
      */
     public function output($value = null)
     {
-        foreach ($this->data as $field) :
-            @$data .= $field->outputCell();
-        endforeach;
-
-        return $data;
+        return Cuztom::view('fields/bundle/table', array(
+            'item' => $this,
+        ));
     }
 
     /**

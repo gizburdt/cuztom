@@ -99,6 +99,8 @@ class Bundle extends Field
      */
     public function build($args)
     {
+        $data = array();
+
         $args = Cuztom::merge($args, array(
             'parent'   => $this,
             'metaType' => $this->metaType,
@@ -125,6 +127,6 @@ class Bundle extends Field
             $data[] = new BundleItem($args);
         }
 
-        return @$data;
+        return $data;
     }
 }
