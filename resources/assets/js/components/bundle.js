@@ -11,8 +11,6 @@ Vue.component('v-cuztom-bundle', {
             this.postAjax({
                 action: 'cuztom_setup_bundle_list',
                 success: function(response) {
-                    console.log(response.content);
-
                     vm.$set('list', response.content);
 
                     vm.$set('loading', false);
