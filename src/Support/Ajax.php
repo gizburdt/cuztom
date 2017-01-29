@@ -43,6 +43,10 @@ class Ajax
         $request = new Request($_POST);
         $data    = array();
 
+        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
+            return;
+        }
+
         $field = self::getField($request);
 
         if (Cuztom::isArray($field->value)) {
@@ -63,8 +67,13 @@ class Ajax
     public function addRepeatableItem()
     {
         $request = new Request($_POST);
-        $field   = self::getField($request);
         $count   = $request->get('count');
+
+        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
+            return;
+        }
+
+        $field = self::getField($request);
 
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
@@ -90,6 +99,10 @@ class Ajax
         $request = new Request($_POST);
         $data    = array();
 
+        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
+            return;
+        }
+
         $bundle = self::getField($request);
 
         if (Cuztom::isArray($bundle->data)) {
@@ -110,13 +123,14 @@ class Ajax
     public function addBundleItem()
     {
         $request = new Request($_POST);
-        $field   = self::getField($request);
         $count   = $request->get('count');
         $index   = $request->get('index');
 
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
+
+        $field = self::getField($request);
 
         $data = (new BundleItem(Cuztom::merge(
             $field->original,
