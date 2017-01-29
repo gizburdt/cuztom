@@ -56,4 +56,12 @@ var cuztomUI;
         items: '> li',
         handle: '.js-cuztom-sortable-item-handle'
     });
+
+    // WYSIWYG
+    $('.wp-editor-area').each(function(){
+        var editorId = $(this).attr('id');
+
+        tinymce.execCommand('mceAddEditor', true, editorId);
+        quicktags({id: editorId});
+    });
 })(document);
