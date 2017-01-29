@@ -17,7 +17,7 @@ trait Checkable
      * @param  string $option
      * @return string
      */
-    public function _outputOption($value = null, $default_value = null, $option = null)
+    public function outputOption($value = null, $default_value = null, $option = null)
     {
         return '<input
             type="'.$this->getInputType().'"

@@ -10,7 +10,7 @@ class Response
      * Response.
      * @var string
      */
-    public $response;
+    protected $response;
 
     /**
      * Constructor.

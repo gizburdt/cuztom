@@ -5,7 +5,7 @@
     attachment="<?php echo Cuztom::jsonEncode($attachment) ?>"
     inline-template
 >
-    <?php echo $field->_outputInput($value, 'text'); ?>
+    <?php echo $field->outputInput($value, 'text'); ?>
 
     <input
         id="<?php echo $field->getId(); ?>"
