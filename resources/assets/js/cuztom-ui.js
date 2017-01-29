@@ -62,6 +62,7 @@ var cuztomUI;
         var editorId = $(this).attr('id');
 
         tinymce.execCommand('mceAddEditor', true, editorId);
+
         quicktags({id: editorId});
     });
 })(document);
