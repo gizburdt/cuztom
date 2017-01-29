@@ -509,7 +509,7 @@ class Cuztom
      */
     public static function merge($base, $merge)
     {
-        if(is_string($merge)) {
+        if (is_string($merge)) {
             $explode = explode('=>', $merge);
 
             $merge = array(

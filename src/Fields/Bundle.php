@@ -120,7 +120,7 @@ class Bundle extends Field
 
         // Without value
         else {
-            $args = Cuztom::merge($args, "index=>0");
+            $args = Cuztom::merge($args, 'index=>0');
 
             $data[] = new BundleItem($args);
         }
