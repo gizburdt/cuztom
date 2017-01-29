@@ -5,6 +5,7 @@
         <v-cuztom-bundle
             id="<?php echo $bundle->getId(); ?>"
             box="<?php echo $bundle->parent; ?>"
+            object="<?php echo $bundle->object; ?>"
             inline-template
         >
             <?php echo $bundle->outputControl('control--top'); ?>

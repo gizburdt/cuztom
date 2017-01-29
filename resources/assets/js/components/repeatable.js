@@ -11,6 +11,8 @@ Vue.component('v-cuztom-repeatable', {
             this.postAjax({
                 action: 'cuztom_setup_repeatable_list',
                 success: function(response) {
+                    console.log(response.content);
+
                     vm.$set('list', response.content);
 
                     vm.$set('loading', false);

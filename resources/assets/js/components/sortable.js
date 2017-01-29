@@ -4,6 +4,7 @@ var vCuztomSortable = {
     props: {
         id: String,
         box: String,
+        object: String
     },
 
     data: function() {
@@ -40,6 +41,7 @@ var vCuztomSortable = {
             var params = jQuery.extend({
                 box: this.box,
                 field: this.id,
+                object: this.object
             }, params);
 
             var payload = {

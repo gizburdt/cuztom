@@ -3,6 +3,7 @@
 <v-cuztom-repeatable
     id="<?php echo $field->getId(); ?>"
     box="<?php echo $field->parent; ?>"
+    object="<?php echo $field->object; ?>"
     inline-template
 >
     <div class="cuztom-repeatable" v-cloak>

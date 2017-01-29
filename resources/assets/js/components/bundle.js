@@ -32,11 +32,7 @@ Vue.component('v-cuztom-bundle', {
             this.postAjax({
                 action: 'cuztom_add_bundle_item',
                 success: function(response) {
-                    console.log(response.content);
-
                     vm.list.push(response.content);
-
-                    console.log(vm.list);
 
                     vm.$set('loading', false);
 
