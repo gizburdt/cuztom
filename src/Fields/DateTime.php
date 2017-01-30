@@ -61,6 +61,6 @@ class DateTime extends Field
      */
     public function timeToString($string)
     {
-        return $this->value ? date(get_option('date_format').' '.get_option('time_format'), $this->value) : null;
+        return $this->value ? date(get_option('date_format').' '.get_option('time_format'), $string) : null;
     }
 }
