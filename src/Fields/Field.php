@@ -64,6 +64,14 @@ abstract class Field
     public $admin_column_filter   = false;
 
     /**
+     * Merges.
+     * @var mixed
+     */
+    protected $merges = array(
+        'html_attributes'
+    );
+
+    /**
      * Construct.
      *
      * @param array $args
@@ -77,6 +85,10 @@ abstract class Field
         // Set all properties
         foreach ($args as $property => $value) {
             if (property_exists($this, $property)) {
+                if(in_array($property, $this->merges) && isset($args[$property])) {
+                    $this->$property = array_merge($args[$property], $this->$property);
+                }
+
                 $this->$property = (isset($args[$property]) ? $args[$property] : $this->$property);
             }
         }
