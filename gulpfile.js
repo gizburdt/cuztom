@@ -12,8 +12,6 @@ elixir(function(mix) {
 
     mix.scripts([
         '../../node_modules/vue/dist/vue.js',
-        '../../node_modules/vue-sortable/vue-sortable.js',
-        '../../node_modules/sortablejs/Sortable.min.js',
         '../../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.js',
         'js/cuztom-open.js',
         'js/cuztom-ui.js',
