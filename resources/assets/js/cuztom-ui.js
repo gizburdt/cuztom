@@ -12,28 +12,28 @@ var cuztomUI;
     var object = $(object);
 
     // Datepicker
-    $('.js-cuztom-datepicker', object).map(function() {
-        return $(this).datetimepicker({
+    $('.js-cuztom-datepicker', object).each(function(i, item) {
+        return $(item).datetimepicker({
             scrollInput: false,
             timepicker: false,
-            format: $(this).data('date-format')
+            format: $(item).attr('data-date-format')
         });
     });
 
     // Timepicker
-    $('.js-cuztom-timepicker', object).map(function() {
-        return $(this).datetimepicker({
+    $('.js-cuztom-timepicker', object).each(function(i, item) {
+        return $(item).datetimepicker({
             scrollInput: false,
             datepicker: false,
-            format: $(this).attr('data-time-format')
+            format: $(item).attr('data-time-format')
         });
     });
 
     // Datetime
-    $('.js-cuztom-datetimepicker', object).map(function() {
-        return $(this).datetimepicker({
+    $('.js-cuztom-datetimepicker', object).each(function(i, item) {
+        return $(item).datetimepicker({
             scrollInput: false,
-            format: $(this).data('date-format') + ' ' + $(this).data('time-format'),
+            format: $(item).attr('data-date-format') + ' ' + $(item).attr('data-time-format'),
         });
     });
 
