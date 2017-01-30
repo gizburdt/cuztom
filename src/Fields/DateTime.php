@@ -30,11 +30,11 @@ class DateTime extends Field
     {
         parent::__construct($args, $values);
 
-        if(array_key_exists('data-date-format', $this->html_attributes)) {
+        if (array_key_exists('data-date-format', $this->html_attributes)) {
             $this->html_attributes['data-date-format'] = get_option('date_format');
         }
 
-        if(array_key_exists('data-time-format', $this->html_attributes)) {
+        if (array_key_exists('data-time-format', $this->html_attributes)) {
             $this->html_attributes['data-time-format'] = get_option('time_format');
         }
 
