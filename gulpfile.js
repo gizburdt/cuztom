@@ -6,13 +6,15 @@ elixir.config.sourcemaps = false;
 
 elixir(function(mix) {
     mix.sass([
-        'vendor/datetimepicker/jquery.datetimepicker.css',
+        '../../node_modules/jquery-datetimepicker/jquery.datetimepicker.css',
         'scss/cuztom.scss',
     ], 'assets/css/cuztom.min.css', 'resources/assets/');
 
     mix.scripts([
-        'vendor/vue/dist/vue.js',
-        'vendor/datetimepicker/build/jquery.datetimepicker.full.js',
+        '../../node_modules/vue/dist/vue.js',
+        '../../node_modules/vue-sortable/vue-sortable.js',
+        '../../node_modules/sortablejs/Sortable.min.js',
+        '../../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.js',
         'js/cuztom-open.js',
         'js/cuztom-ui.js',
         'js/components/sortable.js',
