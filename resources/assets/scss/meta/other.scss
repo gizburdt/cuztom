@@ -28,6 +28,26 @@
         }
     }
 
+    // Repeatable
+    .cuztom-repeatable{
+        background: #fff;
+        border-color: #c9c9c9;
+
+        .cuztom-sortable__control{
+            background: #dfdfdf;
+            border-color: #c9c9c9;
+        }
+
+        .cuztom-sortable__item{
+            border-color: #c9c9c9;
+
+            &.ui-sortable-helper{
+                border-color: #c9c9c9;
+                background: #fff;
+            }
+        }
+    }
+
     // Accordion
     .cuztom-accordion{
         .ui-accordion{

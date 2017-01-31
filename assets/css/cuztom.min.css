@@ -892,6 +892,18 @@
 .cuztom.cuztom--user .cuztom-bundle .cuztom-field, .cuztom.cuztom--term .cuztom-bundle .cuztom-field {
   padding: 15px 10px; }
 
+.cuztom.cuztom--user .cuztom-repeatable, .cuztom.cuztom--term .cuztom-repeatable {
+  background: #fff;
+  border-color: #c9c9c9; }
+  .cuztom.cuztom--user .cuztom-repeatable .cuztom-sortable__control, .cuztom.cuztom--term .cuztom-repeatable .cuztom-sortable__control {
+    background: #dfdfdf;
+    border-color: #c9c9c9; }
+  .cuztom.cuztom--user .cuztom-repeatable .cuztom-sortable__item, .cuztom.cuztom--term .cuztom-repeatable .cuztom-sortable__item {
+    border-color: #c9c9c9; }
+    .cuztom.cuztom--user .cuztom-repeatable .cuztom-sortable__item.ui-sortable-helper, .cuztom.cuztom--term .cuztom-repeatable .cuztom-sortable__item.ui-sortable-helper {
+      border-color: #c9c9c9;
+      background: #fff; }
+
 .cuztom.cuztom--user .cuztom-accordion .ui-accordion, .cuztom.cuztom--term .cuztom-accordion .ui-accordion {
   border-color: #c9c9c9; }
 
