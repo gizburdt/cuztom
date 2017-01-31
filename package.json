@@ -1,0 +1,17 @@
+{
+  "name": "cuztom",
+  "dependencies": {
+    "bower": "~1.7.0",
+    "gulp": "^3.9.1",
+    "laravel-elixir": "^6.0.0-9",
+    "lodash": "^4.14.0",
+    "jquery":         "latest",
+    "bootstrap-sass": "latest",
+    "datetimepicker": "https://github.com/xdan/datetimepicker.git",
+    "vue":            "1.*"
+  },
+  "devDependencies": {
+    "gulp-prompt": "^0.2.0",
+    "gulp-replace": "^0.5.4"
+  }
+}

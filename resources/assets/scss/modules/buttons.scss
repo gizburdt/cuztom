@@ -1,0 +1,8 @@
+
+.button{
+    margin-bottom: 1px;
+}
+
+.button[disabled] {
+    pointer-events: none;
+}

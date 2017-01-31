@@ -1,0 +1,30 @@
+// Checkboxes
+.cuztom-checkboxes{
+    display: inline-block;
+    width: 80%;
+}
+
+// Input (general)
+.cuztom-input{
+    margin: 0;
+    margin-right: 3px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+// Input (specific)
+.cuztom-input--text,
+.cuztom-input--textarea,
+.cuztom-input--datetime,
+.cuztom-input--date,
+.cuztom-input--time,
+.cuztom-input--select{
+    width: 80% !important;
+    min-height: 24px;
+    font-family: "Open Sans", sans-serif !important;
+    line-height: 1.4em !important;
+}
+
+.cuztom-input--textarea{
+    min-height: 140px;
+}

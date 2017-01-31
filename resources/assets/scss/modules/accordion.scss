@@ -1,0 +1,36 @@
+
+.cuztom-accordion{
+
+    .ui-widget{
+        @include border-radius(0);
+        @include box-shadow(0 1px 0 #fff);
+        border: 1px solid $accordion-border-color;
+        font-family: "Open Sans", sans-serif;
+    }
+
+    .ui-accordion-header{
+        @include box-shadow(none);
+        @include border-radius(0);
+        margin: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 25px;
+        background: $accordion-bg;
+        border: none;
+        border-bottom: 1px solid $accordion-border-color;
+        font-size: 12px !important;
+        cursor: move;
+
+        &:focus,
+        &:focus{
+            outline: none;
+        }
+     }
+
+    .ui-accordion-content{
+        @include border-radius(0);
+        padding: 0;
+        border: none;
+    }
+
+}

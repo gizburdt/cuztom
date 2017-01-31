@@ -1,0 +1,65 @@
+
+.cuztom-tabs{
+
+    .ui-widget{
+        @include box-shadow(0 1px 0 #fff);
+        padding: 0;
+        border: none;
+        background: none;
+        font-family: "Open Sans", sans-serif;
+    }
+
+    .ui-tabs-nav{
+        padding: 0;
+        margin-bottom: -1px;
+        background: none;
+        border: 0;
+        font-size: 12px;
+    }
+
+    .ui-tabs-nav li{
+        margin: 0;
+        padding: 0;
+        padding-top: 1px;
+        margin-right: 10px;
+        background: none;
+        border: 1px solid $tabs-border-color;
+
+        &.ui-state-active{
+            background: $tabs-bg;
+            border: 1px solid $tabs-border-color;
+            border-bottom: 1px solid $tabs-bg !important;
+        }
+
+        &:hover,
+        &:focus{
+            border: 1px solid $tabs-border-color;
+        }
+    }
+
+    .ui-tabs-nav a{
+        padding: 10px;
+        color: #21759b;
+        outline: none;
+
+        &:hover,
+        &:focus{
+            color: $tabs-hover-color;
+        }
+    }
+
+    .ui-tabs-panel{
+        @include border-radius(0 3px 3px 3px);
+        background: $tabs-bg;
+        border: 1px solid $tabs-border-color;
+        font-size: 12px;
+        padding: 0;
+    }
+
+    // Fixes
+    tr.cuztom-control > td{
+        border-left: none;
+        border-right: none;
+    }
+
+}

@@ -1,0 +1,53 @@
+
+.cuztom-repeatable{
+    border: 1px solid $repeatable-border-color;
+
+    // List
+    .cuztom-sortable__list{
+        margin: 0;
+    }
+
+    // Item
+    .cuztom-sortable__item{
+        margin: 0;
+        border-bottom: 1px solid $repeatable-border-color;
+
+        &.ui-sortable-helper{
+            border: 1px solid $repeatable-border-color !important;
+            background: #fff;
+        }
+
+        &:last-child{
+            border-bottom: 0;
+        }
+    }
+
+    .cuztom-sortable__item__content,
+    .cuztom-sortable__item__handle,
+    .cuztom-sortable__item__remove{
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .cuztom-sortable__item__content{
+        width: 90%;
+        float: left;
+        padding: 6px 10px;
+    }
+
+    .cuztom-sortable__item__handle,
+    .cuztom-sortable__item__remove{
+        float: left;
+        width: 5%;
+    }
+
+    .cuztom-sortable__item__remove{
+        padding-left: 0;
+        text-align: right;
+    }
+
+    // Input
+    .cuztom-input{
+        width: 100% !important;
+    }
+}

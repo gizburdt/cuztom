@@ -1,0 +1,30 @@
+// Description
+.cuztom-field__description,
+.cuztom-field__explanation{
+    margin-top: 5px;
+    font-size: 10px;
+    font-style: italic;
+    font-weight: normal;
+    color: #999;
+}
+
+.cuztom-field__explanation{
+    width: 100%;
+    display: block;
+    float: left;
+}
+
+// Label
+.cuztom-field__label{
+    margin-top: 0 !important;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    color: #23282d;
+}
+
+// Required
+.cuztom-field__required{
+    color: red;
+}

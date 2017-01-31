@@ -1,0 +1,75 @@
+
+.cuztom-sortable{
+    margin: 0;
+}
+
+// Control
+.cuztom-sortable__control{
+    padding: 6px 10px;
+    background: $repeatable-control-bg;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+// Item
+.cuztom-sortable__item{
+    @extend .clearfix;
+}
+
+.cuztom-sortable__item__handle,
+.cuztom-sortable__item__remove{
+    display: inline-block;
+    padding: 10px;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 1;
+}
+
+.cuztom-sortable__item__handle a,
+.cuztom-sortable__item__remove a{
+    height: 17px;
+    width: 8px;
+    display: inline-block;
+    margin: 0;
+    background: url('../images/jquery-ui/ui-icons_454545_256x240.png') no-repeat;
+    outline: none;
+    line-height: 1;
+}
+
+.cuztom-sortable__item__handle a{
+    background-position: -132px -48px;
+    cursor: move;
+}
+
+.cuztom-sortable__item__remove a{
+    background-position: -85px -128px;
+    cursor: pointer;
+}
+
+// Counter
+.cuztom-sortable__counter{
+    float: right;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 12px;
+    color: #999;
+}
+
+// Loading
+.cuztom-sortable__loading{
+    display: inline-block;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-left: 5px;
+
+    img{
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+// None
+.cuztom-sortable__none{
+    display: block;
+    padding: 10px;
+}
+

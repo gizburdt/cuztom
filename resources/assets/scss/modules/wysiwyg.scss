@@ -1,0 +1,23 @@
+.tmce-active table{
+    max-width: none;
+}
+
+.tmce-active table.mceLayout,
+table.mceToolbar{
+    width: 100% !important;
+    height: auto !important;
+}
+
+.tmce-active span.mceEditor{
+    display: block !important;
+}
+
+.mceToolbar div,
+table.mceToolbar tr{
+    white-space: normal;
+}
+
+table.mceToolbar td{
+    display: inline-block;
+    white-space: normal;
+}

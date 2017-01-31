@@ -1,17 +1,22 @@
 # Crap
 .DS_Store
 
-# Editors
-.idea
+# Node
+node_modules/
+npm-debug.log
+
+# Editor
 *.tmproj
 *.sublime-project
 *.sublime-workspace
-
-# Node
-node_modules
+*.idea
+.idea
+.idea/*
 
 # Codekit
+.codekit-cache
 config.codekit
 
-# Node
-node_modules
+# Vendor
+vendor/
+bower_components/

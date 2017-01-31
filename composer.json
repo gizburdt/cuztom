@@ -1,15 +1,20 @@
 {
     "name": "gizburdt/cuztom",
-    "description": "Wordpress Cuztom Helper. Easy meta data.",
+    "description": "Cuztom. Easy meta data.",
+    "license": "GPL-2.0",
+    "keywords": ["wordpress", "meta"],
     "authors": [
         {
-            "name": "Gizburdt",
+            "name": "Gijs Jorissen",
             "email": "lol@gizburdt.com"
         }
     ],
     "require": {
+        "php": ">=5.3.0"
     },
     "autoload": {
-        "files": ["cuztom.php"]
+        "psr-4": {
+            "Gizburdt\\Cuztom\\": "src/"
+        }
     }
 }
