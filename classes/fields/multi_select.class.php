@@ -5,13 +5,13 @@ if( ! defined( 'ABSPATH' ) ) exit;
 class Cuztom_Field_Multi_Select extends Cuztom_Field
 {
 	var $_supports_bundle		= true;
-	
+
 	var $css_classes 			= array( 'cuztom-input cuztom-select cuztom-multi-select' );
-	
+
 	function __construct( $field, $parent )
 	{
 		parent::__construct( $field, $parent );
-		
+
 		$this->default_value 	= (array) $this->default_value;
 		$this->after 		   .= '[]';
 	}
@@ -26,7 +26,7 @@ class Cuztom_Field_Multi_Select extends Cuztom_Field
 			{
 				foreach( $this->options as $slug => $name )
 				{
-					$output .= '<option value="' . $slug . '" ' . ( is_array( $value ) ? ( in_array( $slug, $value ) ? 'selected="selected"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $slug, $this->default_value ) ? 'selected="selected"' : '' ) ) . '>' . Cuztom::beautify( $name ) . '</option>';
+					$output .= '<option value="' . $slug . '" ' . ( is_array( $value ) ? ( in_array( $slug, $value ) ? 'selected="selected"' : '' ) : ( ( $value == '-1' ) ? '' : in_array( $slug, $this->default_value ) ? 'selected="selected"' : '' ) ) . '>' . $name . '</option>';
 				}
 			}
 		$output .= '</select>';
