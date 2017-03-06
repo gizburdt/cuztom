@@ -58,11 +58,13 @@ var cuztomUI;
     });
 
     // WYSIWYG
-    $('.wp-editor-area').each(function(){
-        var editorId = $(this).attr('id');
+    if(typeof tinymce !== 'undefined') {
+        $('.wp-editor-area').each(function(){
+            var editorId = $(this).attr('id');
 
-        tinymce.execCommand('mceAddEditor', true, editorId);
+            tinymce.execCommand('mceAddEditor', true, editorId);
 
-        quicktags({id: editorId});
-    });
+            quicktags({id: editorId});
+        });
+    }
 })(document);
