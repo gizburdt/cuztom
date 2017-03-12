@@ -1,7 +1,7 @@
 {
     "name": "gizburdt/cuztom",
     "description": "Cuztom. Easy meta data.",
-    "license": "GPL-2.0",
+    "license": "MIT",
     "keywords": ["wordpress", "meta"],
     "authors": [
         {

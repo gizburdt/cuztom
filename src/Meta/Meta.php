@@ -158,6 +158,7 @@ abstract class Meta
         if (Cuztom::isArray($fields)) {
             foreach ($fields as $type => $args) {
                 $args = Cuztom::merge($args, array(
+                    'metaBox'  => $this,
                     'metaType' => $this->metaType,
                     'object'   => $this->object,
                     'parent'   => $this->id,
