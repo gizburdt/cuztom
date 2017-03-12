@@ -2,7 +2,7 @@
 
 <v-cuztom-repeatable
     id="<?php echo $field->getId(); ?>"
-    box="<?php echo $field->parent; ?>"
+    box="<?php echo $field->metaBox->id; ?>"
     object="<?php echo $field->object; ?>"
     inline-template
 >
