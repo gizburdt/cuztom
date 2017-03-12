@@ -49,12 +49,11 @@ class Ajax
      */
     public function setupRepeatableList()
     {
-        $data = array();
-
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
+        $data  = array();
         $field = self::getField();
 
         if (Cuztom::isArray($field->value)) {
@@ -74,17 +73,16 @@ class Ajax
      */
     public function addRepeatableItem()
     {
-        $count = self::$request->get('count');
+        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
+            return;
+        }
 
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
         $field = self::getField();
-
-        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
-            return;
-        }
+        $count = self::$request->get('count');
 
         $response = ((! $field->limit) || ($field->limit > $count))
             ? new Response(true, $field->outputInput())
@@ -103,12 +101,11 @@ class Ajax
      */
     public function setupBundleList()
     {
-        $data = array();
-
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
+        $data   = array();
         $bundle = self::getField();
 
         if (Cuztom::isArray($bundle->data)) {
@@ -128,13 +125,12 @@ class Ajax
      */
     public function addBundleItem()
     {
-        $count = self::$request->get('count');
-        $index = self::$request->get('index');
-
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
+        $count = self::$request->get('count');
+        $index = self::$request->get('index');
         $field = self::getField();
 
         $data = (new BundleItem(Cuztom::merge(
