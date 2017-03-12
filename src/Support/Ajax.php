@@ -10,10 +10,19 @@ Guard::directAccess();
 class Ajax
 {
     /**
+     * Request.
+     *
+     * @var object
+     */
+    protected static $request;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
+        self::$request = new Request($_POST);
+
         $this->addHooks();
     }
 
@@ -40,14 +49,13 @@ class Ajax
      */
     public function setupRepeatableList()
     {
-        $request = new Request($_POST);
-        $data    = array();
+        $data = array();
 
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
-        $field = self::getField($request);
+        $field = self::getField();
 
         if (Cuztom::isArray($field->value)) {
             foreach ($field->value as $value) {
@@ -66,14 +74,13 @@ class Ajax
      */
     public function addRepeatableItem()
     {
-        $request = new Request($_POST);
-        $count   = $request->get('count');
+        $count = self::$request->get('count');
 
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
-        $field = self::getField($request);
+        $field = self::getField();
 
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
@@ -96,14 +103,13 @@ class Ajax
      */
     public function setupBundleList()
     {
-        $request = new Request($_POST);
-        $data    = array();
+        $data = array();
 
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
-        $bundle = self::getField($request);
+        $bundle = self::getField();
 
         if (Cuztom::isArray($bundle->data)) {
             foreach ($bundle->data as $item) {
@@ -122,15 +128,14 @@ class Ajax
      */
     public function addBundleItem()
     {
-        $request = new Request($_POST);
-        $count   = $request->get('count');
-        $index   = $request->get('index');
+        $count = self::$request->get('count');
+        $index = self::$request->get('index');
 
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
-        $field = self::getField($request);
+        $field = self::getField();
 
         $data = (new BundleItem(Cuztom::merge(
             $field->original,
@@ -157,15 +162,13 @@ class Ajax
      * @param  string|null   $box
      * @return object
      */
-    public static function getField($field, $box = null)
+    public static function getField()
     {
-        if (is_null($box)) {
-            $request = $field;
-            $box     = $request->get('box');
-            $field   = $request->get('field');
+        $box   = self::$request->get('box');
+        $field = self::$request->get('field');
 
-            return Cuztom::getBox($box)->getField($field);
-        }
+        var_dump(Cuztom::getBox($box)->getField($field), $box, $field);
+        die();
 
         return Cuztom::getBox($box)->getField($field);
     }

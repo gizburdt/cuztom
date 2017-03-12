@@ -19,7 +19,7 @@ class Request
      */
     public function __construct($attributes)
     {
-        $this->attributes = $attributes['cuztom'];
+        $this->attributes = isset($attributes['cuztom']) ? $attributes['cuztom'] : $attributes;
     }
 
     /**
