@@ -92,6 +92,17 @@ class Bundle extends Field
     }
 
     /**
+     * Get field.
+     *
+     * @param  string $search
+     * @return mixed
+     */
+    public function getField($search)
+    {
+        return $this->getFirstItem()->data[$search];
+    }
+
+    /**
      * This method builds the complete array for a bundle.
      *
      * @param array $data

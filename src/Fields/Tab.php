@@ -79,6 +79,19 @@ class Tab extends Field
     }
 
     /**
+     * Get field.
+     *
+     * @param  string $search
+     * @return mixed
+     */
+    public function getField($search)
+    {
+        return isset($this->data[$search])
+            ? $this->data[$search]
+            : null;
+    }
+
+    /**
      * Build.
      *
      * @param  array        $data
@@ -89,6 +102,7 @@ class Tab extends Field
     {
         foreach ($this->fields as $field) {
             $args = Cuztom::merge($field, array(
+                'metaBox'  => $this->metaBox,
                 'metaType' => $this->metaType,
                 'object'   => $this->object,
             ));

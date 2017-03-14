@@ -93,6 +93,23 @@ class Tabs extends Field
     }
 
     /**
+     * Get field.
+     *
+     * @param  string $search
+     * @return mixed
+     */
+    public function getField($search)
+    {
+        foreach($this->data as $field) {
+            if($find = $field->getField($search)) {
+                break;
+            }
+        }
+
+        return $find;
+    }
+
+    /**
      * Build.
      *
      * @param array        $data
@@ -103,6 +120,7 @@ class Tabs extends Field
         foreach ($this->panels as $panel) {
             $args = Cuztom::merge($panel, array(
                 'parent'   => $this,
+                'metaBox'  => $this->metaBox,
                 'metaType' => $this->metaType,
                 'object'   => $this->object,
                 'tabsType' => $this->type,

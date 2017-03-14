@@ -22,6 +22,7 @@ abstract class Field
      */
     public $object    = null;
     public $value     = null;
+    public $metaBox   = null;
     public $metaType  = null;
     public $view      = 'text';
     public $inputType = 'text';
