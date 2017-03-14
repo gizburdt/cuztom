@@ -93,6 +93,23 @@ class Tabs extends Field
     }
 
     /**
+     * Get field.
+     *
+     * @param  string $search
+     * @return mixed
+     */
+    public function getField($search)
+    {
+        foreach($this->data as $field) {
+            if($find = $field->getField($search)) {
+                break;
+            }
+        }
+
+        return $find;
+    }
+
+    /**
      * Build.
      *
      * @param array        $data

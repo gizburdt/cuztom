@@ -163,8 +163,8 @@ class Ajax
         $box   = self::$request->get('box');
         $field = self::$request->get('field');
 
-        var_dump(Cuztom::getBox($box)->getField($field), $box, $field);
-        die();
+        // var_dump(Cuztom::getBox($box)->getField($field), $box, $field);
+        // die();
 
         return Cuztom::getBox($box)->getField($field);
     }

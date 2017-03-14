@@ -144,7 +144,26 @@ abstract class Meta
      */
     public function getField($field)
     {
-        return isset($this->data[$field]) ? $this->data[$field] : null;
+        return isset($this->data[$field])
+            ? $this->data[$field]
+            : $this->searchField($field);
+    }
+
+    /**
+     * Search for a field.
+     *
+     * @param  string $search
+     * @return
+     */
+    protected function searchField($search)
+    {
+        foreach($this->data as $field) {
+            if(method_exists($field, 'getField') && $find = $field->getField($search)) {
+                break;
+            }
+        }
+
+        return $find;
     }
 
     /**

@@ -79,6 +79,19 @@ class Tab extends Field
     }
 
     /**
+     * Get field.
+     *
+     * @param  string $search
+     * @return mixed
+     */
+    public function getField($search)
+    {
+        return isset($this->data[$search])
+            ? $this->data[$search]
+            : null;
+    }
+
+    /**
      * Build.
      *
      * @param  array        $data
