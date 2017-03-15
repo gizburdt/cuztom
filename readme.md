@@ -28,10 +28,10 @@ Add Meta Boxes.
         array(
             'title'     => 'Book Info',
             'fields'    => array(
-                'name'          => 'author',
-                'label'         => 'Author',
-                'description'   => 'Just a little description',
-                'type'          => 'text'
+                'id'           => '_author',
+                'label'        => 'Author',
+                'description'  => 'Just a little description',
+                'type'         => 'text'
             )
         )
     );
