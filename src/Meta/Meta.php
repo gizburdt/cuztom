@@ -80,8 +80,6 @@ abstract class Meta
      */
     public function __construct($id, $data)
     {
-        global $cuztom;
-
         // Set all properties
         foreach ($data as $property => $value) {
             $this->$property = isset($data[$property]) ? $data[$property] : $this->$property;
@@ -100,7 +98,7 @@ abstract class Meta
             $this->data = $this->build($this->fields);
 
             // Assign global
-            $cuztom->data[$this->id] = $this;
+            Cuztom::addBox($this);
         }
     }
 

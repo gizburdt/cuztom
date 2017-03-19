@@ -3,7 +3,10 @@
         class="button button-small"
         href="#"
         @click.prevent="addItem"
-        :disabled="(<?php echo $bundle->limit ?> && list.length >= <?php echo $bundle->limit ?>) || loading"
+        :disabled="
+            <?php echo $bundle->limit ? "($bundle->limit && list.length >= $bundle->limit)" : "false"; ?>
+            || loading
+        "
     >
         <?php _e('Add item', 'cuztom'); ?>
     </a>

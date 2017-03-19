@@ -41,10 +41,16 @@ class Cuztom
     private static $instance;
 
     /**
-     * Ajax.
+     * Data.
      * @var object
      */
-    private static $ajax;
+    public static $data = array();
+
+    /**
+     * Fields.
+     * @var array
+     */
+    public static $fields = array();
 
     /**
      * Reserved terms.
@@ -76,6 +82,7 @@ class Cuztom
             self::$instance->includes();
             self::$instance->execute();
             self::$instance->hooks();
+            self::$instance->ajax();
         }
 
         return self::$instance;
@@ -157,14 +164,9 @@ class Cuztom
      */
     private function execute()
     {
-        // Globals
         global $cuztom;
 
-        // Cuztom
-        $cuztom          = new \stdClass();
-        $cuztom->version = self::$version;
-        $cuztom->data    = array();
-        $cuztom->ajax    = new Ajax();
+        $cuztom = new self();
     }
 
     /**
@@ -177,6 +179,16 @@ class Cuztom
 
         add_action('admin_init', array(&$this, 'registerScripts'));
         add_action('admin_enqueue_scripts', array(&$this, 'enqueueScripts'));
+    }
+
+    /**
+     * Init Ajax.
+     *
+     * @return void
+     */
+    private function ajax()
+    {
+        (new Ajax)->init();
     }
 
     /**
@@ -308,9 +320,48 @@ class Cuztom
      */
     public static function getBox($box)
     {
-        global $cuztom;
+        return isset(self::$data[$box]) ? self::$data[$box] : null;
+    }
 
-        return isset($cuztom->data[$box]) ? $cuztom->data[$box] : null;
+    /**
+     * Add box to global.
+     *
+     * @param object $box
+     */
+    public static function addBox($box)
+    {
+        self::$data[$box->id] = $box;
+    }
+
+    /**
+     * Get field.
+     *
+     * @param  string $field
+     * @return object
+     */
+    public static function getField($field)
+    {
+        return isset(self::$fields[$field]) ? self::$fields[$field] : null;
+    }
+
+    /**
+     * Add field to global.
+     *
+     * @param object $field
+     */
+    public static function addField($field)
+    {
+        self::$fields[$field->id] = $field;
+    }
+
+    /**
+     * Get all fields.
+     *
+     * @return array
+     */
+    public static function getFields()
+    {
+        return self::$fields;
     }
 
     /**

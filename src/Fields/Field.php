@@ -418,9 +418,11 @@ abstract class Field
         $class = "Gizburdt\\Cuztom\\Fields\\$class";
 
         if (class_exists($class)) {
-            return new $class($args, $values);
-        }
+            $field = new $class($args, $values);
 
-        return false;
+            Cuztom::addField($field);
+
+            return $field;
+        }
     }
 }

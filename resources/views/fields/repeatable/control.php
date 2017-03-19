@@ -3,7 +3,10 @@
         href="#"
         class="button button-small"
         @click.prevent="addItem"
-        :disabled="(<?php echo $field->limit ?> && list.length >= <?php echo $field->limit ?>) || loading"
+        :disabled="
+            <?php echo $field->limit ? "($field->limit && list.length >= $field->limit)" : "false"; ?>
+            || loading
+        "
     >
         <?php _e('Add item', 'cuztom'); ?>
     </a>

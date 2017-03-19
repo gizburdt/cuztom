@@ -19,7 +19,7 @@ class Ajax
     /**
      * Constructor.
      */
-    public function __construct()
+    public function init()
     {
         self::$request = new Request($_POST);
 
@@ -160,9 +160,8 @@ class Ajax
      */
     public static function getField()
     {
-        $box   = self::$request->get('box');
         $field = self::$request->get('field');
 
-        return Cuztom::getBox($box)->getField($field);
+        return Cuztom::getField($field);
     }
 }
