@@ -188,7 +188,7 @@ class Cuztom
      */
     private function ajax()
     {
-        (new Ajax)->init();
+        (new Ajax())->init();
     }
 
     /**

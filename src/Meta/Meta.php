@@ -150,13 +150,13 @@ abstract class Meta
     /**
      * Search for a field.
      *
-     * @param  string $search
+     * @param string $search
      * @return
      */
     protected function searchField($search)
     {
-        foreach($this->data as $field) {
-            if(method_exists($field, 'getField') && $find = $field->getField($search)) {
+        foreach ($this->data as $field) {
+            if (method_exists($field, 'getField') && $find = $field->getField($search)) {
                 break;
             }
         }
