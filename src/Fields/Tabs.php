@@ -100,8 +100,8 @@ class Tabs extends Field
      */
     public function getField($search)
     {
-        foreach($this->data as $field) {
-            if($find = $field->getField($search)) {
+        foreach ($this->data as $field) {
+            if ($find = $field->getField($search)) {
                 break;
             }
         }
