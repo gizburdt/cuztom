@@ -1,30 +1,41 @@
 
-if($('.v-cuztom').length) {
-    new Vue({
+(function() {
+    var vCuztom = $('.v-cuztom')
 
-        el: '.v-cuztom',
+    if(vCuztom.length) {
 
-        data: {},
+        vCuztom.each(function(index, element){
 
-        methods: {
+            new Vue({
 
-            reload: function() {
-                this.reloadVue();
+                el: element,
 
-                this.reloadCuztomUI();
-            },
+                data: {},
 
-            reloadVue: function() {
-                // this.$forceUpdate();
-            },
+                methods: {
 
-            reloadCuztomUI: function() {
-                Vue.nextTick(function () {
-                    cuztomUI(document);
-                });
-            }
+                    reload: function() {
+                        this.reloadVue();
 
-        }
+                        this.reloadCuztomUI();
+                    },
 
-    });
-}
+                    reloadVue: function() {
+                        // this.$forceUpdate();
+                    },
+
+                    reloadCuztomUI: function() {
+                        Vue.nextTick(function () {
+                            cuztomUI(document);
+                        });
+                    }
+
+                }
+
+            });
+
+        });
+
+    }
+
+})();
