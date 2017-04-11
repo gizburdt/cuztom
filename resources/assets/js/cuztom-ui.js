@@ -59,9 +59,10 @@ var cuztomUI;
 
     // WYSIWYG
     if(typeof tinymce !== 'undefined') {
-        $('.wp-editor-area').each(function(){
+        $('.js-cuztom-wysiwyg').each(function(){
             var editorId = $(this).attr('id');
 
+            tinymce.execCommand('mceRemoveEditor', true, editorId);
             tinymce.execCommand('mceAddEditor', true, editorId);
 
             quicktags({id: editorId});
