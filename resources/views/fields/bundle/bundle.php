@@ -1,6 +1,6 @@
 <?php use Gizburdt\Cuztom\Cuztom; ?>
 
-<tr class="cuztom-cell cuztom-bundle" v-cloak>
+<tr class="cuztom-cell cuztom-bundle js-cuztom-bundle" v-cloak>
     <td class="cuztom-field" colspan="2">
         <v-cuztom-bundle
             id="<?php echo $bundle->getId(); ?>"

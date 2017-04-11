@@ -59,7 +59,7 @@ var cuztomUI;
 
     // WYSIWYG
     if(typeof tinymce !== 'undefined') {
-        $('.js-cuztom-wysiwyg').each(function(){
+        $('.js-cuztom-bundle .js-cuztom-wysiwyg').each(function(){
             var editorId = $(this).attr('id');
 
             tinymce.execCommand('mceRemoveEditor', true, editorId);
