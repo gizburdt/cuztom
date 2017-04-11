@@ -11,6 +11,23 @@ var cuztomUI;
 (cuztomUI = function(object) {
     var object = $(object);
 
+    // Variables
+    var cuztomWysiwyg;
+
+    // Helpers
+    (cuztomWysiwyg = function() {
+        if(typeof tinymce !== 'undefined') {
+            $('.js-cuztom-sortable .js-cuztom-wysiwyg').each(function(){
+                var editorId = $(this).attr('id');
+
+                tinymce.execCommand('mceRemoveEditor', true, editorId);
+                tinymce.execCommand('mceAddEditor', true, editorId);
+
+                quicktags({id: editorId});
+            });
+        }
+    })(document);
+
     // Datepicker
     $('.js-cuztom-datepicker', object).each(function(i, item) {
         return $(item).datetimepicker({
@@ -54,18 +71,9 @@ var cuztomUI;
     // Sortable
     $('.js-cuztom-sortable', object).sortable({
         items: '> li',
-        handle: '.js-cuztom-sortable-item-handle'
+        handle: '.js-cuztom-sortable-item-handle',
+        stop: function() {
+            cuztomWysiwyg();
+        }
     });
-
-    // WYSIWYG
-    if(typeof tinymce !== 'undefined') {
-        $('.js-cuztom-bundle .js-cuztom-wysiwyg').each(function(){
-            var editorId = $(this).attr('id');
-
-            tinymce.execCommand('mceRemoveEditor', true, editorId);
-            tinymce.execCommand('mceAddEditor', true, editorId);
-
-            quicktags({id: editorId});
-        });
-    }
 })(document);
