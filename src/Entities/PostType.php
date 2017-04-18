@@ -25,6 +25,9 @@ class PostType extends Entity
         if (! post_type_exists($this->name)) {
             $this->registerEntity();
         }
+
+        // Do
+        do_action('cuztom_post_type');
     }
 
     /**
@@ -37,7 +40,7 @@ class PostType extends Entity
         parent::registerEntity();
 
         // Args
-        $args = array_merge(
+        $args = apply_filters('cuztom_post_type_args', array_merge(
             array(
                 'label'       => sprintf(__('%s', 'cuztom'), $this->plural),
                 'public'      => true,
@@ -61,7 +64,7 @@ class PostType extends Entity
                 ),
             ),
             $this->original
-        );
+        ), $this);
 
         // Register the post type
         register_post_type($this->name, $args);
