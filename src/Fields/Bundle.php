@@ -27,6 +27,9 @@ class Bundle extends Field
         parent::__construct($args, $values);
 
         $this->data = $this->build($args);
+
+        // Do
+        do_action('cuztom_bundle_init', $this);
     }
 
     /**
@@ -71,6 +74,12 @@ class Bundle extends Field
         $values = is_array($values)
             ? array_values($values)
             : array();
+
+        // Filter
+        $values = apply_filters('cuztom_bundle_save_values', $values, $this);
+
+        // Do
+        do_action('cuztom_bundle_save', $this);
 
         foreach ($values as $cell => $fields) {
             foreach ($fields as $id => $value) {
