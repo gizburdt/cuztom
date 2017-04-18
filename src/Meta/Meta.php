@@ -132,6 +132,9 @@ abstract class Meta
             return;
         }
 
+        // Filter
+        $values = apply_filters('cuztom_meta_values', $values, $this);
+
         // Do
         do_action('cuztom_meta_save', $this);
 
