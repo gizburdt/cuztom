@@ -113,7 +113,7 @@ class Term extends Meta
             return;
         }
 
-        $values = apply_filter('cuztom_term_save_values', (new Request($_POST))->getAll(), $this);
+        $values = apply_filters('cuztom_term_save_values', (new Request($_POST))->getAll(), $this);
 
         parent::save($id, $values);
     }
@@ -170,6 +170,6 @@ class Term extends Meta
      */
     public function getMetaValues()
     {
-        return apply_filter('cuztom_term_values', get_term_meta($this->object), $this);
+        return apply_filters('cuztom_term_values', get_term_meta($this->object), $this);
     }
 }
