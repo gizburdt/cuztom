@@ -119,7 +119,11 @@ class Box extends Meta
             return;
         }
 
+        // Filter
         $values = apply_filters('cuztom_box_save_values', (new Request($_POST))->getAll(), $this);
+
+        // Do
+        do_action('cuztom_box_save', $this);
 
         parent::save($id, $values);
     }

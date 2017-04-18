@@ -87,7 +87,11 @@ class User extends Meta
             return;
         }
 
+        // Filter
         $values = apply_filters('cuztom_user_save_values', (new Request($_POST))->getAll(), $this);
+
+        // Do
+        do_action('cuztom_user_save', $this);
 
         parent::save($id, $values);
     }
