@@ -51,6 +51,9 @@ class Box extends Meta
 
         // Hooks
         $this->addHooks();
+
+        // Do
+        do_action('cuztom_box_init', $this);
     }
 
     /**
@@ -71,6 +74,9 @@ class Box extends Meta
 
         // Add the meta box
         add_action('add_meta_boxes', array(&$this, 'addMetaBox'));
+
+        // Do
+        do_action('cuztom_box_hooks', $this);
     }
 
     /**
@@ -113,7 +119,7 @@ class Box extends Meta
             return;
         }
 
-        $values = (new Request($_POST))->getAll();
+        $values = apply_filter('cuztom_box_save_values', (new Request($_POST))->getAll(), $this);
 
         parent::save($id, $values);
     }
@@ -194,6 +200,6 @@ class Box extends Meta
      */
     public function getMetaValues()
     {
-        return get_post_meta($this->object);
+        return apply_filter('cuztom_box_values', get_post_meta($this->object), $this);
     }
 }
