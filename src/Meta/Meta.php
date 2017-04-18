@@ -100,6 +100,9 @@ abstract class Meta
             // Assign global
             Cuztom::addBox($this);
         }
+
+        // Do
+        do_action('cuztom_meta_init', $this);
     }
 
     /**
@@ -128,6 +131,12 @@ abstract class Meta
         if (Cuztom::isEmpty($values)) {
             return;
         }
+
+        // Filter
+        $values = apply_filters('cuztom_meta_values', $values, $this);
+
+        // Do
+        do_action('cuztom_meta_save', $this);
 
         foreach ($this->data as $id => $field) {
             $field->save($object, $values);

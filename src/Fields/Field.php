@@ -101,6 +101,9 @@ abstract class Field
 
         // Value
         $this->value = $this->substractValue($values);
+
+        // Do
+        do_action('cuztom_field_init', $this);
     }
 
     /**
@@ -197,8 +200,11 @@ abstract class Field
     public function save($object, $values)
     {
         $value = isset($values[$this->id])
-            ? $this->parseValue($values[$this->id])
+            ? apply_filters('cuztom_field_save_value', $this->parseValue($values[$this->id]), $this)
             : false;
+
+        // Do
+        do_action('cuztom_field_save', $this);
 
         // Save to respective content-type
         switch ($this->metaType) {
@@ -230,7 +236,7 @@ abstract class Field
      */
     public function getInputType()
     {
-        return apply_filters('cuztom_field_inputType', $this->inputType, $this);
+        return apply_filters('cuztom_field_input_type', $this->inputType, $this);
     }
 
     /**
@@ -396,13 +402,15 @@ abstract class Field
     {
         if (! Cuztom::isEmpty(@$values[$this->id])) {
             if (is_array($values[$this->id])) {
-                return maybe_unserialize(@$values[$this->id][0]);
+                $value = maybe_unserialize(@$values[$this->id][0]);
             } else {
-                return maybe_unserialize(@$values[$this->id]);
+                $value = maybe_unserialize(@$values[$this->id]);
             }
         } else {
-            return $this->default_value;
+            $value = $this->default_value;
         }
+
+        return apply_filters('cuztom_field_value', $value, $this);
     }
 
     /**

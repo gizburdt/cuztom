@@ -55,6 +55,6 @@ class Notice
      */
     public function getCssClass()
     {
-        return $this->type.($this->dismissible ? ' is-dismissible' : '');
+        return apply_filters('cuztom_notice_class', $this->type.($this->dismissible ? ' is-dismissible' : ''), $this);
     }
 }

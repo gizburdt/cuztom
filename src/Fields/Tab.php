@@ -37,6 +37,9 @@ class Tab extends Field
         }
 
         $this->data  = $this->build($args, $values);
+
+        // Do
+        do_action('cuztom_tabs_init', $this);
     }
 
     /**
@@ -62,8 +65,10 @@ class Tab extends Field
      */
     public function save($object, $values)
     {
+        do_action('cuztom_tab_save', $this);
+
         foreach ($this->data as $field) {
-            $field->save($object, $values);
+            $field->save($object, apply_filters('cuztom_tab_save_values', $values, $this));
         }
     }
 

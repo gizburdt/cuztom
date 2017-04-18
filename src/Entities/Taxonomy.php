@@ -41,6 +41,9 @@ class Taxonomy extends Entity
 
         // Hooks
         $this->addHooks();
+
+        // Do
+        do_action('cuztom_taxonomy_init');
     }
 
     /**
@@ -59,6 +62,9 @@ class Taxonomy extends Entity
             add_action('restrict_manage_posts', array(&$this, 'adminColumnFilter'));
             add_filter('parse_query', array(&$this, 'postFilterQuery'));
         }
+
+        // Do
+        do_action('cuztom_taxonomy_hooks');
     }
 
     /**
@@ -71,7 +77,7 @@ class Taxonomy extends Entity
         parent::registerEntity();
 
         // Args
-        $args = array_merge(
+        $args = apply_filters('cuztom_taxonomy_args', array_merge(
             array(
                 'label'             => sprintf(__('%s', 'cuztom'), $this->plural),
                 'hierarchical'      => true,
@@ -95,7 +101,7 @@ class Taxonomy extends Entity
                 ),
             ),
             $this->original
-        );
+        ), $this);
 
         register_taxonomy($this->name, $this->postType, $args);
     }

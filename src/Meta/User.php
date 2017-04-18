@@ -39,6 +39,9 @@ class User extends Meta
 
         // Hooks
         $this->addHooks();
+
+        // Do
+        do_action('cuztom_user_init', $this);
     }
 
     /**
@@ -56,6 +59,9 @@ class User extends Meta
         foreach ($this->locations as $location) {
             add_action($location, $this->callback);
         }
+
+        // Do
+        do_action('cuztom_user_hooks', $this);
     }
 
     /**
@@ -81,7 +87,11 @@ class User extends Meta
             return;
         }
 
-        $values = (new Request($_POST))->getAll();
+        // Filter
+        $values = apply_filters('cuztom_user_save_values', (new Request($_POST))->getAll(), $this);
+
+        // Do
+        do_action('cuztom_user_save', $this);
 
         parent::save($id, $values);
     }
@@ -109,6 +119,6 @@ class User extends Meta
      */
     public function getMetaValues()
     {
-        return get_user_meta($this->object);
+        return apply_filters('cuztom_user_values', get_user_meta($this->object), $this);
     }
 }

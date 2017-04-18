@@ -39,6 +39,9 @@ class Item extends Field
         parent::__construct($args, $values);
 
         $this->data = $this->build($args, $values);
+
+        // Do
+        do_action('cuztom_bundle_item_init', $this);
     }
 
     /**

@@ -47,6 +47,9 @@ class Term extends Meta
 
         // Hooks
         $this->addHooks();
+
+        // Do
+        do_action('cuztom_term_init', $this);
     }
 
     /**
@@ -70,6 +73,9 @@ class Term extends Meta
                 add_filter('manage_'.$taxonomy.'_custom_column', array(&$this, 'addColumnContent'), 10, 3);
             }
         }
+
+        // Do
+        do_action('cuztom_term_hooks', $this);
     }
 
     /**
@@ -107,7 +113,11 @@ class Term extends Meta
             return;
         }
 
-        $values = (new Request($_POST))->getAll();
+        // Filter
+        $values = apply_filters('cuztom_term_save_values', (new Request($_POST))->getAll(), $this);
+
+        // Do
+        do_action('cuztom_term_save', $this);
 
         parent::save($id, $values);
     }
@@ -164,6 +174,6 @@ class Term extends Meta
      */
     public function getMetaValues()
     {
-        return get_term_meta($this->object);
+        return apply_filters('cuztom_term_values', get_term_meta($this->object), $this);
     }
 }

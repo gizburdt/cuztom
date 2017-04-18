@@ -97,6 +97,9 @@ class Cuztom
         self::$src     = dirname(__FILE__);
         self::$dir     = dirname(dirname(__FILE__));
         self::$url     = $this->getCuztomUrl(self::$src);
+
+        // Do
+        do_action('cuztom_setup');
     }
 
     /**
@@ -157,6 +160,9 @@ class Cuztom
         require_once self::$src.'/Fields/TaxonomySelect.php';
         require_once self::$src.'/Fields/TaxonomyCheckboxes.php';
         require_once self::$src.'/Fields/Hidden.php';
+
+        // Do
+        do_action('cuztom_includes');
     }
 
     /**
@@ -167,6 +173,9 @@ class Cuztom
         global $cuztom;
 
         $cuztom = new self();
+
+        // Do
+        do_action('cuztom_execute');
     }
 
     /**
@@ -179,6 +188,9 @@ class Cuztom
 
         add_action('admin_init', array(&$this, 'registerScripts'));
         add_action('admin_enqueue_scripts', array(&$this, 'enqueueScripts'));
+
+        // Do
+        do_action('cuztom_hooks');
     }
 
     /**
@@ -211,6 +223,9 @@ class Cuztom
             self::$version,
             'screen'
         );
+
+        // Do
+        do_action('cuztom_register_styles');
     }
 
     /**
@@ -221,6 +236,9 @@ class Cuztom
         wp_enqueue_style('wp-color-picker');
         wp_enqueue_style('cuztom-jquery-ui');
         wp_enqueue_style('cuztom');
+
+        // Do
+        do_action('cuztom_enqueue_styles');
     }
 
     /**
@@ -244,6 +262,9 @@ class Cuztom
             self::$version,
             true
         );
+
+        // Do
+        do_action('cuztom_regiter_scripts');
     }
 
     /**
@@ -255,6 +276,9 @@ class Cuztom
         wp_enqueue_script('cuztom');
 
         self::localizeScripts();
+
+        // Do
+        do_action('cuztom_enqueue_scripts');
     }
 
     /**
@@ -270,6 +294,9 @@ class Cuztom
             'dateFormat' => get_option('date_format'),
             'translate'  => array()
         ));
+
+        // Do
+        do_action('cuztom_localize_scripts');
     }
 
     /**
@@ -466,7 +493,7 @@ class Cuztom
      */
     public static function time($string)
     {
-        return strtotime(str_replace('/', '-', $string));
+        return apply_filters('cuztom_time', strtotime(str_replace('/', '-', $string)));
     }
 
     /**

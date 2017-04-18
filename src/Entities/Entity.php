@@ -54,6 +54,9 @@ abstract class Entity
         // Labels
         $this->title  = Cuztom::beautify($name);
         $this->plural = Cuztom::pluralize($this->title);
+
+        // Do
+        do_action('cuztom_entity_init');
     }
 
     /**
@@ -66,7 +69,5 @@ abstract class Entity
         if ($reserved = Cuztom::isReservedTerm($this->name)) {
             return new Notice($reserved->get_error_message(), 'error');
         }
-
-        // ..
     }
 }
