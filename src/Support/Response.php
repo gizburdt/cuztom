@@ -21,10 +21,10 @@ class Response
      */
     public function __construct($status, $data = array())
     {
-        $this->response = array(
+        $this->response = apply_filters('cuztom_repsonse_attributes', array(
             'status'  => $status,
             'content' => $data
-        );
+        ), $this);
     }
 
     /**

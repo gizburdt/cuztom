@@ -24,6 +24,9 @@ class Ajax
         self::$request = new Request($_POST);
 
         $this->addHooks();
+
+        // Do
+        do_action('cuztom_ajax_init');
     }
 
     /**
@@ -39,7 +42,8 @@ class Ajax
         add_action('wp_ajax_cuztom_setup_bundle_list', array(&$this, 'setupBundleList'));
         add_action('wp_ajax_cuztom_add_bundle_item', array(&$this, 'addBundleItem'));
 
-        // More
+        // Do
+        do_action('cuztom_ajax_hooks');
     }
 
     /**
