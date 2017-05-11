@@ -131,7 +131,7 @@ class Term extends Meta
     public function addColumn($columns)
     {
         foreach ($this->fields as $id => $field) {
-            if ( isset( $field->show_admin_column ) && $field->show_admin_column) {
+            if (isset($field->show_admin_column) && $field->show_admin_column) {
                 $columns[$id] = $field->label;
             }
         }
@@ -148,12 +148,12 @@ class Term extends Meta
      */
     public function addColumnContent($row, $column, $termId)
     {
-		if(isset($this->fields[$column]) && $field = $this->fields[$column]) {
-        	echo $field->outputColumnContent();
-		} else {
-			return $row;
-		}
-	}
+        if (isset($this->fields[$column]) && $field = $this->fields[$column]) {
+            echo $field->outputColumnContent();
+        } else {
+            return $row;
+        }
+    }
 
     /**
      * Get object ID.
