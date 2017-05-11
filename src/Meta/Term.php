@@ -147,12 +147,10 @@ class Term extends Meta
      * @param int    $termId
      */
     public function addColumnContent($row, $column, $termId)
-    {	
-		if( isset( $this->fields[$column] ) ){
-       		$field = $this->fields[$column];
-
+    {
+		if(isset($this->fields[$column]) && $field = $this->fields[$column]) {
         	echo $field->outputColumnContent();
-		}else{
+		} else {
 			return $row;
 		}
 	}
