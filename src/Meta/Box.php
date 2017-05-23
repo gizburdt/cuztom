@@ -41,13 +41,19 @@ class Box extends Meta
      * @param array        $data
      * @param string|array $post_type
      */
-    public function __construct($id, $postType, $data = array())
+    public function __construct($id, $postType, $data = array(), $context = null, $priority = null)
     {
         // Build all properties
         parent::__construct($id, $data);
 
         // Set post types
         $this->postTypes = (array) $postType;
+        
+        // Check for context
+        if ( ! is_null($context) ) $this->context =  $context;
+
+        // Check for priority
+        if ( ! is_null($priority) ) $this->priority = $priority;
 
         // Hooks
         $this->addHooks();
