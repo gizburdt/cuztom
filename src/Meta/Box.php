@@ -50,12 +50,12 @@ class Box extends Meta
         $this->postTypes = (array) $postType;
         
         // Check for context
-        if ( ! is_null($context) ) {
+        if (! is_null($context)) {
             $this->context =  $context;
         }
 
         // Check for priority
-        if ( ! is_null($priority) ) {
+        if (! is_null($priority)) {
             $this->priority = $priority;
         }
 
