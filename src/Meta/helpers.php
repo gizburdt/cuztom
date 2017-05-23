@@ -16,7 +16,7 @@ if (! function_exists('register_cuztom_meta_box')) {
      * @param  string|array $postType
      * @return object
      */
-    function register_cuztom_meta_box($id, $postType, $data = array())
+    function register_cuztom_meta_box($id, $postType, $data = array(), $context = null, $priority = null)
     {
         return new MetaBox($id, $postType, $data);
     }
