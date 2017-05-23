@@ -470,7 +470,7 @@ class Cuztom
         // Check for irregular words
         foreach ($irregular as $noun) {
             if (strtolower($string) == $noun[0]) {
-                return apply_filters('cuztom_pluralize', $noun[1], 'irregular');
+                return apply_filters('cuztom_pluralize', ucwords($noun[1]), 'irregular');
             }
         }
 
