@@ -15,13 +15,13 @@
                 methods: {
 
                     reload: function() {
-                        this.reloadVue();
+                        // this.reloadVue();
 
                         this.reloadCuztomUI();
                     },
 
                     reloadVue: function() {
-                        // this.$forceUpdate();
+                        this.$forceUpdate();
                     },
 
                     reloadCuztomUI: function() {
