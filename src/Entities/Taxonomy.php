@@ -51,14 +51,14 @@ class Taxonomy extends Entity
      */
     public function addHooks()
     {
-        if (Cuztom::isTrue($this->original['admin_column_sortable'])) {
+        if (@$this->original['admin_column_sortable']) {
             foreach ($this->postType as $postType) {
                 add_action("manage_edit-{$postType}_sortable_columns", array(&$this, 'addSortableColumn'));
             }
         }
 
         // Column filter
-        if (Cuztom::isTrue($this->original['admin_column_filter'])) {
+        if (@$this->original['admin_column_filter']) {
             add_action('restrict_manage_posts', array(&$this, 'adminColumnFilter'));
             add_filter('parse_query', array(&$this, 'postFilterQuery'));
         }

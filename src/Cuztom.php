@@ -470,14 +470,18 @@ class Cuztom
         // Check for irregular words
         foreach ($irregular as $noun) {
             if (strtolower($string) == $noun[0]) {
-                return apply_filters('cuztom_pluralize', $noun[1], 'irregular');
+                return apply_filters('cuztom_pluralize', ucwords($noun[1]), 'irregular');
             }
         }
 
         // Check for plural forms
         foreach ($specials as $pattern) {
             if (preg_match($pattern[0], $string)) {
-                return apply_filters('cuztom_pluralize', preg_replace($pattern[0], $pattern[1], $string), 'special');
+                return apply_filters(
+                    'cuztom_pluralize',
+                    ucwords(preg_replace($pattern[0], $pattern[1], $string)),
+                    'special'
+                );
             }
         }
 
@@ -511,17 +515,6 @@ class Cuztom
         include self::$dir.'/resources/views/'.$view.'.php';
 
         return ob_get_clean();
-    }
-
-    /**
-     * Check if isset and true.
-     *
-     * @param  string $input Mostly an array element
-     * @return bool
-     */
-    public static function isTrue($input)
-    {
-        return isset($input) && $input == true;
     }
 
     /**
