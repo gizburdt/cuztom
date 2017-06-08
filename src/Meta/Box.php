@@ -137,12 +137,15 @@ class Box extends Meta
     public function addColumn($columns)
     {
         unset($columns['date']);
+
         foreach ($this->fields as $id => $field) {
-            if (isset($field->show_admin_column) &&  $field->show_admin_column) {
+            if (isset($field->show_admin_column) && $field->show_admin_column) {
                 $columns[$id] = $field->label;
             }
         }
+
         $columns['date'] = __('Date');
+
         return $columns;
     }
     /**
@@ -152,11 +155,10 @@ class Box extends Meta
      * @param int    $postId
      */
     public function addColumnContent($column, $postId)
-	{	
-		if(isset($this->fields[$column])){
-       		$field = $this->fields[$column];
+	{
+		if (isset($this->fields[$column]) && $field = $this->fields[$column]) {
        		echo $field->outputColumnContent();
-		}else{
+		} else {
 			return $column;
 		}
 	}
