@@ -148,6 +148,7 @@ class Box extends Meta
 
         return $columns;
     }
+
     /**
      * Used to add the column content to the column head.
      *
@@ -155,13 +156,13 @@ class Box extends Meta
      * @param int    $postId
      */
     public function addColumnContent($column, $postId)
-	{
-		if (isset($this->fields[$column]) && $field = $this->fields[$column]) {
-       		echo $field->outputColumnContent();
-		} else {
-			return $column;
-		}
-	}
+    {
+        if (isset($this->fields[$column]) && $field = $this->fields[$column]) {
+            echo $field->outputColumnContent();
+        } else {
+            return $column;
+        }
+    }
 
     /**
      * Used to make all columns sortable.
