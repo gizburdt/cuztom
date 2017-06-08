@@ -137,18 +137,14 @@ class Box extends Meta
     public function addColumn($columns)
     {
         unset($columns['date']);
-
         foreach ($this->fields as $id => $field) {
-            if ($field->show_admin_column) {
+            if (isset($field->show_admin_column) &&  $field->show_admin_column) {
                 $columns[$id] = $field->label;
             }
         }
-
         $columns['date'] = __('Date');
-
         return $columns;
     }
-
     /**
      * Used to add the column content to the column head.
      *
@@ -156,11 +152,14 @@ class Box extends Meta
      * @param int    $postId
      */
     public function addColumnContent($column, $postId)
-    {
-        $field = $this->fields[$column];
-
-        echo $field->outputColumnContent($postId);
-    }
+	{	
+		if(isset($this->fields[$column])){
+       		$field = $this->fields[$column];
+       		echo $field->outputColumnContent();
+		}else{
+			return $column;
+		}
+	}
 
     /**
      * Used to make all columns sortable.
