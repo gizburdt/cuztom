@@ -79,7 +79,6 @@ class Cuztom
             self::$instance = new self();
 
             self::$instance->setup();
-            self::$instance->includes();
             self::$instance->execute();
             self::$instance->hooks();
             self::$instance->ajax();
@@ -100,69 +99,6 @@ class Cuztom
 
         // Do
         do_action('cuztom_setup');
-    }
-
-    /**
-     * Include the necessary files.
-     */
-    private function includes()
-    {
-        // Support
-        require_once self::$src.'/Support/Guard.php';
-        require_once self::$src.'/Support/Notice.php';
-        require_once self::$src.'/Support/Ajax.php';
-        require_once self::$src.'/Support/Request.php';
-        require_once self::$src.'/Support/Response.php';
-
-        // Entity
-        require_once self::$src.'/Entities/Entity.php';
-        require_once self::$src.'/Entities/PostType.php';
-        require_once self::$src.'/Entities/Taxonomy.php';
-        require_once self::$src.'/Entities/Sidebar.php';
-        require_once self::$src.'/Entities/helpers.php';
-
-        // Meta
-        require_once self::$src.'/Meta/Meta.php';
-        require_once self::$src.'/Meta/Box.php';
-        require_once self::$src.'/Meta/User.php';
-        require_once self::$src.'/Meta/Term.php';
-        require_once self::$src.'/Meta/helpers.php';
-
-        // Fields
-        require_once self::$src.'/Fields/Traits/Checkable.php';
-        require_once self::$src.'/Fields/Traits/Checkables.php';
-        require_once self::$src.'/Fields/Traits/Selectable.php';
-        require_once self::$src.'/Fields/Field.php';
-        require_once self::$src.'/Fields/Bundle.php';
-        require_once self::$src.'/Fields/Bundle/Item.php';
-        require_once self::$src.'/Fields/Tabs.php';
-        require_once self::$src.'/Fields/Accordion.php';
-        require_once self::$src.'/Fields/Tab.php';
-        require_once self::$src.'/Fields/Text.php';
-        require_once self::$src.'/Fields/Textarea.php';
-        require_once self::$src.'/Fields/Checkbox.php';
-        require_once self::$src.'/Fields/YesNo.php';
-        require_once self::$src.'/Fields/Select.php';
-        require_once self::$src.'/Fields/MultiSelect.php';
-        require_once self::$src.'/Fields/Checkboxes.php';
-        require_once self::$src.'/Fields/Radios.php';
-        require_once self::$src.'/Fields/Wysiwyg.php';
-        require_once self::$src.'/Fields/Image.php';
-        require_once self::$src.'/Fields/File.php';
-        require_once self::$src.'/Fields/DateTime.php';
-        require_once self::$src.'/Fields/Date.php';
-        require_once self::$src.'/Fields/Time.php';
-        require_once self::$src.'/Fields/Color.php';
-        require_once self::$src.'/Fields/PostSelect.php';
-        require_once self::$src.'/Fields/PostCheckboxes.php';
-        require_once self::$src.'/Fields/TermSelect.php';
-        require_once self::$src.'/Fields/TermCheckboxes.php';
-        require_once self::$src.'/Fields/TaxonomySelect.php';
-        require_once self::$src.'/Fields/TaxonomyCheckboxes.php';
-        require_once self::$src.'/Fields/Hidden.php';
-
-        // Do
-        do_action('cuztom_includes');
     }
 
     /**
@@ -606,5 +542,3 @@ class Cuztom
         return new \WP_Error('cuztom_reserved_term_used', __('Use of a reserved term.', 'cuztom'));
     }
 }
-
-Cuztom::run();
