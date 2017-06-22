@@ -79,7 +79,6 @@ class Cuztom
             self::$instance = new self();
 
             self::$instance->setup();
-            self::$instance->includes();
             self::$instance->execute();
             self::$instance->hooks();
             self::$instance->ajax();
@@ -100,15 +99,6 @@ class Cuztom
 
         // Do
         do_action('cuztom_setup');
-    }
-
-    /**
-     * Include the necessary files.
-     */
-    private function includes()
-    {
-        // Do
-        do_action('cuztom_includes');
     }
 
     /**
