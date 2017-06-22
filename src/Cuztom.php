@@ -606,5 +606,3 @@ class Cuztom
         return new \WP_Error('cuztom_reserved_term_used', __('Use of a reserved term.', 'cuztom'));
     }
 }
-
-Cuztom::run();
