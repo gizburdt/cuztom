@@ -15,6 +15,10 @@
     "autoload": {
         "psr-4": {
             "Gizburdt\\Cuztom\\": "src/"
-        }
+        },
+        "files": [
+            "src/Entities/helpers.php",
+            "src/Meta/Helpers.php"
+        ]
     }
 }
