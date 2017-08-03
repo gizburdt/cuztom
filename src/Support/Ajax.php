@@ -81,10 +81,6 @@ class Ajax
             return;
         }
 
-        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
-            return;
-        }
-
         $field = self::getField();
         $count = self::$request->get('count');
 
