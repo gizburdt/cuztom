@@ -466,11 +466,11 @@ class Cuztom
             foreach ($input as $value) {
                 $result = $result && self::isEmpty($value);
             }
-        } else {
-            $result = empty($input);
+            
+            return $result;
         }
 
-        return $result;
+        return empty($input);
     }
 
     /**
