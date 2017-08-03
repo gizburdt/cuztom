@@ -3,7 +3,6 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Field\Accordion;
 use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
@@ -372,7 +371,7 @@ abstract class Field
      */
     public function isTabs()
     {
-        return $this instanceof \Gizburdt\Cuztom\Fields\Tabs || $this instanceof \Gizburdt\Cuztom\Fields\Accordion;
+        return $this instanceof Tabs || $this instanceof Accordion;
     }
 
     /**
@@ -382,7 +381,7 @@ abstract class Field
      */
     public function isBundle()
     {
-        return $this instanceof \Gizburdt\Cuztom\Fields\Bundle;
+        return $this instanceof Bundle;
     }
 
     /**
