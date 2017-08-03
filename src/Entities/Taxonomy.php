@@ -53,14 +53,14 @@ class Taxonomy extends Entity
     {
         if (isset($this->original['admin_column_sortable']) && $this->original['admin_column_sortable']) {
             foreach ($this->postType as $postType) {
-                add_action("manage_edit-{$postType}_sortable_columns", array(&$this, 'addSortableColumn'));
+                add_action("manage_edit-{$postType}_sortable_columns", array($this, 'addSortableColumn'));
             }
         }
 
         // Column filter
         if (isset($this->original['admin_column_filter']) && $this->original['admin_column_filter']) {
-            add_action('restrict_manage_posts', array(&$this, 'adminColumnFilter'));
-            add_filter('parse_query', array(&$this, 'postFilterQuery'));
+            add_action('restrict_manage_posts', array($this, 'adminColumnFilter'));
+            add_filter('parse_query', array($this, 'postFilterQuery'));
         }
 
         // Do

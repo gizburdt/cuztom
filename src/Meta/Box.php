@@ -63,17 +63,17 @@ class Box extends Meta
     {
         if (isset($this->callback[0]) && $this->callback[0] == $this) {
             foreach ($this->postTypes as $postType) {
-                add_filter('manage_'.$postType.'_posts_columns', array(&$this, 'addColumn'));
-                add_action('manage_'.$postType.'_posts_custom_column', array(&$this, 'addColumnContent'), 10, 2);
-                add_action('manage_edit-'.$postType.'_sortable_columns', array(&$this, 'addSortableColumn'), 10, 2);
+                add_filter('manage_'.$postType.'_posts_columns', array($this, 'addColumn'));
+                add_action('manage_'.$postType.'_posts_custom_column', array($this, 'addColumnContent'), 10, 2);
+                add_action('manage_edit-'.$postType.'_sortable_columns', array($this, 'addSortableColumn'), 10, 2);
             }
 
-            add_action('save_post', array(&$this, 'savePost'));
-            add_action('post_edit_form_tag', array(&$this, 'editFormTag'));
+            add_action('save_post', array($this, 'savePost'));
+            add_action('post_edit_form_tag', array($this, 'editFormTag'));
         }
 
         // Add the meta box
-        add_action('add_meta_boxes', array(&$this, 'addMetaBox'));
+        add_action('add_meta_boxes', array($this, 'addMetaBox'));
 
         // Do
         do_action('cuztom_box_hooks', $this);

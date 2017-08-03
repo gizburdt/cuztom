@@ -60,17 +60,17 @@ class Term extends Meta
         if (isset($this->callback[0]) && $this->callback[0] == $this) {
             foreach ($this->taxonomies as $taxonomy) {
                 if (in_array('add_form', $this->locations)) {
-                    add_action($taxonomy.'_add_form_fields', array(&$this, 'addFormFields'));
-                    add_action('created_'.$taxonomy, array(&$this, 'saveTerm'));
+                    add_action($taxonomy.'_add_form_fields', array($this, 'addFormFields'));
+                    add_action('created_'.$taxonomy, array($this, 'saveTerm'));
                 }
 
                 if (in_array('edit_form', $this->locations)) {
-                    add_action($taxonomy.'_edit_form_fields', array(&$this, 'editFormFields'));
-                    add_action('edited_'.$taxonomy, array(&$this, 'saveTerm'));
+                    add_action($taxonomy.'_edit_form_fields', array($this, 'editFormFields'));
+                    add_action('edited_'.$taxonomy, array($this, 'saveTerm'));
                 }
 
-                add_filter('manage_edit-'.$taxonomy.'_columns', array(&$this, 'addColumn'));
-                add_filter('manage_'.$taxonomy.'_custom_column', array(&$this, 'addColumnContent'), 10, 3);
+                add_filter('manage_edit-'.$taxonomy.'_columns', array($this, 'addColumn'));
+                add_filter('manage_'.$taxonomy.'_custom_column', array($this, 'addColumnContent'), 10, 3);
             }
         }
 

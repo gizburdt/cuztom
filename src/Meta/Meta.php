@@ -92,7 +92,7 @@ abstract class Meta
 
         // Callback
         if (! $this->callback) {
-            $this->callback = array(&$this, 'output');
+            $this->callback = array($this, 'output');
 
             // Build the meta box and fields
             $this->data = $this->build($this->fields);

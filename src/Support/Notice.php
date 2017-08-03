@@ -37,7 +37,7 @@ class Notice
         $this->type        = $type ? $type : 'updated';
         $this->dismissible = $dismissible;
 
-        add_action('admin_notices', array(&$this, 'addAdminNotice'));
+        add_action('admin_notices', array($this, 'addAdminNotice'));
     }
 
     /**

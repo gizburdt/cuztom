@@ -25,7 +25,7 @@ class Text extends Field
     public function parseValue($value)
     {
         if (is_array($value)) {
-            array_walk_recursive($value, array(&$this, 'doHtmlspecialchars'));
+            array_walk_recursive($value, array($this, 'doHtmlspecialchars'));
         } else {
             $value = $this->doHtmlspecialchars($value);
         }
