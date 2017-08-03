@@ -129,7 +129,7 @@ abstract class Field
      */
     public function output($value = null)
     {
-        $value = (! is_null($value)) ? $value : $this->value;
+        $value = is_null($value) ? $this->value : $value;
 
         return $this->isRepeatable()
             ? $this->outputRepeatable().$this->getExplanation()
