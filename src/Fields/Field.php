@@ -424,5 +424,7 @@ abstract class Field
 
             return $field;
         }
+        
+        return false;
     }
 }
