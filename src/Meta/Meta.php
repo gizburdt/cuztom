@@ -166,11 +166,9 @@ abstract class Meta
     {
         foreach ($this->data as $field) {
             if (method_exists($field, 'getField') && $find = $field->getField($search)) {
-                break;
+                return $find;
             }
         }
-
-        return $find;
     }
 
     /**
