@@ -103,19 +103,13 @@ class Box extends Meta
      */
     public function savePost($id)
     {
-        if (Guard::doingAutosave() || Guard::doingAjax()) {
-            return;
-        }
-
-        if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
-            return;
-        }
-
-        if (! Guard::isPostType($id, $this->postTypes)) {
-            return;
-        }
-
-        if (! Guard::userCanEdit($id)) {
+        if (
+            Guard::doingAutosave() ||
+            Guard::doingAjax() ||
+            ! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta') ||
+            ! Guard::isPostType($id, $this->postTypes) ||
+            ! Guard::userCanEdit($id)
+        ) {
             return;
         }
 
