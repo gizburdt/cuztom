@@ -212,7 +212,7 @@ abstract class Field
                 return (bool) update_user_meta($object, $this->id, $value);
             case 'term':
                 return (bool) update_term_meta($object, $this->id, $value);
-            case 'post': default:
+            case 'post':
                 return (bool) update_post_meta($object, $this->id, $value);
         }
 
