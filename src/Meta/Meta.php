@@ -179,6 +179,8 @@ abstract class Meta
      */
     public function build($fields)
     {
+        $data = [];
+        
         if (Cuztom::isArray($fields)) {
             foreach ($fields as $type => $args) {
                 $args = Cuztom::merge($args, array(
@@ -194,7 +196,7 @@ abstract class Meta
             }
         }
 
-        return @$data;
+        return $data;
     }
 
     /**

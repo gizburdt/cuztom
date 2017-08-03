@@ -122,6 +122,8 @@ class Tabs extends Field
      */
     public function build($args)
     {
+        $data = [];
+        
         foreach ($this->panels as $panel) {
             $args = Cuztom::merge($panel, array(
                 'parent'   => $this,
@@ -136,6 +138,6 @@ class Tabs extends Field
             $data[$tab->id] = $tab;
         }
 
-        return @$data;
+        return $data;
     }
 }
