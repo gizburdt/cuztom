@@ -5,7 +5,7 @@ namespace Gizburdt\Cuztom;
 use Gizburdt\Cuztom\Support\Ajax;
 
 if (! defined('ABSPATH')) {
-    exit;
+    die();
 }
 
 class Cuztom
