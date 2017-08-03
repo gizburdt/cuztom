@@ -145,7 +145,9 @@ abstract class Field
      */
     public function outputInput($value = null, $view = null)
     {
-        $view = $view ? $view : $this->getView();
+        if (! $view) {
+            $view = $this->getView();
+        }
 
         return Cuztom::view('fields/'.$view, array(
             'field' => $this,
