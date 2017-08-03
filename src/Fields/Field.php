@@ -209,17 +209,11 @@ abstract class Field
         // Save to respective content-type
         switch ($this->metaType) {
             case 'user':
-                update_user_meta($object, $this->id, $value);
-
-                return true;
+                return (bool) update_user_meta($object, $this->id, $value);
             case 'term':
-                update_term_meta($object, $this->id, $value);
-
-                return true;
+                return (bool) update_term_meta($object, $this->id, $value);
             case 'post': default:
-                update_post_meta($object, $this->id, $value);
-
-                return true;
+                return (bool) update_post_meta($object, $this->id, $value);
         }
 
         // Default
