@@ -14,7 +14,7 @@ class Guard
     public static function directAccess()
     {
         if (! defined('ABSPATH')) {
-            exit;
+            die();
         }
     }
 
