@@ -466,7 +466,7 @@ class Cuztom
             foreach ($input as $value) {
                 $result = $result && self::isEmpty($value);
             }
-            
+
             return $result;
         }
 

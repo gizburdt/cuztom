@@ -165,7 +165,7 @@ class Term extends Meta
         if (isset($_REQUEST['tag_ID'])) {
             return $_REQUEST['tag_ID'];
         }
-        
+
         if (isset($_POST['cuztom']['object'])) {
             return $_POST['cuztom']['object'];
         }

@@ -50,7 +50,7 @@ class Image extends Field
         $view = $view ? $view : $this->getView();
 
         $attachment = wp_get_attachment_metadata($value) ?: [];
-        
+
         $urls = (array) wp_get_attachment_image_src($value, 'medium');
 
         $attachment['url'] = array_shift($urls);
