@@ -123,7 +123,7 @@ class Tabs extends Field
     public function build($args)
     {
         $data = [];
-        
+
         foreach ($this->panels as $panel) {
             $args = Cuztom::merge($panel, array(
                 'parent'   => $this,

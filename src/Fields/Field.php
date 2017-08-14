@@ -317,7 +317,7 @@ abstract class Field
     public function getDataAttributes($extra = array())
     {
         $output = '';
-        
+
         foreach (array_merge($this->html_attributes, $extra) as $attribute => $value) {
             if (! is_null($value)) {
                 $output .= $attribute.'="'.$value.'"';
@@ -426,7 +426,7 @@ abstract class Field
 
             return $field;
         }
-        
+
         return false;
     }
 }

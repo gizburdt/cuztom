@@ -41,7 +41,7 @@ class TermSelect extends Field
      */
     public function outputInput($value = null, $view = null)
     {
-        $this->args['class'] = (isset($this->args['class']) ? $this->args['class'] : '') . ' cuztom-input--select cuztom-input--term-select';
+        $this->args['class'] = (isset($this->args['class']) ? $this->args['class'] : '').' cuztom-input--select cuztom-input--term-select';
 
         $this->args['echo']     = 0;
         $this->args['name']     = $this->getName();

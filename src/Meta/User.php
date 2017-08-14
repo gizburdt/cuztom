@@ -106,11 +106,11 @@ class User extends Meta
         if (isset($_REQUEST['user_id'])) {
             return $_REQUEST['user_id'];
         }
-        
+
         if (! isset($_POST['cuztom']['object'])) {
             return get_current_user_id();
         }
-        
+
         if ($_POST['cuztom']['object']) {
             return $_POST['cuztom']['object'];
         }
