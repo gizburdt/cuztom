@@ -50,9 +50,9 @@ class User extends Meta
     public function addHooks()
     {
         if (isset($this->callback[0]) && $this->callback[0] == $this) {
-            add_action('personal_options_update', array(&$this, 'saveUser'));
-            add_action('edit_user_profile_update', array(&$this, 'saveUser'));
-            add_action('user_edit_form_tag', array(&$this, 'editFormTag'));
+            add_action('personal_options_update', array($this, 'saveUser'));
+            add_action('edit_user_profile_update', array($this, 'saveUser'));
+            add_action('user_edit_form_tag', array($this, 'editFormTag'));
         }
 
         // Add forms to locations
@@ -105,9 +105,13 @@ class User extends Meta
     {
         if (isset($_REQUEST['user_id'])) {
             return $_REQUEST['user_id'];
-        } elseif (! isset($_POST['cuztom']['object'])) {
+        }
+        
+        if (! isset($_POST['cuztom']['object'])) {
             return get_current_user_id();
-        } elseif ($_POST['cuztom']['object']) {
+        }
+        
+        if ($_POST['cuztom']['object']) {
             return $_POST['cuztom']['object'];
         }
     }

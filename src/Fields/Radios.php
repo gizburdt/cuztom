@@ -47,6 +47,6 @@ class Radios extends Field
      */
     public function parseValue($value)
     {
-        return is_array($value) ? @$value[0] : $value;
+        return is_array($value) && isset($value[0]) ? $value[0] : $value;
     }
 }

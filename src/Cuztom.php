@@ -5,7 +5,7 @@ namespace Gizburdt\Cuztom;
 use Gizburdt\Cuztom\Support\Ajax;
 
 if (! defined('ABSPATH')) {
-    exit;
+    die();
 }
 
 class Cuztom
@@ -119,11 +119,11 @@ class Cuztom
      */
     private function hooks()
     {
-        add_action('admin_init', array(&$this, 'registerStyles'));
-        add_action('admin_print_styles', array(&$this, 'enqueueStyles'));
+        add_action('admin_init', array($this, 'registerStyles'));
+        add_action('admin_print_styles', array($this, 'enqueueStyles'));
 
-        add_action('admin_init', array(&$this, 'registerScripts'));
-        add_action('admin_enqueue_scripts', array(&$this, 'enqueueScripts'));
+        add_action('admin_init', array($this, 'registerScripts'));
+        add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
 
         // Do
         do_action('cuztom_hooks');
@@ -466,11 +466,11 @@ class Cuztom
             foreach ($input as $value) {
                 $result = $result && self::isEmpty($value);
             }
-        } else {
-            $result = empty($input);
+            
+            return $result;
         }
 
-        return $result;
+        return empty($input);
     }
 
     /**

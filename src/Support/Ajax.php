@@ -35,12 +35,12 @@ class Ajax
     public function addHooks()
     {
         // Repeatable
-        add_action('wp_ajax_cuztom_setup_repeatable_list', array(&$this, 'setupRepeatableList'));
-        add_action('wp_ajax_cuztom_add_repeatable_item', array(&$this, 'addRepeatableItem'));
+        add_action('wp_ajax_cuztom_setup_repeatable_list', array($this, 'setupRepeatableList'));
+        add_action('wp_ajax_cuztom_add_repeatable_item', array($this, 'addRepeatableItem'));
 
         // Bundle
-        add_action('wp_ajax_cuztom_setup_bundle_list', array(&$this, 'setupBundleList'));
-        add_action('wp_ajax_cuztom_add_bundle_item', array(&$this, 'addBundleItem'));
+        add_action('wp_ajax_cuztom_setup_bundle_list', array($this, 'setupBundleList'));
+        add_action('wp_ajax_cuztom_add_bundle_item', array($this, 'addBundleItem'));
 
         // Do
         do_action('cuztom_ajax_hooks');
@@ -77,10 +77,6 @@ class Ajax
      */
     public function addRepeatableItem()
     {
-        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
-            return;
-        }
-
         if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }

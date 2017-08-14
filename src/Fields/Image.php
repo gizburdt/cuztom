@@ -49,9 +49,11 @@ class Image extends Field
     {
         $view = $view ? $view : $this->getView();
 
-        $attachment = wp_get_attachment_metadata($value);
+        $attachment = wp_get_attachment_metadata($value) ?: [];
+        
+        $urls = (array) wp_get_attachment_image_src($value, 'medium');
 
-        @$attachment['url'] = wp_get_attachment_image_src($value, 'medium')[0];
+        $attachment['url'] = array_shift($urls);
 
         return Cuztom::view('fields/'.$view, array(
             'field'      => $this,

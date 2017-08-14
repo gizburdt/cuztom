@@ -92,7 +92,7 @@ abstract class Meta
 
         // Callback
         if (! $this->callback) {
-            $this->callback = array(&$this, 'output');
+            $this->callback = array($this, 'output');
 
             // Build the meta box and fields
             $this->data = $this->build($this->fields);
@@ -166,11 +166,9 @@ abstract class Meta
     {
         foreach ($this->data as $field) {
             if (method_exists($field, 'getField') && $find = $field->getField($search)) {
-                break;
+                return $find;
             }
         }
-
-        return $find;
     }
 
     /**
@@ -181,6 +179,8 @@ abstract class Meta
      */
     public function build($fields)
     {
+        $data = [];
+        
         if (Cuztom::isArray($fields)) {
             foreach ($fields as $type => $args) {
                 $args = Cuztom::merge($args, array(
@@ -196,7 +196,7 @@ abstract class Meta
             }
         }
 
-        return @$data;
+        return $data;
     }
 
     /**

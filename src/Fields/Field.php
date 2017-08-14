@@ -3,7 +3,6 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Field\Accordion;
 use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
@@ -129,7 +128,7 @@ abstract class Field
      */
     public function output($value = null)
     {
-        $value = (! is_null($value)) ? $value : $this->value;
+        $value = is_null($value) ? $this->value : $value;
 
         return $this->isRepeatable()
             ? $this->outputRepeatable().$this->getExplanation()
@@ -145,7 +144,9 @@ abstract class Field
      */
     public function outputInput($value = null, $view = null)
     {
-        $view = $view ? $view : $this->getView();
+        if (! $view) {
+            $view = $this->getView();
+        }
 
         return Cuztom::view('fields/'.$view, array(
             'field' => $this,
@@ -209,20 +210,11 @@ abstract class Field
         // Save to respective content-type
         switch ($this->metaType) {
             case 'user':
-                update_user_meta($object, $this->id, $value);
-
-                return true;
-            break;
+                return (bool) update_user_meta($object, $this->id, $value);
             case 'term':
-                update_term_meta($object, $this->id, $value);
-
-                return true;
-            break;
-            case 'post': default:
-                update_post_meta($object, $this->id, $value);
-
-                return true;
-            break;
+                return (bool) update_term_meta($object, $this->id, $value);
+            case 'post':
+                return (bool) update_post_meta($object, $this->id, $value);
         }
 
         // Default
@@ -324,15 +316,17 @@ abstract class Field
      */
     public function getDataAttributes($extra = array())
     {
+        $output = '';
+        
         foreach (array_merge($this->html_attributes, $extra) as $attribute => $value) {
             if (! is_null($value)) {
-                @$output .= $attribute.'="'.$value.'"';
+                $output .= $attribute.'="'.$value.'"';
             } elseif (! $value && isset($this->args[Cuztom::uglify($attribute)])) {
-                @$output .= $attribute.'="'.$this->args[Cuztom::uglify($attribute)].'"';
+                $output .= $attribute.'="'.$this->args[Cuztom::uglify($attribute)].'"';
             }
         }
 
-        return apply_filters('cuztom_field_html_attributes', @$output, $this, $extra);
+        return apply_filters('cuztom_field_html_attributes', $output, $this, $extra);
     }
 
     /**
@@ -379,7 +373,7 @@ abstract class Field
      */
     public function isTabs()
     {
-        return $this instanceof \Gizburdt\Cuztom\Fields\Tabs || $this instanceof \Gizburdt\Cuztom\Fields\Accordion;
+        return $this instanceof Tabs || $this instanceof Accordion;
     }
 
     /**
@@ -389,7 +383,7 @@ abstract class Field
      */
     public function isBundle()
     {
-        return $this instanceof \Gizburdt\Cuztom\Fields\Bundle;
+        return $this instanceof Bundle;
     }
 
     /**
@@ -400,11 +394,11 @@ abstract class Field
      */
     public function substractValue($values)
     {
-        if (! Cuztom::isEmpty(@$values[$this->id])) {
+        if (isset($values[$this->id]) && ! Cuztom::isEmpty($values[$this->id])) {
             if (is_array($values[$this->id])) {
-                $value = maybe_unserialize(@$values[$this->id][0]);
+                $value = isset($values[$this->id][0]) ? maybe_unserialize($values[$this->id][0]) : null;
             } else {
-                $value = maybe_unserialize(@$values[$this->id]);
+                $value = maybe_unserialize($values[$this->id]);
             }
         } else {
             $value = $this->default_value;
@@ -432,5 +426,7 @@ abstract class Field
 
             return $field;
         }
+        
+        return false;
     }
 }

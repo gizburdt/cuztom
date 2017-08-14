@@ -63,17 +63,17 @@ class Box extends Meta
     {
         if (isset($this->callback[0]) && $this->callback[0] == $this) {
             foreach ($this->postTypes as $postType) {
-                add_filter('manage_'.$postType.'_posts_columns', array(&$this, 'addColumn'));
-                add_action('manage_'.$postType.'_posts_custom_column', array(&$this, 'addColumnContent'), 10, 2);
-                add_action('manage_edit-'.$postType.'_sortable_columns', array(&$this, 'addSortableColumn'), 10, 2);
+                add_filter('manage_'.$postType.'_posts_columns', array($this, 'addColumn'));
+                add_action('manage_'.$postType.'_posts_custom_column', array($this, 'addColumnContent'), 10, 2);
+                add_action('manage_edit-'.$postType.'_sortable_columns', array($this, 'addSortableColumn'), 10, 2);
             }
 
-            add_action('save_post', array(&$this, 'savePost'));
-            add_action('post_edit_form_tag', array(&$this, 'editFormTag'));
+            add_action('save_post', array($this, 'savePost'));
+            add_action('post_edit_form_tag', array($this, 'editFormTag'));
         }
 
         // Add the meta box
-        add_action('add_meta_boxes', array(&$this, 'addMetaBox'));
+        add_action('add_meta_boxes', array($this, 'addMetaBox'));
 
         // Do
         do_action('cuztom_box_hooks', $this);
@@ -103,19 +103,13 @@ class Box extends Meta
      */
     public function savePost($id)
     {
-        if (Guard::doingAutosave() || Guard::doingAjax()) {
-            return;
-        }
-
-        if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
-            return;
-        }
-
-        if (! Guard::isPostType($id, $this->postTypes)) {
-            return;
-        }
-
-        if (! Guard::userCanEdit($id)) {
+        if (
+            Guard::doingAutosave() ||
+            Guard::doingAjax() ||
+            ! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta') ||
+            ! Guard::isPostType($id, $this->postTypes) ||
+            ! Guard::userCanEdit($id)
+        ) {
             return;
         }
 
@@ -192,9 +186,13 @@ class Box extends Meta
     {
         if (isset($_GET['post'])) {
             return $_GET['post'];
-        } elseif (isset($_POST['post_ID'])) {
+        }
+        
+        if (isset($_POST['post_ID'])) {
             return $_POST['post_ID'];
-        } elseif (isset($_POST['cuztom']['object'])) {
+        }
+        
+        if (isset($_POST['cuztom']['object'])) {
             return $_POST['cuztom']['object'];
         }
     }
