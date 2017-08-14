@@ -138,7 +138,7 @@ class Box extends Meta
     {
         unset($columns['date']);
 
-        foreach ($this->fields as $id => $field) {
+        foreach ($this->data as $id => $field) {
             if (isset($field->show_admin_column) && $field->show_admin_column) {
                 $columns[$id] = $field->label;
             }
@@ -157,8 +157,8 @@ class Box extends Meta
      */
     public function addColumnContent($column, $postId)
     {
-        if (isset($this->fields[$column]) && $field = $this->fields[$column]) {
-            echo $field->outputColumnContent();
+        if (isset($this->data[$column]) && $field = $this->data[$column]) {
+            echo $field->outputColumnContent($postId);
         } else {
             return $column;
         }
