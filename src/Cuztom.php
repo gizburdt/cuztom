@@ -92,7 +92,7 @@ class Cuztom
      */
     private function setup()
     {
-        self::$version = '3.1.5';
+        self::$version = '3.1.7';
         self::$src     = dirname(__FILE__);
         self::$dir     = dirname(dirname(__FILE__));
         self::$url     = $this->getCuztomUrl(self::$src);
