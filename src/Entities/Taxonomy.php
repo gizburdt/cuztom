@@ -11,26 +11,26 @@ Guard::directAccess();
 class Taxonomy extends Entity
 {
     /**
-     * Attached post type(s).
+     * Attached post types.
      * @var string|array
      */
-    public $postType;
+    public $postTypes;
 
     /**
      * Constructs the class with important vars and method calls.
      * If the Taxonomy exists, it will be attached to the Post Type.
      *
      * @param string       $name
-     * @param string|array $postType
+     * @param string|array $postTypes
      * @param array        $args
      */
-    public function __construct($name, $postType = null, $args = array())
+    public function __construct($name, $postTypes = null, $args = array())
     {
         // Entity construct
         parent::__construct($name, $args);
 
-        // Set properties
-        $this->postType = (array) $postType;
+        // Set Post Types
+        $this->postTypes = (array) $postTypes;
 
         // Register taxonomy
         if (! taxonomy_exists($this->name)) {
@@ -52,7 +52,7 @@ class Taxonomy extends Entity
     public function addHooks()
     {
         if (isset($this->original['admin_column_sortable']) && $this->original['admin_column_sortable']) {
-            foreach ($this->postType as $postType) {
+            foreach ($this->postTypes as $postType) {
                 add_action("manage_edit-{$postType}_sortable_columns", array($this, 'addSortableColumn'));
             }
         }
@@ -103,7 +103,8 @@ class Taxonomy extends Entity
             $this->original
         ), $this);
 
-        register_taxonomy($this->name, $this->postType, $args);
+        // Register taxonomy
+        register_taxonomy($this->name, $this->postTypes, $args);
     }
 
     /**
@@ -113,19 +114,19 @@ class Taxonomy extends Entity
      */
     public function registerEntityForObjectType()
     {
-        register_taxonomy_for_object_type($this->name, $this->postType);
+        register_taxonomy_for_object_type($this->name, $this->postTypes);
     }
 
     /**
      * Add Term Meta to this Taxonomy.
      *
      * @param string $id
-     * @param array  $data
+     * @param array  $args
      * @param array  $locations
      */
-    public function addTermMeta($id, $data = array(), $locations = array('add_form', 'edit_form'))
+    public function addTermMeta($id, $args = array(), $locations = array('add_form', 'edit_form'))
     {
-        $meta = new TermMeta($id, $this->name, $data, $locations);
+        $meta = new TermMeta($id, $this->name, $args, $locations);
 
         return $this;
     }

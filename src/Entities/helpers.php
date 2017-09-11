@@ -1,10 +1,9 @@
 <?php
 
-use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Entities\PostType;
-use Gizburdt\Cuztom\Entities\Sidebar;
-use Gizburdt\Cuztom\Entities\Taxonomy;
 use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Entities\PostType;
+use Gizburdt\Cuztom\Entities\Taxonomy;
+use Gizburdt\Cuztom\Entities\Sidebar;
 
 Guard::directAccess();
 
@@ -26,14 +25,14 @@ if (! function_exists('register_cuztom_taxonomy')) {
     /**
      * Registers a Taxonomy for a Post Type.
      *
-     * @param  string|array $name
-     * @param  string|array $post_type
+     * @param  string       $name
+     * @param  string|array $postType
      * @param  array        $args
      * @return object
      */
-    function register_cuztom_taxonomy($name, $post_type, $args = array())
+    function register_cuztom_taxonomy($name, $postType, $args = array())
     {
-        return new Taxonomy($name, $post_type, $args);
+        return new Taxonomy($name, $postType, $args);
     }
 }
 

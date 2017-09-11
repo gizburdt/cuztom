@@ -27,7 +27,7 @@ class PostType extends Entity
         }
 
         // Do
-        do_action('cuztom_post_type');
+        do_action('cuztom_post_type_init');
     }
 
     /**
@@ -73,9 +73,9 @@ class PostType extends Entity
     /**
      * Add a taxonomy to the Post Type.
      *
-     * @param string|array $name
-     * @param array        $args
-     * @param array        $labels
+     * @param string $name
+     * @param array  $args
+     * @param array  $labels
      */
     public function addTaxonomy($name, $args = array(), $labels = array())
     {
@@ -128,7 +128,7 @@ class PostType extends Entity
     /**
      * Check if post type supports a certain feature.
      *
-     * @param  string|array $feature
+     * @param  string $feature
      * @return bool
      */
     public function postTypeSupports($feature)

@@ -43,8 +43,8 @@ abstract class Entity
     /**
      * Entity construct.
      *
-     * @param string       $name
-     * @param string|array $args
+     * @param string  $name
+     * @param array   $args
      */
     public function __construct($name, $args)
     {
@@ -62,7 +62,7 @@ abstract class Entity
     /**
      * Register entity.
      *
-     * @return void
+     * @return null|object
      */
     public function registerEntity()
     {
