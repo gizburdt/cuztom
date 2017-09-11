@@ -12,13 +12,13 @@ if (! function_exists('register_cuztom_meta_box')) {
      * Register met box.
      *
      * @param  string       $id
-     * @param  array        $data
+     * @param  array        $args
      * @param  string|array $postType
      * @return object
      */
-    function register_cuztom_meta_box($id, $postType, $data = array())
+    function register_cuztom_meta_box($id, $postTypes, $args = array())
     {
-        return new MetaBox($id, $postType, $data);
+        return new MetaBox($id, $postTypes, $args);
     }
 }
 
@@ -27,14 +27,14 @@ if (! function_exists('register_cuztom_term_meta')) {
      * Register term meta fields.
      *
      * @param  string       $id
-     * @param  array        $data
+     * @param  array        $args
      * @param  string       $taxonomy
      * @param  array|string $locations
      * @return object
      */
-    function register_cuztom_term_meta($id, $taxonomy, $data = array(), $locations = array('edit_form'))
+    function register_cuztom_term_meta($id, $taxonomy, $args = array(), $locations = array('edit_form'))
     {
-        return new TermMeta($id, $taxonomy, $data, $locations);
+        return new TermMeta($id, $taxonomy, $args, $locations);
     }
 }
 
@@ -43,13 +43,12 @@ if (! function_exists('register_cuztom_user_meta')) {
      * Register term meta fields.
      *
      * @param  string       $id
-     * @param  array        $data
-     * @param  string       $taxonomy
+     * @param  array        $args
      * @param  array|string $locations
      * @return object
      */
-    function register_cuztom_user_meta($id, $data = array(), $locations = array('show_user_profile', 'edit_user_profile'))
+    function register_cuztom_user_meta($id, $args = array(), $locations = array('show_user_profile', 'edit_user_profile'))
     {
-        return new UserMeta($id, $data, $locations);
+        return new UserMeta($id, $args, $locations);
     }
 }

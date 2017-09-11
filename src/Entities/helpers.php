@@ -30,9 +30,9 @@ if (! function_exists('register_cuztom_taxonomy')) {
      * @param  array        $args
      * @return object
      */
-    function register_cuztom_taxonomy($name, $postType, $args = array())
+    function register_cuztom_taxonomy($name, $postTypes, $args = array())
     {
-        return new Taxonomy($name, $postType, $args);
+        return new Taxonomy($name, $postTypes, $args);
     }
 }
 

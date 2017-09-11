@@ -38,16 +38,16 @@ class Box extends Meta
      * Constructs the meta box.
      *
      * @param string       $id
-     * @param array        $data
-     * @param string|array $post_type
+     * @param array        $args
+     * @param string|array $postTypes
      */
-    public function __construct($id, $postType, $data = array())
+    public function __construct($id, $postTypes, $args = array())
     {
         // Build all properties
-        parent::__construct($id, $data);
+        parent::__construct($id, $args);
 
         // Set post types
-        $this->postTypes = (array) $postType;
+        $this->postTypes = (array) $postTypes;
 
         // Hooks
         $this->addHooks();
@@ -106,9 +106,9 @@ class Box extends Meta
         if (
             Guard::doingAutosave() ||
             Guard::doingAjax() ||
-            ! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta') ||
-            ! Guard::isPostType($id, $this->postTypes) ||
-            ! Guard::userCanEdit($id)
+            (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) ||
+            (! Guard::isPostType($id, $this->postTypes)) ||
+            (! Guard::userCanEdit($id))
         ) {
             return;
         }
