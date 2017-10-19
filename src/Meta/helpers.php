@@ -3,9 +3,9 @@
 use Gizburdt\Cuztom\Meta\Box as MetaBox;
 use Gizburdt\Cuztom\Meta\Term as TermMeta;
 use Gizburdt\Cuztom\Meta\User as UserMeta;
-use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Guard;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 if (! function_exists('register_cuztom_meta_box')) {
     /**

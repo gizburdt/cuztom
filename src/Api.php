@@ -2,10 +2,11 @@
 
 namespace Gizburdt\Cuztom;
 
-use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Guard;
 use Illuminate\Support\Str;
+use Gizburdt\Cuztom\Request;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 class Api
 {

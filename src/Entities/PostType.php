@@ -4,9 +4,9 @@ namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Meta\Box as MetaBox;
-use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Guard;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 class PostType extends Entity
 {

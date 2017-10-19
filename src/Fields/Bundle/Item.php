@@ -4,9 +4,9 @@ namespace Gizburdt\Cuztom\Fields\Bundle;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Fields\Field;
-use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Guard;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 class Item extends Field
 {

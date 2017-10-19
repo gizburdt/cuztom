@@ -2,9 +2,9 @@
 
 namespace Gizburdt\Cuztom\Entities;
 
-use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Guard;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 class Sidebar
 {

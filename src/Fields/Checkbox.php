@@ -4,9 +4,9 @@ namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Fields\Traits\Checkable;
-use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Guard;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 class Checkbox extends Field
 {

@@ -3,10 +3,10 @@
 namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Support\Guard;
-use Gizburdt\Cuztom\Support\Notice;
+use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Notice;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 abstract class Entity
 {

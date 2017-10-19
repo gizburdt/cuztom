@@ -3,9 +3,9 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Guard;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 class TaxonomySelect extends Select
 {

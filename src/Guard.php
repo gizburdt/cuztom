@@ -1,8 +1,8 @@
 <?php
 
-namespace Gizburdt\Cuztom\Support;
+namespace Gizburdt\Cuztom;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 class Guard
 {
@@ -11,7 +11,7 @@ class Guard
      *
      * @return void
      */
-    public static function directAccess()
+    public static function blockDirectAccess()
     {
         if (! defined('ABSPATH')) {
             die();
@@ -54,12 +54,12 @@ class Guard
      * Check AJAX nonce.
      *
      * @param  string $action
-     * @param  string $arg
+     * @param  string $argument
      * @return bool
      */
-    public static function verifyAjaxNonce($action, $arg)
+    public static function verifyAjaxNonce($action, $argument)
     {
-        return check_ajax_referer($action, $arg);
+        return check_ajax_referer($action, $argument);
     }
 
     /**

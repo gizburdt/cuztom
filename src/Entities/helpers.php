@@ -3,9 +3,9 @@
 use Gizburdt\Cuztom\Entities\PostType;
 use Gizburdt\Cuztom\Entities\Sidebar;
 use Gizburdt\Cuztom\Entities\Taxonomy;
-use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Guard;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 if (! function_exists('register_cuztom_post_type')) {
     /**

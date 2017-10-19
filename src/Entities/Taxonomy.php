@@ -4,9 +4,9 @@ namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Meta\Term as TermMeta;
-use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Guard;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 class Taxonomy extends Entity
 {

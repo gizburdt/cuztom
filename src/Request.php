@@ -2,9 +2,9 @@
 
 namespace Gizburdt\Cuztom;
 
-use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Guard;
 
-Guard::directAccess();
+Guard::blockDirectAccess();
 
 class Request
 {
@@ -40,7 +40,7 @@ class Request
      *
      * @return array
      */
-    public function getAll()
+    public function all()
     {
         return $this->attributes;
     }
