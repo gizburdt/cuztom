@@ -2,9 +2,8 @@
 
 namespace Gizburdt\Cuztom;
 
-use Illuminate\Support\Str;
-use Gizburdt\Cuztom\Request;
 use Gizburdt\Cuztom\Support\Guard;
+use Illuminate\Support\Str;
 
 Guard::directAccess();
 
