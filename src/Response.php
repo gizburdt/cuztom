@@ -2,8 +2,6 @@
 
 namespace Gizburdt\Cuztom;
 
-use Gizburdt\Cuztom\Guard;
-
 Guard::blockDirectAccess();
 
 class Response
@@ -25,7 +23,7 @@ class Response
     {
         $this->response = apply_filters('cuztom_response_attributes', array(
             'status' => $status,
-            'data' => $data
+            'data'   => $data
         ), $this);
     }
 

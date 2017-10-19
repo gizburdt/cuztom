@@ -17,7 +17,7 @@ class Notice
     {
         $class = $type.($dismissible ? ' is-dismissible' : '');
 
-        add_action('admin_notices', function() use ($class, $notice) {
+        add_action('admin_notices', function () use ($class, $notice) {
             echo '<div class="'.$class.'"><p>'.$notice.'</p></div>';
         });
     }
