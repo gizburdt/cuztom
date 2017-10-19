@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom;
 
+use Illuminate\Support\Str;
 use Gizburdt\Cuztom\Request;
-use Gizburdt\Cuztom\Support\Str;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Bundle\Item as BundleItem;
 
