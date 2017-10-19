@@ -13,10 +13,6 @@ npm-debug.log
 .idea
 .idea/*
 
-# Codekit
-.codekit-cache
-config.codekit
-
 # Vendor
 vendor/
 bower_components/

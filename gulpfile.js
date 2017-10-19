@@ -26,16 +26,3 @@ elixir(function(mix) {
         'js/cuztom-close.js',
     ], 'assets/js/cuztom.min.js', 'resources/assets/');
 });
-
-gulp.task('prefix', function(){
-    gulp.src('./src/**')
-        .pipe(prompt.prompt({
-            type: 'input',
-            name: 'prefix',
-            message: 'Prefix?'
-        }, function(result) {
-            gulp.src('./src/**')
-                .pipe(replace('Gizburdt', result.prefix))
-                .pipe(gulp.dest('./src'));
-        }));
-});
