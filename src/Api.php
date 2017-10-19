@@ -1,13 +1,15 @@
 <?php
 
-namespace Gizburdt\Cuztom\Support;
+namespace Gizburdt\Cuztom;
 
-use Gizburdt\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Request;
+use Gizburdt\Cuztom\Support\Str;
+use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Bundle\Item as BundleItem;
 
 Guard::directAccess();
 
-class Ajax
+class Api
 {
     /**
      * Request.
@@ -15,6 +17,18 @@ class Ajax
      * @var object
      */
     protected static $request;
+
+    /**
+     * Hooks.
+     *
+     * @var array
+     */
+    protected $hooks = array(
+        'setup_repeatable_list',
+        'add_repeatable_item',
+        'setup_bundle_list',
+        'add_bundle_item',
+    );
 
     /**
      * Constructor.
@@ -34,15 +48,10 @@ class Ajax
      */
     public function addHooks()
     {
-        // Repeatable
-        add_action('wp_ajax_cuztom_setup_repeatable_list', array($this, 'setupRepeatableList'));
-        add_action('wp_ajax_cuztom_add_repeatable_item', array($this, 'addRepeatableItem'));
+        foreach ($this->hooks as $name => $method) {
+            add_action("wp_ajax_cuztom_$name", array($this, Str::camel($method)));
+        }
 
-        // Bundle
-        add_action('wp_ajax_cuztom_setup_bundle_list', array($this, 'setupBundleList'));
-        add_action('wp_ajax_cuztom_add_bundle_item', array($this, 'addBundleItem'));
-
-        // Do
         do_action('cuztom_ajax_hooks');
     }
 

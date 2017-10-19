@@ -2,8 +2,6 @@
 
 namespace Gizburdt\Cuztom;
 
-use Gizburdt\Cuztom\Support\Ajax;
-
 if (! defined('ABSPATH')) {
     die();
 }
@@ -58,14 +56,25 @@ class Cuztom
      */
     public static $reserved = array(
         'attachment', 'attachment_id', 'author', 'author_name',
-        'calendar', 'cat', 'category', 'category__and', 'category__in', 'category__not_in', 'category_name',
-        'comments_per_page', 'comments_popup', 'customize_messenger_channel', 'customized', 'cpage',
-        'day', 'debug', 'error', 'exact', 'feed', 'hour', 'link_category', 'm', 'minute', 'monthnum', 'more', 'name',
-        'nav_menu', 'nonce', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 'perm',
-        'post', 'post__in', 'post__not_in', 'post_format', 'post_mime_type', 'post_status', 'post_tag', 'post_type', 'posts', 'posts_per_archive_page',
-        'posts_per_page', 'preview', 'robots', 's', 'search', 'second', 'sentence', 'showposts', 'static', 'subpost', 'subpost_id',
-        'tag', 'tag__and', 'tag__in', 'tag__not_in', 'tag_id', 'tag_slug__and', 'tag_slug__in', 'taxonomy', 'tb', 'term', 'theme', 'type',
-        'w', 'withcomments', 'withoutcomments', 'year'
+        'calendar', 'cat', 'category', 'category__and',
+        'category__in', 'category__not_in', 'category_name', 'comments_per_page',
+        'comments_popup', 'customize_messenger_channel', 'customized', 'cpage',
+        'day', 'debug', 'error', 'exact',
+        'feed', 'hour', 'link_category', 'm',
+        'minute', 'monthnum', 'more', 'name',
+        'nav_menu', 'nonce', 'nopaging', 'offset',
+        'order', 'orderby', 'p', 'page',
+        'page_id', 'paged', 'pagename', 'pb',
+        'perm', 'post', 'post__in', 'post__not_in',
+        'post_format', 'post_mime_type', 'post_status', 'post_tag',
+        'post_type', 'posts', 'posts_per_archive_page', 'posts_per_page',
+        'preview', 'robots', 's', 'search',
+        'second', 'sentence', 'showposts', 'static',
+        'subpost', 'subpost_id', 'tag', 'tag__and',
+        'tag__in', 'tag__not_in', 'tag_id', 'tag_slug__and',
+        'tag_slug__in', 'taxonomy', 'tb', 'term',
+        'theme', 'type', 'w', 'withcomments',
+        'withoutcomments', 'year'
     );
 
     /**
@@ -81,7 +90,7 @@ class Cuztom
             self::$instance->setup();
             self::$instance->execute();
             self::$instance->hooks();
-            self::$instance->ajax();
+            self::$instance->api();
         }
 
         return self::$instance;
@@ -97,7 +106,6 @@ class Cuztom
         self::$dir     = dirname(dirname(__FILE__));
         self::$url     = $this->getCuztomUrl(self::$src);
 
-        // Do
         do_action('cuztom_setup');
     }
 
@@ -110,7 +118,6 @@ class Cuztom
 
         $cuztom = new self();
 
-        // Do
         do_action('cuztom_execute');
     }
 
@@ -125,18 +132,19 @@ class Cuztom
         add_action('admin_init', array($this, 'registerScripts'));
         add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
 
-        // Do
         do_action('cuztom_hooks');
     }
 
     /**
-     * Init Ajax.
+     * Init API.
      *
      * @return void
      */
-    private function ajax()
+    private function api()
     {
-        (new Ajax())->init();
+        (new Api())->init();
+
+        do_action('cuztom_ajax');
     }
 
     /**
@@ -160,7 +168,6 @@ class Cuztom
             'screen'
         );
 
-        // Do
         do_action('cuztom_register_styles');
     }
 
@@ -173,7 +180,6 @@ class Cuztom
         wp_enqueue_style('cuztom-jquery-ui');
         wp_enqueue_style('cuztom');
 
-        // Do
         do_action('cuztom_enqueue_styles');
     }
 
@@ -199,7 +205,6 @@ class Cuztom
             true
         );
 
-        // Do
         do_action('cuztom_regiter_scripts');
     }
 
@@ -213,7 +218,6 @@ class Cuztom
 
         self::localizeScripts();
 
-        // Do
         do_action('cuztom_enqueue_scripts');
     }
 
@@ -231,7 +235,6 @@ class Cuztom
             'translate'  => array()
         ));
 
-        // Do
         do_action('cuztom_localize_scripts');
     }
 
@@ -395,7 +398,8 @@ class Cuztom
             'rice',
             'information',
             'equipment',
-            'pokemon'
+            'pokemon',
+            'software',
         ));
 
         // Save time if string in uncountable

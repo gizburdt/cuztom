@@ -1,6 +1,8 @@
 <?php
 
-namespace Gizburdt\Cuztom\Support;
+namespace Gizburdt\Cuztom;
+
+use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
 
