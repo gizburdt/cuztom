@@ -9,7 +9,7 @@ class Str
     /**
      * Convert a value to camel case.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return string
      */
     public static function camel($value)
@@ -20,7 +20,7 @@ class Str
     /**
      * Convert a value to studly caps case.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return string
      */
     public static function studly($value)
