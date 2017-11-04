@@ -125,7 +125,7 @@ class Tabs extends Field
         $data = [];
 
         foreach ($this->panels as $panel) {
-            $args = Cuztom::merge($panel, array(
+            $args = array_merge($panel, array(
                 'parent'   => $this,
                 'metaBox'  => $this->metaBox,
                 'metaType' => $this->metaType,

@@ -121,18 +121,18 @@ class Bundle extends Field
     {
         $data = array();
 
-        $args = Cuztom::merge($args, array(
+        $args = array_merge($args, array(
             'parent'   => $this,
             'metaType' => $this->metaType,
             'object'   => $this->object,
         ));
 
         // Build with value
-        if (Cuztom::isArray($this->value)) {
+        if (is_array($this->value)) {
             $i = 0;
 
             foreach ($this->value as $value) {
-                $args = Cuztom::merge($args, "index=>$i");
+                $args = array_merge($args, ['index' => $i]);
 
                 $data[] = new BundleItem($args, $value);
 
@@ -142,7 +142,7 @@ class Bundle extends Field
 
         // Without value
         else {
-            $args = Cuztom::merge($args, 'index=>0');
+            $args = array_merge($args, ['index' => 0]);
 
             $data[] = new BundleItem($args);
         }

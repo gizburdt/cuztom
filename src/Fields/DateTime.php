@@ -50,7 +50,7 @@ class DateTime extends Field
      */
     public function parseValue($value)
     {
-        return Cuztom::time($value);
+        return strtotime(str_replace('/', '-', $value));
     }
 
     /**

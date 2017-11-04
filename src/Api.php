@@ -68,7 +68,7 @@ class Api
         $data  = array();
         $field = self::getField();
 
-        if (Cuztom::isArray($field->value)) {
+        if (is_array($field->value)) {
             foreach ($field->value as $value) {
                 $data[] = $field->outputInput($value);
             }
@@ -116,7 +116,7 @@ class Api
         $data   = array();
         $bundle = self::getField();
 
-        if (Cuztom::isArray($bundle->data)) {
+        if (is_array($bundle->data)) {
             foreach ($bundle->data as $item) {
                 $data[] = $item->output();
             }
@@ -141,7 +141,7 @@ class Api
         $index = self::$request->get('index');
         $field = self::getField();
 
-        $data = (new BundleItem(Cuztom::merge(
+        $data = (new BundleItem(array_merge(
             $field->original,
             array(
                 'parent' => $field,

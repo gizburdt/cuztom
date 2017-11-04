@@ -88,7 +88,7 @@ class Item extends Field
     public function build($args)
     {
         foreach ($this->fields as $field) {
-            $args = Cuztom::merge($field, array(
+            $args = array_merge($field, array(
                 'metaType'   => $this->metaType,
                 'object'     => $this->object,
                 'beforeName' => '['.$this->parent->id.']['.$this->index.']',

@@ -16,3 +16,4 @@ npm-debug.log
 # Vendor
 vendor/
 bower_components/
+composer.lock
