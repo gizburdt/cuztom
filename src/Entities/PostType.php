@@ -3,8 +3,8 @@
 namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Meta\Box as MetaBox;
 use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Meta\Box as MetaBox;
 
 Guard::blockDirectAccess();
 

@@ -2,8 +2,6 @@
 
 namespace Gizburdt\Cuztom;
 
-use Gizburdt\Cuztom\Guard;
-
 Guard::blockDirectAccess();
 
 class Request
