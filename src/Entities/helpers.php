@@ -12,13 +12,14 @@ if (! function_exists('register_cuztom_post_type')) {
     /**
      * Register a Post Type.
      *
-     * @param  string $name
-     * @param  array  $args
+     * @param  string       $name
+     * @param  array        $args
+     * @param  string|array $labels
      * @return object
      */
-    function register_cuztom_post_type($name, $args = array())
+    function register_cuztom_post_type($name, $args = array(), $labels = array())
     {
-        return new PostType($name, $args);
+        return new PostType($name, $args, $labels);
     }
 }
 
