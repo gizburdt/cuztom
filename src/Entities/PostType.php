@@ -15,11 +15,12 @@ class PostType extends Entity
      *
      * @param string $name
      * @param array  $args
+     * @param array  $labels
      */
-    public function __construct($name, $args = array())
+    public function __construct($name, $args = array(), $labels = array())
     {
         // Entity construct
-        parent::__construct($name, $args);
+        parent::__construct($name, $args, $labels);
 
         // Register
         if (! post_type_exists($this->name)) {

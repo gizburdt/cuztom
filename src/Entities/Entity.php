@@ -45,15 +45,36 @@ abstract class Entity
      *
      * @param string       $name
      * @param string|array $args
+     * @param string|array $labels
      */
-    public function __construct($name, $args)
+    public function __construct($name, $args, $labels = array())
     {
         $this->name     = $name;
         $this->original = $args;
 
-        // Labels
-        $this->title  = Cuztom::beautify($name);
+        if(!empty($labels)) {
+            if (is_string($labels)) {
+                # code...
+            }
+        }
+
+
+        $this->title = Cuztom::beautify($name);
         $this->plural = Cuztom::pluralize($this->title);
+
+
+
+        // Labels
+        if (empty($labels) || (!is_array($labels) && !is_string($labels))){
+            $labels = array();
+        }
+
+        if( !is_array($labels) && is_string($labels)){
+            $labels = array($labels);
+        }
+        
+        $this->title  =  count($labels) > 0 && is_string($labels[0]) ? $labels[0] : 
+        
 
         // Do
         do_action('cuztom_entity_init');
