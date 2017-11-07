@@ -36,7 +36,7 @@ class Tab extends Field
             $this->id = Cuztom::uglify($this->title);
         }
 
-        $this->data  = $this->build($args, $values);
+        $this->data = $this->build($args, $values);
 
         // Do
         do_action('cuztom_tabs_init', $this);
@@ -51,8 +51,8 @@ class Tab extends Field
     public function outputTab()
     {
         return Cuztom::view('fields/tab', array(
-            'tab'   => $this,
-            'type'  => $this->tabsType
+            'tab'  => $this,
+            'type' => $this->tabsType
         ));
     }
 
