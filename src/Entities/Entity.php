@@ -55,13 +55,13 @@ abstract class Entity
         if (! empty($labels)) {
             if (is_string($labels)) {
                 $this->title = $labels;
-            } else if (is_array($labels)) {
+            } elseif (is_array($labels)) {
                 $size = count($labels);
                 if ($size > 0) {
                     $this->title = $labels[0];
                 }
                 if ($size > 1) {
-                   $this->plural = $labels[1];
+                    $this->plural = $labels[1];
                 }
             }
         }
