@@ -75,11 +75,10 @@ class PostType extends Entity
      *
      * @param string|array $name
      * @param array        $args
-     * @param array        $labels
      */
-    public function addTaxonomy($name, $args = array(), $labels = array())
+    public function addTaxonomy($name, $args = array())
     {
-        $taxonomy = new Taxonomy($name, $this->name, $args, $labels);
+        $taxonomy = new Taxonomy($name, $this->name, $args);
 
         return $this;
     }
