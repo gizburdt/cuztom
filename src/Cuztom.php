@@ -448,7 +448,7 @@ class Cuztom
 
         ob_start();
 
-        include self::$dir.'/resources/views/'.$view.'.php';
+        include dirname(dirname(__FILE__)).'/resources/views/'.$view.'.php';
 
         return ob_get_clean();
     }
