@@ -244,6 +244,8 @@ class Cuztom
      */
     public function getCuztomUrl($path = __FILE__, $url = array())
     {
+        return 'test';
+
         // Retun URL if defined
         if (defined('CUZTOM_URL')) {
             return CUZTOM_URL;
