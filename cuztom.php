@@ -6,9 +6,8 @@
  * Description: Creating content types the easy way.
  * Author: Gijs Jorissen
  * Author URI: https://gizburdt.com/
- * License: MIT License
+ * License: MIT License.
  */
-
 use Gizburdt\Cuztom\Cuztom;
 
 // Run the plugin
