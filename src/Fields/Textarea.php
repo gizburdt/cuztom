@@ -19,6 +19,6 @@ class Textarea extends Field
      * Fillables.
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--textarea';
+    public $css_class = 'cuztom-input--textarea';
     public $cell_css_class = 'cuztom-field--textarea';
 }

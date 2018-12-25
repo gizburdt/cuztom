@@ -19,13 +19,13 @@ class Tabs extends Field
      * Fillables.
      * @var mixed
      */
-    public $panels = array();
+    public $panels = [];
 
     /**
      * Data.
      * @var array
      */
-    public $data = array();
+    public $data = [];
 
     /**
      * Construct.
@@ -50,10 +50,10 @@ class Tabs extends Field
      */
     public function outputCell($value = null)
     {
-        return Cuztom::view('fields/cell/'.$this->view, array(
+        return Cuztom::view('fields/cell/'.$this->view, [
             'tabs'  => $this,
-            'value' => $value
-        ));
+            'value' => $value,
+        ]);
     }
 
     /**
@@ -64,11 +64,11 @@ class Tabs extends Field
      */
     public function output($value = null)
     {
-        return Cuztom::view('fields/'.$this->view, array(
+        return Cuztom::view('fields/'.$this->view, [
             'tabs'  => $this,
             'value' => $value,
-            'type'  => $this->type
-        ));
+            'type'  => $this->type,
+        ]);
     }
 
     /**
@@ -125,13 +125,13 @@ class Tabs extends Field
         $data = [];
 
         foreach ($this->panels as $panel) {
-            $args = Cuztom::merge($panel, array(
+            $args = Cuztom::merge($panel, [
                 'parent'   => $this,
                 'metaBox'  => $this->metaBox,
                 'metaType' => $this->metaType,
                 'object'   => $this->object,
                 'tabsType' => $this->type,
-            ));
+            ]);
 
             $tab = new Tab($args, $this->value);
 

@@ -13,7 +13,7 @@ class Text extends Field
      * Fillables.
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--text';
+    public $css_class = 'cuztom-input--text';
     public $cell_css_class = 'cuztom-field--text';
 
     /**
@@ -25,7 +25,7 @@ class Text extends Field
     public function parseValue($value)
     {
         if (is_array($value)) {
-            array_walk_recursive($value, array($this, 'doHtmlspecialchars'));
+            array_walk_recursive($value, [$this, 'doHtmlspecialchars']);
         } else {
             $value = $this->doHtmlspecialchars($value);
         }

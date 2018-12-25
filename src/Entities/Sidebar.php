@@ -13,7 +13,7 @@ class Sidebar
      *
      * @param array $args
      */
-    public function __construct($args = array())
+    public function __construct($args = [])
     {
         register_sidebar($args);
     }

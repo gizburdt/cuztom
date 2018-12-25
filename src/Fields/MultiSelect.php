@@ -3,8 +3,8 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Fields\Traits\Selectable;
 use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Fields\Traits\Selectable;
 
 Guard::directAccess();
 
@@ -22,7 +22,7 @@ class MultiSelect extends Select
      * Fillables.
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--select cuztom-input--multi-select';
+    public $css_class = 'cuztom-input--select cuztom-input--multi-select';
     public $cell_css_class = 'cuztom-field--multi-select';
 
     /**

@@ -86,13 +86,13 @@ abstract class Meta
         }
 
         // Set hard
-        $this->id     = $id;
+        $this->id = $id;
         $this->object = $this->determineObject();
         $this->values = $this->getMetaValues();
 
         // Callback
         if (! $this->callback) {
-            $this->callback = array($this, 'output');
+            $this->callback = [$this, 'output'];
 
             // Build the meta box and fields
             $this->data = $this->build($this->fields);
@@ -115,9 +115,9 @@ abstract class Meta
         // Nonce field for validation
         wp_nonce_field('cuztom_meta', 'cuztom_nonce');
 
-        echo Cuztom::view('meta/meta', array(
-            'box' => $this
-        ));
+        echo Cuztom::view('meta/meta', [
+            'box' => $this,
+        ]);
     }
 
     /**
@@ -183,12 +183,12 @@ abstract class Meta
 
         if (Cuztom::isArray($fields)) {
             foreach ($fields as $type => $args) {
-                $args = Cuztom::merge($args, array(
+                $args = Cuztom::merge($args, [
                     'metaBox'  => $this,
                     'metaType' => $this->metaType,
                     'object'   => $this->object,
                     'parent'   => $this->id,
-                ));
+                ]);
 
                 $field = Field::create($args, $this->values);
 

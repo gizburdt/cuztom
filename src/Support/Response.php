@@ -19,12 +19,12 @@ class Response
      * @param  bool   $data
      * @return string
      */
-    public function __construct($status, $data = array())
+    public function __construct($status, $data = [])
     {
-        $this->response = apply_filters('cuztom_repsonse_attributes', array(
+        $this->response = apply_filters('cuztom_repsonse_attributes', [
             'status'  => $status,
-            'content' => $data
-        ), $this);
+            'content' => $data,
+        ], $this);
     }
 
     /**
