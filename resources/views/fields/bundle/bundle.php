@@ -1,4 +1,6 @@
-<?php use Gizburdt\Cuztom\Cuztom; ?>
+<?php use Gizburdt\Cuztom\Cuztom;
+
+?>
 
 <tr class="cuztom-cell cuztom-bundle js-cuztom-bundle" v-cloak>
     <td class="cuztom-field" colspan="2">

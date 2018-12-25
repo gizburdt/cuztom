@@ -1,4 +1,6 @@
-<?php use Gizburdt\Cuztom\Cuztom; ?>
+<?php use Gizburdt\Cuztom\Cuztom;
+
+?>
 
 <v-cuztom-file
     id="<?php echo $field->getId(); ?>"

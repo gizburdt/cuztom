@@ -33,11 +33,11 @@ class Notice
      */
     public function __construct($notice, $type, $dismissible = true)
     {
-        $this->notice      = $notice;
-        $this->type        = $type ? $type : 'updated';
+        $this->notice = $notice;
+        $this->type = $type ? $type : 'updated';
         $this->dismissible = $dismissible;
 
-        add_action('admin_notices', array($this, 'addAdminNotice'));
+        add_action('admin_notices', [$this, 'addAdminNotice']);
     }
 
     /**

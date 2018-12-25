@@ -12,11 +12,11 @@ class Date extends DateTime
      * Fillables.
      * @var mixed
      */
-    public $css_class       = 'cuztom-input--date datepicker js-cuztom-datepicker';
-    public $cell_css_class  = 'cuztom-field--date';
-    public $html_attributes = array(
-        'data-date-format' => null
-    );
+    public $css_class = 'cuztom-input--date datepicker js-cuztom-datepicker';
+    public $cell_css_class = 'cuztom-field--date';
+    public $html_attributes = [
+        'data-date-format' => null,
+    ];
 
     /**
      * UNIX time to string.

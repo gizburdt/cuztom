@@ -19,7 +19,7 @@ class TaxonomySelect extends Select
      * Fillables.
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--select cuztom-input--taxonomy-select';
+    public $css_class = 'cuztom-input--select cuztom-input--taxonomy-select';
     public $cell_css_class = 'cuztom-field--taxonomy-select';
 
     /**
@@ -33,9 +33,9 @@ class TaxonomySelect extends Select
         parent::__construct($args, $values);
 
         $this->args = array_merge(
-            array(
+            [
                 'public' => true,
-            ),
+            ],
             $this->args
         );
 

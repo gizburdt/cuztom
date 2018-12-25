@@ -41,7 +41,7 @@ class Box extends Meta
      * @param array        $data
      * @param string|array $post_type
      */
-    public function __construct($id, $postType, $data = array())
+    public function __construct($id, $postType, $data = [])
     {
         // Build all properties
         parent::__construct($id, $data);
@@ -63,17 +63,17 @@ class Box extends Meta
     {
         if (isset($this->callback[0]) && $this->callback[0] == $this) {
             foreach ($this->postTypes as $postType) {
-                add_filter('manage_'.$postType.'_posts_columns', array($this, 'addColumn'));
-                add_action('manage_'.$postType.'_posts_custom_column', array($this, 'addColumnContent'), 10, 2);
-                add_action('manage_edit-'.$postType.'_sortable_columns', array($this, 'addSortableColumn'), 10, 2);
+                add_filter('manage_'.$postType.'_posts_columns', [$this, 'addColumn']);
+                add_action('manage_'.$postType.'_posts_custom_column', [$this, 'addColumnContent'], 10, 2);
+                add_action('manage_edit-'.$postType.'_sortable_columns', [$this, 'addSortableColumn'], 10, 2);
             }
 
-            add_action('save_post', array($this, 'savePost'));
-            add_action('post_edit_form_tag', array($this, 'editFormTag'));
+            add_action('save_post', [$this, 'savePost']);
+            add_action('post_edit_form_tag', [$this, 'editFormTag']);
         }
 
         // Add the meta box
-        add_action('add_meta_boxes', array($this, 'addMetaBox'));
+        add_action('add_meta_boxes', [$this, 'addMetaBox']);
 
         // Do
         do_action('cuztom_box_hooks', $this);

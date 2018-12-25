@@ -4,7 +4,7 @@
         href="#"
         @click.prevent="addItem"
         :disabled="
-            <?php echo $bundle->limit ? "($bundle->limit && list.length >= $bundle->limit)" : "false"; ?>
+            <?php echo $bundle->limit ? "($bundle->limit && list.length >= $bundle->limit)" : 'false'; ?>
             || loading
         "
     >

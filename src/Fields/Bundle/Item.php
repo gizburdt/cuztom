@@ -26,7 +26,7 @@ class Item extends Field
      * Fillables.
      * @var mixed
      */
-    public $fields = array();
+    public $fields = [];
 
     /**
      * Constructor.
@@ -52,9 +52,9 @@ class Item extends Field
      */
     public function output($value = null)
     {
-        return Cuztom::view('fields/bundle/table', array(
+        return Cuztom::view('fields/bundle/table', [
             'item' => $this,
-        ));
+        ]);
     }
 
     /**
@@ -88,12 +88,12 @@ class Item extends Field
     public function build($args)
     {
         foreach ($this->fields as $field) {
-            $args = Cuztom::merge($field, array(
+            $args = Cuztom::merge($field, [
                 'metaType'   => $this->metaType,
                 'object'     => $this->object,
                 'beforeName' => '['.$this->parent->id.']['.$this->index.']',
                 'beforeId'   => $this->parent->id.'_'.$this->index,
-            ));
+            ]);
 
             $field = Field::create($args, $this->value);
 
