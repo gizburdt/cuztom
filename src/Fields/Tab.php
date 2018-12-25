@@ -20,7 +20,7 @@ class Tab extends Field
      * @var mixed
      */
     public $title;
-    public $fields = array();
+    public $fields = [];
 
     /**
      * Construct.
@@ -50,10 +50,10 @@ class Tab extends Field
      */
     public function outputTab()
     {
-        return Cuztom::view('fields/tab', array(
+        return Cuztom::view('fields/tab', [
             'tab'  => $this,
-            'type' => $this->tabsType
-        ));
+            'type' => $this->tabsType,
+        ]);
     }
 
     /**
@@ -106,11 +106,11 @@ class Tab extends Field
     public function build($args)
     {
         foreach ($this->fields as $field) {
-            $args = Cuztom::merge($field, array(
+            $args = Cuztom::merge($field, [
                 'metaBox'  => $this->metaBox,
                 'metaType' => $this->metaType,
                 'object'   => $this->object,
-            ));
+            ]);
 
             $field = Field::create($args, $this->value);
 

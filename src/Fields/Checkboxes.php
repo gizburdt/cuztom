@@ -3,8 +3,8 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Fields\Traits\Checkables;
 use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Fields\Traits\Checkables;
 
 Guard::directAccess();
 
@@ -17,13 +17,13 @@ class Checkboxes extends Field
      * @var mixed
      */
     public $inputType = 'checkbox';
-    public $view      = 'checkboxes';
+    public $view = 'checkboxes';
 
     /**
      * Fillables.
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--checkbox';
+    public $css_class = 'cuztom-input--checkbox';
     public $cell_css_class = 'cuztom-field--checkboxes';
 
     /**

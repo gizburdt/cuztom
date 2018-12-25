@@ -32,9 +32,9 @@ class TaxonomyCheckboxes extends Checkboxes
         parent::__construct($args, $values);
 
         $this->args = array_merge(
-            array(
+            [
                 'public' => true,
-            ),
+            ],
             $this->args
         );
 

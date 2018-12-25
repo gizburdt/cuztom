@@ -14,13 +14,13 @@ class Image extends Field
      * @var mixed
      */
     public $inputType = 'hidden';
-    public $view      = 'image';
+    public $view = 'image';
 
     /**
      * Fillables.
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--hidden';
+    public $css_class = 'cuztom-input--hidden';
     public $cell_css_class = 'cuztom-field--image';
 
     /**
@@ -33,9 +33,9 @@ class Image extends Field
     {
         parent::__construct($args, $values);
 
-        $this->html_attributes = array(
-            'v-model' => 'value'
-        );
+        $this->html_attributes = [
+            'v-model' => 'value',
+        ];
     }
 
     /**
@@ -55,11 +55,11 @@ class Image extends Field
 
         $attachment['url'] = array_shift($urls);
 
-        return Cuztom::view('fields/'.$view, array(
+        return Cuztom::view('fields/'.$view, [
             'field'      => $this,
             'value'      => $value,
-            'attachment' => $attachment
-        ));
+            'attachment' => $attachment,
+        ]);
     }
 
     /**
@@ -72,6 +72,6 @@ class Image extends Field
     {
         $meta = get_post_meta($post_id, $this->id, true);
 
-        echo wp_get_attachment_image($meta, array(100, 100));
+        echo wp_get_attachment_image($meta, [100, 100]);
     }
 }

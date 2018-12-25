@@ -71,7 +71,7 @@ class Guard
      */
     public static function isPostType($id, $postTypes)
     {
-        return in_array(get_post_type($id), array_merge($postTypes, array('revision')));
+        return in_array(get_post_type($id), array_merge($postTypes, ['revision']));
     }
 
     /**

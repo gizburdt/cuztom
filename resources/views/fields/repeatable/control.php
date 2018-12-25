@@ -4,7 +4,7 @@
         class="button button-small"
         @click.prevent="addItem"
         :disabled="
-            <?php echo $field->limit ? "($field->limit && list.length >= $field->limit)" : "false"; ?>
+            <?php echo $field->limit ? "($field->limit && list.length >= $field->limit)" : 'false'; ?>
             || loading
         "
     >

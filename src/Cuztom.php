@@ -44,19 +44,19 @@ class Cuztom
      * Data.
      * @var object
      */
-    public static $data = array();
+    public static $data = [];
 
     /**
      * Fields.
      * @var array
      */
-    public static $fields = array();
+    public static $fields = [];
 
     /**
      * Reserved terms.
      * @var array
      */
-    public static $reserved = array(
+    public static $reserved = [
         'attachment', 'attachment_id', 'author', 'author_name',
         'calendar', 'cat', 'category', 'category__and', 'category__in', 'category__not_in', 'category_name',
         'comments_per_page', 'comments_popup', 'customize_messenger_channel', 'customized', 'cpage',
@@ -65,8 +65,8 @@ class Cuztom
         'post', 'post__in', 'post__not_in', 'post_format', 'post_mime_type', 'post_status', 'post_tag', 'post_type', 'posts', 'posts_per_archive_page',
         'posts_per_page', 'preview', 'robots', 's', 'search', 'second', 'sentence', 'showposts', 'static', 'subpost', 'subpost_id',
         'tag', 'tag__and', 'tag__in', 'tag__not_in', 'tag_id', 'tag_slug__and', 'tag_slug__in', 'taxonomy', 'tb', 'term', 'theme', 'type',
-        'w', 'withcomments', 'withoutcomments', 'year'
-    );
+        'w', 'withcomments', 'withoutcomments', 'year',
+    ];
 
     /**
      * Public function to set the instance.
@@ -93,9 +93,9 @@ class Cuztom
     private function setup()
     {
         self::$version = '3.1.7';
-        self::$src     = dirname(__FILE__);
-        self::$dir     = dirname(dirname(__FILE__));
-        self::$url     = $this->getCuztomUrl(self::$src);
+        self::$src = dirname(__FILE__);
+        self::$dir = dirname(dirname(__FILE__));
+        self::$url = $this->getCuztomUrl(self::$src);
 
         // Do
         do_action('cuztom_setup');
@@ -119,11 +119,11 @@ class Cuztom
      */
     private function hooks()
     {
-        add_action('admin_init', array($this, 'registerStyles'));
-        add_action('admin_print_styles', array($this, 'enqueueStyles'));
+        add_action('admin_init', [$this, 'registerStyles']);
+        add_action('admin_print_styles', [$this, 'enqueueStyles']);
 
-        add_action('admin_init', array($this, 'registerScripts'));
-        add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
+        add_action('admin_init', [$this, 'registerScripts']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueueScripts']);
 
         // Do
         do_action('cuztom_hooks');
@@ -186,15 +186,15 @@ class Cuztom
         wp_register_script(
             'cuztom',
             self::$url.'/assets/js/cuztom.min.js',
-            array(
+            [
                 'jquery',
                 'jquery-ui-core',
                 'jquery-ui-tabs',
                 'jquery-ui-accordion',
                 'jquery-ui-sortable',
                 'jquery-ui-slider',
-                'wp-color-picker'
-            ),
+                'wp-color-picker',
+            ],
             self::$version,
             true
         );
@@ -222,14 +222,14 @@ class Cuztom
      */
     public function localizeScripts()
     {
-        wp_localize_script('cuztom', 'Cuztom', array(
+        wp_localize_script('cuztom', 'Cuztom', [
             'wpVersion'  => get_bloginfo('version'),
             'wpNonce'    => wp_create_nonce('cuztom'),
             'homeUrl'    => get_home_url(),
             'ajaxUrl'    => admin_url('admin-ajax.php'),
             'dateFormat' => get_option('date_format'),
-            'translate'  => array()
-        ));
+            'translate'  => [],
+        ]);
 
         // Do
         do_action('cuztom_localize_scripts');
@@ -242,7 +242,7 @@ class Cuztom
      * @param  array  $url
      * @return string
      */
-    public function getCuztomUrl($path = __FILE__, $url = array())
+    public function getCuztomUrl($path = __FILE__, $url = [])
     {
         // Retun URL if defined
         if (defined('CUZTOM_URL')) {
@@ -250,9 +250,9 @@ class Cuztom
         }
 
         // Base vars
-        $path    = dirname($path);
-        $path    = str_replace('\\', '/', $path);
-        $expath  = explode('/', $path);
+        $path = dirname($path);
+        $path = str_replace('\\', '/', $path);
+        $expath = explode('/', $path);
         $current = $expath[count($expath) - 1];
 
         // Push to path array
@@ -260,7 +260,7 @@ class Cuztom
 
         // Check for current
         if (preg_match('/content|app/', $current)) {
-            $path        = '';
+            $path = '';
             $directories = array_reverse($url);
 
             foreach ($directories as $dir) {
@@ -357,36 +357,36 @@ class Cuztom
      */
     public static function pluralize($string)
     {
-        $specials = apply_filters('cuztom_plural', array(
-            array('/(quiz)$/i',               '$1zes'),
-            array('/^(ox)$/i',                '$1en'),
-            array('/([m|l])ouse$/i',          '$1ice'),
-            array('/(matr|vert|ind)ix|ex$/i', '$1ices'),
-            array('/(x|ch|ss|sh)$/i',         '$1es'),
-            array('/([^aeiouy]|qu)y$/i',      '$1ies'),
-            array('/([^aeiouy]|qu)ies$/i',    '$1y'),
-            array('/(hive)$/i',               '$1s'),
-            array('/(?:([^f])fe|([lr])f)$/i', '$1$2ves'),
-            array('/sis$/i',                  'ses'),
-            array('/([ti])um$/i',             '$1a'),
-            array('/(buffal|tomat)o$/i',      '$1oes'),
-            array('/(bu)s$/i',                '$1ses'),
-            array('/(alias|status)$/i',       '$1es'),
-            array('/(octop|vir)us$/i',        '$1i'),
-            array('/(ax|test)is$/i',          '$1es'),
-            array('/s$/i',                    's'),
-            array('/$/',                      's')
-        ));
+        $specials = apply_filters('cuztom_plural', [
+            ['/(quiz)$/i',               '$1zes'],
+            ['/^(ox)$/i',                '$1en'],
+            ['/([m|l])ouse$/i',          '$1ice'],
+            ['/(matr|vert|ind)ix|ex$/i', '$1ices'],
+            ['/(x|ch|ss|sh)$/i',         '$1es'],
+            ['/([^aeiouy]|qu)y$/i',      '$1ies'],
+            ['/([^aeiouy]|qu)ies$/i',    '$1y'],
+            ['/(hive)$/i',               '$1s'],
+            ['/(?:([^f])fe|([lr])f)$/i', '$1$2ves'],
+            ['/sis$/i',                  'ses'],
+            ['/([ti])um$/i',             '$1a'],
+            ['/(buffal|tomat)o$/i',      '$1oes'],
+            ['/(bu)s$/i',                '$1ses'],
+            ['/(alias|status)$/i',       '$1es'],
+            ['/(octop|vir)us$/i',        '$1i'],
+            ['/(ax|test)is$/i',          '$1es'],
+            ['/s$/i',                    's'],
+            ['/$/',                      's'],
+        ]);
 
-        $irregular = apply_filters('cuztom_irregular', array(
-            array('move',   'moves'),
-            array('sex',    'sexes'),
-            array('child',  'children'),
-            array('man',    'men'),
-            array('person', 'people')
-        ));
+        $irregular = apply_filters('cuztom_irregular', [
+            ['move',   'moves'],
+            ['sex',    'sexes'],
+            ['child',  'children'],
+            ['man',    'men'],
+            ['person', 'people'],
+        ]);
 
-        $uncountable = apply_filters('cuztom_uncountable', array(
+        $uncountable = apply_filters('cuztom_uncountable', [
             'sheep',
             'fish',
             'series',
@@ -395,8 +395,8 @@ class Cuztom
             'rice',
             'information',
             'equipment',
-            'pokemon'
-        ));
+            'pokemon',
+        ]);
 
         // Save time if string in uncountable
         if (in_array(strtolower($string), $uncountable)) {
@@ -442,7 +442,7 @@ class Cuztom
      * @param string $view
      * @param array  $variables
      */
-    public static function view($view, $variables = array())
+    public static function view($view, $variables = [])
     {
         extract($variables);
 
@@ -519,9 +519,9 @@ class Cuztom
         if (is_string($merge)) {
             $explode = explode('=>', $merge);
 
-            $merge = array(
-                trim($explode[0]) => trim($explode[1])
-            );
+            $merge = [
+                trim($explode[0]) => trim($explode[1]),
+            ];
         }
 
         return array_merge($base, $merge);

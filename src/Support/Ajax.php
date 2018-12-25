@@ -35,12 +35,12 @@ class Ajax
     public function addHooks()
     {
         // Repeatable
-        add_action('wp_ajax_cuztom_setup_repeatable_list', array($this, 'setupRepeatableList'));
-        add_action('wp_ajax_cuztom_add_repeatable_item', array($this, 'addRepeatableItem'));
+        add_action('wp_ajax_cuztom_setup_repeatable_list', [$this, 'setupRepeatableList']);
+        add_action('wp_ajax_cuztom_add_repeatable_item', [$this, 'addRepeatableItem']);
 
         // Bundle
-        add_action('wp_ajax_cuztom_setup_bundle_list', array($this, 'setupBundleList'));
-        add_action('wp_ajax_cuztom_add_bundle_item', array($this, 'addBundleItem'));
+        add_action('wp_ajax_cuztom_setup_bundle_list', [$this, 'setupBundleList']);
+        add_action('wp_ajax_cuztom_add_bundle_item', [$this, 'addBundleItem']);
 
         // Do
         do_action('cuztom_ajax_hooks');
@@ -57,7 +57,7 @@ class Ajax
             return;
         }
 
-        $data  = array();
+        $data = [];
         $field = self::getField();
 
         if (Cuztom::isArray($field->value)) {
@@ -105,7 +105,7 @@ class Ajax
             return;
         }
 
-        $data   = array();
+        $data = [];
         $bundle = self::getField();
 
         if (Cuztom::isArray($bundle->data)) {
@@ -135,10 +135,10 @@ class Ajax
 
         $data = (new BundleItem(Cuztom::merge(
             $field->original,
-            array(
+            [
                 'parent' => $field,
-                'index'  => $index
-            )
+                'index'  => $index,
+            ]
         )))->output();
 
         $response = (! $field->limit || ($field->limit > $count))
