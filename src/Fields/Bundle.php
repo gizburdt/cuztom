@@ -12,9 +12,10 @@ class Bundle extends Field
 {
     /**
      * Data.
+     *
      * @var array
      */
-    public $data = array();
+    public $data = [];
 
     /**
      * Construct.
@@ -40,10 +41,10 @@ class Bundle extends Field
      */
     public function outputCell($value = null, $view = null)
     {
-        return Cuztom::view('fields/bundle/bundle', array(
+        return Cuztom::view('fields/bundle/bundle', [
             'bundle' => $this,
-            'value'  => $value
-        ));
+            'value'  => $value,
+        ]);
     }
 
     /**
@@ -53,10 +54,10 @@ class Bundle extends Field
      */
     public function outputControl($class = 'top')
     {
-        return Cuztom::view('fields/bundle/control', array(
+        return Cuztom::view('fields/bundle/control', [
             'bundle' => $this,
-            'class'  => $class
-        ));
+            'class'  => $class,
+        ]);
     }
 
     /**
@@ -73,7 +74,7 @@ class Bundle extends Field
 
         $values = is_array($values)
             ? array_values($values)
-            : array();
+            : [];
 
         // Filter
         $values = apply_filters('cuztom_bundle_save_values', $values, $this);
@@ -103,7 +104,8 @@ class Bundle extends Field
     /**
      * Get field.
      *
-     * @param  string $search
+     * @param string $search
+     *
      * @return mixed
      */
     public function getField($search)
@@ -119,13 +121,13 @@ class Bundle extends Field
      */
     public function build($args)
     {
-        $data = array();
+        $data = [];
 
-        $args = array_merge($args, array(
+        $args = array_merge($args, [
             'parent'   => $this,
             'metaType' => $this->metaType,
             'object'   => $this->object,
-        ));
+        ]);
 
         // Build with value
         if (is_array($this->value)) {

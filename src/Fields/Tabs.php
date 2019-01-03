@@ -11,21 +11,24 @@ class Tabs extends Field
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'tabs';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
-    public $panels = array();
+    public $panels = [];
 
     /**
      * Data.
+     *
      * @var array
      */
-    public $data = array();
+    public $data = [];
 
     /**
      * Construct.
@@ -50,25 +53,26 @@ class Tabs extends Field
      */
     public function outputCell($value = null)
     {
-        return Cuztom::view('fields/cell/'.$this->view, array(
+        return Cuztom::view('fields/cell/'.$this->view, [
             'tabs'  => $this,
-            'value' => $value
-        ));
+            'value' => $value,
+        ]);
     }
 
     /**
      * Output.
      *
-     * @param  string|array $value
+     * @param string|array $value
+     *
      * @return string
      */
     public function output($value = null)
     {
-        return Cuztom::view('fields/'.$this->view, array(
+        return Cuztom::view('fields/'.$this->view, [
             'tabs'  => $this,
             'value' => $value,
-            'type'  => $this->type
-        ));
+            'type'  => $this->type,
+        ]);
     }
 
     /**
@@ -89,7 +93,8 @@ class Tabs extends Field
     /**
      * Substract value.
      *
-     * @param  array        $values
+     * @param array $values
+     *
      * @return string|array
      */
     public function substractValue($values)
@@ -100,7 +105,8 @@ class Tabs extends Field
     /**
      * Get field.
      *
-     * @param  string $search
+     * @param string $search
+     *
      * @return mixed
      */
     public function getField($search)
@@ -125,13 +131,13 @@ class Tabs extends Field
         $data = [];
 
         foreach ($this->panels as $panel) {
-            $args = array_merge($panel, array(
+            $args = array_merge($panel, [
                 'parent'   => $this,
                 'metaBox'  => $this->metaBox,
                 'metaType' => $this->metaType,
                 'object'   => $this->object,
                 'tabsType' => $this->type,
-            ));
+            ]);
 
             $tab = new Tab($args, $this->value);
 

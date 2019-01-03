@@ -14,16 +14,18 @@ class Radios extends Field
 
     /**
      * Base.
+     *
      * @var mixed
      */
     public $inputType = 'radio';
-    public $view      = 'radios';
+    public $view = 'radios';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--radio';
+    public $css_class = 'cuztom-input--radio';
     public $cell_css_class = 'cuztom-field--radios';
 
     /**
@@ -42,7 +44,8 @@ class Radios extends Field
     /**
      * Parse value.
      *
-     * @param  string|array $value
+     * @param string|array $value
+     *
      * @return string
      */
     public function parseValue($value)

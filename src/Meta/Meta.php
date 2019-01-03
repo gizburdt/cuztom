@@ -12,48 +12,56 @@ abstract class Meta
 {
     /**
      * ID.
+     *
      * @var string
      */
     public $id;
 
     /**
      * Callback.
+     *
      * @var string
      */
     public $callback;
 
     /**
      * Title.
+     *
      * @var string
      */
     public $title;
 
     /**
      * Description.
+     *
      * @var string
      */
     public $description;
 
     /**
      * Fields.
+     *
      * @var array
      */
     public $fields;
 
     /**
      * Data.
+     *
      * @var array
      */
     public $data;
 
     /**
      * Object.
+     *
      * @var int
      */
     public $object;
 
     /**
      * Meta type.
+     *
      * @var string
      */
     public $metaType;
@@ -86,13 +94,13 @@ abstract class Meta
         }
 
         // Set hard
-        $this->id     = $id;
+        $this->id = $id;
         $this->object = $this->determineObject();
         $this->values = $this->getMetaValues();
 
         // Callback
-        if (! $this->callback) {
-            $this->callback = array($this, 'output');
+        if (!$this->callback) {
+            $this->callback = [$this, 'output'];
 
             // Build the meta box and fields
             $this->data = $this->build($this->fields);
@@ -115,9 +123,9 @@ abstract class Meta
         // Nonce field for validation
         wp_nonce_field('cuztom_meta', 'cuztom_nonce');
 
-        echo Cuztom::view('meta/meta', array(
-            'box' => $this
-        ));
+        echo Cuztom::view('meta/meta', [
+            'box' => $this,
+        ]);
     }
 
     /**
@@ -146,7 +154,8 @@ abstract class Meta
     /**
      * Get field.
      *
-     * @param  string $field
+     * @param string $field
+     *
      * @return object
      */
     public function getField($field)
@@ -160,6 +169,7 @@ abstract class Meta
      * Search for a field.
      *
      * @param string $search
+     *
      * @return
      */
     protected function searchField($search)
@@ -174,7 +184,8 @@ abstract class Meta
     /**
      * This method builds the complete array with the right key => value pairs.
      *
-     * @param  array $fields
+     * @param array $fields
+     *
      * @return array
      */
     public function build($fields)
@@ -183,12 +194,12 @@ abstract class Meta
 
         if (is_array($fields)) {
             foreach ($fields as $type => $args) {
-                $args = array_merge($args, array(
+                $args = array_merge($args, [
                     'metaBox'  => $this,
                     'metaType' => $this->metaType,
                     'object'   => $this->object,
                     'parent'   => $this->id,
-                ));
+                ]);
 
                 $field = Field::create($args, $this->values);
 

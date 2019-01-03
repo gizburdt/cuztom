@@ -11,15 +11,17 @@ class PostSelect extends Select
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'post-select';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--select cuztom-input--post-select';
+    public $css_class = 'cuztom-input--select cuztom-input--post-select';
     public $cell_css_class = 'cuztom-field--post-select';
 
     /**
@@ -33,12 +35,12 @@ class PostSelect extends Select
         parent::__construct($args, $values);
 
         $this->args = array_merge(
-            array(
+            [
                 'post_type'      => 'post',
                 'posts_per_page' => -1,
                 'cache_results'  => false,
                 'no_found_rows'  => true,
-            ),
+            ],
             $this->args
         );
 

@@ -11,18 +11,21 @@ class TermCheckboxes extends Checkboxes
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'term-checkboxes';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $cell_css_class = 'cuztom-field--term-checkboxes';
 
     /**
      * Terms.
+     *
      * @var array
      */
     public $terms;
@@ -38,13 +41,13 @@ class TermCheckboxes extends Checkboxes
         parent::__construct($args, $values);
 
         $this->args = array_merge(
-            array(
-                'taxonomy' => 'category'
-            ),
+            [
+                'taxonomy' => 'category',
+            ],
             $this->args
         );
 
-        $this->terms         = get_terms($this->args['taxonomy'], $this->args);
+        $this->terms = get_terms($this->args['taxonomy'], $this->args);
         $this->default_value = (array) $this->default_value;
     }
 }

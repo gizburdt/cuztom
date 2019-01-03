@@ -10,12 +10,14 @@ class Hidden extends Field
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $inputType = 'hidden';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $cell_css_class = 'cuztom-field--hidden';
@@ -24,7 +26,8 @@ class Hidden extends Field
      * Hidden field only needs the field.
      * Not a cell.
      *
-     * @param  string $value
+     * @param string $value
+     *
      * @return string
      */
     public function outputCell($value = null)

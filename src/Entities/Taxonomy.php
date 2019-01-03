@@ -12,6 +12,7 @@ class Taxonomy extends Entity
 {
     /**
      * Attached post types.
+     *
      * @var string|array
      */
     public $postTypes;
@@ -24,7 +25,7 @@ class Taxonomy extends Entity
      * @param string|array $postTypes
      * @param array        $args
      */
-    public function __construct($name, $postTypes = null, $args = array())
+    public function __construct($name, $postTypes = null, $args = [])
     {
         // Entity construct
         parent::__construct($name, $args);
@@ -33,7 +34,7 @@ class Taxonomy extends Entity
         $this->postTypes = (array) $postTypes;
 
         // Register taxonomy
-        if (! taxonomy_exists($this->name)) {
+        if (!taxonomy_exists($this->name)) {
             $this->registerEntity();
         } else {
             $this->registerEntityForObjectType();
@@ -53,14 +54,14 @@ class Taxonomy extends Entity
     {
         if (isset($this->original['admin_column_sortable']) && $this->original['admin_column_sortable']) {
             foreach ($this->postTypes as $postType) {
-                add_action("manage_edit-{$postType}_sortable_columns", array($this, 'addSortableColumn'));
+                add_action("manage_edit-{$postType}_sortable_columns", [$this, 'addSortableColumn']);
             }
         }
 
         // Column filter
         if (isset($this->original['admin_column_filter']) && $this->original['admin_column_filter']) {
-            add_action('restrict_manage_posts', array($this, 'adminColumnFilter'));
-            add_filter('parse_query', array($this, 'postFilterQuery'));
+            add_action('restrict_manage_posts', [$this, 'adminColumnFilter']);
+            add_filter('parse_query', [$this, 'postFilterQuery']);
         }
 
         // Do
@@ -78,7 +79,7 @@ class Taxonomy extends Entity
 
         // Args
         $args = apply_filters('cuztom_taxonomy_args', array_merge(
-            array(
+            [
                 'label'             => sprintf(__('%s', 'cuztom'), $this->plural),
                 'hierarchical'      => true,
                 'public'            => true,
@@ -86,7 +87,7 @@ class Taxonomy extends Entity
                 'show_in_nav_menus' => true,
                 '_builtin'          => false,
                 'show_admin_column' => false,
-                'labels'            => array(
+                'labels'            => [
                     'name'              => sprintf(_x('%s', 'taxonomy general name', 'cuztom'), $this->plural),
                     'singular_name'     => sprintf(_x('%s', 'taxonomy singular name', 'cuztom'), $this->title),
                     'search_items'      => sprintf(__('Search %s', 'cuztom'), $this->plural),
@@ -97,9 +98,9 @@ class Taxonomy extends Entity
                     'update_item'       => sprintf(__('Update %s', 'cuztom'), $this->title),
                     'add_new_item'      => sprintf(__('Add New %s', 'cuztom'), $this->title),
                     'new_item_name'     => sprintf(__('New %s Name', 'cuztom'), $this->title),
-                    'menu_name'         => sprintf(__('%s', 'cuztom'), $this->plural)
-                ),
-            ),
+                    'menu_name'         => sprintf(__('%s', 'cuztom'), $this->plural),
+                ],
+            ],
             $this->original
         ), $this);
 
@@ -124,7 +125,7 @@ class Taxonomy extends Entity
      * @param array  $args
      * @param array  $locations
      */
-    public function addTermMeta($id, $args = array(), $locations = array('add_form', 'edit_form'))
+    public function addTermMeta($id, $args = [], $locations = ['add_form', 'edit_form'])
     {
         $meta = new TermMeta($id, $this->name, $args, $locations);
 
@@ -153,7 +154,7 @@ class Taxonomy extends Entity
         global $typenow, $wp_query;
 
         if (in_array($typenow, $this->postType)) {
-            wp_dropdown_categories(array(
+            wp_dropdown_categories([
                 'show_option_all' => sprintf(__('Show all %s', 'cuztom'), $this->plural),
                 'taxonomy'        => $this->name,
                 'name'            => $this->name,
@@ -162,14 +163,15 @@ class Taxonomy extends Entity
                 'hierarchical'    => true,
                 'show_count'      => true,
                 'hide_empty'      => true,
-            ));
+            ]);
         }
     }
 
     /**
      * Applies the selected filter to the query.
      *
-     * @param  object $query
+     * @param object $query
+     *
      * @return array
      */
     public function postFilterQuery($query)

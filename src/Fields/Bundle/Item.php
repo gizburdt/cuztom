@@ -12,21 +12,24 @@ class Item extends Field
 {
     /**
      * Bundle (parent).
+     *
      * @var object
      */
     public $parent;
 
     /**
      * Index.
+     *
      * @var int
      */
     public $index = 0;
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
-    public $fields = array();
+    public $fields = [];
 
     /**
      * Constructor.
@@ -47,20 +50,22 @@ class Item extends Field
     /**
      * Outputs bundle item.
      *
-     * @param  int    $index
+     * @param int $index
+     *
      * @return string
      */
     public function output($value = null)
     {
-        return Cuztom::view('fields/bundle/table', array(
+        return Cuztom::view('fields/bundle/table', [
             'item' => $this,
-        ));
+        ]);
     }
 
     /**
      * Return field from data.
      *
-     * @param  string $field
+     * @param string $field
+     *
      * @return object
      */
     public function getField($field)
@@ -71,7 +76,8 @@ class Item extends Field
     /**
      * Substract value.
      *
-     * @param  array        $values
+     * @param array $values
+     *
      * @return string|array
      */
     public function substractValue($values)
@@ -88,12 +94,12 @@ class Item extends Field
     public function build($args)
     {
         foreach ($this->fields as $field) {
-            $args = array_merge($field, array(
+            $args = array_merge($field, [
                 'metaType'   => $this->metaType,
                 'object'     => $this->object,
                 'beforeName' => '['.$this->parent->id.']['.$this->index.']',
                 'beforeId'   => $this->parent->id.'_'.$this->index,
-            ));
+            ]);
 
             $field = Field::create($args, $this->value);
 

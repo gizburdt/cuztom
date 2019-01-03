@@ -14,15 +14,17 @@ class MultiSelect extends Select
 
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'multi-select';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--select cuztom-input--multi-select';
+    public $css_class = 'cuztom-input--select cuztom-input--multi-select';
     public $cell_css_class = 'cuztom-field--multi-select';
 
     /**
