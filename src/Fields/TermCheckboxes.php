@@ -38,13 +38,13 @@ class TermCheckboxes extends Checkboxes
         parent::__construct($args, $values);
 
         $this->args = array_merge(
-            array(
-                'taxonomy' => 'category'
-            ),
+            [
+                'taxonomy' => 'category',
+            ],
             $this->args
         );
 
-        $this->terms         = get_terms($this->args['taxonomy'], $this->args);
+        $this->terms = get_terms($this->args['taxonomy'], $this->args);
         $this->default_value = (array) $this->default_value;
     }
 }

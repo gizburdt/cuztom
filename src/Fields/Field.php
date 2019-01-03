@@ -19,11 +19,11 @@ abstract class Field
      * Base.
      * @var mixed
      */
-    public $object    = null;
-    public $value     = null;
-    public $metaBox   = null;
-    public $metaType  = null;
-    public $view      = 'text';
+    public $object = null;
+    public $value = null;
+    public $metaBox = null;
+    public $metaType = null;
+    public $view = 'text';
     public $inputType = 'text';
 
     /**
@@ -31,9 +31,9 @@ abstract class Field
      * @var mixed
      */
     public $beforeName = '';
-    public $afterName  = '';
-    public $beforeId   = '';
-    public $afterId    = '';
+    public $afterName = '';
+    public $beforeId = '';
+    public $afterId = '';
 
     /**
      * Special.
@@ -45,31 +45,31 @@ abstract class Field
      * Fillables.
      * @var mixed
      */
-    public $id                    = null;
-    public $type                  = null;
-    public $label                 = '';
-    public $description           = '';
-    public $explanation           = '';
-    public $default_value         = '';
-    public $options               = array();
-    public $args                  = array();
-    public $required              = false;
-    public $repeatable            = false;
-    public $limit                 = null;
-    public $html_attributes       = array();
-    public $css_class             = '';
-    public $cell_css_class        = '';
-    public $show_admin_column     = false;
+    public $id = null;
+    public $type = null;
+    public $label = '';
+    public $description = '';
+    public $explanation = '';
+    public $default_value = '';
+    public $options = [];
+    public $args = [];
+    public $required = false;
+    public $repeatable = false;
+    public $limit = null;
+    public $html_attributes = [];
+    public $css_class = '';
+    public $cell_css_class = '';
+    public $show_admin_column = false;
     public $admin_column_sortable = false;
-    public $admin_column_filter   = false;
+    public $admin_column_filter = false;
 
     /**
      * Merges.
      * @var mixed
      */
-    protected $merges = array(
-        'html_attributes'
-    );
+    protected $merges = [
+        'html_attributes',
+    ];
 
     /**
      * Construct.
@@ -113,10 +113,10 @@ abstract class Field
      */
     public function outputCell($value = null)
     {
-        return Cuztom::view('fields/cell/default', array(
+        return Cuztom::view('fields/cell/default', [
             'field' => $this,
-            'value' => $value
-        ));
+            'value' => $value,
+        ]);
     }
 
     /**
@@ -146,10 +146,10 @@ abstract class Field
     {
         $view = $view ? $view : $this->getView();
 
-        return Cuztom::view('fields/'.$view, array(
+        return Cuztom::view('fields/'.$view, [
             'field' => $this,
-            'value' => $value
-        ));
+            'value' => $value,
+        ]);
     }
 
     /**
@@ -159,10 +159,10 @@ abstract class Field
      */
     public function outputRepeatable($value = null)
     {
-        return Cuztom::view('fields/repeatable/repeatable', array(
+        return Cuztom::view('fields/repeatable/repeatable', [
             'field'  => $this,
-            'values' => $value
-        ));
+            'values' => $value,
+        ]);
     }
 
     /**
@@ -173,9 +173,9 @@ abstract class Field
      */
     public function outputRepeatableControl()
     {
-        return Cuztom::view('fields/repeatable/control', array(
-            'field' => $this
-        ));
+        return Cuztom::view('fields/repeatable/control', [
+            'field' => $this,
+        ]);
     }
 
     /**
@@ -312,7 +312,7 @@ abstract class Field
      * @param  array  $extra
      * @return string
      */
-    public function getDataAttributes($extra = array())
+    public function getDataAttributes($extra = [])
     {
         $output = '';
 
@@ -413,7 +413,7 @@ abstract class Field
      */
     public static function create($args, $values)
     {
-        $type  = is_array($args) ? $args['type'] : $args;
+        $type = is_array($args) ? $args['type'] : $args;
         $class = str_replace(' ', '', ucwords(str_replace('_', ' ', $type)));
         $class = "Gizburdt\\Cuztom\\Fields\\$class";
 

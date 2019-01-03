@@ -16,7 +16,7 @@ class PostType extends Entity
      * @param string $name
      * @param array  $args
      */
-    public function __construct($name, $args = array())
+    public function __construct($name, $args = [])
     {
         // Entity construct
         parent::__construct($name, $args);
@@ -41,12 +41,12 @@ class PostType extends Entity
 
         // Args
         $args = apply_filters('cuztom_post_type_args', array_merge(
-            array(
+            [
                 'label'       => sprintf(__('%s', 'cuztom'), $this->plural),
                 'public'      => true,
-                'supports'    => array('title', 'editor'),
+                'supports'    => ['title', 'editor'],
                 'has_archive' => sanitize_title($this->plural),
-                'labels'      => array(
+                'labels'      => [
                     'name'               => sprintf(_x('%s', 'post type general name', 'cuztom'), $this->plural),
                     'singular_name'      => sprintf(_x('%s', 'post type singular title', 'cuztom'), $this->title),
                     'menu_name'          => sprintf(__('%s', 'cuztom'), $this->plural),
@@ -61,8 +61,8 @@ class PostType extends Entity
                     'not_found'          => sprintf(__('No %s found', 'cuztom'), $this->plural),
                     'not_found_in_trash' => sprintf(__('No %s found in trash', 'cuztom'), $this->plural),
                     'parent_item_colon'  => sprintf(__('%s Parent', 'cuztom'), $this->title),
-                ),
-            ),
+                ],
+            ],
             $this->original
         ), $this);
 
@@ -73,13 +73,12 @@ class PostType extends Entity
     /**
      * Add a taxonomy to the Post Type.
      *
-     * @param string $name
-     * @param array  $args
-     * @param array  $labels
+     * @param string|array $name
+     * @param array        $args
      */
-    public function addTaxonomy($name, $args = array(), $labels = array())
+    public function addTaxonomy($name, $args = [])
     {
-        $taxonomy = new Taxonomy($name, $this->name, $args, $labels);
+        $taxonomy = new Taxonomy($name, $this->name, $args);
 
         return $this;
     }

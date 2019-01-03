@@ -26,9 +26,9 @@ class TermSelect extends Field
         parent::__construct($args, $values);
 
         $this->args = array_merge(
-            array(
-                'taxonomy' => 'category'
-            ),
+            [
+                'taxonomy' => 'category',
+            ],
             $this->args
         );
     }
@@ -43,9 +43,9 @@ class TermSelect extends Field
     {
         $this->args['class'] = (isset($this->args['class']) ? $this->args['class'] : '').' cuztom-input--select cuztom-input--term-select';
 
-        $this->args['echo']     = 0;
-        $this->args['name']     = $this->getName();
-        $this->args['id']       = $this->getId();
+        $this->args['echo'] = 0;
+        $this->args['name'] = $this->getName();
+        $this->args['id'] = $this->getId();
         $this->args['selected'] = ! Cuztom::isEmpty($value) ? $value : $this->default_value;
 
         return wp_dropdown_categories($this->args);

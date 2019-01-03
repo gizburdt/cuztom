@@ -29,7 +29,7 @@ class User extends Meta
      * @param array        $data
      * @param string|array $locations
      */
-    public function __construct($id, $data = array(), $locations = array('show_user_profile', 'edit_user_profile'))
+    public function __construct($id, $data = [], $locations = ['show_user_profile', 'edit_user_profile'])
     {
         // Build all properties
         parent::__construct($id, $data);
@@ -50,9 +50,9 @@ class User extends Meta
     public function addHooks()
     {
         if (isset($this->callback[0]) && $this->callback[0] == $this) {
-            add_action('personal_options_update', array($this, 'saveUser'));
-            add_action('edit_user_profile_update', array($this, 'saveUser'));
-            add_action('user_edit_form_tag', array($this, 'editFormTag'));
+            add_action('personal_options_update', [$this, 'saveUser']);
+            add_action('edit_user_profile_update', [$this, 'saveUser']);
+            add_action('user_edit_form_tag', [$this, 'editFormTag']);
         }
 
         // Add forms to locations

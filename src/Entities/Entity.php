@@ -48,11 +48,11 @@ abstract class Entity
      */
     public function __construct($name, $args)
     {
-        $this->name     = $name;
+        $this->name = $name;
         $this->original = $args;
 
         // Labels
-        $this->title  = Cuztom::beautify($name);
+        $this->title = Cuztom::beautify($name);
         $this->plural = Cuztom::pluralize($this->title);
 
         // Do

@@ -9,6 +9,7 @@
             "email": "lol@gizburdt.com"
         }
     ],
+    "type": "wordpress-muplugin",
     "require": {
         "php": ">=5.6.4",
         "illuminate/support": "5.4.*"

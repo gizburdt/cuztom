@@ -63,7 +63,7 @@ class Api
             return;
         }
 
-        $data  = array();
+        $data = [];
         $field = self::getField();
 
         if (is_array($field->value)) {
@@ -111,7 +111,7 @@ class Api
             return;
         }
 
-        $data   = array();
+        $data = [];
         $bundle = self::getField();
 
         if (is_array($bundle->data)) {
@@ -141,10 +141,10 @@ class Api
 
         $data = (new BundleItem(array_merge(
             $field->original,
-            array(
+            [
                 'parent' => $field,
-                'index'  => $index
-            )
+                'index'  => $index,
+            ]
         )))->output();
 
         $response = (! $field->limit || ($field->limit > $count))

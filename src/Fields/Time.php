@@ -12,7 +12,7 @@ class Time extends DateTime
      * Fillables.
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--time timepicker js-cuztom-timepicker';
+    public $css_class = 'cuztom-input--time timepicker js-cuztom-timepicker';
     public $cell_css_class = 'cuztom-field--time';
 
     /**

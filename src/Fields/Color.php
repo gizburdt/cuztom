@@ -12,6 +12,6 @@ class Color extends Field
      * Fillables.
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--colorpicker colorpicker js-cuztom-colorpicker';
+    public $css_class = 'cuztom-input--colorpicker colorpicker js-cuztom-colorpicker';
     public $cell_css_class = 'cuztom-field--color';
 }
