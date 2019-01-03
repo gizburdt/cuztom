@@ -10,8 +10,12 @@
         }
     ],
     "require": {
+<<<<<<< Updated upstream
         "php": ">=5.6.4",
         "illuminate/support": "5.4.*"
+=======
+        "php": ">=5.6.0"
+>>>>>>> Stashed changes
     },
     "autoload": {
         "psr-4": {

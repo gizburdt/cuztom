@@ -3,8 +3,13 @@
 namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Cuztom;
+<<<<<<< Updated upstream
 use Gizburdt\Cuztom\Guard;
 use Gizburdt\Cuztom\Meta\Box as MetaBox;
+=======
+use Gizburdt\Cuztom\Support\Guard;
+use Gizburdt\Cuztom\Meta\Post as MetaBox;
+>>>>>>> Stashed changes
 
 Guard::blockDirectAccess();
 
