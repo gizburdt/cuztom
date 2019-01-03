@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom\Entities;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Notice;
 
 Guard::blockDirectAccess();

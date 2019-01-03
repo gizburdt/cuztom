@@ -2,9 +2,9 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
+use Gizburdt\Cuztom\Guard;
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Fields\Field;
-use Gizburdt\Cuztom\Guard;
 
 Guard::blockDirectAccess();
 
@@ -99,7 +99,7 @@ abstract class Meta
         $this->values = $this->getMetaValues();
 
         // Callback
-        if (!$this->callback) {
+        if (! $this->callback) {
             $this->callback = [$this, 'output'];
 
             // Build the meta box and fields

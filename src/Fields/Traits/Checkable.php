@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom\Fields\Traits;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Cuztom;
 
 Guard::blockDirectAccess();
 
@@ -39,7 +39,7 @@ trait Checkable
      */
     public function maybeChecked($value = null, $default_value = null, $option = null)
     {
-        return !Cuztom::isEmpty($value)
+        return ! Cuztom::isEmpty($value)
             ? checked($value, $option, false)
             : checked($default_value, $option, false);
     }

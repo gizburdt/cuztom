@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom\Entities;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Meta\Term as TermMeta;
 
 Guard::blockDirectAccess();
@@ -34,7 +34,7 @@ class Taxonomy extends Entity
         $this->postTypes = (array) $postTypes;
 
         // Register taxonomy
-        if (!taxonomy_exists($this->name)) {
+        if (! taxonomy_exists($this->name)) {
             $this->registerEntity();
         } else {
             $this->registerEntityForObjectType();

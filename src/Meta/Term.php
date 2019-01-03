@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Request;
 
 Guard::blockDirectAccess();
@@ -114,7 +114,7 @@ class Term extends Meta
      */
     public function saveTerm($id)
     {
-        if (!Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
+        if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
             return;
         }
 

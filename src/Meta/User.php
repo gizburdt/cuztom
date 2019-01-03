@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Request;
 
 Guard::blockDirectAccess();
@@ -85,7 +85,7 @@ class User extends Meta
      */
     public function saveUser($id)
     {
-        if (!Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
+        if (! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta')) {
             return;
         }
 
@@ -109,7 +109,7 @@ class User extends Meta
             return $_REQUEST['user_id'];
         }
 
-        if (!isset($_POST['cuztom']['object'])) {
+        if (! isset($_POST['cuztom']['object'])) {
             return get_current_user_id();
         }
 

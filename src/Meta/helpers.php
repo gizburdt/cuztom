@@ -7,7 +7,7 @@ use Gizburdt\Cuztom\Meta\User as UserMeta;
 
 Guard::blockDirectAccess();
 
-if (!function_exists('register_cuztom_meta_box')) {
+if (! function_exists('register_cuztom_meta_box')) {
     /**
      * Register met box.
      *
@@ -23,7 +23,7 @@ if (!function_exists('register_cuztom_meta_box')) {
     }
 }
 
-if (!function_exists('register_cuztom_term_meta')) {
+if (! function_exists('register_cuztom_term_meta')) {
     /**
      * Register term meta fields.
      *
@@ -40,7 +40,7 @@ if (!function_exists('register_cuztom_term_meta')) {
     }
 }
 
-if (!function_exists('register_cuztom_user_meta')) {
+if (! function_exists('register_cuztom_user_meta')) {
     /**
      * Register term meta fields.
      *

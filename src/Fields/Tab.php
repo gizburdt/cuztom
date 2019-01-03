@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Cuztom;
 
 Guard::blockDirectAccess();
 
@@ -34,7 +34,7 @@ class Tab extends Field
     {
         parent::__construct($args, $values);
 
-        if (!$this->id) {
+        if (! $this->id) {
             $this->id = Cuztom::uglify($this->title);
         }
 
