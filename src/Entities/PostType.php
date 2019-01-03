@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom\Entities;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Meta\Post as MetaBox;
 
 Guard::blockDirectAccess();
@@ -22,7 +22,7 @@ class PostType extends Entity
         parent::__construct($name, $args);
 
         // Register
-        if (!post_type_exists($this->name)) {
+        if (! post_type_exists($this->name)) {
             $this->registerEntity();
         }
 

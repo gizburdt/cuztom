@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Cuztom;
 
 Guard::blockDirectAccess();
 
@@ -259,7 +259,7 @@ abstract class Field
     {
         $id = $this->beforeId.$this->id.$this->afterId;
 
-        if (!Cuztom::isEmpty($extra)) {
+        if (! Cuztom::isEmpty($extra)) {
             $id = $id.'_'.$extra;
         }
 
@@ -287,7 +287,7 @@ abstract class Field
     {
         $class = 'cuztom-input '.$this->css_class;
 
-        if (!Cuztom::isEmpty($extra)) {
+        if (! Cuztom::isEmpty($extra)) {
             $class = $class.' '.$extra;
         }
 
@@ -331,9 +331,9 @@ abstract class Field
         $output = '';
 
         foreach (array_merge($this->html_attributes, $extra) as $attribute => $value) {
-            if (!is_null($value)) {
+            if (! is_null($value)) {
                 $output .= $attribute.'="'.$value.'"';
-            } elseif (!$value && isset($this->args[Cuztom::uglify($attribute)])) {
+            } elseif (! $value && isset($this->args[Cuztom::uglify($attribute)])) {
                 $output .= $attribute.'="'.$this->args[Cuztom::uglify($attribute)].'"';
             }
         }
@@ -350,7 +350,7 @@ abstract class Field
     {
         $meta = get_post_meta($id, $this->id, true);
 
-        if (!empty($meta) && $this->isRepeatable()) {
+        if (! empty($meta) && $this->isRepeatable()) {
             echo implode($meta, ', ');
         } else {
             echo $meta;
@@ -408,7 +408,7 @@ abstract class Field
      */
     public function substractValue($values)
     {
-        if (isset($values[$this->id]) && !Cuztom::isEmpty($values[$this->id])) {
+        if (isset($values[$this->id]) && ! Cuztom::isEmpty($values[$this->id])) {
             if (is_array($values[$this->id])) {
                 $value = isset($values[$this->id][0]) ? maybe_unserialize($values[$this->id][0]) : null;
             } else {

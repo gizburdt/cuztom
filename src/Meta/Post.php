@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Request;
 
 Guard::directAccess();
@@ -110,9 +110,9 @@ class Post extends Meta
         if (
             Guard::doingAutosave() ||
             Guard::doingAjax() ||
-            !Guard::verifyNonce('cuztom_nonce', 'cuztom_meta') ||
-            !Guard::isPostType($id, $this->postTypes) ||
-            !Guard::userCanEdit($id)
+            ! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta') ||
+            ! Guard::isPostType($id, $this->postTypes) ||
+            ! Guard::userCanEdit($id)
         ) {
             return;
         }

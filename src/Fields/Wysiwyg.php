@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Guard;
+use Gizburdt\Cuztom\Cuztom;
 
 Guard::blockDirectAccess();
 
@@ -30,7 +30,7 @@ class Wysiwyg extends Field
         $this->args['editor_class'] = (isset($this->args['editor_class']) ? $this->args['editor_class'] : '').' cuztom-input js-cuztom-wysiwyg';
 
         return wp_editor(
-            (!Cuztom::isEmpty($value) ? $value : $this->default_value),
+            (! Cuztom::isEmpty($value) ? $value : $this->default_value),
             strtolower($this->getId()),
             $this->args
         );

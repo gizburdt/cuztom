@@ -199,7 +199,7 @@ class Cuztom
      */
     public static function isReservedTerm($term)
     {
-        if (!in_array($term, apply_filters('cuztom_reserved_terms', self::$reserved))) {
+        if (! in_array($term, apply_filters('cuztom_reserved_terms', self::$reserved))) {
             return false;
         }
 

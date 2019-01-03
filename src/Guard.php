@@ -13,7 +13,7 @@ class Guard
      */
     public static function blockDirectAccess()
     {
-        if (!defined('ABSPATH')) {
+        if (! defined('ABSPATH')) {
             die();
         }
     }

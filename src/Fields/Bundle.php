@@ -2,9 +2,9 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
+use Gizburdt\Cuztom\Guard;
 use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Fields\Bundle\Item as BundleItem;
-use Gizburdt\Cuztom\Guard;
 
 Guard::blockDirectAccess();
 

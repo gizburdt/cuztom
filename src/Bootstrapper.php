@@ -15,7 +15,7 @@ class Bootstrapper
     {
         global $cuztom;
 
-        if (!isset(Cuztom::$instance)) {
+        if (! isset(Cuztom::$instance)) {
             Cuztom::$instance = new Cuztom();
 
             Cuztom::$instance->setup();
@@ -187,7 +187,7 @@ class Bootstrapper
             $directories = array_reverse($url);
 
             foreach ($directories as $dir) {
-                if (!preg_match('/content|app/', $dir)) {
+                if (! preg_match('/content|app/', $dir)) {
                     $path = $path.'/'.$dir;
                 }
             }

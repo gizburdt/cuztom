@@ -1,13 +1,13 @@
 <?php
 
+use Gizburdt\Cuztom\Guard;
 use Gizburdt\Cuztom\Entities\Sidebar;
 use Gizburdt\Cuztom\Entities\PostType;
 use Gizburdt\Cuztom\Entities\Taxonomy;
-use Gizburdt\Cuztom\Guard;
 
 Guard::blockDirectAccess();
 
-if (!function_exists('register_cuztom_post_type')) {
+if (! function_exists('register_cuztom_post_type')) {
     /**
      * Register a Post Type.
      *
@@ -22,7 +22,7 @@ if (!function_exists('register_cuztom_post_type')) {
     }
 }
 
-if (!function_exists('register_cuztom_taxonomy')) {
+if (! function_exists('register_cuztom_taxonomy')) {
     /**
      * Registers a Taxonomy for a Post Type.
      *
@@ -38,7 +38,7 @@ if (!function_exists('register_cuztom_taxonomy')) {
     }
 }
 
-if (!function_exists('register_cuztom_sidebar')) {
+if (! function_exists('register_cuztom_sidebar')) {
     /**
      * Register Cuztom sidebar.
      *
