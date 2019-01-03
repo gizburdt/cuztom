@@ -30,7 +30,7 @@ class Taxonomy extends Entity
         parent::__construct($name, $args);
 
         // Set Post Types
-        $this->postTypes = (array) $postTypes;
+        $this->postTypes = (array) $postType;
 
         // Register taxonomy
         if (! taxonomy_exists($this->name)) {

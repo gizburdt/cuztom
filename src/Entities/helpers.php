@@ -1,6 +1,5 @@
 <?php
 
-use Gizburdt\Cuztom\Entities\PostType;
 use Gizburdt\Cuztom\Entities\Sidebar;
 use Gizburdt\Cuztom\Entities\PostType;
 use Gizburdt\Cuztom\Entities\Taxonomy;
