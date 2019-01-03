@@ -1,12 +1,7 @@
 <?php
 
-<<<<<<< Updated upstream
 use Gizburdt\Cuztom\Guard;
-use Gizburdt\Cuztom\Meta\Box as MetaBox;
-=======
-use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Meta\Post as MetaBox;
->>>>>>> Stashed changes
 use Gizburdt\Cuztom\Meta\Term as TermMeta;
 use Gizburdt\Cuztom\Meta\User as UserMeta;
 
