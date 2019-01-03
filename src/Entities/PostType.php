@@ -22,7 +22,7 @@ class PostType extends Entity
         parent::__construct($name, $args);
 
         // Register
-        if (! post_type_exists($this->name)) {
+        if (!post_type_exists($this->name)) {
             $this->registerEntity();
         }
 
@@ -99,7 +99,8 @@ class PostType extends Entity
     /**
      * Add support to Post Type.
      *
-     * @param  string|array $feature
+     * @param string|array $feature
+     *
      * @return object
      */
     public function addPostTypeSupport($feature)
@@ -112,7 +113,8 @@ class PostType extends Entity
     /**
      * Remove support from Post Type.
      *
-     * @param  string|array $feature
+     * @param string|array $feature
+     *
      * @return object
      */
     public function removePostTypeSupport($features)
@@ -127,7 +129,8 @@ class PostType extends Entity
     /**
      * Check if post type supports a certain feature.
      *
-     * @param  string $feature
+     * @param string $feature
+     *
      * @return bool
      */
     public function postTypeSupports($feature)

@@ -12,6 +12,7 @@ class Taxonomy extends Entity
 {
     /**
      * Attached post types.
+     *
      * @var string|array
      */
     public $postTypes;
@@ -24,16 +25,16 @@ class Taxonomy extends Entity
      * @param string|array $postTypes
      * @param array        $args
      */
-    public function __construct($name, $postType = null, $args = [])
+    public function __construct($name, $postTypes = null, $args = [])
     {
         // Entity construct
         parent::__construct($name, $args);
 
         // Set Post Types
-        $this->postTypes = (array) $postType;
+        $this->postTypes = (array) $postTypes;
 
         // Register taxonomy
-        if (! taxonomy_exists($this->name)) {
+        if (!taxonomy_exists($this->name)) {
             $this->registerEntity();
         } else {
             $this->registerEntityForObjectType();
@@ -52,7 +53,7 @@ class Taxonomy extends Entity
     public function addHooks()
     {
         if (isset($this->original['admin_column_sortable']) && $this->original['admin_column_sortable']) {
-            foreach ($this->postType as $postType) {
+            foreach ($this->postTypes as $postType) {
                 add_action("manage_edit-{$postType}_sortable_columns", [$this, 'addSortableColumn']);
             }
         }
@@ -121,12 +122,12 @@ class Taxonomy extends Entity
      * Add Term Meta to this Taxonomy.
      *
      * @param string $id
-     * @param array  $args
+     * @param array  $data
      * @param array  $locations
      */
     public function addTermMeta($id, $data = [], $locations = ['add_form', 'edit_form'])
     {
-        $meta = new TermMeta($id, $this->name, $args, $locations);
+        $meta = new TermMeta($id, $this->name, $data, $locations);
 
         return $this;
     }
@@ -169,7 +170,8 @@ class Taxonomy extends Entity
     /**
      * Applies the selected filter to the query.
      *
-     * @param  object $query
+     * @param object $query
+     *
      * @return array
      */
     public function postFilterQuery($query)

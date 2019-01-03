@@ -2,8 +2,8 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
-use Gizburdt\Cuztom\Guard;
 use Gizburdt\Cuztom\Cuztom;
+use Gizburdt\Cuztom\Guard;
 use Gizburdt\Cuztom\Support\Request;
 
 Guard::directAccess();
@@ -12,24 +12,28 @@ class Post extends Meta
 {
     /**
      * Context.
+     *
      * @var string
      */
     public $context = 'normal';
 
     /**
      * Priority.
+     *
      * @var string
      */
     public $priority = 'default';
 
     /**
      * Post types.
+     *
      * @var string|array
      */
     public $postTypes;
 
     /**
      * Meta type.
+     *
      * @var string
      */
     public $metaType = 'post';
@@ -106,9 +110,9 @@ class Post extends Meta
         if (
             Guard::doingAutosave() ||
             Guard::doingAjax() ||
-            ! Guard::verifyNonce('cuztom_nonce', 'cuztom_meta') ||
-            ! Guard::isPostType($id, $this->postTypes) ||
-            ! Guard::userCanEdit($id)
+            !Guard::verifyNonce('cuztom_nonce', 'cuztom_meta') ||
+            !Guard::isPostType($id, $this->postTypes) ||
+            !Guard::userCanEdit($id)
         ) {
             return;
         }
@@ -125,7 +129,8 @@ class Post extends Meta
     /**
      * Used to add a column head to the Post Type's List Table.
      *
-     * @param  array $columns
+     * @param array $columns
+     *
      * @return array
      */
     public function addColumn($columns)
@@ -161,7 +166,8 @@ class Post extends Meta
     /**
      * Used to make all columns sortable.
      *
-     * @param  array $columns
+     * @param array $columns
+     *
      * @return array
      */
     public function addSortableColumn($columns)

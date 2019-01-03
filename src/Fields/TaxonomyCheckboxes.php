@@ -11,12 +11,14 @@ class TaxonomyCheckboxes extends Checkboxes
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'taxonomy-checkboxes';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $cell_css_class = 'cuztom-field--taxonomy-checkboxes';

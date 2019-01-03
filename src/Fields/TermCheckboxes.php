@@ -11,18 +11,21 @@ class TermCheckboxes extends Checkboxes
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'term-checkboxes';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $cell_css_class = 'cuztom-field--term-checkboxes';
 
     /**
      * Terms.
+     *
      * @var array
      */
     public $terms;

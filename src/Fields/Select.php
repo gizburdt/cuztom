@@ -14,14 +14,16 @@ class Select extends Field
 
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'select';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--select';
+    public $css_class = 'cuztom-input--select';
     public $cell_css_class = 'cuztom-field--select';
 }

@@ -15,45 +15,52 @@ class Cuztom
 
     /**
      * Url.
+     *
      * @var string
      */
     private static $url;
 
     /**
      * Dir.
+     *
      * @var string
      */
     private static $dir;
 
     /**
      * Src.
+     *
      * @var string
      */
     private static $src;
 
     /**
      * Instance.
+     *
      * @var object
      */
     private static $instance;
 
     /**
      * Data.
+     *
      * @var object
      */
-    public static $data = array();
+    public static $data = [];
 
     /**
      * Fields.
+     *
      * @var array
      */
-    public static $fields = array();
+    public static $fields = [];
 
     /**
      * Reserved terms.
+     *
      * @var array
      */
-    public static $reserved = array(
+    public static $reserved = [
         'attachment', 'attachment_id', 'author', 'author_name',
         'calendar', 'cat', 'category', 'category__and',
         'category__in', 'category__not_in', 'category_name', 'comments_per_page',
@@ -73,13 +80,14 @@ class Cuztom
         'tag__in', 'tag__not_in', 'tag_id', 'tag_slug__and',
         'tag_slug__in', 'taxonomy', 'tb', 'term',
         'theme', 'type', 'w', 'withcomments',
-        'withoutcomments', 'year'
-    );
+        'withoutcomments', 'year',
+    ];
 
     /**
      * Get a box from data.
      *
-     * @param  string $box
+     * @param string $box
+     *
      * @return object
      */
     public static function getBox($box)
@@ -100,7 +108,8 @@ class Cuztom
     /**
      * Get field.
      *
-     * @param  string $field
+     * @param string $field
+     *
      * @return object
      */
     public static function getField($field)
@@ -131,7 +140,8 @@ class Cuztom
     /**
      * Beautifies a string. Capitalize words and remove underscores.
      *
-     * @param  string $string
+     * @param string $string
+     *
      * @return string
      */
     public static function beautify($string)
@@ -142,7 +152,8 @@ class Cuztom
     /**
      * Uglifies a string. Remove strange characters and lower strings.
      *
-     * @param  string $string
+     * @param string $string
+     *
      * @return string
      */
     public static function uglify($string)
@@ -153,7 +164,8 @@ class Cuztom
     /**
      * Makes a word plural.
      *
-     * @param  string $string
+     * @param string $string
+     *
      * @return string
      */
     public static function pluralize($string)
@@ -167,7 +179,7 @@ class Cuztom
      * @param string $view
      * @param array  $variables
      */
-    public static function view($view, $variables = array())
+    public static function view($view, $variables = [])
     {
         extract($variables);
 
@@ -181,12 +193,13 @@ class Cuztom
     /**
      * Check if the term is reserved by Wordpress.
      *
-     * @param  string $term
+     * @param string $term
+     *
      * @return bool
      */
     public static function isReservedTerm($term)
     {
-        if (! in_array($term, apply_filters('cuztom_reserved_terms', self::$reserved))) {
+        if (!in_array($term, apply_filters('cuztom_reserved_terms', self::$reserved))) {
             return false;
         }
 

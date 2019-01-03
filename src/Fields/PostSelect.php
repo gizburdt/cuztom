@@ -11,12 +11,14 @@ class PostSelect extends Select
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'post-select';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $css_class = 'cuztom-input--select cuztom-input--post-select';

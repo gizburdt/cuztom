@@ -15,7 +15,7 @@ class Bootstrapper
     {
         global $cuztom;
 
-        if (! isset(Cuztom::$instance)) {
+        if (!isset(Cuztom::$instance)) {
             Cuztom::$instance = new Cuztom();
 
             Cuztom::$instance->setup();
@@ -33,9 +33,9 @@ class Bootstrapper
     private function setup()
     {
         self::$version = '3.1.7';
-        self::$src     = dirname(__FILE__);
-        self::$dir     = dirname(dirname(__FILE__));
-        self::$url     = $this->getCuztomUrl(self::$src);
+        self::$src = dirname(__FILE__);
+        self::$dir = dirname(dirname(__FILE__));
+        self::$url = $this->getCuztomUrl(self::$src);
 
         do_action('cuztom_setup');
     }
@@ -45,11 +45,11 @@ class Bootstrapper
      */
     private function hooks()
     {
-        add_action('admin_init', array($this, 'registerStyles'));
-        add_action('admin_print_styles', array($this, 'enqueueStyles'));
+        add_action('admin_init', [$this, 'registerStyles']);
+        add_action('admin_print_styles', [$this, 'enqueueStyles']);
 
-        add_action('admin_init', array($this, 'registerScripts'));
-        add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
+        add_action('admin_init', [$this, 'registerScripts']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueueScripts']);
 
         do_action('cuztom_hooks');
     }
@@ -111,15 +111,15 @@ class Bootstrapper
         wp_register_script(
             'cuztom',
             self::$url.'/assets/js/cuztom.min.js',
-            array(
+            [
                 'jquery',
                 'jquery-ui-core',
                 'jquery-ui-tabs',
                 'jquery-ui-accordion',
                 'jquery-ui-sortable',
                 'jquery-ui-slider',
-                'wp-color-picker'
-            ),
+                'wp-color-picker',
+            ],
             self::$version,
             true
         );
@@ -145,14 +145,14 @@ class Bootstrapper
      */
     public function localizeScripts()
     {
-        wp_localize_script('cuztom', 'Cuztom', array(
+        wp_localize_script('cuztom', 'Cuztom', [
             'wpVersion'  => get_bloginfo('version'),
             'wpNonce'    => wp_create_nonce('cuztom'),
             'homeUrl'    => get_home_url(),
             'ajaxUrl'    => admin_url('admin-ajax.php'),
             'dateFormat' => get_option('date_format'),
-            'translate'  => array()
-        ));
+            'translate'  => [],
+        ]);
 
         do_action('cuztom_localize_scripts');
     }
@@ -160,11 +160,12 @@ class Bootstrapper
     /**
      * Recursive method to determine the path to the Cuztom folder.
      *
-     * @param  string $path
-     * @param  array  $url
+     * @param string $path
+     * @param array  $url
+     *
      * @return string
      */
-    public function getCuztomUrl($path = __FILE__, $url = array())
+    public function getCuztomUrl($path = __FILE__, $url = [])
     {
         // Retun URL if defined
         if (defined('CUZTOM_URL')) {
@@ -172,9 +173,9 @@ class Bootstrapper
         }
 
         // Base vars
-        $path    = dirname($path);
-        $path    = str_replace('\\', '/', $path);
-        $expath  = explode('/', $path);
+        $path = dirname($path);
+        $path = str_replace('\\', '/', $path);
+        $expath = explode('/', $path);
         $current = $expath[count($expath) - 1];
 
         // Push to path array
@@ -182,11 +183,11 @@ class Bootstrapper
 
         // Check for current
         if (preg_match('/content|app/', $current)) {
-            $path        = '';
+            $path = '';
             $directories = array_reverse($url);
 
             foreach ($directories as $dir) {
-                if (! preg_match('/content|app/', $dir)) {
+                if (!preg_match('/content|app/', $dir)) {
                     $path = $path.'/'.$dir;
                 }
             }

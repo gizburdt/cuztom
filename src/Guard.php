@@ -13,7 +13,7 @@ class Guard
      */
     public static function blockDirectAccess()
     {
-        if (! defined('ABSPATH')) {
+        if (!defined('ABSPATH')) {
             die();
         }
     }
@@ -41,8 +41,9 @@ class Guard
     /**
      * Check nonce.
      *
-     * @param  string $name
-     * @param  string $value
+     * @param string $name
+     * @param string $value
+     *
      * @return bool
      */
     public static function verifyNonce($name, $value)
@@ -53,8 +54,9 @@ class Guard
     /**
      * Check AJAX nonce.
      *
-     * @param  string $action
-     * @param  string $argument
+     * @param string $action
+     * @param string $argument
+     *
      * @return bool
      */
     public static function verifyAjaxNonce($action, $argument)
@@ -65,8 +67,9 @@ class Guard
     /**
      * Check if given id (post) is of certain type(s).
      *
-     * @param  int   $id
-     * @param  array $postTypes
+     * @param int   $id
+     * @param array $postTypes
+     *
      * @return bool
      */
     public static function isPostType($id, $postTypes)
@@ -77,7 +80,8 @@ class Guard
     /**
      * Check if user can edit post.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return bool
      */
     public static function userCanEdit($id)

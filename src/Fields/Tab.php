@@ -11,16 +11,18 @@ class Tab extends Field
 {
     /**
      * Tabs type.
+     *
      * @var string
      */
     public $tabsType;
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $title;
-    public $fields = array();
+    public $fields = [];
 
     /**
      * Construct.
@@ -32,7 +34,7 @@ class Tab extends Field
     {
         parent::__construct($args, $values);
 
-        if (! $this->id) {
+        if (!$this->id) {
             $this->id = Cuztom::uglify($this->title);
         }
 
@@ -45,22 +47,24 @@ class Tab extends Field
     /**
      * Output.
      *
-     * @param  array  $args
+     * @param array $args
+     *
      * @return string
      */
     public function outputTab()
     {
-        return Cuztom::view('fields/tab', array(
+        return Cuztom::view('fields/tab', [
             'tab'  => $this,
-            'type' => $this->tabsType
-        ));
+            'type' => $this->tabsType,
+        ]);
     }
 
     /**
      * Save.
      *
-     * @param  int          $object
-     * @param  string|array $values
+     * @param int          $object
+     * @param string|array $values
+     *
      * @return string
      */
     public function save($object, $values)
@@ -75,7 +79,8 @@ class Tab extends Field
     /**
      * Substract value.
      *
-     * @param  array        $values
+     * @param array $values
+     *
      * @return string|array
      */
     public function substractValue($values)
@@ -86,7 +91,8 @@ class Tab extends Field
     /**
      * Get field.
      *
-     * @param  string $search
+     * @param string $search
+     *
      * @return mixed
      */
     public function getField($search)
@@ -99,18 +105,19 @@ class Tab extends Field
     /**
      * Build.
      *
-     * @param  array        $data
-     * @param  string|array $value
+     * @param array        $data
+     * @param string|array $value
+     *
      * @return void
      */
     public function build($args)
     {
         foreach ($this->fields as $field) {
-            $args = array_merge($field, array(
+            $args = array_merge($field, [
                 'metaBox'  => $this->metaBox,
                 'metaType' => $this->metaType,
                 'object'   => $this->object,
-            ));
+            ]);
 
             $field = Field::create($args, $this->value);
 

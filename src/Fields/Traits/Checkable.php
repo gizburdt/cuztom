@@ -12,9 +12,10 @@ trait Checkable
     /**
      * Output option.
      *
-     * @param  string $value
-     * @param  string $default_value
-     * @param  string $option
+     * @param string $value
+     * @param string $default_value
+     * @param string $option
+     *
      * @return string
      */
     public function outputOption($value = null, $default_value = null, $option = null)
@@ -32,12 +33,13 @@ trait Checkable
     /**
      * Output checked attribute.
      *
-     * @param  mixed  $value
+     * @param mixed $value
+     *
      * @return string
      */
     public function maybeChecked($value = null, $default_value = null, $option = null)
     {
-        return ! Cuztom::isEmpty($value)
+        return !Cuztom::isEmpty($value)
             ? checked($value, $option, false)
             : checked($default_value, $option, false);
     }

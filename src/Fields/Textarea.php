@@ -11,12 +11,14 @@ class Textarea extends Field
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'textarea';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $css_class = 'cuztom-input--textarea';

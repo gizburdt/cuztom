@@ -8,6 +8,7 @@ class Request
 {
     /**
      * Attributes.
+     *
      * @var array
      */
     protected $attributes;
@@ -25,7 +26,8 @@ class Request
     /**
      * Getter.
      *
-     * @param  string      $attribute
+     * @param string $attribute
+     *
      * @return string|null
      */
     public function get($attribute)

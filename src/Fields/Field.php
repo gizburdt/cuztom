@@ -11,12 +11,14 @@ abstract class Field
 {
     /**
      * All original args.
+     *
      * @var array
      */
     public $original;
 
     /**
      * Base.
+     *
      * @var mixed
      */
     public $object = null;
@@ -28,6 +30,7 @@ abstract class Field
 
     /**
      * Before/after id/name.
+     *
      * @var mixed
      */
     public $beforeName = '';
@@ -37,12 +40,14 @@ abstract class Field
 
     /**
      * Special.
+     *
      * @var mixed
      */
     public $parent;
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $id = null;
@@ -65,6 +70,7 @@ abstract class Field
 
     /**
      * Merges.
+     *
      * @var mixed
      */
     protected $merges = [
@@ -122,8 +128,9 @@ abstract class Field
     /**
      * Output based on type.
      *
-     * @param  string|array $value
-     * @param  string       $value
+     * @param string|array $value
+     * @param string       $value
+     *
      * @return string
      */
     public function output($value = null)
@@ -138,8 +145,9 @@ abstract class Field
     /**
      * Output field.
      *
-     * @param  string|array $value
-     * @param  string       $view
+     * @param string|array $value
+     * @param string       $view
+     *
      * @return string
      */
     public function outputInput($value = null, $view = null)
@@ -168,7 +176,8 @@ abstract class Field
     /**
      * Outputs repeatable control.
      *
-     * @param  mixed  $value
+     * @param mixed $value
+     *
      * @return string
      */
     public function outputRepeatableControl()
@@ -181,7 +190,8 @@ abstract class Field
     /**
      * Parse value.
      *
-     * @param  mixed $value.
+     * @param mixed $value.
+     *
      * @return mixed
      */
     public function parseValue($value)
@@ -192,8 +202,9 @@ abstract class Field
     /**
      * Save meta.
      *
-     * @param  int   $object
-     * @param  mixed $value
+     * @param int   $object
+     * @param mixed $value
+     *
      * @return bool
      */
     public function save($object, $values)
@@ -248,7 +259,7 @@ abstract class Field
     {
         $id = $this->beforeId.$this->id.$this->afterId;
 
-        if (! Cuztom::isEmpty($extra)) {
+        if (!Cuztom::isEmpty($extra)) {
             $id = $id.'_'.$extra;
         }
 
@@ -268,14 +279,15 @@ abstract class Field
     /**
      * Get the fields css classes.
      *
-     * @param  array  $extra
+     * @param array $extra
+     *
      * @return string
      */
     public function getCssClass($extra = null)
     {
         $class = 'cuztom-input '.$this->css_class;
 
-        if (! Cuztom::isEmpty($extra)) {
+        if (!Cuztom::isEmpty($extra)) {
             $class = $class.' '.$extra;
         }
 
@@ -285,7 +297,8 @@ abstract class Field
     /**
      * Get the fields cell css classes.
      *
-     * @param  array  $extra
+     * @param array $extra
+     *
      * @return string
      */
     public function getCellCssClass($extra = null)
@@ -309,7 +322,8 @@ abstract class Field
     /**
      * Outputs the fields data attributes.
      *
-     * @param  array  $extra
+     * @param array $extra
+     *
      * @return string
      */
     public function getDataAttributes($extra = [])
@@ -317,9 +331,9 @@ abstract class Field
         $output = '';
 
         foreach (array_merge($this->html_attributes, $extra) as $attribute => $value) {
-            if (! is_null($value)) {
+            if (!is_null($value)) {
                 $output .= $attribute.'="'.$value.'"';
-            } elseif (! $value && isset($this->args[Cuztom::uglify($attribute)])) {
+            } elseif (!$value && isset($this->args[Cuztom::uglify($attribute)])) {
                 $output .= $attribute.'="'.$this->args[Cuztom::uglify($attribute)].'"';
             }
         }
@@ -336,7 +350,7 @@ abstract class Field
     {
         $meta = get_post_meta($id, $this->id, true);
 
-        if (! empty($meta) && $this->isRepeatable()) {
+        if (!empty($meta) && $this->isRepeatable()) {
             echo implode($meta, ', ');
         } else {
             echo $meta;
@@ -346,7 +360,8 @@ abstract class Field
     /**
      * Check what kind of meta we're dealing with.
      *
-     * @param  string $metaType
+     * @param string $metaType
+     *
      * @return bool
      */
     public function isMetaType($metaType)
@@ -387,12 +402,13 @@ abstract class Field
     /**
      * Substract value of field from values array.
      *
-     * @param  array  $values
+     * @param array $values
+     *
      * @return string
      */
     public function substractValue($values)
     {
-        if (isset($values[$this->id]) && ! Cuztom::isEmpty($values[$this->id])) {
+        if (isset($values[$this->id]) && !Cuztom::isEmpty($values[$this->id])) {
             if (is_array($values[$this->id])) {
                 $value = isset($values[$this->id][0]) ? maybe_unserialize($values[$this->id][0]) : null;
             } else {
@@ -408,7 +424,8 @@ abstract class Field
     /**
      * Creates and returns a field object.
      *
-     * @param  array       $args
+     * @param array $args
+     *
      * @return object|bool
      */
     public static function create($args, $values)

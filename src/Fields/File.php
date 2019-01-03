@@ -11,6 +11,7 @@ class File extends Field
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $inputType = 'hidden';
@@ -18,6 +19,7 @@ class File extends Field
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $css_class = 'cuztom-input--hidden';
@@ -41,8 +43,9 @@ class File extends Field
     /**
      * Output input field.
      *
-     * @param  string $value
-     * @param  string $view
+     * @param string $value
+     * @param string $view
+     *
      * @return string
      */
     public function outputInput($value = null, $view = null)

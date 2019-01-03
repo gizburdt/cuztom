@@ -12,30 +12,35 @@ abstract class Entity
 {
     /**
      * Original.
+     *
      * @var array
      */
     public $original;
 
     /**
      * Name.
+     *
      * @var string
      */
     public $name;
 
     /**
      * Title.
+     *
      * @var string
      */
     public $title;
 
     /**
      * Plural.
+     *
      * @var string
      */
     public $plural;
 
     /**
      * Labels.
+     *
      * @var array
      */
     public $labels;

@@ -20,12 +20,12 @@ class Api
      *
      * @var array
      */
-    protected $hooks = array(
+    protected $hooks = [
         'setup_repeatable_list',
         'add_repeatable_item',
         'setup_bundle_list',
         'add_bundle_item',
-    );
+    ];
 
     /**
      * Constructor.
@@ -46,7 +46,7 @@ class Api
     public function addHooks()
     {
         foreach ($this->hooks as $name => $method) {
-            add_action("wp_ajax_cuztom_$name", array($this, Str::camel($method)));
+            add_action("wp_ajax_cuztom_$name", [$this, Str::camel($method)]);
         }
 
         do_action('cuztom_ajax_hooks');
@@ -59,7 +59,7 @@ class Api
      */
     public function setupRepeatableList()
     {
-        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
+        if (!Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
@@ -83,14 +83,14 @@ class Api
      */
     public function addRepeatableItem()
     {
-        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
+        if (!Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
         $field = self::getField();
         $count = self::$request->get('count');
 
-        $response = ((! $field->limit) || ($field->limit > $count))
+        $response = ((!$field->limit) || ($field->limit > $count))
             ? new Response(true, $field->outputInput())
             : new Response(false, __('Limit reached!', 'cuztom'));
 
@@ -107,7 +107,7 @@ class Api
      */
     public function setupBundleList()
     {
-        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
+        if (!Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
@@ -131,7 +131,7 @@ class Api
      */
     public function addBundleItem()
     {
-        if (! Guard::verifyAjaxNonce('cuztom', 'security')) {
+        if (!Guard::verifyAjaxNonce('cuztom', 'security')) {
             return;
         }
 
@@ -147,7 +147,7 @@ class Api
             ]
         )))->output();
 
-        $response = (! $field->limit || ($field->limit > $count))
+        $response = (!$field->limit || ($field->limit > $count))
             ? new Response(true, $data)
             : new Response(false, __('Limit reached!', 'cuztom'));
 
@@ -160,8 +160,9 @@ class Api
     /**
      * Get field object from cuztom global.
      *
-     * @param  string|object $field
-     * @param  string|null   $box
+     * @param string|object $field
+     * @param string|null   $box
+     *
      * @return object
      */
     public static function getField()
