@@ -11,12 +11,14 @@ class PostCheckboxes extends Checkboxes
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'post-checkboxes';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $cell_css_class = 'cuztom-field--post-checkboxes';
@@ -32,14 +34,14 @@ class PostCheckboxes extends Checkboxes
         parent::__construct($args, $values);
 
         $this->args = array_merge(
-            array(
+            [
                 'post_type'      => 'post',
-                'posts_per_page' => -1
-            ),
+                'posts_per_page' => -1,
+            ],
             $this->args
         );
 
         $this->default_value = (array) $this->default_value;
-        $this->posts         = get_posts($this->args);
+        $this->posts = get_posts($this->args);
     }
 }

@@ -8,6 +8,7 @@ class Response
 {
     /**
      * Response.
+     *
      * @var string
      */
     protected $response;
@@ -15,16 +16,17 @@ class Response
     /**
      * Constructor.
      *
-     * @param  array  $status
-     * @param  bool   $data
+     * @param array $status
+     * @param bool  $data
+     *
      * @return string
      */
-    public function __construct($status, $data = array())
+    public function __construct($status, $data = [])
     {
-        $this->response = apply_filters('cuztom_response_attributes', array(
+        $this->response = apply_filters('cuztom_response_attributes', [
             'status' => $status,
-            'data'   => $data
-        ), $this);
+            'data'   => $data,
+        ], $this);
     }
 
     /**

@@ -16,7 +16,7 @@ trait Selectable
      */
     public function maybeShowOptionNone()
     {
-        if (isset($this->args['show_option_none']) && ! Cuztom::isEmpty($this->args['show_option_none'])) {
+        if (isset($this->args['show_option_none']) && !Cuztom::isEmpty($this->args['show_option_none'])) {
             return '<option value="-1" '.(Cuztom::isEmpty($this->value) ? 'selected="selected"' : '').'>'.$this->args['show_option_none'].'</option>';
         }
     }

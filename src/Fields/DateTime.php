@@ -11,14 +11,15 @@ class DateTime extends Field
 {
     /**
      * Fillables.
+     *
      * @var mixed
      */
-    public $css_class       = 'cuztom-input--datetime datetimepicker js-cuztom-datetimepicker';
-    public $cell_css_class  = 'cuztom-field--datetime';
-    public $html_attributes = array(
+    public $css_class = 'cuztom-input--datetime datetimepicker js-cuztom-datetimepicker';
+    public $cell_css_class = 'cuztom-field--datetime';
+    public $html_attributes = [
         'data-time-format' => null,
-        'data-date-format' => null
-    );
+        'data-date-format' => null,
+    ];
 
     /**
      * Construct.
@@ -45,7 +46,8 @@ class DateTime extends Field
     /**
      * Parse value.
      *
-     * @param  string $value
+     * @param string $value
+     *
      * @return string
      */
     public function parseValue($value)
@@ -56,7 +58,8 @@ class DateTime extends Field
     /**
      * UNIX time to string.
      *
-     * @param  string $string
+     * @param string $string
+     *
      * @return string
      */
     public function timeToString($string)

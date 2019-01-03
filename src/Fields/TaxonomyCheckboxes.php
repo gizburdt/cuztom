@@ -11,12 +11,14 @@ class TaxonomyCheckboxes extends Checkboxes
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'taxonomy-checkboxes';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $cell_css_class = 'cuztom-field--taxonomy-checkboxes';
@@ -32,9 +34,9 @@ class TaxonomyCheckboxes extends Checkboxes
         parent::__construct($args, $values);
 
         $this->args = array_merge(
-            array(
+            [
                 'public' => true,
-            ),
+            ],
             $this->args
         );
 

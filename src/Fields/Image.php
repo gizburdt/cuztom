@@ -11,16 +11,18 @@ class Image extends Field
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $inputType = 'hidden';
-    public $view      = 'image';
+    public $view = 'image';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--hidden';
+    public $css_class = 'cuztom-input--hidden';
     public $cell_css_class = 'cuztom-field--image';
 
     /**
@@ -33,16 +35,17 @@ class Image extends Field
     {
         parent::__construct($args, $values);
 
-        $this->html_attributes = array(
-            'v-model' => 'value'
-        );
+        $this->html_attributes = [
+            'v-model' => 'value',
+        ];
     }
 
     /**
      * Output input field.
      *
-     * @param  string $value
-     * @param  string $view
+     * @param string $value
+     * @param string $view
+     *
      * @return string
      */
     public function outputInput($value = null, $view = null)
@@ -55,23 +58,24 @@ class Image extends Field
 
         $attachment['url'] = array_shift($urls);
 
-        return Cuztom::view('fields/'.$view, array(
+        return Cuztom::view('fields/'.$view, [
             'field'      => $this,
             'value'      => $value,
-            'attachment' => $attachment
-        ));
+            'attachment' => $attachment,
+        ]);
     }
 
     /**
      * Output column content.
      *
-     * @param  string $post_id
+     * @param string $post_id
+     *
      * @return string
      */
     public function outputColumnContent($post_id)
     {
         $meta = get_post_meta($post_id, $this->id, true);
 
-        echo wp_get_attachment_image($meta, array(100, 100));
+        echo wp_get_attachment_image($meta, [100, 100]);
     }
 }

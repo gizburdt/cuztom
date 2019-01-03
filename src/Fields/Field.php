@@ -11,65 +11,71 @@ abstract class Field
 {
     /**
      * All original args.
+     *
      * @var array
      */
     public $original;
 
     /**
      * Base.
+     *
      * @var mixed
      */
-    public $object    = null;
-    public $value     = null;
-    public $metaBox   = null;
-    public $metaType  = null;
-    public $view      = 'text';
+    public $object = null;
+    public $value = null;
+    public $metaBox = null;
+    public $metaType = null;
+    public $view = 'text';
     public $inputType = 'text';
 
     /**
      * Before/after id/name.
+     *
      * @var mixed
      */
     public $beforeName = '';
-    public $afterName  = '';
-    public $beforeId   = '';
-    public $afterId    = '';
+    public $afterName = '';
+    public $beforeId = '';
+    public $afterId = '';
 
     /**
      * Special.
+     *
      * @var mixed
      */
     public $parent;
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
-    public $id                    = null;
-    public $type                  = null;
-    public $label                 = '';
-    public $description           = '';
-    public $explanation           = '';
-    public $default_value         = '';
-    public $options               = array();
-    public $args                  = array();
-    public $required              = false;
-    public $repeatable            = false;
-    public $limit                 = null;
-    public $html_attributes       = array();
-    public $css_class             = '';
-    public $cell_css_class        = '';
-    public $show_admin_column     = false;
+    public $id = null;
+    public $type = null;
+    public $label = '';
+    public $description = '';
+    public $explanation = '';
+    public $default_value = '';
+    public $options = [];
+    public $args = [];
+    public $required = false;
+    public $repeatable = false;
+    public $limit = null;
+    public $html_attributes = [];
+    public $css_class = '';
+    public $cell_css_class = '';
+    public $show_admin_column = false;
     public $admin_column_sortable = false;
-    public $admin_column_filter   = false;
+    public $admin_column_filter = false;
 
     /**
      * Merges.
+     *
      * @var mixed
      */
-    protected $merges = array(
-        'html_attributes'
-    );
+    protected $merges = [
+        'html_attributes',
+    ];
 
     /**
      * Construct.
@@ -113,17 +119,18 @@ abstract class Field
      */
     public function outputCell($value = null)
     {
-        return Cuztom::view('fields/cell/default', array(
+        return Cuztom::view('fields/cell/default', [
             'field' => $this,
-            'value' => $value
-        ));
+            'value' => $value,
+        ]);
     }
 
     /**
      * Output based on type.
      *
-     * @param  string|array $value
-     * @param  string       $value
+     * @param string|array $value
+     * @param string       $value
+     *
      * @return string
      */
     public function output($value = null)
@@ -138,18 +145,19 @@ abstract class Field
     /**
      * Output field.
      *
-     * @param  string|array $value
-     * @param  string       $view
+     * @param string|array $value
+     * @param string       $view
+     *
      * @return string
      */
     public function outputInput($value = null, $view = null)
     {
         $view = $view ? $view : $this->getView();
 
-        return Cuztom::view('fields/'.$view, array(
+        return Cuztom::view('fields/'.$view, [
             'field' => $this,
-            'value' => $value
-        ));
+            'value' => $value,
+        ]);
     }
 
     /**
@@ -159,29 +167,31 @@ abstract class Field
      */
     public function outputRepeatable($value = null)
     {
-        return Cuztom::view('fields/repeatable/repeatable', array(
+        return Cuztom::view('fields/repeatable/repeatable', [
             'field'  => $this,
-            'values' => $value
-        ));
+            'values' => $value,
+        ]);
     }
 
     /**
      * Outputs repeatable control.
      *
-     * @param  mixed  $value
+     * @param mixed $value
+     *
      * @return string
      */
     public function outputRepeatableControl()
     {
-        return Cuztom::view('fields/repeatable/control', array(
-            'field' => $this
-        ));
+        return Cuztom::view('fields/repeatable/control', [
+            'field' => $this,
+        ]);
     }
 
     /**
      * Parse value.
      *
-     * @param  mixed $value.
+     * @param mixed $value.
+     *
      * @return mixed
      */
     public function parseValue($value)
@@ -192,8 +202,9 @@ abstract class Field
     /**
      * Save meta.
      *
-     * @param  int   $object
-     * @param  mixed $value
+     * @param int   $object
+     * @param mixed $value
+     *
      * @return bool
      */
     public function save($object, $values)
@@ -248,7 +259,7 @@ abstract class Field
     {
         $id = $this->beforeId.$this->id.$this->afterId;
 
-        if (! Cuztom::isEmpty($extra)) {
+        if (!Cuztom::isEmpty($extra)) {
             $id = $id.'_'.$extra;
         }
 
@@ -268,14 +279,15 @@ abstract class Field
     /**
      * Get the fields css classes.
      *
-     * @param  array  $extra
+     * @param array $extra
+     *
      * @return string
      */
     public function getCssClass($extra = null)
     {
         $class = 'cuztom-input '.$this->css_class;
 
-        if (! Cuztom::isEmpty($extra)) {
+        if (!Cuztom::isEmpty($extra)) {
             $class = $class.' '.$extra;
         }
 
@@ -285,7 +297,8 @@ abstract class Field
     /**
      * Get the fields cell css classes.
      *
-     * @param  array  $extra
+     * @param array $extra
+     *
      * @return string
      */
     public function getCellCssClass($extra = null)
@@ -309,17 +322,18 @@ abstract class Field
     /**
      * Outputs the fields data attributes.
      *
-     * @param  array  $extra
+     * @param array $extra
+     *
      * @return string
      */
-    public function getDataAttributes($extra = array())
+    public function getDataAttributes($extra = [])
     {
         $output = '';
 
         foreach (array_merge($this->html_attributes, $extra) as $attribute => $value) {
-            if (! is_null($value)) {
+            if (!is_null($value)) {
                 $output .= $attribute.'="'.$value.'"';
-            } elseif (! $value && isset($this->args[Cuztom::uglify($attribute)])) {
+            } elseif (!$value && isset($this->args[Cuztom::uglify($attribute)])) {
                 $output .= $attribute.'="'.$this->args[Cuztom::uglify($attribute)].'"';
             }
         }
@@ -336,7 +350,7 @@ abstract class Field
     {
         $meta = get_post_meta($id, $this->id, true);
 
-        if (! empty($meta) && $this->isRepeatable()) {
+        if (!empty($meta) && $this->isRepeatable()) {
             echo implode($meta, ', ');
         } else {
             echo $meta;
@@ -346,7 +360,8 @@ abstract class Field
     /**
      * Check what kind of meta we're dealing with.
      *
-     * @param  string $metaType
+     * @param string $metaType
+     *
      * @return bool
      */
     public function isMetaType($metaType)
@@ -387,12 +402,13 @@ abstract class Field
     /**
      * Substract value of field from values array.
      *
-     * @param  array  $values
+     * @param array $values
+     *
      * @return string
      */
     public function substractValue($values)
     {
-        if (isset($values[$this->id]) && ! Cuztom::isEmpty($values[$this->id])) {
+        if (isset($values[$this->id]) && !Cuztom::isEmpty($values[$this->id])) {
             if (is_array($values[$this->id])) {
                 $value = isset($values[$this->id][0]) ? maybe_unserialize($values[$this->id][0]) : null;
             } else {
@@ -408,12 +424,13 @@ abstract class Field
     /**
      * Creates and returns a field object.
      *
-     * @param  array       $args
+     * @param array $args
+     *
      * @return object|bool
      */
     public static function create($args, $values)
     {
-        $type  = is_array($args) ? $args['type'] : $args;
+        $type = is_array($args) ? $args['type'] : $args;
         $class = str_replace(' ', '', ucwords(str_replace('_', ' ', $type)));
         $class = "Gizburdt\\Cuztom\\Fields\\$class";
 

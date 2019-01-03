@@ -10,15 +10,17 @@ class Time extends DateTime
 {
     /**
      * Fillables.
+     *
      * @var mixed
      */
-    public $css_class      = 'cuztom-input--time timepicker js-cuztom-timepicker';
+    public $css_class = 'cuztom-input--time timepicker js-cuztom-timepicker';
     public $cell_css_class = 'cuztom-field--time';
 
     /**
      * UNIX time to string.
      *
-     * @param  string $string
+     * @param string $string
+     *
      * @return string
      */
     public function timeToString($string)
