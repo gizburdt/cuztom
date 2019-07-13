@@ -1,5 +1,4 @@
-<?php use Gizburdt\Cuztom\Cuztom;
-
+<?php 
 ?>
 
 <tr class="cuztom-cell cuztom-bundle js-cuztom-bundle" v-cloak>
