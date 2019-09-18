@@ -2,7 +2,6 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Traits\Checkable;
 
