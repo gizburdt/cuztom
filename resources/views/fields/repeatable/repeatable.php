@@ -1,5 +1,4 @@
-<?php use Gizburdt\Cuztom\Cuztom;
-
+<?php 
 ?>
 
 <v-cuztom-repeatable
