@@ -10,6 +10,7 @@ class Accordion extends Tabs
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'accordion';

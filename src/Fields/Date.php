@@ -10,6 +10,7 @@ class Date extends DateTime
 {
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $css_class = 'cuztom-input--date datepicker js-cuztom-datepicker';
@@ -21,7 +22,7 @@ class Date extends DateTime
     /**
      * UNIX time to string.
      *
-     * @param  string $string
+     * @param  string  $string
      * @return string
      */
     public function timeToString($string)
