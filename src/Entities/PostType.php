@@ -3,8 +3,8 @@
 namespace Gizburdt\Cuztom\Entities;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Meta\Box as MetaBox;
+use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
 
@@ -13,8 +13,8 @@ class PostType extends Entity
     /**
      * Construct a new Cuztom Post Type.
      *
-     * @param string $name
-     * @param array  $args
+     * @param  string  $name
+     * @param  array  $args
      */
     public function __construct($name, $args = [])
     {
@@ -73,8 +73,8 @@ class PostType extends Entity
     /**
      * Add a taxonomy to the Post Type.
      *
-     * @param string|array $name
-     * @param array        $args
+     * @param  string|array  $name
+     * @param  array  $args
      */
     public function addTaxonomy($name, $args = [])
     {
@@ -86,8 +86,8 @@ class PostType extends Entity
     /**
      * Add Meta Box to the Post Type.
      *
-     * @param string $id
-     * @param array  $args
+     * @param  string  $id
+     * @param  array  $args
      */
     public function addMetaBox($id, $args)
     {
@@ -99,7 +99,7 @@ class PostType extends Entity
     /**
      * Add support to Post Type.
      *
-     * @param  string|array $feature
+     * @param  string|array  $feature
      * @return object
      */
     public function addPostTypeSupport($feature)
@@ -112,7 +112,7 @@ class PostType extends Entity
     /**
      * Remove support from Post Type.
      *
-     * @param  string|array $feature
+     * @param  string|array  $feature
      * @return object
      */
     public function removePostTypeSupport($features)
@@ -127,7 +127,7 @@ class PostType extends Entity
     /**
      * Check if post type supports a certain feature.
      *
-     * @param  string|array $feature
+     * @param  string|array  $feature
      * @return bool
      */
     public function postTypeSupports($feature)

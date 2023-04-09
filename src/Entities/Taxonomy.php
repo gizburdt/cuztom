@@ -2,9 +2,8 @@
 
 namespace Gizburdt\Cuztom\Entities;
 
-use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Meta\Term as TermMeta;
+use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
 
@@ -12,6 +11,7 @@ class Taxonomy extends Entity
 {
     /**
      * Attached post type(s).
+     *
      * @var string|array
      */
     public $postType;
@@ -20,9 +20,9 @@ class Taxonomy extends Entity
      * Constructs the class with important vars and method calls.
      * If the Taxonomy exists, it will be attached to the Post Type.
      *
-     * @param string       $name
-     * @param string|array $postType
-     * @param array        $args
+     * @param  string  $name
+     * @param  string|array  $postType
+     * @param  array  $args
      */
     public function __construct($name, $postType = null, $args = [])
     {
@@ -119,9 +119,9 @@ class Taxonomy extends Entity
     /**
      * Add Term Meta to this Taxonomy.
      *
-     * @param string $id
-     * @param array  $data
-     * @param array  $locations
+     * @param  string  $id
+     * @param  array  $data
+     * @param  array  $locations
      */
     public function addTermMeta($id, $data = [], $locations = ['add_form', 'edit_form'])
     {
@@ -133,7 +133,7 @@ class Taxonomy extends Entity
     /**
      * Add sortable column.
      *
-     * @param array $columns
+     * @param  array  $columns
      */
     public function addSortableColumn($columns)
     {
@@ -168,7 +168,7 @@ class Taxonomy extends Entity
     /**
      * Applies the selected filter to the query.
      *
-     * @param  object $query
+     * @param  object  $query
      * @return array
      */
     public function postFilterQuery($query)

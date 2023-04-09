@@ -11,12 +11,14 @@ class Tab extends Field
 {
     /**
      * Tabs type.
+     *
      * @var string
      */
     public $tabsType;
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $title;
@@ -25,8 +27,8 @@ class Tab extends Field
     /**
      * Construct.
      *
-     * @param array $args
-     * @param array $values
+     * @param  array  $args
+     * @param  array  $values
      */
     public function __construct($args, $values = null)
     {
@@ -59,8 +61,8 @@ class Tab extends Field
     /**
      * Save.
      *
-     * @param  int          $object
-     * @param  string|array $values
+     * @param  int  $object
+     * @param  string|array  $values
      * @return string
      */
     public function save($object, $values)
@@ -75,7 +77,7 @@ class Tab extends Field
     /**
      * Substract value.
      *
-     * @param  array        $values
+     * @param  array  $values
      * @return string|array
      */
     public function substractValue($values)
@@ -86,7 +88,7 @@ class Tab extends Field
     /**
      * Get field.
      *
-     * @param  string $search
+     * @param  string  $search
      * @return mixed
      */
     public function getField($search)
@@ -99,8 +101,8 @@ class Tab extends Field
     /**
      * Build.
      *
-     * @param  array        $data
-     * @param  string|array $value
+     * @param  array  $data
+     * @param  string|array  $value
      * @return void
      */
     public function build($args)

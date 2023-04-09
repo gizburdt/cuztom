@@ -2,7 +2,6 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
@@ -11,12 +10,14 @@ class PostSelect extends Select
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'post-select';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $css_class = 'cuztom-input--select cuztom-input--post-select';
@@ -25,8 +26,8 @@ class PostSelect extends Select
     /**
      * Construct.
      *
-     * @param array $args
-     * @param array $values
+     * @param  array  $args
+     * @param  array  $values
      */
     public function __construct($args, $values = null)
     {

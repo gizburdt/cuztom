@@ -12,48 +12,56 @@ abstract class Meta
 {
     /**
      * ID.
+     *
      * @var string
      */
     public $id;
 
     /**
      * Callback.
+     *
      * @var string
      */
     public $callback;
 
     /**
      * Title.
+     *
      * @var string
      */
     public $title;
 
     /**
      * Description.
+     *
      * @var string
      */
     public $description;
 
     /**
      * Fields.
+     *
      * @var array
      */
     public $fields;
 
     /**
      * Data.
+     *
      * @var array
      */
     public $data;
 
     /**
      * Object.
+     *
      * @var int
      */
     public $object;
 
     /**
      * Meta type.
+     *
      * @var string
      */
     public $metaType;
@@ -75,8 +83,8 @@ abstract class Meta
     /**
      * Construct for all meta types, creates title (and description).
      *
-     * @param string $id   ID
-     * @param array  $data Array of data
+     * @param  string  $id  ID
+     * @param  array  $data  Array of data
      */
     public function __construct($id, $data)
     {
@@ -123,8 +131,8 @@ abstract class Meta
     /**
      * Normal save method to save all the fields in a metabox.
      *
-     * @param int   $object Object ID
-     * @param array $values Array of values
+     * @param  int  $object  Object ID
+     * @param  array  $values  Array of values
      */
     public function save($object, $values)
     {
@@ -146,7 +154,7 @@ abstract class Meta
     /**
      * Get field.
      *
-     * @param  string $field
+     * @param  string  $field
      * @return object
      */
     public function getField($field)
@@ -159,7 +167,7 @@ abstract class Meta
     /**
      * Search for a field.
      *
-     * @param string $search
+     * @param  string  $search
      * @return
      */
     protected function searchField($search)
@@ -174,7 +182,7 @@ abstract class Meta
     /**
      * This method builds the complete array with the right key => value pairs.
      *
-     * @param  array $fields
+     * @param  array  $fields
      * @return array
      */
     public function build($fields)

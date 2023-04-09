@@ -11,18 +11,21 @@ class Tabs extends Field
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'tabs';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $panels = [];
 
     /**
      * Data.
+     *
      * @var array
      */
     public $data = [];
@@ -30,8 +33,8 @@ class Tabs extends Field
     /**
      * Construct.
      *
-     * @param array $args
-     * @param array $values
+     * @param  array  $args
+     * @param  array  $values
      */
     public function __construct($args, $values = null)
     {
@@ -46,7 +49,7 @@ class Tabs extends Field
     /**
      * Outputs a field cell.
      *
-     * @param string|array $value
+     * @param  string|array  $value
      */
     public function outputCell($value = null)
     {
@@ -59,7 +62,7 @@ class Tabs extends Field
     /**
      * Output.
      *
-     * @param  string|array $value
+     * @param  string|array  $value
      * @return string
      */
     public function output($value = null)
@@ -74,8 +77,8 @@ class Tabs extends Field
     /**
      * Save.
      *
-     * @param int   $object
-     * @param array $values
+     * @param  int  $object
+     * @param  array  $values
      */
     public function save($object, $values)
     {
@@ -89,7 +92,7 @@ class Tabs extends Field
     /**
      * Substract value.
      *
-     * @param  array        $values
+     * @param  array  $values
      * @return string|array
      */
     public function substractValue($values)
@@ -100,7 +103,7 @@ class Tabs extends Field
     /**
      * Get field.
      *
-     * @param  string $search
+     * @param  string  $search
      * @return mixed
      */
     public function getField($search)
@@ -117,8 +120,8 @@ class Tabs extends Field
     /**
      * Build.
      *
-     * @param array        $data
-     * @param string|array $value
+     * @param  array  $data
+     * @param  string|array  $value
      */
     public function build($args)
     {

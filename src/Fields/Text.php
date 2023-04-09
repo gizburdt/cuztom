@@ -2,7 +2,6 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
@@ -11,6 +10,7 @@ class Text extends Field
 {
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $css_class = 'cuztom-input--text';
@@ -19,7 +19,7 @@ class Text extends Field
     /**
      * Parse value for HTML special chars.
      *
-     * @param  string $value
+     * @param  string  $value
      * @return string
      */
     public function parseValue($value)
@@ -36,7 +36,7 @@ class Text extends Field
     /**
      * Applies htmlspecialchars to $value.
      *
-     * @param  string &$value
+     * @param  string  &$value
      * @return string
      */
     public function doHtmlspecialchars(&$value)
