@@ -11,9 +11,9 @@ trait Checkables
     /**
      * Output option.
      *
-     * @param  string $value
-     * @param  string $default_value
-     * @param  string $option
+     * @param  string  $value
+     * @param  string  $default_value
+     * @param  string  $option
      * @return string
      */
     public function outputOption($value = null, $default_value = null, $option = null)

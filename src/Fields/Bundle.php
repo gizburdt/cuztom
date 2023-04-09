@@ -3,8 +3,8 @@
 namespace Gizburdt\Cuztom\Fields;
 
 use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Bundle\Item as BundleItem;
+use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
 
@@ -12,6 +12,7 @@ class Bundle extends Field
 {
     /**
      * Data.
+     *
      * @var array
      */
     public $data = [];
@@ -19,8 +20,8 @@ class Bundle extends Field
     /**
      * Construct.
      *
-     * @param array $args
-     * @param array $values
+     * @param  array  $args
+     * @param  array  $values
      */
     public function __construct($args, $values = null)
     {
@@ -35,8 +36,8 @@ class Bundle extends Field
     /**
      * Output field cell.
      *
-     * @param mixed  $value
-     * @param string $view
+     * @param  mixed  $value
+     * @param  string  $view
      */
     public function outputCell($value = null, $view = null)
     {
@@ -49,7 +50,7 @@ class Bundle extends Field
     /**
      * Output a control cell for a bundle.
      *
-     * @param string $class
+     * @param  string  $class
      */
     public function outputControl($class = 'top')
     {
@@ -62,8 +63,8 @@ class Bundle extends Field
     /**
      * Save bundle meta.
      *
-     * @param int   $object
-     * @param array $values
+     * @param  int  $object
+     * @param  array  $values
      */
     public function save($object, $values)
     {
@@ -103,7 +104,7 @@ class Bundle extends Field
     /**
      * Get field.
      *
-     * @param  string $search
+     * @param  string  $search
      * @return mixed
      */
     public function getField($search)
@@ -114,8 +115,8 @@ class Bundle extends Field
     /**
      * This method builds the complete array for a bundle.
      *
-     * @param array $data
-     * @param array $values
+     * @param  array  $data
+     * @param  array  $values
      */
     public function build($args)
     {

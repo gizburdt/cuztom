@@ -8,6 +8,7 @@ class Response
 {
     /**
      * Response.
+     *
      * @var string
      */
     protected $response;
@@ -16,7 +17,7 @@ class Response
      * Constructor.
      *
      * @param  array  $status
-     * @param  bool   $data
+     * @param  bool  $data
      * @return string
      */
     public function __construct($status, $data = [])
