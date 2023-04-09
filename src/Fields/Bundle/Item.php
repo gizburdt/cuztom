@@ -12,18 +12,21 @@ class Item extends Field
 {
     /**
      * Bundle (parent).
+     *
      * @var object
      */
     public $parent;
 
     /**
      * Index.
+     *
      * @var int
      */
     public $index = 0;
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $fields = [];
@@ -31,8 +34,8 @@ class Item extends Field
     /**
      * Constructor.
      *
-     * @param array $args
-     * @param array $values
+     * @param  array  $args
+     * @param  array  $values
      */
     public function __construct($args, $values = null)
     {
@@ -47,7 +50,7 @@ class Item extends Field
     /**
      * Outputs bundle item.
      *
-     * @param  int    $index
+     * @param  int  $index
      * @return string
      */
     public function output($value = null)
@@ -60,7 +63,7 @@ class Item extends Field
     /**
      * Return field from data.
      *
-     * @param  string $field
+     * @param  string  $field
      * @return object
      */
     public function getField($field)
@@ -71,7 +74,7 @@ class Item extends Field
     /**
      * Substract value.
      *
-     * @param  array        $values
+     * @param  array  $values
      * @return string|array
      */
     public function substractValue($values)
@@ -82,8 +85,8 @@ class Item extends Field
     /**
      * This method builds the complete array for a bundle.
      *
-     * @param array      $args
-     * @param array|null $values
+     * @param  array  $args
+     * @param  array|null  $values
      */
     public function build($args)
     {
