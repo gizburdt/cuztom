@@ -4,7 +4,7 @@
     "bower": "~1.7.0",
     "gulp": "^3.9.1",
     "laravel-elixir": "^6.0.0-9",
-    "lodash": "^4.14.0",
+    "lodash": "^4.17.21",
     "jquery":         "latest",
     "bootstrap-sass": "latest",
     "datetimepicker": "https://github.com/xdan/datetimepicker.git",
