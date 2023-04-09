@@ -11,7 +11,7 @@ class Sidebar
     /**
      * Constructor.
      *
-     * @param array $args
+     * @param  array  $args
      */
     public function __construct($args = [])
     {

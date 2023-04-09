@@ -2,7 +2,6 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Support\Request;
 
@@ -12,24 +11,28 @@ class Box extends Meta
 {
     /**
      * Context.
+     *
      * @var string
      */
     public $context = 'normal';
 
     /**
      * Priority.
+     *
      * @var string
      */
     public $priority = 'default';
 
     /**
      * Post types.
+     *
      * @var string|array
      */
     public $postTypes;
 
     /**
      * Meta type.
+     *
      * @var string
      */
     public $metaType = 'post';
@@ -37,9 +40,9 @@ class Box extends Meta
     /**
      * Constructs the meta box.
      *
-     * @param string       $id
-     * @param array        $data
-     * @param string|array $post_type
+     * @param  string  $id
+     * @param  array  $data
+     * @param  string|array  $post_type
      */
     public function __construct($id, $postType, $data = [])
     {
@@ -99,7 +102,7 @@ class Box extends Meta
     /**
      * Hooks into the save hook for the newly registered Post Type.
      *
-     * @param int $id
+     * @param  int  $id
      */
     public function savePost($id)
     {
@@ -125,7 +128,7 @@ class Box extends Meta
     /**
      * Used to add a column head to the Post Type's List Table.
      *
-     * @param  array $columns
+     * @param  array  $columns
      * @return array
      */
     public function addColumn($columns)
@@ -146,8 +149,8 @@ class Box extends Meta
     /**
      * Used to add the column content to the column head.
      *
-     * @param string $column
-     * @param int    $postId
+     * @param  string  $column
+     * @param  int  $postId
      */
     public function addColumnContent($column, $postId)
     {
@@ -161,7 +164,7 @@ class Box extends Meta
     /**
      * Used to make all columns sortable.
      *
-     * @param  array $columns
+     * @param  array  $columns
      * @return array
      */
     public function addSortableColumn($columns)

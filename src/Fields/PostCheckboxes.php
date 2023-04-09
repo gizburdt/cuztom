@@ -2,7 +2,6 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
@@ -11,12 +10,14 @@ class PostCheckboxes extends Checkboxes
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'post-checkboxes';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $cell_css_class = 'cuztom-field--post-checkboxes';
@@ -24,8 +25,8 @@ class PostCheckboxes extends Checkboxes
     /**
      * Construct.
      *
-     * @param array $args
-     * @param array $values
+     * @param  array  $args
+     * @param  array  $values
      */
     public function __construct($args, $values = null)
     {

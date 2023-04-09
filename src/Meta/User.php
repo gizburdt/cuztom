@@ -2,7 +2,6 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Support\Request;
 
@@ -12,12 +11,14 @@ class User extends Meta
 {
     /**
      * Locations.
+     *
      * @var array
      */
     public $locations;
 
     /**
      * Meta type.
+     *
      * @var string
      */
     public $metaType = 'user';
@@ -25,9 +26,9 @@ class User extends Meta
     /**
      * Constructor for User Meta.
      *
-     * @param string       $id
-     * @param array        $data
-     * @param string|array $locations
+     * @param  string  $id
+     * @param  array  $data
+     * @param  string|array  $locations
      */
     public function __construct($id, $data = [], $locations = ['show_user_profile', 'edit_user_profile'])
     {
@@ -79,7 +80,7 @@ class User extends Meta
     /**
      * Hooks into the save hook for the user meta.
      *
-     * @param int $id
+     * @param  int  $id
      */
     public function saveUser($id)
     {

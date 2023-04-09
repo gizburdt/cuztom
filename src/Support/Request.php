@@ -8,6 +8,7 @@ class Request
 {
     /**
      * Attributes.
+     *
      * @var array
      */
     protected $attributes;
@@ -15,7 +16,7 @@ class Request
     /**
      * Constructor.
      *
-     * @param array $attributes
+     * @param  array  $attributes
      */
     public function __construct($attributes)
     {
@@ -25,7 +26,7 @@ class Request
     /**
      * Getter.
      *
-     * @param  string      $attribute
+     * @param  string  $attribute
      * @return string|null
      */
     public function get($attribute)

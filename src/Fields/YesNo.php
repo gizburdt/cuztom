@@ -2,9 +2,8 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
-use Gizburdt\Cuztom\Cuztom;
-use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Fields\Traits\Checkable;
+use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
 
@@ -14,6 +13,7 @@ class YesNo extends Field
 
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'yes-no';
@@ -21,6 +21,7 @@ class YesNo extends Field
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $css_class = 'cuztom-input--radio';
