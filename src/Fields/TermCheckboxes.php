@@ -2,7 +2,6 @@
 
 namespace Gizburdt\Cuztom\Fields;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 
 Guard::directAccess();
@@ -11,18 +10,21 @@ class TermCheckboxes extends Checkboxes
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $view = 'term-checkboxes';
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $cell_css_class = 'cuztom-field--term-checkboxes';
 
     /**
      * Terms.
+     *
      * @var array
      */
     public $terms;
@@ -30,8 +32,8 @@ class TermCheckboxes extends Checkboxes
     /**
      * Construct.
      *
-     * @param array $args
-     * @param array $values
+     * @param  array  $args
+     * @param  array  $values
      */
     public function __construct($args, $values = null)
     {

@@ -11,6 +11,7 @@ class TermSelect extends Field
 {
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $cell_css_class = 'cuztom-field--term-select';
@@ -18,8 +19,8 @@ class TermSelect extends Field
     /**
      * Construct.
      *
-     * @param array $args
-     * @param array $values
+     * @param  array  $args
+     * @param  array  $values
      */
     public function __construct($args, $values = null)
     {
@@ -36,7 +37,7 @@ class TermSelect extends Field
     /**
      * Output input.
      *
-     * @param  string|array $value
+     * @param  string|array  $value
      * @return string
      */
     public function outputInput($value = null, $view = null)

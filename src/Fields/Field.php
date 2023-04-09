@@ -11,12 +11,14 @@ abstract class Field
 {
     /**
      * All original args.
+     *
      * @var array
      */
     public $original;
 
     /**
      * Base.
+     *
      * @var mixed
      */
     public $object = null;
@@ -28,6 +30,7 @@ abstract class Field
 
     /**
      * Before/after id/name.
+     *
      * @var mixed
      */
     public $beforeName = '';
@@ -37,12 +40,14 @@ abstract class Field
 
     /**
      * Special.
+     *
      * @var mixed
      */
     public $parent;
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $id = null;
@@ -65,6 +70,7 @@ abstract class Field
 
     /**
      * Merges.
+     *
      * @var mixed
      */
     protected $merges = [
@@ -74,8 +80,8 @@ abstract class Field
     /**
      * Construct.
      *
-     * @param array $args
-     * @param array $values
+     * @param  array  $args
+     * @param  array  $values
      */
     public function __construct($args, $values = null)
     {
@@ -108,8 +114,8 @@ abstract class Field
     /**
      * Outputs a field cell.
      *
-     * @param string|array $value
-     * @param string       $view
+     * @param  string|array  $value
+     * @param  string  $view
      */
     public function outputCell($value = null)
     {
@@ -122,8 +128,8 @@ abstract class Field
     /**
      * Output based on type.
      *
-     * @param  string|array $value
-     * @param  string       $value
+     * @param  string|array  $value
+     * @param  string  $value
      * @return string
      */
     public function output($value = null)
@@ -138,8 +144,8 @@ abstract class Field
     /**
      * Output field.
      *
-     * @param  string|array $value
-     * @param  string       $view
+     * @param  string|array  $value
+     * @param  string  $view
      * @return string
      */
     public function outputInput($value = null, $view = null)
@@ -181,7 +187,7 @@ abstract class Field
     /**
      * Parse value.
      *
-     * @param  mixed $value.
+     * @param  mixed  $value.
      * @return mixed
      */
     public function parseValue($value)
@@ -192,8 +198,8 @@ abstract class Field
     /**
      * Save meta.
      *
-     * @param  int   $object
-     * @param  mixed $value
+     * @param  int  $object
+     * @param  mixed  $value
      * @return bool
      */
     public function save($object, $values)
@@ -302,7 +308,7 @@ abstract class Field
     {
         return apply_filters(
             'cuztom_field_explanation',
-            ($this->explanation ? '<em class="cuztom-field__explanation" v-cloak>'.$this->explanation.'</em>' : ''), $this
+            $this->explanation ? '<em class="cuztom-field__explanation" v-cloak>'.$this->explanation.'</em>' : '', $this
         );
     }
 
@@ -330,7 +336,7 @@ abstract class Field
     /**
      * Outputs the fields column content.
      *
-     * @param int $id
+     * @param  int  $id
      */
     public function outputColumnContent($id)
     {
@@ -346,7 +352,7 @@ abstract class Field
     /**
      * Check what kind of meta we're dealing with.
      *
-     * @param  string $metaType
+     * @param  string  $metaType
      * @return bool
      */
     public function isMetaType($metaType)
@@ -408,7 +414,7 @@ abstract class Field
     /**
      * Creates and returns a field object.
      *
-     * @param  array       $args
+     * @param  array  $args
      * @return object|bool
      */
     public static function create($args, $values)
