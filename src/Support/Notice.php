@@ -8,18 +8,21 @@ class Notice
 {
     /**
      * Notice itself.
+     *
      * @var string
      */
     public $notice;
 
     /**
      * Type.
+     *
      * @var string
      */
     public $type;
 
     /**
      * Dismissible?
+     *
      * @var bool
      */
     public $dismissible;
@@ -27,9 +30,9 @@ class Notice
     /**
      * Constructor.
      *
-     * @param string $notice
-     * @param string $type
-     * @param bool   $dismissible
+     * @param  string  $notice
+     * @param  string  $type
+     * @param  bool  $dismissible
      */
     public function __construct($notice, $type, $dismissible = true)
     {

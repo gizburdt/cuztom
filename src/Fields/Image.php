@@ -11,6 +11,7 @@ class Image extends Field
 {
     /**
      * Base.
+     *
      * @var mixed
      */
     public $inputType = 'hidden';
@@ -18,6 +19,7 @@ class Image extends Field
 
     /**
      * Fillables.
+     *
      * @var mixed
      */
     public $css_class = 'cuztom-input--hidden';
@@ -26,8 +28,8 @@ class Image extends Field
     /**
      * Construct.
      *
-     * @param array $args
-     * @param array $values
+     * @param  array  $args
+     * @param  array  $values
      */
     public function __construct($args, $values = null)
     {
@@ -41,8 +43,8 @@ class Image extends Field
     /**
      * Output input field.
      *
-     * @param  string $value
-     * @param  string $view
+     * @param  string  $value
+     * @param  string  $view
      * @return string
      */
     public function outputInput($value = null, $view = null)
@@ -65,7 +67,7 @@ class Image extends Field
     /**
      * Output column content.
      *
-     * @param  string $post_id
+     * @param  string  $post_id
      * @return string
      */
     public function outputColumnContent($post_id)
