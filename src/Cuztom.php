@@ -5,55 +5,63 @@ namespace Gizburdt\Cuztom;
 use Gizburdt\Cuztom\Support\Ajax;
 
 if (! defined('ABSPATH')) {
-    die();
+    exit;
 }
 
 class Cuztom
 {
     /**
      * Version.
+     *
      * @var string
      */
     private static $version;
 
     /**
      * Url.
+     *
      * @var string
      */
     private static $url;
 
     /**
      * Dir.
+     *
      * @var string
      */
     private static $dir;
 
     /**
      * Src.
+     *
      * @var string
      */
     private static $src;
 
     /**
      * Instance.
+     *
      * @var object
      */
     private static $instance;
 
     /**
      * Data.
+     *
      * @var object
      */
     public static $data = [];
 
     /**
      * Fields.
+     *
      * @var array
      */
     public static $fields = [];
 
     /**
      * Reserved terms.
+     *
      * @var array
      */
     public static $reserved = [
@@ -238,7 +246,7 @@ class Cuztom
     /**
      * Recursive method to determine the path to the Cuztom folder.
      *
-     * @param  string $path
+     * @param  string  $path
      * @param  array  $url
      * @return string
      */
@@ -278,7 +286,7 @@ class Cuztom
     /**
      * Get a box from data.
      *
-     * @param  string $box
+     * @param  string  $box
      * @return object
      */
     public static function getBox($box)
@@ -289,7 +297,7 @@ class Cuztom
     /**
      * Add box to global.
      *
-     * @param object $box
+     * @param  object  $box
      */
     public static function addBox($box)
     {
@@ -299,7 +307,7 @@ class Cuztom
     /**
      * Get field.
      *
-     * @param  string $field
+     * @param  string  $field
      * @return object
      */
     public static function getField($field)
@@ -310,7 +318,7 @@ class Cuztom
     /**
      * Add field to global.
      *
-     * @param object $field
+     * @param  object  $field
      */
     public static function addField($field)
     {
@@ -330,7 +338,7 @@ class Cuztom
     /**
      * Beautifies a string. Capitalize words and remove underscores.
      *
-     * @param  string $string
+     * @param  string  $string
      * @return string
      */
     public static function beautify($string)
@@ -341,7 +349,7 @@ class Cuztom
     /**
      * Uglifies a string. Remove strange characters and lower strings.
      *
-     * @param  string $string
+     * @param  string  $string
      * @return string
      */
     public static function uglify($string)
@@ -352,7 +360,7 @@ class Cuztom
     /**
      * Makes a word plural.
      *
-     * @param  string $string
+     * @param  string  $string
      * @return string
      */
     public static function pluralize($string)
@@ -428,7 +436,7 @@ class Cuztom
     /**
      * String to time.
      *
-     * @param  string $string
+     * @param  string  $string
      * @return string
      */
     public static function time($string)
@@ -439,8 +447,8 @@ class Cuztom
     /**
      * Include view file.
      *
-     * @param string $view
-     * @param array  $variables
+     * @param  string  $view
+     * @param  array  $variables
      */
     public static function view($view, $variables = [])
     {
@@ -456,8 +464,8 @@ class Cuztom
     /**
      * Check if variable is empty.
      *
-     * @param  string|array $input
-     * @param  bool         $result
+     * @param  string|array  $input
+     * @param  bool  $result
      * @return bool
      */
     public static function isEmpty($input, $result = true)
@@ -476,7 +484,7 @@ class Cuztom
     /**
      * Check if array (and not empty).
      *
-     * @param  mixed $input
+     * @param  mixed  $input
      * @return bool
      */
     public static function isArray($input)
@@ -487,8 +495,8 @@ class Cuztom
     /**
      * Check if string starts with.
      *
-     * @param  string $string
-     * @param  string $start
+     * @param  string  $string
+     * @param  string  $start
      * @return bool
      */
     public static function startsWith($string, $start)
@@ -510,8 +518,8 @@ class Cuztom
     /**
      * Merge.
      *
-     * @param  array $base
-     * @param  array $merge
+     * @param  array  $base
+     * @param  array  $merge
      * @return array
      */
     public static function merge($base, $merge)
@@ -530,7 +538,7 @@ class Cuztom
     /**
      * Check if the term is reserved by Wordpress.
      *
-     * @param  string $term
+     * @param  string  $term
      * @return bool
      */
     public static function isReservedTerm($term)

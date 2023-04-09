@@ -69,7 +69,7 @@ class Ajax
         echo (new Response(true, $data))->toJson();
 
         // wp
-        die();
+        exit;
     }
 
     /**
@@ -91,7 +91,7 @@ class Ajax
         echo $response->toJson();
 
         // wp
-        die();
+        exit;
     }
 
     /**
@@ -117,7 +117,7 @@ class Ajax
         echo (new Response(true, $data))->toJson();
 
         // wp
-        die();
+        exit;
     }
 
     /**
@@ -148,14 +148,14 @@ class Ajax
         echo $response->toJson();
 
         // wp
-        die();
+        exit;
     }
 
     /**
      * Get field object from cuztom global.
      *
-     * @param  string|object $field
-     * @param  string|null   $box
+     * @param  string|object  $field
+     * @param  string|null  $box
      * @return object
      */
     public static function getField()

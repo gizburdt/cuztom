@@ -2,7 +2,6 @@
 
 namespace Gizburdt\Cuztom\Meta;
 
-use Gizburdt\Cuztom\Cuztom;
 use Gizburdt\Cuztom\Support\Guard;
 use Gizburdt\Cuztom\Support\Request;
 
@@ -12,18 +11,21 @@ class Term extends Meta
 {
     /**
      * Taxonomies.
+     *
      * @var array
      */
     public $taxonomies;
 
     /**
      * Locations.
+     *
      * @var array
      */
     public $locations;
 
     /**
      * Meta Type.
+     *
      * @var string
      */
     public $metaType = 'term';
@@ -31,10 +33,10 @@ class Term extends Meta
     /**
      * Construct the term meta.
      *
-     * @param string       $id
-     * @param string|array $taxonomy
-     * @param array        $data
-     * @param array        $locations
+     * @param  string  $id
+     * @param  string|array  $taxonomy
+     * @param  array  $data
+     * @param  array  $locations
      */
     public function __construct($id, $taxonomy, $data = [], $locations = ['edit_form'])
     {
@@ -81,7 +83,7 @@ class Term extends Meta
     /**
      * Add fields to the add term form.
      *
-     * @param  string $taxonomy
+     * @param  string  $taxonomy
      * @return mixed
      */
     public function addFormFields($taxonomy)
@@ -92,7 +94,7 @@ class Term extends Meta
     /**
      * Add fields to the edit term form.
      *
-     * @param  string $taxonomy
+     * @param  string  $taxonomy
      * @return mixed
      */
     public function editFormFields($taxonomy)
@@ -105,7 +107,7 @@ class Term extends Meta
     /**
      * Save the term.
      *
-     * @param int $id
+     * @param  int  $id
      */
     public function saveTerm($id)
     {
@@ -125,7 +127,7 @@ class Term extends Meta
     /**
      * Used to add a column head to the Taxonomy's List Table.
      *
-     * @param  array $columns
+     * @param  array  $columns
      * @return array
      */
     public function addColumn($columns)
@@ -142,9 +144,9 @@ class Term extends Meta
     /**
      * Used to add the column content to the column head.
      *
-     * @param string $row
-     * @param string $column
-     * @param int    $termId
+     * @param  string  $row
+     * @param  string  $column
+     * @param  int  $termId
      */
     public function addColumnContent($row, $column, $termId)
     {
